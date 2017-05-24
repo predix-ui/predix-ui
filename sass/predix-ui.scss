@@ -69,15 +69,19 @@ html,body{
  */
 .wrapper {
   position: fixed;
-  top: 45px;
+  top: 80px;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /*
 * gray title bar
 */
 .gray-bar {
-  background-color: $gray9;
-  min-height: 45px;
+  background-color: rgb(234,234,234);
+  min-height: 80px;
   z-index: 2;
   position: fixed;
   top: 0;
@@ -111,37 +115,37 @@ html,body{
 
 .menu{
   padding-right: $inuit-base-spacing-unit;
-  color: $gray3;
+  color: rgb(51,51,51);
   cursor: pointer;
   &:link,
   &:visited,
   &:active,
   &:focus {
-    color: $gray3;
+    color: rgb(51,51,51);
   }
   &:hover{
-    color: $gray3;
+    color: rgb(51,51,51);
   }
   &:active {
-    color: $gray5;
+    color: rgb(51,51,51);
   }
 }
 .menu_close-icon{
   padding-right: $inuit-base-spacing-unit;
-  color: $gray3;
+  color: rgb(51,51,51);
   cursor: pointer;
   margin-top: -1px;
   &:link,
   &:visited,
   &:active,
   &:focus {
-    color: $gray3;
+    color: rgb(51,51,51);
   }
   &:hover{
-    color: $gray5;
+    color: rgb(51,51,51);
   }
   &:active {
-    color: $gray7;
+    color: rgb(51,51,51);
   }
 }
 .is__hidden{
@@ -153,14 +157,13 @@ html,body{
 */
 .side-nav{
   min-width: 300px;
-  background: $gray8;
+  background: rgb(240,240,240);
   color: $white;
   padding: 20px;
   padding-bottom: 60px;
   line-height: 300%;
   position: fixed;
   height: 100%;
-  // margin-top: 45px;
   z-index: 9999;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -234,16 +237,17 @@ html,body{
 * iframe sizing
 */
 .iframe__container{
+  display: flex;
   width: 100%;
-  height: 100vh;
   margin: 0px 0px 0px 0px;
-  position: fixed;
+  position: relative;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  flex-grow: 1;
 }
+
 .iframe{
   border: none;
-  height: 97vh;
   overflow: hidden;
   padding:0px;
   margin: 0px;
@@ -268,7 +272,7 @@ html,body{
     display: inline;
   }
   .wrapper--flex{
-    display: inline-flex;
+    display: flex;
     justify-content: space-between;
     width: 100%;
   }
@@ -280,7 +284,7 @@ html,body{
     flex-basis: 350px;
     position: relative;
     height: 100vh;
-    background: $gray8;
+    background: rgb(240,240,240);
     overflow: auto;
     line-height: 200%;
   }
@@ -298,9 +302,25 @@ html,body{
     position: relative;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-
   }
 
+}
+
+
+/*
+* mobile
+*/
+
+@media screen and (max-width: 719px) {
+
+  .header-img{
+    height: 14px;
+    margin-bottom: -4px;
+  }
+
+  .menu {
+    padding-right: $inuit-base-spacing-unit--tiny;
+  }
 }
 
 /***********************************************************
@@ -415,6 +435,30 @@ small {
   font-size: 80%;
 }
 
+.btn--blue {
+  display: inline-block;
+  margin: 0;
+  padding: .625rem 1rem;
+  transition: all .5s;
+  border-radius: 3px;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1em;
+  text-align: center;
+  cursor: pointer;
+  overflow: visible;
+  vertical-align: middle;
+  border: 1px solid rgb(40,134,175);
+  background-color: rgb(40,134,175);
+
+  &:hover {
+    border: 1px solid rgb(58,180,212);
+    background-color: rgb(58,180,212);
+  }
+}
+
 .text--center {
   text-align: center;
 }
@@ -470,7 +514,7 @@ a.item__link {
 }
 
 .embedded a,.embedded a:link,.embedded a:visited {
-  color: #005eb8;
+  color: #2886af;
 }
 
 .embedded a:active,.embedded a:hover {
@@ -478,7 +522,7 @@ a.item__link {
 }
 
 .embedded a:hover {
-  color: #005eb8;
+  color: #3ab4d4;
 }
 
 .embedded a.no-border {
@@ -494,8 +538,7 @@ a.item__link {
 }
 
 .icon {
-  height: 100px;
-  margin: 3%;
+  height: 50px;
 }
 
 .icon--small {
@@ -513,15 +556,20 @@ a.item__link {
 }
 
 .hero {
-  background-image: url('../img/pattern_hero.jpg');
-  background-repeat: repeat;
+  background-image: url('../img/px_banner.png');
+  background-repeat: no-repeat;
   text-align: left;
   color: white;
+  background-size: 1200px 350px;
+  background-color: rgb(1, 41, 57);
   padding: 5%;
+  height: 350px;
 }
 
 .hero-header {
   vertical-align: top;
+  line-height: 1.5;
+  max-width: 500px;
 }
 
 .hero-logo {
@@ -550,13 +598,8 @@ a.item__link {
 }
 
 .halves {
-  margin-bottom: 10%;
   display: inline-block;
-  vertical-align: middle;
-}
-
-.halves img {
-  width: 100%;
+  vertical-align: top;
 }
 
 .thirds {
@@ -569,7 +612,7 @@ a.item__link {
 }
 
 .subHeader {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 400;
 }
 
@@ -601,7 +644,7 @@ a.item__link {
 
   .halves {
     width: 44%;
-    margin: 0 5% 10% 0;
+    margin: 0 5% 2% 0;
   }
 
   .thirds {
