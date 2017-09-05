@@ -1,6 +1,6 @@
 ---
-title: Transpile ES6
-moduleName: view-transpile
+title: Transpile ES6 to ES5
+moduleName: view-develop-transpile
 pathToRoot: ../../
 layout: default
 ---

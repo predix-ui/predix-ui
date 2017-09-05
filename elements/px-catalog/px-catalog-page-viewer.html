@@ -1,36 +1,17 @@
 <link defer rel="import" href="../../bower_components/polymer/polymer.html" />
 <link defer rel="import" href="../../bower_components/px-demo/px-demo-theme-util.html"/>
 <link defer rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
+<link defer rel="import" href="../../css/px-catalog-page-viewer-styles.html" />
 
 <dom-module id="px-catalog-page-viewer">
   <template>
-    <style>
-      :host {
-        position: relative;
-        background-color: var(--px-catalog-page-background-color, white);
-      }
-
-      :host([dark-theme]) {
-        background-color: var(--px-catalog-page-background-color, black);
-      }
-
-      #pages {
-        flex: 1 1 auto;
-        margin: 0;
-        padding: 0;
-      }
-
-      .spinner {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
+    <style include="px-catalog-page-viewer-styles"></style>
+    <!-- Banner shown for ES6 components that require transpilation -->
+    <template is="dom-if" if="[[transpileBanner]]">
+      <div class="banner">
+        <p>This component uses ES6 and must be transpiled to work some browsers. <a href="/#/develop/transpile">See the Transpile ES6 to ES5 guide.</a></p>
+      </div>
+    </template>
     <!-- Pages will be distributed here -->
     <iron-pages
         id="pages"
@@ -66,6 +47,10 @@
           reflectToAttribute: true
         },
         spinnerActive: {
+          type: Boolean,
+          value: false
+        },
+        transpileBanner: {
           type: Boolean,
           value: false
         },
