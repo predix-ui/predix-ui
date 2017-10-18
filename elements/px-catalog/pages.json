@@ -186,7 +186,7 @@
       },
       {
         "path": "layout-examples",
-        "label": "Page Layouts",
+        "label": "Layout Examples",
         "module": "view-design-layout-examples",
         "entrypoint": "/pages/design/layout-examples.html",
         "keywords":[
@@ -196,8 +196,8 @@
           "use cases"
         ],
         "redirects": [
-          "/guidelines/gallery",
-          "/design/gallery"
+          "/guidelines/layout-examples",
+          "/design/layout-examples"
         ]
       }
     ]

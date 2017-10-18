@@ -24,7 +24,7 @@ It's important for the iconography to feel like a family that belongs together i
 # Style
 
 The Icons are built with a clean, 1px stroke weight with .5px rounded corners to give them a slight softening of the edges. The icons have squared off end caps, to give the a sense of rigidity and crispness with 90 degree angles.
-<catalog-picture img-src="../../../img/guidelines/icon_style" img-alt="icon style"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/iconography/icon_style" img-alt="icon style"></catalog-picture>
 
 # Classes & Sizes
 The Predix Icon suite is structured into different category types; Feature, Object, Navigation, and Utility icons. The typical icon size used with most of the icons is 32px, but the icons used for secondary, smaller elements within the UI are set
@@ -32,20 +32,20 @@ to 22px. The smallest used size for utility purposes is 16px. All icons still ma
 
 ### Utility: 16x16
 Used to indicate an interaction inside a component such as a drop down menu or a date picker.
-<catalog-picture img-src="../../../img/guidelines/utility_icons" img-alt="icon style"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/iconography/utility_icons" img-alt="icon style"></catalog-picture>
 
 ### Navigation: 22x22
 Way-finding iconography used to navigate UI elements such as wizards, dialog boxes or open/close panels. They can also be used as secondary navigation elements inside AppNav, such as to access a user profile or notifications.
-<catalog-picture img-src="../../../img/guidelines/navigation_icons" img-alt="icon style"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/iconography/navigation_icons" img-alt="icon style"></catalog-picture>
 
 ### Feature & Object: 32x32
 For use in AppNav or as visual anchors on cards. They are the largest icons in the system and intended to be used to indicate top level features.
-<catalog-picture img-src="../../../img/guidelines/feature_icons" img-alt="icon style"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/iconography/feature_icons" img-alt="icon style"></catalog-picture>
 
 # Color
 The icons are based upon a mono-tone color system. The custom color palette is used for selected states and areas for added emphasis/interest. Icons are typically grey when not highlighted or selected. The signature Predix blue is the main color used,
 but when needing to add different colors for categories, the other colors in the system may be used.
-<catalog-picture img-src="../../../img/guidelines/icon_color" img-alt="icon style"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/iconography/icon_color" img-alt="icon style"></catalog-picture>
 
 
 # Icon Design Guidelines
