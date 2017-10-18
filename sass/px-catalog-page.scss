@@ -120,6 +120,10 @@ $px-catalog-page-padding-horizontal: 50px;
   margin: 0;
 }
 
+.picture-side-by-side {
+  min-width: calculateRem(200px);
+}
+
 /*******************************************************************************
  * COMPONENT: GUIDELINE BOX
  ******************************************************************************/
