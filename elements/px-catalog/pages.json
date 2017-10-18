@@ -185,10 +185,10 @@
         ]
       },
       {
-        "path": "page-layouts",
+        "path": "layout-examples",
         "label": "Page Layouts",
-        "module": "view-design-gallery",
-        "entrypoint": "/pages/design/gallery.html",
+        "module": "view-design-layout-examples",
+        "entrypoint": "/pages/design/layout-examples.html",
         "keywords":[
           "examples",
           "showcase",
