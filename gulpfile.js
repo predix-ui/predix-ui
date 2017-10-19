@@ -443,13 +443,10 @@ gulp.task('compress-images', function(){
 
   let imgFolders = [
     './img',
-    './pages/guides/vis-resources',
+    './img/about',
     './img/component-gallery',
-    './_pages/develop/vis/vis-resources',
-    './img/gallery',
     './img/guidelines',
-    './img/home-page',
-    './pages/migration/img'
+    './img/home-page'
   ];
 
   imgFolders.forEach((folder) =>{
