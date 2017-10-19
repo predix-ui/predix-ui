@@ -1,5 +1,5 @@
 ---
-title: Layouts Examples
+title: Layout Examples
 layout: default
 moduleName: view-design-layout-examples
 pathToRoot: ../../

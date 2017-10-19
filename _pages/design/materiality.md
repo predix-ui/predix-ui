@@ -101,5 +101,5 @@ Check your contrast ratios to ensure they fall within accessibility standards wi
 * [Light Theme](http://contrast-grid.eightshapes.com/?background-colors=ffffff%2C%20%24white%0D%0A%23EBEFF2%2C%20%24gray%201%0D%0A%23E2E8ED%2C%20%24gray2&foreground-colors=%23677E8C%2C%20%24gray10%0D%0A%232C404C%2C%20%24gray15&es-color-form__tile-size=compact)
 * [Dark Theme](http://contrast-grid.eightshapes.com/?background-colors=%2323343F%2C%20%24gray16%0D%0A%231B2A33%2C%20%24gray17%0D%0A%23121F26%2C%20%24gray18&foreground-colors=%23B6C3CC%2C%20%24gray5%0D%0A%23677E8C%2C%20%24gray10%0D%0A&es-color-form__tile-size=compact)
 
-<catalog-picture img-src="../../../img/guidelines/design/materiality/design/materiality/contrast_chart" img-alt="Eight Shapes Contrast Chart"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/materiality/contrast_chart" img-alt="Eight Shapes Contrast Chart"></catalog-picture>
 
