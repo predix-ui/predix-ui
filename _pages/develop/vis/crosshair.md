@@ -70,19 +70,19 @@ In order to enable charts to share the `crosshairData`, simply two-way-bind the 
 ```html
 <px-vis-timeseries
   …
-  crosshair-data="{ {crosshairData}}">
+  crosshair-data="{{crosshairData}}">
 </px-vis-timeseries>
 
 <px-vis-xy-chart
   …
   time-data="timeStamp"
-  crosshair-data="{ {crosshairData}}">
+  crosshair-data="{{crosshairData}}">
 </px-vis-xy-chart>
 
 <px-vis-radar
   …
   series-key="timeStamp"
-  crosshair-data="{ {crosshairData}}">
+  crosshair-data="{{crosshairData}}">
 </px-vis-radar>
 ```
 
@@ -293,4 +293,3 @@ With that, you should now have the ability to freeze crosshairs across your char
 
 Note:</br>
 Do not set `preventWebWorkerSynchronization` on XY or Polar if you want to enable crosshair - the feature depends on access to the web worker.
-

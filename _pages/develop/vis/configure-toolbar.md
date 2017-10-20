@@ -382,9 +382,9 @@ The external toolbar code is:
 
 ```html
 <px-vis-toolbar
-  current-sub-config='{ {toolbarSubConfig}}'
-  action-config='{ {actionConfig}}'
-  horizontal-alignment='left'
+  current-sub-config="{{toolbarSubConfig}}"
+  action-config="{{actionConfig}}"
+  horizontal-alignment="left"
   id="toolbar"
   config='{
     "advancedZoom": true,
@@ -397,10 +397,12 @@ The external toolbar code is:
 
 And all the two charts needs in terms of extra attributes are:
 
-```js
-toolbar-config='{ "config": {}}'
-toolbar-sub-config="[ [toolbarSubConfig]]"
-action-config='[ [actionConfig]]'
+```html
+<px-vis-...
+  toolbar-config='{ "config": {} }'
+  toolbar-sub-config="[[toolbarSubConfig]]"
+  action-config='[[actionConfig]]'>
+</px-vis-...>
 ```
 <div>
   <px-vis-toolbar
