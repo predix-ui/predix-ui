@@ -51,7 +51,8 @@
       this._imageCount = this._images.length;
 
       // If we don't have support for intersection observer, loads the images immediately
-      if (!('IntersectionObserver' in window)) {
+      // Edge 15 doesn't ever fire _onIntersection. Edge 16 will have some IntersectionObserver updates check back then
+      if (!('IntersectionObserver' in window) || window.navigator.userAgent.indexOf("Edge") > -1) {
         this._loadImagesImmediately(this._images);
       } else {
         // It is supported, load the images

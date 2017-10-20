@@ -21,7 +21,7 @@ The crosshair functionality is triggered by selecting the crosshair icon from th
 * If a chart’s opacity has changed, but no highlighted data point is visible, try panning or zooming out, as the corresponding data points might be outside of the chart viewing range.
 * If a chart’s opacity doesn’t change at all, it indicates that no corresponding data point was found on that specific chart.
 
-<catalog-picture img-src="../../pages/develop/vis/vis-resources/crosshair" img-alt="Crosshair feature" style="border:none;" caption="Crosshair feature in action, highlighting corresponding data on adjacent charts"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/dev/vis/crosshair/crosshair" img-alt="Crosshair feature" style="border:none;" caption="Crosshair feature in action, highlighting corresponding data on adjacent charts"></catalog-picture>
 
 The demo also provides the ability to freeze the crosshair view by clicking on the chart while hovering. Once frozen, the corresponding data points across all other charts will continue to be highlighted, and the crosshair icon in their toolbars will switch to a lock icon.  When in frozen view, you can perform other toolbar actions, such as hovering to see your data in the register, and panning or zooming to get a better view of your highlighted data. Clicking on the lock icon will un-freeze the charts and enable the crosshair search again.
 

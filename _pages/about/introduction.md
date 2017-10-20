@@ -30,7 +30,8 @@ Used together, these tools help teams jumpstart the creation of Industrial Inter
 
 # Predix UI Components
 
-<img src="../../img/polymer_logo.jpg" alt="Polymer Logo" style="border:none; width:250px; display: block; float: right; padding: 0.75rem;" />
+<catalog-picture img-src="../../img/about/polymer_logo" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
+</catalog-picture>
 
 Predix UI Components are a set of user interface building blocks based on the [W3C web components standard](https://www.w3.org/standards/techs/components#w3c_all) that can be quickly assembled together to build an application. Components are available for a wide range UI elements such as drop down menus, data tables and tabs as well more specialized D3-based data visualization charting components designed specifically for industrial internet use cases.
 
@@ -40,7 +41,7 @@ The components are framework agnostic and can fit into many existing JavaScript 
 
 # CSS Modules
 
-<catalog-picture img-src="../../img/inuit" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
+<catalog-picture img-src="../../img/about/inuit" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
 </catalog-picture>
 
 The second part of the Design System is a set of CSS modules written in Sass using the powerful BEM (Block-Element-Modifier) and OOCSS (Object-Oriented CSS) code patterns, ensuring your CSS codebase can grow quickly and still be easy to maintain.
@@ -51,7 +52,7 @@ Components consume the CSS, but you can also choose to use the CSS independently
 
 # Design Starter Kit & Design Guidelines
 
-<catalog-picture img-src="../../img/sketch_logo2" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
+<catalog-picture img-src="../../img/about/sketch_logo2" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
 </catalog-picture>
 
 Finally, [the Design Starter Kit](https://github.com/PredixDev/px-design-stencils) combined with the design guidelines provide the tools to start the design process off in the right direction. The Starter Kit is a Sketch file that contains the most common layouts and components and themes in a flexible, ready to use format. The guidelines are documented best practices and assist designers and developers in making key decisions about an applications design.
