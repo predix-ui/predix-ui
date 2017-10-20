@@ -16,21 +16,21 @@ The context browser allows the user to browse hierarchical data and select a spe
 
 * locations organized by geography (e.g. Countries -> Cities -> Plants)
 * physical assets organized by model or classification (e.g. Manufacturers -> Device classes -> Individual devices)
-* employees organization by department or function (e.g. Divisions -> Teams -> Employees)
+* employees organized by department or function (e.g. Divisions -> Teams -> Employees)
 
-The user taps on an icon to open the context browser, showing a panel with a list of context items. The user can navigate into an item to view its children. The user can also select an item to choose a new context and update the current application view. When a new item is selected, the context browser is closed and the application view is updated.
+The user taps on an icon to open the context browser, showing a panel with a list of context items. The user can navigate into an item to view its children. The user can also select an item to choose a new context, which will update the current application view. When a new item is selected, the context browser is closed and the application view is updated.
 
 The newly selected context can be used to filter or change the data source for charts and visualizations in the view, to show items on a map, to display relevant classification and device information, or to perform any other view updates. The application can attach any relevant data to context items and access that data when a new item is selected.
 
 # Basic concepts
 
-The context browser is used to visually represent a tree of items with hierarchical relationships, and to allow users to browse and interact with those items. The data concepts the context browser is built upon include:
+The context browser is used to visually represent a tree of items with hierarchical relationships, and to the user to browse and interact with those items. The data concepts the context browser is built upon include:
 
-* **Items:** A tree of context items. Each item can be tagged with information used to display it to the user (`label`) and to identify its unique location in the tree (`id`). Each item can optionally have one or more associated child items (`children`). Developers can attach additional data to items that can be used when the user selects the item to update the view.
+* **Items:** A tree of context items. Each item can be tagged with information used to display it to the user (`label`) and to identify its unique location in the tree (`id`). Each item can optionally have one or more associated child items (`children`). Developers can attach additional data to items that can be used when the user selects an item to update the view.
 * **Route:** A list of unique ids from the root of the tree through every item to a specific item (e.g. "us" -> "calif" -> "san-francisco" to represent United States -> California -> San Francisco). The route can be bound to the URL to keep the selected item in sync with the URL state (e.g. app.com/us/calif/san-francisco).
 * **Path:** A list of ancestor items from the root of the tree through every item to a specific item. This list is similar to the route but each entry is a reference to an item, not a string containing an item's unique id.
 * **Active:** Refers to the item whose children the user is currently browsing. When the user taps on an item to navigate into it, the item becomes active. The user can then see the active item's children, and the active item's label will be shown in the context browser header.
-* **Selected:** Refers to the the item the user selected to choose a new context. When the user taps on an item to select it, the context browser will be closed and the application can then update the view with the newly selected items' data. The user can navigate the context browser hierarchy without selecting a new item.
+* **Selected:** Refers to the the item the user selected to choose a new context. When the user taps on an item to select it, the context browser will be closed and the application can then update the view with the newly selected item's data. The user can navigate through the context browser hierarchy without selecting a new item.
 
 ## Graphic: Selected & active items
 
@@ -45,7 +45,7 @@ The graphic below shows the tree of items for this context browser, and the diff
 
 # Setup in your app
 
-The user can open or close the context browser (px-context-browser) by tapping on the open icon (px-context-browser-trigger). Opening the context browser shows a panel with a list of context items Each item has a label and on hover reveals icons the user can tap to select or activate the item (the hover-only icon behavior can be configured).
+The user can open or close the context browser (px-context-browser) by tapping on the open icon (px-context-browser-trigger). Opening the context browser shows a panel with a list of context items. Each item has a label and on hover reveals icons the user can tap to select or activate the item (the hover-only icon behavior can be configured).
 
 ### Example
 
@@ -58,15 +58,15 @@ Let's break down the code in the CodePen above:
 
 **1. Import components:** Start by importing both the necessary components, `px-context-browser/px-context-browser.html` and `px-context-browser/px-context-browser-trigger.html`. Both components must be imported for the context browser to show up. You should change the import paths to point to your app's bower_components directory.
 
-**2. Setup dom-bind for binding (demo only):** The dom-bind here is just to help with data-binding the px-context-browser-trigger's `trigger` property to the px-context-browser's `openTrigger` property. If you're building a Polymer-based app, these components will be inside a view dom-module which will handle the binding, and this dom-bind will no longer be needed. If you're building a non-Polymer app, you can use vanilla JavaScript or your framework's data-binding syntax to accomplish the same thing.
+**2. Set up dom-bind for binding (demo only):** The dom-bind here is just to help with data-binding the px-context-browser-trigger's `trigger` property to the px-context-browser's `openTrigger` property. If you're building a Polymer-based app, these components will be inside a view dom-module which will handle the binding, and this dom-bind will no longer be needed. If you're building a non-Polymer app, you can use vanilla JavaScript or your framework's data-binding syntax to accomplish the same thing.
 
-**3. Create trigger:** Create a px-context-browser-trigger tag wherever the context browser open icon should show up. The trigger element creates a simple icon that shows and hides the context browser when tapped by the user.
+**3. Create trigger:** Create a px-context-browser-trigger tag wherever the context browser's open icon should show up. The trigger element creates a simple icon that shows and hides the context browser when tapped by the user.
 
-**4. Create context browser:** Create a px-context-browser tag. Bind the trigger's `trigger` property to the context browser's `openTrigger` property. This will link the two together. Add some `items` for the user to browse through by settings the items attribute to some JSON. The items are added inline here via. the items attribute, but could be added via. data-binding or by settings the `items` property on the context browser user vanilla JavaScript.
+**4. Create context browser:** Create a px-context-browser tag. Bind the trigger's `trigger` property to the context browser's `openTrigger` property. This will link the two together. Add some items for the user to browse through by setting the `items` attribute to some JSON. The items are added inline here via the `items` attribute, but could be added via data-binding or by settings the `items` property on the context browser using vanilla JavaScript.
 
 # Handle context selection
 
-The context browser does what the name suggests: helps user browse and select contexts. When the user selects a new context, your application should respond by changing what's in the view to show information relevant to the next context.
+The context browser does what the name suggests: helps user browse and select contexts. When the user selects a new context, your application should respond by changing what's in the view to show information relevant to the currently selected context.
 
 ### Binding to selected context
 
@@ -135,7 +135,7 @@ class ContextBrowserContainer extends React.Component {
 
 ### Example
 
-When the user selects a new context, your app should listen for a new `selected` context item and update itself. The following CodePen shows an example of Polymer app view setting the context items, binding to selected context item, and changing out data in the view when the selected context item changes:
+When the user selects a new context, your app should listen for a new `selected` context item and update itself. The following CodePen shows an example of a Polymer app view setting the context items, binding to the selected context item, and changing out data in the view when the selected context item changes:
 
 <iframe height='320' scrolling='no' title='Context Browser: Handle context selection' src='//codepen.io/davidleonard/embed/EwGgQe/?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
@@ -153,7 +153,7 @@ Let's break down the code in the CodePen above:
 
 In the sample component's properties section below, some additional metadata will be added to each item as `data`. Each context item represents a location in the United States. The metadata will include the population and area (size) of the context item. Data-bind those values here to display them to the user.
 
-**4. Set context items to pass to the browser:** Define some items to pass to the context browser and add the population and area metadata to each item. See the `keys` property for a list of reserved keys that should not be used for metadata. These keys can changed. Any unreserved key can be used to store data about a context item.
+**4. Set context items to pass to the browser:** Define some items to pass to the context browser and add the population and area metadata to each item. See the `keys` property for a list of reserved keys that should not be used for metadata. These keys can be changed. Any unreserved key can be used to store data about a context item.
 
 
 ### Other ways to fetch data when context changes
@@ -162,7 +162,7 @@ Not all types of data should be stored directly on context items. Very large dat
 
 # Show icons, filter
 
-The context browser's visual and interaction styles can also be customized to fit the needs of different apps. Two commonly-used configurations are:
+The context browser's visual and interaction styles can also be customized to fit the needs of different apps. Two commonly used configurations are:
 
 * showing additional icons to users when they hover over context items
 * showing a search input that allows users to filter the visible items to the find the one they are looking for
@@ -171,25 +171,25 @@ The context browser's visual and interaction styles can also be customized to fi
 
 <img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-select-icon.gif"/>
 
-**What it is:** The select item icon appears when the user hovers over a context item that can be selected. Tapping on the icon selects the item, and updates the current context through the `selected` property (see "Handle user context selection" section above).
+**What it is:** The 'select item' icon appears when the user hovers over a context item that can be selected. Tapping on the icon selects the item, and updates the current context through the `selected` property (see "Handle user context selection" section above).
 
 **How to enable it:** This icon is enabled by default. It doesn't require any special configurations.
 
-**Marking items that can't be selected:** Some items can't be selected. These items are generally "containers" or parents that hold some child items, but that do not have any relevant data the user can explore of their own. Items that can't be selected will not show the select item icon on hover. Set the `isSelectable` key on items that can't be selected to false when they are defined in `items`. See the "Items data structure" section below for more information.
+**Marking items that can't be selected:** Some items can't be selected. These items are generally "containers" or parents that hold some child items, but that do not have any relevant data the user can explore. Items that can't be selected will not show the 'select item' icon on hover. Set the `isSelectable` key to false on items that can't be selected when you define them in `items`. See the "Items data structure" section below for more information.
 
 ### View children icon
 
 <img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-view-children-icon.gif"/>
 
-**What is it:** The view children icon appears when the user hovers over a context item that has children or can have children. Tapping the icon activates the item, opening it so the user can view its children. Tapping the icon does not select the item or change the current context.
+**What is it:** The 'view children' icon appears when the user hovers over a context item that has children or can have children. Tapping the icon activates the item, opening it so the user can view its children. Tapping the icon does not select the item or change the current context.
 
-**How to enable it:** The view children icon is hidden by default. To show it, set the px-context-browser `show-arrow` attribute. Example:
+**How to enable it:** This icon is hidden by default. To show it, set the px-context-browser `show-arrow` attribute. Example:
 
 ```html
 <px-context-browser items="..." show-arrow></px-context-browser>
 ```
 
-**Marking items that can't have children:** Some items can't have children and can't be activated. These items are usually the lowest-level ones in your data model and can only be selected. Set the `isTerminal` key on items that can't have children to true when they are defined in `items`. See the "Items data structure" section below for more information.
+**Marking items that can't have children:** Some items can't have children and can't be activated. These items are usually the lowest-level ones in your data model and can only be selected. Set the `isTerminal` key to true on items that can't have children when you define them in `items`. See the "Items data structure" section below for more information.
 
 ### Filter input
 
@@ -214,7 +214,7 @@ The following CodePen shows the context browser configured to use the view child
 
 # Format context data
 
-The px-context-browser data model is centered around a tree of context items set as the `items` property. Items is structured as an array of objects with some required keys and values that are used by the context browser to display each item to the user. Items may have sub-items defined called `children`.
+The px-context-browser data model is centered around a tree of context items set as the `items` property. `items` is structured as an array of objects with some required keys and values that are used by the context browser to display each item to the user. Items may have sub-items defined called `children`.
 
 Use the following attribute to set the context browser items:
 
