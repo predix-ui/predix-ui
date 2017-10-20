@@ -135,7 +135,8 @@
           active-module="[[activeModule]]"
           anchor-path="[[_anchorPath]]"
           dark-theme="[[darkTheme]]"
-          spinner-active="[[spinnerActive]]">
+          spinner-active="[[spinnerActive]]"
+          transpile-banner="[[activeInfo.transpile]]">
       </px-catalog-page-viewer>
 
       <!-- CATALOG NAV -->
@@ -159,14 +160,6 @@
         spinnerActive: {
           type: Boolean,
           value: true
-        },
-
-        /**
-         * The active page name, from the sidebar (e.g. 'px-sass-doc')
-         */
-        activeName: {
-          type: String,
-          observer: '_updateTitle'
         },
 
         /**
@@ -206,11 +199,26 @@
         },
 
         /**
+         * The active page name, from the sidebar (e.g. 'px-sass-doc')
+         */
+        activeName: {
+          type: String,
+          observer: '_updateTitle'
+        },
+
+        /**
          * Name of the active demo element tag.
          */
         activeModule: {
           type: String,
           observer: '_handleNewModuleSelected'
+        },
+
+        /**
+         * Raw metadata for the active page from the pages.json file.
+         */
+        activeInfo: {
+          type: Object
         },
 
         /**
@@ -354,6 +362,7 @@
 
         this.activeName = pageInfo.label;
         this.activeModule = pageInfo.module;
+        this.activeInfo = pageInfo;
       },
 
       /**

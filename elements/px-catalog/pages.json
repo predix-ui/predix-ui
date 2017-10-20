@@ -402,6 +402,21 @@
           "phone",
           "device"
         ]
+      },
+      {
+        "path": "transpile",
+        "label": "Transpile ES6",
+        "module": "view-develop-transpile",
+        "entrypoint": "/pages/develop/transpile.html",
+        "keywords": [
+          "transpile",
+          "transpilation",
+          "compile",
+          "build",
+          "cli",
+          "ES6",
+          "ES5"
+        ]
       }
     ]
   },
@@ -1062,6 +1077,7 @@
         "label": "Accordion",
         "module": "px-accordion-demo",
         "entrypoint": "/bower_components/px-accordion/demo/px-accordion-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-accordion",
           "/modules/px-accordion"
@@ -1119,6 +1135,7 @@
         "label": "App Header",
         "module": "px-app-header-demo",
         "entrypoint": "/bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-app-header",
           "/modules/px-app-header"
@@ -1140,6 +1157,7 @@
         "label": "App Nav",
         "module": "px-app-nav-demo",
         "entrypoint": "/bower_components/px-app-nav/demo/px-app-nav-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-app-nav",
           "/modules/px-app-nav"
@@ -1177,6 +1195,7 @@
         "label": "Branding Bar",
         "module": "px-branding-bar-demo",
         "entrypoint": "/bower_components/px-branding-bar/demo/px-branding-bar-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-branding-bar",
           "/modules/px-branding-bar"
@@ -1197,6 +1216,7 @@
         "label": "Breadcrumbs",
         "module": "px-breadcrumbs-demo",
         "entrypoint": "/bower_components/px-breadcrumbs/demo/px-breadcrumbs-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-breadcrumbs",
           "/modules/px-breadcrumbs"
@@ -1370,6 +1390,7 @@
             "label": "Context Browser",
             "module": "px-context-browser-demo",
             "entrypoint": "/bower_components/px-context-browser/demo/px-context-browser-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-context-browser",
               "/modules/px-context-browser"
@@ -2707,6 +2728,7 @@
             "label": "Map Base",
             "module": "px-map-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map",
               "/modules/px-map"
@@ -2720,6 +2742,7 @@
             "label": "Tile Layer",
             "module": "px-map-tile-layer-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-tile-layer-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-tile-layer",
               "/modules/px-map-tile-layer"
@@ -2731,6 +2754,7 @@
             "label": "Tile Layer Bing",
             "module": "px-map-tile-layer-bing-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-tile-layer-bing-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-tile-layer-bing",
               "/modules/px-map-tile-layer-bing"
@@ -2742,6 +2766,7 @@
             "label": "Layer GeoJSON",
             "module": "px-map-layer-geojson-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-layer-geojson-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-layer-geojson",
               "/modules/px-map-layer-geojson"
@@ -2753,6 +2778,7 @@
             "label": "Layer Group",
             "module": "px-map-layer-group-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-layer-group-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-layer-group",
               "/modules/px-map-layer-group"
@@ -2764,6 +2790,7 @@
             "label": "Control Locate",
             "module": "px-map-control-locate-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-control-locate-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-control-locate",
               "/modules/px-map-control-locate"
@@ -2775,6 +2802,7 @@
             "label": "Control Scale",
             "module": "px-map-control-scale-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-control-scale-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-control-scale",
               "/modules/px-map-control-scale"
@@ -2786,6 +2814,7 @@
             "label": "Control Zoom",
             "module": "px-map-control-zoom-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-control-zoom-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-control-zoom",
               "/modules/px-map-control-zoom"
@@ -2797,6 +2826,7 @@
             "label": "Marker Locate",
             "module": "px-map-marker-locate-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-marker-locate-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-marker-locate",
               "/modules/px-map-marker-locate"
@@ -2808,6 +2838,7 @@
             "label": "Marker Static",
             "module": "px-map-marker-static-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-marker-static-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-marker-static",
               "/modules/px-map-marker-static"
@@ -2819,6 +2850,7 @@
             "label": "Marker Symbol",
             "module": "px-map-marker-symbol-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-marker-symbol-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-marker-symbol",
               "/modules/px-map-marker-symbol"
@@ -2830,6 +2862,7 @@
             "label": "Marker Group",
             "module": "px-map-marker-group-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-marker-group-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-marker-group",
               "/modules/px-map-marker-group"
@@ -2841,6 +2874,7 @@
             "label": "Popup Info",
             "module": "px-map-popup-info-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-popup-info-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-popup-info",
               "/modules/px-map-popup-info"
@@ -2852,6 +2886,7 @@
             "label": "Popup Data",
             "module": "px-map-popup-data-demo",
             "entrypoint": "/bower_components/px-map/demo/px-map-popup-data-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-map-popup-data",
               "/modules/px-map-popup-data"
@@ -2955,6 +2990,7 @@
         "label": "Slider",
         "module": "px-slider-demo",
         "entrypoint": "/bower_components/px-slider/demo/px-slider-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-slider",
           "/modules/px-slider"
@@ -3142,6 +3178,7 @@
         "label": "Toggle",
         "module": "px-toggle-demo",
         "entrypoint": "/bower_components/px-toggle/demo/px-toggle-demo.html",
+        "transpile": true,
         "redirects": [
           "/components/px-toggle",
           "/modules/px-toggle"
@@ -3190,6 +3227,7 @@
             "label": "Tree",
             "module": "px-tree-demo",
             "entrypoint": "/bower_components/px-tree/demo/px-tree-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-tree",
               "/modules/px-tree"
@@ -3206,6 +3244,7 @@
             "label": "Tree Node",
             "module": "px-tree-node-demo",
             "entrypoint": "/bower_components/px-tree/demo/px-tree-node-demo.html",
+            "transpile": true,
             "redirects": [
               "/components/px-tree-node",
               "/modules/px-tree-node"
