@@ -111,7 +111,11 @@ md.renderer.rules.fence = function(tokens, idx, options, env, self) {
   }
 
   if (langName !== "" && Prism.languages.hasOwnProperty(langName)) {
-    highlighted = Prism.highlight(token.content, Prism.languages[langName])
+    highlighted = Prism.highlight(token.content, Prism.languages[langName]);
+    if (langName === 'html') {
+      /* Escapes {{ }} and [[ ]] in code blocks so Polymer doesn't try to bind them */
+      highlighted = highlighted.replace(/([\{\[])[\{\[](.+)([\}\]])[\}\]]/g, '$1<span></span>$1$2$3<span></span>$3');
+    }
     return '<pre class="code-block"><code class="language-'+ langName +'">'+ highlighted +'</code></pre>';
   }
   else {
