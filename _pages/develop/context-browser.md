@@ -18,25 +18,25 @@ The context browser allows the user to browse hierarchical data and select a spe
 * physical assets organized by model or classification (e.g. Manufacturers -> Device classes -> Individual devices)
 * employees organized by department or function (e.g. Divisions -> Teams -> Employees)
 
-The user taps on an icon to open the context browser, showing a panel with a list of context items. The user can navigate into an item to view its children. The user can also select an item to choose a new context, which will update the current application view. When a new item is selected, the context browser is closed and the application view is updated.
+The user taps on an icon to open the context browser, which shows a panel with a list of context items. The user can navigate into an item to view its children, or they can select an item to choose a new context, which will update the current application view. When the user selects a new context, the context browser closes automatically.
 
-The newly selected context can be used to filter or change the data source for charts and visualizations in the view, to show items on a map, to display relevant classification and device information, or to perform any other view updates. The application can attach any relevant data to context items and access that data when a new item is selected.
+An application can use the newly selected context to filter the data source for data visualizations, show items on a map, display relevant classification and device information, or to perform any other view updates. The application can store any relevant data associated with a context item and access that data when the user selects a new context.
 
 # Basic concepts
 
-The context browser is used to visually represent a tree of items with hierarchical relationships, and to the user to browse and interact with those items. The data concepts the context browser is built upon include:
+Use the context browser to visually represent a tree of items with hierarchical relationships, allowing users to browse and interact with those items. The data concepts underlying the context browser include:
 
-* **Items:** A tree of context items. Each item can be tagged with information used to display it to the user (`label`) and to identify its unique location in the tree (`id`). Each item can optionally have one or more associated child items (`children`). Developers can attach additional data to items that can be used when the user selects an item to update the view.
-* **Route:** A list of unique ids from the root of the tree through every item to a specific item (e.g. "us" -> "calif" -> "san-francisco" to represent United States -> California -> San Francisco). The route can be bound to the URL to keep the selected item in sync with the URL state (e.g. app.com/us/calif/san-francisco).
-* **Path:** A list of ancestor items from the root of the tree through every item to a specific item. This list is similar to the route but each entry is a reference to an item, not a string containing an item's unique id.
-* **Active:** Refers to the item whose children the user is currently browsing. When the user taps on an item to navigate into it, the item becomes active. The user can then see the active item's children, and the active item's label will be shown in the context browser header.
-* **Selected:** Refers to the the item the user selected to choose a new context. When the user taps on an item to select it, the context browser will be closed and the application can then update the view with the newly selected item's data. The user can navigate through the context browser hierarchy without selecting a new item.
+* **Items:** A tree of context items. Each item is tagged with a user-friendly name displayed to the user (`label`) and a unique identifier (`id`). Each item can have zero or more associated child items (`children`). Developers can also attach additional data to items and access it when the user selects a context.
+* **Route:** A list of unique ids representing a drill-down to a specific item in the hierarchy (e.g. "us", "calif", "san-francisco" to represent United States -> California -> San Francisco). The route can be bound to the URL to sync the selected item with the URL state (e.g. app.com/us/calif/san-francisco).
+* **Path:** Similar to the route, but instead of a list of ids, the path contains a list of references to the actual item objects representing a drill-down in the hierarchy.
+* **Active:** Refers to the item whose children the user is currently browsing. When the user taps on an item to navigate into it, the item becomes active. The user can then see the active item's children, and the context browser header shows the active item's label.
+* **Selected:** Refers to the item the user has selected as their context. When the user taps on an item to select it, the context browser is closed and the application should update the view with the data for the newly selected item. The user can navigate through the context browser hierarchy (changing the active item) without necessarily changing the selected context.
 
-## Graphic: Selected & active items
+## Graphic: selected & active items
 
-The context browser in the screenshot below is used to navigate between assets in different cities. The user has browsed into “California” and selected “San Francisco” as their current context.
+The context browser in the screenshot below navigates between assets in different cities. The user has browsed into “California” and selected “San Francisco” as their current context.
 
-The graphic below shows the tree of items for this context browser, and the different data concepts that underly its implementation.
+The graphic below shows the tree of items for this context browser, and the different data concepts that underlie its implementation.
 
 <catalog-picture
   img-src="/img/developer-guides/context-browser/context-browser-graphic-selected-active"
@@ -45,18 +45,18 @@ The graphic below shows the tree of items for this context browser, and the diff
 
 # Setup in your app
 
-The user can open or close the context browser (px-context-browser) by tapping on the open icon (px-context-browser-trigger). Opening the context browser shows a panel with a list of context items. Each item has a label and on hover reveals icons the user can tap to select or activate the item (the hover-only icon behavior can be configured).
+The user can open or close the context browser (px-context-browser) by tapping on the icon (px-context-browser-trigger sub-component). Opening the context browser shows a panel with a list of context items. Each item has a label and, on hover, reveals icons that the user can tap to select or activate the item (the second icon behavior can be configured).
 
 ### Example
 
-To start using the context browser in your app, you'll need to load the px-context-browser and px-context-browser-trigger components, bind the components together, and assign the context browser some items. The following CodePen shows a very basic context browser setup. Click the icon in the results tab to open the context browser.
+To start using the context browser in your app, you'll need to load the px-context-browser and px-context-browser-trigger components, bind the components together, and assign the context browser some items. The following CodePen shows a very basic context browser setup. Click the icon in the Result tab to open the context browser.
 
 <iframe height='320' scrolling='no' title='Context Browser: Simple Example' src='//codepen.io/davidleonard/embed/zEJJOM/?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
 
 Let's break down the code in the CodePen above:
 
-**1. Import components:** Start by importing both the necessary components, `px-context-browser/px-context-browser.html` and `px-context-browser/px-context-browser-trigger.html`. Both components must be imported for the context browser to show up. You should change the import paths to point to your app's bower_components directory.
+**1. Import components:** Start by importing both of the necessary components, `px-context-browser/px-context-browser.html` and `px-context-browser/px-context-browser-trigger.html`. Both components must be imported for the context browser to show up. You should change the import paths to point to your app's bower_components directory.
 
 **2. Set up dom-bind for binding (demo only):** The dom-bind here is just to help with data-binding the px-context-browser-trigger's `trigger` property to the px-context-browser's `openTrigger` property. If you're building a Polymer-based app, these components will be inside a view dom-module which will handle the binding, and this dom-bind will no longer be needed. If you're building a non-Polymer app, you can use vanilla JavaScript or your framework's data-binding syntax to accomplish the same thing.
 
@@ -70,7 +70,7 @@ The context browser does what the name suggests: helps user browse and select co
 
 ### Binding to selected context
 
-The context browser offers a few different ways for applications to listen for and react to the user selecting a new context. The simplest way is to data-bind to the px-context-browser `selected` property, which sends update notifications when a new item is selected. This can be accomplished with data-binding in a Polymer app view like this:
+The context browser offers a few different ways for applications to listen for and react to the user selecting a new context. The simplest way is to data-bind to the px-context-browser `selected` property, which sends update notification events when a new item is selected. This can be accomplished with data-binding in a Polymer app view like this:
 
 ```html
 <!-- In a Polymer app dom-module -->
@@ -80,7 +80,7 @@ The context browser offers a few different ways for applications to listen for a
 </px-context-browser>
 ```
 
-When the user selects a new context, the `selected` property will be updated and set to the `items` object that was used to define that context item. This will trigger data-binding in the Polymer app view that holds the context browser.
+When the user selects a new context, the `selected` property will be updated and set to the object from the `items` array that corresponds to that context item. This will trigger data-binding in the Polymer app view that holds the context browser.
 
 ### Binding with Angular, Vue, React
 
@@ -143,15 +143,15 @@ When the user selects a new context, your app should listen for a new `selected`
 
 Let's break down the code in the CodePen above:
 
-**0. Same setup as the CodePen above:** All the setup in the basic CodePen above is included here, including importing the px-context-browser components, binding an open trigger to the context browser, etc. See the CodePen example above for an introduction to these concepts.
+**0. Same setup as previous CodePen above:** All the setup in the basic CodePen above is included here, including the importing of the px-context-browser components, binding an open trigger to the context browser, etc. See the CodePen example above for an introduction to these concepts.
 
-**1. Use sample Polymer app view defined below:** To simulate a real app binding to the context browser data, add a `sample-app-view` component to the page and define it below. This component will wrap up the `px-context-browser` component and some other behaviors in the same way a Polymer app view would.
+**1. Create sample Polymer app view:** To simulate a real app binding to the context browser data, we add a `sample-app-view` component to the page and define it further down. This component wraps the `px-context-browser` component and some other behaviors in the same way a Polymer app view would.
 
-**2: Bind data to and from context browser:** Bind the `openTrigger` and `items` properties down from the sample component into the context browser. Bind the selected context up from the context browser into the sample component as `selectedContextItem`. When the user selects a new item in the context browser, `selectedContextItem` will be updated and set to the new item.
+**2: Bind data to and from context browser:** The `openTrigger` and `items` properties are bound down from the sample view into the context browser. The selected context is bound up from the context browser into the sample view as `selectedContextItem`. When the user selects a new item in the context browser, `selectedContextItem` is updated and set to the new item.
 
-**3. Show data from the selected context:** The `selectedContextItem` will be set to one of the objects defined in the context browser's `items` property. Each item has some fields that are used by the context browser to show it to the user: label, id, children. Any additional data added to the item will be ignored by the context browser. This is a convenient way to store static data about items.
+**3. Show data from the selected context:** The `selectedContextItem` is set to one of the objects defined in the context browser's `items` property. Each item has fields that the context browser uses for display: label, id, and children. The context browser will ignore any additional data stored in the item object, making it a convenient way to store static data about context items.
 
-In the sample component's properties section below, some additional metadata will be added to each item as `data`. Each context item represents a location in the United States. The metadata will include the population and area (size) of the context item. Data-bind those values here to display them to the user.
+In the sample view's Properties section, some additional metadata is added to each item as `data`. Each context item represents a location in the United States - the metadata includes the population and area (size) of the context item. Data-bind those values here to display them to the user.
 
 **4. Set context items to pass to the browser:** Define some items to pass to the context browser and add the population and area metadata to each item. See the `keys` property for a list of reserved keys that should not be used for metadata. These keys can be changed. Any unreserved key can be used to store data about a context item.
 
@@ -165,7 +165,7 @@ Not all types of data should be stored directly on context items. Very large dat
 The context browser's visual and interaction styles can also be customized to fit the needs of different apps. Two commonly used configurations are:
 
 * showing additional icons to users when they hover over context items
-* showing a search input that allows users to filter the visible items to the find the one they are looking for
+* showing a search input that allows users to filter the visible items
 
 ### Select item icon
 
@@ -181,7 +181,7 @@ The context browser's visual and interaction styles can also be customized to fi
 
 <img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-view-children-icon.gif"/>
 
-**What is it:** The 'view children' icon appears when the user hovers over a context item that has children or can have children. Tapping the icon activates the item, opening it so the user can view its children. Tapping the icon does not select the item or change the current context.
+**What it is:** The 'view children' icon appears when the user hovers over a context item that has children or can have children. Tapping the icon activates the item, opening it so the user can view its children. Tapping the icon does not select the item or change the current context. With or without the children icon, tapping anywhere in the context item *except* the select icon will perform the same action, activating an item and displaying its children if applicable.
 
 **How to enable it:** This icon is hidden by default. To show it, set the px-context-browser `show-arrow` attribute. Example:
 
@@ -189,13 +189,13 @@ The context browser's visual and interaction styles can also be customized to fi
 <px-context-browser items="..." show-arrow></px-context-browser>
 ```
 
-**Marking items that can't have children:** Some items can't have children and can't be activated. These items are usually the lowest-level ones in your data model and can only be selected. Set the `isTerminal` key to true on items that can't have children when you define them in `items`. See the "Items data structure" section below for more information.
+**Marking items that can't have children:** Some items can't have children and can't be activated. These are usually the lowest-level items in your data model and can only be selected. Set the `isTerminal` key to true on items that can't have children when you define them in `items`. See the "Items data structure" section below for more information.
 
 ### Filter input
 
 <img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-filter.gif"/>
 
-**What is it:** The filter appears as a search input at the top of each column in the context browser. The user can filter through the visible items by typing in the search input. Any items with names that don't match the user's search are hidden. This is useful when some context items have a large number of children (e.g. 25+).
+**What it is:** The filter appears as a search input at the top of each column in the context browser. The user can filter through the visible items by typing in the search input. Any items with labels that don't match the user's search are hidden. This is useful when some context items have a large number of children (e.g. 25+).
 
 **How to enable it:** The filter is disabled by default. To show it, set the px-context-browser `show-filter` attribute. Example:
 
@@ -203,7 +203,7 @@ The context browser's visual and interaction styles can also be customized to fi
 <px-context-browser items="..." show-filter></px-context-browser>
 ```
 
-**Set the filter/read the filter:** The `filter` property will be set to the user's search string when the user enters text in the filter search box and notifies changes. To set the filter from your app, set the context browser `filter` property to a new string. To clear the filter from outside the context browser, set the `filter` property to an empty string or `null`.
+**Set the filter/read the filter:** The `filter` property will be set to the user's search string when the user enters text in the filter search box, and fires notification events upon changing. To set the filter dynamically from your app, set the context browser `filter` property to a new string. To clear it, set the `filter` property to an empty string or `null`.
 
 ### Example
 
@@ -214,16 +214,16 @@ The following CodePen shows the context browser configured to use the view child
 
 # Format context data
 
-The px-context-browser data model is centered around a tree of context items set as the `items` property. `items` is structured as an array of objects with some required keys and values that are used by the context browser to display each item to the user. Items may have sub-items defined called `children`.
+The px-context-browser data model is centered around a tree of context items set as the `items` property. `items` is structured as an array of objects with some required keys and values that are used by the context browser to display each item to the user. Items may have nested sub-items called `children`.
 
 Use the following attribute to set the context browser items:
 
-* `items: Array` - An array of objects that are used to populate the context browser UI
+* `items: Array` - An array of objects that are used to populate the context browser UI.
 
-All items should have at least the following properties:
+Each item should have at least the following properties:
 
 * `id: string` - A unique string that identifies the item. This string should only contain valid ASCII characters. It's recommended to only use URI-safe characters to allow for easy binding to the URL. Examples: 'home' or 'alerts'.
-* `label: string` - A short, human-readable text label for the item.
+* `label: string` - A short, user-friendly text label for the item.
 
 The following optional properties can also be set:
 
@@ -232,7 +232,7 @@ The following optional properties can also be set:
 * `isSelectable: boolean = true` - If true, the item can be selected. If false, the item can't be selected, but it *can* be a parent.
 * `isExhausted: boolean = false` - If true, there are no more children to load for the item. If false, there are still children to load (see "Lazy loading children" below for more info).
 
-The following is an example of a list of valid navigation items:
+The following is an example of a list of valid context items:
 
 ```json
 [
@@ -255,7 +255,7 @@ Before starting a data model conversion, take the time to understand the basic c
 
 **Changing the items keys:**
 
-Some data models may use different keys to define information about each context item. For example, this context item defines its human-readable name as `asset_name`, and its unique identifier as `asset_id`:
+Some data models may use different keys to define information about each context item. For example, this context item defines its user-friendly name as `asset_name`, and its unique identifier as `asset_id`:
 
 ```json
 {
@@ -270,11 +270,11 @@ This data doesn't need to be manipulated to work in the context browser. The dev
 
 The following properties can be set:
 
-* `id: string = "id"` - a unique ID for the item
-* `label: string = "label"` - a human-readable label for the item
-* `children: string = "children"` - an array of child items
+* `id: string = "id"` - key to use for the unique ID of the item
+* `label: string = "label"` - key to use for the user-friendly label of the item
+* `children: string = "children"` - key to use for the array of child items
 
-To use the uniquely formatted data shown above, set the context browser keys attribute:
+To use the uniquely formatted data shown above, set the context browser `keys` property:
 
 ```html
 <px-context-browser
@@ -292,13 +292,13 @@ To use the uniquely formatted data shown above, set the context browser keys att
 </px-context-browser>
 ```
 
-If you want to configure any keys, *you must set all the keys* -- even keys that you do not want to change. If any of the keys are not defined, the context browser will fail.
+If you want to configure any keys, *you must set all the keys* -- even keys that you do not want to changef from their default value. If any of the keys are not defined, the context browser will fail.
 
 # Lazy load items
 
 The context browser is designed to handle small and large trees of context items. While the context browser can handle very large trees (e.g. 20,000+ items with 12 levels of hierarchy), the limitation in displaying such a large amount of data is usually the long wait time required to request the data from a backend server. Preparing complex asset models on the server to send to the client may require many expensive computations to join different pieces of an asset tree together.
 
-Apps loading a relatively small amount of asset data (i.e. >100 items) should probably just send the entire tree to the client in one request if the server can easily handle the request in less than ~200ms. Apps with a large set of data that can't be returned in a single response from the server, or that will more than 250ms to prepare before sending back, should load only part of the tree and load any additional data on the fly as the user navigates the context browser.
+Apps loading a relatively small amount of asset data (i.e. <100 items) should probably just send the entire tree to the client in one request if the server can easily handle the request in less than ~200ms. Apps with a large set of data that can't be returned in a single response from the server, or that will take more than 250ms to send the data back, should load only part of the tree and load any additional data ad hoc as the user navigates the context browser.
 
 ### Example: 4 regions, 10,000 trucks
 
@@ -308,42 +308,42 @@ For example, a trucking company with 10,000 trucks on the road that are grouped 
 
 ## Define item parent states
 
-When context items are defined for the context browser, they may or many not have children. The following are all the different "parent states" for a context item:
+When context items are defined for the context browser, they may or may not have children. The following are all the different "parent states" for a context item:
 
 * **A context item can already have one or more children.** When this context item is activated, its existing children will be displayed to the user. The app can load and add additional children to this context item at any time.
-* **A context item can have no children right now but can have children added at some point in the future. This item is "not exhausted".** When this context item is activated, a blank panel will appear with a loading indicator and an event will be fired requesting the app add children. The app can load and add some or all of this item's children, clearing the loading indicator and showing those children in the context browser. The item's children can be loaded in batches of any size, and more can be added at any time.
+* **A context item can not have children right now but can have children added at some point in the future. This item is "not exhausted."** When this context item is activated, a blank panel will appear with a loading indicator and an event will be fired requesting the app add children. The app can load and add some or all of this item's children, clearing the loading indicator and showing those children in the context browser. The item's children can be loaded in batches of any size, and more can be added at any time.
 * **A context item can never have children. This item is "terminal".** These items are generally at the bottom of the context tree and can't be drilled down into any further. The user can only select this item. There is no way to activate it and request its children.
-* **A context item can have children but never be selected. This item is "not selectable".** These items are generally at the top of the context tree, and are only used to organize child items. These items usually do not have any data attached to them, and they can't be selected by the user as the current context. Tapping on this item will activate it and show its children, or will show a loading indicator if no children have been added.
+* **A context item can have children but never be selected. This item is "not selectable."** These items are generally at the top of the context tree, and are only used to organize child items. These items usually do not have any data attached to them, and they can't be selected by the user as the current context. Tapping on this item will activate it and show its children, or will show a loading indicator if no children have been added.
 
-These states aren't mutually exclusive. An item can be in one or more of these states, and can move between these states over time. A few states can't be combined: an item can't be marked as terminal (never have children) and be marked as not selectable. The user would have no way to interact with this item.
+These states aren't mutually exclusive. An item can be in one or more of these states, and can move between these states over time. A few states can't be combined: an item can't be marked as terminal (never have children) and also be marked as not selectable. The user would have no way to interact with this item.
 
-Apps can mark context items with these states to tell the context browser how to display them to the user, and to change the way the context browser interprets user interaction with these items. When the px-context-browser `items` are first defined, the following keys can be set on an item:
+Applications can mark context items with these states to tell the context browser how to display them to the user, and to change the way the context browser interprets user interaction with these items. When the px-context-browser `items` are first defined, the following keys can be set on an item:
 
 * `children: Array` - An array of sub-item objects that are children of the item. Each child item should also have an id and label, and may have its own child items.
-* `isTerminal: boolean = false` -  If true, the item *can never have children*. Tapping a terminal items selects it. If false, the item can have children, but may not have any right now. Items are not terminal by default.
+* `isTerminal: boolean = false` -  If true, the item *can never have children*. Tapping a terminal item selects it. If false, the item can have children, but may not have any right now. Items are not terminal by default.
 * `isExhausted: boolean = false` - If true, there are *no more children to load* for the item. If false, the item may still have some children available to be loaded from the server.
-* `isSelectable: boolean = true` - If true, the item *can be selected*. If false, the item can't be selected but it can be a parent that displays children when the user navigates into it. Items are selectable by default.
+* `isSelectable: boolean = true` - If true, the item *can be selected*. If false, the item can't be selected, but it can be a parent that displays children when the user navigates to it. Items are selectable by default.
 
 ## Lazy loading APIs
 
 The following px-context-browser attributes can be used to implement lazy loading:
 
-* `loading: boolean = false` (read only) - When the user activates an item with no children, an empty panel with a loading indicator is shown while the app requests and returns more children. This attribute will be set to true while the context browser waits for children to be added and notify the app with a `loading-changed` event.
+* `loading: boolean = false (read only)` - When the user activates an item with no children, an empty panel with a loading indicator is shown while the app requests and returns more children. This attribute will be set to true while the context browser waits for children to be added and notify the app with a `loading-changed` event.
 * `loadingTimeout: number = 5000` - Set this attribute to change the amount of time the context browser will wait for children before clearing the loading view and returning the user back to the last visible parent. The time is set in milliseconds and defaults to 5 seconds.
 
 The following events are fired to help with lazy loading:
 
-* `px-app-asset-children-requested` - Fired when the user activates an item in the context browser that is not exhausted. The `event.detail.item` will contain a reference to the item the app should load and add children for. After the children are loaded, the app can call the `addChildren` method with with the `event.detail.item` reference and the new children to update the context browser.
+* `px-app-asset-children-requested` - Fired when the user activates an item in the context browser that is not exhausted. The `event.detail.item` will contain a reference to the item the app should load and add children for. After the children are loaded, the app can call the `addChildren` method with the `event.detail.item` reference and the new children to update the context browser.
 
 The following methods can be used to implement lazy loading:
 
 * `addChildren(node: Object, children: Object|Array<Object>, options: Object)` - Adds a child or children to the context item (`node`). Pass a single object to add one child, or an array of objects to add multiple children. The node should be a direct reference to one of the objects already in the asset graph (e.g. one of the `items` objects or another node added through the `addChildren` API). To add children to the root of the graph, call with `node` as null.
 * `removeChildren(node: Object, children: Object|Array<Object>, options: Object)`: Removes a child or children from the requested node. Pass a single object to add one child, or an array of objects to add multiple children. The node should be a direct reference to one of the objects already in the asset graph (e.g. one of the `items` objects or another node added through the `addChildren` API). To remove children from the root of the graph, call with `node` as null.
-* `cancelLoading( )`: Cancels the current child loading event, if one is in progress. Changes the active browser view to the previously loading item's parent.
+* `cancelLoading()`: Cancels the current child loading event, if one is in progress. Changes the active browser view to the parent of the item that was previously loading.
 
 ## Example: implement lazy loading
 
-When the user activates an item that can have children but doesn't have any defined yet, the context browser will show an empty panel with a loading indicator. The context browser element fires a `px-app-asset-children-requested` when the user navigates into an item that isn't marked as exhausted. The app can listen for the child requested event to determine which item to get the children for and make a request to the backend server to get those children. When the request is finished, the app should add any new children to context browser using the `addChildren` method:
+When the user activates an item that can have children but doesn't have any defined yet, the context browser will show an empty panel with a loading indicator. The context browser element fires a `px-app-asset-children-requested` event when the user navigates into an item that isn't marked as exhausted. The app can listen for the children requested event to determine which item to get the children for, and make a request to the backend server to get those children. When the request is finished, the app should add any new children to context browser using the `addChildren` method:
 
 ```javascript
 var contextBrowserEl = document.querySelector('px-context-browser');
@@ -376,7 +376,7 @@ The following CodePen shows this all working together:
 
 ## Timeout after closing
 
-If the user opens the context browser, navigates to a different place in the context hierarchy, and closes the browser panel without selecting an anything, the context browser will reset their active view after 5 seconds. The next time the user opens the context browser, the selected context item will be visible, or the root will be visible if no context item is selected. If the user re-opens the context browser before the 5 seconds is up, their active view will not be reset.
+If the user opens the context browser, navigates to a different place in the context hierarchy, and closes the browser panel without selecting anything, the context browser will reset their active view after 5 seconds. The next time the user opens the context browser, the selected context item will be visible, or the root will be visible if no context item is selected. If the user re-opens the context browser before the 5 seconds is up, their active view will not be reset.
 
 ## Pre-select a context
 
