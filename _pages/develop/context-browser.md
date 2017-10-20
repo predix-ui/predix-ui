@@ -218,18 +218,18 @@ The px-context-browser data model is centered around a tree of context items set
 
 Use the following attribute to set the context browser items:
 
-* `items: Array` - An array of objects that will are used to build the context browser UI
+* `items: Array` - An array of objects that are used to populate the context browser UI
 
 All items should have at least the following properties:
 
-* `id: string` - A unique string that identifies the item. Should only contain valid ASCII characters. It's recommended to only use URI-safe characters to allow for easy binding to the URL. Examples: 'home' or 'alerts'.
+* `id: string` - A unique string that identifies the item. This string should only contain valid ASCII characters. It's recommended to only use URI-safe characters to allow for easy binding to the URL. Examples: 'home' or 'alerts'.
 * `label: string` - A short, human-readable text label for the item.
 
 The following optional properties can also be set:
 
 * `children: Array` - An array of sub-item objects that are children of the item. Each child item should also have an id and label, and may have its own child items.
-* `isTerminal: boolean = false` -  If true, the item /can never have/ children. If false, the item can, but does not necessarily, have children.
-* `isSelectable: boolean = true` - If true, the item can be selected. If false, the item can't be selected, but it /can/ be a parent.
+* `isTerminal: boolean = false` -  If true, the item *can never have* children. If false, the item can, but does not necessarily, have children.
+* `isSelectable: boolean = true` - If true, the item can be selected. If false, the item can't be selected, but it *can* be a parent.
 * `isExhausted: boolean = false` - If true, there are no more children to load for the item. If false, there are still children to load (see "Lazy loading children" below for more info).
 
 The following is an example of a list of valid navigation items:
@@ -247,11 +247,11 @@ The following is an example of a list of valid navigation items:
 
 ## Convert your data model
 
-Many applications that will use the context browser have their own unique data model. The have context browser API is designed to be flexible and suit different data models. To accomplish this, the context browser can be configured to read different keys in each of the `items` objects to find the information it needs.
+Many applications that will use the context browser have their own unique data model. The context browser API is designed to be flexible and suit different data models. To accomplish this, the context browser can be configured to read different keys in each of the `items` objects to find the information it needs.
 
 However, the context browser does have some requirements (e.g. a tree of nested items) that can't be changed. If your app uses a data model that doesn't meet these requirements, you will have to convert your data to use it in the context browser. This conversion can be done on the server before the data is sent to the client, or on the client in your app code before the items are set in the context browser.
 
-Before starting a data model conversions, take the time to understand the basic concepts of the context browser and its data model (reading this guide is a good start!). Compare it with your app data model and come up with a list of ways the two differ. Then, if necessary, decide how and where to convert your data to work with the context browser.
+Before starting a data model conversion, take the time to understand the basic concepts of the context browser and its data model (reading this guide is a good start!). Compare it with your app data model and come up with a list of ways the two differ. Then, if necessary, decide how and where to convert your data to work with the context browser.
 
 **Changing the items keys:**
 
@@ -292,7 +292,7 @@ To use the uniquely formatted data shown above, set the context browser keys att
 </px-context-browser>
 ```
 
-If you want to configure any keys, *you must set all the keys.* Even keys that you do not want to change. If any of the keys are not defined, the context browser will fail.
+If you want to configure any keys, *you must set all the keys* -- even keys that you do not want to change. If any of the keys are not defined, the context browser will fail.
 
 # Lazy load items
 
@@ -304,16 +304,16 @@ Apps loading a relatively small amount of asset data (i.e. >100 items) should pr
 
 <img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-lazy-load-trucks.gif"/>
 
-For example, a trucking company with 10,000 trucks on the road that are grouped into a few regions should load just the top-level regions when the context browser is initialized. When the user navigates into a region to see its trucks, the app should load a subset of trucks that are in that region. If the user navigates away into another region those region's trucks should be loaded, and so on. Once the trucks for a region are loaded they'll be available to the user instantly if they navigate away and return to view those trucks again.
+For example, a trucking company with 10,000 trucks on the road that are grouped into a few regions should load just the top-level regions when the context browser is initialized. When the user navigates into a region to see its trucks, the app should load a subset of trucks that are in that region. If the user navigates away into another region, that region's trucks should be loaded, and so on. Once the trucks for a region are loaded they'll be available to the user instantly if they navigate away and return to view those trucks again.
 
 ## Define item parent states
 
 When context items are defined for the context browser, they may or many not have children. The following are all the different "parent states" for a context item:
 
 * **A context item can already have one or more children.** When this context item is activated, its existing children will be displayed to the user. The app can load and add additional children to this context item at any time.
-* **A context item can have no children right now but can have children added at some point in the future. This item is "not exhaused".** When this context item is activated, a blank panel will appear with a loading indicator and an event will be fired requesting the app add children. The app can load and add some or all of this item's children, clearing the loading indicator and showing those children in the context browser. The item's children can be loaded in batches of any size, and more can be added at any time.
+* **A context item can have no children right now but can have children added at some point in the future. This item is "not exhausted".** When this context item is activated, a blank panel will appear with a loading indicator and an event will be fired requesting the app add children. The app can load and add some or all of this item's children, clearing the loading indicator and showing those children in the context browser. The item's children can be loaded in batches of any size, and more can be added at any time.
 * **A context item can never have children. This item is "terminal".** These items are generally at the bottom of the context tree and can't be drilled down into any further. The user can only select this item. There is no way to activate it and request its children.
-* **A context item can have children but never be selected. This item is "not selectable".** These items are generally at the top of the context tree, and are only used to organize child items. These items usually do not have any data attached to them because they can't be selected by the user as the current context. Tapping on this item will activate it and show its children, or a loading indicator if none have been added.
+* **A context item can have children but never be selected. This item is "not selectable".** These items are generally at the top of the context tree, and are only used to organize child items. These items usually do not have any data attached to them, and they can't be selected by the user as the current context. Tapping on this item will activate it and show its children, or will show a loading indicator if no children have been added.
 
 These states aren't mutually exclusive. An item can be in one or more of these states, and can move between these states over time. A few states can't be combined: an item can't be marked as terminal (never have children) and be marked as not selectable. The user would have no way to interact with this item.
 
@@ -329,9 +329,9 @@ Apps can mark context items with these states to tell the context browser how to
 The following px-context-browser attributes can be used to implement lazy loading:
 
 * `loading: boolean = false` (read only) - When the user activates an item with no children, an empty panel with a loading indicator is shown while the app requests and returns more children. This attribute will be set to true while the context browser waits for children to be added and notify the app with a `loading-changed` event.
-* `loadingTimeout: number = 5000` - Set this attribute to change the amount of time the context browser will wait for children before clearing the loading view and returning the user back to the last visible parent. The time is in milliseconds and defaults to 5 seconds.
+* `loadingTimeout: number = 5000` - Set this attribute to change the amount of time the context browser will wait for children before clearing the loading view and returning the user back to the last visible parent. The time is set in milliseconds and defaults to 5 seconds.
 
-The following relevant events are fired to help with lazy loading:
+The following events are fired to help with lazy loading:
 
 * `px-app-asset-children-requested` - Fired when the user activates an item in the context browser that is not exhausted. The `event.detail.item` will contain a reference to the item the app should load and add children for. After the children are loaded, the app can call the `addChildren` method with with the `event.detail.item` reference and the new children to update the context browser.
 
@@ -343,7 +343,7 @@ The following methods can be used to implement lazy loading:
 
 ## Example: implement lazy loading
 
-When the user activates an item that can have children but doesn't have any defined yet, the context browser will show an empty panel with a loading indicator. The context browser element fires a `px-app-asset-children-requested` when the user navigates into an item that isn't marked as exhausted. The app can listen for the child request event to determine which item to get the children for and make a request to the backend server to get the children. When the request is finished, the app should add any new children to context browser using the `addChildren` method:
+When the user activates an item that can have children but doesn't have any defined yet, the context browser will show an empty panel with a loading indicator. The context browser element fires a `px-app-asset-children-requested` when the user navigates into an item that isn't marked as exhausted. The app can listen for the child requested event to determine which item to get the children for and make a request to the backend server to get those children. When the request is finished, the app should add any new children to context browser using the `addChildren` method:
 
 ```javascript
 var contextBrowserEl = document.querySelector('px-context-browser');
@@ -378,7 +378,7 @@ The following CodePen shows this all working together:
 
 If the user opens the context browser, navigates to a different place in the context hierarchy, and closes the browser panel without selecting an anything, the context browser will reset their active view after 5 seconds. The next time the user opens the context browser, the selected context item will be visible, or the root will be visible if no context item is selected. If the user re-opens the context browser before the 5 seconds is up, their active view will not be reset.
 
-## Pre select a context
+## Pre-select a context
 
 A context item can be pre-selected when the context browser is first loaded using the `selected-route` attribute. The selected route provides an additional way for apps to listen for context changes and to update the selected context from outside the browser. (See the "Handle user context selection" section above for the other approach to this using the `selected` attribute.)
 
