@@ -449,6 +449,7 @@ gulp.task('compress-images', function(){
     './img/gallery',
     './img/guidelines',
     './img/home-page',
+    './img/developer-guides/context-browser',
     './pages/migration/img'
   ];
 

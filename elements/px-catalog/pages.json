@@ -402,6 +402,19 @@
           "phone",
           "device"
         ]
+      },
+      {
+        "path": "context-browser",
+        "label": "Context Browser",
+        "module": "view-develop-context-browser",
+        "entrypoint": "/pages/develop/context-browser.html",
+        "keywords": [
+          "context",
+          "browser",
+          "asset",
+          "browse",
+          "navigate"
+        ]
       }
     ]
   },
