@@ -77,10 +77,10 @@ Here is an example
 
 ```html
 <px-vis-svg
-  svg="{ {svg} }"
-  width="[ [width] ]"
-  height="[ [height] ]"
-  margin="[ [margin] ]">
+  svg="{{svg}}"
+  width="[[width]]"
+  height="[[height]]"
+  margin="[[margin]]">
 </px-vis-svg>
 ```
 
@@ -102,10 +102,10 @@ For example,  take this px-vis-svg component
 
 ```html
 <px-vis-svg
-  svg="{ { svg } }"
-  width="[ [ width ] ]"
-  height="[ [ height ] ]"
-  margin="[ [ margin ] ]">
+  svg="{{svg}}"
+  width="[[width]]"
+  height="[[height]]"
+  margin="[[margin]]">
 </px-vis-svg>
 ```
 
@@ -154,7 +154,7 @@ With px-vis-svg, this is achieved with the svg attribute
 ```html
 <px-vis-svg
   ...
-  svg="{ { svg } }"
+  svg="{{svg}}"
   ...
 ></px-vis-svg>
 ```
@@ -164,7 +164,7 @@ with px-vis-canvas, using the convasContext attribute
 ```html
 <px-vis-canvas
   ...
-  canvas-context="{ { canvasContext } }"
+  canvas-context="{{canvasContext}}"
   ...
 ></px-vis-canvas>
 ```
@@ -174,9 +174,9 @@ and, px-vis-svg-canvas, which has both, and an additional svgLower attribute
 ```html
 <px-vis-svg-canvas
   ...
-  canvas-context="{ { canvasContext } }"
-  svg="{ { svg } }"
-  svg-lower="{ { svgLower } }"
+  canvas-context="{{canvasContext}}"
+  svg="{{svg}}"
+  svg-lower="{{svgLower}}"
   ...
 ></px-vis-svg-canvas>
 ```
@@ -411,4 +411,3 @@ Loads d3 for px and stores any other version of d3 that was previously loaded. U
 ### Data Converter
 
 Converts data from the timeseries Predix Service to the standard vis format. The data converter Is also used to create the seriesConfig attribute from the provided data.
-
