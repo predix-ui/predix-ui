@@ -207,6 +207,29 @@
     "label": "Developer Guides",
     "pages": [
       {
+        "path": "context-browser",
+        "label": "Context Browser",
+        "module": "view-develop-context-browser",
+        "entrypoint": "/pages/develop/context-browser.html",
+        "keywords": [
+          "context",
+          "browser",
+          "asset",
+          "browse",
+          "navigate"
+        ]
+      },
+      {
+        "path": "contribution",
+        "label": "Contribute",
+        "module": "view-develop-contribution",
+        "entrypoint": "/pages/develop/contribution.html",
+        "keywords": [
+          "contributing",
+          "contribute"
+        ]
+      },
+      {
         "path": "vis",
         "label": "Data Visualization",
         "pages": [
@@ -284,92 +307,33 @@
         ]
       },
       {
-        "path": "migrate",
-        "label": "Cirrus Migration",
-        "pages": [
-          {
-            "path": "api-changes",
-            "label": "Release Notes & API Changes",
-            "module": "view-develop-api-changes",
-            "entrypoint": "/pages/develop/migrate/api-changes.html",
-            "keywords": [
-              "broken",
-              "new",
-              "release",
-              "updates",
-              "design refresh",
-              "Cirrus"
-            ],
-            "redirects": [
-              "/migration/api-changes"
-            ]
-          },
-          {
-            "path": "theme",
-            "label": "Apply Themes",
-            "module": "view-develop-migrate-theme",
-            "entrypoint": "/pages/develop/migrate/theme.html",
-            "keywords": [
-              "colors",
-              "monochrome",
-              "branding"
-            ],
-            "redirects": [
-              "/migration/applying-theme"
-            ]
-          },
-          {
-            "path": "icons",
-            "label": "Using Icons",
-            "module": "view-develop-migrate-icons",
-            "entrypoint": "/pages/develop/migrate/icons.html",
-            "keywords": [
-              "iconography",
-              "px-icon-set",
-              "font awesome",
-              "iron-icon"
-            ],
-            "redirects": [
-              "/migration/using-icons"
-            ]
-          },
-          {
-            "path": "vis",
-            "label": "Data Visualization Migration",
-            "module": "view-develop-migrate-vis",
-            "entrypoint": "/pages/develop/migrate/vis.html",
-            "redirects": [
-              "/migration/vis-migration"
-            ]
-          }
+        "path": "frameworks-angular",
+        "label": "Frameworks: Use with Angular",
+        "module": "view-develop-frameworks-angular",
+        "entrypoint": "/pages/develop/frameworks/angular.html",
+        "redirects": [
+          "/develop/frameworks/angular"
         ]
       },
       {
-        "path": "frameworks",
-        "label": "Use with JS frameworks",
-        "pages": [
-          {
-            "path": "angular",
-            "label": "Angular",
-            "module": "view-develop-frameworks-angular",
-            "entrypoint": "/pages/develop/frameworks/angular.html"
-          },
-          {
-            "path": "vue",
-            "label": "Vue",
-            "module": "view-develop-frameworks-vue",
-            "entrypoint": "/pages/develop/frameworks/vue.html"
-          }
+        "path": "frameworks-vue",
+        "label": "Frameworks: Use with Vue",
+        "module": "view-develop-frameworks-vue",
+        "entrypoint": "/pages/develop/frameworks/vue.html",
+        "redirects": [
+          "/develop/frameworks/vue"
         ]
       },
       {
-        "path": "contribution",
-        "label": "Contribution",
-        "module": "view-develop-contribution",
-        "entrypoint": "/pages/develop/contribution.html",
+        "path": "icons",
+        "label": "Icons",
+        "module": "view-develop-icons",
+        "entrypoint": "/pages/develop/icons.html",
         "keywords": [
-          "contributing",
-          "contribute"
+          "iconography",
+          "px-icon-set",
+          "font awesome",
+          "iron-icon"
         ]
       },
       {
@@ -392,6 +356,67 @@
         ]
       },
       {
+        "path": "migrate",
+        "label": "Migrate to Cirrus",
+        "pages": [
+          {
+            "path": "api-changes",
+            "label": "API Changes & Release Notes",
+            "module": "view-develop-api-changes",
+            "entrypoint": "/pages/develop/migrate/api-changes.html",
+            "keywords": [
+              "broken",
+              "new",
+              "release",
+              "updates",
+              "design refresh",
+              "Cirrus"
+            ],
+            "redirects": [
+              "/migration/api-changes"
+            ]
+          },
+          {
+            "path": "vis",
+            "label": "Data Visualization Migration",
+            "module": "view-develop-migrate-vis",
+            "entrypoint": "/pages/develop/migrate/vis.html",
+            "redirects": [
+              "/migration/vis-migration"
+            ]
+          },
+          {
+            "path": "icons",
+            "label": "Icons Migration",
+            "module": "view-develop-migrate-icons",
+            "entrypoint": "/pages/develop/migrate/icons.html",
+            "keywords": [
+              "iconography",
+              "px-icon-set",
+              "font awesome",
+              "iron-icon"
+            ],
+            "redirects": [
+              "/migration/using-icons"
+            ]
+          },
+          {
+            "path": "theme",
+            "label": "Theming Migration",
+            "module": "view-develop-migrate-theme",
+            "entrypoint": "/pages/develop/migrate/theme.html",
+            "keywords": [
+              "colors",
+              "monochrome",
+              "branding"
+            ],
+            "redirects": [
+              "/migration/applying-theme"
+            ]
+          }
+        ]
+      },
+      {
         "path": "mobile",
         "label": "Mobile",
         "module": "view-develop-mobile",
@@ -404,16 +429,14 @@
         ]
       },
       {
-        "path": "context-browser",
-        "label": "Context Browser",
-        "module": "view-develop-context-browser",
-        "entrypoint": "/pages/develop/context-browser.html",
+        "path": "theme",
+        "label": "Theme",
+        "module": "view-develop-theme",
+        "entrypoint": "/pages/develop/theme.html",
         "keywords": [
-          "context",
-          "browser",
-          "asset",
-          "browse",
-          "navigate"
+          "colors",
+          "monochrome",
+          "branding"
         ]
       }
     ]
