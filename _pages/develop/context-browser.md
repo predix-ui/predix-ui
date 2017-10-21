@@ -292,7 +292,7 @@ To use the uniquely formatted data shown above, set the context browser `keys` p
 </px-context-browser>
 ```
 
-If you want to configure any keys, *you must set all the keys* -- even keys that you do not want to changef from their default value. If any of the keys are not defined, the context browser will fail.
+If you want to configure any keys, *you must set all the keys* -- even keys that you do not want to change from their default value. If any of the keys are not defined, the context browser will fail.
 
 # Lazy load items
 
