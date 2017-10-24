@@ -101,36 +101,18 @@
     "label": "Design Guidelines",
     "pages": [
       {
-        "path": "navigation",
-        "label": "Navigation",
-        "module": "view-design-navigation",
-        "entrypoint": "/pages/design/navigation.html",
-        "redirects": [
-          "/guidelines/navigation"
-        ]
+        "path": "color",
+        "label": "Color",
+        "module": "view-design-color",
+        "entrypoint": "/pages/design/color.html"
       },
       {
-        "path": "page-layout",
-        "label": "Page Layout",
-        "module": "view-design-page-layout",
-        "entrypoint": "/pages/design/page-layout.html",
+        "path": "iconography",
+        "label": "Iconography",
+        "module": "view-design-iconography",
+        "entrypoint": "/pages/design/iconography.html",
         "redirects": [
-          "/guidelines/page-layout"
-        ]
-      },
-      {
-        "path": "materiality",
-        "label": "Materiality",
-        "module": "view-design-materiality",
-        "entrypoint": "/pages/design/materiality.html",
-        "keywords": [
-          "layering",
-          "layers",
-          "z-index",
-          "shadows"
-        ],
-        "redirects": [
-          "/guidelines/materiality"
+          "/guidelines/iconography"
         ]
       },
       {
@@ -143,21 +125,18 @@
         ]
       },
       {
-        "path": "iconography",
-        "label": "Iconography",
-        "module": "view-design-iconography",
-        "entrypoint": "/pages/design/iconography.html",
-        "redirects": [
-          "/guidelines/iconography"
-        ]
+        "path": "writing",
+        "label": "Writing",
+        "module": "view-design-writing",
+        "entrypoint": "/pages/design/writing.html"
       },
       {
-        "path": "elevation-layering",
-        "label": "Elevation & Layering",
-        "module": "view-design-elevation-layering",
-        "entrypoint": "/pages/design/elevation-layering.html",
+        "path": "navigation",
+        "label": "Navigation",
+        "module": "view-design-navigation",
+        "entrypoint": "/pages/design/navigation.html",
         "redirects": [
-          "/guidelines/elevation-layering"
+          "/guidelines/navigation"
         ]
       },
       {
@@ -167,6 +146,30 @@
         "entrypoint": "/pages/design/data-vis.html",
         "redirects": [
           "/guidelines/data-vis"
+        ]
+      },
+      {
+        "path": "forms",
+        "label": "Forms",
+        "module": "view-design-forms",
+        "entrypoint": "/pages/design/forms.html"
+      },
+      {
+        "path": "page-layout",
+        "label": "Page Layout",
+        "module": "view-design-page-layout",
+        "entrypoint": "/pages/design/page-layout.html",
+        "redirects": [
+          "/guidelines/page-layout"
+        ]
+      },
+      {
+        "path": "elevation-layering",
+        "label": "Elevation & Layering",
+        "module": "view-design-elevation-layering",
+        "entrypoint": "/pages/design/elevation-layering.html",
+        "redirects": [
+          "/guidelines/elevation-layering"
         ]
       },
       {

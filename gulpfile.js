@@ -453,11 +453,11 @@ gulp.task('compress-images', function(){
   ];
 
   imgFolders.forEach((folder) =>{
-    imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
-      plugins: [
-        upng({ cnum: 64 }), // reduce to 64 bit-depth
-      ]
-    });
+    // imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+    //   plugins: [
+    //     upng({ cnum: 64 }), // reduce to 64 bit-depth
+    //   ]
+    // });
     imagemin([`${folder}/*.png`], folder, {
       plugins: [
         webp({ lossless: true }), // Losslessly encode images
