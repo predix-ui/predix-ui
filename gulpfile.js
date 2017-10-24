@@ -443,12 +443,11 @@ gulp.task('compress-images', function(){
 
   let imgFolders = [
     './img',
-    './pages/guides/vis-resources',
+    './img/about',
     './img/component-gallery',
-    './_pages/develop/vis/vis-resources',
-    './img/gallery',
     './img/guidelines',
     './img/home-page',
+    './img/developer-guides/context-browser',
     './pages/migration/img'
   ];
 
@@ -579,9 +578,15 @@ function processPagesJSON(text) {
     if (Array.isArray(page.redirects) && page.redirects.length) {
       for (let redirect of page.redirects) {
         if (redirects[redirect]) {
-          console.error(`
-Redirects cannot appear more than once. The direct to ${redirect}
+          throw new Error(`
+Redirects cannot appear more than once. The redirect to ${redirect}
 is set by ${path} and ${redirects[redirect]}. Delete duplicates.
+          `);
+        }
+        if (route === (/\/$/.test(redirect) ? redirect.slice(0, redirect.length-1) : redirect)) {
+          throw new Error(`
+Don't redirect a page to its own page. The redirect to ${redirect}
+redirects to itself. :(
           `);
         }
         redirects[redirect] = route;

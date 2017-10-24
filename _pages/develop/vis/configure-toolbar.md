@@ -62,7 +62,7 @@ componentReadyCallBack: |
 
 Each chart can embed a toolbar element which consists of a main row of items and an optional subrow of items. The subrow usually represents a context of an item of the main row, i.e clicking an item of the main row brings more options.
 
-<catalog-picture img-src="../../pages/develop/vis/vis-resources/toolbar" img-alt="toolbar subpart" style="border:none;" caption="Toolbar with the 'zoom' main item selected"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-toolbar/toolbar" img-alt="toolbar subpart" style="border:none;" caption="Toolbar with the 'zoom' main item selected"></catalog-picture>
 
 In the picture above we can see a main row consisting of a "zoom" and "pan" items. The "zoom" item has been selected, hence displaying the associated subrow presenting a set of zooming options.
 
@@ -347,7 +347,7 @@ This example is implemented below. We try to fit the modal in the available spac
 
 <div>
   <iron-ajax
-    url="vis-resources/toolbar_data.json"
+    url="configure-toolbar_data.json"
     handle-as="json"
     auto
     last-response="{{data}}">
@@ -382,9 +382,9 @@ The external toolbar code is:
 
 ```html
 <px-vis-toolbar
-  current-sub-config='{ {toolbarSubConfig}}'
-  action-config='{ {actionConfig}}'
-  horizontal-alignment='left'
+  current-sub-config="{{toolbarSubConfig}}"
+  action-config="{{actionConfig}}"
+  horizontal-alignment="left"
   id="toolbar"
   config='{
     "advancedZoom": true,
@@ -397,10 +397,12 @@ The external toolbar code is:
 
 And all the two charts needs in terms of extra attributes are:
 
-```js
-toolbar-config='{ "config": {}}'
-toolbar-sub-config="[ [toolbarSubConfig]]"
-action-config='[ [actionConfig]]'
+```html
+<px-vis-...
+  toolbar-config='{ "config": {} }'
+  toolbar-sub-config="[[toolbarSubConfig]]"
+  action-config='[[actionConfig]]'>
+</px-vis-...>
 ```
 <div>
   <px-vis-toolbar

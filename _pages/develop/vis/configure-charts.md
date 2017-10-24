@@ -46,7 +46,7 @@ In the vis framework a series is a visual representation of a set of points rela
 If the chart is very simple and no specific configuration is required then the "includeAllSeries" property can be set to true on the chart for it to dynamically create the configuration from the data. It will try to understand the data structure and appropriately draw each series available in the data. However in general more precise control is required, which is where seriesConfig kicks in.
 
   <catalog-picture
-    img-src="/pages/develop/vis/vis-resources/include_all_series"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/include_all_series"
     img-alt="Simple Timeseries example with includeAllSeries"
     caption="Simple Timeseries example with includeAllSeries. We still had to define what value the chart interpret as X through defaultSeriesConfig (see below)">
   </catalog-picture>
@@ -57,9 +57,9 @@ SeriesConfig is an object where each sub-object is a definition for one series. 
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/conf_chart_1"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/conf_chart_1"
     img-alt="Custom seriesConfig"
-    caption="Custom seriesConfig. Note that we could have drawnonly two series by adding only 2 definitions.">
+    caption="Custom seriesConfig. Note that we could have drawn only two series by adding only 2 definitions.">
   </catalog-picture>
 
   ```json
@@ -94,7 +94,7 @@ When all series need to have the same subset of configuration, for example the t
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/conf_chart_1"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/conf_chart_1"
     img-alt="Same Custom seriesConfig"
     caption="Same chart as above with a defaultSeriesConfig">
   </catalog-picture>
@@ -134,7 +134,7 @@ In addition to the chartData and seriesConfig, another very useful property to b
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/extents_1"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/extents_1"
     img-alt="Basic Chart Extents example">
   </catalog-picture>
 
@@ -152,7 +152,7 @@ It is also possible to pass "dynamic" instead of a value, in which case the char
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/extents_y_dynamic"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/extents_y_dynamic"
     img-alt="Dynamic Y Chart Extents example">
   </catalog-picture>
 
@@ -170,7 +170,7 @@ For timeseries or XY charts with multiple Y axis, each axis can get its own exte
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/extents_multi"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/extents_multi"
     img-alt="Chart Extents example each axis">
   </catalog-picture>
 
@@ -192,7 +192,7 @@ In the case where a scale is ordinal then a set of values can be passed in the c
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/ordinal_extents"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/ordinal_extents"
     img-alt="Dynamic Chart Extents example">
   </catalog-picture>
 
@@ -211,7 +211,7 @@ If chartExtents is not defined then the chart will default to dynamic search on 
 <div class="picture-code">
   <catalog-picture
     style="margin: 0; padding: 0"
-    img-src="/pages/develop/vis/vis-resources/extents_default"
+    img-src="../../../img/guidelines/dev/vis/configure-charts/extents_default"
     img-alt="Dynamic Chart Extents example">
   </catalog-picture>
 

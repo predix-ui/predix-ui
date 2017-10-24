@@ -37,42 +37,42 @@ Px-vis was created in close collaboration with the GE Digital Asset Performance 
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/parallel_axis_example"
+    img-src="../../../img/guidelines/design/data-vis/parallel_axis_example"
     img-alt="Parallel Chart"
     title="Parallel Chart"
     caption="Used for analyzing multivariate data to look for comparisons.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/pie_chart"
+    img-src="../../../img/guidelines/design/data-vis/pie_chart"
     img-alt="Pie Chart"
     title="Pie Chart"
     caption="Standard pie chart showing values relative to each other in a circular format.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/polar_example"
+    img-src="../../../img/guidelines/design/data-vis/polar_example"
     img-alt="Polar Chart/Radar Chart"
     title="Polar Chart/Radar Chart"
     caption="Used to view multivariate data, preferred when sensors are displayed in a circular fashion on an asset or the element spins.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/spark_example"
+    img-src="../../../img/guidelines/design/data-vis/spark_example"
     img-alt="Spark Chart"
     title="Spark Chart"
     caption="A small line chart without axes or measures that provides a user a glimpse of a trend.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/time_series_example"
+    img-src="../../../img/guidelines/design/data-vis/time_series_example"
     img-alt="Timeseries Chart"
     title="Timeseries Chart"
     caption="Provides means to analyze data over a period of time.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/xy_example"
+    img-src="../../../img/guidelines/design/data-vis/xy_example"
     img-alt="XY Chart"
     title="XY Chart"
     caption="Used to find correlations between two or more parameters or tags.">
@@ -86,49 +86,49 @@ For lighter weight use cases, simple charts offer basic functionality with minim
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/percent_circle_example"
+    img-src="../../../img/guidelines/design/data-vis/percent_circle_example"
     img-alt="Percent Circle Chart"
     title="Percent Circle"
     caption="Used for conveying a single value as a percentage of a whole circle.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/gauge_example"
+    img-src="../../../img/guidelines/design/data-vis/gauge_example"
     img-alt="Gauge Chart"
     title="Gauge"
     caption="A simple data visualization component for conveying a single value as a percentage of a circular arc.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/area_chart_example"
+    img-src="../../../img/guidelines/design/data-vis/area_chart_example"
     img-alt="Simple Area Chart"
     title="Simple Area Chart"
     caption="Similar to the line chart with the area below the line filled in. Provides an easy way to quickly compare data.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/simple_bar_example"
+    img-src="../../../img/guidelines/design/data-vis/simple_bar_example"
     img-alt="Simple Bar Chart"
     title="Simple Bar Chart"
     caption="Provides a quick way to visualize data in single or stacked bars.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/horiz_bar_example"
+    img-src="../../../img/guidelines/design/data-vis/horiz_bar_example"
     img-alt="Simple Horizontal Bar Chart"
     title="Simple Horizontal Bar Chart"
     caption="Provides a quick way to visualize data in single or stacked bars.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/simple_line_example"
+    img-src="../../../img/guidelines/design/data-vis/simple_line_example"
     img-alt="Simple Line Chart"
     title="Simple Line Chart"
     caption="Used to visualize linear data in a simplified way for quick assessment.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/win_loss_example"
+    img-src="../../../img/guidelines/design/data-vis/win_loss_example"
     img-alt="Simple Win-Loss Chart"
     title="Simple Win-Loss Chart"
     caption="Visualizes a series of positive & negative values as a bar chart.">
@@ -142,14 +142,14 @@ Effective treatment and layout of the axis in data visualizations makes it easie
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/xaxis_do"
+    img-src="../../../img/guidelines/design/data-vis/xaxis_do"
     img-alt="x axis correct"
     title="Do"
     caption="Do center label values on the axis line and et a vertical orientation of the axis label.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/xaxis_dont"
+    img-src="../../../img/guidelines/design/data-vis/xaxis_dont"
     img-alt="x axis incorrect"
     title="Don't"
     caption="Don't offset label values or set a horizontal orientation of axis label.">
@@ -159,14 +159,14 @@ Effective treatment and layout of the axis in data visualizations makes it easie
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/yaxis_do"
+    img-src="../../../img/guidelines/design/data-vis/yaxis_do"
     img-alt="y axis correct"
     title="Do"
     caption="Do center label values on the axis line and et a vertical orientation of the axis label.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/yaxis_dont"
+    img-src="../../../img/guidelines/design/data-vis/yaxis_dont"
     img-alt="y axis incorrect"
     title="Don't"
     caption="Don't offset label values or set a horizontal orientation of axis label.">
@@ -176,14 +176,14 @@ Effective treatment and layout of the axis in data visualizations makes it easie
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/axis_lines_do"
+    img-src="../../../img/guidelines/design/data-vis/axis_lines_do"
     img-alt="axis lines correct"
     title="Do"
     caption="Do keep axis lines light to make the data stand out and increase scanability.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/axis_lines_dont"
+    img-src="../../../img/guidelines/design/data-vis/axis_lines_dont"
     img-alt="axis lines incorrect"
     title="Don't"
     caption="Don't make axis lines dark or allow axis lines to float next to values.">
@@ -193,14 +193,14 @@ Effective treatment and layout of the axis in data visualizations makes it easie
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/radial_axis_do"
+    img-src="../../../img/guidelines/design/data-vis/radial_axis_do"
     img-alt="radial axis correct"
     title="Do"
     caption="Keep values centered on the axis line and in containers to allow for optimum readability. Labels should sit above or next to the axis line.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/radial_axis_dont"
+    img-src="../../../img/guidelines/design/data-vis/radial_axis_dont"
     img-alt="radial axis incorrect"
     title="Don't"
     caption="Don't place values directly on the axis line without a container box or display labels inside the chart.">
@@ -215,14 +215,14 @@ space.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_color_do"
+    img-src="../../../img/guidelines/design/data-vis/vis_color_do"
     img-alt="vis color correct"
     title="Do"
     caption="Use a variation of colors from different families to denote separation of series and provide better contrast.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_color_dont"
+    img-src="../../../img/guidelines/design/data-vis/vis_color_dont"
     img-alt="vis color incorrect"
     title="Don't"
     caption="Visually similar colors can make it difficult to parse the information in the visualization.">
@@ -232,14 +232,14 @@ space.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_opacity_do"
+    img-src="../../../img/guidelines/design/data-vis/vis_opacity_do"
     img-alt="vis opacity correct"
     title="Do"
     caption="Use opacity to easily show clusters of data.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_opacity_dont"
+    img-src="../../../img/guidelines/design/data-vis/vis_opacity_dont"
     img-alt="vis opacity incorrect"
     title="Don't"
     caption="Solid colors can obscure data rendered on the chart.">
@@ -256,14 +256,14 @@ Tooltips can work with or instead of the register and display metadata about a p
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_register_do"
+    img-src="../../../img/guidelines/design/data-vis/vis_register_do"
     img-alt="vis register correct"
     title="Do"
     caption="Place register at the top or the right of the chart space.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_register_dont"
+    img-src="../../../img/guidelines/design/data-vis/vis_register_dont"
     img-alt="vis register incorrect"
     title="Don't"
     caption="Don't place the register to the left or below the chart space.">
@@ -273,14 +273,14 @@ Tooltips can work with or instead of the register and display metadata about a p
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_tooltip_do"
+    img-src="../../../img/guidelines/design/data-vis/vis_tooltip_do"
     img-alt="vis tooltip correct"
     title="Do"
     caption="Keep tags to a minimum height and consider splitting them into columns.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/vis_tooltip_dont"
+    img-src="../../../img/guidelines/design/data-vis/vis_tooltip_dont"
     img-alt="vis tooltip incorrect"
     title="Don't"
     caption="Don't insert a large number of tags into the tooltip. Consider using the register instead.">
