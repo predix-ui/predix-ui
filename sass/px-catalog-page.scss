@@ -68,6 +68,35 @@ $px-catalog-page-padding-horizontal: 50px;
 }
 
 /*******************************************************************************
+ * Table
+ ******************************************************************************/
+ table {
+	width: 95%;
+	margin: 0px;
+  margin-bottom: calculateRem(20px);
+	padding: 0px;
+	border-collapse: collapse;
+}
+
+th {
+	border-bottom: 1px solid $gray6;
+	text-align: left;
+	font-weight: normal;
+}
+th + th {
+	padding-left: calculateRem(20px);
+}
+
+td {
+	border-bottom: 1px solid $gray2;
+	padding: calculateRem(10px) 0;
+	vertical-align: top;
+}
+td + td {
+	padding-left: calculateRem(20px);
+}
+
+/*******************************************************************************
  * PAGE RULES
  ******************************************************************************/
 
@@ -118,10 +147,6 @@ $px-catalog-page-padding-horizontal: 50px;
 
 .page-title {
   margin: 0;
-}
-
-.picture-side-by-side {
-  min-width: calculateRem(210px);
 }
 
 /*******************************************************************************
@@ -277,30 +302,11 @@ a.toc__item__link--active,
 }
 
 /*******************************************************************************
- * Table
+ * CSS grid
  ******************************************************************************/
-table {
-	width: 95%;
-	margin: 0px;
-  margin-bottom: calculateRem(20px);
-	padding: 0px;
-	border-collapse: collapse;
+.catalog_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 30px;
 }
 
-th {
-	border-bottom: 1px solid $gray6;
-	text-align: left;
-	font-weight: normal;
-}
-th + th {
-	padding-left: calculateRem(20px);
-}
-
-td {
-	border-bottom: 1px solid $gray2;
-	padding: calculateRem(10px) 0;
-	vertical-align: top;
-}
-td + td {
-	padding-left: calculateRem(20px);
-}
