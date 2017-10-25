@@ -6,9 +6,12 @@ pathToRoot: ../../
 ---
 
 When choosing a navigation construct, consider the key use cases and workflows of your application as well as the display size and devices it will be delivered on.  An effective navigation system is critical in making your application purposeful and efficient. The Predix Design System includes several components that are designed to work together as main navigation.
-[Px-app-nav](#/components/px-app-nav) is the core navigation component and offers several configurations to suit a variety of use cases. It can be configured horizontally, vertically or as a dropdown menu. [Px-breadcrumbs](#/components/px-breadcrumbs) provides the ability to show the user their path through your application and easily navigate up to a parent level. [Px-context-browser](#/components/px-context-browser) works in conjunction with the breadcrumb component to allow a user to set the context of their app. Finally, [px-branding-bar](#/components/px-branding-bar) provides a space to apply a custom branding element such as an application name, logo or specific color.
 
-The [px-app-header](#/components/px-app-helpers/px-app-header) component illustrates how some of these components can work together in an assembly.
+* [px-app-nav](#/components/px-app-nav) is the core navigation component and offers several configurations to suit a variety of use cases. It can be configured horizontally, vertically or as a dropdown menu.
+* [px-breadcrumbs](#/components/px-breadcrumbs) provides the ability to show the user their path through your application and easily navigate up to a parent level.
+* [px-context-browser](#/components/px-context-browser) works in conjunction with the breadcrumb component to allow a user to set the context of their app.
+* [px-branding-bar](#/components/px-branding-bar) provides a space to apply a custom branding element such as an application name, logo or specific color.
+* [px-app-header](#/components/px-app-header) illustrates how some of these components can work together in an assembly.
 
 # Best Practices
 
