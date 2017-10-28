@@ -8,3 +8,4 @@ cert.key
 *.pem
 shrinkwrap.yml
 build/
+data/

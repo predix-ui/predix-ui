@@ -3326,6 +3326,12 @@
         "label": "Bower Version Finder",
         "module": "view-tools-version-finder",
         "entrypoint": "/pages/tools/version-finder.html"
+      },
+      {
+        "path": "api-search",
+        "label": "API Search",
+        "module": "view-tools-api-search",
+        "entrypoint": "/pages/tools/api-search.html"
       }
     ]
   }
