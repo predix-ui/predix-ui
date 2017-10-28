@@ -27,6 +27,10 @@
     <iron-ajax id="lunrIndexAjax" url="/data/lunr-index.json" last-response="{{lunrIndex}}"></iron-ajax>
     <iron-ajax id="lunrSourceAjax" url="/data/lunr-source.json" last-response="{{lunrSource}}"></iron-ajax>
 
+    <div class="beta-banner">
+      This tool is currently in beta. The results might not include all documented APIs. Check the component page if you can't find something your looking for.
+    </div>
+
     <section class="page">
       <h2 class="selected">API Search</h2>
       <input type="text" class="text-input" placeholder="Enter a property, method, or event to search all APIs..." value="{{_searchTerm::input}}">
