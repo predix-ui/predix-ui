@@ -503,6 +503,7 @@ function buildAPIAnalyzerFiles(pxElementPaths){
   return Promise.all(pxElementPaths.map(elementDir => analyzeRepo(elementDir, analyzer, indexer)))
     .then(() => {
       const {index, source} = indexer.export();
+      fse.ensureDirSync('./data');
       fs.writeFileSync('./data/lunr-index.json', JSON.stringify(index,'',null), 'utf8');
       fs.writeFileSync('./data/lunr-source.json', JSON.stringify(source,'',null), 'utf8');
     });
