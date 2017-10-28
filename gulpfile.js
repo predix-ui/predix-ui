@@ -195,7 +195,7 @@ This task now does the following:
 
 And... you probably want to run \`gulp serve\` instead of this task. :)
     `);
-  gulpSequence('sass', 'docs', 'generate-api', 'generate-service-worker')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -327,7 +327,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('sass', 'docs', 'generate-api', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -338,7 +338,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('sass', 'docs', 'generate-api', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
