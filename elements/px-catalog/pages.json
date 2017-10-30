@@ -438,6 +438,20 @@
           "monochrome",
           "branding"
         ]
+      },
+      {
+        "path": "transpile",
+        "label": "Transpile ES6",
+        "module": "view-develop-transpile",
+        "entrypoint": "/pages/develop/transpile.html",
+        "keywords": [
+          "transpilation",
+          "ES6",
+          "ES5",
+          "build",
+          "production",
+          "compile"
+        ]
       }
     ]
   },
