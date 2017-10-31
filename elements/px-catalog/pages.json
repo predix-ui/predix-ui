@@ -2761,6 +2761,10 @@
               "/components/px-map",
               "/modules/px-map"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "tags": [
               "data display"
             ]
@@ -2774,6 +2778,10 @@
               "/components/px-map-tile-layer",
               "/modules/px-map-tile-layer"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2784,6 +2792,25 @@
             "redirects": [
               "/components/px-map-tile-layer-bing",
               "/modules/px-map-tile-layer-bing"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
+            "subcomponent": true
+          },
+          {
+            "path": "px-map-tile-layer-google",
+            "label": "Tile Layer Google",
+            "module": "px-map-tile-layer-google-demo",
+            "entrypoint": "/bower_components/px-map/demo/px-map-tile-layer-google-demo.html",
+            "redirects": [
+              "/components/px-map-tile-layer-google",
+              "/modules/px-map-tile-layer-google"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           },
@@ -2796,6 +2823,10 @@
               "/components/px-map-layer-geojson",
               "/modules/px-map-layer-geojson"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2806,6 +2837,10 @@
             "redirects": [
               "/components/px-map-layer-group",
               "/modules/px-map-layer-group"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           },
@@ -2818,6 +2853,10 @@
               "/components/px-map-control-locate",
               "/modules/px-map-control-locate"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2828,6 +2867,10 @@
             "redirects": [
               "/components/px-map-control-scale",
               "/modules/px-map-control-scale"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           },
@@ -2840,6 +2883,10 @@
               "/components/px-map-control-zoom",
               "/modules/px-map-control-zoom"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2850,6 +2897,10 @@
             "redirects": [
               "/components/px-map-marker-locate",
               "/modules/px-map-marker-locate"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           },
@@ -2862,6 +2913,10 @@
               "/components/px-map-marker-static",
               "/modules/px-map-marker-static"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2872,6 +2927,10 @@
             "redirects": [
               "/components/px-map-marker-symbol",
               "/modules/px-map-marker-symbol"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           },
@@ -2884,6 +2943,10 @@
               "/components/px-map-marker-group",
               "/modules/px-map-marker-group"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2895,6 +2958,10 @@
               "/components/px-map-popup-info",
               "/modules/px-map-popup-info"
             ],
+            "keywords": [
+              "px-map",
+              "map"
+            ],
             "subcomponent": true
           },
           {
@@ -2905,6 +2972,10 @@
             "redirects": [
               "/components/px-map-popup-data",
               "/modules/px-map-popup-data"
+            ],
+            "keywords": [
+              "px-map",
+              "map"
             ],
             "subcomponent": true
           }
