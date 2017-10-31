@@ -2788,6 +2788,17 @@
             "subcomponent": true
           },
           {
+            "path": "px-map-tile-layer-google",
+            "label": "Tile Layer Google",
+            "module": "px-map-tile-layer-google-demo",
+            "entrypoint": "/bower_components/px-map/demo/px-map-tile-layer-google-demo.html",
+            "redirects": [
+              "/components/px-map-tile-layer-google",
+              "/modules/px-map-tile-layer-google"
+            ],
+            "subcomponent": true
+          },
+          {
             "path": "px-map-layer-geojson",
             "label": "Layer GeoJSON",
             "module": "px-map-layer-geojson-demo",
