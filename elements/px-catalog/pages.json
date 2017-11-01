@@ -1165,25 +1165,50 @@
         ]
       },
       {
-        "path": "px-app-header",
-        "label": "App Header",
-        "module": "px-app-header-demo",
-        "entrypoint": "/bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html",
-        "redirects": [
-          "/components/px-app-header",
-          "/modules/px-app-header"
-        ],
-        "keywords": [
-          "px-app-header",
-          "header",
-          "page",
-          "layout",
-          "scroll"
-        ],
-        "tags": [
-          "layout",
-          "app navigation"
-          ]
+        "path": "px-app-helpers",
+        "label": "App Helpers",
+        "pages": [
+          {
+            "path": "px-app-header",
+            "label": "App Header",
+            "module": "px-app-header-demo",
+            "entrypoint": "/bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html",
+            "redirects": [
+              "/components/px-app-header",
+              "/modules/px-app-header",
+              "/elements/px-app-header"
+            ],
+            "keywords": [
+              "px-app-header",
+              "header",
+              "page",
+              "layout",
+              "scroll"
+            ],
+            "tags": [
+              "layout",
+              "app navigation"
+              ]
+          },
+          {
+            "path": "px-app-route",
+            "label": "App Route",
+            "module": "px-app-route-demo",
+            "entrypoint": "/bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html",
+            "redirects": [
+              "/components/px-app-helpers/px-app-route",
+              "/modules/px-app-helpers/px-app-route",
+              "/elements/px-app-route"
+            ],
+            "keywords": [
+              "px-app-route",
+              "router",
+              "navigation",
+              "nav",
+              "route"
+            ]
+          }
+        ]
       },
       {
         "path": "px-app-nav",
@@ -1203,23 +1228,6 @@
         "tags": [
           "app navigation",
           "mobile"
-        ]
-      },
-      {
-        "path": "px-app-route",
-        "label": "App Route",
-        "module": "px-app-route-demo",
-        "entrypoint": "/bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html",
-        "redirects": [
-          "/components/px-app-helpers/px-app-route",
-          "/modules/px-app-helpers/px-app-route"
-        ],
-        "keywords": [
-          "px-app-route",
-          "router",
-          "navigation",
-          "nav",
-          "route"
         ]
       },
       {
