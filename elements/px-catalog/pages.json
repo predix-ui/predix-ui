@@ -2823,6 +2823,23 @@
             "subcomponent": true
           },
           {
+            "path": "px-map-tile-layer-wms",
+            "label": "Tile Layer WMS",
+            "module": "px-map-tile-layer-wms-demo",
+            "entrypoint": "/bower_components/px-map/demo/px-map-tile-layer-wms-demo.html",
+            "redirects": [
+              "/components/px-map-tile-layer-wms",
+              "/modules/px-map-tile-layer-wms"
+            ],
+            "keywords": [
+              "px-map",
+              "map",
+              "WMS",
+              "WMTS"
+            ],
+            "subcomponent": true
+          },
+          {
             "path": "px-map-layer-geojson",
             "label": "Layer GeoJSON",
             "module": "px-map-layer-geojson-demo",
