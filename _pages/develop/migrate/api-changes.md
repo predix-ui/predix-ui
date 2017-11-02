@@ -23,8 +23,8 @@ layout: default
 ## px-branding-bar
 * A component providing a header area to contain title, logo and branding content. [API Documentation](#/elements/px-branding-bar)
 
-## px-breadcrumb
-* Breadcrumb dropdown displays the navigational path of the user through a context browser. The breadcrumb links provide a way to see the path of navigation or contextual relationship between objects. It also provides a quick way to navigate backwards within a path or within a specific context.
+## px-breadcrumbs
+* Breadcrumb dropdown displays the navigational path of the user through a context browser. The breadcrumb links provide a way to see the path of navigation or contextual relationship between objects. It also provides a quick way to navigate backwards within a path or within a specific context. [API Documentation](#/elements/px-breadcrumbs)
 
 ## px-heatmap-grid
 * The `px-heatmap-grid` is a highly visual and flexible interactive component for visualizing a data set based on a heat map scale of colors. [API Documentation](#/elements/px-heatmap-grid)

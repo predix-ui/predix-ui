@@ -47,6 +47,7 @@ const md = require('./scripts/page-builder');
 const {Analyzer, FSUrlLoader, generateAnalysis} = require('polymer-analyzer');
 const createComponentsInfo = require('./scripts/json-builder/create-components-info.js');
 const createPagesFilter = require('./scripts/json-builder/create-pages-filter.js');
+const LunrIndexer = require('./scripts/lunr-indexer/index.js');
 const exec = require('child_process').exec;
 
 
@@ -194,7 +195,7 @@ This task now does the following:
 
 And... you probably want to run \`gulp serve\` instead of this task. :)
     `);
-  gulpSequence('sass', 'docs', 'generate-api', 'generate-service-worker')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -326,7 +327,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('sass', 'docs', 'generate-api', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -337,7 +338,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('sass', 'docs', 'generate-api', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
@@ -495,12 +496,20 @@ function buildAPIAnalyzerFiles(pxElementPaths){
       urlLoader: new FSUrlLoader('./bower_components')
   });
 
+  // Create a lunr index to save info from each analysis as we go
+  const indexer = new LunrIndexer();
   // Run analyzer separately for each so we can write the descriptors into separate files.
   // Promise.all to prevent premature completion
-  return Promise.all(pxElementPaths.map(elementDir => analyzeRepo(elementDir, analyzer)));
+  return Promise.all(pxElementPaths.map(elementDir => analyzeRepo(elementDir, analyzer, indexer)))
+    .then(() => {
+      const {index, source} = indexer.export();
+      fse.ensureDirSync('./data');
+      fs.writeFileSync('./data/lunr-index.json', JSON.stringify(index,'',null), 'utf8');
+      fs.writeFileSync('./data/lunr-source.json', JSON.stringify(source,'',null), 'utf8');
+    });
 };
 
-function analyzeRepo(elementDir, analyzer) {
+function analyzeRepo(elementDir, analyzer, indexer) {
   // takes '/bower_components/px-foo-bar/' and extracts 'px-foo-bar'
   const elementName = elementDir.match(/\/(px\-.*)\//)[1];
   // find all elements in this folder that begin with the element name
@@ -516,7 +525,12 @@ function analyzeRepo(elementDir, analyzer) {
     .then(analysis => {
       analysis = filterAnalysis(generateAnalysis(analysis, './bower_components'), elementName);
       // console.log(`Writing API output to ${elementName}/${elementName}-api.json`);
-      return fse.outputFile(`bower_components/${elementName}/${elementName}-api.json`, JSON.stringify(analysis));
+      return fse.outputFile(`bower_components/${elementName}/${elementName}-api.json`, JSON.stringify(analysis))
+        .then(() => Promise.resolve(analysis));
+    })
+    .then(analysis => {
+      indexer.add(analysis);
+      return Promise.resolve();
     })
     .catch(e => {
       if (e !== 'NO_HTML_FILE') {
