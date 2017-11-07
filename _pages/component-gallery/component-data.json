@@ -298,6 +298,11 @@
     "entryPoint": "bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html"
   },
   {
+    "componentName": "px-app-route",
+    "label": "App Route",
+    "entryPoint": "bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html"
+  },
+  {
     "componentName": "px-app-nav",
     "label": "App Nav",
     "tags": [
@@ -305,11 +310,6 @@
       "mobile"
     ],
     "entryPoint": "bower_components/px-app-nav/demo/px-app-nav-demo.html"
-  },
-  {
-    "componentName": "px-app-route",
-    "label": "App Route",
-    "entryPoint": "bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html"
   },
   {
     "componentName": "px-branding-bar",
@@ -928,6 +928,18 @@
     "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-bing-demo.html"
   },
   {
+    "componentName": "px-map-tile-layer-google",
+    "label": "Tile Layer Google",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-google-demo.html"
+  },
+  {
+    "componentName": "px-map-tile-layer-wms",
+    "label": "Tile Layer WMS",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-wms-demo.html"
+  },
+  {
     "componentName": "px-map-layer-geojson",
     "label": "Layer GeoJSON",
     "subcomponent": true,
@@ -1014,6 +1026,14 @@
       "messaging"
     ],
     "entryPoint": "bower_components/px-overlay/demo/px-overlay-demo.html"
+  },
+  {
+    "componentName": "px-panel",
+    "label": "Panel",
+    "tags": [
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-panel/demo/px-panel-demo.html"
   },
   {
     "componentName": "px-popover",

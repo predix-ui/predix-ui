@@ -707,6 +707,16 @@
     ]
   },
   {
+    "name": "px-panel",
+    "title": "Panel",
+    "description": "The px-panel component provides a container for placing controls or content. Can be fixed or relatively positioned, and persistent or shown and hidden.",
+    "imageUrl": "../img/component-gallery/panel",
+    "imageAlt": "Panel thumbnail",
+    "tags": [
+      "layout"
+    ]
+  },
+  {
     "name": "px-popover",
     "title": "Popover",
     "description": "The popover is similar to a tooltip, but is invoked by clicking instead of hovering on a target component. Popovers have an optional title, and can also contain richer content than a basic tooltip – longer or formatted text, labels, badges, etc. Popovers stay visible on screen until the user clicks outside of the popover.",
@@ -820,7 +830,7 @@
   {
     "name": "px-tooltip",
     "title": "Tooltip",
-    "description": "A tooltip is a type of popup that provides additional information to users once they hover over the invoking element for a configurable delay period. When the mouse leaves the target area, the tooltip goes away.",
+    "description": "A tooltip is a type of popup that provides additional information to users once they hover over the invoking element for a configurable delay period. When the mouse leaves the target area, the tooltip goes away. Not generally recommended for mobile applications, where hover behavior can be inconsistent.",
     "imageUrl": "../img/component-gallery/tooltip",
     "imageAlt": "Tooltip thumbnail",
     "tags": [

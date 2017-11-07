@@ -60,7 +60,7 @@
     "px-defaults-design": "^2.0.0",
     "px-demo-design": "^2.0.0",
     "px-demo-snippet": "^1.0.1",
-    "px-demo": "polymer2.0-preview",
+    "px-demo": "dd6c3bb2d81f27648add35599ed811de0a4dd2e1",
     "px-dropdown": "^4.0.1",
     "px-file-upload": "^1.0.0",
     "px-flag-design": "^1.0.0",
@@ -90,6 +90,7 @@
     "px-normalize-design": "^1.0.1",
     "px-number-formatter": "^4.0.0",
     "px-overlay": "^1.0.1",
+    "px-panel": "^1.0.0",
     "px-percent-circle": "^1.0.2",
     "px-popover": "^2.0.1",
     "px-progress-bar": "^1.0.0",
@@ -144,6 +145,7 @@
     "iron-doc-viewer": "^3.0.0",
     "px-theme": "polymer2.0-preview",
     "px-code-editor": "^3.0.0",
-    "iron-location": "master"
+    "iron-location": "master",
+    "px-icon-set": "^2.0.0"
   }
 }

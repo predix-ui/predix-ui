@@ -390,6 +390,12 @@
     "preRefreshRangeExact": "^v0.4.4"
   },
   {
+    "name": "px-panel",
+    "postRefreshRange": "^1.0.0",
+    "preRefreshRange": "n/a",
+    "preRefreshRangeExact": "n/a"
+  },
+  {
     "name": "px-percent-circle",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",

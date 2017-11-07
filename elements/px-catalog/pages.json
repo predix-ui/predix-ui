@@ -3062,6 +3062,25 @@
         ]
       },
       {
+        "path": "px-panel",
+        "label": "Panel",
+        "module": "px-panel-demo",
+        "entrypoint": "/bower_components/px-panel/demo/px-panel-demo.html",
+        "redirects": [
+          "/components/px-panel",
+          "/modules/px-panel"
+        ],
+        "keywords": [
+          "px-panel",
+          "collapse",
+          "menu",
+          "drawer"
+        ],
+        "tags": [
+          "layout"
+        ]
+      },
+      {
         "path": "px-popover",
         "label": "Popover",
         "module": "px-popover-demo",
