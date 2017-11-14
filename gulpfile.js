@@ -449,15 +449,18 @@ gulp.task('compress-images', function(){
     './img/guidelines',
     './img/home-page',
     './img/developer-guides/context-browser',
-    './pages/migration/img'
+    './pages/migration/img',
+    './img/guidelines/dev/vis/annotations'
   ];
 
+  imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+    plugins: [
+      upng({ cnum: 64 }), // reduce to 64 bit-depth
+    ]
+  });
+
   imgFolders.forEach((folder) =>{
-    imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
-      plugins: [
-        upng({ cnum: 64 }), // reduce to 64 bit-depth
-      ]
-    });
+
     imagemin([`${folder}/*.png`], folder, {
       plugins: [
         webp({ lossless: true }), // Losslessly encode images

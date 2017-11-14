@@ -303,6 +303,33 @@
             "redirects": [
               "/guides/vis-guides-crosshair"
             ]
+          },
+          {
+            "path": "annotations",
+            "label": "Annotations",
+            "module": "view-develop-vis-annotations",
+            "entrypoint": "/pages/develop/vis/annotations.html",
+            "keywords": [
+              "chart",
+              "graph",
+              "annotations",
+              "annotation"
+            ],
+            "redirects": [
+              "/guides/vis-guides-annotations"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "visdemo",
+        "label": "Data Visualization Demos",
+        "pages": [
+          {
+            "path": "chart-generatore",
+            "label": "Chart Generator",
+            "module": "view-develop-vis-framework-overview",
+            "entrypoint": "/pages/develop/vis/framework-overview.html"
           }
         ]
       },
