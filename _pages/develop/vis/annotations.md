@@ -37,19 +37,23 @@ The chart can display annotations based on `annotationData`:
   * XY/Timeseries/Polar: needed to determine which axis the annotation relates to. A series is always internally linked to an axis, and ultimately a scale that will be used to determine the pixel values.
   * Parallel Coordinates/Radar: needed to decide on which axis to position the annotation
 
+<=========
 `data` is optional and could be any other key, the idea being that any kind of data can be stored in the `annotationData`. The whole annotation data (including `x`, `y` and `series`) will then be passed back when an annotation request is made (see 'Annotations Events' below).
+======
+`data` is an optional field and can consist of any key/value pairs.  Since any kind of data can be stored in the `annotationData`, this field allows you to specify custom data you want associated with this annotation point. The whole annotation data (including `x`, `y` and `series`) will then be passed back when an annotation request is made (see ‘Annotations Events’ below).
+========>
 
 The charts then display those annotations and provide events for interaction with those annotations.
 
 # Creating Annotations
 
-Programmatically creating annotations is as simple as adding objects to the `annotationData` array. From a user interaction perspective it can be done through some toolbar custom configuration.
+Programmatically creating annotations is as simple as adding objects to the `annotationData` array. From a user interaction perspective it can be done through a toolbar custom configuration.
 
 The idea is to create a new toolbar button with interactions when clicking on the chart (see the [toolbar configuration guide](https://www.predix-ui.com/#/develop/vis/configure-toolbar) for more info).
 
-On a click some user interface can be shown for the user to input the annotation message and potential additional information.
+On a click a user interface can be shown for the user to input the annotation message and potential additional information.
 
-Through the event handler called on click we have access to the mouse coordinates. We also need to determine which series to associate the new annotation with: this can either be decided by the user through a dropdown for example or programmatically chosen.
+Through the event handler which is called on-click we have access to the mouse coordinates. We also need to determine which series to associate the new annotation with: this can either be decided by the user through a dropdown for example or programmatically chosen. The series information is required to properly position the annotation during user interactions such as panning and zooming.
 
 We can then find the data values associated with the mouse coordinates by calling `getDataFromPixel(mousePos, series)` on the chart. Please note that those values don't necessarily match actual values in `chartData`, they represent the values at the point the mouse clicked.
 
