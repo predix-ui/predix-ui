@@ -16,13 +16,12 @@
   "dependencies": {
     "app-layout": "^2.0.1",
     "app-route": "PolymerElements/app-route#^2.0.0",
-    "hydrolysis": "^1.24.1",
     "iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "iron-location": "PredixDev/iron-location#master",
     "iron-media-query": "PolymerElements/iron-media-query#^2.0.0",
     "iron-doc-viewer": "^3.0.0",
-    "polymer": "^1.9.0",
+    "polymer": "^2.0.0",
     "promise-polyfill": "polymerlabs/promise-polyfill#^2.0.0",
     "px-accordion": "^1.0.0",
     "px-actionable-design": "^2.0.1",
@@ -38,7 +37,7 @@
     "px-button-group-design": "^2.0.2",
     "px-buttons-design": "^2.0.0",
     "px-calendar-picker": "^1.0.0",
-    "px-card": "^1.0.3",
+    "px-card": "^2.0.0",
     "px-chip": "^1.0.0",
     "px-clearfix-design": "^1.0.0",
     "px-clipboard": "^1.0.0",
@@ -47,8 +46,8 @@
     "px-colors-design": "^1.0.0",
     "px-context-browser": "^2.0.2",
     "px-d3-imports": "^2.0.0",
-    "px-dark-demo-theme": "polymer2.0-preview",
-    "px-dark-theme": "polymer2.0-preview",
+    "px-dark-demo-theme": "^2.0.0",
+    "px-dark-theme": "^2.0.0",
     "px-data-table": "^5.0.0",
     "px-datasource": "^1.1.5",
     "px-datetime-common": "^1.0.1",
@@ -60,7 +59,7 @@
     "px-defaults-design": "^2.0.0",
     "px-demo-design": "^2.0.0",
     "px-demo-snippet": "^1.0.1",
-    "px-demo": "polymer2.0-preview",
+    "px-demo": "^3.0.0",
     "px-dropdown": "^4.0.1",
     "px-file-upload": "^1.0.0",
     "px-flag-design": "^1.0.0",
@@ -139,12 +138,14 @@
     "px-widths-tools-design": "^1.0.0"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7.24",
+    "webcomponentsjs": "^1.0.0",
+    "polymer": "^2.0.0",
     "promise-polyfill": "^2.0.0",
     "px-api-viewer": "^2.0.3",
     "iron-doc-viewer": "^3.0.0",
     "px-code-editor": "^3.0.0",
     "iron-location": "master",
-    "px-icon-set": "^2.0.0"
+    "px-icon-set": "^2.0.0",
+    "px-card": "^2.0.0"
   }
 }
