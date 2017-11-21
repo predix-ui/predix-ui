@@ -372,9 +372,30 @@ The following CodePen shows this all working together:
 <iframe height='320' scrolling='no' title='Context Browser: Lazy load children' src='//codepen.io/davidleonard/embed/LzmqBq/?height=265&theme-id=light&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
 
+# Favorites
+
+The favorites menu allows a user to save a subset of the items in their context hierarchy as "favorites" so they can more quickly
+and easily access those items.
+
+## Favorites trigger
+
+
+
+## Opening a favorited item
+
+Selecting an item from the Favorites Panel works the same as selecting an item from the regular context browser: clicking on an item will open that item's context, and that will be indicated with the selected state when the user re-opens the Favorites Panel.
+
+## Un-favoriting items
+
+The user can de-favorite an item from the Favorites List by clicking on the star icon on the right. De-favoriting an item will remove it from the Favorites List, but the de-favoriting will not be reflected in the list until the user closes the Favorites Panel for more than 5 seconds, or opens the regular Context Browser panel. Having a 5 second delay before an item is de-favorited will allow the user to reopen the favorites list and still have the item in the list if this was done in error. De-favoriting from the Favorites List will be reflected in the Context Browser as well.
+
+## Favoriting an item when there are connection issues
+
 # Other features
 
 ## Timeout after closing
+
+## Example
 
 If the user opens the context browser, navigates to a different place in the context hierarchy, and closes the browser panel without selecting anything, the context browser will reset their active view after 5 seconds. The next time the user opens the context browser, the selected context item will be visible, or the root will be visible if no context item is selected. If the user re-opens the context browser before the 5 seconds is up, their active view will not be reset.
 
