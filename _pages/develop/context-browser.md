@@ -377,25 +377,56 @@ The following CodePen shows this all working together:
 The favorites menu allows a user to save a subset of the items in their context hierarchy as "favorites" so they can more quickly
 and easily access those items.
 
-## Favorites trigger
+## Enabling the Favorites menu
+
+<iframe height='320' scrolling='no' title='Context Browser: Simple Example' src='//codepen.io/talimarcus/embed/vWRrre?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
+</iframe>
+
+Follow the same basic setup as in the "Setup in your app" section above:
+
+**1. Import components**
+
+**2. Set up dom-bind for binding (demo only)**
+
+**3. Create open trigger and favorites trigger:** Create two px-context-browser-trigger tags wherever the context browser's Open and Favorites icons should show up. The trigger element creates a simple icon that shows and hides the context browser or favorites menu when tapped by the user.
+
+**4. Create context browser:** Create a px-context-browser tag. Bind the first trigger's `trigger` property to the context browser's `open-trigger` property, and bind the second trigger's `trigger` property to the context browser's `favorites-trigger` property. This will link the context browser to the two triggers. Add items to the context browser as described above.
+
+## Favoriting APIs
+
+The following px-context-browser attributes must be set to enable favoriting:
+
+* `show-favorites: boolean =  false` - If true, the user can favorite items in the context hierarchy and access those items from
+a separate, single-level list. If false, the user cannot use the favoriting feature of the context browser.
+
+The following events are fired to help with favoriting and de-favoriting:
+
+* `px-app-asset-favorited` - Fired when a new item is favorited. Includes details about how the item was favorited, and information about the new favorited item.
+* `px-app-asset-defavorited` - Fired when a previously favorited item is de-favorited. Includes details about how the item was de-favorited, and information about the de-favorited item.
+
+The following methods can be used to favorite and de-favorite items:
+
+* `favorite(item: Object|Array<Object>, source: String)` - Call with an object that is a direct reference to one of the `items` objects to favorite a single item, or with an array of objects to favorite multiple items.
+* `defavorite(item: Object|Array<Object>|null, source: String)` - De-favorites one or more items. Call with a direct reference to one of the favorited items to de-favorite it, or an array of favorited items to de-favorite multiple, or `null` to de-favorite all items.
 
 
+## Favoriting and selecting favorited items
 
-## Opening a favorited item
+When the user hovers over an item in the context browser and favoriting is enabled, they will be presented with a star icon they can tap to add that item to their list of favorites. To de-favorite an item, the user can just tap the start icon again.
+
+To see all favorited items, the user can open the favorites menu by tapping the favorites trigger. This will open the user's list of favorites, from which they can de-favorite an item or select it to open its context.
 
 Selecting an item from the Favorites Panel works the same as selecting an item from the regular context browser: clicking on an item will open that item's context, and that will be indicated with the selected state when the user re-opens the Favorites Panel.
 
-## Un-favoriting items
+## De-favoriting items
 
-The user can de-favorite an item from the Favorites List by clicking on the star icon on the right. De-favoriting an item will remove it from the Favorites List, but the de-favoriting will not be reflected in the list until the user closes the Favorites Panel for more than 5 seconds, or opens the regular Context Browser panel. Having a 5 second delay before an item is de-favorited will allow the user to reopen the favorites list and still have the item in the list if this was done in error. De-favoriting from the Favorites List will be reflected in the Context Browser as well.
+The user can de-favorite an item from the Favorites List by clicking on the star icon on the right. De-favoriting an item will remove it from the Favorites List, but the de-favoriting will not be reflected in the list until the user closes the Favorites Panel for more than 5 seconds, or opens the regular Context Browser panel. Having a 5 second delay before an item is de-favorited allows the user to reopen the favorites list and still see the item in the list if the de-favoriting was done in error. De-favoriting an item from the Favorites List will be reflected in the Context Browser as well.
 
 ## Favoriting an item when there are connection issues
 
 # Other features
 
 ## Timeout after closing
-
-## Example
 
 If the user opens the context browser, navigates to a different place in the context hierarchy, and closes the browser panel without selecting anything, the context browser will reset their active view after 5 seconds. The next time the user opens the context browser, the selected context item will be visible, or the root will be visible if no context item is selected. If the user re-opens the context browser before the 5 seconds is up, their active view will not be reset.
 
