@@ -454,7 +454,7 @@ gulp.task('moveBuildToRoot', function () {
       .map((name) => path.join(src, name))
         .filter(isDirectory)
         // exclude this one folder; could make this more formal and pass in an array in the future
-        .filter((folder)=> { return folder !== 'img/component-gallery'});
+        .filter((folder)=> { return folder !== 'raw-img/component-gallery'});
   };
   const flatten = function(lists) {
     return lists.reduce((a, b) => { return a.concat(b) }, []);
@@ -463,7 +463,7 @@ gulp.task('moveBuildToRoot', function () {
     return [src, ...flatten(getDirectories(src).map(getDirectoriesRecursive))];
   };
 
-  const imgFolders = getDirectoriesRecursive('./img');
+  const imgFolders = getDirectoriesRecursive('raw-img');
   const l = imgFolders.length;
   let count = 0;
 
@@ -477,14 +477,14 @@ gulp.task('moveBuildToRoot', function () {
 
     I imagine this is a real monkey patch and we might see EAGAIN errors again in the future if we end up with a lot of images elsewhere.
   */
-  await imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+  await imagemin([`raw-img/component-gallery/*.png`], `img/component-gallery`, {
     plugins: [
       upng({ cnum: 64 }), // reduce to 64 bit-depth
       webp({ lossless: true })
     ]
   });
   // (╯°□°）╯︵ ┻━┻ optipng fails to run if in the same array as webp, so give it a separate call. Error with webp or optipng maybe?
-  await imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+  await imagemin([`raw-img/component-gallery/*.png`], `img/component-gallery`, {
     plugins: [ optipng() ]
   });
 
@@ -494,21 +494,24 @@ gulp.task('moveBuildToRoot', function () {
   // we want to use promises to our gulp task actually knows when it is done.
   // otherwise, you get incorrect reporting of time and if this is being done async with other tasks, it could screw up.
   await Promise.all(imgFolders.map(async (folder) => {
-    const p1 = imagemin([`${folder}/*.png`], folder, {
+    const p1 = imagemin([`${folder}/*.png`], folder.slice(4), {
       plugins: [webp({ lossless: true })] // Losslessly encode images
     });
 
     // optipng fails to run if in the same array as webp :shrugs:
-    const p2 = imagemin([`${folder}/*.png`], folder, {
+    const p2 = imagemin([`${folder}/*.png`], folder.slice(4), {
       plugins: [optipng()] //png optimizer
     });
 
-    const p3 = imagemin([`${folder}/*.jpg`], folder, {
+    const p3 = imagemin([`${folder}/*.jpg`], folder.slice(4), {
       plugins: [webp({
         quality: 65 // Quality setting from 0 to 100
       })]
     });
-    await Promise.all([p1,p2,p3]);
+
+    const p4 = imagemin([`${folder}/*.{gif,ico}`], folder.slice(4));
+
+    await Promise.all([p1,p2,p3,p4]);
     count += 1;
     spinner.succeed(`Finished ${count} of ${l}: ${folder}`);
     spinner.start(`Working on ${l-count} other folders`);
