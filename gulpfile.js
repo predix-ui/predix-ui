@@ -41,6 +41,7 @@ const imagemin = require("imagemin");
 const webp = require("imagemin-webp");
 const upng = require('imagemin-upng');
 const optipng = require('imagemin-optipng');
+const ora = require('ora');
 const glob = require("glob");
 const fse = require('fs-extra');
 const md = require('./scripts/page-builder');
@@ -439,38 +440,80 @@ gulp.task('moveBuildToRoot', function () {
    }, callback);
  });
 
-gulp.task('compress-images', function(){
-  console.log("compress-image will take a couple of minutes to complete");
+ gulp.task('compress-images', async () =>{
+  console.log("compress-image will take a minute to complete");
+  const spinner = ora('Searching for files').start();
 
-  let imgFolders = [
-    './img',
-    './img/about',
-    './img/component-gallery',
-    './img/guidelines',
-    './img/home-page',
-    './img/developer-guides/context-browser',
-    './pages/migration/img'
-  ];
+  // (╯°□°）╯︵ ┻━┻ imagemin doesnt accept glob patterns yet: https://github.com/imagemin/imagemin/issues/87
+  // so manually crawl and compile a list of dirs
+  const isDirectory = function(src) {
+    return fs.lstatSync(src).isDirectory();
+  };
+  const getDirectories = function(src) {
+    return fs.readdirSync(src)
+      .map((name) => path.join(src, name))
+        .filter(isDirectory)
+        // exclude this one folder; could make this more formal and pass in an array in the future
+        .filter((folder)=> { return folder !== 'img/component-gallery'});
+  };
+  const flatten = function(lists) {
+    return lists.reduce((a, b) => { return a.concat(b) }, []);
+  };
+  const getDirectoriesRecursive = function(src) {
+    return [src, ...flatten(getDirectories(src).map(getDirectoriesRecursive))];
+  };
 
-  imgFolders.forEach((folder) =>{
-    imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
-      plugins: [
-        upng({ cnum: 64 }), // reduce to 64 bit-depth
-      ]
+  const imgFolders = getDirectoriesRecursive('./img');
+  const l = imgFolders.length;
+  let count = 0;
+
+  spinner.succeed(`Found ${l} folders + component-gallery`);
+  spinner.start(`Starting: img/component-gallery`);
+
+  /*
+    (╯°□°）╯︵ ┻━┻ the component-gallery has too many images and causes an EAGAIN error ~90% of the time if we do it with the rest of the folders. Possibly just an error with Node 8.
+
+    I imagine, this is some issue of how imagemin queues stuff/its async nature. Separating out the component-gallery processes like this seems to fix it.
+
+    I imagine this is a real monkey patch and we might see EAGAIN errors again in the future if we end up with a lot of images elsewhere.
+  */
+  await imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+    plugins: [
+      upng({ cnum: 64 }), // reduce to 64 bit-depth
+      webp({ lossless: true })
+    ]
+  });
+  // (╯°□°）╯︵ ┻━┻ optipng fails to run if in the same array as webp, so give it a separate call. Error with webp or optipng maybe?
+  await imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
+    plugins: [ optipng() ]
+  });
+
+  spinner.succeed(`Finished: img/component-gallery`);
+  spinner.start(`Working on ${l} other folders`);
+
+  // we want to use promises to our gulp task actually knows when it is done.
+  // otherwise, you get incorrect reporting of time and if this is being done async with other tasks, it could screw up.
+  await Promise.all(imgFolders.map(async (folder) => {
+    const p1 = imagemin([`${folder}/*.png`], folder, {
+      plugins: [webp({ lossless: true })] // Losslessly encode images
     });
-    imagemin([`${folder}/*.png`], folder, {
-      plugins: [
-        webp({ lossless: true }), // Losslessly encode images
-        optipng() //png optimizer
-      ]
+
+    // optipng fails to run if in the same array as webp :shrugs:
+    const p2 = imagemin([`${folder}/*.png`], folder, {
+      plugins: [optipng()] //png optimizer
     });
-    imagemin([`${folder}/*.jpg`], folder, {
+
+    const p3 = imagemin([`${folder}/*.jpg`], folder, {
       plugins: [webp({
         quality: 65 // Quality setting from 0 to 100
       })]
     });
-  });
-
+    await Promise.all([p1,p2,p3]);
+    count += 1;
+    spinner.succeed(`Finished ${count} of ${l}: ${folder}`);
+    spinner.start(`Working on ${l-count} other folders`);
+  }));
+  spinner.succeed(`Finished all folders`);
 });
 
 function readFile(filePath) {
