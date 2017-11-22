@@ -9,35 +9,155 @@ pathToRoot: ../../../
 
 By default, px-vis-timeseries and px-vis-xy-chart have one dependent axis, but you can configure them to have multiple dependent axes. This guide will walk you though how.
 
-
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/single-axis" img-alt="example axis" style="border:none;" caption="Single Axis"></catalog-picture>
-
 <catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="example axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
 
 
-# How axes work in d3
+# Configuring a multi-axis chart
 
-The first thing to understand is what parts go together to create an axis - a d3 scale, d3 axis, and d3 formaters.
+In the "Introduction to configuring a chart", we introduced the `seriesConfig` property. To create a multi-axis chart, we'll return to this property:
 
-First, you have your scale, which converts your data into a pixel coordinate. D3 provides many different types of scales to help with that data-to-pixel conversion. Px-vis supports several different scales, but the charts often have these scales fixed to a particular type. The exceptions are Timeseries and XY-Chart where you can configure the scales types via the `xAxisType` and `yAxisType` properties. In general, you do not need to worry about this, but the type of scale does affect what configuration option there are and if your data is displayed as a number, datetime, or string.
+```json
+{
+  "uniqueSeriesId1": {
+    "x": "Timestamp",
+    "y": "asset1",
+    "name": "Asset 1",
+    "type": "line"
+  },
+  "uniqueSeriesId2": {
+    "x": "Timestamp",
+    "y": "asset2",
+    "name": "Asset 2",
+    "type": "line"
+  },
+  "uniqueSeriesId3": {
+    "x": "Timestamp",
+    "y": "asset3",
+    "name": "Asset 3",
+    "type": "line"
+  }
+}
+```
 
-This scale is then combined with a d3 axis object to create the visual representation.
+<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/single-axis" img-alt="single axis" style="border:none;" caption="Single Axis"></catalog-picture>
 
-Additionally, formatting function can get used to control the values shown on the ticks.
+The above example configuration defines three series, but does not define any axis. By default, if no axis is specified in the `seriesConfig`, it places the series on a default axis. Adding in an axis key will allow us to define different axes and specify to which axis each series belongs:
 
-All together, d3 does an amazing job trying to display a logical axis for your data's domain, but sometimes you want it to show different tick values. There are many different options to help you do that as outlined below.
-
-# Passing configuration from the chart to an axis
-
-To configure the axes in a Predix Design System chart, you'll want to create an axisConfig object to pass to the chart. This object  takes the axis properties as keys and the values you are setting as the corresponding value.
-
-Example:
-```js
-let myConfig = {
-  ticks: 5
+```json
+{
+  "uniqueSeriesId1": {
+    "x": "Timestamp",
+    "y": "asset1",
+    "name": "Asset 1",
+    "type": "line",
+    "axis": {
+      "id": "axisA",
+      "side": "left",
+      "number": "1"
+    }
+  },
+  "uniqueSeriesId2": {
+    "x": "Timestamp",
+    "y": "asset2",
+    "name": "Asset 2",
+    "type": "line",
+    "axis": {
+      "id": "axisC",
+      "side": "right",
+      "number": "1"
+    }
+  },
+  "uniqueSeriesId3": {
+    "x": "Timestamp",
+    "y": "asset3",
+    "name": "Asset 3",
+    "type": "line",
+    "axis": {
+      "id": "axisB",
+      "side": "left",
+      "number": "2"
+    }
+  }
 }
 
-// bind or set the chart's xAxisConfig property equal to the config object
-myChart.set('xAxisConfig', myConfig);
+```
+
+<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="multi-axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
+
+You'll notice that the `axis` key expects an object value, itself with three keys:
+* `id`: a unique identifier for the axis
+* `side`: which side of the chart the axis should go
+* `number`: an numerical order for each axis on that side
+
+If you want multiple series to be on the same axis, just give them the same axis definition:
+
+```json
+{
+  "uniqueSeriesId1": {
+    "x": "Timestamp",
+    "y": "asset1",
+    "name": "Asset 1",
+    "type": "line",
+    "axis": {
+      "id": "axisA",
+      "side": "left",
+      "number": "1"
+    }
+  },
+  "uniqueSeriesId2": {
+    "x": "Timestamp",
+    "y": "asset2",
+    "name": "Asset 2",
+    "type": "line",
+    "axis": {
+      "id": "axisA",
+      "side": "left",
+      "number": "1"
+    }
+  },
+  "uniqueSeriesId3": {
+    "x": "Timestamp",
+    "y": "asset3",
+    "name": "Asset 3",
+    "type": "line",
+    "axis": {
+      "id": "axisB",
+      "side": "left",
+      "number": "2"
+    }
+  }
+}
 
 ```
+
+<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/two-series" img-alt="two series" style="border:none;" caption="Two series on one axis"></catalog-picture>
+
+
+# Setting chart extents
+
+If you want to manually set your chart extents, previously, you would do so like this:
+
+```js
+chartExtents = {
+  "x": ["dynamic", "dynamic"],
+  "y": [0,40]
+};
+```
+This defines your y-axis to have a domain from 0 to 40. If you apply this to your multi-axis chart, it will set that domain for all the axes.
+
+<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/y40" img-alt="domain 0-40" style="border:none;" caption="All axes with a domain 0-40"></catalog-picture>
+
+Instead, to set the chartExtents on a particular axis, you'll want to use that axis' `id`
+
+```js
+chartExtents = {
+  "x": ["dynamic", "dynamic"],
+  "axisA": [0,40],
+  "axisC": [-2,2],
+};
+```
+
+<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/axisac" img-alt="axisA and axisC" style="border:none;" caption="Axis A with a domain 0-40"></catalog-picture>
+
+Now, the domain is only applied to `axisA` and the other two fallback to `dynamic`.
+
