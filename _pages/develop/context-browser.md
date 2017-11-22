@@ -424,6 +424,8 @@ The user can de-favorite an item from the Favorites List by clicking on the star
 
 ## Favoriting an item when there are connection issues
 
+When the user cannot mark an item as a favorite due to connectivity issues, the user is informed that the action has not taken place through a contextual notification. The contextual notification provides an action to attempt to re-sync the list. Clicking on the re-sync icon will dismiss the contextual notification and provide a progress bar while it attempts to re-sync. The contextual notification will remain until the list has properly synced.
+
 # Other features
 
 ## Timeout after closing
