@@ -509,6 +509,7 @@ gulp.task('moveBuildToRoot', function () {
       })]
     });
 
+    // copy over other image formats
     const p4 = imagemin([`${folder}/*.{gif,ico}`], folder.slice(4));
 
     await Promise.all([p1,p2,p3,p4]);
