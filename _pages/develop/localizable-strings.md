@@ -32,7 +32,7 @@ Please note that letter case matters.
 * `'Presets'`
 
 ### px-datetime-range-field
-* `'from can not be later than to'`
+* `'from cannot be later than to date'`
 * `'from'`
 * `'TO'`
 * Also uses strings from px-datetime-buttons and validatation
