@@ -83,6 +83,7 @@ Please note that letter case matters.
 * `'Rows per page'`
 * `'Show/Hide Column'`
 * `'Filter'`
+* `'Selected'`
 
 ### px-inbox
 * `'Back'`
