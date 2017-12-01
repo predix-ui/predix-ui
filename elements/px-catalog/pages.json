@@ -3461,6 +3461,12 @@
         "label": "API Search",
         "module": "view-tools-api-search",
         "entrypoint": "/pages/tools/api-search.html"
+      },
+      {
+        "path": "build-status",
+        "label": "Build Status",
+        "module": "view-tools-build-status",
+        "entrypoint": "/pages/tools/build-status.html"
       }
     ]
   }
