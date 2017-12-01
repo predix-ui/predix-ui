@@ -436,5 +436,45 @@
         this._404path = null;
       }
     });
+
+    (function() {
+      function postJSONToServer(url, body) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(body));
+      };
+
+      function getGoogleAnalyticsId() {
+        if (window.___GAID___) {
+          return window.___GAID___;
+        }
+        var GAID_REGEX = /\_ga\=([A-Z0-9\.]+)\;/;
+        var match = document.cookie.match(GAID_REGEX);
+        if (match) {
+          window.___GAID___ = match[1];
+          return match[1];
+        }
+      };
+
+      function isDevEnvironment() {
+        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      };
+
+      /**
+       * Sends an event to the server to analyze later.
+       * @param  {string} eventName - Capitalized event name, like 'Search'
+       * @param  {object} details   - Object with event metadata to use later in analysis
+       */
+      window.TrackEvent = function(eventName, details) {
+        if (isDevEnvironment()) {
+          // Don't send events if we're developing locally
+          return;
+        }
+        var eventUrl = 'https://us-central1-pds-search-api.cloudfunctions.net/add' + eventName;
+        var eventPayload = Object.assign({}, details, { _ga: getGoogleAnalyticsId() });
+        postJSONToServer(eventUrl, eventPayload);
+      };
+    })();
   </script>
 </dom-module>
