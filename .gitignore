@@ -9,3 +9,4 @@ cert.key
 shrinkwrap.yml
 build/
 data/
+.DS_Store
