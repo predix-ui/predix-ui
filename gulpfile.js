@@ -339,7 +339,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
@@ -739,9 +739,17 @@ gulp.task('docs', function(callback) {
 
 /*
  * GALLERY-JSON
- * creates the json files used in the component gallery
+ * creates the json files used in the component-gallery.html
  */
-//scrape pages.json
+gulp.task('gallery-json', function(callback){
+  gulpSequence('gallery-json:component-data', 'gallery-json:tile-data')(callback);
+});
+
+/**
+ * Run 'create-pages-filter.js' to scrape over all of 'pages.json' to
+ * collect info only on the components/css modules displayed in the component gallery.
+ * Store the info in 'component-data.json'
+ */
 gulp.task('gallery-json:component-data', function(callback){
   const componentDataFunc = createPagesFilter(require('./elements/px-catalog/pages.json'));
   fs.writeFileSync('./_pages/component-gallery/component-data.json',JSON.stringify(componentDataFunc, null,2));
@@ -749,7 +757,11 @@ gulp.task('gallery-json:component-data', function(callback){
   callback();
 });
 
-// title-data
+/**
+ * Run 'create-components-info.js' to scrape over 'component-data.json' & 'repo-data.json'
+ * to create the meta data displayed on the tile in the component gallery.
+ * Store the info in 'tile-data.json'
+ */
 gulp.task('gallery-json:tile-data', function(callback){
   const titleDataFunc = createComponentsInfo(require('./pages/component-gallery/component-data.json'));
   fs.writeFileSync('./_pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
@@ -757,6 +769,3 @@ gulp.task('gallery-json:tile-data', function(callback){
   callback();
 });
 
-gulp.task('gallery-json', function(callback){
-  gulpSequence('gallery-json:component-data', 'gallery-json:tile-data')(callback);
-});

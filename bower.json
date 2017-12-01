@@ -145,6 +145,7 @@
     "iron-doc-viewer": "^3.0.0",
     "px-code-editor": "^3.0.0",
     "iron-location": "master",
-    "px-icon-set": "^2.0.0"
+    "px-icon-set": "^2.0.0",
+    "px-app-helpers": "^1.4.0"
   }
 }
