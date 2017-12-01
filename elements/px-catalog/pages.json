@@ -267,6 +267,15 @@
             ]
           },
           {
+            "path": "multi-axis",
+            "label": "Multi-Axis",
+            "module": "view-develop-vis-multi-axis",
+            "entrypoint": "/pages/develop/vis/multi-axis.html",
+            "redirects": [
+              "/guides/vis-guides-multi-axis"
+            ]
+          },
+          {
             "path": "configure-toolbar",
             "label": "Configure Toolbar",
             "module": "view-develop-vis-configure-toolbar",
