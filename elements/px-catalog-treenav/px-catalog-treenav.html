@@ -99,7 +99,7 @@
         }
         this.debounce(debouncerName, function() {
           if (Array.isArray(this.searchedRoutes)) {
-            window.TrackEvent('Search', {
+            window.TrackEvent('search', {
               term: this.searchKeyword,
               results: this.searchedRoutes
             });
