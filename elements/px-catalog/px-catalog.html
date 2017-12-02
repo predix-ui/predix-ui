@@ -469,7 +469,7 @@
       window.TrackEvent = function(eventName, details) {
         if (isDevEnvironment()) {
           // Don't send events if we're developing locally
-          // return;
+          return;
         }
         var eventUrl = 'https://us-central1-pds-search-api.cloudfunctions.net/events/' + eventName;
         var eventPayload = Object.assign({}, details, { _ga: getGoogleAnalyticsId() || '' });
