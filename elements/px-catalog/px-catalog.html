@@ -272,8 +272,20 @@
       },
 
       observers: [
-        '_routeChanged(_pagePath, appData)'
+        '_routeChanged(_pagePath, appData)',
+        '_sendViewEvent(activeName)'
       ],
+
+      _sendViewEvent(name) {
+        if (typeof name === 'string') {
+          this.async(function() {
+            window.TrackEvent('view', {
+              name: name,
+              path: '/' + window.location.hash
+            });
+          });
+        }
+      },
 
       created: function() {
         this._loadedRoutes = [];
