@@ -1,21 +1,104 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html" />
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="../../bower_components/px-tile/px-tile.html">
+<link rel="import" href="../../css/view-tools-build-status-styles.html" />
+<link rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
+
 
 <!-- Import version-finder element -->
 
 <dom-module id="view-tools-build-status">
   <template>
-    <style>
-    :host{
-      margin: 0;
-      padding: 0;
-      font-size: 15px;
-    }
-    </style>
+    <style include="view-tools-build-status-styles"></style>
+    <p class="heading--page u-m0">Build Status</p>
+
+    <div class="status-grid-wrapper">
+      <template is="dom-repeat" items="[[_components]]" index-as="index">
+        <px-tile class$="[[item.status]]" title="[[item.path]]" hoverable>
+          <!-- <div slot="thumbnail"><img src="../turbine.jpg"/></div> -->
+          <!-- <div > -->
+          <a slot="footer" href="https://travis-ci.org/PredixDev/[[item.path]]/branches">[[item.path]]</a>
+          <!-- </div> -->
+        </px-tile>
+      </template>
+    </div>
+    <px-demo-footer></px-demo-footer>
+    <iron-ajax
+      auto
+      url="/elements/px-catalog/pages.json"
+      handle-as="json"
+      last-response="{{_items}}"></iron-ajax>
+    <iron-ajax
+      id="statusReq"
+      auto
+      url=""
+      handle-as="json"
+      last-response="{{status}}"></iron-ajax>
   </template>
   <script>
     Polymer({
-      is: 'view-tools-build-status'
+      is: 'view-tools-build-status',
+      properties:{
+        _items:{
+          type: Array,
+          value: () => [],
+          observer: '_pagesDataLoaded'
+        },
+        _components:{
+          type: Array,
+          value: () => []
+        }
+      },
+      _pagesDataLoaded(ajaxReturnVal){
+        if (ajaxReturnVal && ajaxReturnVal.length) {
+          let statusReq = this.$$('#statusReq');
+          let nestedComponents = ajaxReturnVal.find(item => item.path === 'elements').pages;
+          let components = this._flattenObject(nestedComponents);
+          components.forEach( val =>{
+            this._getBuildStatus(val);
+          });
+        }
+      },
+      _flattenObject(ob){
+      	var toReturn = [];
+
+      	for (var i in ob) {
+
+      		if (!ob.hasOwnProperty(i)) continue;
+
+      		if ((typeof ob[i]) == 'object') {
+      			var flatObject = this._flattenObject(ob[i]);
+      			for (var x in flatObject) {
+      				if (!flatObject.hasOwnProperty(x)) continue;
+
+      				toReturn = toReturn.concat(flatObject[x]);
+      			}
+      		} else {
+            if (i === 'path'){
+              toReturn.push(ob[i]);
+            }
+      		}
+      	}
+      	return toReturn;
+      },
+      _getBuildStatus(item){
+        // let status;
+        const makeRequest = async () => {
+          let response = await fetch(`https://api.travis-ci.org/repositories/PredixDev/${item}.json`);
+          let data = await response.json();
+          return data;
+        }
+        makeRequest().then((result) => {
+          let status;
+          if (result.last_build_result > 0){
+            status = 'fail';
+          } else{
+            status = 'pass';
+          }
+
+          this.push('_components', {'path': item, 'status': status});
+        });
+      }
     });
   </script>
 </dom-module>

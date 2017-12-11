@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2014 GE Global Research. All rights reserved.
+ *
+ * The copyright to the computer software herein is the property of
+ * GE Global Research. The software may be used and/or copied only
+ * with the written permission of GE Global Research or in accordance
+ * with the terms and conditions stipulated in the agreement/contract
+ * under which the software has been supplied.
+ */
+
+// Settings
+@import "px-colors-design/_settings.colors.scss";
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "px-flexbox-design/_base.flexbox.scss";
+@import "px-viewport-design/_base.viewport.scss";
+@import "px-headings-design/_base.headings.scss";
+@import "px-code-design/_base.code.scss";
+
+$inuit-enable-code--inline: true;
+@import "px-code-design/_base.code.scss";
+
+$actionable: true;
+$actionable--action: true;
+$actionable--large: true;
+$actionable--huge: true;
+@import "px-actionable-design/_objects.actionable.scss";
+$inuit-enable-btn--primary: true;
+@import "px-buttons-design/_objects.buttons.scss";
+
+@import "px-layout-design/_objects.layout.scss";
+$inuit-enable-list-inline--delimited: true;
+$inuit-list-inline-delimit-character: "| ";
+@import "px-list-inline-design/_objects.list-inline.scss";
+@import "px-list-bare-design/_objects.list-bare.scss";
+
+// Component
+
+@import 'util';
+@import 'typography';
+@import 'blocks';
+@import 'layout';
+:host {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color:  var(--comonent-gallery-background, #D8E0E5) !important;
+  color: var(--px-catalog-page-text-color, black);
+  min-height: calc(100vh - #{$px-catalog-header-size-small});
+  @include media-query(lap-and-up) {
+    min-height: calc(100vh - #{$px-catalog-header-size-large});
+  }
+}
+
+.status-grid-wrapper{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+}
+
+px-tile{
+  // --px-tile-width: 15rem;
+  // --px-tile-height: 10rem;
+  // --px-tile-thumbnail-width: 0px;
+  // --px-tile-thumbnail-height: 0px;
+}
+
+.pass{
+  --px-tile-background-color : $status-green1;
+}
+.fail{
+  --px-tile-background-color : $status-red1;
+}
