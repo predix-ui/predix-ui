@@ -152,36 +152,38 @@
       },
 
       _watchVisibleAnchor: function(viewName, viewEl, scroll) {
-        if (viewName.slice(0,5) !== 'view-' || typeof scroll !== 'number' || !(viewEl instanceof HTMLElement) || !viewEl.hasAttribute('has-anchors')) {
-          return;
-        }
-        var anchors = viewEl.anchors;
-
-        var offsetPadding = 75;
-        var firstAnchorOffset = anchors[0].offsetTop - offsetPadding;
-        var anchorsLength = anchors.length
-
-        //scroll is above the first anchor point
-        if (scroll === 0 || scroll < firstAnchorOffset) {
-          this.visibleAnchor = '';
-        }
-
-        for (var i=0; i<anchors.length; i++) {
-          var topRange = anchors[i].offsetTop - offsetPadding;
-          var bottomRange;
-
-          // find bottom range of i's anchor point
-          if (i < anchors.length-1) {
-            bottomRange = anchors[i+1].offsetTop - offsetPadding;
+        if(! (viewName === undefined || viewEl === undefined || scroll === undefined)){
+          if (viewName.slice(0,5) !== 'view-' || typeof scroll !== 'number' || !(viewEl instanceof HTMLElement) || !viewEl.hasAttribute('has-anchors')) {
+            return;
           }
-          // if i is the last anchor point set the bottom range to the scroll height
-          else if (scroll > firstAnchorOffset) {
-            bottomRange = this.scrollHeight;
+          var anchors = viewEl.anchors;
+
+          var offsetPadding = 75;
+          var firstAnchorOffset = anchors[0].offsetTop - offsetPadding;
+          var anchorsLength = anchors.length
+
+          //scroll is above the first anchor point
+          if (scroll === 0 || scroll < firstAnchorOffset) {
+            this.visibleAnchor = '';
           }
 
-          if (scroll > topRange && scroll < bottomRange ){
-            this.visibleAnchor = '#' + anchors[i].id;
-            break;
+          for (var i=0; i<anchors.length; i++) {
+            var topRange = anchors[i].offsetTop - offsetPadding;
+            var bottomRange;
+
+            // find bottom range of i's anchor point
+            if (i < anchors.length-1) {
+              bottomRange = anchors[i+1].offsetTop - offsetPadding;
+            }
+            // if i is the last anchor point set the bottom range to the scroll height
+            else if (scroll > firstAnchorOffset) {
+              bottomRange = this.scrollHeight;
+            }
+
+            if (scroll > topRange && scroll < bottomRange ){
+              this.visibleAnchor = '#' + anchors[i].id;
+              break;
+            }
           }
         }
       },

@@ -16,7 +16,7 @@
     <style include="px-catalog-page-styles"></style>
     <style include="px-catalog-version-finder-styles"></style>
 
-    <iron-ajax auto url="versions.json" last-response="{{versions}}"></iron-ajax>
+    <iron-ajax auto url="[[importPath]]versions.json" last-response="{{versions}}"></iron-ajax>
 
     <section class="page">
       <h2 class="selected">Version Finder</h2>
@@ -103,7 +103,7 @@
               filtered.push(versions[i]);
             }
           }
-          return filtered;  
+          return filtered;
         }
       },
 
