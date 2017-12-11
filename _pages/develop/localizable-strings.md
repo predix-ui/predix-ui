@@ -84,6 +84,7 @@ Please note that letter case matters.
 * `'Show/Hide Column'`
 * `'Filter'`
 * `'Selected'`
+* `'No Results'`
 
 ### px-inbox
 * `'Back'`
