@@ -92,17 +92,19 @@
         }
       },
 
-      getFilteredVersions: function(versions) {
-        if (!Array.isArray(this.chosenComponents) || this.chosenComponents.length === 0) {
-          return versions.slice(0);
-        }
-        var filtered = [];
-        for (var i=0; i<versions.length; i++) {
-          if (this.chosenComponents.indexOf(versions[i].name) > -1) {
-            filtered.push(versions[i]);
+      getFilteredVersions: function(versions, chosenComponents) {
+        if(! (versions === undefined || chosenComponents === undefined)){
+          if (!Array.isArray(this.chosenComponents) || this.chosenComponents.length === 0) {
+            return versions.slice(0);
           }
+          var filtered = [];
+          for (var i=0; i<versions.length; i++) {
+            if (this.chosenComponents.indexOf(versions[i].name) > -1) {
+              filtered.push(versions[i]);
+            }
+          }
+          return filtered;  
         }
-        return filtered;
       },
 
       getComponentNames: function(versions) {
