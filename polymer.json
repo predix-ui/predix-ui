@@ -213,5 +213,8 @@
         "minify": false
       }
     }
-  ]
+  ],
+  "lint": {
+    "rules": ["polymer-2"]
+  }
 }
