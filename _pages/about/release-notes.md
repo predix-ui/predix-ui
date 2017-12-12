@@ -21,10 +21,6 @@ Included in this release is:
 
 We’re really excited about the new designs, and very much appreciative of all the contributions to this effort from the community. For specifics on the release, please read the [Q2 2017 release notes](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/predix-design-system-release-notes).
 
-<link rel="import" href="../../bower_components/polymer/polymer.html" />
-<link rel="import" href="../../bower_components/px-clipboard/px-clipboard.html">
-<link rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
-
 # FAQ
 
 ### Q: Why release a new aesthetic to the Predix Design System?
