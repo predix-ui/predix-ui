@@ -46,9 +46,6 @@
     "bower_components/px-branding-bar/demo/px-branding-bar-demo.html",
     "bower_components/px-breadcrumbs/demo/px-breadcrumbs-demo.html",
     "bower_components/px-card/demo/px-card-demo.html",
-    "bower_components/px-card/demo/px-card-behavior-demo.html",
-    "bower_components/px-card/demo/px-dashboard-demo.html",
-    "bower_components/px-card/demo/px-deck-demo.html",
     "bower_components/px-deck-selector/demo/px-deck-selector-demo.html",
     "bower_components/px-widget-cards/demo/px-widget-cards-demo.html",
     "bower_components/px-chip/demo/px-chip-demo.html",
@@ -181,7 +178,7 @@
     "service-worker.js",
     "CNAME",
     "favicon.ico",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/webcomponentsjs/webcomponents-loader.js",
     "bower_components/px-*/px-*-api.json",
     "bower_components/px-*-design/sassdoc.json",
     "bower_components/px-demo/monogram-wdmk.png",
@@ -215,6 +212,8 @@
     }
   ],
   "lint": {
-    "rules": ["polymer-2"]
+    "rules": [
+      "polymer-2"
+    ]
   }
 }

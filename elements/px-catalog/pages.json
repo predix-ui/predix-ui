@@ -1285,60 +1285,21 @@
         "label": "Cards",
         "pages": [
           {
-            "path": "card",
-            "label": "Card",
+            "path": "px-card",
+            "label": "Card Element",
+            "module": "px-card-demo",
+            "entrypoint": "/bower_components/px-card/demo/px-card-demo.html",
+            "redirects": [
+              "/components/px-card",
+              "/modules/px-card"
+            ],
             "keywords": [
               "px-card",
               "card"
             ],
-            "pages": [
-              {
-                "path": "px-card",
-                "label": "Card Element",
-                "module": "px-card-demo",
-                "entrypoint": "/bower_components/px-card/demo/px-card-demo.html",
-                "redirects": [
-                  "/components/px-card",
-                  "/modules/px-card"
-                ],
-                "tags": [
-                  "mobile",
-                  "layout"
-                ]
-              },
-              {
-                "path": "px-card-behavior",
-                "label": "Card Behavior",
-                "module": "px-card-behavior-demo",
-                "entrypoint": "/bower_components/px-card/demo/px-card-behavior-demo.html",
-                "redirects": [
-                  "/components/px-card-behavior",
-                  "/modules/px-card-behavior"
-                ],
-                "subcomponent": true
-              },
-              {
-                "path": "px-dashboard",
-                "label": "Card Dashboard",
-                "module": "px-dashboard-demo",
-                "entrypoint": "/bower_components/px-card/demo/px-dashboard-demo.html",
-                "redirects": [
-                  "/components/px-dashboard",
-                  "/modules/px-dashboard"
-                ],
-                "subcomponent": true
-              },
-              {
-                "path": "px-deck",
-                "label": "Card Deck",
-                "module": "px-deck-demo",
-                "entrypoint": "/bower_components/px-card/demo/px-deck-demo.html",
-                "redirects": [
-                  "/components/px-deck",
-                  "/modules/px-deck"
-                ],
-                "subcomponent": true
-              }
+            "tags": [
+              "mobile",
+              "layout"
             ]
           },
           {

@@ -339,24 +339,6 @@
     "entryPoint": "bower_components/px-card/demo/px-card-demo.html"
   },
   {
-    "componentName": "px-card-behavior",
-    "label": "Card Behavior",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-card/demo/px-card-behavior-demo.html"
-  },
-  {
-    "componentName": "px-dashboard",
-    "label": "Card Dashboard",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-card/demo/px-dashboard-demo.html"
-  },
-  {
-    "componentName": "px-deck",
-    "label": "Card Deck",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-card/demo/px-deck-demo.html"
-  },
-  {
     "componentName": "px-deck-selector",
     "label": "Deck Selector",
     "tags": [

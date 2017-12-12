@@ -304,7 +304,7 @@
   {
     "name": "px-card",
     "title": "Card Element",
-    "description": "Cards consist of a header area and content area. The header can      optionally contain a descriptive icon in the top left corner and/or an actions area in the top right corner      for settings or other action icons. Cards are incredibly flexible in terms of what content can be      placed in the main area of the card and how it's arranged. A few layout configurations are provided      in the px-widget-cards component to help you organize content in a responsive grid within a card.",
+    "description": "The px-card component shows content formatted as a card. Cards consist of header, actions, and content areas. Place content directly inside the <px-card> tag to display it in the card content area.",
     "imageUrl": "../img/component-gallery/card",
     "imageAlt": "Card Element thumbnail",
     "tags": [
@@ -688,7 +688,7 @@
   {
     "name": "px-modal",
     "title": "Modal",
-    "description": "Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. The modal is a somewhat contentious UI element – sometimes there is no way around it, but generally speaking, using modals frequently or stacking modals on modals should be avoided.",
+    "description": "Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. Avoid using modals frequently or stacking modals.",
     "imageUrl": "../img/component-gallery/modal",
     "imageAlt": "Modal thumbnail",
     "tags": [
