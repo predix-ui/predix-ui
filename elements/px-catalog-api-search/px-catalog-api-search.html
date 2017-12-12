@@ -106,13 +106,15 @@
       },
 
       _findMatches: function(lunr, source, term) {
-        this.debounce('find-matches', function() {
-          var matchingEntries = lunr.search(term).slice(0,100);
-          var matchingResults = matchingEntries.map(function(entry) {
-            return source.documents[source.index[entry.ref]];
-          });
-          this._results = this._groupByElement(matchingResults);
-        }, 100);
+        if(! (lunr === undefined || source === undefined || term === undefined)){
+          this.debounce('find-matches', function() {
+            var matchingEntries = lunr.search(term).slice(0,100);
+            var matchingResults = matchingEntries.map(function(entry) {
+              return source.documents[source.index[entry.ref]];
+            });
+            this._results = this._groupByElement(matchingResults);
+          }, 100);
+        }
       },
 
       _itIs(a, b) {
