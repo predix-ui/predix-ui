@@ -451,10 +451,21 @@
 
     (function() {
       function postJSONToServer(url, body) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(body));
+        return new Promise((resolve, reject) => {
+          let xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                resolve();
+              } else {
+                reject();
+              }
+            }
+          };
+          xhr.open('POST', url, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(JSON.stringify(body));
+        });
       };
 
       function getGoogleAnalyticsId() {
@@ -473,19 +484,53 @@
         return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       };
 
+      /*
+       * Check if the user is staff (has a localStore entry for 'pds_staff').
+       * Don't send requests for staff to keep the data clean and keep our
+       * quote usage down.
+       *
+       * To set yourself as staff run the following in your browser JS console
+       * while you're browsing any page on http://www.predix-ui.com:
+       *
+       * ```
+       * localStorage.setItem("pds_staff", true);
+       * ```
+       */
+      function isStaff() {
+        return localStorage.getItem('pds_staff') === 'true'
+      };
+
+      /*
+       * Incremented when any events fail to send to the server. If 2 events
+       * fail send in a row give up and stop sending events for this session.
+       * When the user refreshes the fail count will reset.
+       */
+      let failedEvents = 0;
+
       /**
        * Sends an event to the server to analyze later.
        * @param  {string} eventName - Capitalized event name, like 'Search'
        * @param  {object} details   - Object with event metadata to use later in analysis
        */
       window.TrackEvent = function(eventName, details) {
-        if (isDevEnvironment()) {
-          // Don't send events if we're developing locally
+        if (failedEvents >= 2) {
+          // Too many failures, stop sending events for this session
+          return;
+        }
+        if (isDevEnvironment() || isStaff()) {
+          // Don't send events if developing locally or if the user is
+          // a design system staffer
           return;
         }
         var eventUrl = 'https://us-central1-pds-search-api.cloudfunctions.net/events/' + eventName;
         var eventPayload = Object.assign({}, details, { _ga: getGoogleAnalyticsId() || '' });
-        postJSONToServer(eventUrl, eventPayload);
+        postJSONToServer(eventUrl, eventPayload)
+          .then(() => {
+            failedEvents = 0;
+          })
+          .catch(() => {
+            failedEvents = failedEvents + 1;
+          });
       };
     })();
   </script>
