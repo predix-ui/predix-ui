@@ -58,7 +58,7 @@ a {
 }
 
 // *** CUSTOM BUTTON COLORS ** //
-:root{
+:host{
   --px-btn-primary-color: var(--px-hero-btn-primary-color, $white);
   --px-btn-primary-background: var(--px-hero-btn-primary-background, $select-default);
   --px-btn-primary-background--hover: var(--px-hero-btn-primary-background--hover, $select-hover);

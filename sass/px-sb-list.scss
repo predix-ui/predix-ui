@@ -23,12 +23,6 @@ $inuit-enable-list-inline--delimited: true;
 $inuit-list-inline-delimit-character: "| ";
 @import "px-list-inline-design/_objects.list-inline.scss";
 
-body,
-html {
-  font: GE Inspira Sans;
-  overflow: hidden;
-}
-
 a, .sb-list__category{
   color: rgb(255,255,255);
   color: var(--px-catalog-nav-text-color, lightgray);
