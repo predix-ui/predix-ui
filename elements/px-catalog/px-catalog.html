@@ -348,17 +348,21 @@
         }
 
         // Load and/or show the module for this path
-        this.spinnerActive = true;
+        var spinnerAsyncHandle = this.async( () => {
+          this.spinnerActive = true;
+        }, 500)
         if (this._loadedRoutes.indexOf(pageInfo.entrypoint) === -1) {
           // Page entrypoint not yet loaded
           var url = this.resolveUrl(pageInfo.entrypoint);
           this.importHref(url, function() {
+            this.cancelAsync(spinnerAsyncHandle);
             this.spinnerActive = false;
             this._loadedRoutes.push(pageInfo.entrypoint);
             window.dispatchEvent(new CustomEvent('page-loaded'));
           }.bind(this), null, false);
         }
         else {
+          this.cancelAsync(spinnerAsyncHandle);
           this.spinnerActive = false;
         }
 
