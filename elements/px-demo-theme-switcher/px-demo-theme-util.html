@@ -1,0 +1,157 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+<script src="css-parse.js"></script>
+<script src="style-properties.js"></script>
+
+<script>
+  (function(){
+    window.PxDemo = (window.PxDemo || {});
+    var ThemeUtil = window.PxDemo.ThemeUtil = (window.PxDemo.ThemeUtil || {});
+    var cache = ThemeUtil.__themeCache = (ThemeUtil.__themeCache || {});
+
+    /**
+     * Fetches the CSS properties for a theme by looking inside that theme's
+     * `:root` selector. Call with name of the theme's dom-module (e.g.
+     * "px-theme-styles"). Returns an object with the theme's property names
+     * and values extracted into key/value pairs.
+     *
+     * @param  {string} moduleName
+     * @return {Object}
+     */
+    ThemeUtil.extractThemeProperties = function(moduleName) {
+      // Collects the rules for theme named "px-theme-styles"
+      // Second arg squashes error if the theme isn't found
+      // Returns raw string of CSS text
+      var themeCSSText = Polymer.StyleGather.cssFromModule(moduleName, false);
+
+      if (themeCSSText === "") {
+        // No theme found with this moduleName
+        return null;
+      }
+
+
+      // Parse out the CSS rules from the raw CSS text
+      var themeCSSParsed = Px.CssParse.parse(themeCSSText);
+      var themeCSSRules = themeCSSParsed.rules;
+
+      // Filter the theme to find only the rule for the `:root`
+      // selector (all the color style vars are under this)
+      var themeRootStyleRule = null;
+      for (var i=0; i<themeCSSRules.length; i++) {
+        if (themeCSSRules[i].parsedSelector === 'html') {
+          themeRootStyleRule = themeCSSRules[i];
+        }
+      }
+
+      // The collectProperties method will take the parsed
+      // CSS text, extract each custom property, and add
+      // the property to `styleProperties`
+      var styleProperties = {};
+      Px.StyleProperties.collectProperties(themeRootStyleRule, styleProperties);
+
+      return styleProperties;
+    };
+
+    ThemeUtil.getDefaultThemeProperties = function() {
+      if (cache.defaultTheme) {
+        return cache.defaultTheme;
+      }
+
+      var defaultTheme = ThemeUtil.extractThemeProperties("px-theme-styles");
+      var defaultDemoTheme = ThemeUtil._getDefaultDemoTheme();
+      if (defaultTheme === null || defaultDemoTheme === null) {
+        return null;
+      }
+      return (cache.defaultTheme = Object.assign({}, defaultDemoTheme, defaultTheme));
+    };
+
+    ThemeUtil.getDarkThemeProperties = function() {
+      if (cache.darkTheme) {
+        return cache.darkTheme;
+      }
+
+      var darkTheme = ThemeUtil.extractThemeProperties("px-dark-theme-styles");
+      var darkDemoTheme = ThemeUtil._getDarkDemoTheme();
+      if (darkTheme === null || darkDemoTheme === null) {
+        return null;
+      }
+      return (cache.darkTheme = Object.assign({}, darkTheme, darkDemoTheme));
+    };
+
+    ThemeUtil._getDefaultDemoTheme = function() {
+      if (cache.defaultDemoTheme) {
+        return cache.defaultDemoTheme;
+      }
+      var darkDemoTheme = ThemeUtil._getDarkDemoTheme();
+      if (darkDemoTheme === null) {
+        return null;
+      }
+      var darkDemoThemeProps = Object.keys(darkDemoTheme);
+      var theme = {};
+      for (var i=0; i<darkDemoThemeProps.length; i++) {
+        theme[darkDemoThemeProps[i]] = null;
+      }
+      return (cache.defaultDemoTheme = theme);
+    };
+
+    ThemeUtil._getDarkDemoTheme = function() {
+      if (cache.darkDemoTheme) {
+        return cache.darkDemoTheme;
+      }
+      return (cache.darkDemoTheme = ThemeUtil.extractThemeProperties("px-dark-demo-theme-styles"));
+    };
+
+    /*
+     * Object.assign polyfill for IE11. Will only be used if `Object.assign` does
+     * not already exist on the window (e.g. won't overwrite globals if it
+     * does not need to).
+     *
+     * Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+     *
+     * The following license applies only to the Object.assign polyfill code below.
+     *
+     * Copyright 2015 sjohnsonaz (MDN contributor)
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a
+     * copy of this software and associated documentation files (the "Software"),
+     * to deal in the Software without restriction, including without limitation
+     * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+     * and/or sell copies of the Software, and to permit persons to whom the
+     * Software is furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in
+     * all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+     * DEALINGS IN THE SOFTWARE.
+     */
+    if (typeof Object.assign != 'function') {
+      Object.assign = function(target, varArgs) { // .length of function is 2
+        'use strict';
+        if (target == null) { // TypeError if undefined or null
+          throw new TypeError('Cannot convert undefined or null to object');
+        }
+
+        var to = Object(target);
+
+        for (var index = 1; index < arguments.length; index++) {
+          var nextSource = arguments[index];
+
+          if (nextSource != null) { // Skip over if undefined or null
+            for (var nextKey in nextSource) {
+              // Avoid bugs when hasOwnProperty is shadowed
+              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                to[nextKey] = nextSource[nextKey];
+              }
+            }
+          }
+        }
+        return to;
+      };
+    }
+  })();
+</script>

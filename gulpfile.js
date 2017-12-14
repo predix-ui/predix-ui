@@ -50,7 +50,7 @@ const createComponentsInfo = require('./scripts/json-builder/create-components-i
 const createPagesFilter = require('./scripts/json-builder/create-pages-filter.js');
 const LunrIndexer = require('./scripts/lunr-indexer/index.js');
 const exec = require('child_process').exec;
-
+const rollup = require('rollup');
 
 
 /*******************************************************************************
@@ -164,14 +164,14 @@ gulp.task('bump:major', function(){
  * the browser when files are updated.
  ******************************************************************************/
 
-gulp.task('serve', ['sass', 'docs', 'generate-api'], function() {
+gulp.task('serve', ['sass', 'docs', 'generate-api', 'build-polymer-scripts'], function() {
   browserSync.init(browserSyncOptions);
   gulp.watch(['_pages/**/*.md', '_pages/**/*.html', 'elements/px-catalog/pages.json'], ['docs']);
   gulp.watch(['sass/*.scss'], ['sass']);
   gulp.watch(['css/*-styles.html', '*.html', 'pages/**/*.html']).on('change', browserSync.reload);
 });
 
-gulp.task('serve:serverless', ['sass', 'docs', 'generate-api'], function() {
+gulp.task('serve:serverless', ['sass', 'docs', 'generate-api', 'build-polymer-scripts'], function() {
   gulp.watch(['_pages/**/*.md', '_pages/**/*.html', 'elements/px-catalog/pages.json'], ['docs']);
   gulp.watch(['sass/*.scss'], ['sass']);
 });
@@ -196,7 +196,7 @@ This task now does the following:
 
 And... you probably want to run \`gulp serve\` instead of this task. :)
     `);
-  gulpSequence('generate-api', 'sass', 'docs', 'generate-service-worker')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'build-polymer-scripts', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -328,7 +328,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'generate-service-worker', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -339,7 +339,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
@@ -695,6 +695,30 @@ gulp.task('generate-api', function(cb){
   });
 });
 
+gulp.task('build-polymer-scripts', async function () {
+  const bundle = await rollup.rollup({
+    input: 'bower_components/shadycss/src/css-parse.js'
+  });
+
+  await bundle.write({
+    file: 'elements/px-demo-theme-switcher/css-parse.js',
+    format: 'iife',
+    name: 'Px.CssParse',
+    sourcemap: true
+  });
+
+  const bundle2 = await rollup.rollup({
+    input: 'bower_components/shadycss/src/style-properties.js'
+  });
+
+  await bundle2.write({
+    file: 'elements/px-demo-theme-switcher/style-properties.js',
+    format: 'iife',
+    name: 'Px.StyleProperties',
+    sourcemap: true
+  });
+});
+
 gulp.task('docs:pages-json', function(cb){
   const pagesPath = path.join(__dirname, 'elements', 'px-catalog', 'pages.json');
   const outputPath = path.join(__dirname, 'pages', 'app-data.json');
@@ -768,4 +792,3 @@ gulp.task('gallery-json:tile-data', function(callback){
   fs.writeFileSync('./pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   callback();
 });
-

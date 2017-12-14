@@ -1,0 +1,159 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+<link rel="import" href="px-demo-theme-util.html"/>
+
+<script>
+  (function(){
+    /*
+     * Each element `origin` should be the protocol + hostname + port (if other
+     * than 80) where both the iFrame and parent will be hosted. This cannot
+     * be dynamic to prevent cross-site scripting attacks. When developing,
+     * comment out the 'https://www.predix-ui.com' origin and set the variable
+     * to the origin you develop from (e.g. 'http://localhost:8000').
+     *
+     * Make sure the origin is changed back before pushing changes or this will
+     * not work in production.
+     */
+
+    function inFrame() {
+      try { return window.self !== window.top; }
+      catch (e) { return true; }
+    };
+
+    Polymer({
+      is: 'px-demo-theme-switcher',
+
+      properties: {
+        isDarkTheme: {
+          type: Boolean,
+          value: false,
+          observer: '_themeChanged'
+        }
+      },
+
+      _themeChanged: function(isDarkTheme, wasDarkTheme) {
+        if (isDarkTheme === false && typeof wasDarkTheme === 'undefined') {
+          return;
+        }
+        if (isDarkTheme && !wasDarkTheme) {
+          var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+          if (darkTheme === null) {
+            console.log('Dark theme not loaded. Try again later.');
+            return;
+          }
+          Polymer.updateStyles(darkTheme);
+        }
+        else if (!isDarkTheme && wasDarkTheme) {
+          var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
+          if (defaultTheme === null) {
+            console.log('Theme not loaded. Try again later.');
+            return;
+          }
+          Polymer.updateStyles(defaultTheme);
+        }
+      }
+    });
+
+    Polymer({
+      is: 'px-demo-theme-switcher-frame',
+
+      properties: {
+        origin: {
+          type: String
+        },
+        isDarkTheme: {
+          type: Boolean,
+          notify: true
+        }
+      },
+
+      created: function() {
+        this._boundMessageHandler = this._handleParentMessage.bind(this);
+        this._inFrame = inFrame();
+      },
+
+      attached: function() {
+        if (this._inFrame) {
+          window.addEventListener('message', this._boundMessageHandler, false);
+          this._requestParentTheme();
+        }
+      },
+
+      detached: function() {
+        if (this._inFrame) {
+          window.removeEventListener('message', this._boundMessageHandler, false);
+        }
+      },
+
+      _handleParentMessage: function(evt) {
+        if (evt.origin !== this.origin || evt.data.type !== 'THEME_STATUS' || typeof evt.data.IS_DARK_THEME !== 'boolean') {
+          return;
+        }
+        this.isDarkTheme = evt.data.IS_DARK_THEME;
+      },
+
+      _requestParentTheme: function() {
+        if (!this.origin) return;
+        parent.postMessage({ type: 'REQUEST_THEME_STATUS' }, this.origin);
+      }
+    });
+
+    Polymer({
+      is: 'px-demo-theme-switcher-parent',
+
+      properties: {
+        origin: {
+          type: String
+        },
+        isDarkTheme: {
+          type: Boolean,
+          value: null,
+          observer: '_themeChanged'
+        },
+        childFrame: {
+          type: HTMLElement,
+          value: null,
+          observer: '_frameChanged'
+        }
+      },
+
+      created: function() {
+        this._boundMessageHandler = this._handleChildMessage.bind(this);
+      },
+
+      detached: function() {
+        if (this.childFrame) {
+          this.childFrame = null;
+        }
+      },
+
+      _themeChanged: function() {
+        if (this.childFrame && this.childFrame.contentWindow && typeof this.isDarkTheme === 'boolean') {
+          this._sendThemeToChild(this.childFrame.contentWindow, this.isDarkTheme);
+        }
+      },
+
+      _handleChildMessage: function(evt) {
+        if (evt.origin !== this.origin || evt.data.type !== 'REQUEST_THEME_STATUS') {
+          return;
+        }
+
+        this._themeChanged();
+      },
+
+      _sendThemeToChild: function(child, isDarkTheme) {
+        if (!this.origin) return;
+        child.postMessage({ type: 'THEME_STATUS', IS_DARK_THEME: isDarkTheme }, this.origin);
+      },
+
+      _frameChanged: function(newFrame, oldFrame) {
+        if (oldFrame && oldFrame.contentWindow) {
+          oldFrame.contentWindow.removeEventListener('message', this._boundMessageHandler, false);
+        }
+        if (newFrame && newFrame.contentWindow) {
+          newFrame.contentWindow.addEventListener('message', this._boundMessageHandler, false);
+          this._themeChanged();
+        }
+      }
+    })
+  })();
+</script>

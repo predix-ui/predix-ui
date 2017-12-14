@@ -510,7 +510,7 @@
   {
     "name": "px-simple-win-loss-chart",
     "title": "Simple Win-Loss Chart",
-    "description": "Use this component to visualize a series of positive & negative values as a bar chart. The series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally representing a value.       Positive values are represented above the x-axis in one color, and negative values are displayed below the axis, in a different color - these two colors are configurable. The width and height of the component are also configurable, or can be set to \"auto\" for a responsive layout.",
+    "description": "Use this component to visualize a series of positive & negative values as a bar chart. The series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally representing a value.    Positive values are represented above the x-axis in one color, and negative values are displayed below the axis, in a different color - these two colors are configurable. The width and height of the component are also configurable, or can be set to \"auto\" for a responsive layout.",
     "imageUrl": "../img/component-gallery/simple-win-loss-chart",
     "imageAlt": "Simple Win-Loss Chart thumbnail",
     "tags": [
