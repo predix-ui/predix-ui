@@ -771,17 +771,6 @@
     ]
   },
   {
-    "name": "px-table-view",
-    "title": "Table View",
-    "description": "The px-table-view element creates a table-style list of items that can be interacted with by the user. It works the way users expect from a native mobile app, allowing swiping, tapping and re-ordering of list items. Use px-table-view to create list-style interfaces like menus or to display arbitrary sets of related data that can be acted on.",
-    "imageUrl": "../img/component-gallery/table-view",
-    "imageAlt": "Table View thumbnail",
-    "tags": [
-      "data display",
-      "mobile"
-    ]
-  },
-  {
     "name": "px-tabs",
     "title": "Tabs",
     "description": "A classic design for organizing content on multiple tabs.",

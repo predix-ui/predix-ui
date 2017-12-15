@@ -3146,66 +3146,6 @@
         ]
       },
       {
-        "path": "table-view",
-        "label": "Table View",
-        "keywords": [
-          "px-table-view",
-          "table",
-          "view",
-          "table-view",
-          "mobile"
-        ],
-        "pages": [
-          {
-            "path": "px-table-view",
-            "label": "Table View",
-            "module": "px-table-view-demo",
-            "entrypoint": "/bower_components/px-table-view/demo/px-table-view-demo.html",
-            "redirects": [
-              "/components/px-table-view",
-              "/modules/px-table-view"
-            ],
-            "tags": [
-              "data display",
-              "mobile"
-            ]
-          },
-          {
-            "path": "px-table-view-sortable-list",
-            "label": "Table View Sortable",
-            "module": "px-table-view-sortable-list-demo",
-            "entrypoint": "/bower_components/px-table-view/demo/px-table-view-sortable-list-demo.html",
-            "redirects": [
-              "/components/px-table-view-sortable-list",
-              "/modules/px-table-view-sortable-list"
-            ],
-            "subcomponent": true
-          },
-          {
-            "path": "px-table-row",
-            "label": "Table Row",
-            "module": "px-table-row-demo",
-            "entrypoint": "/bower_components/px-table-view/demo/px-table-row-demo.html",
-            "redirects": [
-              "/components/px-table-row",
-              "/modules/px-table-row"
-            ],
-            "subcomponent": true
-          },
-          {
-            "path": "px-table-row-action-button",
-            "label": "Table Row Action Button",
-            "module": "px-table-row-action-button-demo",
-            "entrypoint": "/bower_components/px-table-view/demo/px-table-row-action-button-demo.html",
-            "redirects": [
-              "/components/px-table-row-action-button",
-              "/modules/px-table-row-action-button"
-            ],
-            "subcomponent": true
-          }
-        ]
-      },
-      {
         "path": "px-tabs",
         "label": "Tabs",
         "module": "px-tabs-demo",

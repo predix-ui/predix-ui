@@ -1062,33 +1062,6 @@
     "entryPoint": "bower_components/px-steps/demo/px-steps-demo.html"
   },
   {
-    "componentName": "px-table-view",
-    "label": "Table View",
-    "tags": [
-      "data display",
-      "mobile"
-    ],
-    "entryPoint": "bower_components/px-table-view/demo/px-table-view-demo.html"
-  },
-  {
-    "componentName": "px-table-view-sortable-list",
-    "label": "Table View Sortable",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-table-view/demo/px-table-view-sortable-list-demo.html"
-  },
-  {
-    "componentName": "px-table-row",
-    "label": "Table Row",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-table-view/demo/px-table-row-demo.html"
-  },
-  {
-    "componentName": "px-table-row-action-button",
-    "label": "Table Row Action Button",
-    "subcomponent": true,
-    "entryPoint": "bower_components/px-table-view/demo/px-table-row-action-button-demo.html"
-  },
-  {
     "componentName": "px-tabs",
     "label": "Tabs",
     "tags": [
