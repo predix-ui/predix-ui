@@ -39,9 +39,11 @@
         selected="[[activeModule]]"
         selected-item="{{_activeModuleEl}}">
     </iron-pages>
-    <div class="spinner">
-      <px-spinner finished="[[!spinnerActive]]" size="150"></px-spinner>
-    </div>
+    <template is="dom-if" if="[[spinnerActive]]" restamp>
+      <div class="spinner">
+        <px-spinner size="150"></px-spinner>
+      </div>
+    </template>
   </template>
   <script>
     Polymer({
