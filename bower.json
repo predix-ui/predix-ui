@@ -140,10 +140,8 @@
     "webcomponentsjs": "^1.0.0",
     "polymer": "^2.0.0",
     "iron-location": "^2.0.1",
-    "px-app-helpers": "^2.0.0",
-    "px-view-header": "^2.0.0",
-    "px-card": "^2.0.0",
     "px-calendar-picker": "^2.0.0",
-    "px-datetime-common": "^2.0.1"
+    "px-datetime-common": "^2.0.1",
+    "px-app-helpers": "^2.0.1"
   }
 }

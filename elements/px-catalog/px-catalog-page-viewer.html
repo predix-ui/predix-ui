@@ -246,39 +246,42 @@
         }
       },
       _applyTheme: function(el, darkTheme, retry) {
-        retry = retry || 1;
-        if (!el) {
-          return;
-        }
-        if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
-          var retries = (retry+1);
-          var timeout = (retries < 10) ? 10 : 1000;
-          this.async(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
-          return;
-        }
+        this.debounce('applyTheme', ()=>{
+          el = this._activeModuleEl;
+          retry = retry || 1;
+          if (!el) {
+            return;
+          }
+          if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
+            var retries = (retry+1);
+            var timeout = (retries < 10) ? 10 : 1000;
+            this.async(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
+            return;
+          }
 
-        var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
-        var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
-        var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
+          var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
+          var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
+          var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
 
-        if (darkTheme && needDyanmicTheme) {
-          el.setAttribute('dark-theme', '');
-          var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
-          el.updateStyles(darkTheme);
-        }
-        else if (!darkTheme && needDyanmicTheme) {
-          el.removeAttribute('dark-theme');
-          var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
-          el.updateStyles(defaultTheme);
-        }
-        else if (darkTheme && !needDyanmicTheme) {
-          el.setAttribute('dark-theme', '');
-          el.updateStyles();
-        }
-        else if (!darkTheme && !needDyanmicTheme) {
-          el.removeAttribute('dark-theme');
-          el.updateStyles();
-        }
+          if (this.darkTheme && needDyanmicTheme) {
+            el.setAttribute('dark-theme', '');
+            var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+            el.updateStyles(darkTheme);
+          }
+          else if (!this.darkTheme && needDyanmicTheme) {
+            el.removeAttribute('dark-theme');
+            var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
+            el.updateStyles(defaultTheme);
+          }
+          else if (this.darkTheme && !needDyanmicTheme) {
+            el.setAttribute('dark-theme', '');
+            el.updateStyles();
+          }
+          else if (!this.darkTheme && !needDyanmicTheme) {
+            el.removeAttribute('dark-theme');
+            el.updateStyles();
+          }
+        },250);
       }
     })
   </script>
