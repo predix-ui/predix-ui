@@ -490,7 +490,7 @@
   {
     "name": "px-simple-horizontal-bar-chart",
     "title": "Simple Horizontal Bar Chart",
-    "description": "The Simple Horizontal Bar Chart provides a quick way to visualize data in bars.     Each series is represented by a sequence of verically aligned bars, the length of     each proportionally representing a value.     It uses the data visualization color palette by default, but this can be overridden with configuration. The height and     width are configurable, as are the legend labels – if none are provided, the legend will not be shown.     We recommend using the default settings as they are designed for proper performance.",
+    "description": "The Simple Horizontal Bar Chart provides a quick way to visualize data in bars.    Each series is represented by a sequence of verically aligned bars, the length of    each proportionally representing a value.    It uses the data visualization color palette by default, but this can be overridden with configuration. The height and    width are configurable, as are the legend labels – if none are provided, the legend will not be shown.    We recommend using the default settings as they are designed for proper performance.",
     "imageUrl": "../img/component-gallery/simple-horizontal-bar-chart",
     "imageAlt": "Simple Horizontal Bar Chart thumbnail",
     "tags": [
@@ -500,7 +500,7 @@
   {
     "name": "px-simple-line-chart",
     "title": "Simple Line Chart",
-    "description": "The Simple Line Chart provides a quick way to visualize linear data. Configuration options include     setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line     at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing     the labels of the min, max, and threshold.",
+    "description": "The Simple Line Chart provides a quick way to visualize linear data. Configuration options include    setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line    at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing    the labels of the min, max, and threshold.",
     "imageUrl": "../img/component-gallery/simple-line-chart",
     "imageAlt": "Simple Line Chart thumbnail",
     "tags": [

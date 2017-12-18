@@ -12,11 +12,9 @@
 <link async rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
 <link async rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
 <link defer rel="import" href="../../bower_components/app-route/app-location.html" />
-<link async rel="import" href="../../bower_components/px-spinner/px-spinner.html" />
 <link defer rel="import" href="../../bower_components/px-toggle/px-toggle.html" />
 <link defer rel="import" href="../../bower_components/px-icon-set/px-icon-set-navigation.html">
 <link defer rel="import" href="../../bower_components/px-icon-set/px-icon.html">
-<link defer rel="import" href="../px-demo-theme-switcher/px-demo-theme-switcher.html">
 <link defer rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link defer rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link defer rel="import" href="../../bower_components/px-alert-message/px-alert-message.html" />
@@ -32,19 +30,8 @@
     <style include="px-catalog-styles"></style>
 
     <style>
-      .catalog__spinner {
-        position: absolute;
-        z-index: 999;
-        width: 100%;
-        height: 100%;
-        background: #fff;
-      }
       .dark-theme {
         background: #23343F;
-      }
-      #spinner px-spinner {
-        margin-left: auto;
-        margin-right: auto;
       }
       .alert-message-container {
         position: fixed;
@@ -85,7 +72,7 @@
     <!-- Load the navigation JSON file -->
     <iron-ajax
         auto
-        url="/pages/app-data.json"
+        url="[[importPath]]../../pages/app-data.json"
         last-response="{{appData}}">
     </iron-ajax>
 
@@ -171,7 +158,6 @@
          */
         darkTheme: {
           type: Boolean,
-          observer: '_handleDarkThemeChanged',
           reflectToAttribute: true
         },
 
@@ -432,14 +418,6 @@
 
       toggleMenu: function() {
         this.menuOpened = !this.menuOpened;
-      },
-
-      /**
-      * Sets the background color of the spinner background based on the darkTheme toggle.
-      */
-      _handleDarkThemeChanged: function(newValue) {
-        this.toggleClass('dark-theme', newValue, this.$.spinner);
-        this.fire('px-dark-theme-changed', {"darkTheme": newValue});
       },
 
       _get404Message: function(path) {
