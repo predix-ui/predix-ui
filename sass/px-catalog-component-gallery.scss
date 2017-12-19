@@ -15,6 +15,8 @@
 // Component
 :host {
   background-color:  var(--comonent-gallery-background, #D8E0E5);
+  --px-tile-height: calculateRem(230px);
+  --px-tile-text-height: calculateRem(55px)
 }
 
 .component-gallery__hr {

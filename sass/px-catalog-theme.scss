@@ -11,7 +11,7 @@
 @import "px-colors-design/_settings.colors.scss";
 @import 'util';
 
-:host {
+:host > * {
   --px-base-text-color       : $gray15;
   --px-base-background-color : $white;
 
@@ -59,11 +59,13 @@
   --animation-gauge-background-color   : #b6c3cc;
 
   /* component gallery */
-  --comonent-gallery-background  : $gray3;
-  --comonent-gallery-hr-color    : $gray4;
+  --comonent-gallery-background       : $gray3;
+  --comonent-gallery-hr-color         : $gray4;
+  --px-tile-text-background-color     : $gray1;
+  --px-tile-title-color               : $gray15;
 }
 
-:host([dark-theme]) {
+:host([dark-theme]) > * {
 
   /* App shell theme */
   --px-catalog-header-background-color       : $gray20;
@@ -125,6 +127,9 @@
   --px-code-function  : #c9c;
 
   /* component gallery */
-  --comonent-gallery-background : $gray15;
-  --comonent-gallery-hr-color   : $gray12;
+  --comonent-gallery-background       : $gray15;
+  --comonent-gallery-hr-color         : $gray12;
+  --px-tile-text-background-color     : $gray16;
+  --px-tile-title-color               : $gray1;
+
 }
