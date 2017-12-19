@@ -10,7 +10,10 @@
     "url": "https://github.com/PredixDev/px-predix-ui.git"
   },
   "homepage": "http://predix.io/",
-  "devDependencies": {
+  "dependencies": {
+    "merge-stream": "^1.0.1",
+    "polymer-analyzer": "^2.2.2",
+    "polymer-cli": "^1.5.2",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "fs-extra": "^4.0.1",
@@ -53,10 +56,5 @@
     "sw-precache": "^5.2.0",
     "uuid": "^3.1.0",
     "yargs": "^8.0.2"
-  },
-  "dependencies": {
-    "merge-stream": "^1.0.1",
-    "polymer-analyzer": "^2.2.2",
-    "polymer-cli": "^1.5.2"
   }
 }
