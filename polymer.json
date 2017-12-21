@@ -189,6 +189,7 @@
     "bower_components/px-app-helpers/px-app-header/demo.html",
     "bower_components/px-validation/px-example-validator.html",
     "bower_components/px-tile/demo/turbine.jpg",
+    "bower_components/px-alert-message/demo/demo.html",
     "bower_components/px-login/demo/Edison.png",
     "bower_components/px-login/user-info-sample.json",
     "bower_components/px-map/demo/px-map-layer-geojson-data.json",
