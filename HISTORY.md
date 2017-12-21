@@ -1,3 +1,7 @@
+v1.0.0
+==================
+* Move predix-ui.com to Polymer 2
+
 v0.3.0
 ==================
 * added component gallery
