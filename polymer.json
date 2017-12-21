@@ -178,6 +178,10 @@
     "bower_components/px-*/px-*-api.json",
     "bower_components/px-*-design/sassdoc.json",
     "bower_components/px-demo/monogram-wdmk.png",
+    "bower_components/px-demo/px-demo-theme-*.html",
+    "bower_components/px-demo/px-demo-collection.html",
+    "bower_components/px-demo/px-demo.html",
+    "bower_components/px-toggle/px-toggle.es6.js",
     "bower_components/px-sass-doc/monogram-wdmk.png",
     "bower_components/px-timeline/data/timeline-data.json",
     "bower_components/px-code-editor/ace/theme-predix.js",
@@ -201,10 +205,10 @@
     {
       "js": {
         "minify": true,
-        "compile": true
+        "compile": false
       },
       "css": {
-        "minify": false
+        "minify": true
       }
     }
   ],
