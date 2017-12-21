@@ -435,7 +435,7 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/bower_components/promise-polyfill/Promise.js',
                        rootDir + '/bower_components/iron-flex-layout/iron-flex-layout.html',
                        rootDir + '/bower_components/iron-resizable-behavior/iron-resizable-behavior.html',
-                       rootDir + '/bower_components/px-icon-set/*.html',
+                       rootDir + '/bower_components/px-icon-set/px-*.html',
                        rootDir + '/bower_components/px-demo/monogram-wdmk.png',
                        rootDir + '/bower_components/px-toggle/**/px-*.{html,js,es6.js}'],
      stripPrefix: rootDir,

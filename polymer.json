@@ -204,10 +204,10 @@
     {
       "js": {
         "minify": true,
-        "compile": false
+        "compile": true
       },
       "css": {
-        "minify": true
+        "minify": false
       }
     }
   ],
