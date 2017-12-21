@@ -41,7 +41,7 @@ You can also build your own themes by defining the CSS variables listed in each 
 
 Applying a theme is easy. Simply include the theme in your project, import it, include the style, and voila, the styles are automatically applied to your components.
 
-## 1: Install
+## Install
 
 Install the theme in your project by including it in your `bower.json`:
 
@@ -55,7 +55,7 @@ AND/OR
 "px-dark-theme": "^2.0.0"
 ```
 
-## 2: Import
+## Import
 
 Import it onto your page:
 
@@ -69,7 +69,7 @@ OR
 <link defer rel="import" href="../px-dark-theme/px-dark-theme-styles.html">
 ```
 
-## 3: Include in your app
+## Include in your app
 
 Include the styles on your app:
 
