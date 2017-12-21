@@ -420,6 +420,7 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/bower_components/shadycss/apply-shim*.{html,js}',
                        rootDir + '/bower_components/shadycss/custom-style-interface*.{html,js}',
                        rootDir + '/bower_components/webcomponentsjs/webcomponents-loader.js',
+                       rootDir + '/bower_components/webcomponentsjs/custom-elements-es5-adapter.js',
                        rootDir + '/bower_components/app-route/app-location.html',
                        rootDir + '/bower_components/app-route/app-route-converter-behavior.html',
                        rootDir + '/bower_components/iron-ajax/iron-*.html',

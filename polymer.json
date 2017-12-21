@@ -175,6 +175,7 @@
     "CNAME",
     "favicon.ico",
     "bower_components/webcomponentsjs/webcomponents-loader.js",
+    "bower_components/webcomponentsjs/custom-elements-es5-adapter.js",
     "bower_components/px-*/px-*-api.json",
     "bower_components/px-*-design/sassdoc.json",
     "bower_components/px-demo/monogram-wdmk.png",
