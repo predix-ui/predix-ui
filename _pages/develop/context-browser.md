@@ -374,10 +374,9 @@ The following CodePen shows this all working together:
 
 # Favorites
 
-The favorites menu allows a user to save a subset of the items in their context hierarchy as "favorites" so they can more quickly
-and easily access those items.
+The Favorited Panel allows a user to save a subset of the items in their context hierarchy as "favorites" so they can more quickly and easily access those items.
 
-## Enabling the Favorites menu
+## Enabling favoriting
 
 <iframe height='320' scrolling='no' title='Context Browser: Simple Example' src='//codepen.io/talimarcus/embed/vWRrre?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
@@ -388,18 +387,18 @@ Follow the same basic setup as in the "Setup in your app" section above:
 
 **2. Set up dom-bind for binding (demo only)**
 
-**3. Create open trigger and favorites trigger:** Create two px-context-browser-trigger tags wherever the context browser's Open and Favorites trigger icons should show up. The trigger element creates a simple icon that shows and hides the context browser or favorites menu when tapped by the user.
+**3. Create open trigger and favorited trigger:** Create two px-context-browser-trigger tags wherever the context browser's Open and Favorited trigger icons should show up. The trigger element creates a simple icon that shows and hides the context browser or favorites menu when tapped by the user.
 
-**4. Create context browser:** Create a px-context-browser tag. Bind the first trigger's `trigger` property to the context browser's `open-trigger` property, and bind the second trigger's `trigger` property to the context browser's `favorites-trigger` property. This will link the context browser to the two triggers. You must also set the `favorites` attribute on the Favorites trigger. Finally, add items to the context browser as described in the example above.
+**4. Create context browser:** Create a px-context-browser tag. Bind the first trigger's `trigger` property to the context browser's `open-trigger` property, and bind the second trigger's `trigger` property to the context browser's `favorited-trigger` property. This will link the context browser to the two triggers. You must also set the `favorited` attribute on the Favorited trigger. Finally, add items to the context browser as described in the example above.
 
 ## Favoriting APIs
 
 The following px-context-browser attributes must be set to enable favoriting:
 
-* `show-favorites: boolean =  false` - If true, the user can favorite items in the context hierarchy and access those items from a separate Favorites Panel. If false, the user cannot use the favoriting feature of the context browser.
-* `favorites: boolean = false` - If true, the corresponding trigger will open the Favorites Panel rather than the regular context browser. NOTE: This property should be set on the **px-context-browser-trigger**, not on the context browser itself.
-* `favoritedSyncFailed: boolean: false` - If true, a contextual notification will be displayed at the top of the Favorites Panel to inform the user that their locally favorited items have not been saved to their server. If false, the notification will be hidden.
-* `syncing: boolean = false` - If true, a loading indicator will be shown to indicate that the app is attempting to resync locally favorited items with those saved on the server. If false, the loading indicator will be hidden.
+* `show-favorited: boolean =  false` - If true, the user can favorite items in the context hierarchy and access those items from a separate Favorited Panel. If false, the user cannot use the favoriting feature of the context browser.
+* `favorited: boolean = false` - If true, the corresponding trigger will open the Favorited Panel rather than the regular context browser. NOTE: This property should be set on the **px-context-browser-trigger**, not on the context browser itself.
+* `favoritedSyncFailed: boolean: false` - If true, a contextual notification will be displayed at the top of the Favorited Panel to inform the user that their locally favorited items have not been saved to their server. If false, the notification will be hidden.
+* `favoritedSyncing: boolean = false` - If true, a loading indicator will be shown to indicate that the app is attempting to resync locally favorited items with those saved on the server. If false, the loading indicator will be hidden.
 
 The following events are fired to help with favoriting and de-favoriting:
 
@@ -419,15 +418,21 @@ When the user hovers over an item in the context browser and favoriting is enabl
 
 To see all favorited items, the user can open the favorites menu by tapping the favorites trigger. This will open the user's list of favorites, from which they can de-favorite an item or select it to open its context.
 
-Selecting an item from the Favorites Panel works the same as selecting an item from the regular context browser: clicking on an item will open that item's context, and the user will see a visual indication of the currently selected item when they re-open either the Favorites Panel or the regular context browser.
+Selecting an item from the Favorited Panel works the same as selecting an item from the regular context browser: clicking on an item will open that item's context, and the user will see a visual indication of the currently selected item when they re-open either the Favorited Panel or the regular context browser.
 
 ## De-favoriting items
 
-The user can de-favorite an item from the Favorites List by clicking on the star icon. De-favoriting an item will remove it from the Favorites list, but the de-favoriting will not be reflected in the list until the user either closes the Favorites Panel for more than 5 seconds, or opens the regular Context Browser panel. In the interim, the item will remain in the Favorites list, but the star icon indicating that it is favorited will not be filled in. Having a 5 second delay before an item is de-favorited allows the user to reopen the Favorites list and still see the item in the list (and re-favorite it) if the de-favoriting was done in error. De-favoriting an item from the Favorites List will be reflected in the Context Browser as well.
+The user can de-favorite an item from the favorited list by clicking on the star icon. De-favoriting an item will remove it from the favorited list, but the de-favoriting will not be reflected in the list until the user either closes the Favorited Panel for more than 5 seconds, or opens the regular Context Browser panel. In the interim, the item will remain in the favorited list, but the star icon indicating that it is favorited will not be filled in. Having a 5 second delay before an item is de-favorited allows the user to reopen the Favorited Panel and still see the item in the list (and re-favorite it) if the de-favoriting was done in error. De-favoriting an item from the Favorited Panel will be reflected in the Context Browser as well.
 
-## Favoriting an item when there are connection issues
+## Example: favoriting an item when there are connection issues
 
-If a user tries to favorite or de-favorite an item while experiencing connectivity issues, the action will be reflected in the Favorites Panel, but it may not be saved to the user's server or database. It is up to the developer to inform their user if this is the case by setting the `favoritedSyncFailed` property on the context browser. The user will then be informed through a contextual notification at the top of the Favorites Panel that the action has not taken place. The contextual notification will provide an action to attempt to re-sync the list. Clicking on the re-sync icon will fire the `px-app-asset-favorited-sync-requested` event. The developer should listen for this event and then dismiss the contextual notification while it attempting to re-sync the favorites. The developer can also set the `syncing` property on the context browser while attempting to sync favorites in order to give the user a visual indication of what is happening.
+If a user tries to favorite or de-favorite an item while experiencing connectivity issues, the action will be reflected in the Favorited Panel, but it may not be saved to the user's server or database. It is up to the developer to inform their user if this is the case by setting the `favoritedSyncFailed` property on the context browser. The user will then be informed through a contextual notification at the top of the Favorited Panel that the action has not taken place. The contextual notification will provide an action to attempt to re-sync the list. Clicking on the re-sync icon will fire the `px-app-asset-favorited-sync-requested` event. The developer should listen for this event and then dismiss the contextual notification while it attempting to re-sync the favorites. The developer can also set the `favoritedSyncing` property on the context browser while attempting to sync favorites in order to give the user a visual indication of what is happening.
+
+The following Glitch shows this all working together:
+
+<div class="glitch-embed-wrap" style="height: 800px; width: 100%; border: 1px solid #C3C3C3; border-radius: 5px; box-shadow: 4px 4px #C3C3C3; background-color: white; overflow: hidden;">
+  <iframe src="https://glitch.com/edit/#!/embed/px-context-browser-favorites-demo?path=bower.json" style="height: 100%; width: 100%; border: 0;" alt="code example in glitch"></iframe>
+</div>
 
 # Other features
 
