@@ -199,7 +199,8 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-*theme/px-*.html",
     "bower_components/px-theme/px-*.html",
-    "data/*.json"
+    "data/*.json",
+    "ie/*"
   ],
   "builds": [
     {
