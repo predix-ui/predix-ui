@@ -197,18 +197,38 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.ttf",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
-    "bower_components/px-*theme/px-*.html",
-    "bower_components/px-theme/px-*.html",
     "data/*.json"
   ],
   "builds": [
     {
+      "name": "bundled",
+      "basePath": true,
+      "bundle": true,
       "js": {
-        "minify": true,
-        "compile": true
+        "minify": true
       },
       "css": {
-        "minify": false
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      }
+    },
+    {
+      "name": "default",
+      "basePath": true,
+      "browserCapabilities": [
+        "es2015",
+        "push"
+      ],
+      "js": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
       }
     }
   ],

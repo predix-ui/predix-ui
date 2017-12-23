@@ -100,9 +100,9 @@
         <!-- Logo -->
         <div class="logo">
           <picture class="logo__picture">
-            <source srcset="../../img/px-dev-logo.webp" class="logo__image" type="image/webp">
-            <source srcset="../../img/px-dev-logo.png"  class="logo__image" type="image/png">
-            <img src="../../img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
+            <source srcset="[[rootPath]]img/px-dev-logo.webp" class="logo__image" type="image/webp">
+            <source srcset="[[rootPath]]img/px-dev-logo.png"  class="logo__image" type="image/png">
+            <img src="[[rootPath]]img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
             <span class="logo__text">Predix Design System</span>
           </picture>
         </div>
@@ -338,7 +338,7 @@
         }, 500)
         if (this._loadedRoutes.indexOf(pageInfo.entrypoint) === -1) {
           // Page entrypoint not yet loaded
-          var url = this.resolveUrl(pageInfo.entrypoint);
+          var url = `${this.rootPath}${this.resolveUrl(pageInfo.entrypoint)}`;
           this.importHref(url, function() {
             this.cancelAsync(spinnerAsyncHandle);
             this.spinnerActive = false;
