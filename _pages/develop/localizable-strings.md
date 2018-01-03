@@ -76,7 +76,9 @@ Please note that letter case matters.
 * `'Open'`
 
 ### px-context-browser
-* `'Open'`
+* `'You don't have any favorites yet.'`
+* `'To favorite a context\, click on the star while viewing a context in the context browser.'`
+* `'Filter'`
 
 ### px-data-table
 * `'of'`
