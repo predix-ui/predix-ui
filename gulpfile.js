@@ -36,11 +36,12 @@ const stream = require('merge-stream')();
 const del = require('del');
 const gitSync = require('gulp-git');
 const execSync = require('child_process').execSync;
-var   request = require('request');
+const request = require('request');
 const imagemin = require("imagemin");
 const webp = require("imagemin-webp");
 const upng = require('imagemin-upng');
 const optipng = require('imagemin-optipng');
+const ora = require('ora');
 const glob = require("glob");
 const fse = require('fs-extra');
 const md = require('./scripts/page-builder');
@@ -49,7 +50,7 @@ const createComponentsInfo = require('./scripts/json-builder/create-components-i
 const createPagesFilter = require('./scripts/json-builder/create-pages-filter.js');
 const LunrIndexer = require('./scripts/lunr-indexer/index.js');
 const exec = require('child_process').exec;
-
+const rollup = require('rollup');
 
 
 /*******************************************************************************
@@ -163,14 +164,14 @@ gulp.task('bump:major', function(){
  * the browser when files are updated.
  ******************************************************************************/
 
-gulp.task('serve', ['sass', 'docs', 'generate-api'], function() {
+gulp.task('serve', ['sass', 'docs', 'generate-api', 'build-polymer-scripts'], function() {
   browserSync.init(browserSyncOptions);
   gulp.watch(['_pages/**/*.md', '_pages/**/*.html', 'elements/px-catalog/pages.json'], ['docs']);
   gulp.watch(['sass/*.scss'], ['sass']);
   gulp.watch(['css/*-styles.html', '*.html', 'pages/**/*.html']).on('change', browserSync.reload);
 });
 
-gulp.task('serve:serverless', ['sass', 'docs', 'generate-api'], function() {
+gulp.task('serve:serverless', ['sass', 'docs', 'generate-api', 'build-polymer-scripts'], function() {
   gulp.watch(['_pages/**/*.md', '_pages/**/*.html', 'elements/px-catalog/pages.json'], ['docs']);
   gulp.watch(['sass/*.scss'], ['sass']);
 });
@@ -195,7 +196,7 @@ This task now does the following:
 
 And... you probably want to run \`gulp serve\` instead of this task. :)
     `);
-  gulpSequence('generate-api', 'sass', 'docs', 'generate-service-worker')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'build-polymer-scripts', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -327,7 +328,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'generate-service-worker', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'generate-service-worker', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -338,7 +339,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
@@ -394,27 +395,34 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/img/**',
                        rootDir + '/type/**',
                        rootDir + '/pages/**',
-                       rootDir + '/elements/**/*.{html,json}',
+                       rootDir + '/elements/**/*.{html,json,js}',
                        rootDir + '/css/*.html',
                        rootDir + '/bower_components/px-theme/**/*.html',
                        rootDir + '/bower_components/app-layout/app-drawer/app-drawer.html',
                        rootDir + '/bower_components/app-localize-behavior/app-localize-behavior.html',
                        rootDir + '/bower_components/iron-media-query/iron-media-query.html',
-                       rootDir + '/bower_components/px-alert-message/**/*.html',
-                       rootDir + '/bower_components/px-alert-label/**/*.html',
+                       rootDir + '/bower_components/px-alert-message/px-*.html',
+                       rootDir + '/bower_components/px-alert-message/css/px-*.html',
+                       rootDir + '/bower_components/px-alert-label/px-*.html',
+                       rootDir + '/bower_components/px-alert-label/css/px-*.html',
                        rootDir + '/bower_components/px-dark-theme/**/*.html',
                        rootDir + '/bower_components/iron-form-element-behavior/iron-form-element-behavior.html',
                        rootDir + '/bower_components/iron-validatable-behavior/iron-validatable-behavior.html',
                        rootDir + '/bower_components/iron-pages/iron-pages.html',
                        rootDir + '/bower_components/intl-messageformat/dist/intl-messageformat.min.js',
                        rootDir + '/bower_components/px-dark-demo-theme/**/*.html',
-                       rootDir + '/bower_components/px-demo/*.{html, png}',
+                       rootDir + '/bower_components/px-demo/*.png',
+                       rootDir + '/bower_components/px-demo/px-*.html',
                        rootDir + '/bower_components/px-demo/css/*.html',
-                       rootDir + '/bower_components/px-spinner/**/*.html',
+                       rootDir + '/bower_components/px-spinner/**/px-*.html',
                        rootDir + '/bower_components/polymer/polymer*.html',
-                       rootDir + '/bower_components/webcomponentsjs/webcomponents-lite.js',
-                       rootDir + '/bower_components/webcomponentsjs/webcomponents-lite.min.js',
-                       rootDir + '/bower_components/app-route/app-*.html',
+                       rootDir + '/bower_components/polymer/lib/**/*.html',
+                       rootDir + '/bower_components/shadycss/apply-shim*.{html,js}',
+                       rootDir + '/bower_components/shadycss/custom-style-interface*.{html,js}',
+                       rootDir + '/bower_components/webcomponentsjs/webcomponents-loader.js',
+                       rootDir + '/bower_components/webcomponentsjs/custom-elements-es5-adapter.js',
+                       rootDir + '/bower_components/app-route/app-location.html',
+                       rootDir + '/bower_components/app-route/app-route-converter-behavior.html',
                        rootDir + '/bower_components/iron-ajax/iron-*.html',
                        rootDir + '/bower_components/iron-location/iron-*.html',
                        rootDir + '/bower_components/iron-selector/iron-*.html',
@@ -428,9 +436,9 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/bower_components/promise-polyfill/Promise.js',
                        rootDir + '/bower_components/iron-flex-layout/iron-flex-layout.html',
                        rootDir + '/bower_components/iron-resizable-behavior/iron-resizable-behavior.html',
-                       rootDir + '/bower_components/px-icon-set/*.html',
+                       rootDir + '/bower_components/px-icon-set/px-*.html',
                        rootDir + '/bower_components/px-demo/monogram-wdmk.png',
-                       rootDir + '/bower_components/px-toggle/**/*.{html,js}'],
+                       rootDir + '/bower_components/px-toggle/**/px-*.{html,js,es6.js}'],
      stripPrefix: rootDir,
      maximumFileSizeToCacheInBytes: 6000000, //this needed so hydrolysis is cached...
     //  templateFilePath: rootDir + '/sw.tmpl',
@@ -439,38 +447,84 @@ gulp.task('moveBuildToRoot', function () {
    }, callback);
  });
 
-gulp.task('compress-images', function(){
-  console.log("compress-image will take a couple of minutes to complete");
+ gulp.task('compress-images', async () =>{
+  console.log("compress-image will take a minute to complete");
+  const spinner = ora('Searching for files').start();
 
-  let imgFolders = [
-    './img',
-    './img/about',
-    './img/component-gallery',
-    './img/guidelines',
-    './img/home-page',
-    './img/developer-guides/context-browser',
-    './pages/migration/img'
-  ];
+  // (╯°□°）╯︵ ┻━┻ imagemin doesnt accept glob patterns yet: https://github.com/imagemin/imagemin/issues/87
+  // so manually crawl and compile a list of dirs
+  const isDirectory = function(src) {
+    return fs.lstatSync(src).isDirectory();
+  };
+  const getDirectories = function(src) {
+    return fs.readdirSync(src)
+      .map((name) => path.join(src, name))
+        .filter(isDirectory)
+        // exclude this one folder; could make this more formal and pass in an array in the future
+        .filter((folder)=> { return folder !== 'raw-img/component-gallery'});
+  };
+  const flatten = function(lists) {
+    return lists.reduce((a, b) => { return a.concat(b) }, []);
+  };
+  const getDirectoriesRecursive = function(src) {
+    return [src, ...flatten(getDirectories(src).map(getDirectoriesRecursive))];
+  };
 
-  imgFolders.forEach((folder) =>{
-    imagemin([`img/component-gallery/*.png`], `img/component-gallery`, {
-      plugins: [
-        upng({ cnum: 64 }), // reduce to 64 bit-depth
-      ]
+  const imgFolders = getDirectoriesRecursive('raw-img');
+  const l = imgFolders.length;
+  let count = 0;
+
+  spinner.succeed(`Found ${l} folders + component-gallery`);
+  spinner.start(`Starting: img/component-gallery`);
+
+  /*
+    (╯°□°）╯︵ ┻━┻ the component-gallery has too many images and causes an EAGAIN error ~90% of the time if we do it with the rest of the folders. Possibly just an error with Node 8.
+
+    I imagine, this is some issue of how imagemin queues stuff/its async nature. Separating out the component-gallery processes like this seems to fix it.
+
+    I imagine this is a real monkey patch and we might see EAGAIN errors again in the future if we end up with a lot of images elsewhere.
+  */
+  await imagemin([`raw-img/component-gallery/*.png`], `img/component-gallery`, {
+    plugins: [
+      upng({ cnum: 64 }), // reduce to 64 bit-depth
+      webp({ lossless: true })
+    ]
+  });
+  // (╯°□°）╯︵ ┻━┻ optipng fails to run if in the same array as webp, so give it a separate call. Error with webp or optipng maybe?
+  await imagemin([`raw-img/component-gallery/*.png`], `img/component-gallery`, {
+    plugins: [ optipng() ]
+  });
+
+  spinner.succeed(`Finished: img/component-gallery`);
+  spinner.start(`Working on ${l} other folders`);
+
+  // we want to use promises to our gulp task actually knows when it is done.
+  // otherwise, you get incorrect reporting of time and if this is being done async with other tasks, it could screw up.
+  await Promise.all(imgFolders.map(async (folder) => {
+    const p1 = imagemin([`${folder}/*.png`], folder.slice(4), {
+      plugins: [webp({ lossless: true })] // Losslessly encode images
     });
-    imagemin([`${folder}/*.png`], folder, {
-      plugins: [
-        webp({ lossless: true }), // Losslessly encode images
-        optipng() //png optimizer
-      ]
+
+    // optipng fails to run if in the same array as webp :shrugs:
+    const p2 = imagemin([`${folder}/*.png`], folder.slice(4), {
+      plugins: [optipng()] //png optimizer
     });
-    imagemin([`${folder}/*.jpg`], folder, {
+
+    const p3 = imagemin([`${folder}/*.jpg`], folder.slice(4), {
       plugins: [webp({
         quality: 65 // Quality setting from 0 to 100
       })]
     });
-  });
 
+    // copy over other image formats
+    const p4 = imagemin([`${folder}/*.{gif,ico}`], folder.slice(4));
+
+    await Promise.all([p1,p2,p3,p4]);
+    count += 1;
+    spinner.succeed(`Finished ${count} of ${l}: ${folder}`);
+    spinner.start(`Working on ${l-count} other folders`);
+  }));
+  spinner.succeed(`Finished all folders`);
 });
 
 function readFile(filePath) {
@@ -648,6 +702,30 @@ gulp.task('generate-api', function(cb){
   });
 });
 
+gulp.task('build-polymer-scripts', async function () {
+  const bundle = await rollup.rollup({
+    input: 'bower_components/shadycss/src/css-parse.js'
+  });
+
+  await bundle.write({
+    file: 'elements/px-demo-theme-switcher/css-parse.js',
+    format: 'iife',
+    name: 'Px.CssParse',
+    sourcemap: true
+  });
+
+  const bundle2 = await rollup.rollup({
+    input: 'bower_components/shadycss/src/style-properties.js'
+  });
+
+  await bundle2.write({
+    file: 'elements/px-demo-theme-switcher/style-properties.js',
+    format: 'iife',
+    name: 'Px.StyleProperties',
+    sourcemap: true
+  });
+});
+
 gulp.task('docs:pages-json', function(cb){
   const pagesPath = path.join(__dirname, 'elements', 'px-catalog', 'pages.json');
   const outputPath = path.join(__dirname, 'pages', 'app-data.json');
@@ -692,9 +770,17 @@ gulp.task('docs', function(callback) {
 
 /*
  * GALLERY-JSON
- * creates the json files used in the component gallery
+ * creates the json files used in the component-gallery.html
  */
-//scrape pages.json
+gulp.task('gallery-json', function(callback){
+  gulpSequence('gallery-json:component-data', 'gallery-json:tile-data')(callback);
+});
+
+/**
+ * Run 'create-pages-filter.js' to scrape over all of 'pages.json' to
+ * collect info only on the components/css modules displayed in the component gallery.
+ * Store the info in 'component-data.json'
+ */
 gulp.task('gallery-json:component-data', function(callback){
   const componentDataFunc = createPagesFilter(require('./elements/px-catalog/pages.json'));
   fs.writeFileSync('./_pages/component-gallery/component-data.json',JSON.stringify(componentDataFunc, null,2));
@@ -702,14 +788,14 @@ gulp.task('gallery-json:component-data', function(callback){
   callback();
 });
 
-// title-data
+/**
+ * Run 'create-components-info.js' to scrape over 'component-data.json' & 'repo-data.json'
+ * to create the meta data displayed on the tile in the component gallery.
+ * Store the info in 'tile-data.json'
+ */
 gulp.task('gallery-json:tile-data', function(callback){
   const titleDataFunc = createComponentsInfo(require('./pages/component-gallery/component-data.json'));
   fs.writeFileSync('./_pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   fs.writeFileSync('./pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   callback();
-});
-
-gulp.task('gallery-json', function(callback){
-  gulpSequence('gallery-json:component-data', 'gallery-json:tile-data')(callback);
 });

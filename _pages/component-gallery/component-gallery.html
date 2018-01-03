@@ -5,6 +5,8 @@
 <!-- Styles -->
 <link defer rel="import" href="../../css/px-catalog-page-styles.html" />
 <link defer rel="import" href="../../css/px-catalog-component-gallery-styles.html" />
+<link rel="import" href="../../css/px-catalog-theme-styles.html" />
+
 
 <link defer rel="import" href="../../bower_components/px-tile/px-tile.html">
 <link defer rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
@@ -17,9 +19,9 @@
     <!-- Include the style modules in body to ensure they come after their imported code (which will be inlined at the end of <head> by vulcanize in production) -->
     <style include="px-catalog-page-styles"></style>
     <style include="px-catalog-component-gallery-styles"></style>
+    <style include="px-catalog-theme-styles"></style>
 
-
-    <iron-ajax auto url="tile-data.json" last-response="{{tileData}}"></iron-ajax>
+    <iron-ajax auto url="[[importPath]]tile-data.json" last-response="{{tileData}}"></iron-ajax>
 
     <div class="page page--full-width">
 
@@ -36,7 +38,7 @@
             <px-tile
               dark-theme$="[[darkTheme]]"
               title="{{item.title}}"
-              description="{{item.description}}"
+              overlay-description="{{item.description}}"
               hoverable>
               <img slot="thumbnail" class="js-lazy-image" data-src="[[_computeImageUrlPng(item.imageUrl, themeName)]]" alt="">
               <div class="component-gallery_tile-footer" slot="footer">

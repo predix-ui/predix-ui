@@ -98,7 +98,7 @@ Formating numbers is easy because you can just pass in a formating string. With 
 #### Abbreviated day name and day of the month
 
 ```js
-let format = Px.d3.timeFormat("%a %d");
+let myFormat = Px.d3.timeFormat("%a %d");
 
 let myConfig = {
   tickFormat: myFormat
@@ -155,7 +155,7 @@ let myConfig = {
 #### Hour: Minute AM/PM
 
 ```js
-let format = Px.d3.utcFormat("%I:%M %p");
+let myFormat = Px.d3.utcFormat("%I:%M %p");
 
 let myConfig = {
   tickFormat: myFormat
@@ -168,7 +168,7 @@ let myConfig = {
 #### Local time with timezone
 
 ```js
-let format = Px.d3.timeFormat("%I:%M %Z");
+let myFormat = Px.d3.timeFormat("%I:%M %Z");
 
 let myConfig = {
   tickFormat: myFormat
@@ -277,6 +277,32 @@ Additionally, you'll have to configure the register/tooltip with the `timezone` 
 ```js
 myChart.set('registerConfig', { timezone:  "America/Los_Angeles" });
 ```
+
+---
+
+## I want X timezone, not Local or UTC
+
+**Q:** I want to display a specific timezone on px-vis-timeseries. Not UTC time or the computer's local time.
+
+**A:** Use `tickFormat` and pass in a custom formatting function.
+
+Unfortunately there is no way to do this "natively" in d3. The easiest is to utilize moment and moment-timezone or your time formatter of choice. Wrap it in a callback function and format your tick like so:
+
+```js
+
+let myFormat = function(d) {
+  return Px.moment(d).tz("America/Los_Angeles").format("HH:ss");
+}
+myChart.set('xAxisConfig', { tickFormat: myFormat });
+```
+
+Additionally, you'll have to configure the register/tooltip with the `timezone` property to get the axis and register/tooltip in sync. Example:
+
+```js
+myChart.set('registerConfig', { timezone: "America/Los_Angeles" });
+```
+
+Refer to the <a href="https://momentjs.com" target="_blank">MomentJs docs</a> for proper timezone strings and formatting strings.
 
 ---
 

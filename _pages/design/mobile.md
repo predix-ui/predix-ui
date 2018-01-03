@@ -44,7 +44,7 @@ To minimize page length and scrolling consider a left to right horizontal gestur
   </catalog-picture>
 </div>
 
-# Data Tables
+<!-- # Data Tables
 While many desktop apps rely on data tables to display grids of information, data tables don't translate very well to mobile phones. Instead, consider using [px-table-view](#/components/px-table-view/) which provides a more mobile-friendly way of viewing data.
 
-<catalog-picture img-src="../../../img/guidelines/design/mobile/mobile_data_table" img-alt="mobile data table"></catalog-picture>
+<catalog-picture img-src="../../../img/guidelines/design/mobile/mobile_data_table" img-alt="mobile data table"></catalog-picture> -->

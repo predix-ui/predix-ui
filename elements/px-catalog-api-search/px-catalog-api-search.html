@@ -4,7 +4,6 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
 <link rel="import" href="../../bower_components/iron-doc-viewer/iron-doc-property.html" />
 <link rel="import" href="../../bower_components/iron-doc-viewer/iron-doc-function.html" />
-<!-- <link rel="import" href="../../bower_components/px-typeahead/px-typeahead.html" /> -->
 <!-- Styles -->
 <link rel="import" href="../../css/px-catalog-page-styles.html" />
 <link rel="import" href="../../css/px-catalog-api-search-styles.html" />
@@ -106,13 +105,15 @@
       },
 
       _findMatches: function(lunr, source, term) {
-        this.debounce('find-matches', function() {
-          var matchingEntries = lunr.search(term).slice(0,100);
-          var matchingResults = matchingEntries.map(function(entry) {
-            return source.documents[source.index[entry.ref]];
-          });
-          this._results = this._groupByElement(matchingResults);
-        }, 100);
+        if(! (lunr === undefined || source === undefined || term === undefined)){
+          this.debounce('find-matches', function() {
+            var matchingEntries = lunr.search(term).slice(0,100);
+            var matchingResults = matchingEntries.map(function(entry) {
+              return source.documents[source.index[entry.ref]];
+            });
+            this._results = this._groupByElement(matchingResults);
+          }, 100);
+        }
       },
 
       _itIs(a, b) {

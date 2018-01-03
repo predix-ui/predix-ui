@@ -2,7 +2,7 @@
 title: Internationalization
 moduleName: view-develop-internationalization
 otherImports: |
-    <link defer rel="import" href="../../../bower_components/px-accordion/px-accordion.html">
+    <link defer rel="import" href="../../bower_components/px-accordion/px-accordion.html">
 pathToRoot: ../../
 layout: default
 ---
@@ -321,4 +321,3 @@ Px.moment.changeLocale(null, null, yourConfigObject);
 ```
 
 In this scenario, the moment.js locale change is synchronous. In order for a component to pick up a moment locale change, its `language` property **needs** to be updated, even if it doesn't have new resources to load.
-

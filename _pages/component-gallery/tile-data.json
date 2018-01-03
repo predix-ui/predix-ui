@@ -304,7 +304,7 @@
   {
     "name": "px-card",
     "title": "Card Element",
-    "description": "Cards consist of a header area and content area. The header can      optionally contain a descriptive icon in the top left corner and/or an actions area in the top right corner      for settings or other action icons. Cards are incredibly flexible in terms of what content can be      placed in the main area of the card and how it's arranged. A few layout configurations are provided      in the px-widget-cards component to help you organize content in a responsive grid within a card.",
+    "description": "The px-card component shows content formatted as a card. Cards consist of header, actions, and content areas. Place content directly inside the <px-card> tag to display it in the card content area.",
     "imageUrl": "../img/component-gallery/card",
     "imageAlt": "Card Element thumbnail",
     "tags": [
@@ -490,7 +490,7 @@
   {
     "name": "px-simple-horizontal-bar-chart",
     "title": "Simple Horizontal Bar Chart",
-    "description": "The Simple Horizontal Bar Chart provides a quick way to visualize data in bars.     Each series is represented by a sequence of verically aligned bars, the length of     each proportionally representing a value.     It uses the data visualization color palette by default, but this can be overridden with configuration. The height and     width are configurable, as are the legend labels – if none are provided, the legend will not be shown.     We recommend using the default settings as they are designed for proper performance.",
+    "description": "The Simple Horizontal Bar Chart provides a quick way to visualize data in bars.    Each series is represented by a sequence of verically aligned bars, the length of    each proportionally representing a value.    It uses the data visualization color palette by default, but this can be overridden with configuration. The height and    width are configurable, as are the legend labels – if none are provided, the legend will not be shown.    We recommend using the default settings as they are designed for proper performance.",
     "imageUrl": "../img/component-gallery/simple-horizontal-bar-chart",
     "imageAlt": "Simple Horizontal Bar Chart thumbnail",
     "tags": [
@@ -500,7 +500,7 @@
   {
     "name": "px-simple-line-chart",
     "title": "Simple Line Chart",
-    "description": "The Simple Line Chart provides a quick way to visualize linear data. Configuration options include     setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line     at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing     the labels of the min, max, and threshold.",
+    "description": "The Simple Line Chart provides a quick way to visualize linear data. Configuration options include    setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line    at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing    the labels of the min, max, and threshold.",
     "imageUrl": "../img/component-gallery/simple-line-chart",
     "imageAlt": "Simple Line Chart thumbnail",
     "tags": [
@@ -510,7 +510,7 @@
   {
     "name": "px-simple-win-loss-chart",
     "title": "Simple Win-Loss Chart",
-    "description": "Use this component to visualize a series of positive & negative values as a bar chart. The series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally representing a value.       Positive values are represented above the x-axis in one color, and negative values are displayed below the axis, in a different color - these two colors are configurable. The width and height of the component are also configurable, or can be set to \"auto\" for a responsive layout.",
+    "description": "Use this component to visualize a series of positive & negative values as a bar chart. The series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally representing a value.    Positive values are represented above the x-axis in one color, and negative values are displayed below the axis, in a different color - these two colors are configurable. The width and height of the component are also configurable, or can be set to \"auto\" for a responsive layout.",
     "imageUrl": "../img/component-gallery/simple-win-loss-chart",
     "imageAlt": "Simple Win-Loss Chart thumbnail",
     "tags": [
@@ -688,7 +688,7 @@
   {
     "name": "px-modal",
     "title": "Modal",
-    "description": "Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. The modal is a somewhat contentious UI element – sometimes there is no way around it, but generally speaking, using modals frequently or stacking modals on modals should be avoided.",
+    "description": "Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. Avoid using modals frequently or stacking modals.",
     "imageUrl": "../img/component-gallery/modal",
     "imageAlt": "Modal thumbnail",
     "tags": [
@@ -768,17 +768,6 @@
     "tags": [
       "app navigation",
       "status"
-    ]
-  },
-  {
-    "name": "px-table-view",
-    "title": "Table View",
-    "description": "The px-table-view element creates a table-style list of items that can be interacted with by the user. It works the way users expect from a native mobile app, allowing swiping, tapping and re-ordering of list items. Use px-table-view to create list-style interfaces like menus or to display arbitrary sets of related data that can be acted on.",
-    "imageUrl": "../img/component-gallery/table-view",
-    "imageAlt": "Table View thumbnail",
-    "tags": [
-      "data display",
-      "mobile"
     ]
   },
   {

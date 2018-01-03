@@ -9,7 +9,7 @@ layout: default
 
 The Starter Kit Sketch stencil contains the most common components and pre-configured page layouts in both light and dark themes used in Predix applications. It relies on the use of symbols and symbol overrides to allow for quick assembly of components in supported configurations.
 
-<a href="https://github.com/PredixDev/px-design-stencils"><button class="btn btn--primary">Download the Starter Kit</button></a>
+<a href="https://github.com/predixdesignsystem/predix-design-stencil"><button class="btn btn--primary">Download the Starter Kit</button></a>
 
 # Third-party resources
 

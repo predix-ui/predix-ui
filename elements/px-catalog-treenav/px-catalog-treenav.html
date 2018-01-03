@@ -49,6 +49,7 @@
     </div>
   </template>
   <script>
+  (function() {
     Polymer({
       is: 'px-catalog-treenav',
       properties: {
@@ -87,6 +88,23 @@
           readOnly: true,
           computed: '_findSearchedRoutes(searching, searchKeyword, routeList)'
         }
+      },
+
+      observers: ['_sendSearchEvent(searchedRoutes)'],
+
+      _sendSearchEvent: function() {
+        var debouncerName = 'send-search-event';
+        if (this.isDebouncerActive(debouncerName)) {
+          this.cancelDebouncer(debouncerName);
+        }
+        this.debounce(debouncerName, function() {
+          if (Array.isArray(this.searchedRoutes)) {
+            window.TrackEvent('search', {
+              term: this.searchKeyword,
+              results: this.searchedRoutes
+            });
+          }
+        }, 750);
       },
 
       _toRouteList: function(routes) {
@@ -137,5 +155,6 @@
         return keyword && keyword === 'build';
       }
     });
+  })();
   </script>
 </dom-module>

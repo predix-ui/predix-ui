@@ -41,14 +41,11 @@
     "bower_components/px-alert-label/demo/px-alert-label-demo.html",
     "bower_components/px-alert-message/demo/px-alert-message-demo.html",
     "bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html",
-    "bower_components/px-app-nav/demo/px-app-nav-demo.html",
     "bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html",
+    "bower_components/px-app-nav/demo/px-app-nav-demo.html",
     "bower_components/px-branding-bar/demo/px-branding-bar-demo.html",
     "bower_components/px-breadcrumbs/demo/px-breadcrumbs-demo.html",
     "bower_components/px-card/demo/px-card-demo.html",
-    "bower_components/px-card/demo/px-card-behavior-demo.html",
-    "bower_components/px-card/demo/px-dashboard-demo.html",
-    "bower_components/px-card/demo/px-deck-demo.html",
     "bower_components/px-deck-selector/demo/px-deck-selector-demo.html",
     "bower_components/px-widget-cards/demo/px-widget-cards-demo.html",
     "bower_components/px-chip/demo/px-chip-demo.html",
@@ -130,6 +127,8 @@
     "bower_components/px-map/demo/px-map-demo.html",
     "bower_components/px-map/demo/px-map-tile-layer-demo.html",
     "bower_components/px-map/demo/px-map-tile-layer-bing-demo.html",
+    "bower_components/px-map/demo/px-map-tile-layer-google-demo.html",
+    "bower_components/px-map/demo/px-map-tile-layer-wms-demo.html",
     "bower_components/px-map/demo/px-map-layer-geojson-demo.html",
     "bower_components/px-map/demo/px-map-layer-group-demo.html",
     "bower_components/px-map/demo/px-map-control-locate-demo.html",
@@ -144,15 +143,12 @@
     "bower_components/px-modal/demo/px-modal-demo.html",
     "bower_components/px-number-formatter/demo/px-number-formatter-demo.html",
     "bower_components/px-overlay/demo/px-overlay-demo.html",
+    "bower_components/px-panel/demo/px-panel-demo.html",
     "bower_components/px-popover/demo/px-popover-demo.html",
     "bower_components/px-progress-bar/demo/px-progress-bar-demo.html",
     "bower_components/px-slider/demo/px-slider-demo.html",
     "bower_components/px-spinner/demo/px-spinner-demo.html",
     "bower_components/px-steps/demo/px-steps-demo.html",
-    "bower_components/px-table-view/demo/px-table-view-demo.html",
-    "bower_components/px-table-view/demo/px-table-view-sortable-list-demo.html",
-    "bower_components/px-table-view/demo/px-table-row-demo.html",
-    "bower_components/px-table-view/demo/px-table-row-action-button-demo.html",
     "bower_components/px-tabs/demo/px-tabs-demo.html",
     "bower_components/px-tile/demo/px-tile-demo.html",
     "bower_components/px-timeline/demo/px-timeline-demo.html",
@@ -178,27 +174,33 @@
     "service-worker.js",
     "CNAME",
     "favicon.ico",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/webcomponentsjs/webcomponents-loader.js",
+    "bower_components/webcomponentsjs/custom-elements-es5-adapter.js",
     "bower_components/px-*/px-*-api.json",
     "bower_components/px-*-design/sassdoc.json",
     "bower_components/px-demo/monogram-wdmk.png",
+    "bower_components/px-demo/px-demo-theme-*.html",
+    "bower_components/px-demo/px-demo-collection.html",
+    "bower_components/px-demo/px-demo.html",
+    "bower_components/px-toggle/px-toggle.es6.js",
     "bower_components/px-sass-doc/monogram-wdmk.png",
     "bower_components/px-timeline/data/timeline-data.json",
-    "bower_components/px-code-editor/ace/theme-predix.js",
-    "bower_components/px-code-editor/ace/mode-javascript.js",
     "bower_components/px-vis/px-vis-worker.js",
     "bower_components/px-vis/px-vis-worker-scale.js",
-    "bower_components/px-code-editor/ace/worker-javascript.js",
     "bower_components/px-app-helpers/px-app-header/demo.html",
     "bower_components/px-validation/px-example-validator.html",
-    "bower_components/px-tile/turbine.jpg",
+    "bower_components/px-tile/demo/turbine.jpg",
+    "bower_components/px-alert-message/demo/demo.html",
+    "bower_components/px-login/demo/Edison.png",
+    "bower_components/px-login/user-info-sample.json",
     "bower_components/px-map/demo/px-map-layer-geojson-data.json",
     "bower_components/font-awesome/fonts/fontawesome-webfont.ttf",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-*theme/px-*.html",
     "bower_components/px-theme/px-*.html",
-    "data/*.json"
+    "data/*.json",
+    "ie/*"
   ],
   "builds": [
     {
@@ -210,5 +212,10 @@
         "minify": false
       }
     }
-  ]
+  ],
+  "lint": {
+    "rules": [
+      "polymer-2-hybrid"
+    ]
+  }
 }

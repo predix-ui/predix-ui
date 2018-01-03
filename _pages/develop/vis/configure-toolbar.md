@@ -347,7 +347,7 @@ This example is implemented below. We try to fit the modal in the available spac
 
 <div>
   <iron-ajax
-    url="configure-toolbar_data.json"
+    url="[[importPath]]configure-toolbar_data.json"
     handle-as="json"
     auto
     last-response="{{data}}">

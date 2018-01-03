@@ -1,6 +1,7 @@
 <link defer rel="import" href="../../bower_components/polymer/polymer.html" />
-<link defer rel="import" href="../../bower_components/px-demo/px-demo-theme-util.html"/>
+<link defer rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html"/>
 <link defer rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
+<link async rel="import" href="../../bower_components/px-spinner/px-spinner.html"/>
 
 <dom-module id="px-catalog-page-viewer">
   <template>
@@ -38,7 +39,7 @@
         selected="[[activeModule]]"
         selected-item="{{_activeModuleEl}}">
     </iron-pages>
-    <template is="dom-if" if="[[spinnerActive]]">
+    <template is="dom-if" if="[[spinnerActive]]" restamp>
       <div class="spinner">
         <px-spinner size="150"></px-spinner>
       </div>
@@ -152,36 +153,38 @@
       },
 
       _watchVisibleAnchor: function(viewName, viewEl, scroll) {
-        if (viewName.slice(0,5) !== 'view-' || typeof scroll !== 'number' || !(viewEl instanceof HTMLElement) || !viewEl.hasAttribute('has-anchors')) {
-          return;
-        }
-        var anchors = viewEl.anchors;
-
-        var offsetPadding = 75;
-        var firstAnchorOffset = anchors[0].offsetTop - offsetPadding;
-        var anchorsLength = anchors.length
-
-        //scroll is above the first anchor point
-        if (scroll === 0 || scroll < firstAnchorOffset) {
-          this.visibleAnchor = '';
-        }
-
-        for (var i=0; i<anchors.length; i++) {
-          var topRange = anchors[i].offsetTop - offsetPadding;
-          var bottomRange;
-
-          // find bottom range of i's anchor point
-          if (i < anchors.length-1) {
-            bottomRange = anchors[i+1].offsetTop - offsetPadding;
+        if(! (viewName === undefined || viewEl === undefined || scroll === undefined)){
+          if (viewName.slice(0,5) !== 'view-' || typeof scroll !== 'number' || !(viewEl instanceof HTMLElement) || !viewEl.hasAttribute('has-anchors')) {
+            return;
           }
-          // if i is the last anchor point set the bottom range to the scroll height
-          else if (scroll > firstAnchorOffset) {
-            bottomRange = this.scrollHeight;
+          var anchors = viewEl.anchors;
+
+          var offsetPadding = 75;
+          var firstAnchorOffset = anchors[0].offsetTop - offsetPadding;
+          var anchorsLength = anchors.length
+
+          //scroll is above the first anchor point
+          if (scroll === 0 || scroll < firstAnchorOffset) {
+            this.visibleAnchor = '';
           }
 
-          if (scroll > topRange && scroll < bottomRange ){
-            this.visibleAnchor = '#' + anchors[i].id;
-            break;
+          for (var i=0; i<anchors.length; i++) {
+            var topRange = anchors[i].offsetTop - offsetPadding;
+            var bottomRange;
+
+            // find bottom range of i's anchor point
+            if (i < anchors.length-1) {
+              bottomRange = anchors[i+1].offsetTop - offsetPadding;
+            }
+            // if i is the last anchor point set the bottom range to the scroll height
+            else if (scroll > firstAnchorOffset) {
+              bottomRange = this.scrollHeight;
+            }
+
+            if (scroll > topRange && scroll < bottomRange ){
+              this.visibleAnchor = '#' + anchors[i].id;
+              break;
+            }
           }
         }
       },
@@ -243,39 +246,42 @@
         }
       },
       _applyTheme: function(el, darkTheme, retry) {
-        retry = retry || 1;
-        if (!el) {
-          return;
-        }
-        if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
-          var retries = (retry+1);
-          var timeout = (retries < 10) ? 10 : 1000;
-          this.async(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
-          return;
-        }
+        this.debounce('applyTheme', ()=>{
+          el = this._activeModuleEl;
+          retry = retry || 1;
+          if (!el) {
+            return;
+          }
+          if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
+            var retries = (retry+1);
+            var timeout = (retries < 10) ? 10 : 1000;
+            this.async(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
+            return;
+          }
 
-        var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
-        var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
-        var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
+          var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
+          var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
+          var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
 
-        if (darkTheme && needDyanmicTheme) {
-          el.setAttribute('dark-theme', '');
-          var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
-          el.updateStyles(darkTheme);
-        }
-        else if (!darkTheme && needDyanmicTheme) {
-          el.removeAttribute('dark-theme');
-          var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
-          el.updateStyles(defaultTheme);
-        }
-        else if (darkTheme && !needDyanmicTheme) {
-          el.setAttribute('dark-theme', '');
-          el.updateStyles();
-        }
-        else if (!darkTheme && !needDyanmicTheme) {
-          el.removeAttribute('dark-theme');
-          el.updateStyles();
-        }
+          if (this.darkTheme && needDyanmicTheme) {
+            el.setAttribute('dark-theme', '');
+            var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+            el.updateStyles(darkTheme);
+          }
+          else if (!this.darkTheme && needDyanmicTheme) {
+            el.removeAttribute('dark-theme');
+            var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
+            el.updateStyles(defaultTheme);
+          }
+          else if (this.darkTheme && !needDyanmicTheme) {
+            el.setAttribute('dark-theme', '');
+            el.updateStyles();
+          }
+          else if (!this.darkTheme && !needDyanmicTheme) {
+            el.removeAttribute('dark-theme');
+            el.updateStyles();
+          }
+        },250);
       }
     })
   </script>
