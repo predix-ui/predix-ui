@@ -35,6 +35,7 @@ Impacted components:
   * added flexible API for creating and interacting with chart annotations **(Developer Guide coming soon)**
   * added single point search option
   * added lasso functionality for selection of points
+  * the web worker is now a blob, you no longer need to include the files in your build process
 * Date/Time Refactoring
   * all date/time components now support an empty state, where no date or range has been selected
   * property added for "required" date/time fields, validation will fail if they are not completed
