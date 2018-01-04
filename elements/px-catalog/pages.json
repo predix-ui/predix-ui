@@ -316,6 +316,12 @@
         ]
       },
       {
+        "path": "datetime-changes",
+        "label": "Datetime Release Notes",
+        "module": "view-develop-datetime-changes",
+        "entrypoint": "/pages/develop/datetime-changes.html"
+      },
+      {
         "path": "frameworks-angular",
         "label": "Frameworks: Use with Angular",
         "module": "view-develop-frameworks-angular",
