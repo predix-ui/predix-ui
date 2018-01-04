@@ -49,11 +49,9 @@ At the moment, the only charts building quadtrees are px-vis-xy-chart and px-vis
 </div>
 
 # Configuration
-To do its job, the web worker must be able to load its code and the d3.js library. When you configure your production app **build**, you MUST make sure that your build result includes the px-vis-worker-scale.js and px-vis-worker.js files from px-vis as well as d3.min.js file from the pxd3 folder (which is a dependency of px-d3-imports, itself a dependency of px-vis). You don't need to manually import those files in your app.
+To do its job, the web worker must be able to load its code and the d3.js library.
 
-By default, the web worker scheduler will search for px-vis-worker-scale.js and px-vis-worker.js in the same folder as the px-vis code. The px-vis-worker.js path can be customized through the global window variable `Px.vis.workerUrl`, which expects the full path including the file name. The other file will be searched in the same folder.
-
-The web workers will search for d3 relative to the px-vis-worker.js script : '../pxd3/d3.min.js'. This can be changed through `Px.vis.workerD3Url`, again, using the full path including the file name. Note that this URL will still be relative to the web worker script.
+Starting in version v4.6.x of px-vis, these necessary files are automatically loaded.
 
 The px-vis scheduler will create as many web workers as cores are available from navigator.hardwareConcurrency, which includes physical and virtual cores, or 4 if this information can't be found. This can be overridden through `Px.vis.maxWorkerCount`.
 
@@ -61,11 +59,20 @@ Since it can be hard to change the configuration variable before the Px web work
 
 It is possible to disable the use of webworkers for charts supporting them by setting `preventWebWorkerSynchronization` on a specific chart. In this case the chart will fall back to the previous implementation of spatial search for tooltip data as well as calculating chart extents. However the chart won't be able to use the crosshair mode!
 
+##Legacy configuration
+If you are still using an older version of px-vis, you should probably upgrade. If you dont, you'll have load the web worker files manually.
+
+When you configure your production app **build**, you MUST make sure that your build result includes the px-vis-worker-scale.js and px-vis-worker.js files from px-vis as well as d3.min.js file from the pxd3 folder (which is a dependency of px-d3-imports, itself a dependency of px-vis). You don't need to manually import those files in your app.
+
+By default, the web worker scheduler will search for px-vis-worker-scale.js and px-vis-worker.js in the same folder as the px-vis code. The px-vis-worker.js path can be customized through the global window variable `Px.vis.workerUrl`, which expects the full path including the file name. The other file will be searched in the same folder.
+
+The web workers will search for d3 relative to the px-vis-worker.js script : '../pxd3/d3.min.js'. This can be changed through `Px.vis.workerD3Url`, again, using the full path including the file name. Note that this URL will still be relative to the web worker script.
+
 # Going forward
 
 The web workers currently bring us faster spatial search as well as offloading of parsing for dynamic chart extents. The runtime gain of performance as well as just offloading the main thread when searching for extents are in our opinion outweighing the memory footprint increase which should be marginal in most cases.
 
-We still tried to give the option of disabling webworker for a chart through `preventWebWorkerSynchronization`, with the caveat of not being able to use the new crosshair feature. This might be useful in some specific scenarios such as a lot of small chart with minimal interactions.
+We still tried to give the option of disabling webworker for a chart through `preventWebWorkerSynchronization`, with the caveat of not being able to use several advanced features, such as the crosshair feature, single point search, or different search types. This might be useful in some specific scenarios such as a lot of small chart with minimal interactions.
 
 But maybe more importantly even though the cloned data is used for only a couple of features right now, it opens the door for us to build more features on the web worker with the data always available.
 
@@ -76,7 +83,7 @@ We recently opened the vis web workers to be used by an app with the 2.1.0 vis r
 ## Load a custom script
 
 One can register a custom script by running the `Px.vis.registerCustomScript` method. This method accepts three parameters:
-* `scriptUrl` defines where the script is, relatively to the px-vis-worker.js file
+* `scriptUrl` defines where the script is. Starting with v4.6.x, this path must be an absolute path. The web worker files are loaded via a blob, so any relative paths will be interpreted relative to the blob.
 * `successCallback` is a function that will be run once the script has been successfully registered on all web workers
 * `errorCallback`. is a function that will be run if any error occurs while registering the script (`successCallback` won't be called)
 

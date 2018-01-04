@@ -197,7 +197,8 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.ttf",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
-    "data/*.json"
+    "data/*.json",
+    "ie/*"
   ],
   "builds": [
     {
