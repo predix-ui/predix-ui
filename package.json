@@ -56,5 +56,11 @@
     "sw-precache": "^5.2.0",
     "uuid": "^3.1.0",
     "yargs": "^8.0.2"
+  },
+  "scripts": {
+    "start": "prpl-server --host 0.0.0.0 --https-redirect"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   }
 }
