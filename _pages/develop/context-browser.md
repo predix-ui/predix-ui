@@ -420,9 +420,13 @@ To see all favorited items, the user can open the favorites menu by tapping the 
 
 Selecting an item from the Favorited Panel works the same as selecting an item from the regular context browser: clicking on an item will open that item's context, and the user will see a visual indication of the currently selected item when they re-open either the Favorited Panel or the regular context browser.
 
+<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-favoriting.gif"/>
+
 ## De-favoriting items
 
 The user can de-favorite an item from the favorited list by clicking on the star icon. De-favoriting an item will remove it from the favorited list, but the de-favoriting will not be reflected in the list until the user either closes the Favorited Panel for more than 5 seconds, or opens the regular Context Browser panel. In the interim, the item will remain in the favorited list, but the star icon indicating that it is favorited will not be filled in. Having a 5 second delay before an item is de-favorited allows the user to reopen the Favorited Panel and still see the item in the list (and re-favorite it) if the de-favoriting was done in error. De-favoriting an item from the Favorited Panel will be reflected in the Context Browser as well.
+
+<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-defavoriting.gif"/>
 
 ## Example: favoriting an item when there are connection issues
 
