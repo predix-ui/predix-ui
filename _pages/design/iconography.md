@@ -51,5 +51,5 @@ but when needing to add different colors for categories, the other colors in the
 # Icon Design Guidelines
 The icon set is intended to be extended as needed for specialized applications. Follow the Predix Icon Guidelines to ensure additional icons match the core set.
 
-<a target="_blank" rel="noopener" href="Predix_Iconography_Guidelines.pdf"><button class="btn btn--primary">Download Icon Guidelines</button></a>
+<a target="_blank" rel="noopener" href="../../pages/design/Predix_Iconography_Guidelines.pdf"><button class="btn btn--primary">Download Icon Guidelines</button></a>
 
