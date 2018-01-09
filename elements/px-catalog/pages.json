@@ -312,6 +312,20 @@
             "redirects": [
               "/guides/vis-guides-crosshair"
             ]
+          },
+          {
+            "path": "annotations",
+            "label": "Annotations",
+            "module": "view-develop-vis-annotations",
+            "entrypoint": "/pages/develop/vis/annotations.html",
+            "keywords": [
+              "annotations",
+              "chart",
+              "graph"
+            ],
+            "redirects": [
+              "/guides/vis-guides-annotations"
+            ]
           }
         ]
       },
