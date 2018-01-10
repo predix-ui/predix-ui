@@ -110,59 +110,16 @@
         ]
       },
       {
-        "path": "typography",
-        "label": "Typography",
-        "module": "view-design-typography",
-        "entrypoint": "/pages/design/typography.html",
+        "path": "data-vis",
+        "label": "Data Visualization",
+        "module": "view-design-data-vis",
+        "entrypoint": "/pages/design/data-vis.html",
         "redirects": [
-          "/guidelines/typography"
+          "/guidelines/data-vis"
         ]
       },
-      {
-        "path": "iconography",
-        "label": "Iconography",
-        "module": "view-design-iconography",
-        "entrypoint": "/pages/design/iconography.html",
-        "redirects": [
-          "/guidelines/iconography"
-        ]
-      },
-      {
-        "path": "writing",
-        "label": "Writing",
-        "module": "view-design-writing",
-        "entrypoint": "/pages/design/writing.html",
-        "redirects": [
-          "/guidelines/writing"
-        ]
-      },
-      {
-        "path": "page-layout",
-        "label": "Page Layout",
-        "module": "view-design-page-layout",
-        "entrypoint": "/pages/design/page-layout.html",
-        "redirects": [
-          "/guidelines/page-layout"
-        ]
-      },
-      {
-        "path": "navigation",
-        "label": "Navigation",
-        "module": "view-design-navigation",
-        "entrypoint": "/pages/design/navigation.html",
-        "redirects": [
-          "/guidelines/navigation"
-        ]
-      },
-      {
-        "path": "forms",
-        "label": "Forms",
-        "module": "view-design-forms",
-        "entrypoint": "/pages/design/forms.html",
-        "redirects": [
-          "/guidelines/forms"
-        ]
-      },
+
+
       {
         "path": "elevation-layering",
         "label": "Elevation & Layering",
@@ -172,15 +129,45 @@
           "/guidelines/elevation-layering"
         ]
       },
+
       {
-        "path": "data-vis",
-        "label": "Data Visualization",
-        "module": "view-design-data-vis",
-        "entrypoint": "/pages/design/data-vis.html",
+        "path": "forms",
+        "label": "Forms",
+        "module": "view-design-forms",
+        "entrypoint": "/pages/design/forms.html",
         "redirects": [
-          "/guidelines/data-vis"
+          "/guidelines/forms"
         ]
       },
+
+      {
+        "path": "iconography",
+        "label": "Iconography",
+        "module": "view-design-iconography",
+        "entrypoint": "/pages/design/iconography.html",
+        "redirects": [
+          "/guidelines/iconography"
+        ]
+      },
+
+
+      {
+        "path": "layout-examples",
+        "label": "Layout Examples",
+        "module": "view-design-layout-examples",
+        "entrypoint": "/pages/design/layout-examples.html",
+        "keywords":[
+          "examples",
+          "showcase",
+          "layouts",
+          "use cases"
+        ],
+        "redirects": [
+          "/guidelines/gallery",
+          "/design/gallery"
+        ]
+      },
+
 
       {
         "path": "mobile",
@@ -197,20 +184,45 @@
           "/guidelines/mobile"
         ]
       },
+
       {
-        "path": "layout-examples",
-        "label": "Layout Examples",
-        "module": "view-design-layout-examples",
-        "entrypoint": "/pages/design/layout-examples.html",
-        "keywords":[
-          "examples",
-          "showcase",
-          "layouts",
-          "use cases"
-        ],
+        "path": "navigation",
+        "label": "Navigation",
+        "module": "view-design-navigation",
+        "entrypoint": "/pages/design/navigation.html",
         "redirects": [
-          "/guidelines/gallery",
-          "/design/gallery"
+          "/guidelines/navigation"
+        ]
+      },
+
+
+      {
+        "path": "page-layout",
+        "label": "Page Layout",
+        "module": "view-design-page-layout",
+        "entrypoint": "/pages/design/page-layout.html",
+        "redirects": [
+          "/guidelines/page-layout"
+        ]
+      },
+
+      {
+        "path": "typography",
+        "label": "Typography",
+        "module": "view-design-typography",
+        "entrypoint": "/pages/design/typography.html",
+        "redirects": [
+          "/guidelines/typography"
+        ]
+      },
+
+      {
+        "path": "writing",
+        "label": "Writing for Design Components",
+        "module": "view-design-writing",
+        "entrypoint": "/pages/design/writing.html",
+        "redirects": [
+          "/guidelines/writing"
         ]
       }
     ]
