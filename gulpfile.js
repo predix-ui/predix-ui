@@ -357,7 +357,6 @@ gulp.task('cleanRoot', function () {
     '**',
     '!gulpfile.js',
     '!package.json',
-    '!build/**',
     '!scripts/**',
     '!node_modules/**'
   ]);
@@ -365,7 +364,9 @@ gulp.task('cleanRoot', function () {
 
 gulp.task('cleanBuild', function () {
  return del([
-   'build/'
+   'build/**/*',
+   '!build/*.{js,json,lock}',
+   '!build/.gitignore'
  ]);
 });
 
