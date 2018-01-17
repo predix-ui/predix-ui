@@ -1,6 +1,6 @@
 <link defer rel="import" href="../../bower_components/polymer/polymer.html" />
-<link defer rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html"/>
-<link defer rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
+<link async rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html"/>
+<link async rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
 <link async rel="import" href="../../bower_components/px-spinner/px-spinner.html"/>
 
 <dom-module id="px-catalog-page-viewer">
@@ -91,8 +91,6 @@
         '_watchVisibleAnchor(activeModule, _activeModuleEl, _scrollTop)'
       ],
       listeners: {
-        'px-catalog-page-attached': '_handleLocalPageAttached',
-        'px-catalog-page-detached': '_handleLocalPageDetached',
         'px-catalog-page-anchor-tapped': '_handleAnchorTapped'
       },
       created: function() {
@@ -230,12 +228,6 @@
           // if (!doc) return;
           // doc.scrollToAnchor(activeAnchor);
         }
-      },
-      _handleLocalPageAttached: function(evt) {
-        // ... local page attached ...
-      },
-      _handleLocalPageDetached: function(evt) {
-        // ... local page detached ...
       },
       _activeModuleChanged: function(newModuleName, oldModuleName) {
         if (newModuleName && !this._modules[newModuleName]) {
