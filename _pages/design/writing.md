@@ -52,7 +52,7 @@ The following table shows copy guidelines for select design components. Please c
 | Dynamic text | <<nbsp>Carets<nbsp>> | The <<nbsp>Space Name<nbsp>> space includes three service instances. | Determine a maximum character count per use case for consistency in dynamic text |
 | Error message | Sentence case | Invalid entry. Please try again. | --- |
 | Feature name | Title case | Reference App | --- |
-| Field label | Sentence case | Issue summary | No colon preceding a text box |
+| Field label | ALL UPPER CASE | ISSUE SUMMARY | No colon preceding a text box |
 | Field text | Sentence case | Describe the issue and the steps to reproduce it | --- |
 | Header, sub header | Sentence case | Learn about Predix pricing | Applies for all headers on pages, sections, cards, tiles, boxes, tables, modals, popups, etc.<br><br>No period<br><br>If a header starts with an acronym, use a capital letter after the acronym (e.g., API Documentation steps) |
 | Help text (as a mouse over) | Sentence case | Enter a password with no more than 12 characters | No period |
