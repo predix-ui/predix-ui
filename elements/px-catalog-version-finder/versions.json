@@ -424,7 +424,7 @@
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
     "preRefreshRangeExact": "^v0.2.4",
-    "hybridRange": "^1.0.0"
+    "hybridRange": "deprecated"
   },
   {
     "name": "px-modal",

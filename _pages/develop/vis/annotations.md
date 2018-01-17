@@ -7,7 +7,7 @@ pathToRoot: ../../../
 
 # Introduction
 
-Version 4.6.0 of the vis framework saw the introduction of the annotations feature. This feature has been voluntarily left unopiniated and much of its look and interaction will be left to the application to implement. This article will walk you through how the feature works and the example implementation we provide.
+Version 4.6.0 of the vis framework saw the introduction of the annotations feature. This feature has been voluntarily left unopiniated and much of its look and interaction will be left to the application to implement. This article will walk you through how the feature works and the <a href="https://www.predix-ui.com/px-vis-demos/px-vis-demos/annotations.html" target="_blank">example implementation</a> we provide.
 
 <catalog-picture img-src="../../../img/guidelines/dev/vis/annotations/annotations_example" img-alt="example annotations" style="border:none;" caption="Implementation example of the annotations"></catalog-picture>
 
