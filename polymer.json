@@ -200,6 +200,7 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-*theme/px-*.html",
     "bower_components/px-theme/px-*.html",
+    "bower_components/px-typography-design/type/**",
     "data/*.json",
     "ie/*"
   ],
