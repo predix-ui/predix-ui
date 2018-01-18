@@ -227,6 +227,7 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
         'id_rsa.enc',
         'sass/*.*',
         '.*',
+        '!/.gitignore',
         'bower_components/leaflet/docs/*',
         '/_*/'];
 
