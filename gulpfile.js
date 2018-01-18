@@ -234,8 +234,8 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
     });
 
      execSync(`git add --all`);
-     execSync(`git commit -m '[TravisCI] Rebuilding master for commit ${commit||'???'}'`);
-     execSync(`git push origin master --force`);
+     execSync(`git commit -m '[TravisCI] Rebuilding heroku-build for commit ${commit||'???'}'`);
+     execSync(`git push origin heroku-build --force`);
      });
  });
 
@@ -312,6 +312,9 @@ gulp.task('polymerBuild', function (cb) {
     fse.copySync('bower_components/pxd3/d3.min.js', 'build/default/bower_components/pxd3/d3.min.js');
     fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', 'build/default/bower_components/px-demo-snippet/px-demo-snippet.html');
     fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', 'build/default/bower_components/px-app-helpers/px-app-header/demo.html');
+    fse.copySync('bower_components/pxd3/d3.min.js', 'build/bundled/bower_components/pxd3/d3.min.js');
+    fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', 'build/bundled/bower_components/px-demo-snippet/px-demo-snippet.html');
+    fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', 'build/bundled/bower_components/px-app-helpers/px-app-header/demo.html');
     cb(err);
   });
 
