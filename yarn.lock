@@ -10,10 +10,6 @@
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@polymer/test-fixture/-/test-fixture-0.0.3.tgz#4443752697d4d9293bbc412ea0b5e4d341f149d9"
 
-"@soyuka/exists-sync@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@soyuka/exists-sync/-/exists-sync-1.0.1.tgz#3f109863cc24e8610d1793d9b4e9622bdccdb9da"
-
 "@types/assert@0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/assert/-/assert-0.0.29.tgz#8e562785baa5abda7c04a49f6665eae7431928d3"
@@ -2422,12 +2418,6 @@ decompress@^3.0.0:
     vinyl-assign "^1.0.1"
     vinyl-fs "^2.2.0"
 
-deep-assign@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/deep-assign/-/deep-assign-1.0.0.tgz#b092743be8427dc621ea0067cdec7e70dd19f37b"
-  dependencies:
-    is-obj "^1.0.0"
-
 deep-eql@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-eql/-/deep-eql-0.1.3.tgz#ef558acab8de25206cd713906d74e56930eb69f2"
@@ -3724,14 +3714,6 @@ gulp-bump@^2.7.0:
     semver "^5.3.0"
     through2 "^2.0.1"
 
-gulp-chmod@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gulp-chmod/-/gulp-chmod-2.0.0.tgz#00c390b928a0799b251accf631aa09e01cc6299c"
-  dependencies:
-    deep-assign "^1.0.0"
-    stat-mode "^0.2.0"
-    through2 "^2.0.0"
-
 gulp-clean@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/gulp-clean/-/gulp-clean-0.3.2.tgz#a347d473acea40182f935587a451941671928102"
@@ -3870,16 +3852,6 @@ gulp-style-modules@^0.1.0:
   dependencies:
     gulp-util "^3.0.6"
     through2 "^2.0.0"
-
-gulp-sym@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gulp-sym/-/gulp-sym-1.0.2.tgz#20c894f89ef7e8b39f644cd1dfbb69407056dd57"
-  dependencies:
-    "@soyuka/exists-sync" "^1.0.1"
-    gulp-util "^3.0.7"
-    mkdirp "^0.5.1"
-    rimraf "^2.5.4"
-    through2 "^2.0.3"
 
 gulp-util@>=3.0.0, gulp-util@^3.0, gulp-util@^3.0.0, gulp-util@^3.0.1, gulp-util@^3.0.6, gulp-util@^3.0.7, gulp-util@^3.0.8:
   version "3.0.8"

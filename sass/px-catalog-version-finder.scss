@@ -68,14 +68,15 @@ px-tab {
 .search-page-result {
   display: block;
   border-top: 1px solid $gray3;
-  padding-top: 10px;
   display: flex;
+  align-items: center;
 }
 .search-page-result p {
   font-size: 18px;
+  margin-top: 1rem;
 }
 .search-page-result__name {
-  flex: 1 1 auto;
+  flex: 1 1 225px;
 }
 .search-page-result__pre {
   width: 225px;
@@ -83,4 +84,8 @@ px-tab {
 .search-page-result__post {
   width: 225px;
   color:  $px-catalog-magenta;
+}
+.search-page-result__hybrid {
+  width: 225px;
+  color:  $px-catalog-blue;
 }

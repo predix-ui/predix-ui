@@ -190,6 +190,7 @@
     "bower_components/px-app-helpers/px-app-header/demo.html",
     "bower_components/px-validation/px-example-validator.html",
     "bower_components/px-tile/demo/turbine.jpg",
+    "bower_components/px-tile/demo/gas_turbine.png",
     "bower_components/px-alert-message/demo/demo.html",
     "bower_components/px-login/demo/Edison.png",
     "bower_components/px-login/user-info-sample.json",
@@ -197,6 +198,7 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.ttf",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
+    "bower_components/px-typography-design/type/**",
     "data/*.json",
     "ie/*"
   ],

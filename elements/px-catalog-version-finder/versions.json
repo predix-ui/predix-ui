@@ -3,672 +3,784 @@
     "name": "px-accordion",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-actionable-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.8"
+    "preRefreshRangeExact": "^v1.1.8",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-alert-label",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.4"
+    "preRefreshRangeExact": "^v1.2.4",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-alert-message",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.9.0",
-    "preRefreshRangeExact": "^v0.9.8"
+    "preRefreshRangeExact": "^v0.9.8",
+    "hybridRange": "^1.2.0"
   },
   {
     "name": "px-api-viewer",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.2"
+    "preRefreshRangeExact": "^v0.3.2",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-app-helpers",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.0.0",
-    "preRefreshRangeExact": "^v0.0.2"
+    "preRefreshRangeExact": "^v0.0.2",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-app-nav",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.10.0",
-    "preRefreshRangeExact": "^v1.10.13"
+    "preRefreshRangeExact": "^v1.10.13",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-box-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.4"
+    "preRefreshRangeExact": "^v0.4.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-box-sizing-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.19"
+    "preRefreshRangeExact": "^v0.2.19",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-branding-bar",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-breadcrumbs",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-button-group-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.7"
+    "preRefreshRangeExact": "^v1.0.7",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-buttons-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.8"
+    "preRefreshRangeExact": "^v1.1.8",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-calendar-picker",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.7.0",
-    "preRefreshRangeExact": "^v0.7.2"
+    "preRefreshRangeExact": "^v0.7.2",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-card",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.7.0",
-    "preRefreshRangeExact": "^v0.7.2"
+    "preRefreshRangeExact": "^v0.7.2",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-clearfix-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.1.0",
-    "preRefreshRangeExact": "^v0.1.19"
+    "preRefreshRangeExact": "^v0.1.19",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-clipboard",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.3"
+    "preRefreshRangeExact": "^v0.2.3",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-code-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.5"
+    "preRefreshRangeExact": "^v1.1.5",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-code-editor",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.6"
+    "preRefreshRangeExact": "^v1.1.6",
+    "hybridRange": "^4.0.0"
   },
   {
     "name": "px-colors-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.9"
+    "preRefreshRangeExact": "^v0.3.9",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-context-browser",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.8.0",
-    "preRefreshRangeExact": "^v1.8.1"
+    "preRefreshRangeExact": "^v1.8.1",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-d3-imports",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.4"
+    "preRefreshRangeExact": "^v1.0.4",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-dark-demo-theme",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.12"
+    "preRefreshRangeExact": "^v1.0.12",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-dark-theme",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.10"
+    "preRefreshRangeExact": "^v1.0.10",
+    "hybridRange": "^2.2.0"
   },
   {
     "name": "px-data-table",
     "postRefreshRange": "^4.0.0",
     "preRefreshRange": "^3.0.0",
-    "preRefreshRangeExact": "^v3.0.5"
+    "preRefreshRangeExact": "^v3.0.5",
+    "hybridRange": "see release notes"
   },
   {
     "name": "px-datetime-common",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.8.0",
-    "preRefreshRangeExact": "^v0.8.3"
+    "preRefreshRangeExact": "^v0.8.3",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-datetime-field",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.7.0",
-    "preRefreshRangeExact": "^v0.7.0"
+    "preRefreshRangeExact": "^v0.7.0",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-datetime-picker",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.2"
+    "preRefreshRangeExact": "^v0.4.2",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-datetime-range-field",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.6.0",
-    "preRefreshRangeExact": "^v0.6.0"
+    "preRefreshRangeExact": "^v0.6.0",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-datetime-range-panel",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.5.0",
-    "preRefreshRangeExact": "^v0.5.0"
+    "preRefreshRangeExact": "^v0.5.0",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-deck-selector",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.6.0",
-    "preRefreshRangeExact": "^v1.6.9"
+    "preRefreshRangeExact": "^v1.6.9",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-defaults-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.6"
+    "preRefreshRangeExact": "^v1.0.6",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-demo",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.5.0",
-    "preRefreshRangeExact": "^v1.5.12"
+    "preRefreshRangeExact": "^v1.5.12",
+    "hybridRange": "^3.0.0"
   },
   {
     "name": "px-demo-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.0"
+    "preRefreshRangeExact": "^v1.2.0",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-demo-snippet",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.6.0",
-    "preRefreshRangeExact": "^v0.6.21"
+    "preRefreshRangeExact": "^v0.6.21",
+    "hybridRange": "^1.3.0"
   },
   {
     "name": "px-drawer",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.7"
+    "preRefreshRangeExact": "^v1.2.7",
+    "hybridRange": "deprecated"
   },
   {
     "name": "px-dropdown",
     "postRefreshRange": "^4.0.0",
     "preRefreshRange": "^3.1.0",
-    "preRefreshRangeExact": "^v3.1.1"
+    "preRefreshRangeExact": "^v3.1.1",
+    "hybridRange": "^4.3.0"
   },
   {
     "name": "px-file-upload",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.12"
+    "preRefreshRangeExact": "^v0.4.12",
+    "hybridRange": "^1.2.0"
   },
   {
     "name": "px-flag-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.4"
+    "preRefreshRangeExact": "^v0.3.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-flexbox-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.5.0",
-    "preRefreshRangeExact": "^v0.5.2"
+    "preRefreshRangeExact": "^v0.5.2",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-forms-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.3"
+    "preRefreshRangeExact": "^v1.2.3",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-functions-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.10"
+    "preRefreshRangeExact": "^v1.0.10",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-gauge",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.0"
+    "preRefreshRangeExact": "^v1.1.0",
+    "hybridRange": "^2.2.0"
   },
   {
     "name": "px-headings-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.5"
+    "preRefreshRangeExact": "^v0.3.5",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-heatmap-grid",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-helpers-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.20"
+    "preRefreshRangeExact": "^v0.3.20",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-icon-set",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.5"
+    "preRefreshRangeExact": "^v1.1.5",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-iconography-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.11"
+    "preRefreshRangeExact": "^v0.3.11",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-inbox",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.1"
+    "preRefreshRangeExact": "^v1.0.1",
+    "hybridRange": "^2.3.0"
   },
   {
     "name": "px-key-value-pair",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.2.0"
   },
   {
     "name": "px-kpi",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.0"
+    "preRefreshRangeExact": "^v1.0.0",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-layout-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.6"
+    "preRefreshRangeExact": "^v0.4.6",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-list-bare-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.5"
+    "preRefreshRangeExact": "^v0.3.5",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-list-inline-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.3"
+    "preRefreshRangeExact": "^v0.3.3",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-list-ui-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.5"
+    "preRefreshRangeExact": "^v1.1.5",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-login",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.8"
+    "preRefreshRangeExact": "^v1.0.8",
+    "hybridRange": "^2.2.0"
   },
   {
     "name": "px-map",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^3.1.0"
   },
   {
     "name": "px-meta-buttons-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.6.0",
-    "preRefreshRangeExact": "^v0.6.4"
+    "preRefreshRangeExact": "^v0.6.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-meta-lists-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.3"
+    "preRefreshRangeExact": "^v0.4.3",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-mixins-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.4"
+    "preRefreshRangeExact": "^v0.3.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-mobile-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.4"
+    "preRefreshRangeExact": "^v0.2.4",
+    "hybridRange": "deprecated"
   },
   {
     "name": "px-modal",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.4.0",
-    "preRefreshRangeExact": "^v1.4.10"
+    "preRefreshRangeExact": "^v1.4.10",
+    "hybridRange": "^3.0.0"
   },
   {
     "name": "px-normalize-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.4"
+    "preRefreshRangeExact": "^v0.4.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-number-formatter",
     "postRefreshRange": "^4.0.0",
     "preRefreshRange": "^3.0.0",
-    "preRefreshRangeExact": "^v3.0.5"
+    "preRefreshRangeExact": "^v3.0.5",
+    "hybridRange": "^4.1.0"
   },
   {
     "name": "px-overlay",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.4"
+    "preRefreshRangeExact": "^v0.4.4",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-panel",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-percent-circle",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.3"
+    "preRefreshRangeExact": "^v0.2.3",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-popover",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.7.0",
-    "preRefreshRangeExact": "^v1.7.10"
+    "preRefreshRangeExact": "^v1.7.10",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-progress-bar",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.5"
+    "preRefreshRangeExact": "^v0.2.5",
+    "hybridRange": "^1.2.0"
   },
   {
     "name": "px-rangepicker",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.4.0",
-    "preRefreshRangeExact": "^v1.4.0"
+    "preRefreshRangeExact": "^v1.4.0",
+    "hybridRange": "^3.0.0"
   },
   {
     "name": "px-sass-doc",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.6"
+    "preRefreshRangeExact": "^v0.4.6",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-shadows-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-simple-area-chart",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.1"
+    "preRefreshRangeExact": "^v1.1.1",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-simple-bar-chart",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.9.0",
-    "preRefreshRangeExact": "^v1.9.1"
+    "preRefreshRangeExact": "^v1.9.1",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-simple-chart-common-behavior",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.6.0",
-    "preRefreshRangeExact": "^v1.6.1"
+    "preRefreshRangeExact": "^v1.6.1",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-simple-horizontal-bar-chart",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.8.0",
-    "preRefreshRangeExact": "^v0.8.5"
+    "preRefreshRangeExact": "^v0.8.5",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-simple-line-chart",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.7.0",
-    "preRefreshRangeExact": "^v1.7.8"
+    "preRefreshRangeExact": "^v1.7.8",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-simple-win-loss-chart",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.7"
+    "preRefreshRangeExact": "^v1.1.7",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-slider",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.3"
+    "preRefreshRangeExact": "^v1.0.3",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-spacing-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.4"
+    "preRefreshRangeExact": "^v0.4.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-spacing-responsive-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.1"
+    "preRefreshRangeExact": "^v0.4.1",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-spinner",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.0"
+    "preRefreshRangeExact": "^v1.0.0",
+    "hybridRange": "^2.2.0"
   },
   {
     "name": "px-starter-kit-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.7.0",
-    "preRefreshRangeExact": "^v0.7.7"
+    "preRefreshRangeExact": "^v0.7.7",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-steps",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-table-view",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.0.0",
-    "preRefreshRangeExact": "^v2.0.7"
+    "preRefreshRangeExact": "^v2.0.7",
+    "hybridRange": "deprecated"
   },
   {
     "name": "px-tables-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.9"
+    "preRefreshRangeExact": "^v1.1.9",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-tabs",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.7.0",
-    "preRefreshRangeExact": "^v0.7.0"
+    "preRefreshRangeExact": "^v0.7.0",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-theme",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.0.0",
-    "preRefreshRangeExact": "^v2.0.4"
+    "preRefreshRangeExact": "^v2.0.4",
+    "hybridRange": "^3.1.0"
   },
   {
     "name": "px-tile",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-timeline",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.0"
+    "preRefreshRangeExact": "^v0.3.0",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-toggle",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.0.0",
-    "preRefreshRangeExact": "^v1.0.5"
+    "preRefreshRangeExact": "^v1.0.5",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-toggle-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.1"
+    "preRefreshRangeExact": "^v1.2.1",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-tooltip",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.10.0",
-    "preRefreshRangeExact": "^v0.10.20"
+    "preRefreshRangeExact": "^v0.10.20",
+    "hybridRange": "^1.2.0"
   },
   {
     "name": "px-tree",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "n/a",
-    "preRefreshRangeExact": "n/a"
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-typeahead",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.1"
+    "preRefreshRangeExact": "^v1.1.1",
+    "hybridRange": "^2.1.0"
   },
   {
     "name": "px-typography-design",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.6"
+    "preRefreshRangeExact": "^v1.2.6",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-validation",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.5"
+    "preRefreshRangeExact": "^v0.4.5",
+    "hybridRange": "^1.1.0"
   },
   {
     "name": "px-view-header",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.2.0",
-    "preRefreshRangeExact": "^v0.2.5"
+    "preRefreshRangeExact": "^v0.2.5",
+    "hybridRange": "^2.0.0"
   },
   {
     "name": "px-viewport-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.14"
+    "preRefreshRangeExact": "^v0.4.14",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-vis",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.1.0",
-    "preRefreshRangeExact": "^v2.1.9"
+    "preRefreshRangeExact": "^v2.1.9",
+    "hybridRange": "^4.6.0"
   },
   {
     "name": "px-vis-demos",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.1.0",
-    "preRefreshRangeExact": "^v0.1.5"
+    "preRefreshRangeExact": "^v0.1.5",
+    "hybridRange": "^1.3.0"
   },
   {
     "name": "px-vis-parallel-coordinates",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.1.0",
-    "preRefreshRangeExact": "^v2.1.2"
+    "preRefreshRangeExact": "^v2.1.2",
+    "hybridRange": "^3.5.0"
   },
   {
     "name": "px-vis-pie-chart",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.2.0",
-    "preRefreshRangeExact": "^v1.2.0"
+    "preRefreshRangeExact": "^v1.2.0",
+    "hybridRange": "^2.2.0"
   },
   {
     "name": "px-vis-polar",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.0.0",
-    "preRefreshRangeExact": "^v2.0.2"
+    "preRefreshRangeExact": "^v2.0.2",
+    "hybridRange": "^3.5.0"
   },
   {
     "name": "px-vis-radar",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.1.0",
-    "preRefreshRangeExact": "^v2.1.2"
+    "preRefreshRangeExact": "^v2.1.2",
+    "hybridRange": "^3.5.0"
   },
   {
     "name": "px-vis-spark",
     "postRefreshRange": "^2.0.0",
     "preRefreshRange": "^1.1.0",
-    "preRefreshRangeExact": "^v1.1.0"
+    "preRefreshRangeExact": "^v1.1.0",
+    "hybridRange": "^3.1.0"
   },
   {
     "name": "px-vis-timeseries",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.1.0",
-    "preRefreshRangeExact": "^v2.1.3"
+    "preRefreshRangeExact": "^v2.1.3",
+    "hybridRange": "^3.4.0"
   },
   {
     "name": "px-vis-xy-chart",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.0.0",
-    "preRefreshRangeExact": "^v2.0.3"
+    "preRefreshRangeExact": "^v2.0.3",
+    "hybridRange": "^3.4.0"
   },
   {
     "name": "px-widget-cards",
     "postRefreshRange": "^3.0.0",
     "preRefreshRange": "^2.3.0",
-    "preRefreshRangeExact": "^v2.3.2"
+    "preRefreshRangeExact": "^v2.3.2",
+    "hybridRange": "^4.0.0"
   },
   {
     "name": "px-widths-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.21"
+    "preRefreshRangeExact": "^v0.3.21",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-widths-responsive-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.4.0",
-    "preRefreshRangeExact": "^v0.4.4"
+    "preRefreshRangeExact": "^v0.4.4",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-widths-tools-design",
     "postRefreshRange": "^1.0.0",
     "preRefreshRange": "^0.3.0",
-    "preRefreshRangeExact": "^v0.3.4"
+    "preRefreshRangeExact": "^v0.3.4",
+    "hybridRange": "^1.0.0"
   }
 ]
