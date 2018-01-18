@@ -226,6 +226,7 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
         'gulpfile.js',
         'id_rsa.enc',
         'sass/*.*',
+        '.*',
         'bower_components/leaflet/docs/*',
         '/_*/'];
 

@@ -6078,7 +6078,7 @@ plylog@^0.5.0:
     "@types/winston" "^2.2.0"
     winston "^2.2.0"
 
-polymer-analyzer@^2.0.0, polymer-analyzer@^2.0.2, polymer-analyzer@^2.2.2:
+polymer-analyzer@^2.0.0, polymer-analyzer@^2.0.2:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/polymer-analyzer/-/polymer-analyzer-2.3.0.tgz#1cb4b3290e458353454c1b77133ffb9a1d070e1d"
   dependencies:
