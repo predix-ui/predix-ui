@@ -205,7 +205,7 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
 
  gulp.task('gitStuff', function() {
    var commit = execSync(`git rev-parse HEAD`, {encoding:'utf8'}).trim();
-   gitSync.checkout('master',{args : '--orphan', cwd : '.'}, (err) => {
+   gitSync.checkout('heroku-build',{args : '--orphan', cwd : '.'}, (err) => {
      if (err) {
        console.log('git checkout error:' + err);
      }
@@ -225,9 +225,7 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
         'bower.json',
         'gulpfile.js',
         'id_rsa.enc',
-        'package.json',
         'sass/*.*',
-        'yarn.lock',
         'bower_components/leaflet/docs/*',
         '/_*/'];
 
@@ -356,20 +354,20 @@ gulp.task('cleanRoot', function () {
     '!gulpfile.js',
     '!package.json',
     '!scripts/**',
-    '!node_modules/**'
+    '!node_modules/**',
+    '!web.js',
+    '!yarn.lock',
   ]);
 });
 
 gulp.task('cleanBuild', function () {
  return del([
-   'build/**/*',
-   '!build/*.{js,json,lock}',
-   '!build/.gitignore'
+   'build/**/*'
  ]);
 });
 
 gulp.task('moveBuildToRoot', function () {
- return gulp.src("build/default/**/*")
+ return gulp.src("build/**/*")
             .pipe(gulp.dest('.'));
 });
 

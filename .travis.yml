@@ -16,7 +16,7 @@ after_success:
 - eval `ssh-agent -s`
 - chmod 0400 ~/.ssh/id_rsa
 - git remote set-url origin git@github.com:predix-ui/predix-ui.github.io.git
-- if [ "${TRAVIS_BRANCH}" = "source" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];
+- if [ "${TRAVIS_BRANCH}" = "prpl-server-rework" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];
   then gulp prodBuild; fi
 
 env:
