@@ -207,33 +207,12 @@
     {
       "name": "bundled",
       "basePath": true,
-      "browserCapabilities": [],
-      "bundle": true,
-      "js": {
-        "minify": false
-      },
-      "css": {
-        "minify": false
-      },
-      "html": {
-        "minify": false
-      }
+      "preset": "es5-bundled"
     },
     {
       "name": "default",
       "basePath": true,
-      "browserCapabilities": [
-        "es2015"
-      ],
-      "js": {
-        "minify": false
-      },
-      "css": {
-        "minify": false
-      },
-      "html": {
-        "minify": false
-      }
+      "preset": "es6-unbundled"
     }
   ],
   "lint": {
