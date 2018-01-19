@@ -356,6 +356,7 @@ gulp.task('prodBuild', function(callback) {
 gulp.task('cleanRoot', function () {
   return del([
     '**',
+    '.*',
     '!build/**',
     '!gulpfile.js',
     '!package.json',
