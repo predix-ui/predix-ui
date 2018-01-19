@@ -5,8 +5,8 @@ const app = express();
 
 app.get('/*', prpl.makeHandler('.', {
   builds: [
-    {name: 'default', browserCapabilities: ['es2015', 'push']}//,
-    // {name: 'fallback'},
+    {name: 'default', browserCapabilities: ['es2015', 'push']},
+    {name: 'bundled'},
   ],
 }));
 
