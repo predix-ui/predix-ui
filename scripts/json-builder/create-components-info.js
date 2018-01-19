@@ -90,7 +90,7 @@ function createComponentObj(componentNameSpace, descriptionCondensed, componentN
       componentInfoObj.name = componentNameDashes;
       componentInfoObj.title = componentNameSpace;
       componentInfoObj.description = descriptionCondensed;
-      componentInfoObj.imageUrl = "../img/component-gallery/" + componentNameDashes.slice(3);
+      componentInfoObj.imageUrl = "img/component-gallery/" + componentNameDashes.slice(3);
       componentInfoObj.imageAlt = componentNameSpace + " thumbnail";
       componentInfoObj.tags = componentTags;
 
@@ -131,5 +131,3 @@ exports = module.exports = function (componentDataFile) {
 
   return allComponentsInfoObj;
 };
-
-

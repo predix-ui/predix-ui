@@ -199,6 +199,7 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff",
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-typography-design/type/**",
+    "bower_components/px-theme/*.html",
     "data/*.json",
     "ie/*"
   ],
@@ -206,32 +207,32 @@
     {
       "name": "bundled",
       "basePath": true,
+      "browserCapabilities": [],
       "bundle": true,
       "js": {
-        "minify": true
+        "minify": false
       },
       "css": {
-        "minify": true
+        "minify": false
       },
       "html": {
-        "minify": true
+        "minify": false
       }
     },
     {
       "name": "default",
       "basePath": true,
       "browserCapabilities": [
-        "es2015",
-        "push"
+        "es2015"
       ],
       "js": {
-        "minify": true
+        "minify": false
       },
       "css": {
-        "minify": true
+        "minify": false
       },
       "html": {
-        "minify": true
+        "minify": false
       }
     }
   ],
