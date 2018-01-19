@@ -171,7 +171,6 @@
   "extraDependencies": [
     "manifest.json",
     "service-worker-registration.js",
-    "service-worker.js",
     "CNAME",
     "favicon.ico",
     "bower_components/webcomponentsjs/webcomponents-loader.js",
@@ -205,9 +204,10 @@
   ],
   "builds": [
     {
-      "name": "bundled",
+      "name": "es5",
       "basePath": true,
-      "preset": "es5-bundled"
+      "preset": "es5-bundled",
+      "bundle": false
     },
     {
       "name": "default",
