@@ -101,46 +101,39 @@
     "label": "Design Guidelines",
     "pages": [
       {
-        "path": "navigation",
-        "label": "Navigation",
-        "module": "view-design-navigation",
-        "entrypoint": "/pages/design/navigation.html",
+        "path": "color",
+        "label": "Color",
+        "module": "view-design-color",
+        "entrypoint": "/pages/design/color.html",
         "redirects": [
-          "/guidelines/navigation"
+          "/guidelines/color"
         ]
       },
       {
-        "path": "page-layout",
-        "label": "Page Layout",
-        "module": "view-design-page-layout",
-        "entrypoint": "/pages/design/page-layout.html",
+        "path": "data-vis",
+        "label": "Data Visualization",
+        "module": "view-design-data-vis",
+        "entrypoint": "/pages/design/data-vis.html",
         "redirects": [
-          "/guidelines/page-layout"
+          "/guidelines/data-vis"
+        ]
+      },
+
+
+      {
+        "path": "elevation-layering",
+        "label": "Elevation & Layering",
+        "module": "view-design-elevation-layering",
+        "entrypoint": "/pages/design/elevation-layering.html",
+        "redirects": [
+          "/guidelines/elevation-layering"
         ]
       },
       {
-        "path": "materiality",
-        "label": "Materiality",
-        "module": "view-design-materiality",
-        "entrypoint": "/pages/design/materiality.html",
-        "keywords": [
-          "layering",
-          "layers",
-          "z-index",
-          "shadows"
-        ],
-        "redirects": [
-          "/guidelines/materiality"
-        ]
-      },
-      {
-        "path": "typography",
-        "label": "Typography",
-        "module": "view-design-typography",
-        "entrypoint": "/pages/design/typography.html",
-        "redirects": [
-          "/guidelines/typography"
-        ]
+        "path": "forms",
+        "label": "Forms",
+        "module": "view-design-forms",
+        "entrypoint": "/pages/design/forms.html"
       },
       {
         "path": "iconography",
@@ -152,21 +145,19 @@
         ]
       },
       {
-        "path": "elevation-layering",
-        "label": "Elevation & Layering",
-        "module": "view-design-elevation-layering",
-        "entrypoint": "/pages/design/elevation-layering.html",
+        "path": "layout-examples",
+        "label": "Layout Examples",
+        "module": "view-design-layout-examples",
+        "entrypoint": "/pages/design/layout-examples.html",
+        "keywords":[
+          "examples",
+          "showcase",
+          "layouts",
+          "use cases"
+        ],
         "redirects": [
-          "/guidelines/elevation-layering"
-        ]
-      },
-      {
-        "path": "data-vis",
-        "label": "Data Visualization",
-        "module": "view-design-data-vis",
-        "entrypoint": "/pages/design/data-vis.html",
-        "redirects": [
-          "/guidelines/data-vis"
+          "/guidelines/gallery",
+          "/design/gallery"
         ]
       },
       {
@@ -185,19 +176,39 @@
         ]
       },
       {
-        "path": "layout-examples",
-        "label": "Layout Examples",
-        "module": "view-design-layout-examples",
-        "entrypoint": "/pages/design/layout-examples.html",
-        "keywords":[
-          "examples",
-          "showcase",
-          "layouts",
-          "use cases"
-        ],
+        "path": "navigation",
+        "label": "Navigation",
+        "module": "view-design-navigation",
+        "entrypoint": "/pages/design/navigation.html",
         "redirects": [
-          "/guidelines/gallery",
-          "/design/gallery"
+          "/guidelines/navigation"
+        ]
+      },
+      {
+        "path": "page-layout",
+        "label": "Page Layout",
+        "module": "view-design-page-layout",
+        "entrypoint": "/pages/design/page-layout.html",
+        "redirects": [
+          "/guidelines/page-layout"
+        ]
+      },
+      {
+        "path": "typography",
+        "label": "Typography",
+        "module": "view-design-typography",
+        "entrypoint": "/pages/design/typography.html",
+        "redirects": [
+          "/guidelines/typography"
+        ]
+      },
+      {
+        "path": "writing",
+        "label": "Writing for Design Components",
+        "module": "view-design-writing",
+        "entrypoint": "/pages/design/writing.html",
+        "redirects": [
+          "/guidelines/writing"
         ]
       }
     ]
@@ -312,8 +323,28 @@
             "redirects": [
               "/guides/vis-guides-crosshair"
             ]
+          },
+          {
+            "path": "annotations",
+            "label": "Annotations",
+            "module": "view-develop-vis-annotations",
+            "entrypoint": "/pages/develop/vis/annotations.html",
+            "keywords": [
+              "annotations",
+              "chart",
+              "graph"
+            ],
+            "redirects": [
+              "/guides/vis-guides-annotations"
+            ]
           }
         ]
+      },
+      {
+        "path": "datetime-changes",
+        "label": "Datetime Release Notes",
+        "module": "view-develop-datetime-changes",
+        "entrypoint": "/pages/develop/datetime-changes.html"
       },
       {
         "path": "frameworks-angular",

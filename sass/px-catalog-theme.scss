@@ -59,10 +59,11 @@
   --animation-gauge-background-color   : #b6c3cc;
 
   /* component gallery */
-  --comonent-gallery-background       : $gray3;
-  --comonent-gallery-hr-color         : $gray4;
-  --px-tile-text-background-color     : $gray1;
-  --px-tile-title-color               : $gray15;
+  --comonent-gallery-background        : $gray3;
+  --comonent-gallery-hr-color          : $gray4;
+  --px-tile-text-background-color      : $gray1;
+  --px-tile-thumbnail-background-color : $white;
+  --px-tile-title-color                : $gray15;
 }
 
 :host([dark-theme]) > * {
@@ -127,9 +128,10 @@
   --px-code-function  : #c9c;
 
   /* component gallery */
-  --comonent-gallery-background       : $gray15;
-  --comonent-gallery-hr-color         : $gray12;
-  --px-tile-text-background-color     : $gray16;
-  --px-tile-title-color               : $gray1;
+  --comonent-gallery-background        : $gray15;
+  --comonent-gallery-hr-color          : $gray12;
+  --px-tile-text-background-color      : $gray16;
+  --px-tile-title-color                : $gray1;
+  --px-tile-thumbnail-background-color : $gray17;
 
 }

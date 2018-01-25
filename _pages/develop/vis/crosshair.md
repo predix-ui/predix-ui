@@ -12,7 +12,7 @@ Starting with version 2.0.0 of px-vis, the new crosshair feature became availabl
 
 This article will walk you through the crosshair feature and explain how to add it to your charts and app.
 
-For the demo of crosshair, go [here](https://www.predix-ui.com/px-vis-demos/px-vis-demos/crosshair.html).
+For the demo of crosshair, go <a href="https://www.predix-ui.com/px-vis-demos/px-vis-demos/crosshair.html" target="_blank">here</a>.
 
 # Demo walkthrough and features
 
