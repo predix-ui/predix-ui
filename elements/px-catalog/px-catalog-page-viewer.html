@@ -1,4 +1,5 @@
-<link defer rel="import" href="../../bower_components/polymer/polymer.html" />
+<link defer rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link defer rel="import" href="../../bower_components/polymer/lib/utils/debounce.html">
 <link async rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html"/>
 <link async rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
 <link async rel="import" href="../../bower_components/px-spinner/px-spinner.html"/>
@@ -46,63 +47,71 @@
     </template>
   </template>
   <script>
-    Polymer({
-      is: 'px-catalog-page-viewer',
-      properties: {
-        activeModule: {
-          type: String,
-          observer: '_activeModuleChanged'
-        },
-        activeAnchor: {
-          type: String,
-          observer: '_handleActiveAnchorChanged'
-        },
-        visibleAnchor: {
-          type: String,
-          observer: '_handleVisibleAnchorChanged'
-        },
-        darkTheme: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        },
-        spinnerActive: {
-          type: Boolean,
-          value: false
-        },
-        _activeModuleEl: {
-          type: HTMLElement
-        },
-        _scrollTop: {
-          type: Number,
-          value: null
-        },
-        _isRICScheduled: {
-          type: Boolean,
-          value: false
-        },
-        _scrollCausedByAnchorClick: {
-          type: Boolean,
-          value: false
+    class PxCatalogPageViewer extends Polymer.Element {
+      static get is() { return 'px-catalog-page-viewer'; }
+        static get properties() {
+          return {
+            activeModule: {
+              type: String,
+              observer: '_activeModuleChanged'
+            },
+            activeAnchor: {
+              type: String,
+              observer: '_handleActiveAnchorChanged'
+            },
+            visibleAnchor: {
+              type: String,
+              observer: '_handleVisibleAnchorChanged'
+            },
+            darkTheme: {
+              type: Boolean,
+              value: false,
+              reflectToAttribute: true
+            },
+            spinnerActive: {
+              type: Boolean,
+              value: false
+            },
+            _activeModuleEl: {
+              type: HTMLElement
+            },
+            _scrollTop: {
+              type: Number,
+              value: null
+            },
+            _isRICScheduled: {
+              type: Boolean,
+              value: false
+            },
+            _scrollCausedByAnchorClick: {
+              type: Boolean,
+              value: false
+            },
+            _modules: {
+              type: Object,
+              value: () => {return {}}
+            }
+          }
         }
-      },
-      observers: [
-        '_applyTheme(_activeModuleEl, darkTheme)',
-        '_watchVisibleAnchor(activeModule, _activeModuleEl, _scrollTop)'
-      ],
-      listeners: {
-        'px-catalog-page-anchor-tapped': '_handleAnchorTapped'
-      },
-      created: function() {
-        this._modules = {};
-
+        static get observers() {
+          return [
+            '_applyTheme(_activeModuleEl, darkTheme)',
+            '_watchVisibleAnchor(activeModule, _activeModuleEl, _scrollTop)'
+          ]
+        }
+      ready() {
+        super.ready();
+        this.addEventListener('px-catalog-page-anchor-tapped', this._handleAnchorTapped);
+      }
+      constructor() {
+        super();
         // Checks if passive scroll handler is supported. If it isn't (e.g. in
         // old browsers) the anchor navigation links will not be updated as
         // the user scrolls. This test is from https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
         var passiveScrollSupported = false;
         try {
           var options = Object.defineProperty({}, "passive", {
-            get: function() {
+            get() {
               passiveScrollSupported = true;
             }
           });
@@ -110,20 +119,22 @@
           window.addEventListener("test", null, options);
         } catch(err) {}
         this._passiveScrollSupported = passiveScrollSupported;
-      },
-      attached: function() {
+      }
+      connectedCallback() {
+        super.connectedCallback();
         if (this._passiveScrollSupported) {
           this._scrollHandler = this._handleScroll.bind(this);
           this.addEventListener('scroll', this._scrollHandler, { passive: true });
         }
-      },
-      detached: function() {
+      }
+      disconnectedCallback() {
+
         if (this._passiveScrollSupported && this._scrollHandler) {
           this.removeEventListener('scroll', this._scrollHandler, { passive: true });
         }
-      },
+      }
 
-      _handleScroll: function(evt) {
+      _handleScroll(evt) {
         // clicking an anchor triggers a scroll, but want to leave the clicked on anchor as the highlighted anchor, so just escape
         if (this._scrollCausedByAnchorClick) {
           this._scrollCausedByAnchorClick = false;
@@ -139,18 +150,20 @@
           //can adjust timeout depending on if we want the scroll to more more up-to-date based on position during a fast scroll or more performant
           requestIdleCallback(this._rAFScroll.bind(this), { timeout: 100 });
         } else {
-          this.debounce('handle-scroll', this._rAFScroll, 100);
+          this._debouncer = Polymer.Debouncer.debounce(this._debouncer,
+              Polymer.Async.timeOut.after(100),
+              () => { this._rAFScroll() });
         }
-      },
+      }
 
-      _rAFScroll: function() {
+      _rAFScroll() {
         requestAnimationFrame(function() {
           this._scrollTop = this.scrollTop;
           this._isRICScheduled = false;
         }.bind(this));
-      },
+      }
 
-      _watchVisibleAnchor: function(viewName, viewEl, scroll) {
+      _watchVisibleAnchor(viewName, viewEl, scroll) {
         if(! (viewName === undefined || viewEl === undefined || scroll === undefined)){
           if (viewName.slice(0,5) !== 'view-' || typeof scroll !== 'number' || !(viewEl instanceof HTMLElement) || !viewEl.hasAttribute('has-anchors')) {
             return;
@@ -185,13 +198,13 @@
             }
           }
         }
-      },
-      _handleVisibleAnchorChanged: function(visibleAnchor) {
+      }
+      _handleVisibleAnchorChanged(visibleAnchor) {
         if (this.activeAnchor !== visibleAnchor) {
           this.activeAnchor = visibleAnchor;
         }
-      },
-      _handleActiveAnchorChanged: function(activeAnchor) {
+      }
+      _handleActiveAnchorChanged(activeAnchor) {
         if (!this._activeModuleEl) {
           return;
         }
@@ -201,26 +214,27 @@
           this._scrollCausedByAnchorClick = true;
         }
         this._activeModuleEl.activeAnchor = activeAnchor;
-      },
-      _handleAnchorTapped: function(evt) {
+      }
+      _handleAnchorTapped(evt) {
+        debugger;
         if (evt.detail.anchor) {
           this.activeAnchor = evt.detail.anchor;
         }
-      },
-      _scrollToAnchorPath: function(el, activeAnchor, retries) {
+      }
+      _scrollToAnchorPath(el, activeAnchor, retries) {
         if (!el || !el.is) {
           console.log('Element not yet defined');
         }
         else if (el.hasAttribute('has-anchors')) {
           // Element is a markdown page, jump to the requested anchor
-          var anchorEl = Polymer.dom(el.root).querySelector(activeAnchor);
+          var anchorEl = this.shadowRoot.querySelector(activeAnchor);
           var offset = anchorEl ? (anchorEl.offsetTop-30) : 0;
           this.scrollTop = offset;
         }
         else if (/^px\-.+\-demo$/.test(el.is)) {
           // Element is a component demo, jump to the right api viewer section
 
-          // var demoApiViewer = Polymer.dom(el.root).querySelector('px-demo-api-viewer');
+          // var demoApiViewer = this.shadowRoot.querySelector('px-demo-api-viewer');
           // if (!demoApiViewer) return;
           // var apiViewer = Polymer.dom(demoApiViewer.root).querySelector('px-api-viewer');
           // if (!apiViewer) return;
@@ -228,53 +242,57 @@
           // if (!doc) return;
           // doc.scrollToAnchor(activeAnchor);
         }
-      },
-      _activeModuleChanged: function(newModuleName, oldModuleName) {
+      }
+      _activeModuleChanged(newModuleName, oldModuleName) {
+        console.log(newModuleName, oldModuleName)
         if (newModuleName && !this._modules[newModuleName]) {
           var el = document.createElement(newModuleName);
           el.setAttribute('module-name', newModuleName);
-          Polymer.dom(this.$.pages).appendChild(el);
+            Polymer.dom(this.$.pages).appendChild(el);
           this._modules[newModuleName] = el;
         }
-      },
-      _applyTheme: function(el, darkTheme, retry) {
-        this.debounce('applyTheme', ()=>{
-          el = this._activeModuleEl;
-          retry = retry || 1;
-          if (!el) {
-            return;
-          }
-          if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
-            var retries = (retry+1);
-            var timeout = (retries < 10) ? 10 : 1000;
-            this.async(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
-            return;
-          }
-
-          var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
-          var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
-          var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
-
-          if (this.darkTheme && needDyanmicTheme) {
-            el.setAttribute('dark-theme', '');
-            var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
-            el.updateStyles(darkTheme);
-          }
-          else if (!this.darkTheme && needDyanmicTheme) {
-            el.removeAttribute('dark-theme');
-            var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
-            el.updateStyles(defaultTheme);
-          }
-          else if (this.darkTheme && !needDyanmicTheme) {
-            el.setAttribute('dark-theme', '');
-            el.updateStyles();
-          }
-          else if (!this.darkTheme && !needDyanmicTheme) {
-            el.removeAttribute('dark-theme');
-            el.updateStyles();
-          }
-        },250);
       }
-    })
+      _applyTheme(el, darkTheme, retry) {
+        this._debouncer = Polymer.Debouncer.debounce(this._debouncer,
+            Polymer.Async.timeOut.after(100),
+            ()=>{
+              el = this._activeModuleEl;
+              retry = retry || 1;
+              if (!el) {
+                return;
+              }
+              if ((!el.is || typeof el.updateStyles !== 'function') && retry < 100) {
+                var retries = (retry+1);
+                var timeout = (retries < 10) ? 10 : 1000;
+                setTimeout(this._applyTheme.bind(this, el, darkTheme, retries), timeout);
+                return;
+              }
+
+              var componentDemoRe = /px\-[a-zA-Z0-9-]+-demo/;
+              var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
+              var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
+
+              if (this.darkTheme && needDyanmicTheme) {
+                el.setAttribute('dark-theme', '');
+                var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+                el.updateStyles(darkTheme);
+              }
+              else if (!this.darkTheme && needDyanmicTheme) {
+                el.removeAttribute('dark-theme');
+                var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
+                el.updateStyles(defaultTheme);
+              }
+              else if (this.darkTheme && !needDyanmicTheme) {
+                el.setAttribute('dark-theme', '');
+                el.updateStyles();
+              }
+              else if (!this.darkTheme && !needDyanmicTheme) {
+                el.removeAttribute('dark-theme');
+                el.updateStyles();
+              }
+            });
+      }
+    }
+    window.customElements.define(PxCatalogPageViewer.is, PxCatalogPageViewer);
   </script>
 </dom-module>
