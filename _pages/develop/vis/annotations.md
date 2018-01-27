@@ -9,7 +9,7 @@ pathToRoot: ../../../
 
 Version 4.6.0 of the vis framework saw the introduction of the annotations feature. This feature has been voluntarily left unopiniated and much of its look and interaction will be left to the application to implement. This article will walk you through how the feature works and the <a href="https://www.predix-ui.com/px-vis-demos/px-vis-demos/annotations.html" target="_blank">example implementation</a> we provide.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/annotations/annotations_example" img-alt="example annotations" style="border:none;" caption="Implementation example of the annotations"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/annotations/annotations_example" img-alt="example annotations" style="border:none;" caption="Implementation example of the annotations"></catalog-picture>
 
 # Annotations feature: one array and some hooks
 
@@ -125,7 +125,7 @@ For creation we listen to the `px-vis-annotation-creation` event. When it is fir
 
 Once we have the data values and series we open a modal the user can interact with. The modal will display the series, data values as well as a text area used to input the actual annotation.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/annotations/annotation_creation" img-alt="annotation creation" caption="Modal for creating an annotation"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/annotations/annotation_creation" img-alt="annotation creation" caption="Modal for creating an annotation"></catalog-picture>
 
 When the user clicks create we update the chart's `annotationData` with the data values, series and message.
 
@@ -156,7 +156,7 @@ For editing annotations we listen to `px-vis-annotation-click`. When this happen
 
 We then modify the tooltip content to display a text area with the message and three buttons: Cancel, Delete and Save.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/annotations/annotation_edit" img-alt="annotation editing" style="border:none;" caption="Editing an annotation"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/annotations/annotation_edit" img-alt="annotation editing" style="border:none;" caption="Editing an annotation"></catalog-picture>
 
 On Cancel we just close the tooltip.
 

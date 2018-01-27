@@ -1,7 +1,7 @@
 ---
 title: Datetime Release Notes
 moduleName: view-develop-datetime-changes
-pathToRoot: ../../../
+pathToRoot: ../../
 layout: default
 ---
 

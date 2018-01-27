@@ -15,7 +15,7 @@ With the introduction of the new crosshair feature, which allows users to hover 
 A quadtree stores our data spatially in a tree hierarchy, allowing for testing only a small subset of data when searching for the closest point. You can read more about quadtrees on [Wikipedia] (https://en.wikipedia.org/wiki/Quadtree).
 
 <div>
-  <img src="../../../img/guidelines/dev/vis/web-workers/visual_qt_optimized.gif" width="600" height="338"></img>
+  <img src="[[rootPath]]img/guidelines/dev/vis/web-workers/visual_qt_optimized.gif" width="600" height="338"></img>
   <p class="caption">Visual representation of the quadtrees we use</p>
 </div>
 
@@ -39,12 +39,12 @@ This impact only effects the memory used by the data, which should be a smaller 
 At the moment, the only charts building quadtrees are px-vis-xy-chart and px-vis-polar. Px-vis-timeseries also duplicates the data for searching for its extents in the web worker, but doesn't use the quadtree search (it is already using a binary search relying on the time data being already sorted). Prior to implementing a quadtree with web workers, finding the closest point for a modest 40k dataset took ~50ms per search. Since the search ran on every mouse move, this had a huge negative impact on performance. With our quadtree, each search takes <0.5ms, even on a 4 millions point dataset.
 
 <div>
-  <img src="../../../img/guidelines/dev/vis/web-workers/4_millions_old.gif" width="600" height="338"></img>
+  <img src="[[rootPath]]img/guidelines/dev/vis/web-workers/4_millions_old.gif" width="600" height="338"></img>
   <p class="caption">4 millions points dataset with old search.</p>
 </div>
 
 <div>
-  <img src="../../../img/guidelines/dev/vis/web-workers/4_millions.gif" width="600" height="338"></img>
+  <img src="[[rootPath]]img/guidelines/dev/vis/web-workers/4_millions.gif" width="600" height="338"></img>
   <p class="caption">4 millions points dataset with quadtree search. Snappy.</p>
 </div>
 
@@ -142,4 +142,3 @@ internally):
 * runCustomFunction: used to run a function on a custom script that you
  explicitely loaded in the web workers through `Px.vis.registerCustomScript`. Pass `functionName`, `objectName` and `data` in the `data` object of the context
 * updateData: register a new dataset or update a dataset in the web worker. It will be stored in the dataMapping object, the key being chartId and the value the dataset. pass `chartData` in the data object
-

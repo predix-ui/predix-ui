@@ -32,16 +32,16 @@ Use meaningful and identifiable iconography to augment naming and supply a visua
 ### Horizontal Navigation
 For applications where users will likely switch between main navigation items frequently, the horizontal configuration is a good option. The navigation is persistent and designed for 5-8 top level items, although it can support more. Icons can be
 used as visual indicators, but they are optional.
-<catalog-picture img-src="../../../img/guidelines/design/navigation/horizontal_nav" img-alt="horizontal nav"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/navigation/horizontal_nav" img-alt="horizontal nav"></catalog-picture>
 
 ### Vertical Navigation
 In cases where there's a substantial number of main navigation links (8+), using vertical navigation or top navigation is up to a designer's discretion. The component can be left open or closed based on preference, so it represents a fairly flexible
 navigation option.
-<catalog-picture img-src="../../../img/guidelines/design/navigation/vertical_nav" img-alt="vertical nav"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/navigation/vertical_nav" img-alt="vertical nav"></catalog-picture>
 
 ### Dropdown
 Recommended for applications that have five or less sub-sections where the use cases don't call for frequently switching between navigation items.
-<catalog-picture img-src="../../../img/guidelines/design/navigation/drop_down_nav" img-alt="drop down nav"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/navigation/drop_down_nav" img-alt="drop down nav"></catalog-picture>
 
 # Sub-navigation
 Core navigation components support one level of sub navigation. If your information architecture requires an additional level, you can combine navigation components to address this need.
@@ -49,14 +49,14 @@ Core navigation components support one level of sub navigation. If your informat
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/subnavigation_1"
+    img-src="../../img/guidelines/design/navigation/subnavigation_1"
     img-alt="subnavigation 1"
     title="Left nav informs top nav"
     caption="When combining components, the left navigation can inform the choices on the top navigation component.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/subnavigation_2"
+    img-src="../../img/guidelines/design/navigation/subnavigation_2"
     img-alt="subnavigation 2"
     title="Top nav informs the left nav"
     caption="The top navigation can also inform a vertical column containing sub-navigation links.">
@@ -71,14 +71,14 @@ them into different applications.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/content-nav-do"
+    img-src="../../img/guidelines/design/navigation/content-nav-do"
     img-alt="content nav correct"
     title="Do"
     caption="Use content to navigate between work flows.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/content-nav-dont"
+    img-src="../../img/guidelines/design/navigation/content-nav-dont"
     img-alt="content nav incorrect"
     title="Don't"
     caption="Avoid creating a navigation scheme with only two options.">
@@ -91,14 +91,14 @@ Many Predix applications are used to display information about a specific machin
 ### Breadcrumbs
 Breadcrumbs indicate the path a user has taken to a particular page or object. They are used in conjunction with global navigation and are typically displayed below the main navigation and above the page title. The component for breadcrumbs is <a href="/#/components/px-breadcrumbs/" target="_top">px-breadcrumbs</a>.
 
-<catalog-picture img-src="../../../img/guidelines/design/navigation/breadcrumbs" img-alt="breadcrumbs"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/navigation/breadcrumbs" img-alt="breadcrumbs"></catalog-picture>
 
 
 ### Context Browser
 The context browser works in conjunction with breadcrumbs. It may live below, above or with the main navigation depending on your application's information architecture. In cases where setting the context is the main function of the application, it
 can even serve as the main navigation. The component for breadcrumbs is <a href="/#/components/px-context-browser/" target="_top">px-context-browser</a>.
 
-<catalog-picture img-src="../../../img/guidelines/design/navigation/context-browser" img-alt="context browser"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/navigation/context-browser" img-alt="context browser"></catalog-picture>
 
 
 # In-Page Navigation
@@ -110,14 +110,14 @@ Tabs are typically placed below the page header above the main content, but can 
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/tabs-do"
+    img-src="../../img/guidelines/design/navigation/tabs-do"
     img-alt="tabs correct"
     title="Do"
     caption="Use a concise number of tabs to allow access to info about a singular topic">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/tabs-dont"
+    img-src="../../img/guidelines/design/navigation/tabs-dont"
     img-alt="tabs incorrect"
     title="Don't"
     caption="Avoid using tabs as a main navigation construct.">
@@ -131,14 +131,14 @@ Use modals for lightweight tasks and confirmations such as confirming a save or 
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/modal-do"
+    img-src="../../img/guidelines/design/navigation/modal-do"
     img-alt="modal correct"
     title="Do"
     caption="Use modals for lightweight tasks and confirmations.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/navigation/modal-dont"
+    img-src="../../img/guidelines/design/navigation/modal-dont"
     img-alt="modal incorrect"
     title="Don't"
     caption="Avoid overloading modals with heavyweight tasks.">

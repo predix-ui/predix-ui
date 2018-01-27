@@ -33,9 +33,9 @@
 
     <picture>
       <template is="dom-if" if="[[title]]"><p class="title">[[title]]</p></template>
-      <source srcset$="[[imgSrc]].webp" type="image/webp">
-      <source srcset$="[[imgSrc]].png" type="image/png">
-      <img src$="[[imgSrc]].png" alt$="[[imgAlt]]">
+      <source srcset$="[[importPath]][[imgSrc]].webp" type="image/webp">
+      <source srcset$="[[importPath]][[imgSrc]].png" type="image/png">
+      <img src$="[[importPath]][[imgSrc]].png" alt$="[[imgAlt]]">
       <p class="caption">[[caption]]</p>
     </picture>
   </template>

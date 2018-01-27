@@ -10,7 +10,7 @@ pathToRoot: ../../../
 The px-vis charts rely upon d3.js for constructing an axis. While incredibly powerful, d3's axis can be difficult to configure. This guide will walk you through how to configure your chart axes.
 
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis" img-alt="example axis" style="border:none;" caption="Example axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis" img-alt="example axis" style="border:none;" caption="Example axis"></catalog-picture>
 
 
 # How axes work in d3
@@ -55,7 +55,7 @@ Refer to <a href="https://github.com/d3/d3-format" target="_blank">d3-format</a>
 
 #### Default
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-number-default" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-number-default" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
 
 #### Fixed Point
 
@@ -65,7 +65,7 @@ let myConfig = {
 }
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-format-fixed" img-alt="fixed point" style="border:none;" caption="Showing fixed points"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-format-fixed" img-alt="fixed point" style="border:none;" caption="Showing fixed points"></catalog-picture>
 
 #### Adding a prefix
 
@@ -74,7 +74,7 @@ let myConfig = {
   tickFormat: '+.2f'
 }
 ```
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-format-prefix" img-alt="prefix" style="border:none;" caption="Adding a '+' prefix"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-format-prefix" img-alt="prefix" style="border:none;" caption="Adding a '+' prefix"></catalog-picture>
 
 
 #### Scientific notation
@@ -84,7 +84,7 @@ let myConfig = {
   tickFormat: '.1e'
 }
 ```
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-format-e" img-alt="e" style="border:none;" caption="Scientific notation"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-format-e" img-alt="e" style="border:none;" caption="Scientific notation"></catalog-picture>
 
 
 ### Some examples formating time:
@@ -93,7 +93,7 @@ Formating numbers is easy because you can just pass in a formating string. With 
 
 #### Default day range
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-days-default" img-alt="days" style="border:none;" caption="Normal day range axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-days-default" img-alt="days" style="border:none;" caption="Normal day range axis"></catalog-picture>
 
 #### Abbreviated day name and day of the month
 
@@ -105,7 +105,7 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-days-ad" img-alt="days" style="border:none;" caption="Day range formated in local time with abbreviated day name and day of the month number"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-days-ad" img-alt="days" style="border:none;" caption="Day range formated in local time with abbreviated day name and day of the month number"></catalog-picture>
 
 You'll notice that we've provided a format quite similar to the default format. But by using the `timeFormat` function, we've corerced it into local time. If you wish to maintain UTC, then use `utcFormat` instead. Also note, that while you can coerice the values into local time (or to UTC if you are in local time), it is better to address this by changing the `xAxisType` property on the chart. See below in the FAQ
 
@@ -118,7 +118,7 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-days-ad-utc" img-alt="days" style="border:none;" caption="Day range formated in local time with abreviated day name and day of the month number"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-days-ad-utc" img-alt="days" style="border:none;" caption="Day range formated in local time with abreviated day name and day of the month number"></catalog-picture>
 
 
 #### d/mm/yyy
@@ -131,7 +131,7 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-days-x" img-alt="days" style="border:none;" caption="Day range formated as d/m/yyyy"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-days-x" img-alt="days" style="border:none;" caption="Day range formated as d/m/yyyy"></catalog-picture>
 
 
 #### Full day names
@@ -144,12 +144,12 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-days-A" img-alt="days" style="border:none;" caption="Day range formated with full day names"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-days-A" img-alt="days" style="border:none;" caption="Day range formated with full day names"></catalog-picture>
 
 
 #### Default hour range
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-hour-default" img-alt="hours" style="border:none;" caption="Normal hour range axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-hour-default" img-alt="hours" style="border:none;" caption="Normal hour range axis"></catalog-picture>
 
 
 #### Hour: Minute AM/PM
@@ -162,7 +162,7 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-hour-IMp" img-alt="hour" style="border:none;" caption="Hour range formated with hour: minute and am/pm"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-hour-IMp" img-alt="hour" style="border:none;" caption="Hour range formated with hour: minute and am/pm"></catalog-picture>
 
 
 #### Local time with timezone
@@ -175,7 +175,7 @@ let myConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-hour-IMZ" img-alt="hour" style="border:none;" caption="Hour range formated into local time timezone"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-hour-IMZ" img-alt="hour" style="border:none;" caption="Hour range formated into local time timezone"></catalog-picture>
 
 One thing to note when playing with the format, by default, d3 will change the format depending on your zoom level to a more appropriate value. Once you specify a format, that feature is disabled and you will have to manually update the format with each zoom. Or clear the provided format by providing `null`.
 
@@ -198,7 +198,7 @@ If you give it an Object, then there are two optional keys you can assign:
 
 #### Default
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
 
 #### Ticks as a number
 
@@ -218,7 +218,7 @@ let myConfig = {
 }
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-ticks-5" img-alt="ticks" style="border:none;" caption="Ticks set to 5. Note that it is actually showing 6 ticks"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-ticks-5" img-alt="ticks" style="border:none;" caption="Ticks set to 5. Note that it is actually showing 6 ticks"></catalog-picture>
 
 #### Ticks as an object with interval and format
 
@@ -231,14 +231,14 @@ let myConfig = {
 }
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-ticks-obj" img-alt="ticks" style="border:none;" caption="Ticks interval and formatter set"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-ticks-obj" img-alt="ticks" style="border:none;" caption="Ticks interval and formatter set"></catalog-picture>
 
 
 ## d3.tickValues
 
 `tickValues` allows you to specify absolutely what the tick values for your axis should be. It is an array of values. Example:
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
 
 ```js
 let myConfig = {
@@ -246,7 +246,7 @@ let myConfig = {
 }
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-tickvalues" img-alt="tick values" style="border:none;" caption="Axis with tick values"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-tickvalues" img-alt="tick values" style="border:none;" caption="Axis with tick values"></catalog-picture>
 
 Note how it still rounds the value of 7.7 by default. To show the decimal point, you'll still have to provide a formatter to show the decimal value.
 
@@ -261,7 +261,7 @@ Note how it still rounds the value of 7.7 by default. To show the decimal point,
 <px-vis-timeseries></px-vis-timeseries>
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-scale-time" img-alt="time scale" style="border:none;" caption="Axis type set to default 'time'"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-scale-time" img-alt="time scale" style="border:none;" caption="Axis type set to default 'time'"></catalog-picture>
 
 **A:** Change the chart property xAxisType to `timeLocal` instead of the default `time`.
 
@@ -270,7 +270,7 @@ Note how it still rounds the value of 7.7 by default. To show the decimal point,
 <px-vis-timeseries id="myChart" x-axis-type="timeLocal"></px-vis-timeseries>
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-scale-timeLocal" img-alt="time scale" style="border:none;" caption="Axis type set 'timeLocal'"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-scale-timeLocal" img-alt="time scale" style="border:none;" caption="Axis type set 'timeLocal'"></catalog-picture>
 
 Additionally, you'll have to configure the register/tooltip with the `timezone` property to get the axis and register/tooltip in sync. Note that the register/tooltip use moment.js, so refer to moment.js docs for appropriate notation. Example:
 
@@ -314,7 +314,7 @@ Refer to the <a href="https://momentjs.com" target="_blank">MomentJs docs</a> fo
 <px-vis-xy-chart></px-vis-xy-chart>
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-scale-linear" img-alt="linear time scale" style="border:none;" caption="Axis type set to linear and it should be time"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-scale-linear" img-alt="linear time scale" style="border:none;" caption="Axis type set to linear and it should be time"></catalog-picture>
 
 **A:** Use px-vis-timeseries instead. They are very similar charts, but timeseries has been optimized for timeseries data on the x-axis. It will display dates/times by default.
 
@@ -322,18 +322,18 @@ Refer to the <a href="https://momentjs.com" target="_blank">MomentJs docs</a> fo
 <px-vis-timeseries></px-vis-timeseries>
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-scale-time" img-alt="time scale" style="border:none;" caption="Axis type set properly to time"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-scale-time" img-alt="time scale" style="border:none;" caption="Axis type set properly to time"></catalog-picture>
 
 ---
 
 ## My tick labels are overlapping
 
 **Q:** My chart is narrow and my tick values are overlapping
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-overlap" img-alt="overlapping" style="border:none;" caption="My ticks are overlapping"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-overlap" img-alt="overlapping" style="border:none;" caption="My ticks are overlapping"></catalog-picture>
 
 **A:** See above on how to change the number of ticks and their format to take up less space. You can also change the tick placement, rotate them, change their type size, etc. Consult with your designers about how best to modify your tick values to conserve space.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-axis/axis-overlap-fixed" img-alt="overlapping fixed" style="border:none;" caption="Fixed by changing the format"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis-overlap-fixed" img-alt="overlapping fixed" style="border:none;" caption="Fixed by changing the format"></catalog-picture>
 
 ---
 
@@ -347,7 +347,7 @@ Refer to the <a href="https://momentjs.com" target="_blank">MomentJs docs</a> fo
     margin-bottom: 50px;
   }
 </style>
-<catalog-picture class="short" img-src="../../../img/guidelines/dev/vis/configure-axis/axis-cutoff" img-alt="cutoff" style="border:none;" caption="Title cut off"></catalog-picture>
+<catalog-picture class="short" img-src="../../img/guidelines/dev/vis/configure-axis/axis-cutoff" img-alt="cutoff" style="border:none;" caption="Title cut off"></catalog-picture>
 
 
 **A:** The chart `margin` property exists to provide space around the chart for the axis ticks and title. You will need to increase this `margin`.
@@ -359,7 +359,7 @@ Alternatively, depending on your ticks, you may want to change the tickFormat to
 
 ```
 
-<catalog-picture class="short" img-src="../../../img/guidelines/dev/vis/configure-axis/axis-cutoff-fixed" img-alt="cutoff fixed" style="border:none;" caption="Cut off title fixed"></catalog-picture>
+<catalog-picture class="short" img-src="../../img/guidelines/dev/vis/configure-axis/axis-cutoff-fixed" img-alt="cutoff fixed" style="border:none;" caption="Cut off title fixed"></catalog-picture>
 
 ---
 

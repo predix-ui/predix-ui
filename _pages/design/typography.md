@@ -39,7 +39,7 @@ Section header | <span class="heading--section">Section Header<span> | 20px Uppe
 
 </br>
 In total, there are seven font sizZes available ranging from 12px to 75px. Font sizes above 30px are reserved for use on dashboard widgets.
-<catalog-picture img-src="../../../img/guidelines/design/typography/type_sizes" img-alt="drop down nav"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/typography/type_sizes" img-alt="drop down nav"></catalog-picture>
 
 
 # Hierarchy
@@ -48,14 +48,14 @@ It's important to maintain an consistent typographic hierarchy in your applicati
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/typography/type_hierarchy_do"
+    img-src="../../img/guidelines/design/typography/type_hierarchy_do"
     img-alt="type hierarchy correct"
     title="Do"
     caption="Cascading type sizes based on importance of information can help indicate an information hierarchy.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/typography/type_hierarchy_dont"
+    img-src="../../img/guidelines/design/typography/type_hierarchy_dont"
     img-alt="type hierarchy incorrect"
     title="Don't"
     caption="Not utilizing a hierarchy or using type sizes in a random fashion makes it harder for users to understand what's most important.">
@@ -69,14 +69,14 @@ and metadata.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/typography/bold_do"
+    img-src="../../img/guidelines/design/typography/bold_do"
     img-alt="bold correct"
     title="Do"
     caption="Use bold sparingly. It can be used for emphasis of selected items such as to indicate the location in a hierarchy.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/typography/bold_dont"
+    img-src="../../img/guidelines/design/typography/bold_dont"
     img-alt="bold incorrect"
     title="Don't"
     caption="Over applying bold can result in an app that is visually heavy and hard to scan.">

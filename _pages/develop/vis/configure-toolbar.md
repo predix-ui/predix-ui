@@ -62,7 +62,7 @@ componentReadyCallBack: |
 
 Each chart can embed a toolbar element which consists of a main row of items and an optional subrow of items. The subrow usually represents a context of an item of the main row, i.e clicking an item of the main row brings more options.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/configure-toolbar/toolbar" img-alt="toolbar subpart" style="border:none;" caption="Toolbar with the 'zoom' main item selected"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/configure-toolbar/toolbar" img-alt="toolbar subpart" style="border:none;" caption="Toolbar with the 'zoom' main item selected"></catalog-picture>
 
 In the picture above we can see a main row consisting of a "zoom" and "pan" items. The "zoom" item has been selected, hence displaying the associated subrow presenting a set of zooming options.
 

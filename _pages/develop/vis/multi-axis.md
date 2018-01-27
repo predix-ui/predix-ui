@@ -9,7 +9,7 @@ pathToRoot: ../../../
 
 By default, px-vis-timeseries and px-vis-xy-chart have one dependent axis, but you can configure them to have multiple dependent axes. This guide will walk you though how.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="example axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="example axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
 
 
 # Configuring a multi-axis chart
@@ -39,7 +39,7 @@ In the "Introduction to configuring a chart", we introduced the `seriesConfig` p
 }
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/single-axis" img-alt="single axis" style="border:none;" caption="Single Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/single-axis" img-alt="single axis" style="border:none;" caption="Single Axis"></catalog-picture>
 
 The above example configuration defines three series, but does not define any axis. By default, if no axis is specified in the `seriesConfig`, it places the series on a default axis. Adding in an axis key will allow us to define different axes and specify to which axis each series belongs:
 
@@ -82,7 +82,7 @@ The above example configuration defines three series, but does not define any ax
 
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="multi-axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/multi-axis" img-alt="multi-axis" style="border:none;" caption="Multi-Axis"></catalog-picture>
 
 You'll notice that the `axis` key expects an object value, itself with three keys:
 * `id`: a unique identifier for the axis
@@ -132,7 +132,7 @@ If you want multiple series to be on the same axis, just give them the same axis
 
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/two-series" img-alt="two series" style="border:none;" caption="Two series on one axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/two-series" img-alt="two series" style="border:none;" caption="Two series on one axis"></catalog-picture>
 
 
 # Setting chart extents
@@ -148,7 +148,7 @@ chartExtents = {
 
 This defines your y-axis to have a domain from 0 to 40. If you apply this to your multi-axis chart, it will set that domain for all the axes.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/y40" img-alt="domain 0-40" style="border:none;" caption="All axes with a domain 0-40"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/y40" img-alt="domain 0-40" style="border:none;" caption="All axes with a domain 0-40"></catalog-picture>
 
 Instead, to set the chartExtents on a particular axis, you'll want to use that axis' `id`
 
@@ -160,7 +160,7 @@ chartExtents = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/axisac" img-alt="axisA and axisC" style="border:none;" caption="Axis A with a domain 0 to 40 and Axis C with a domain -2 to 2"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/axisac" img-alt="axisA and axisC" style="border:none;" caption="Axis A with a domain 0 to 40 and Axis C with a domain -2 to 2"></catalog-picture>
 
 Now, the custom domains get only applied to `axisA` and `axisC`, while `axisB` fallsback to `dynamic`.
 
@@ -176,7 +176,7 @@ yAxisConfig = {
 
 This would display a `unit` in the title. However, if we apply this configuration to a multi-axis chart, the unit gets applied to every axis.
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/unit" img-alt="unit" style="border:none;" caption="All axes with a unit"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/unit" img-alt="unit" style="border:none;" caption="All axes with a unit"></catalog-picture>
 
 Configurations listed in the yAxisConfig will be applied to every axis, which can be a nice shorthand for applying properties to all the axes. To apply specific configs to only one axis, nest the configuration with the axis ID as the key:
 
@@ -196,6 +196,6 @@ yAxisConfig = {
 };
 ```
 
-<catalog-picture img-src="../../../img/guidelines/dev/vis/multi-axis/axisconfig" img-alt="axis config" style="border:none;" caption="Specific configs for each axis"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/dev/vis/multi-axis/axisconfig" img-alt="axis config" style="border:none;" caption="Specific configs for each axis"></catalog-picture>
 
 You can see that each axis gets the general `unit`, 'Beard-seconds', which was listed without a specific axis. But each gets only the `title` in its particular config. You will also note that the config for `axisB` also has a different `unit`, which overwrites the general `unit` configuration.

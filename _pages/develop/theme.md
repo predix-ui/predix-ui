@@ -14,15 +14,15 @@ Themes are a collection of CSS variables used to apply styles to Predix Design S
 The Predix Design System components ship with generic colors and fonts by default. Apps should apply a theme, either one of the provided themes or a custom one, to match components with their overall visual style.
 
 <div class="halves guidelines">
-  <catalog-picture title="chart-unthemed" img-src="../../../img/guidelines/dev/migrate_theme/chart-unthemed" caption="Example of a chart unthemed">
+  <catalog-picture title="chart-unthemed" img-src="../../img/guidelines/dev/migrate_theme/chart-unthemed" caption="Example of a chart unthemed">
   </catalog-picture>
-  <catalog-picture title="chart-themed" img-src="../../../img/guidelines/dev/migrate_theme/chart-themed" caption="Example of a chart with theming applied">
+  <catalog-picture title="chart-themed" img-src="../../img/guidelines/dev/migrate_theme/chart-themed" caption="Example of a chart with theming applied">
   </catalog-picture>
 </div>
 <div class="halves guidelines">
-  <catalog-picture title="slider-unthemed" img-src="../../../img/guidelines/dev/migrate_theme/slider-unthemed" caption="Example of slider unthemed">
+  <catalog-picture title="slider-unthemed" img-src="../../img/guidelines/dev/migrate_theme/slider-unthemed" caption="Example of slider unthemed">
   </catalog-picture>
-  <catalog-picture title="slider-themed" img-src="../../../img/guidelines/dev/migrate_theme/slider-themed" caption="Example of slider with theming applied">
+  <catalog-picture title="slider-themed" img-src="../../img/guidelines/dev/migrate_theme/slider-themed" caption="Example of slider with theming applied">
   </catalog-picture>
 </div>
 

@@ -26,13 +26,13 @@ The basic components of a page include an optional branding area, navigation, ca
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/horizontal_layout"
+    img-src="../../img/guidelines/design/page-layout/horizontal_layout"
     img-alt="horizontal layout"
     title="Page assembly with horizontal navigation">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/vertical_layout"
+    img-src="../../img/guidelines/design/page-layout/vertical_layout"
     img-alt="vertical layout"
     title="Page assembly with vertical navigation">
   </catalog-picture>
@@ -48,7 +48,7 @@ The basic components of a page include an optional branding area, navigation, ca
 
 # Layout Grid
 The layout grid is a 12 column, 15px grid supporting horizontal and vertical navigation as well as the inbox layout. Grids are available in the Design Starter Kit.
-<catalog-picture img-src="../../../img/guidelines/design/page-layout/layout_grid" img-alt="layout grid"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/page-layout/layout_grid" img-alt="layout grid"></catalog-picture>
 
 There are several CSS modules in the design system that can be used to create a page layout:
 
@@ -71,12 +71,12 @@ For information-dense screens and workflows such as cases, or asset records.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/six_column_grid"
+    img-src="../../img/guidelines/design/page-layout/six_column_grid"
     img-alt="six column grid">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/six_column_example"
+    img-src="../../img/guidelines/design/page-layout/six_column_example"
     img-alt="6 column example">
   </catalog-picture>
 </div>
@@ -88,12 +88,12 @@ Commonly used for dashboards or layouts with large widgets displaying high level
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/three_column_grid"
+    img-src="../../img/guidelines/design/page-layout/three_column_grid"
     img-alt="three column grid">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/three_column_example"
+    img-src="../../img/guidelines/design/page-layout/three_column_example"
     img-alt="three column example">
   </catalog-picture>
 </div>
@@ -101,12 +101,12 @@ Commonly used for dashboards or layouts with large widgets displaying high level
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/four_column_grid"
+    img-src="../../img/guidelines/design/page-layout/four_column_grid"
     img-alt="four column grid">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/four_column_example"
+    img-src="../../img/guidelines/design/page-layout/four_column_example"
     img-alt="four column example">
   </catalog-picture>
 </div>
@@ -118,12 +118,12 @@ Commonly used for dashboards or layouts with large widgets displaying high level
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/single_column_grid"
+    img-src="../../img/guidelines/design/page-layout/single_column_grid"
     img-alt="single column grid">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/single_column_example"
+    img-src="../../img/guidelines/design/page-layout/single_column_example"
     img-alt="single column example">
   </catalog-picture>
 </div>
@@ -132,12 +132,12 @@ Commonly used for dashboards or layouts with large widgets displaying high level
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/combined_grid"
+    img-src="../../img/guidelines/design/page-layout/combined_grid"
     img-alt="combined grid">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/multi_column_example"
+    img-src="../../img/guidelines/design/page-layout/multi_column_example"
     img-alt="multi column example">
   </catalog-picture>
 </div>
@@ -151,17 +151,17 @@ Information in cards can be clustered based on the grid layout of your choice.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/card_1up"
+    img-src="../../img/guidelines/design/page-layout/card_1up"
     img-alt="1 up card">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/card_2up"
+    img-src="../../img/guidelines/design/page-layout/card_2up"
     img-alt="2 up card">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/card_3up"
+    img-src="../../img/guidelines/design/page-layout/card_3up"
     img-alt="3 up card">
   </catalog-picture>
 </div>
@@ -169,12 +169,12 @@ Information in cards can be clustered based on the grid layout of your choice.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/card_example"
+    img-src="../../img/guidelines/design/page-layout/card_example"
     img-alt="card example">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/page-layout/card_example_redline"
+    img-src="../../img/guidelines/design/page-layout/card_example_redline"
     img-alt="card example redline">
   </catalog-picture>
 </div>

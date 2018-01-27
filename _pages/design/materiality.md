@@ -27,14 +27,14 @@ hinder readability and usability.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/color_do"
+    img-src="../../img/guidelines/design/materiality/color_do"
     img-alt="Use greys and neutrals for material breaks."
     title="Do"
     caption="Use subtle neutral colors from the Predix palette of greys for material breaks.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/color_dont"
+    img-src="../../img/guidelines/design/materiality/color_dont"
     img-alt="Don't use data vis colors for materials."
     title="Don't"
     caption="Don't use data visualization or alert colors as backgrounds for information.">
@@ -48,7 +48,7 @@ When applying material breaks, use colors within the same range. For example, wi
 such as data visualizations.
 
 ### Example Color Combinations<br/>
-<catalog-picture img-src="../../../img/guidelines/design/materiality/example_color_combinations" img-alt="Example color combinations"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/materiality/example_color_combinations" img-alt="Example color combinations"></catalog-picture>
 
 
 # Spacing and Separation
@@ -56,14 +56,14 @@ such as data visualizations.
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/nesting_do"
+    img-src="../../img/guidelines/design/materiality/nesting_do"
     img-alt="Use content to navigate in smaller apps"
     title="Do"
     caption="Use space and similar colors to suggest information regions.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/nesting_dont"
+    img-src="../../img/guidelines/design/materiality/nesting_dont"
     img-alt="Don't create navigation scheme with two items"
     title="Don't"
     caption="Avoid nesting blocks of color to separate information.">
@@ -77,14 +77,14 @@ Data viz on dark - reinforce information hierarchy
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/cascade_do"
+    img-src="../../img/guidelines/design/materiality/cascade_do"
     img-alt="Gently cascade color"
     title="Do"
     caption="Cascade color to indicate an information hierarchy, use minimal dramatic breaks.">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/materiality/cascade_dont"
+    img-src="../../img/guidelines/design/materiality/cascade_dont"
     img-alt="Avoid exessive material breaks and banding."
     title="Don't"
     caption="Avoid using excessive color banding to separate information.">
@@ -101,5 +101,5 @@ Check your contrast ratios to ensure they fall within accessibility standards wi
 * [Light Theme](http://contrast-grid.eightshapes.com/?background-colors=ffffff%2C%20%24white%0D%0A%23EBEFF2%2C%20%24gray%201%0D%0A%23E2E8ED%2C%20%24gray2&foreground-colors=%23677E8C%2C%20%24gray10%0D%0A%232C404C%2C%20%24gray15&es-color-form__tile-size=compact)
 * [Dark Theme](http://contrast-grid.eightshapes.com/?background-colors=%2323343F%2C%20%24gray16%0D%0A%231B2A33%2C%20%24gray17%0D%0A%23121F26%2C%20%24gray18&foreground-colors=%23B6C3CC%2C%20%24gray5%0D%0A%23677E8C%2C%20%24gray10%0D%0A&es-color-form__tile-size=compact)
 
-<catalog-picture img-src="../../../img/guidelines/design/materiality/contrast_chart" img-alt="Eight Shapes Contrast Chart"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/materiality/contrast_chart" img-alt="Eight Shapes Contrast Chart"></catalog-picture>
 

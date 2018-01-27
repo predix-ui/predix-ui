@@ -26,33 +26,33 @@ Provide users with immediate feedback to help expedite the speed and ease of fil
 # Form Construction
 The most basic form contains a headline, section header, a text entry field, a secondary button, and a primary button. Forms use a three column grid structure and leverage the left two columns for form elements. The third row is reserved for instructional copy or contextual help. The buttons align to the bottom right corner of the form. The primary action button is always aligned to the right and can be $primary-default blue or $gray14 depending on the desired emphasis.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_simplest_form_grid" img-alt="Form with a three column grid" caption="Form elements populate the first and second column of a three column grid."></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_simplest_form_grid" img-alt="Form with a three column grid" caption="Form elements populate the first and second column of a three column grid."></catalog-picture>
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_simplest_form_sidebar" img-alt="Form with a three column grid without the gridlines" caption="The third column is reserved for instructional copy or contextual help. Use $gray1 for the right column background."></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_simplest_form_sidebar" img-alt="Form with a three column grid without the gridlines" caption="The third column is reserved for instructional copy or contextual help. Use $gray1 for the right column background."></catalog-picture>
 
 
 # Spacing
 Visually separate form elements by using the vertical spacing conventions of 30 and 60 pixels. Use 30 pixels for elements that are in a group so they are closer together. Differentiate groups with separations of 60 pixels in height. The spacing guides are available in the Sketch stencil as symbols.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_simplest_form_spacing" img-alt="Form with horizontal spacing guides" caption="Color coded horizontal Spacing with numeric values"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_simplest_form_spacing" img-alt="Form with horizontal spacing guides" caption="Color coded horizontal Spacing with numeric values"></catalog-picture>
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_simplest_form_grid-spacing" img-alt="Form with horizontal and vertical spacing" caption="Color-coded horizontal and vertical spacing as it would look like in Sketch. "></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_simplest_form_grid-spacing" img-alt="Form with horizontal and vertical spacing" caption="Color-coded horizontal and vertical spacing as it would look like in Sketch. "></catalog-picture>
 
 # States
 Input text form fields have multiple states: default, hover, pressed, and disabled. Different states help the user to navigate through the fields and know what information is still needed.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_states" img-alt="Form field states" caption="Form field states"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_states" img-alt="Form field states" caption="Form field states"></catalog-picture>
 
 
 # Validation
 Form validation is used to confirm that the user provides accurate and properly formatted information. It gives the user immediate and in-context feedback. While error messages are the most common, success messages are also used occasionally. Success, warning and error messages are are available to use.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_validation" img-alt="Form field validation states" caption="Form field validation states"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_validation" img-alt="Form field validation states" caption="Form field validation states"></catalog-picture>
 
 # Required
 Indicate required fields with an asterisk to the right of the field label.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_required" img-alt="Form field required fields" caption="Form field required fields"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_required" img-alt="Form field required fields" caption="Form field required fields"></catalog-picture>
 
 
 # Localization
@@ -74,8 +74,8 @@ G: Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz
 # Checkout Form
 Below is an example of a checkout form showing typical content. Note how the short dropdown menus on the bottom of the page use the sizing of the six column grid.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_checkout" img-alt="A checkout form example" caption="A checkout form example"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_checkout" img-alt="A checkout form example" caption="A checkout form example"></catalog-picture>
 
 Below is the same example as above showing the grid and spacing.
 
-<catalog-picture img-src="../../../img/guidelines/design/forms/form_checkout_grid-spacing" img-alt="A checkout form example with the grid and spacing" caption="The grid and spacing of the example form above"></catalog-picture>
+<catalog-picture img-src="../../img/guidelines/design/forms/form_checkout_grid-spacing" img-alt="A checkout form example with the grid and spacing" caption="The grid and spacing of the example form above"></catalog-picture>

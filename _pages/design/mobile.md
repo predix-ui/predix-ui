@@ -15,12 +15,12 @@ to mobile. It is recommended to use either the drop down or vertical configurati
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/mobile/mobile_nav_dropdown"
+    img-src="../../img/guidelines/design/mobile/mobile_nav_dropdown"
     img-alt="mobile nav dropdown">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/mobile/mobile_nav_hamburger"
+    img-src="../../img/guidelines/design/mobile/mobile_nav_hamburger"
     img-alt="mobile nav hamburger">
   </catalog-picture>
 </div>
@@ -34,12 +34,12 @@ To minimize page length and scrolling consider a left to right horizontal gestur
 <div class="layout">
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/mobile/mobile_card"
+    img-src="../../img/guidelines/design/mobile/mobile_card"
     img-alt="mobile card">
   </catalog-picture>
   <catalog-picture
     class="layout__item picture-side-by-side"
-    img-src="../../../img/guidelines/design/mobile/mobile_swiping"
+    img-src="../../img/guidelines/design/mobile/mobile_swiping"
     img-alt="mobile swiping">
   </catalog-picture>
 </div>
@@ -47,4 +47,4 @@ To minimize page length and scrolling consider a left to right horizontal gestur
 <!-- # Data Tables
 While many desktop apps rely on data tables to display grids of information, data tables don't translate very well to mobile phones. Instead, consider using [px-table-view](#/components/px-table-view/) which provides a more mobile-friendly way of viewing data.
 
-<catalog-picture img-src="../../../img/guidelines/design/mobile/mobile_data_table" img-alt="mobile data table"></catalog-picture> -->
+<catalog-picture img-src="../../img/guidelines/design/mobile/mobile_data_table" img-alt="mobile data table"></catalog-picture> -->

@@ -39,7 +39,7 @@ The context browser in the screenshot below navigates between assets in differen
 The graphic below shows the tree of items for this context browser, and the different data concepts that underlie its implementation.
 
 <catalog-picture
-  img-src="/img/developer-guides/context-browser/context-browser-graphic-selected-active"
+  img-src="../../img/developer-guides/context-browser/context-browser-graphic-selected-active"
   img-alt="Shows the context browser data hierarchy for selected and active items">
 </catalog-picture>
 
@@ -169,7 +169,7 @@ The context browser's visual and interaction styles can also be customized to fi
 
 ### Select item icon
 
-<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-select-icon.gif"/>
+<img class="gif" src="../../img/developer-guides/context-browser/context-browser-gif-select-icon.gif"/>
 
 **What it is:** The 'select item' icon appears when the user hovers over a context item that can be selected. Tapping on the icon selects the item, and updates the current context through the `selected` property (see "Handle user context selection" section above).
 
@@ -179,7 +179,7 @@ The context browser's visual and interaction styles can also be customized to fi
 
 ### View children icon
 
-<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-view-children-icon.gif"/>
+<img class="gif" src="../../img/developer-guides/context-browser/context-browser-gif-view-children-icon.gif"/>
 
 **What it is:** The 'view children' icon appears when the user hovers over a context item that has children or can have children. Tapping the icon activates the item, opening it so the user can view its children. Tapping the icon does not select the item or change the current context. With or without the children icon, tapping anywhere in the context item *except* the select icon will perform the same action, activating an item and displaying its children if applicable.
 
@@ -193,7 +193,7 @@ The context browser's visual and interaction styles can also be customized to fi
 
 ### Filter input
 
-<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-filter.gif"/>
+<img class="gif" src="../../img/developer-guides/context-browser/context-browser-gif-filter.gif"/>
 
 **What it is:** The filter appears as a search input at the top of each column in the context browser. The user can filter through the visible items by typing in the search input. Any items with labels that don't match the user's search are hidden. This is useful when some context items have a large number of children (e.g. 25+).
 
@@ -302,7 +302,7 @@ Apps loading a relatively small amount of asset data (i.e. <100 items) should pr
 
 ### Example: 4 regions, 10,000 trucks
 
-<img class="gif" src="/img/developer-guides/context-browser/context-browser-gif-lazy-load-trucks.gif"/>
+<img class="gif" src="../../img/developer-guides/context-browser/context-browser-gif-lazy-load-trucks.gif"/>
 
 For example, a trucking company with 10,000 trucks on the road that are grouped into a few regions should load just the top-level regions when the context browser is initialized. When the user navigates into a region to see its trucks, the app should load a subset of trucks that are in that region. If the user navigates away into another region, that region's trucks should be loaded, and so on. Once the trucks for a region are loaded they'll be available to the user instantly if they navigate away and return to view those trucks again.
 
