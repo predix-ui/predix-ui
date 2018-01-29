@@ -74,13 +74,18 @@ OR
 Include the styles on your app:
 
 ```html
-<style include="px-theme-styles" is="custom-style"></style>
+<custom-style> <!-- only needed for Polymer 2 -->
+  <style include="px-theme-styles" is="custom-style"></style>
+</custom-style>
 ```
 
 OR
 
 ```html
-<style include="px-dark-theme-styles" is="custom-style"></style>
+<custom-style> <!-- only needed for Polymer 2 -->
+  <style include="px-dark-theme-styles" is="custom-style"></style>
+</custom-style>
+
 ```
 
 The styles will be available on your page and cascade down to subcomponents. So if you import the styles at the main page of your app, everything should get it. If you just import it to a subcomponent, then only that subcomponent and its children will pick up the styles.
