@@ -667,7 +667,13 @@
             "keywords": [
               "px-headings-design",
               "text",
-              "typography"
+              "typography",
+              "header",
+              "subheader",
+              "subheading",
+              "section",
+              "divider",
+              "headline"
             ],
             "tags": [
               "css",

@@ -10,7 +10,7 @@ layout: default
 ## Polymer 2.x Upgrade
 Almost all\*\* of the Predix Design System components have been upgraded to be Polymer 1.x/2.x [hybrid elements](https://www.polymer-project.org/2.0/docs/devguide/hybrid-elements), meaning they can be used with either Polymer version.
 
-\*\* The only component not upgraded to Polymer 2.x hybrid is the px-data-table, which will be replaced with a more feature-rich component based on the Vaadin grid. The new grid, which is being built entirely in Polymer 2.x, is expected to be released in mid-January of 2018. Since this site now runs on Polymer 2, you may see a broken demo for px-data-table, but you can still access it in a standalone fashion [here](https://www.predix-ui.com/px-data-table/px-data-table/).
+\*\* The only component not upgraded to Polymer 2.x hybrid is the px-data-table, which will be replaced with a more feature-rich component based on the Vaadin grid. The new grid, which is being built entirely in Polymer 2.x, is expected to be released in Q1 of 2018. Since this site now runs on Polymer 2, you may see a broken demo for px-data-table, but you can still access it in a standalone fashion [here](https://www.predix-ui.com/px-data-table/px-data-table/).
 
 Benefits of upgrading to Polymer 2.x include:
 * Better inter-operability for the Angular, React and Vue frameworks
