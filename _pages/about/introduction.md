@@ -30,7 +30,7 @@ Used together, these tools help teams jumpstart the creation of Industrial Inter
 
 # Predix UI Components
 
-<catalog-picture img-src="../../img/about/polymer_logo" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
+<catalog-picture img-src="../../img/about/polymer_logo" img-alt="Polymer Logo" style="border:none; width:250px; display: block; float: right;">
 </catalog-picture>
 
 Predix UI Components are a set of user interface building blocks based on the [W3C web components standard](https://www.w3.org/standards/techs/components#w3c_all) that can be quickly assembled together to build an application. Components are available for a wide range UI elements such as drop down menus, data tables and tabs as well more specialized D3-based data visualization charting components designed specifically for industrial internet use cases.
@@ -41,7 +41,7 @@ The components are framework agnostic and can fit into many existing JavaScript 
 
 # CSS Modules
 
-<catalog-picture img-src="../../img/about/inuit" img-alt="Sketch Logo" style="border:none; width:250px; display: block; float: right;">
+<catalog-picture img-src="../../img/about/inuit" img-alt="Intuit Logo" style="border:none; width:250px; display: block; float: right;">
 </catalog-picture>
 
 The second part of the Design System is a set of CSS modules written in Sass using the powerful BEM (Block-Element-Modifier) and OOCSS (Object-Oriented CSS) code patterns, ensuring your CSS codebase can grow quickly and still be easy to maintain.
