@@ -357,6 +357,7 @@ gulp.task('cleanRoot', function () {
   return del([
     '**',
     '.*',
+    '!.git',
     '!build/**',
     '!gulpfile.js',
     '!package.json',
