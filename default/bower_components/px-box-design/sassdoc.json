@@ -1,0 +1,182 @@
+[
+    {
+        "description": "So we can apply the `.box` class to naturally-inline elements.\n",
+        "commentRange": {
+            "start": 41,
+            "end": 41
+        },
+        "context": {
+            "type": "css",
+            "name": ".#",
+            "value": "$inuit-box-namespace",
+            "line": {
+                "start": 42,
+                "end": 93
+            }
+        },
+        "group": [
+            "px-box-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for boxes with no padding?\n",
+        "commentRange": {
+            "start": 15,
+            "end": 17
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-box--flush",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 18,
+                "end": 18
+            }
+        },
+        "group": [
+            "px-box-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for boxes with tiny padding?\n",
+        "commentRange": {
+            "start": 20,
+            "end": 22
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-box--tiny",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 23,
+                "end": 23
+            }
+        },
+        "group": [
+            "px-box-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for boxes with small padding?\n",
+        "commentRange": {
+            "start": 25,
+            "end": 27
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-box--small",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 28,
+                "end": 28
+            }
+        },
+        "group": [
+            "px-box-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for boxes with large padding?\n",
+        "commentRange": {
+            "start": 30,
+            "end": 32
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-box--large",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 33,
+                "end": 33
+            }
+        },
+        "group": [
+            "px-box-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for boxes with huge padding?\n",
+        "commentRange": {
+            "start": 35,
+            "end": 37
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-box--huge",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 38,
+                "end": 38
+            }
+        },
+        "group": [
+            "px-box-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    },
+    {
+        "description": "Prepend value for all generated classes\n",
+        "commentRange": {
+            "start": 10,
+            "end": 12
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-box-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 13,
+                "end": 13
+            }
+        },
+        "group": [
+            "px-box-design:variables:style"
+        ],
+        "type": "String [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.box.scss",
+            "name": "_objects.box.scss"
+        }
+    }
+]

@@ -1,0 +1,1154 @@
+[
+  {
+    "componentName": "px-starter-kit-design",
+    "label": "CSS Starter Kit",
+    "entryPoint": "bower_components/px-starter-kit-design/demo/px-starter-kit-design-demo.html"
+  },
+  {
+    "componentName": "px-actionable-design",
+    "label": "Actionable Text/Icons",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ],
+    "entryPoint": "bower_components/px-actionable-design/demo/px-actionable-design-demo.html"
+  },
+  {
+    "componentName": "px-buttons-design",
+    "label": "Buttons",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ],
+    "entryPoint": "bower_components/px-buttons-design/demo/px-buttons-design-demo.html"
+  },
+  {
+    "componentName": "px-button-group-design",
+    "label": "Button Group",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ],
+    "entryPoint": "bower_components/px-button-group-design/demo/px-button-group-design-demo.html"
+  },
+  {
+    "componentName": "px-meta-buttons-design",
+    "label": "Buttons (Meta)",
+    "entryPoint": "bower_components/px-meta-buttons-design/demo/px-meta-buttons-design-demo.html"
+  },
+  {
+    "componentName": "px-code-design",
+    "label": "Code",
+    "tags": [
+      "css",
+      "visual"
+    ],
+    "entryPoint": "bower_components/px-code-design/demo/px-code-design-demo.html"
+  },
+  {
+    "componentName": "px-colors-design",
+    "label": "Colors",
+    "tags": [
+      "css",
+      "visual"
+    ],
+    "entryPoint": "bower_components/px-colors-design/demo/px-colors-design-demo.html"
+  },
+  {
+    "componentName": "px-forms-design",
+    "label": "Forms",
+    "tags": [
+      "css",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-forms-design/demo/px-forms-design-demo.html"
+  },
+  {
+    "componentName": "px-headings-design",
+    "label": "Headings",
+    "tags": [
+      "css",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-headings-design/demo/px-headings-design-demo.html"
+  },
+  {
+    "componentName": "px-helpers-design",
+    "label": "Helpers",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-helpers-design/demo/px-helpers-design-demo.html"
+  },
+  {
+    "componentName": "px-list-bare-design",
+    "label": "List Bare",
+    "tags": [
+      "data display",
+      "css"
+    ],
+    "entryPoint": "bower_components/px-list-bare-design/demo/px-list-bare-design-demo.html"
+  },
+  {
+    "componentName": "px-list-inline-design",
+    "label": "List Inline",
+    "tags": [
+      "data display",
+      "css"
+    ],
+    "entryPoint": "bower_components/px-list-inline-design/demo/px-list-inline-design-demo.html"
+  },
+  {
+    "componentName": "px-list-ui-design",
+    "label": "List UI",
+    "tags": [
+      "data display",
+      "css"
+    ],
+    "entryPoint": "bower_components/px-list-ui-design/demo/px-list-ui-design-demo.html"
+  },
+  {
+    "componentName": "px-meta-lists-design",
+    "label": "Lists (Meta)",
+    "entryPoint": "bower_components/px-meta-lists-design/demo/px-meta-lists-design-demo.html"
+  },
+  {
+    "componentName": "px-shadows-design",
+    "label": "Shadows",
+    "tags": [
+      "css",
+      "visual"
+    ],
+    "entryPoint": "bower_components/px-shadows-design/demo/px-shadows-design-demo.html"
+  },
+  {
+    "componentName": "px-tables-design",
+    "label": "Tables",
+    "tags": [
+      "data display",
+      "css"
+    ],
+    "entryPoint": "bower_components/px-tables-design/demo/px-tables-design-demo.html"
+  },
+  {
+    "componentName": "px-toggle-design",
+    "label": "Toggle",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-toggle-design/demo/px-toggle-design-demo.html"
+  },
+  {
+    "componentName": "px-box-design",
+    "label": "Box",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-box-design/demo/px-box-design-demo.html"
+  },
+  {
+    "componentName": "px-flag-design",
+    "label": "Flag",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-flag-design/demo/px-flag-design-demo.html"
+  },
+  {
+    "componentName": "px-flexbox-design",
+    "label": "Flexbox",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-flexbox-design/demo/px-flexbox-design-demo.html"
+  },
+  {
+    "componentName": "px-layout-design",
+    "label": "Layout",
+    "tags": [
+      "css",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-layout-design/demo/px-layout-design-demo.html"
+  },
+  {
+    "componentName": "px-spacing-design",
+    "label": "Spacing",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-spacing-design/demo/px-spacing-design-demo.html"
+  },
+  {
+    "componentName": "px-spacing-responsive-design",
+    "label": "Spacing (Responsive)",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-spacing-responsive-design/demo/px-spacing-responsive-design-demo.html"
+  },
+  {
+    "componentName": "px-widths-design",
+    "label": "Widths",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-widths-design/demo/px-widths-design-demo.html"
+  },
+  {
+    "componentName": "px-widths-responsive-design",
+    "label": "Widths (Responsive)",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-widths-responsive-design/demo/px-widths-responsive-design-demo.html"
+  },
+  {
+    "componentName": "px-widths-tools-design",
+    "label": "Widths Tools",
+    "tags": [
+      "css"
+    ],
+    "entryPoint": "bower_components/px-widths-tools-design/demo/px-widths-tools-design-demo.html"
+  },
+  {
+    "componentName": "px-box-sizing-design",
+    "label": "Box Sizing",
+    "entryPoint": "bower_components/px-box-sizing-design/demo/px-box-sizing-design-demo.html"
+  },
+  {
+    "componentName": "px-clearfix-design",
+    "label": "Clearfix",
+    "entryPoint": "bower_components/px-clearfix-design/demo/px-clearfix-design-demo.html"
+  },
+  {
+    "componentName": "px-defaults-design",
+    "label": "Defaults",
+    "entryPoint": "bower_components/px-defaults-design/demo/px-defaults-design-demo.html"
+  },
+  {
+    "componentName": "px-functions-design",
+    "label": "Functions",
+    "entryPoint": "bower_components/px-functions-design/demo/px-functions-design-demo.html"
+  },
+  {
+    "componentName": "px-iconography-design",
+    "label": "Iconography",
+    "entryPoint": "bower_components/px-iconography-design/demo/px-iconography-design-demo.html"
+  },
+  {
+    "componentName": "px-mixins-design",
+    "label": "Mixins",
+    "entryPoint": "bower_components/px-mixins-design/demo/px-mixins-design-demo.html"
+  },
+  {
+    "componentName": "px-normalize-design",
+    "label": "Normalize",
+    "entryPoint": "bower_components/px-normalize-design/demo/px-normalize-design-demo.html"
+  },
+  {
+    "componentName": "px-typography-design",
+    "label": "Typography",
+    "tags": [
+      "visual"
+    ],
+    "entryPoint": "bower_components/px-typography-design/demo/px-typography-design-demo.html"
+  },
+  {
+    "componentName": "px-viewport-design",
+    "label": "Viewport",
+    "entryPoint": "bower_components/px-viewport-design/demo/px-viewport-design-demo.html"
+  },
+  {
+    "componentName": "px-accordion",
+    "label": "Accordion",
+    "tags": [
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-accordion/demo/px-accordion-demo.html"
+  },
+  {
+    "componentName": "px-alert-label",
+    "label": "Alert Label",
+    "tags": [
+      "mobile",
+      "alerts"
+    ],
+    "entryPoint": "bower_components/px-alert-label/demo/px-alert-label-demo.html"
+  },
+  {
+    "componentName": "px-alert-message",
+    "label": "Alert Message",
+    "tags": [
+      "alerts"
+    ],
+    "entryPoint": "bower_components/px-alert-message/demo/px-alert-message-demo.html"
+  },
+  {
+    "componentName": "px-app-header",
+    "label": "App Header",
+    "tags": [
+      "layout",
+      "app navigation"
+    ],
+    "entryPoint": "bower_components/px-app-helpers/px-app-header/demo/px-app-header-demo.html"
+  },
+  {
+    "componentName": "px-app-route",
+    "label": "App Route",
+    "entryPoint": "bower_components/px-app-helpers/px-app-route/demo/px-app-route-demo.html"
+  },
+  {
+    "componentName": "px-app-nav",
+    "label": "App Nav",
+    "tags": [
+      "app navigation",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-app-nav/demo/px-app-nav-demo.html"
+  },
+  {
+    "componentName": "px-branding-bar",
+    "label": "Branding Bar",
+    "tags": [
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-branding-bar/demo/px-branding-bar-demo.html"
+  },
+  {
+    "componentName": "px-breadcrumbs",
+    "label": "Breadcrumbs",
+    "tags": [
+      "app navigation",
+      "asset navigation",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-breadcrumbs/demo/px-breadcrumbs-demo.html"
+  },
+  {
+    "componentName": "px-card",
+    "label": "Card Element",
+    "tags": [
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-card/demo/px-card-demo.html"
+  },
+  {
+    "componentName": "px-deck-selector",
+    "label": "Deck Selector",
+    "tags": [
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-deck-selector/demo/px-deck-selector-demo.html"
+  },
+  {
+    "componentName": "px-widget-cards",
+    "label": "Widget Cards",
+    "tags": [
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-widget-cards/demo/px-widget-cards-demo.html"
+  },
+  {
+    "componentName": "px-chip",
+    "label": "Chip",
+    "tags": [
+      "mobile",
+      "data display",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-chip/demo/px-chip-demo.html"
+  },
+  {
+    "componentName": "px-clipboard",
+    "label": "Clipboard",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-clipboard/demo/px-clipboard-demo.html"
+  },
+  {
+    "componentName": "px-context-browser",
+    "label": "Context Browser",
+    "tags": [
+      "app navigation",
+      "asset navigation"
+    ],
+    "entryPoint": "bower_components/px-context-browser/demo/px-context-browser-demo.html"
+  },
+  {
+    "componentName": "px-context-browser-trigger",
+    "label": "Context Browser Trigger",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-context-browser/demo/px-context-browser-trigger-demo.html"
+  },
+  {
+    "componentName": "px-vis",
+    "label": "Vis Framework",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis/demo/px-vis-catalog.html"
+  },
+  {
+    "componentName": "px-vis-area-svg",
+    "label": "Vis Area Svg",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-area-svg-demo.html"
+  },
+  {
+    "componentName": "px-vis-axis",
+    "label": "Vis Axis",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-axis-demo.html"
+  },
+  {
+    "componentName": "px-vis-axis-interaction-space",
+    "label": "Vis Axis Interaction Space",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-axis-interaction-space-demo.html"
+  },
+  {
+    "componentName": "px-vis-bar-svg",
+    "label": "Vis Bar Svg",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-bar-svg-demo.html"
+  },
+  {
+    "componentName": "px-vis-brush",
+    "label": "Vis Brush",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-brush-demo.html"
+  },
+  {
+    "componentName": "px-vis-canvas",
+    "label": "Vis Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-chart-navigator",
+    "label": "Vis Chart Navigator",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-chart-navigator-demo.html"
+  },
+  {
+    "componentName": "px-vis-clip-path",
+    "label": "Vis Clip Path",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-clip-path-demo.html"
+  },
+  {
+    "componentName": "px-vis-clip-path-complex-area",
+    "label": "Vis Clip Path Complex Area",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-clip-path-complex-area-demo.html"
+  },
+  {
+    "componentName": "px-vis-cursor",
+    "label": "Vis Cursor",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-cursor-demo.html"
+  },
+  {
+    "componentName": "px-vis-cursor-line",
+    "label": "Vis Cursor Line",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-cursor-line-demo.html"
+  },
+  {
+    "componentName": "px-vis-data-converter",
+    "label": "Vis Data Converter",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-data-converter-demo.html"
+  },
+  {
+    "componentName": "px-vis-dynamic-menu",
+    "label": "Vis Dynamic Menu",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-dynamic-menu-demo.html"
+  },
+  {
+    "componentName": "px-vis-event",
+    "label": "Vis Event",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-event-demo.html"
+  },
+  {
+    "componentName": "px-vis-gridlines",
+    "label": "Vis Gridlines",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-gridlines-demo.html"
+  },
+  {
+    "componentName": "px-vis-highlight-line-canvas",
+    "label": "Vis Highlight Line Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-highlight-line-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-highlight-line",
+    "label": "Vis Highlight Line",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-highlight-line-demo.html"
+  },
+  {
+    "componentName": "px-vis-highlight-point-canvas",
+    "label": "Vis Highlight Point Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-highlight-point-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-highlight-point",
+    "label": "Vis Highlight Point",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-highlight-point-demo.html"
+  },
+  {
+    "componentName": "px-vis-interactive-axis",
+    "label": "Vis Interactive Axis",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-interactive-axis-demo.html"
+  },
+  {
+    "componentName": "px-vis-interaction-space",
+    "label": "Vis Interaction Space",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-interaction-space-demo.html"
+  },
+  {
+    "componentName": "px-vis-line-canvas",
+    "label": "Vis Line Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-line-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-line-svg",
+    "label": "Vis Line Svg",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-line-svg-demo.html"
+  },
+  {
+    "componentName": "px-vis-multi-axis",
+    "label": "Vis Multi Axis",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-multi-axis-demo.html"
+  },
+  {
+    "componentName": "px-vis-multi-scale",
+    "label": "Vis Multi Scale",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-multi-scale-demo.html"
+  },
+  {
+    "componentName": "px-vis-pie",
+    "label": "Vis Pie",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-pie-demo.html"
+  },
+  {
+    "componentName": "px-vis-radar-grid",
+    "label": "Vis Radar Grid",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-radar-grid-demo.html"
+  },
+  {
+    "componentName": "px-vis-radial-gridlines",
+    "label": "Vis Radial Gridlines",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-radial-gridlines-demo.html"
+  },
+  {
+    "componentName": "px-vis-radial-scale",
+    "label": "Vis Radial Scale",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-radial-scale-demo.html"
+  },
+  {
+    "componentName": "px-vis-register",
+    "label": "Vis Register",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-register-demo.html"
+  },
+  {
+    "componentName": "px-vis-scale",
+    "label": "Vis Scale",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-scale-demo.html"
+  },
+  {
+    "componentName": "px-vis-scatter",
+    "label": "Vis Scatter",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-scatter-demo.html"
+  },
+  {
+    "componentName": "px-vis-scatter-canvas",
+    "label": "Vis Scatter Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-scatter-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-striping",
+    "label": "Vis Striping",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-striping-demo.html"
+  },
+  {
+    "componentName": "px-vis-svg",
+    "label": "Vis Svg",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-svg-demo.html"
+  },
+  {
+    "componentName": "px-vis-svg-canvas",
+    "label": "Vis Svg Canvas",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-svg-canvas-demo.html"
+  },
+  {
+    "componentName": "px-vis-threshold",
+    "label": "Vis Threshold",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-threshold-demo.html"
+  },
+  {
+    "componentName": "px-vis-toolbar",
+    "label": "Vis Toolbar",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-toolbar-demo.html"
+  },
+  {
+    "componentName": "px-vis-tooltip",
+    "label": "Vis Tooltip",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis/demo/px-vis-tooltip-demo.html"
+  },
+  {
+    "componentName": "px-vis-parallel-coordinates",
+    "label": "Vis Parallel Coordinates",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-parallel-coordinates/demo/px-vis-parallel-coordinates-demo.html"
+  },
+  {
+    "componentName": "px-vis-pie-chart",
+    "label": "Vis Pie Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-pie-chart/demo/px-vis-pie-chart-demo.html"
+  },
+  {
+    "componentName": "px-vis-polar",
+    "label": "Vis Polar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-polar/demo/px-vis-polar-demo.html"
+  },
+  {
+    "componentName": "px-vis-radar",
+    "label": "Vis Radar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-radar/demo/px-vis-radar-demo.html"
+  },
+  {
+    "componentName": "px-vis-spark",
+    "label": "Vis Spark",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-spark/demo/px-vis-spark-demo.html"
+  },
+  {
+    "componentName": "px-vis-timeseries",
+    "label": "Vis Timeseries",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-timeseries/demo/px-vis-timeseries-demo.html"
+  },
+  {
+    "componentName": "px-vis-xy-chart",
+    "label": "Vis XY Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-xy-chart/demo/px-vis-xy-chart-demo.html"
+  },
+  {
+    "componentName": "px-percent-circle",
+    "label": "Percent Circle",
+    "tags": [
+      "data vis",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-percent-circle/demo/px-percent-circle-demo.html"
+  },
+  {
+    "componentName": "px-gauge",
+    "label": "Gauge",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-gauge/demo/px-gauge-demo.html"
+  },
+  {
+    "componentName": "px-simple-area-chart",
+    "label": "Simple Area Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-simple-area-chart/demo/px-simple-area-chart-demo.html"
+  },
+  {
+    "componentName": "px-simple-bar-chart",
+    "label": "Simple Bar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-simple-bar-chart/demo/px-simple-bar-chart-demo.html"
+  },
+  {
+    "componentName": "px-simple-horizontal-bar-chart",
+    "label": "Simple Horizontal Bar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-simple-horizontal-bar-chart/demo/px-simple-horizontal-bar-chart-demo.html"
+  },
+  {
+    "componentName": "px-simple-line-chart",
+    "label": "Simple Line Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-simple-line-chart/demo/px-simple-line-chart-demo.html"
+  },
+  {
+    "componentName": "px-simple-win-loss-chart",
+    "label": "Simple Win-Loss Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-simple-win-loss-chart/demo/px-simple-win-loss-chart-demo.html"
+  },
+  {
+    "componentName": "px-data-table",
+    "label": "Data Table",
+    "tags": [
+      "data display",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-data-table/demo/px-data-table-demo.html"
+  },
+  {
+    "componentName": "px-data-table-column",
+    "label": "Data Table Column",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-data-table/demo/px-data-table-column-demo.html"
+  },
+  {
+    "componentName": "px-data-table-highlight",
+    "label": "Data Table Highlight",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-data-table/demo/px-data-table-highlight-demo.html"
+  },
+  {
+    "componentName": "px-calendar-picker",
+    "label": "Calendar Picker",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-calendar-picker/demo/px-calendar-picker-demo.html"
+  },
+  {
+    "componentName": "px-datetime-field",
+    "label": "Datetime Field",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-datetime-field/demo/px-datetime-field-demo.html"
+  },
+  {
+    "componentName": "px-datetime-picker",
+    "label": "Datetime Picker",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-datetime-picker/demo/px-datetime-picker-demo.html"
+  },
+  {
+    "componentName": "px-datetime-range-field",
+    "label": "Datetime Range Field",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-datetime-range-field/demo/px-datetime-range-field-demo.html"
+  },
+  {
+    "componentName": "px-datetime-range-panel",
+    "label": "Datetime Range Panel",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-datetime-range-panel/demo/px-datetime-range-panel-demo.html"
+  },
+  {
+    "componentName": "px-rangepicker",
+    "label": "Rangepicker",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-rangepicker/demo/px-rangepicker-demo.html"
+  },
+  {
+    "componentName": "px-dropdown",
+    "label": "Dropdown",
+    "tags": [
+      "app navigation",
+      "buttons",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-dropdown/demo/px-dropdown-demo.html"
+  },
+  {
+    "componentName": "px-file-upload",
+    "label": "File Upload",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-file-upload/demo/px-file-upload-demo.html"
+  },
+  {
+    "componentName": "px-heatmap-grid",
+    "label": "Heatmap Grid",
+    "tags": [
+      "data display"
+    ],
+    "entryPoint": "bower_components/px-heatmap-grid/demo/px-heatmap-grid-demo.html"
+  },
+  {
+    "componentName": "px-icon-set",
+    "label": "Icons",
+    "tags": [
+      "mobile",
+      "visual"
+    ],
+    "entryPoint": "bower_components/px-icon-set/demo/px-icon-set-demo.html"
+  },
+  {
+    "componentName": "px-inbox",
+    "label": "Inbox",
+    "tags": [
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-inbox/demo/px-inbox-demo.html"
+  },
+  {
+    "componentName": "px-key-value-pair",
+    "label": "Key-Value Pair",
+    "tags": [
+      "data display"
+    ],
+    "entryPoint": "bower_components/px-key-value-pair/demo/px-key-value-pair-demo.html"
+  },
+  {
+    "componentName": "px-kpi",
+    "label": "KPI",
+    "tags": [
+      "data display",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-kpi/demo/px-kpi-demo.html"
+  },
+  {
+    "componentName": "px-kpi-list",
+    "label": "KPI List",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-kpi/demo/px-kpi-list-demo.html"
+  },
+  {
+    "componentName": "px-login",
+    "label": "Login",
+    "tags": [
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-login/demo/px-login-demo.html"
+  },
+  {
+    "componentName": "px-map",
+    "label": "Map Base",
+    "tags": [
+      "data display"
+    ],
+    "entryPoint": "bower_components/px-map/demo/px-map-demo.html"
+  },
+  {
+    "componentName": "px-map-tile-layer",
+    "label": "Tile Layer",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-demo.html"
+  },
+  {
+    "componentName": "px-map-tile-layer-bing",
+    "label": "Tile Layer Bing",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-bing-demo.html"
+  },
+  {
+    "componentName": "px-map-tile-layer-google",
+    "label": "Tile Layer Google",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-google-demo.html"
+  },
+  {
+    "componentName": "px-map-tile-layer-wms",
+    "label": "Tile Layer WMS",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-tile-layer-wms-demo.html"
+  },
+  {
+    "componentName": "px-map-layer-geojson",
+    "label": "Layer GeoJSON",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-layer-geojson-demo.html"
+  },
+  {
+    "componentName": "px-map-layer-group",
+    "label": "Layer Group",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-layer-group-demo.html"
+  },
+  {
+    "componentName": "px-map-control-locate",
+    "label": "Control Locate",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-control-locate-demo.html"
+  },
+  {
+    "componentName": "px-map-control-scale",
+    "label": "Control Scale",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-control-scale-demo.html"
+  },
+  {
+    "componentName": "px-map-control-zoom",
+    "label": "Control Zoom",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-control-zoom-demo.html"
+  },
+  {
+    "componentName": "px-map-marker-locate",
+    "label": "Marker Locate",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-marker-locate-demo.html"
+  },
+  {
+    "componentName": "px-map-marker-static",
+    "label": "Marker Static",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-marker-static-demo.html"
+  },
+  {
+    "componentName": "px-map-marker-symbol",
+    "label": "Marker Symbol",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-marker-symbol-demo.html"
+  },
+  {
+    "componentName": "px-map-marker-group",
+    "label": "Marker Group",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-marker-group-demo.html"
+  },
+  {
+    "componentName": "px-map-popup-info",
+    "label": "Popup Info",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-popup-info-demo.html"
+  },
+  {
+    "componentName": "px-map-popup-data",
+    "label": "Popup Data",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-map/demo/px-map-popup-data-demo.html"
+  },
+  {
+    "componentName": "px-modal",
+    "label": "Modal",
+    "tags": [
+      "messaging",
+      "alerts"
+    ],
+    "entryPoint": "bower_components/px-modal/demo/px-modal-demo.html"
+  },
+  {
+    "componentName": "px-number-formatter",
+    "label": "Number Formatter",
+    "entryPoint": "bower_components/px-number-formatter/demo/px-number-formatter-demo.html"
+  },
+  {
+    "componentName": "px-overlay",
+    "label": "Overlay",
+    "tags": [
+      "messaging"
+    ],
+    "entryPoint": "bower_components/px-overlay/demo/px-overlay-demo.html"
+  },
+  {
+    "componentName": "px-panel",
+    "label": "Panel",
+    "tags": [
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-panel/demo/px-panel-demo.html"
+  },
+  {
+    "componentName": "px-popover",
+    "label": "Popover",
+    "tags": [
+      "messaging"
+    ],
+    "entryPoint": "bower_components/px-popover/demo/px-popover-demo.html"
+  },
+  {
+    "componentName": "px-progress-bar",
+    "label": "Progress Bar",
+    "tags": [
+      "status",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-progress-bar/demo/px-progress-bar-demo.html"
+  },
+  {
+    "componentName": "px-slider",
+    "label": "Slider",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-slider/demo/px-slider-demo.html"
+  },
+  {
+    "componentName": "px-spinner",
+    "label": "Spinner",
+    "tags": [
+      "status",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-spinner/demo/px-spinner-demo.html"
+  },
+  {
+    "componentName": "px-steps",
+    "label": "Steps",
+    "tags": [
+      "app navigation",
+      "status"
+    ],
+    "entryPoint": "bower_components/px-steps/demo/px-steps-demo.html"
+  },
+  {
+    "componentName": "px-tabs",
+    "label": "Tabs",
+    "tags": [
+      "app navigation",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-tabs/demo/px-tabs-demo.html"
+  },
+  {
+    "componentName": "px-tile",
+    "label": "Tile",
+    "tags": [
+      "mobile",
+      "data display",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-tile/demo/px-tile-demo.html"
+  },
+  {
+    "componentName": "px-timeline",
+    "label": "Timeline",
+    "tags": [
+      "data display",
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-timeline/demo/px-timeline-demo.html"
+  },
+  {
+    "componentName": "px-toggle",
+    "label": "Toggle",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-toggle/demo/px-toggle-demo.html"
+  },
+  {
+    "componentName": "px-tooltip",
+    "label": "Tooltip",
+    "tags": [
+      "messaging"
+    ],
+    "entryPoint": "bower_components/px-tooltip/demo/px-tooltip-demo.html"
+  },
+  {
+    "componentName": "px-tree",
+    "label": "Tree",
+    "tags": [
+      "app navigation",
+      "asset navigation",
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-tree/demo/px-tree-demo.html"
+  },
+  {
+    "componentName": "px-tree-node",
+    "label": "Tree Node",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-tree/demo/px-tree-node-demo.html"
+  },
+  {
+    "componentName": "px-typeahead",
+    "label": "Typeahead",
+    "tags": [
+      "mobile",
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-typeahead/demo/px-typeahead-demo.html"
+  },
+  {
+    "componentName": "px-validation",
+    "label": "Validation",
+    "tags": [
+      "data input"
+    ],
+    "entryPoint": "bower_components/px-validation/demo/px-validation-demo.html"
+  },
+  {
+    "componentName": "px-view-header",
+    "label": "View Header",
+    "tags": [
+      "app navigation",
+      "mobile",
+      "layout"
+    ],
+    "entryPoint": "bower_components/px-view-header/demo/px-view-header-demo.html"
+  }
+]

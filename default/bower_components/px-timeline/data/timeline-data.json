@@ -1,0 +1,99 @@
+[
+  {
+    "metaData": {
+      "editedBy": "Google Chrome Developers",
+      "editedDate": "2016-11-04 14:12:00-07",
+      "editorImg": "img/immelt.jpg",
+      "editorTitle": "Poly Chiefmaster",
+      "percent": "88",
+      "customIcon": "px-doc:website"
+    },
+    "content": {
+      "title": "Binding to Arrays",
+      "bodyType": "Video",
+      "body": [
+        {
+          "video": "https://www.youtube.com/embed/HBUb8frm2Tw?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN",
+          "headline": "To ng-repeat or dom-repeat, that is the question",
+          "text": "Check out this awesome YouTube video for more information.",
+          "host": "Remote"
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "Soundcloud Podcast",
+      "editedDate": "2016-11-01 11:42:00-07",
+      "editorTitle": "Machine AI Recomendations",
+      "customIcon": "px-doc:chart"
+    },
+    "content": {
+      "title": "Polymer 1.0 Announced",
+      "bodyType": "Audio",
+      "body": [
+        {
+          "audio": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/212712436&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true",
+          "headline": "Everyone agrees on Polymer",
+          "text": "Just listen to podcast. No explanation is necessary.",
+          "host": "remote",
+          "isComment": true
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "GE Digital",
+      "editedDate": "2016-10-27 18:28:10-07",
+      "editorTitle": "Chief Technical Division",
+      "percent": "100",
+      "editorImg": "img/immelt.jpg"
+    },
+    "content": {
+      "title": "Building the industrial internet",
+      "bodyType": "text",
+      "body": [
+        {
+          "text": "On Tuesday, GE CEO Jeff Immelt and Intel CEO Brian Krzanich spoke at the Intel Developer Forum in San Francisco about the partnership and the future of the Industrial Internet. They noted this is a significant step in the two companies’ plan to eventually offer GE’s Industrial Internet software on Intel-powered devices.",
+          "headline": "Predix, the operating system for the Industrial Internet",
+          "isComment": true
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "Polymer Team",
+      "editedDate": "2016-09-12 06:37:00-07"
+    },
+    "content": {
+      "title": "New Polycast",
+      "bodyType": "LIST",
+      "body": [
+        { "key": "Topic 1",
+          "value": "Data Binding"
+        },
+        { "key": "Topic 2",
+          "value": "Data Flow"
+        },
+        { "key": "Topic 3",
+          "value": "Shadow Dom"
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "GE Digital",
+      "editedDate": "2015-11-03 00:00:00-07"
+    },
+    "content": {
+      "title": "Building the industrial internet",
+      "bodyType": "text",
+      "body": [
+        {
+          "text": "On Tuesday, GE CEO Jeff Immelt and Intel CEO Brian Krzanich spoke at the Intel Developer Forum in San Francisco about the partnership and the future of the Industrial Internet. They noted this is a significant step in the two companies’ plan to eventually offer GE’s Industrial Internet software on Intel-powered devices.",
+          "headline": "This is the content headline",
+          "isComment": true
+        }
+      ]
+    }
+  }
+]

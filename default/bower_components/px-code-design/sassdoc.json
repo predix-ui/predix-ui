@@ -1,0 +1,144 @@
+[
+    {
+        "description": "Generate the CSS for inline code snippets?\n",
+        "commentRange": {
+            "start": 34,
+            "end": 36
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-code--inline",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 37,
+                "end": 37
+            }
+        },
+        "group": [
+            "px-code-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_base.code.scss",
+            "name": "_base.code.scss"
+        }
+    },
+    {
+        "description": "Prepended value for all generated classes\n",
+        "commentRange": {
+            "start": 10,
+            "end": 13
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-code-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 14,
+                "end": 14
+            }
+        },
+        "group": [
+            "px-code-design:variables:style"
+        ],
+        "type": "String [default]",
+        "todo": [
+            "N/A"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.code.scss",
+            "name": "_base.code.scss"
+        }
+    },
+    {
+        "description": "Code font color\n",
+        "commentRange": {
+            "start": 16,
+            "end": 19
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-code-color",
+            "value": "var(--px-code-text-color, $primary-hover)",
+            "scope": "default",
+            "line": {
+                "start": 20,
+                "end": 20
+            }
+        },
+        "group": [
+            "px-code-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-code-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.code.scss",
+            "name": "_base.code.scss"
+        }
+    },
+    {
+        "description": "Code background color\n",
+        "commentRange": {
+            "start": 22,
+            "end": 25
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-code-background",
+            "value": "var(--px-code-background-color, $gray1)",
+            "scope": "default",
+            "line": {
+                "start": 26,
+                "end": 26
+            }
+        },
+        "group": [
+            "px-code-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-code-background-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.code.scss",
+            "name": "_base.code.scss"
+        }
+    },
+    {
+        "description": "Code border color\n",
+        "commentRange": {
+            "start": 28,
+            "end": 31
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-code-border-color",
+            "value": "var(--px-code-border-color, transparent)",
+            "scope": "default",
+            "line": {
+                "start": 32,
+                "end": 32
+            }
+        },
+        "group": [
+            "px-code-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-code-border-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.code.scss",
+            "name": "_base.code.scss"
+        }
+    }
+]

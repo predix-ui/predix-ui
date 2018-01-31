@@ -1,0 +1,1 @@
+(function(){'use strict';window.PxMapBehavior=window.PxMapBehavior||{},PxMapBehavior.LayerGroupImpl={properties:{name:{type:String,notify:!0}},createInst(){return L.layerGroup()},updateInst(){},getInstOptions(){return{}}},PxMapBehavior.LayerGroup=[PxMapBehavior.Layer,PxMapBehavior.ParentLayer,PxMapBehavior.LayerGroupImpl]})();

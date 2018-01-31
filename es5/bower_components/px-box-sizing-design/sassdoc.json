@@ -1,0 +1,28 @@
+[
+    {
+        "description": "",
+        "commentRange": {
+            "start": 14,
+            "end": 14
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-global-border-box",
+            "value": "true",
+            "scope": "private",
+            "line": {
+                "start": 15,
+                "end": 15
+            }
+        },
+        "type": "Boolean [default] - If we have included this file, set a variable to tell the rest of Px that global `box-sizing: border-box` has been set.",
+        "group": [
+            "px-box-sizing-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_generic.box-sizing.scss",
+            "name": "_generic.box-sizing.scss"
+        }
+    }
+]

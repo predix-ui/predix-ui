@@ -1,0 +1,118 @@
+[
+    {
+        "description": "Set this to the desired width of the \"page\" element, div.viewport. Will be inserted as the widest breakpoint for the responsive mixin. This variable is overridden in px-theme.\n\n",
+        "commentRange": {
+            "start": 8,
+            "end": 12
+        },
+        "context": {
+            "type": "variable",
+            "name": "desk-wide-width",
+            "value": "100%",
+            "scope": "default",
+            "line": {
+                "start": 13,
+                "end": 13
+            }
+        },
+        "group": [
+            "px-viewport-design:variables:style"
+        ],
+        "type": "Number [default] - Viewport width",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.viewport.scss",
+            "name": "_base.viewport.scss"
+        }
+    },
+    {
+        "description": "Set this to the desired value of widest possible viewport width. Will be inserted as the widest breakpoint for the responsive mixin. This variable is overridden in px-theme.\n\n",
+        "commentRange": {
+            "start": 15,
+            "end": 19
+        },
+        "context": {
+            "type": "variable",
+            "name": "desk-wide-max-width",
+            "value": "80rem",
+            "scope": "default",
+            "line": {
+                "start": 20,
+                "end": 20
+            }
+        },
+        "group": [
+            "px-viewport-design:variables:style"
+        ],
+        "type": "Number [default] - Widest viewport",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.viewport.scss",
+            "name": "_base.viewport.scss"
+        }
+    },
+    {
+        "description": "Set this to the desired value of margin-left and margin-right for viewport. This variable is overridden in px-theme.\n\n",
+        "commentRange": {
+            "start": 22,
+            "end": 26
+        },
+        "context": {
+            "type": "variable",
+            "name": "viewport-margin",
+            "value": "auto",
+            "scope": "default",
+            "line": {
+                "start": 27,
+                "end": 27
+            }
+        },
+        "group": [
+            "px-viewport-design:variables:style"
+        ],
+        "type": "Number [default] - Left and Right margin on viewport",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.viewport.scss",
+            "name": "_base.viewport.scss"
+        }
+    },
+    {
+        "description": "List of breakpoints used within this module.\n\n",
+        "commentRange": {
+            "start": 29,
+            "end": 33
+        },
+        "context": {
+            "type": "variable",
+            "name": "breakpoints",
+            "value": "(\n    \"palm\"          \"screen and (max-width: 47.9rem)\",\n    \"lap\"           \"screen and (min-width: 48rem) and (max-width: 63.9rem)\",\n    \"lap-and-up\"    \"screen and (min-width: 48rem)\",\n    \"portable\"      \"screen and (max-width: 63.9rem)\",\n    \"desk\"          \"screen and (min-width: 63.9rem)\",\n    \"desk-wide\"     \"screen and (min-width: #{$desk-wide-width})\",\n    \"retina\"        \"(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)\"\n)",
+            "scope": "private",
+            "line": {
+                "start": 34,
+                "end": 42
+            }
+        },
+        "group": [
+            "px-viewport-design:variables:style"
+        ],
+        "type": "List | String - Array of different breakpoints",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_base.viewport.scss",
+            "name": "_base.viewport.scss"
+        }
+    }
+]

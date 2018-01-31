@@ -1,0 +1,741 @@
+[
+    {
+        "description": "Generates the CSS for small toggles if enabled.\n",
+        "commentRange": {
+            "start": 143,
+            "end": 145
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-toggle--small",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 146,
+                "end": 146
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Generates the CSS for large toggles if enabled.\n",
+        "commentRange": {
+            "start": 148,
+            "end": 150
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-toggle--large",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 151,
+                "end": 151
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Generates the CSS for huge toggles if enabled.\n",
+        "commentRange": {
+            "start": 153,
+            "end": 155
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-toggle--huge",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 156,
+                "end": 156
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Generates the CSS for disabled toggles if enabled.\n",
+        "commentRange": {
+            "start": 158,
+            "end": 160
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-toggle--disabled",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 161,
+                "end": 161
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Prepended namespace for all generated classes.\n",
+        "commentRange": {
+            "start": 11,
+            "end": 13
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 14,
+                "end": 14
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "String [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color when checked and enabled.\n",
+        "commentRange": {
+            "start": 16,
+            "end": 19
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--checked",
+            "value": "var(--px-toggle__background--checked, $primary-default)",
+            "scope": "private",
+            "line": {
+                "start": 20,
+                "end": 20
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--checked"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color on hover when checked and enabled.\n",
+        "commentRange": {
+            "start": 22,
+            "end": 25
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--checked--hover",
+            "value": "var(--px-toggle__background--checked--hover, $primary-hover)",
+            "scope": "private",
+            "line": {
+                "start": 26,
+                "end": 26
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--checked--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color on pressed/active when checked and enabled.\n",
+        "commentRange": {
+            "start": 28,
+            "end": 31
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--checked--pressed",
+            "value": "var(--px-toggle__background--checked--pressed, $primary-pressed)",
+            "scope": "private",
+            "line": {
+                "start": 32,
+                "end": 32
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--checked--pressed"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color when checked and disabled.\n",
+        "commentRange": {
+            "start": 34,
+            "end": 37
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--checked--disabled",
+            "value": "var(--px-toggle__background--checked--disabled, rgba($black,0.2))",
+            "scope": "private",
+            "line": {
+                "start": 38,
+                "end": 38
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__background--checked--disabled"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 40,
+            "end": 43
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--unchecked",
+            "value": "var(--px-toggle__background--unchecked, $gray3)",
+            "scope": "private",
+            "line": {
+                "start": 44,
+                "end": 44
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--unchecked"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color on hover when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 46,
+            "end": 49
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--unchecked--hover",
+            "value": "var(--px-toggle__background--unchecked--hover, $gray5)",
+            "scope": "private",
+            "line": {
+                "start": 50,
+                "end": 50
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--unchecked--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color on pressed/active when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 52,
+            "end": 55
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--unchecked--pressed",
+            "value": "var(--px-toggle__background--unchecked--pressed, $gray9)",
+            "scope": "private",
+            "line": {
+                "start": 56,
+                "end": 56
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--unchecked--pressed"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle background color when unchecked and disabled.\n",
+        "commentRange": {
+            "start": 58,
+            "end": 61
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background--unchecked--disabled",
+            "value": "var(--px-toggle__background--unchecked--disabled, $white)",
+            "scope": "private",
+            "line": {
+                "start": 62,
+                "end": 62
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]]",
+        "todo": [
+            "--px-toggle__background--unchecked--disabled"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle border color when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 64,
+            "end": 67
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background-border--unchecked",
+            "value": "var(--px-toggle__background-border--unchecked, $gray8)",
+            "scope": "private",
+            "line": {
+                "start": 68,
+                "end": 68
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__background-border--unchecked"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle border color on hover when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 70,
+            "end": 73
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background-border--unchecked--hover",
+            "value": "var(--px-toggle__background-border--unchecked--hover, $gray10)",
+            "scope": "private",
+            "line": {
+                "start": 74,
+                "end": 74
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__background-border--unchecked--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle border color on pressed/active when unchecked and enabled.\n",
+        "commentRange": {
+            "start": 76,
+            "end": 79
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background-border--unchecked--pressed",
+            "value": "var(--px-toggle__background-border--unchecked-pressed, $gray12)",
+            "scope": "private",
+            "line": {
+                "start": 80,
+                "end": 80
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__background-border--unchecked-pressed"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle border color when unchecked and disabled.\n",
+        "commentRange": {
+            "start": 82,
+            "end": 85
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__background-border--unchecked--disabled",
+            "value": "var(--px-toggle__background-border--unchecked--disabled, rgba($black,0.2))",
+            "scope": "private",
+            "line": {
+                "start": 86,
+                "end": 86
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__background-border--unchecked--disabled"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch color when both checked and unchecked.\n(The \"switch\" is the circular part of the toggle.)\n",
+        "commentRange": {
+            "start": 88,
+            "end": 92
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch",
+            "value": "var(--px-toggle__switch, $white)",
+            "scope": "private",
+            "line": {
+                "start": 93,
+                "end": 93
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch color on hover when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 95,
+            "end": 98
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch--hover",
+            "value": "var(--px-toggle__switch--hover, $gray4)",
+            "scope": "private",
+            "line": {
+                "start": 99,
+                "end": 99
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch color on pressed/active when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 101,
+            "end": 104
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch--pressed",
+            "value": "var(--px-toggle__switch--pressed, $gray7)",
+            "scope": "private",
+            "line": {
+                "start": 105,
+                "end": 105
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch--pressed"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch color on disabled when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 107,
+            "end": 110
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch--disabled",
+            "value": "var(--px-toggle__switch--disabled, $white)",
+            "scope": "private",
+            "line": {
+                "start": 111,
+                "end": 111
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch--disabled"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch border color when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 113,
+            "end": 116
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch-border",
+            "value": "var(--px-toggle__switch-border, $gray8)",
+            "scope": "private",
+            "line": {
+                "start": 117,
+                "end": 117
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch-border"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch border color on hover when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 119,
+            "end": 122
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch-border--hover",
+            "value": "var(--px-toggle__switch-border--hover, $gray8)",
+            "scope": "private",
+            "line": {
+                "start": 123,
+                "end": 123
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch-border--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch border color on pressed/active when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 125,
+            "end": 128
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch-border--pressed",
+            "value": "var(--px-toggle__switch-border--pressed, $gray8)",
+            "scope": "private",
+            "line": {
+                "start": 129,
+                "end": 129
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch-border--pressed"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch border color on disabled when both checked and unchecked.\n",
+        "commentRange": {
+            "start": 131,
+            "end": 134
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch-border--disabled",
+            "value": "var(--px-toggle__switch-border--disabled, rgba($black,0.2))",
+            "scope": "private",
+            "line": {
+                "start": 135,
+                "end": 135
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-toggle__switch-border--disabled"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    },
+    {
+        "description": "Toggle switch shadow color.\n",
+        "commentRange": {
+            "start": 137,
+            "end": 140
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-toggle__switch-shadow",
+            "value": "0px 1px 2px var(--px-toggle__switch-shadow-color, rgba($black, .15))",
+            "scope": "private",
+            "line": {
+                "start": 141,
+                "end": 141
+            }
+        },
+        "group": [
+            "px-toggle-design:variables:style"
+        ],
+        "type": "Color | String [default]",
+        "todo": [
+            "--px-toggle__switch-shadow-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.toggle.scss",
+            "name": "_objects.toggle.scss"
+        }
+    }
+]

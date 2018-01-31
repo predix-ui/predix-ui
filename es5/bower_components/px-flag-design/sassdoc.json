@@ -1,0 +1,288 @@
+[
+    {
+        "description": "Produce CSS for flags with tiny gutters?\n",
+        "commentRange": {
+            "start": 14,
+            "end": 16
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--tiny",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 17,
+                "end": 17
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with small gutters?\n",
+        "commentRange": {
+            "start": 19,
+            "end": 21
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--small",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 22,
+                "end": 22
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with large gutters?\n",
+        "commentRange": {
+            "start": 24,
+            "end": 26
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--large",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 27,
+                "end": 27
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with huge gutters?\n",
+        "commentRange": {
+            "start": 29,
+            "end": 31
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--huge",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 32,
+                "end": 32
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with reversed content (i.e. image on right)?\n",
+        "commentRange": {
+            "start": 34,
+            "end": 36
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--rev",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 37,
+                "end": 37
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with no gutters?\n",
+        "commentRange": {
+            "start": 39,
+            "end": 41
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--flush",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 42,
+                "end": 42
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with top aligned content?\n",
+        "commentRange": {
+            "start": 44,
+            "end": 46
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--top",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 47,
+                "end": 47
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for flags with bottom aligned content?\n",
+        "commentRange": {
+            "start": 49,
+            "end": 51
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--bottom",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 52,
+                "end": 52
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for responsive flags?\n",
+        "commentRange": {
+            "start": 54,
+            "end": 56
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-flag--responsive",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 57,
+                "end": 57
+            }
+        },
+        "group": [
+            "px-flag-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Prepend value for all generated classes\n",
+        "commentRange": {
+            "start": 9,
+            "end": 11
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-flag-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 12,
+                "end": 12
+            }
+        },
+        "group": [
+            "px-flag-design:variables:style"
+        ],
+        "type": "String [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    },
+    {
+        "description": "Breakpoint for triggering repsonsive flags\n",
+        "commentRange": {
+            "start": 59,
+            "end": 61
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-flag-collapse-at",
+            "value": "calculateRem(720px)",
+            "scope": "default",
+            "line": {
+                "start": 62,
+                "end": 62
+            }
+        },
+        "group": [
+            "px-flag-design:variables:style"
+        ],
+        "type": "Number [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.flag.scss",
+            "name": "_objects.flag.scss"
+        }
+    }
+]

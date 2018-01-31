@@ -1,0 +1,93 @@
+[
+    {
+        "description": "Default breakpoints for palm, palm-and-up, lap, lap-and-up, portable, portable-and-up, desk, desk-and-up, and retina. Predefine this map to override.\n",
+        "commentRange": {
+            "start": 1,
+            "end": 4
+        },
+        "context": {
+            "type": "variable",
+            "name": "breakpoints",
+            "value": "(\n    // backwards compatible\n    \"palm\"             \"screen and (max-width: 44.9375em)\",\n    \"lap\"              \"screen and (min-width: 45em) and (max-width: 63.9375em)\",\n    \"portable\"         \"screen and (max-width: 63.9375em)\",\n    \"desk\"             \"screen and (min-width: 64em)\",\n    // recommended\n    \"palm-and-up\"      \"screen and (min-width: 44.9375em)\",\n    \"lap-and-up\"       \"screen and (min-width: 45em)\",\n    \"portable-and-up\"  \"screen and (min-width: 63.9375em)\",\n    \"desk-and-up\"      \"screen and (min-width: 64em)\",\n    \"retina\"           \"(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)\"\n)",
+            "scope": "default",
+            "line": {
+                "start": 5,
+                "end": 17
+            }
+        },
+        "group": [
+            "px-helpers-design:variables:style"
+        ],
+        "type": "List [default]",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_tools.helpers.scss",
+            "name": "_tools.helpers.scss"
+        }
+    },
+    {
+        "description": "",
+        "commentRange": {
+            "start": 22,
+            "end": 25
+        },
+        "context": {
+            "type": "css",
+            "name": "media-query",
+            "value": "",
+            "line": {
+                "start": 27,
+                "end": 77
+            }
+        },
+        "example": [
+            {
+                "type": "scss",
+                "code": ".foo {"
+            }
+        ],
+        "access": "public",
+        "group": [
+            "undefined"
+        ],
+        "file": {
+            "path": "_tools.helpers.scss",
+            "name": "_tools.helpers.scss"
+        }
+    },
+    {
+        "description": "",
+        "commentRange": {
+            "start": 55,
+            "end": 65
+        },
+        "context": {
+            "type": "mixin",
+            "name": "accessibility",
+            "code": "\n  position: absolute !important;\n  overflow: hidden !important;\n  width: 1px !important;\n  height: 1px !important;\n  margin: -1px !important;\n  border: 0 !important;\n  padding: 0 !important;\n  clip: rect(0 0 0 0) !important;\n",
+            "line": {
+                "start": 67,
+                "end": 76
+            }
+        },
+        "output": "Properties and values for hiding elements accessibly",
+        "example": [
+            {
+                "type": "scss",
+                "code": "position: absolute !important;\noverflow: hidden !important;\nwidth: 1px !important;\nheight: 1px !important;\nmargin: -1px !important;\nborder: 0 !important;\npadding: 0 !important;\nclip: rect(0 0 0 0) !important;"
+            }
+        ],
+        "access": "public",
+        "group": [
+            "undefined"
+        ],
+        "require": [],
+        "file": {
+            "path": "_tools.helpers.scss",
+            "name": "_tools.helpers.scss"
+        }
+    }
+]

@@ -1,0 +1,292 @@
+[
+    {
+        "description": "Text color\n\n",
+        "commentRange": {
+            "start": 10,
+            "end": 14
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-text-color",
+            "value": "var(--px-actionable-text-color, $primary-default)",
+            "scope": "private",
+            "line": {
+                "start": 15,
+                "end": 15
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Hover text color\n\n",
+        "commentRange": {
+            "start": 17,
+            "end": 21
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-text-color--hover",
+            "value": "var(--px-actionable-text-color--hover, $primary-hover)",
+            "scope": "private",
+            "line": {
+                "start": 22,
+                "end": 22
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-text-color--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Pressed text color\n\n",
+        "commentRange": {
+            "start": 24,
+            "end": 28
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-text-color--active",
+            "value": "var(--px-actionable-text-color--active, $primary-pressed)",
+            "scope": "private",
+            "line": {
+                "start": 29,
+                "end": 29
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-text-color--active"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Select text color\n\n",
+        "commentRange": {
+            "start": 31,
+            "end": 35
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-selectable-text-color",
+            "value": "var(--px-selectable-text-color, $select-default)",
+            "scope": "private",
+            "line": {
+                "start": 36,
+                "end": 36
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-selectable-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Select hover text color\n\n",
+        "commentRange": {
+            "start": 38,
+            "end": 42
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-selectable-text-color--hover",
+            "value": "var(--px-selectable-text-color--hover, $select-hover)",
+            "scope": "private",
+            "line": {
+                "start": 43,
+                "end": 43
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-selectable-text-color--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Select pressed text color\n\n",
+        "commentRange": {
+            "start": 45,
+            "end": 49
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-selectable-text-color--active",
+            "value": "var(--px-selectable-text-color--active, $select-pressed)",
+            "scope": "private",
+            "line": {
+                "start": 50,
+                "end": 50
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-selectable-text-color--active"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Secondary text color\n\n",
+        "commentRange": {
+            "start": 52,
+            "end": 56
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-alt-text-color",
+            "value": "var(--px-actionable-alt-text-color, $gray15)",
+            "scope": "private",
+            "line": {
+                "start": 57,
+                "end": 57
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-alt-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Secondary hover text color\n\n",
+        "commentRange": {
+            "start": 59,
+            "end": 63
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-alt-text-color--hover",
+            "value": "var(--px-actionable-alt-text-color--hover, $primary-default)",
+            "scope": "private",
+            "line": {
+                "start": 64,
+                "end": 64
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-alt-text-color--hover"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Secondary pressed text color\n\n",
+        "commentRange": {
+            "start": 66,
+            "end": 70
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-alt-text-color--active",
+            "value": "var(--px-actionable-alt-text-color--active, $primary-pressed)",
+            "scope": "private",
+            "line": {
+                "start": 71,
+                "end": 71
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-alt-text-color--active"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    },
+    {
+        "description": "Disabled text color\n\n",
+        "commentRange": {
+            "start": 73,
+            "end": 77
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-actionable-disabled-text-color",
+            "value": "var(--px-actionable-disabled-text-color, rgba($black, 0.3))",
+            "scope": "private",
+            "line": {
+                "start": 78,
+                "end": 78
+            }
+        },
+        "group": [
+            "px-actionable-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-actionable-disabled-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.actionable.scss",
+            "name": "_objects.actionable.scss"
+        }
+    }
+]
