@@ -738,6 +738,17 @@
     ]
   },
   {
+    "name": "px-product-switcher",
+    "title": "Product Switcher",
+    "description": "The px-product-switcher component is a navigation component for switching between products or applications, a level above the standard px-app-nav for navigation within an application.",
+    "imageUrl": "img/component-gallery/product-switcher",
+    "imageAlt": "Product Switcher thumbnail",
+    "tags": [
+      "app navigation",
+      "mobile"
+    ]
+  },
+  {
     "name": "px-slider",
     "title": "Slider",
     "description": "The px-slider component allows a user to select a numeric value from a range of acceptable values. The minimum and maximum values, step, and default value can all be specified in configuration. When the isRange property is enabled, a second input box appears on the right hand side of the slider, and two thumb controls appear on the slider bar with the second value accessible via the endValue property. Note the blue slider bar between the two thumb controls to indicate the selected range.",
