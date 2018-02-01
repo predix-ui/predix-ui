@@ -146,6 +146,7 @@
     "bower_components/px-panel/demo/px-panel-demo.html",
     "bower_components/px-popover/demo/px-popover-demo.html",
     "bower_components/px-progress-bar/demo/px-progress-bar-demo.html",
+    "bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
     "bower_components/px-slider/demo/px-slider-demo.html",
     "bower_components/px-spinner/demo/px-spinner-demo.html",
     "bower_components/px-steps/demo/px-steps-demo.html",
@@ -158,8 +159,7 @@
     "bower_components/px-tree/demo/px-tree-node-demo.html",
     "bower_components/px-typeahead/demo/px-typeahead-demo.html",
     "bower_components/px-validation/demo/px-validation-demo.html",
-    "bower_components/px-view-header/demo/px-view-header-demo.html",
-    "bower_components/px-product-switcher/demo/px-product-switcher-demo.html"
+    "bower_components/px-view-header/demo/px-view-header-demo.html"
   ],
   "sources": [
     "elements/**/*",
