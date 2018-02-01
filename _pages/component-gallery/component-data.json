@@ -1035,6 +1035,15 @@
     "entryPoint": "bower_components/px-progress-bar/demo/px-progress-bar-demo.html"
   },
   {
+    "componentName": "px-product-switcher",
+    "label": "Product Switcher",
+    "tags": [
+      "app navigation",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-product-switcher/demo/px-product-switcher-demo.html"
+  },
+  {
     "componentName": "px-slider",
     "label": "Slider",
     "tags": [

@@ -3123,6 +3123,29 @@
         ]
       },
       {
+        "path": "px-product-switcher",
+        "label": "Product Switcher",
+        "module": "px-product-switcher-demo",
+        "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
+        "redirects": [
+          "/components/px-product-switcher",
+          "/modules/px-product-switcher"
+        ],
+        "keywords": [
+          "px-product-switcher",
+          "app switcher",
+          "application",
+          "dropdown",
+          "navigation",
+          "menu",
+          "products"
+        ],
+        "tags": [
+          "app navigation",
+          "mobile"
+        ]
+      },
+      {
         "path": "px-slider",
         "label": "Slider",
         "module": "px-slider-demo",

@@ -158,7 +158,8 @@
     "bower_components/px-tree/demo/px-tree-node-demo.html",
     "bower_components/px-typeahead/demo/px-typeahead-demo.html",
     "bower_components/px-validation/demo/px-validation-demo.html",
-    "bower_components/px-view-header/demo/px-view-header-demo.html"
+    "bower_components/px-view-header/demo/px-view-header-demo.html",
+    "bower_components/px-product-switcher/demo/px-product-switcher-demo.html"
   ],
   "sources": [
     "elements/**/*",
@@ -199,6 +200,7 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-typography-design/type/**",
     "bower_components/px-theme/*.html",
+    "bower_components/px-product-switcher/demo/Predix.png",
     "data/*.json",
     "ie/*"
   ],
