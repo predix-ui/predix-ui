@@ -206,14 +206,7 @@
   ],
   "builds": [
     {
-      "name": "es5",
-      "basePath": true,
-      "preset": "es5-bundled",
-      "bundle": false
-    },
-    {
       "name": "default",
-      "basePath": true,
       "preset": "es6-unbundled"
     }
   ],
