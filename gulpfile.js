@@ -205,7 +205,7 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
 
  gulp.task('gitStuff', function() {
    var commit = execSync(`git rev-parse HEAD`, {encoding:'utf8'}).trim();
-   gitSync.checkout('heroku-build',{args : '--orphan', cwd : '.'}, (err) => {
+   gitSync.checkout('master',{args : '--orphan', cwd : '.'}, (err) => {
      if (err) {
        console.log('git checkout error:' + err);
      }
@@ -225,9 +225,9 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
         'bower.json',
         'gulpfile.js',
         'id_rsa.enc',
+        'package.json',
         'sass/*.*',
-        '.*',
-        '!/.gitignore',
+        'yarn.lock',
         'bower_components/leaflet/docs/*',
         '/_*/'];
 
@@ -236,8 +236,8 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
     });
 
      execSync(`git add --all`);
-     execSync(`git commit -m '[TravisCI] Rebuilding heroku-build for commit ${commit||'???'}'`);
-     execSync(`git push origin heroku-build --force`);
+     execSync(`git commit -m '[TravisCI] Rebuilding master for commit ${commit||'???'}'`);
+     execSync(`git push origin master --force`);
      });
  });
 
@@ -314,9 +314,6 @@ gulp.task('polymerBuild', function (cb) {
     fse.copySync('bower_components/pxd3/d3.min.js', 'build/default/bower_components/pxd3/d3.min.js');
     fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', 'build/default/bower_components/px-demo-snippet/px-demo-snippet.html');
     fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', 'build/default/bower_components/px-app-helpers/px-app-header/demo.html');
-    fse.copySync('bower_components/pxd3/d3.min.js', 'build/bundled/bower_components/pxd3/d3.min.js');
-    fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', 'build/bundled/bower_components/px-demo-snippet/px-demo-snippet.html');
-    fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', 'build/bundled/bower_components/px-app-helpers/px-app-header/demo.html');
     cb(err);
   });
 
@@ -329,7 +326,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'generate-service-worker', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -340,7 +337,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'gitStuff', 'resetCloudflareCache')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
 });
 
 /*******************************************************************************
@@ -356,26 +353,22 @@ gulp.task('prodBuild', function(callback) {
 gulp.task('cleanRoot', function () {
   return del([
     '**',
-    '.*',
-    '!.git',
-    '!build/**',
     '!gulpfile.js',
     '!package.json',
+    '!build/**',
     '!scripts/**',
-    '!node_modules/**',
-    '!web.js',
-    '!yarn.lock',
+    '!node_modules/**'
   ]);
 });
 
 gulp.task('cleanBuild', function () {
  return del([
-   'build/**/*'
+   'build/'
  ]);
 });
 
 gulp.task('moveBuildToRoot', function () {
- return gulp.src("build/**/*")
+ return gulp.src("build/default/**/*")
             .pipe(gulp.dest('.'));
 });
 
