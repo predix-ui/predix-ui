@@ -207,8 +207,9 @@
   "builds": [
     {
       "name": "default",
-      "preset": "es6-unbundled",
-      "addServiceWorker": false
+      "preset": "es5-bundled",
+      "addServiceWorker": false,
+      "bundle": false
     }
   ],
   "lint": {
