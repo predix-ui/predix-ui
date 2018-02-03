@@ -444,10 +444,10 @@ gulp.task('moveBuildToRoot', function () {
      navigateFallback: '/index.html',
      navigateFallbackWhitelist: ['/index.html'],
      runtimeCaching: [{
-       urlPattern: /https:\/\/predix-ui\.com\/bower_components/,
+       urlPattern: 'bower_components/**',
        handler: 'fastest'
      },{
-       urlPattern: /https:\/\/predix-ui\.com\/img/,
+       urlPattern: 'img/**',
        handler: 'fastest'
      }
    ]
