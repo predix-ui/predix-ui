@@ -390,7 +390,6 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/',
                        rootDir + '!/service-worker-registration.js',
                        rootDir + '/manifest.json',
-                       rootDir + '/img/**',
                        rootDir + '/type/**',
                        rootDir + '/pages/**',
                        rootDir + '/elements/**/*.{html,json,js}',
@@ -436,12 +435,22 @@ gulp.task('moveBuildToRoot', function () {
                        rootDir + '/bower_components/iron-resizable-behavior/iron-resizable-behavior.html',
                        rootDir + '/bower_components/px-icon-set/px-*.html',
                        rootDir + '/bower_components/px-demo/monogram-wdmk.png',
+                       rootDir + '/bower_components/px-typography-design/type/GEInspiraSans.woff',
+                       rootDir + '/bower_components/px-typography-design/type/GEInspiraSans-Bold.woff',
                        rootDir + '/bower_components/px-toggle/**/px-*.{html,js,es6.js}'],
      stripPrefix: rootDir,
      maximumFileSizeToCacheInBytes: 6000000, //this needed so hydrolysis is cached...
     //  templateFilePath: rootDir + '/sw.tmpl',
      navigateFallback: '/index.html',
-     navigateFallbackWhitelist: ['/index.html']
+     navigateFallbackWhitelist: ['/index.html'],
+     runtimeCaching: [{
+       urlPattern: /https:\/\/predix-ui\.com\/bower_components/,
+       handler: 'fastest'
+     },{
+       urlPattern: /https:\/\/predix-ui\.com\/img/,
+       handler: 'fastest'
+     }
+   ]
    }, callback);
  });
 
