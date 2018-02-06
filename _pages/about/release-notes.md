@@ -5,6 +5,14 @@ pathToRoot: ../../
 layout: default
 ---
 
+# Q1 2018 Release
+
+## Features & Enhancements
+
+* [Product Switcher](#/modules/px-product-switcher) - new navigation control for switching between products/applications in a suite
+* [Dropdown](#/modules/px-dropdown) - enhanced with a mobile responsive view
+* [Modal](#/modules/px-modal) - added a property and configuration for full-screen application modals
+
 # Q4 2017 Release
 
 ## Polymer 2.x Upgrade
