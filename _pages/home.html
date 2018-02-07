@@ -1,7 +1,5 @@
 <link defer rel="import" href="../bower_components/polymer/polymer.html" />
-<link async rel="shortcut icon" href="../favicon.ico" />
 
-<link async rel="import" href="../css/px-catalog-theme-styles.html" />
 <link async rel="import" href="../css/predix-ui-homepage-styles.html" />
 <link async rel="import" href="../bower_components/px-demo/px-demo-footer.html" />
 <link async rel="import" href="../elements/px-hero-image/px-hero-image.html" />
@@ -98,8 +96,7 @@
       properties: {
         darkTheme: {
           type: Boolean,
-          reflectToAttribute: true,
-          observer: 'darkThemeChanged'
+          reflectToAttribute: true
         },
         themeName:{
           type: String,
@@ -133,20 +130,6 @@
       _resetLazyLoad: function(){
         this._resetImages();
         this._runLazyLoad();
-      },
-
-      darkThemeChanged: function(isDarkTheme) {
-        var heroImageEl = this._heroImageEl = (this._heroImageEl || Polymer.dom(this.root).querySelector('#hero-image'));
-        if (!heroImageEl) {
-          return;
-        }
-
-        if (isDarkTheme === true) {
-          heroImageEl.setAttribute('dark', '');
-        }
-        else if (isDarkTheme === false) {
-          heroImageEl.removeAttribute('dark');
-        }
       },
 
       _getThemeName: function(darkTheme){
