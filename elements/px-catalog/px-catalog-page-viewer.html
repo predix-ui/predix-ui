@@ -239,6 +239,11 @@
       },
       _applyTheme: function(el, darkTheme, retry) {
         this.debounce('applyTheme', ()=>{
+          if(this.darkTheme){
+            this.importHref(this.resolveUrl('../../bower_components/px-dark-theme/px-dark-theme-styles.html',null,null,true));
+            this.importHref(this.resolveUrl('../../bower_components/px-dark-demo-theme/px-dark-demo-theme-styles.html',null,null,true));
+          }
+
           el = this._activeModuleEl;
           retry = retry || 1;
           if (!el) {

@@ -49,7 +49,7 @@
   {
     "name": "px-colors-design",
     "title": "Colors",
-    "description": "The Colors module assigns Sass variables for the Predix UI default color palette.",
+    "description": "The colors module assigns Sass variables for the Predix Design System default color palette.",
     "imageUrl": "img/component-gallery/colors-design",
     "imageAlt": "Colors thumbnail",
     "tags": [
