@@ -80,7 +80,15 @@ Once you are ready you can:
 
 ### Adding the component to site nav and component gallery
 
-1. Add the component to `elements/px-catalog/pages.json`.
+1. Add the component to `bower.json`:
+  ```
+  px-COMPONENT NAME: v1.0.0
+  ```
+2. Add the component demo to the 'fragments' array in `polymer.json`:
+  ```
+  "bower_components/px-COMPONENT-NAME/demo/px-COMPONENT-NAME-demo.html"
+  ```
+3. Add the component to `elements/px-catalog/pages.json`.
     ```
     {
       "path": "px-COMPONENT-NAME",
