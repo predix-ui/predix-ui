@@ -82,7 +82,7 @@ Once you are ready you can:
 
 1. Add the component to `bower.json`:
   ```
-  px-COMPONENT NAME: v1.0.0
+  "px-COMPONENT NAME": "^1.0.0"
   ```
 2. Add the component demo to the 'fragments' array in `polymer.json`:
   ```
