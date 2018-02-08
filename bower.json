@@ -87,6 +87,7 @@
     "px-modal": "^3.0.0",
     "px-moment-imports": "^1.0.2",
     "px-normalize-design": "^1.0.2",
+    "px-notification": "^1.0.0",
     "px-number-formatter": "^4.0.0",
     "px-overlay": "^1.0.1",
     "px-panel": "^1.0.0",

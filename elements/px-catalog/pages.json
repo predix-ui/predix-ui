@@ -3034,6 +3034,28 @@
         ]
       },
       {
+        "path": "px-notification",
+        "label": "Notification",
+        "module": "px-notification-demo",
+        "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
+        "redirects": [
+          "/components/px-notification",
+          "/modules/px-notification"
+        ],
+        "keywords": [
+          "px-notification",
+          "notification",
+          "alerts",
+          "mobile",
+          "messaging"
+        ],
+        "tags": [
+          "alerts",
+          "mobile",
+          "messaging"
+        ]
+      },
+      {
         "path": "px-number-formatter",
         "label": "Number Formatter",
         "module": "px-number-formatter-demo",

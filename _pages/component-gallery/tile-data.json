@@ -697,6 +697,18 @@
     ]
   },
   {
+    "name": "px-notification",
+    "title": "Notification",
+    "description": "A component providing a way to notify the user of a state change or actions taken on a specific context.",
+    "imageUrl": "img/component-gallery/notification",
+    "imageAlt": "Notification thumbnail",
+    "tags": [
+      "alerts",
+      "mobile",
+      "messaging"
+    ]
+  },
+  {
     "name": "px-overlay",
     "title": "Overlay",
     "description": "The px-overlay is a component used for modal dialogues, popovers, and other use cases where the remainder of the application content is obscured or falls away from the primary actionable component. The overlay covers the entire screen.",

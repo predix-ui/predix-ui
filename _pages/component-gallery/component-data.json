@@ -997,6 +997,16 @@
     "entryPoint": "bower_components/px-modal/demo/px-modal-demo.html"
   },
   {
+    "componentName": "px-notification",
+    "label": "Notification",
+    "tags": [
+      "alerts",
+      "mobile",
+      "messaging"
+    ],
+    "entryPoint": "bower_components/px-notification/demo/px-notification-demo.html"
+  },
+  {
     "componentName": "px-number-formatter",
     "label": "Number Formatter",
     "entryPoint": "bower_components/px-number-formatter/demo/px-number-formatter-demo.html"
