@@ -141,6 +141,7 @@
     "bower_components/px-map/demo/px-map-popup-info-demo.html",
     "bower_components/px-map/demo/px-map-popup-data-demo.html",
     "bower_components/px-modal/demo/px-modal-demo.html",
+    "bower_components/px-notification/demo/px-notification-demo.html",
     "bower_components/px-number-formatter/demo/px-number-formatter-demo.html",
     "bower_components/px-overlay/demo/px-overlay-demo.html",
     "bower_components/px-panel/demo/px-panel-demo.html",

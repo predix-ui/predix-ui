@@ -49,7 +49,7 @@
   {
     "name": "px-colors-design",
     "title": "Colors",
-    "description": "The Colors module assigns Sass variables for the Predix UI default color palette.",
+    "description": "The colors module assigns Sass variables for the Predix Design System default color palette.",
     "imageUrl": "img/component-gallery/colors-design",
     "imageAlt": "Colors thumbnail",
     "tags": [
@@ -694,6 +694,18 @@
     "tags": [
       "messaging",
       "alerts"
+    ]
+  },
+  {
+    "name": "px-notification",
+    "title": "Notification",
+    "description": "A component providing a way to notify the user of a state change or actions taken on a specific context.",
+    "imageUrl": "img/component-gallery/notification",
+    "imageAlt": "Notification thumbnail",
+    "tags": [
+      "alerts",
+      "mobile",
+      "messaging"
     ]
   },
   {
