@@ -17,10 +17,8 @@
 <link async rel="import" href="../../bower_components/px-icon-set/px-icon.html">
 <link async rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link async rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link async rel="import" href="../../bower_components/px-alert-message/px-alert-message.html" />
 
 <!-- Import local dependencies -->
-<link async rel="import" href="px-catalog-theme-switcher.html" />
 <link async rel="import" href="px-catalog-page-viewer.html" />
 <link async rel="import" href="../px-catalog-treenav/px-catalog-treenav.html" />
 
@@ -40,30 +38,8 @@
       }
     </style>
 
-    <!-- Communicates the state of dark theme toggle to child iframes -->
-    <px-catalog-theme-switcher global dark-theme="[[darkTheme]]"></px-catalog-theme-switcher>
-
     <!-- Bind alert messages -->
     <div class="alert-message-container">
-      <template is="dom-if" if="[[updateAvailable]]">
-        <px-alert-message
-            message-title="This site has been updated. Refresh your browser to get the newest information."
-            auto-dismiss="30000"
-            hide-badge
-            action="acknowledge">
-        </px-alert-message>
-      </template>
-      <template is="dom-if" if="[[_404path]]" restamp>
-        <px-alert-message
-            message-title="Page not found"
-            message="[[_get404Message(_404path)]]"
-            auto-dismiss="30000"
-            hide-badge
-            type="error"
-            action="acknowledge"
-            on-px-alert-message-hidden="_handle404MessageHidden">
-        </px-alert-message>
-      </template>
     </div>
 
     <!-- Load the navigation JSON file -->
@@ -234,22 +210,14 @@
         },
 
         /**
-         * Set to `true` when the service worker detects new content, shows an
-         * alert message so the user can refresh to get the updates.
-         */
-        updateAvailable: {
-          type: Boolean,
-          value: false
-        },
-
-        /**
          * If the last URL route was not found and the user was redirected to
          * home, the missing path will be set here to show a 404 error message
          * to the user.
          */
         _404path: {
           type: String,
-          value: null
+          value: null,
+          observer: '_handle404PathChange'
         }
       },
 
@@ -288,8 +256,12 @@
       },
 
       _swUpdated: function() {
-        this.updateAvailable = true;
+        this.importHref(this.resolveUrl('../px-site-notifications/px-sw-notification.html'), () => {
+          let el = Polymer.Base.create('px-sw-notification');
+          Polymer.dom(this.root).querySelector('.alert-message-container').appendChild(el);
+        }, null, false);
       },
+
 
       _getPagePath: function(path) {
         if (path.indexOf(':') > -1) {
@@ -424,8 +396,26 @@
         return 'The page at https://www.predix-ui.com/#'+ path +' could not be found. Try searching in the sidebar.'
       },
 
-      _handle404MessageHidden: function() {
-        this._404path = null;
+      _handle404PathChange: function(path404) {
+        if (path404){
+          this.importHref('../../bower_components/px-alert-message/px-alert-message.html', () => {
+            let el = Polymer.Base.create('px-alert-message',
+              {
+                'messageTitle': 'Page not found',
+                'message' : this._get404Message(path404),
+                'autoDismiss' : true,
+                'hideBadge' : true,
+                'type' : 'error',
+                'action' : 'acknowledge'
+              });
+            el.addEventListener('px-alert-message-hidden', evt => {
+              // clear the _404path property now we've handled it.
+              this._404path = null;
+            });
+
+            Polymer.dom(this.root).querySelector('.alert-message-container').appendChild(el);
+          }, null, false);
+        }
       }
     });
 
