@@ -12,7 +12,7 @@
 @import "px-colors-design/_settings.colors.scss";
 
 // Generic
-@import "px-normalize-design/_generic.normalize.scss";
+@import "px-normalize-design/_generic.normalize-mini.scss";
 :host {
   color: var(--px-catalog-page-text-color, $gray15);
 }

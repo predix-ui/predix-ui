@@ -201,6 +201,8 @@
     "bower_components/font-awesome/fonts/fontawesome-webfont.woff2",
     "bower_components/px-typography-design/type/**",
     "bower_components/px-theme/*.html",
+    "bower_components/px-dark-theme/*.html",
+    "bower_components/px-dark-demo-theme/*.html",
     "bower_components/px-product-switcher/demo/Predix.png",
     "data/*.json",
     "ie/*"
