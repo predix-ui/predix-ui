@@ -38,7 +38,9 @@ Please note that letter case matters.
 * Also uses strings from px-datetime-buttons and validatation
 
 ### px-datetime-field
-* Uses strings from validation
+* `'From Date'`
+* `'To Date'`
+* Also uses strings from validation
 
 ### px-datetime-picker
 * `'Today'`
@@ -76,7 +78,9 @@ Please note that letter case matters.
 * `'Open'`
 
 ### px-context-browser
-* `'Open'`
+* `'You don't have any favorites yet.'`
+* `'To favorite a context\, click on the star while viewing a context in the context browser.'`
+* `'Filter'`
 
 ### px-data-table
 * `'of'`
