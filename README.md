@@ -94,10 +94,6 @@ Once you are ready you can:
       "label": "COMPONENT NAME",
       "module": "px-COMPONENT-NAME-demo",
       "entrypoint": "/bower_components/px-COMPONENT-NAME/demo/px-COMPONENT-NAME-demo.html",
-      "redirects": [
-        "/components/px-COMPONENT-NAME",
-        "/modules/px-COMPONENT-NAME"
-      ],
       "keywords": [
         "px-COMPONENT-NAME",
         // Keywords will be used to search within the site nav
