@@ -38,8 +38,12 @@ To run a local build:
   ```
   $ gulp localBuild
   $ cd build/default
-  $ npm serve
   ```
+Serve the site using [npm serve](https://www.npmjs.com/package/serve) or any other static web server. To install npm serve run:
+  ```
+  $ npm install -g serve
+  ```
+Then you can run `serve` from the `build/default` directory to serve the local build of the site.
 
 ### Running a production build
 You should never run the `gulp prodBuild` task manually. This task is run on Travis as part of our CI/CD process when a change is pushed to production.
@@ -57,17 +61,12 @@ You should never run the `gulp prodBuild` task manually. This task is run on Tra
 
 ### Adding interactive documentation
 
-All components should have an interactive documentation and demo page on the [Predix UI catalog](https://www.predix-ui.com). These documentation pages are built automatically by Travis CI for each component when a new release (i.e. a new tag) is pushed to Github.
+All components should have an interactive documentation and demo page on the [Predix Design System site](https://www.predix-ui.com). These documentation pages are built automatically by Travis CI for each component when a new release (i.e. a new tag) is pushed to Github.
 
 Before you begin, you'll need to install the following tools:
 
 1. [Ruby](https://www.ruby-lang.org/en/) version 1.9.3 or higher (this could be tricky, and the ruby build that shipped with your system might be too old)
 2. [Travis CLI ruby gem](https://github.com/travis-ci/travis.rb)
-
-You should also do the following before starting:
-
-1. Make sure you switch off of BLUESSO (or any proxied Wifi connection) onto Internet (or any open Wifi connection). You should also turn off your VPN, if you have one.
-2. Disable your proxy settings in your shell (i.e. don't set a http_proxy or https_proxy).
 
 Once you are ready you can:
 1. [Enable the repository](https://docs.travis-ci.com/user/getting-started#To-get-started-with-Travis-CI%3A) you'd like to build in Travis CI. **Note: you only need to follow steps 1 & 2 of the Travis instructions.**
@@ -88,7 +87,7 @@ Once you are ready you can:
   ```
   "bower_components/px-COMPONENT-NAME/demo/px-COMPONENT-NAME-demo.html"
   ```
-3. Add the component to `elements/px-catalog/pages.json`.
+3. Add the component to `elements/px-catalog/pages.json`:
     ```
     {
       "path": "px-COMPONENT-NAME",
@@ -120,13 +119,13 @@ Once you are ready you can:
 
     These images will be compressed and put in the `img/component-gallery` directory.
 
-    **Note: If the component should not be shown in the component gallery, add it to the 'ExcludedComponentsArray' in `scripts/json-builder/create-components-info.js`**
+    **Note: If the component should not be shown in the component gallery, add it to the 'ExcludedComponentsArray' in `scripts/json-builder/create-components-info.js`.**
 3. Follow the instructions in the [Running a local build](#running-a-local-build) section above to test your changes before pushing them to production.
 
 
 ## Support and further information
 
-You can ask questions and get support on the [Predix Forum](https://www.predix.io/community). If you find any bugs, have issues with the code, or want to request enhancements, file a issue on the [Github repo](https://github.com/predix-ui/predix-ui.github.io).
+If you find any bugs, have issues with the code, or want to request enhancements, file a issue on this [Github repo](https://github.com/predix-ui/predix-ui.github.io).
 
 ## Copyright
 
