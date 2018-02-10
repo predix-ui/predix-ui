@@ -449,8 +449,7 @@
       };
 
       function isDevEnvironment() {
-        return true;
-        // return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       };
 
       /*
@@ -466,7 +465,7 @@
        * ```
        */
       function isStaff() {
-        return localStorage.getItem('pds_staff') === 'true'
+        return localStorage.getItem('pds_staff') === 'true';
       };
 
       /*
