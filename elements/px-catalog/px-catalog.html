@@ -307,7 +307,6 @@
         if (this._loadedRoutes.indexOf(pageInfo.entrypoint) === -1) {
           // Page entrypoint not yet loaded
 
-          // var url = `${this.rootPath}${this.resolveUrl(pageInfo.entrypoint).slice(1)}`;
           var url = `${this.resolveUrl(pageInfo.entrypoint).slice(1)}`;
           this.importHref(url, function() {
             this.cancelAsync(spinnerAsyncHandle);
