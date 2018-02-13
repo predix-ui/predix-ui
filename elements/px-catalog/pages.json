@@ -12,6 +12,12 @@
     "entrypoint": "/pages/component-gallery/component-gallery.html"
   },
   {
+    "path": "release-notes",
+    "label": "Release Notes",
+    "module": "view-about-release-notes",
+    "entrypoint": "/pages/about/release-notes.html"
+  },
+  {
     "path": "about",
     "label": "Getting Started",
     "pages": [
@@ -87,12 +93,6 @@
         "redirects": [
           "/guides/dev-resources"
         ]
-      },
-      {
-        "path": "release-notes",
-        "label": "Release Notes",
-        "module": "view-about-release-notes",
-        "entrypoint": "/pages/about/release-notes.html"
       }
     ]
   },
@@ -3181,6 +3181,7 @@
       {
         "path": "px-notification",
         "label": "Notification",
+        "newComponent": true,
         "module": "px-notification-demo",
         "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
         "redirects": [
@@ -3192,7 +3193,12 @@
           "notification",
           "alerts",
           "mobile",
-          "messaging"
+          "messaging",
+          "contextual",
+          "warning",
+          "error",
+          "information",
+          "bar"
         ],
         "tags": [
           "alerts",
@@ -3292,6 +3298,7 @@
       {
         "path": "px-product-switcher",
         "label": "Product Switcher",
+        "newComponent": true,
         "module": "px-product-switcher-demo",
         "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
         "redirects": [

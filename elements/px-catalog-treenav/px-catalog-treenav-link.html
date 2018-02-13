@@ -12,6 +12,9 @@
       <div class="link__container">
         <div class$="[[_getArrowClasses(parent, opened)]]" on-tap="_handleArrowTapped"></div>
         <a href$="/#[[route]]" class="link__a" on-tap="_handleLinkTapped">[[label]]</a>
+        <template is="dom-if" if="[[newComponent]]">
+          <span class="new-badge">NEW</span>
+        </template>
       </div>
       <template is="dom-if" if="[[parent]]">
         <iron-collapse opened="[[_isOpened(opened, searching, inSearchedRoutes)]]">
@@ -23,7 +26,8 @@
                 subpages="[[subitem.pages]]"
                 selected-route="[[selectedRoute]]"
                 searching="[[searching]]"
-                searched-routes="[[searchedRoutes]]">
+                searched-routes="[[searchedRoutes]]"
+                new-component="[[subitem.newComponent]]">
             </px-catalog-treenav-link>
           </template>
           </ul>
@@ -41,6 +45,7 @@
         selectedRoute: String,
         searching: Boolean,
         searchedRoutes: Array,
+        newComponent: Boolean,
         opened: {
           type: Boolean,
           value: false,
