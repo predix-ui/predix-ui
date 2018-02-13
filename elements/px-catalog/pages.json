@@ -12,6 +12,12 @@
     "entrypoint": "/pages/component-gallery/component-gallery.html"
   },
   {
+    "path": "release-notes",
+    "label": "Release Notes",
+    "module": "view-about-release-notes",
+    "entrypoint": "/pages/about/release-notes.html"
+  },
+  {
     "path": "about",
     "label": "Getting Started",
     "pages": [
@@ -87,12 +93,6 @@
         "redirects": [
           "/guides/dev-resources"
         ]
-      },
-      {
-        "path": "release-notes",
-        "label": "Release Notes",
-        "module": "view-about-release-notes",
-        "entrypoint": "/pages/about/release-notes.html"
       }
     ]
   },
@@ -446,9 +446,14 @@
             "module": "view-develop-migrate-theme",
             "entrypoint": "/pages/develop/migrate/theme.html",
             "keywords": [
+              "color",
               "colors",
+              "light",
+              "dark",
               "monochrome",
-              "branding"
+              "branding",
+              "colour",
+              "colours"
             ],
             "redirects": [
               "/migration/applying-theme"
@@ -474,9 +479,14 @@
         "module": "view-develop-theme",
         "entrypoint": "/pages/develop/theme.html",
         "keywords": [
+          "color",
           "colors",
+          "light",
+          "dark",
           "monochrome",
-          "branding"
+          "branding",
+          "colour",
+          "colours"
         ]
       },
       {
@@ -525,7 +535,8 @@
               "px-actionable-design",
               "disabled",
               "icons",
-              "link"
+              "link",
+              "actions"
             ],
             "tags": [
               "css",
@@ -623,7 +634,12 @@
             "keywords": [
               "px-colors-design",
               "light",
-              "dark"
+              "dark",
+              "color",
+              "colors",
+              "colour",
+              "colours",
+              "palette"
             ],
             "tags": [
               "css",
@@ -640,7 +656,9 @@
               "/modules/px-forms-design"
             ],
             "keywords": [
+              "px-forms-design",
               "checkbox",
+              "radio button",
               "input",
               "select",
               "multi",
@@ -648,7 +666,11 @@
               "multi-select",
               "field",
               "textarea",
-              "validation"
+              "text area",
+              "textbox",
+              "text box",
+              "validation",
+              "labels"
             ],
             "tags": [
               "css",
@@ -668,12 +690,13 @@
               "px-headings-design",
               "text",
               "typography",
-              "header",
-              "subheader",
+              "headers",
+              "subheaders",
               "subheading",
-              "section",
-              "divider",
-              "headline"
+              "sections",
+              "dividers",
+              "headlines",
+              "sizes"
             ],
             "tags": [
               "css",
@@ -693,9 +716,18 @@
               "px-helpers-design",
               "utilities",
               "float",
+              "floats",
               "pointer",
+              "cursor",
               "informative",
-              "capitalize"
+              "capitalize",
+              "caps",
+              "uppercase",
+              "align",
+              "alignment",
+              "truncate",
+              "truncation",
+              "ellipsis"
             ],
             "tags": [
               "css"
@@ -884,7 +916,8 @@
               "px-flexbox-design",
               "flex",
               "layout",
-              "grid"
+              "grid",
+              "align"
             ],
             "tags": [
               "css"
@@ -1048,7 +1081,14 @@
               "/modules/px-defaults-design"
             ],
             "keywords": [
-              "px-defaults-design"
+              "px-defaults-design",
+              "font-size",
+              "font size",
+              "line height",
+              "line-height",
+              "sizes",
+              "$inuit-base-font-size",
+              "$inuit-base-spacing-unit"
             ]
           },
           {
@@ -1124,7 +1164,7 @@
               "px-typography-design",
               "type",
               "font",
-              "inspira"
+              "inspira sans"
             ],
             "tags":[
               "visual"
@@ -1185,7 +1225,11 @@
         "keywords": [
           "px-alert-label",
           "pill",
-          "text"
+          "text",
+          "badge",
+          "icon",
+          "severity",
+          "status"
         ],
         "tags": [
           "mobile",
@@ -1204,7 +1248,10 @@
         "keywords": [
           "px-alert-message",
           "notification",
-          "toast"
+          "toaster",
+          "warning",
+          "popup",
+          "pop up"
         ],
         "tags": [
           "alerts"
@@ -1267,9 +1314,11 @@
         ],
         "keywords": [
           "px-app-nav",
+          "px-nav",
           "navigation",
           "nav",
-          "sidebar"
+          "sidebar",
+          "appnav"
         ],
         "tags": [
           "app navigation",
@@ -1352,7 +1401,10 @@
               "px-deck-selector",
               "deck",
               "dropdown",
-              "drop-down"
+              "drop-down",
+              "drop down",
+              "view",
+              "card"
             ],
             "tags": [
               "mobile"
@@ -1370,7 +1422,8 @@
             "keywords": [
               "px-widget-cards",
               "card",
-              "cards"
+              "cards",
+              "widgets"
             ],
             "tags": [
               "mobile"
@@ -1426,7 +1479,6 @@
         "keywords": [
           "px-context-browser",
           "miller",
-          "asset",
           "assets"
         ],
         "pages": [
@@ -1438,6 +1490,11 @@
             "redirects": [
               "/components/px-context-browser",
               "/modules/px-context-browser"
+            ],
+            "keywords": [
+              "px-context-browser",
+              "miller",
+              "assets"
             ],
             "tags": [
               "app navigation",
@@ -1453,6 +1510,12 @@
               "/components/px-context-browser-trigger",
               "/modules/px-context-browser-trigger"
             ],
+            "keywords": [
+              "px-context-browser-trigger",
+              "px-context-browser",
+              "miller",
+              "assets"
+            ],
             "subcomponent": true
           }
         ]
@@ -1466,6 +1529,7 @@
             "label": "Vis Framework",
             "keywords": [
               "px-vis",
+              "px-viz",
               "charts",
               "chart",
               "graph",
@@ -1483,6 +1547,15 @@
                   "/components/px-vis",
                   "/modules/px-vis"
                 ],
+                "keywords": [
+                  "px-vis-catalog",
+                  "charts",
+                  "chart",
+                  "graph",
+                  "graphs",
+                  "viz",
+                  "framework"
+                ],
                 "tags": [
                   "data vis"
                 ]
@@ -1494,7 +1567,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-area-svg-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-area-svg"
                 ],
                 "redirects": [
                   "/components/px-vis-area-svg",
@@ -1509,7 +1582,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-axis-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-axis"
                 ],
                 "redirects": [
                   "/components/px-vis-axis",
@@ -1524,7 +1597,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-axis-interaction-space-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-axis-interaction-space"
                 ],
                 "redirects": [
                   "/components/px-vis-axis-interaction-space",
@@ -1539,7 +1612,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-bar-svg-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-bar-svg"
                 ],
                 "redirects": [
                   "/components/px-vis-bar-svg",
@@ -1554,7 +1627,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-brush-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-brush"
                 ],
                 "redirects": [
                   "/components/px-vis-brush",
@@ -1569,7 +1642,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-canvas",
@@ -1584,7 +1657,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-chart-navigator-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-chart-navigator"
                 ],
                 "redirects": [
                   "/components/px-vis-chart-navigator",
@@ -1599,7 +1672,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-clip-path-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-clip-path"
                 ],
                 "redirects": [
                   "/components/px-vis-clip-path",
@@ -1614,7 +1687,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-clip-path-complex-area-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-clip-path-complex-area"
                 ],
                 "redirects": [
                   "/components/px-vis-clip-path-complex-area",
@@ -1629,7 +1702,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-cursor-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-cursor"
                 ],
                 "redirects": [
                   "/components/px-vis-cursor",
@@ -1644,7 +1717,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-cursor-line-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-cursor-line"
                 ],
                 "redirects": [
                   "/components/px-vis-cursor-line",
@@ -1659,7 +1732,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-data-converter-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-data-converter"
                 ],
                 "redirects": [
                   "/components/px-vis-data-converter",
@@ -1674,7 +1747,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-dynamic-menu-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-dynamic-menu"
                 ],
                 "redirects": [
                   "/components/px-vis-dynamic-menu",
@@ -1689,7 +1762,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-event-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-event"
                 ],
                 "redirects": [
                   "/components/px-vis-event",
@@ -1704,7 +1777,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-gridlines-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-gridlines"
                 ],
                 "redirects": [
                   "/components/px-vis-gridlines",
@@ -1719,7 +1792,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-highlight-line-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-highlight-line-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-line-canvas",
@@ -1734,7 +1807,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-highlight-line-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-highlight-line"
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-line",
@@ -1749,7 +1822,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-highlight-point-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-highlight-point-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-point-canvas",
@@ -1764,7 +1837,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-highlight-point-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-highlight-point"
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-point",
@@ -1779,7 +1852,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-interactive-axis-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-interactive-axis"
                 ],
                 "redirects": [
                   "/components/px-vis-interactive-axis",
@@ -1794,7 +1867,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-interaction-space-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-interaction-space"
                 ],
                 "redirects": [
                   "/components/px-vis-interaction-space",
@@ -1809,7 +1882,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-line-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-line-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-line-canvas",
@@ -1824,7 +1897,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-line-svg-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-line-svg"
                 ],
                 "redirects": [
                   "/components/px-vis-line-svg",
@@ -1839,7 +1912,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-multi-axis-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-multi-axis"
                 ],
                 "redirects": [
                   "/components/px-vis-multi-axis",
@@ -1854,7 +1927,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-multi-scale-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-multi-scale"
                 ],
                 "redirects": [
                   "/components/px-vis-multi-scale",
@@ -1869,7 +1942,8 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-pie-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-pie",
+                  "px-pie"
                 ],
                 "redirects": [
                   "/components/px-vis-pie",
@@ -1884,7 +1958,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-radar-grid-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-radar-grid"
                 ],
                 "redirects": [
                   "/components/px-vis-radar-grid",
@@ -1899,7 +1973,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-radial-gridlines-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-radial-gridlines"
                 ],
                 "redirects": [
                   "/components/px-vis-radial-gridlines",
@@ -1914,7 +1988,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-radial-scale-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-radial-scale"
                 ],
                 "redirects": [
                   "/components/px-vis-radial-scale",
@@ -1929,7 +2003,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-register-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-register"
                 ],
                 "redirects": [
                   "/components/px-vis-register",
@@ -1944,7 +2018,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-scale-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-scale"
                 ],
                 "redirects": [
                   "/components/px-vis-scale",
@@ -1959,7 +2033,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-scatter-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-scatter"
                 ],
                 "redirects": [
                   "/components/px-vis-scatter",
@@ -1974,7 +2048,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-scatter-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-scatter-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-scatter-canvas",
@@ -1989,7 +2063,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-striping-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-striping"
                 ],
                 "redirects": [
                   "/components/px-vis-striping",
@@ -2004,7 +2078,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-svg-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-svg"
                 ],
                 "redirects": [
                   "/components/px-vis-svg",
@@ -2019,7 +2093,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-svg-canvas-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-svg-canvas"
                 ],
                 "redirects": [
                   "/components/px-vis-svg-canvas",
@@ -2034,7 +2108,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-threshold-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-threshold"
                 ],
                 "redirects": [
                   "/components/px-vis-threshold",
@@ -2049,7 +2123,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-toolbar-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-toolbar"
                 ],
                 "redirects": [
                   "/components/px-vis-toolbar",
@@ -2064,7 +2138,7 @@
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-tooltip-demo.html",
                 "keywords": [
                   "vis",
-                  "px-vis"
+                  "px-vis-tooltip"
                 ],
                 "redirects": [
                   "/components/px-vis-tooltip",
@@ -2290,7 +2364,8 @@
               "graphs",
               "percent",
               "percentage",
-              "gauge"
+              "gauge",
+              "guage"
             ],
             "tags": [
               "data vis"
@@ -2405,8 +2480,12 @@
         "label": "Data Table",
         "keywords": [
           "px-data-table",
+          "data",
           "grid",
-          "datagrid"
+          "datagrid",
+          "table",
+          "datatable",
+          "pagination"
         ],
         "pages": [
           {
@@ -2417,6 +2496,15 @@
             "redirects": [
               "/components/px-data-table",
               "/modules/px-data-table"
+            ],
+            "keywords": [
+              "px-data-table",
+              "data",
+              "grid",
+              "datagrid",
+              "table",
+              "datatable",
+              "pagination"
             ],
             "tags": [
               "data display",
@@ -2432,6 +2520,15 @@
               "/components/px-data-table-column",
               "/modules/px-data-table-column"
             ],
+            "keywords": [
+              "px-data-table-column",
+              "data",
+              "grid",
+              "datagrid",
+              "table",
+              "datatable",
+              "pagination"
+            ],
             "subcomponent": true
           },
           {
@@ -2442,6 +2539,15 @@
             "redirects": [
               "/components/px-data-table-highlight",
               "/modules/px-data-table-highlight"
+            ],
+            "keywords": [
+              "px-data-table-highlight",
+              "data",
+              "grid",
+              "datagrid",
+              "table",
+              "datatable",
+              "pagination"
             ],
             "subcomponent": true
           }
@@ -2466,7 +2572,8 @@
               "date",
               "day",
               "form",
-              "input"
+              "input",
+              "datepicker"
             ],
             "tags": [
               "mobile",
@@ -2484,8 +2591,12 @@
             ],
             "keywords": [
               "px-datetime-field",
+              "datetime",
+              "date",
+              "time",
               "form",
-              "input"
+              "input",
+              "datepicker"
             ],
             "tags":[
               "data input"
@@ -2502,8 +2613,12 @@
             ],
             "keywords": [
               "px-datetime-picker",
+              "datetime",
+              "date",
+              "time",
               "form",
-              "input"
+              "input",
+              "datepicker"
             ],
             "tags":[
               "data input"
@@ -2521,7 +2636,12 @@
             "keywords": [
               "px-datetime-range-field",
               "form",
-              "input"
+              "input",
+              "datetime",
+              "date",
+              "time",
+              "datepicker",
+              "range"
             ],
             "tags":[
               "data input"
@@ -2539,7 +2659,12 @@
             "keywords": [
               "px-datetime-range-panel",
               "form",
-              "input"
+              "input",
+              "datetime",
+              "date",
+              "time",
+              "datepicker",
+              "range"
             ],
             "tags":[
               "data input"
@@ -2558,7 +2683,11 @@
               "px-rangepicker",
               "datetime",
               "form",
-              "input"
+              "input",
+              "date",
+              "time",
+              "range",
+              "datepicker"
             ],
             "tags":[
               "data input"
@@ -2579,12 +2708,17 @@
           "px-dropdown",
           "menu",
           "picker",
-          "drop-down"
+          "drop-down",
+          "drop down",
+          "select",
+          "multi",
+          "combo"
         ],
         "tags": [
           "app navigation",
           "buttons",
-          "data input"
+          "data input",
+          "btn"
         ]
       },
       {
@@ -2640,6 +2774,12 @@
         ],
         "keywords": [
           "px-icon-set",
+          "px-nav",
+          "px-fea",
+          "px-utl",
+          "px-com",
+          "px-doc",
+          "px-vis",
           "icon",
           "icons",
           "font awesome",
@@ -2747,7 +2887,10 @@
           "log-in",
           "log in",
           "sign in",
-          "sign-in"
+          "sign-in",
+          "access",
+          "credential",
+          "user"
         ],
         "tags": [
           "mobile"
@@ -2794,7 +2937,7 @@
               "/modules/px-map-tile-layer"
             ],
             "keywords": [
-              "px-map",
+              "px-map-tile-layer",
               "map"
             ],
             "subcomponent": true
@@ -2809,7 +2952,7 @@
               "/modules/px-map-tile-layer-bing"
             ],
             "keywords": [
-              "px-map",
+              "px-map-tile-layer-bing",
               "map"
             ],
             "subcomponent": true
@@ -2824,7 +2967,7 @@
               "/modules/px-map-tile-layer-google"
             ],
             "keywords": [
-              "px-map",
+              "px-map-tile-layer-google",
               "map"
             ],
             "subcomponent": true
@@ -2839,7 +2982,7 @@
               "/modules/px-map-tile-layer-wms"
             ],
             "keywords": [
-              "px-map",
+              "px-map-tile-layer-wms",
               "map",
               "WMS",
               "WMTS"
@@ -2856,7 +2999,7 @@
               "/modules/px-map-layer-geojson"
             ],
             "keywords": [
-              "px-map",
+              "px-map-layer-geojson",
               "map"
             ],
             "subcomponent": true
@@ -2871,7 +3014,7 @@
               "/modules/px-map-layer-group"
             ],
             "keywords": [
-              "px-map",
+              "px-map-layer-group",
               "map"
             ],
             "subcomponent": true
@@ -2886,7 +3029,7 @@
               "/modules/px-map-control-locate"
             ],
             "keywords": [
-              "px-map",
+              "px-map-control-locate",
               "map"
             ],
             "subcomponent": true
@@ -2901,7 +3044,7 @@
               "/modules/px-map-control-scale"
             ],
             "keywords": [
-              "px-map",
+              "px-map-control-scale",
               "map"
             ],
             "subcomponent": true
@@ -2916,7 +3059,7 @@
               "/modules/px-map-control-zoom"
             ],
             "keywords": [
-              "px-map",
+              "px-map-control-zoom",
               "map"
             ],
             "subcomponent": true
@@ -2931,7 +3074,7 @@
               "/modules/px-map-marker-locate"
             ],
             "keywords": [
-              "px-map",
+              "px-map-marker-locate",
               "map"
             ],
             "subcomponent": true
@@ -2946,7 +3089,7 @@
               "/modules/px-map-marker-static"
             ],
             "keywords": [
-              "px-map",
+              "px-map-marker-static",
               "map"
             ],
             "subcomponent": true
@@ -2961,7 +3104,7 @@
               "/modules/px-map-marker-symbol"
             ],
             "keywords": [
-              "px-map",
+              "px-map-marker-symbol",
               "map"
             ],
             "subcomponent": true
@@ -2976,7 +3119,7 @@
               "/modules/px-map-marker-group"
             ],
             "keywords": [
-              "px-map",
+              "px-map-marker-group",
               "map"
             ],
             "subcomponent": true
@@ -2991,7 +3134,7 @@
               "/modules/px-map-popup-info"
             ],
             "keywords": [
-              "px-map",
+              "px-map-popup-info",
               "map"
             ],
             "subcomponent": true
@@ -3006,7 +3149,7 @@
               "/modules/px-map-popup-data"
             ],
             "keywords": [
-              "px-map",
+              "px-map-popup-data",
               "map"
             ],
             "subcomponent": true
@@ -3026,7 +3169,9 @@
           "px-modal",
           "modal",
           "dialog",
-          "dialogue"
+          "dialogue",
+          "pop-up",
+          "popup"
         ],
         "tags": [
           "messaging",
@@ -3036,6 +3181,7 @@
       {
         "path": "px-notification",
         "label": "Notification",
+        "newComponent": true,
         "module": "px-notification-demo",
         "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
         "redirects": [
@@ -3047,7 +3193,12 @@
           "notification",
           "alerts",
           "mobile",
-          "messaging"
+          "messaging",
+          "contextual",
+          "warning",
+          "error",
+          "information",
+          "bar"
         ],
         "tags": [
           "alerts",
@@ -3147,6 +3298,7 @@
       {
         "path": "px-product-switcher",
         "label": "Product Switcher",
+        "newComponent": true,
         "module": "px-product-switcher-demo",
         "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
         "redirects": [
@@ -3200,7 +3352,7 @@
           "px-spinner",
           "wait",
           "loading",
-          "load"
+          "loader"
         ],
         "tags": [
           "status",
@@ -3258,6 +3410,7 @@
         ],
         "keywords": [
           "px-tile",
+          "tiles",
           "card",
           "gallery",
           "image",
@@ -3428,7 +3581,8 @@
           "page",
           "deck",
           "navigation",
-          "nav"
+          "navbar",
+          "nav-bar"
         ],
         "tags": [
           "app navigation",

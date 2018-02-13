@@ -441,6 +441,13 @@
     "hybridRange": "^1.0.0"
   },
   {
+    "name": "px-notification",
+    "postRefreshRange": "^1.0.0",
+    "preRefreshRange": "n/a",
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.0.0"
+  },
+  {
     "name": "px-number-formatter",
     "postRefreshRange": "^4.0.0",
     "preRefreshRange": "^3.0.0",
@@ -474,6 +481,13 @@
     "preRefreshRange": "^1.7.0",
     "preRefreshRangeExact": "^v1.7.10",
     "hybridRange": "^2.1.0"
+  },
+  {
+    "name": "px-product-switcher",
+    "postRefreshRange": "^1.0.0",
+    "preRefreshRange": "n/a",
+    "preRefreshRangeExact": "n/a",
+    "hybridRange": "^1.0.0"
   },
   {
     "name": "px-progress-bar",

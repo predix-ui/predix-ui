@@ -10,6 +10,7 @@ layout: default
 ## Features & Enhancements
 
 * [Product Switcher](#/modules/px-product-switcher) - new navigation control for switching between products/applications in a suite
+* [Notification](#/modules/px-notification) - new component for contextual / in-situ alert notifications
 * [Dropdown](#/modules/px-dropdown) - enhanced with a mobile responsive view
 * [Modal](#/modules/px-modal) - added a property and configuration for full-screen application modals
 
@@ -40,14 +41,11 @@ Impacted components:
 * [Card](/#/modules/px-card) - in addition to the above API change, all of the view service related behaviors (card/dealer/dashboard) were deprecated
 * [Context Browser](/#/modules/px-context-browser) - added the ability to set "favorites" for quicker access
 * Data Visualization
-  * added flexible API for creating and interacting with chart annotations **(Developer Guide coming soon)**
+  * added flexible API for creating and interacting with chart annotations (see [developer guide](/#/develop/vis/annotations))
   * added single point search option
   * added lasso functionality for selection of points
   * the web worker is now a blob, you no longer need to include the files in your build process
-* Date/Time Refactoring
-  * all date/time components now support an empty state, where no date or range has been selected
-  * property added for "required" date/time fields, validation will fail if they are not completed
-  * string-typed properties for `dateTime` and `range` have been removed; this fixes several bugs related to syncing issues between the Moment objects and their corresponding strings, and means that the highly flexible Moment object is the sole source of truth
+* [Date/Time Refactoring](/#/develop/datetime-changes)
 * [Dropdown](/#/modules/px-dropdown) - slot added so that any arbitrary element can be used as the dropdown trigger
 * [Inbox](/#/modules/px-inbox) - property added to make referencing the selected item easier; removed dependency on moment.js
 * [Modal](/#/modules/px-modal) - simplified trigger/modal relationship and configuration of positive/negative action buttons

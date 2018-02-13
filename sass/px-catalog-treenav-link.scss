@@ -26,7 +26,8 @@
     left: 15px;
     bottom: 8px;
   };
-  display: block;
+  display: flex;
+  justify-content: space-between;
   position: relative;
 }
 :host([top-level-link]) > .link > .link__container {
@@ -89,4 +90,8 @@ ul.sublinks {
 :host([top-level-link]) > .link > iron-collapse > ul.sublinks {
   position: relative;
   top: -3px;
+}
+.new-badge {
+  color: white;
+  font-size: 12px;
 }
