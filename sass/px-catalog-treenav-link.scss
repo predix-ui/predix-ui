@@ -27,7 +27,6 @@
     bottom: 8px;
   };
   display: flex;
-  justify-content: space-between;
   position: relative;
 }
 :host([top-level-link]) > .link > .link__container {
@@ -94,4 +93,6 @@ ul.sublinks {
 .new-badge {
   color: white;
   font-size: 12px;
+  flex: 1 1 auto;
+  text-align: right;
 }
