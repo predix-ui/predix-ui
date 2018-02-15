@@ -598,7 +598,8 @@
     "tags": [
       "app navigation",
       "buttons",
-      "data input"
+      "data input",
+      "btn"
     ]
   },
   {
@@ -731,7 +732,7 @@
   {
     "name": "px-popover",
     "title": "Popover",
-    "description": "The popover is similar to a tooltip, but is invoked by clicking instead of hovering on a target component. Popovers have an optional title, and can also contain richer content than a basic tooltip – longer or formatted text, labels, badges, etc. Popovers stay visible on screen until the user clicks outside of the popover.",
+    "description": "The popover is similar to a tooltip, but is invoked by clicking instead of hovering on a target component. Popovers have an optional title, and can also contain richer content – longer or formatted text, labels, badges, etc. Popovers stay visible on screen until the user clicks outside of the popover.",
     "imageUrl": "img/component-gallery/popover",
     "imageAlt": "Popover thumbnail",
     "tags": [

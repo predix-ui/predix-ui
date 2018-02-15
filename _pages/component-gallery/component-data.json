@@ -819,7 +819,8 @@
     "tags": [
       "app navigation",
       "buttons",
-      "data input"
+      "data input",
+      "btn"
     ],
     "entryPoint": "bower_components/px-dropdown/demo/px-dropdown-demo.html"
   },
