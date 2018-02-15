@@ -378,7 +378,7 @@ The Favorited Panel allows a user to save a subset of the items in their context
 
 ## Enabling favoriting
 
-<iframe height='420' scrolling='no' title='Context Browser: Simple Example' src='//codepen.io/talimarcus/embed/vWRrre?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
+<iframe height='520' scrolling='no' title='Context Browser: Simple Example' src='//codepen.io/talimarcus/embed/vWRrre?height=265&theme-id=light&default-tab=html,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
 
 Follow the same basic setup as in the "Setup in your app" section above:
@@ -417,7 +417,7 @@ The following methods can be used to favorite and de-favorite items:
 * `favorite(item: Object|Array<Object>, source: String)` - Call with an object that is a direct reference to one of the `items` objects to favorite a single item, or with an array of objects to favorite multiple items.
 * `defavorite(item: Object|Array<Object>|null, source: String)` - De-favorites one or more items. Call with a direct reference to one of the favorited items to de-favorite it, or an array of favorited items to de-favorite multiple, or `null` to de-favorite all items.
 
-The `favorited` property on px-context-browser can also be used by the app to both get the user's current favorites and to set the user's favorites, e.g. after loading them from the server.
+The app can also use px-context-browser's `favorited` property to both get the user's current favorites and to set the user's favorites, e.g. after loading them from the server.
 
 ## Favoriting and selecting favorited items
 
