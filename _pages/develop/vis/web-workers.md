@@ -89,7 +89,7 @@ One can register a custom script by running the `Px.vis.registerCustomScript` me
 
 The script should define one or several global objects and register all functions on one of those objects. For example a very small custom script could be:
 
-```js
+```javascript
 var myScript = {};
 
 myScript.addition = function(data, chartId) {

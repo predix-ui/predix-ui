@@ -18,7 +18,7 @@ The feature is minimalistic from the chart perspective: one `annotationData` arr
 ## annotationData
 
 `annotationData` is an array containing one object for each annotation:
-```js
+```javascript
 {
   x: 1325897523,
   y: 15.7,
@@ -51,7 +51,7 @@ Each of those event holds a data object (`event.detail.data`) which will have:
 Another event is fired when an annotation creation request happens, i.e <strong>when using the out of the box `annotations` toolbar configuration</strong> and the user clicks the chart: `px-vis-annotation-creation`. This event is defined in the toolbar configuration, so if using a custom annotations toolbar configuration you might want to copy it or create your own.
 
 this event detail will contain the following `data` object:
-```js
+```javascript
 data: {
  chart: //the chart responsible for this interaction
  clickTarget: //the actual interaction target that has been clicked. Usually an axis interaction space (parallell coordinates/radar) or an interaction space
@@ -76,7 +76,7 @@ Furthermore the annotation should always be linked to an actual data point, the 
 ## Custom toolbar config
 
 In order to make it easier to find the closest point to the mouse we are going to use a custom annotations toolbar config. This custom config is an extended version of the out of the box one: we only change the tooltip search mode to be the closest point and make sure we run the tooltip search on hovering:
-```js
+```javascript
 {
   'tooltipLabel': 'Annotations',
   'icon': 'px-vis:comment',
@@ -133,7 +133,7 @@ When the user clicks create we update the chart's `annotationData` with the data
 
 We display the annotation on the `px-vis-annotation-enter` event. We set the annotation message to the tooltip, set the annotation icon as the tooltip target and force the tooltip open:
 
-```js
+```javascript
 if(!this._lockTooltip) {
   this.$.ttContent.annotationMessage = evt.detail.data.annotationData.data.message;
 
@@ -144,7 +144,7 @@ if(!this._lockTooltip) {
 
 On `px-vis-annotation-leave` we force the tooltip close.
 
-```js
+```javascript
 if(!this._lockTooltip) {
   this.$.tooltip.set('opened', false);
 }
@@ -164,7 +164,7 @@ On Save we update the `annotationData` with the new message.
 
 On Delete we remove this annotation from `annotationData`.
 
-```js
+```javascript
 var index;
 if(this._editAction === 'save') {
   index = this.currentChart.annotationData.indexOf(this._currentDataEdit);

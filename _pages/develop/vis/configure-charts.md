@@ -99,7 +99,7 @@ When all series need to have the same subset of configuration, for example the t
     caption="Same chart as above with a defaultSeriesConfig">
   </catalog-picture>
 
-  ```js
+  ```javascript
   seriesConfig = {
     'uniqueSeriesId1': {
       'y': 'asset1',
@@ -138,7 +138,7 @@ In addition to the chartData and seriesConfig, another very useful property to b
     img-alt="Basic Chart Extents example">
   </catalog-picture>
 
-  ```js
+  ```javascript
   {
   "x": [-5, 5],
   "y": [0, 10]
@@ -174,7 +174,7 @@ For timeseries or XY charts with multiple Y axis, each axis can get its own exte
     img-alt="Chart Extents example each axis">
   </catalog-picture>
 
-  ```js
+  ```javascript
   //Axis 1 will range from -10 to 10
   //axis 2 and axis 3 will dynamically
   //search for their extents:
@@ -196,7 +196,7 @@ In the case where a scale is ordinal then a set of values can be passed in the c
     img-alt="Dynamic Chart Extents example">
   </catalog-picture>
 
-  ```js
+  ```javascript
   //ordinal x scale
   {
   "x": ["low", "medium", "high"],
@@ -215,7 +215,7 @@ If chartExtents is not defined then the chart will default to dynamic search on 
     img-alt="Dynamic Chart Extents example">
   </catalog-picture>
 
-  ```js
+  ```javascript
   {
   "x": ["dynamic", "dynamic"],
   "y": [0, "dynamic"]
@@ -232,7 +232,7 @@ Each chart is built with a set of vis framework components, and most of those co
 
 To circumvent the issue each configurable sub component has its configuration object exposed at the chart level, e.g. tooltipConfig, registerConfig, xAxisConfig.... When this object changes, each property defined in that object is applied to the subcomponent, only overriding properties you decided to modify and not changing the others. For example, here is a registerConfig object that can be passed to a chart:
 
-```js
+```javascript
 registerConfig = {
  "forceDateTimeDisplay": true
 }

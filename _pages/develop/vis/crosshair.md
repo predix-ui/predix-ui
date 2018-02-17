@@ -51,7 +51,7 @@ The chart property which transmits the crosshair data from one chart to another.
 * timeStamps: a list of just the timestamps founds. If the other charts use different datasets, a search for the data closest in time at each point can be made.
 
 
-```js
+```javascript
 {
   rawData:[{
     time: 123456879,
@@ -95,7 +95,7 @@ Note that on the example XY chart, the `timeData` property is also specified. Fo
 
 All other relevant properties for the crosshair feature are not at the chart level, but rather properties of the highlighter, and should be passed down through a `highlighterConfig` object:
 
-```js
+```javascript
 highlighter-config = '{
   differentDataset: true,
   showTooltipData: true,
@@ -140,7 +140,7 @@ In addition to configuring the highlights, you’ll have configure the toolbar o
 
 To enable a basic crosshair, just add crosshair to your `toolbarConfig`:
 
-```js
+```javascript
 toolbar-config='{
   config: {
     …
@@ -154,7 +154,7 @@ toolbar-config='{
 For XY and Polar, using the above basic crosshair configuration uses "closest point" search. For these two charts, you can specify the advanced crosshair instead using `crosshairWithOptions`, which allows users to choose the type of search:
 
 
-```js
+```javascript
 toolbar-config='{
   config: {
     …
@@ -176,7 +176,7 @@ Conceptually, freezing is quite easy; we simply take away the crosshair function
 
 As demonstrated in the demo, this can be accomplished with relative ease through the toolbar. First, you need to define two toolbar configurations: a normal unfrozen chart, and a frozen chart.
 
-```js
+```javascript
 normalConfig = {
   config: {
     advancedZoom: { actionConfig: { click: null } },
@@ -211,7 +211,7 @@ frozenConfig = {
 
 First, in the normal config, we are extending the basic crosshair feature by adding an on-click listener.
 
-```js
+```javascript
 crosshair: {
   actionConfig: {
     click: function() {
@@ -226,7 +226,7 @@ This listener attaches the supplied callback to the chart’s interaction space 
 
 Since `click` is not a normal event for the toolbar, we’ll also have to clear it on our other toolbar features when they are clicked. To do this, we extend the basic functionality in a similar manner:
 
-```js
+```javascript
 advancedZoom: { actionConfig: { click: null } },
 ```
 
@@ -235,7 +235,7 @@ advancedZoom: { actionConfig: { click: null } },
 Next, we want to define the frozen toolbar config, which will look very similar, except it will not define crosshair. By not defining crosshair, we’re removing it from the toolbar and the ability to use it. We also add a fully custom option to unlock the chart:
 
 
-```js
+```javascript
 frozen: {
   tooltipLabel: 'Crosshair Frozen',
   icon: 'px-utl:locked',
@@ -252,7 +252,7 @@ When this button gets clicked, it fires the `px-unfreeze-crosshair event`, which
 
 Next, you’ll want to set up your freeze listener:
 
-```js
+```javascript
 document.addEventListener('px-freeze-crosshair', function() {
   timeseries.set("highlighterConfig.drawWithLocalCrosshairData", true);
   xy.set("highlighterConfig.drawWithLocalCrosshairData", true);
@@ -267,7 +267,7 @@ In your listener, first, you want to tell the origin chart to draw the `crosshai
 
 To unfreeze, create a similar listener for the unfreeze event:
 
-```js
+```javascript
 document.addEventListener('px-unfreeze-crosshair', function() {
   var empty = {
       rawData: [],

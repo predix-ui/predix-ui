@@ -30,7 +30,7 @@ All together, d3 does an amazing job trying to display a logical axis for your d
 To configure the axes in a Predix Design System chart, you'll want to create an axisConfig object to pass to the chart. This object  takes the axis properties as keys and the values you are setting as the corresponding value.
 
 Example:
-```js
+```javascript
 let myConfig = {
   ticks: 5
 }
@@ -59,7 +59,7 @@ Refer to <a href="https://github.com/d3/d3-format" target="_blank">d3-format</a>
 
 #### Fixed Point
 
-```js
+```javascript
 let myConfig = {
   tickFormat: '.2f'
 }
@@ -69,7 +69,7 @@ let myConfig = {
 
 #### Adding a prefix
 
-```js
+```javascript
 let myConfig = {
   tickFormat: '+.2f'
 }
@@ -79,7 +79,7 @@ let myConfig = {
 
 #### Scientific notation
 
-```js
+```javascript
 let myConfig = {
   tickFormat: '.1e'
 }
@@ -97,7 +97,7 @@ Formating numbers is easy because you can just pass in a formating string. With 
 
 #### Abbreviated day name and day of the month
 
-```js
+```javascript
 let myFormat = Px.d3.timeFormat("%a %d");
 
 let myConfig = {
@@ -109,7 +109,7 @@ let myConfig = {
 
 You'll notice that we've provided a format quite similar to the default format. But by using the `timeFormat` function, we've corerced it into local time. If you wish to maintain UTC, then use `utcFormat` instead. Also note, that while you can coerice the values into local time (or to UTC if you are in local time), it is better to address this by changing the `xAxisType` property on the chart. See below in the FAQ
 
-```js
+```javascript
 // d3 format function with the formatting string
 let myFormat = Px.d3.utcFormat("%a %d");
 
@@ -123,7 +123,7 @@ let myConfig = {
 
 #### d/mm/yyy
 
-```js
+```javascript
 let myFormat = Px.d3.utcFormat("%x");
 
 let myConfig = {
@@ -136,7 +136,7 @@ let myConfig = {
 
 #### Full day names
 
-```js
+```javascript
 let myFormat = Px.d3.utcFormat("%A");
 
 let myConfig = {
@@ -154,7 +154,7 @@ let myConfig = {
 
 #### Hour: Minute AM/PM
 
-```js
+```javascript
 let myFormat = Px.d3.utcFormat("%I:%M %p");
 
 let myConfig = {
@@ -167,7 +167,7 @@ let myConfig = {
 
 #### Local time with timezone
 
-```js
+```javascript
 let myFormat = Px.d3.timeFormat("%I:%M %Z");
 
 let myConfig = {
@@ -179,7 +179,7 @@ let myConfig = {
 
 One thing to note when playing with the format, by default, d3 will change the format depending on your zoom level to a more appropriate value. Once you specify a format, that feature is disabled and you will have to manually update the format with each zoom. Or clear the provided format by providing `null`.
 
-```js
+```javascript
 let myConfig = {
   tickFormat: null
 };
@@ -202,7 +202,7 @@ If you give it an Object, then there are two optional keys you can assign:
 
 #### Ticks as a number
 
-```js
+```javascript
 let myConfig = {
   ticks: 5
 }
@@ -210,7 +210,7 @@ let myConfig = {
 
 Equivalent to
 
-```js
+```javascript
 let myConfig = {
   ticks: {
     interval: 5
@@ -222,7 +222,7 @@ let myConfig = {
 
 #### Ticks as an object with interval and format
 
-```js
+```javascript
 let myConfig = {
   ticks: {
     interval: 5,
@@ -240,7 +240,7 @@ let myConfig = {
 
 <catalog-picture img-src="../../img/guidelines/dev/vis/configure-axis/axis" img-alt="normal" style="border:none;" caption="Normal Axis"></catalog-picture>
 
-```js
+```javascript
 let myConfig = {
   tickValues: [0,4,5,7.7,10]
 }
@@ -274,7 +274,7 @@ Note how it still rounds the value of 7.7 by default. To show the decimal point,
 
 Additionally, you'll have to configure the register/tooltip with the `timezone` property to get the axis and register/tooltip in sync. Note that the register/tooltip use moment.js, so refer to moment.js docs for appropriate notation. Example:
 
-```js
+```javascript
 myChart.set('registerConfig', { timezone:  "America/Los_Angeles" });
 ```
 
@@ -288,7 +288,7 @@ myChart.set('registerConfig', { timezone:  "America/Los_Angeles" });
 
 Unfortunately there is no way to do this "natively" in d3. The easiest is to utilize moment and moment-timezone or your time formatter of choice. Wrap it in a callback function and format your tick like so:
 
-```js
+```javascript
 
 let myFormat = function(d) {
   return Px.moment(d).tz("America/Los_Angeles").format("HH:ss");
@@ -298,7 +298,7 @@ myChart.set('xAxisConfig', { tickFormat: myFormat });
 
 Additionally, you'll have to configure the register/tooltip with the `timezone` property to get the axis and register/tooltip in sync. Example:
 
-```js
+```javascript
 myChart.set('registerConfig', { timezone: "America/Los_Angeles" });
 ```
 

@@ -45,13 +45,13 @@ Applying a theme is easy. Simply include the theme in your project, import it, i
 
 Install the theme in your project by including it in your `bower.json`:
 
-``` js
+```javascript
 "px-theme": "^3.0.0"
 ```
 
 AND/OR
 
-``` js
+```javascript
 "px-dark-theme": "^2.0.0"
 ```
 

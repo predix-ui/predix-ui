@@ -118,7 +118,7 @@ Predefined actions only available in px-vis-axis-interaction-space:
 
 For example given those actions the default `actionConfig` for px-vis-interaction-space is:
 
-```js
+```javascript
 {
   'mousedown': 'startZooming',
   'mouseup': 'stopZooming',
@@ -142,7 +142,7 @@ In the latest release (vis 2.1 at this time) this parameter is an object with tw
 
 Using this two values it is possible to retrieve the data values of a click rather than the pixel values, for example a click handler for px-vis-interaction-space could look like:
 
-```js
+```javascript
 handler: function(evt) {
   //using the X scale of the chart to convert pixel values to
   xValue = this.x(evt.mouseCoords[0]);
@@ -157,7 +157,7 @@ handler: function(evt) {
 
 The toolbar configuration dictates what items are present in the main row, what subrow is defined for each main item and what happens when clicking on a main item or a sub item. It can be passed at the chart level through the 'config' key in 'toolbarConfig':
 
-```js
+```javascript
 toolbarConfig = {
   'config': {}
 }
@@ -205,7 +205,7 @@ When using a custom configuration make sure each key of your 'config' object is 
 
 In addition a main item may have a 'subConfig' object defining all the sub items configurations, the global structure of the 'config' object becoming:
 
-```js
+```javascript
 config = {
   'yourMainItem1': {
     //set of properties you set for your item
@@ -289,7 +289,7 @@ Scenario: you have a set of small non interactive charts in your app so that you
 
 For this scenario we'll use px-modal and two toolbar configuration. The idea is that when the chart is in "small mode" it will use a toolbar configuration with just one button. When this button is clicked the chart will be moved into the px-modal and get a new toolbar configuration with different interactions:
 
-```js
+```javascript
 smallModallModeConfig = {
   "config": {
     "expand": {
@@ -314,7 +314,7 @@ smallModallModeConfig = {
 };
 ```
 
-```js
+```javascript
 modalConfig = {
   "config": {
     "advancedZoom": true,
@@ -327,7 +327,7 @@ modalConfig = {
 We then listen on the px-modal for a close event and move back the chart where it initially was and restore the toolbar to the one item configuration:
 
 
-```js
+```javascript
 modal.addEventListener('btnModalNegativeClicked', function() {
   //remove chart from modal
   Polymer.dom(modal).removeChild(chart);

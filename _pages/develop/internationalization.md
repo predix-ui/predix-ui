@@ -52,7 +52,7 @@ The d3.js library supports two different types of localization: date/time format
 To load a locale, just pass one of the following supported locales and an optional callback to the appropriate convenience function (which will be called after the locale has been successfully loaded).
 
 Example:
-```js
+```javascript
 Px.d3.changeTimeLocale('ca-ES', function() {
  console.log('d3 time locale changed!');
 });
@@ -158,7 +158,7 @@ Because the locale needs to be fetched from a JSON file asynchronously, you can 
 Loading a custom locale is relatively straightforward, but requires manually loading/generating a config object as defined by d3.js [here](https://github.com/d3/d3-time-format/blob/master/README.md#timeFormatDefaultLocale) for date/time and [here](https://github.com/d3/d3-format/blob/master/README.md#formatDefaultLocale) for numbers.
 
 Example:
-```js
+```javascript
 Px.d3.changeTimeLocale(null, null, yourConfigObject);
 Px.d3.changeNumberLocale(null, null, yourConfigObject);
 ```
@@ -183,7 +183,7 @@ Please note that when changing the moment locale, previously created moment obje
 When loading a supported locale, just pass one of the following locales and an optional callback (which will be called after the locale has been successfully loaded).
 
 Example:
-```js
+```javascript
 Px.moment.changeLocale('fr', function() {
  console.log('moment locale changed!');
 });
@@ -316,7 +316,7 @@ Because the locale needs to be fetched from a script, this process is asynchrono
 Loading a custom locale is relatively straightforward, but requires manually loading/generating a config object as defined by moment.js [here](http://momentjs.com/docs/#/customization/).
 
 Example:
-```js
+```javascript
 Px.moment.changeLocale(null, null, yourConfigObject);
 ```
 

@@ -76,7 +76,7 @@ For example, if you look at the px-spinner API, you'll see that it has a "finish
 
 The "finished" property can also be set programmatically by finding the component in the DOM, and setting the property directly:
 
-```js
+```javascript
 var spinner = document.querySelector('px-spinner');
 spinner.finished = true;
 ```

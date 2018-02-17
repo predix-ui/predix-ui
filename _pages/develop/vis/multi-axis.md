@@ -139,7 +139,7 @@ If you want multiple series to be on the same axis, just give them the same axis
 
 If you want to manually set your chart extents on a single axis, you would do so like this:
 
-```js
+```javascript
 chartExtents = {
   "x": ["dynamic", "dynamic"],
   "y": [0,40]
@@ -152,7 +152,7 @@ This defines your y-axis to have a domain from 0 to 40. If you apply this to you
 
 Instead, to set the chartExtents on a particular axis, you'll want to use that axis' `id`
 
-```js
+```javascript
 chartExtents = {
   "x": ["dynamic", "dynamic"],
   "axisA": [0,40],
@@ -168,7 +168,7 @@ Now, the custom domains get only applied to `axisA` and `axisC`, while `axisB` f
 
 Configuring the y axes is similar to setting its chartExtents. With a single axis, we customize properties of the y axis like this:
 
-```js
+```javascript
 yAxisConfig = {
   "unit": "Beard-seconds"
 };
@@ -180,7 +180,7 @@ This would display a `unit` in the title. However, if we apply this configuratio
 
 Configurations listed in the yAxisConfig will be applied to every axis, which can be a nice shorthand for applying properties to all the axes. To apply specific configs to only one axis, nest the configuration with the axis ID as the key:
 
-```js
+```javascript
 yAxisConfig = {
   "unit": "Beard-seconds",
   "axisA": {

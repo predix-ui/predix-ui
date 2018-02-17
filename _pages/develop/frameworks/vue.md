@@ -47,7 +47,7 @@ To install components:
 4. Run `$ bower install --save px-[compononent-name]` to install components in your app, or `$ bower install —save-dev px-[css-name]` to install SCSS modules in your app.
 5. The resulting components will be placed in the `bower_components/` directory in the root of your app by default. Add a `.bowerrc` file to the root of your app with the following JSON to install components somewhere else:
 
-```
+```json
 {
   "directory": "./public/assets/bower_components"
 }
@@ -78,7 +78,7 @@ Predix Design System components expose extensive APIs that allow developers to c
 
 Vue makes it easy to send data into web components. Vue templates already use a data-binding syntax to pass data down into Vue components or views:
 
-```
+```html
 <!-- In a .vue template -->
 <template>
 	<some-vue-component v-bind:some-setting="someLocalVar">
@@ -88,7 +88,7 @@ Vue makes it easy to send data into web components. Vue templates already use a 
 
 To pass data into a web component, just append `.prop` to this v-bind directive and put it on a web component.
 
-```
+```html
 <!-- In a .vue template -->
 <template>
 	<some-web-component v-bind:some-setting.prop="someLocalVar">
@@ -112,7 +112,7 @@ The change event names for all notifying properties are the property converted f
 
 *Vue syntax:* Web components fire native DOM events. The syntax to bind to these events in Vue template is the same as the syntax to bind to Vue component events:
 
-```
+```html
 <!-- In a .vue template -->
 <template>
 	<some-web-component v-on:some-setting-changed="handleChanged">
@@ -132,7 +132,7 @@ Theming still relies on some Polymer-specific shims as the final mechanics of CS
 
 To theme components, its recommended to create a single theme at the app level that makes any desired changes once for all instances of Predix Design System components used in the app. The easiest way to create an app-level theme is to add a style tag like this to the `index.html` of the app:
 
-```
+```html
 <style is="custom-style">
 	html {
 	  --px-component-css-property-name: blue;
@@ -142,7 +142,7 @@ To theme components, its recommended to create a single theme at the app level t
 
 The design system provides two themes that can be installed via bower and loaded to style all components at once, the [light theme](http://github.com/predixdev/px-theme) and [dark theme](https://github.com/predixdev/px-dark-theme). To use these themes, install the theme with bower, load the theme on the page, and add a style tag like this to the `index.html` of the app:
 
-```
+```html
 <!-- Use this for light theme -->
 <style is="custom-style" include="px-theme-styles></style>
 <!-- Use this for dark theme -->

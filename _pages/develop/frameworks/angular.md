@@ -45,11 +45,13 @@ To install components:
 2. Open your app directory in your shell. Run `$ bower init` to create a `bower.json` file that lists your dependencies
 3. Add `bower_components` to your `.gitignore` file. Its recommended that you do not check in your bower components, and instead install them locally during development and add installation as a step in your CI/CD process for test, QA, and production environment. This helps ensure your dependencies stay up-to-date as new patches and updates are made available.
 4. By default, the `bower_components/` directory will be located in the root folder of your app. Add a `.bowerrc` file to the root of your app with the following JSON to install components in the assets directory instead, so that they will be served as static files by `ng serve`:
-    ```
-    {
-      "directory" : "src/assets/bower_components"
-    }
-    ```
+
+```json
+{
+  "directory" : "src/assets/bower_components"
+}
+```
+
 5. Run `$ bower install --save px-[compononent-name]` to install individual components in your app, or `$ bower install --save-dev px-[css-name]-design` to install SCSS modules in your app.
 
 ## Import/load components
@@ -69,13 +71,13 @@ Angular apps have two choices for importing PDS components:
 
 The Angular custom elements schema is required in your application in order to support Polymer web components and their properties that contain dashes in their names. In your application's main `app.module.ts` file, add the following line in the imports area near the top:
 
-```
+```javascript
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 ```
 
 Further down, inside of your `@ngModule` definition, include the following:
 
-```
+```javascript
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 ```
 
@@ -91,7 +93,7 @@ Predix Design System components expose extensive APIs that allow developers to c
 
 Angular developers should already be very familiar with the concepts of [data-binding and template expressions](https://angular.io/guide/template-syntax), which allow you to pass data to an HTML element, Angular component, or directive.
 
-```
+```html
 <!-- Standard HTML element binding -->
 <span [hidden]="isHidden"></span>
 
@@ -101,7 +103,7 @@ Angular developers should already be very familiar with the concepts of [data-bi
 
 The same binding syntax as above can be used to pass data to a Predix Design System web component. The only change to be aware of is that the component's API documentation or sample code may list a multi-word property name that is separated by dashes, whereas your Angular code should use the camel case equivalent, e.g.
 
-```
+```html
 <!-- Regular HTML syntax -->
 <px-data-table table-data="data"></px-data-table>
 
@@ -125,7 +127,7 @@ The change event names for all notifying properties are the property converted f
 
 *Angular syntax:* Web components fire native DOM events. The syntax to bind to these events in an Angular template is the same as the syntax to bind to any standard HTML events or Angular component events. Unlike the property data-binding syntax above, the dash-separated property names are used for event binding:
 
-```
+```html
 <!-- Angular event binding -->
 <button (click)="handleClick()"></button>
 
@@ -155,7 +157,7 @@ Theming still relies on some Polymer-specific shims as the final mechanics of CS
 
 To theme components, its recommended to create a single theme at the app level that makes any desired changes once for all instances of Predix Design System components used in the app. The easiest way to create an app-level theme is to add a style tag like this to the `index.html` of the app:
 
-```
+```html
 <style is="custom-style">
 	html {
 	  --px-component-css-property-name: blue;
@@ -165,7 +167,7 @@ To theme components, its recommended to create a single theme at the app level t
 
 The design system provides two themes that can be installed via bower and loaded to style all of your Predix components at once, the [light theme](http://github.com/predixdev/px-theme) and [dark theme](https://github.com/predixdev/px-dark-theme). To use these them, install the theme with bower, import the theme on the page, and add a custom style tag to the `index.html` of your app:
 
-```
+```html
 <!-- Use this for light theme -->
 <link rel="import" href="assets/bower_components/px-theme/px-theme-styles.html" />
 <style is="custom-style" include="px-theme-styles></style>
