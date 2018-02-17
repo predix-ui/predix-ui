@@ -32,7 +32,6 @@
   --px-catalog-page-accent-color--secondary  : $gray15;
   --px-catalog-page-success-color            : $green6;
   --px-catalog-page-alert-color              : $red6;
-  --px-catalog-page-code-background-color    : $gray1;
   --px-catalog-page-link-color               : $primary-default;
   --px-catalog-page-link-color--hover        : $primary-hover;
   --px-catalog-page-anchor-color             : $gray10;
@@ -41,6 +40,11 @@
   --px-catalog-page-selected-color           : $primary-default;
   --px-catalog-page-selected-color--hover    : $primary-hover;
   --px-catalog-picture-title-color--light    : $gray9;
+
+  /* Code Snippet Theme */
+  --px-catalog-code-background-color        : $gray1;
+  --px-catalog-code-header-color            : $gray10;
+  --px-catalog-code-header-background-color : $gray3;
 
   // animation theme
   --animation-img-background-color     : #EBEFF1;
@@ -85,7 +89,6 @@
   --px-catalog-page-accent-color--secondary  : $gray2;
   --px-catalog-page-success-color            : $green6;
   --px-catalog-page-alert-color              : $red6;
-  --px-catalog-page-code-background-color    : $gray17;
   --px-catalog-page-link-color               : $d-actionable-default;
   --px-catalog-page-link-color--hover        : $d-actionable-hover;
   --px-catalog-page-anchor-color             : $gray10;
@@ -116,16 +119,19 @@
   --animation-chart-labels-color       : #435662;
   --animation-gauge-background-color   : $gray15;
 
+  /* Code Snippet Theme */
+  --px-catalog-code-background-color        : $gray17;
+  --px-catalog-code-header-color            : $gray10;
+  --px-catalog-code-header-background-color : $gray19;
 
-  /* Code */
-  --px-code-default   : #e6e9ed;
-  --px-code-comment   : #656d78;
-  --px-code-property  : #ed5565;
-  --px-code-string    : #ffce54;
-  --px-code-number    : #f99157;
-  --px-code-operator  : #ed5565;
-  --px-code-keyword   : #4fc1e9;
-  --px-code-function  : #c9c;
+  --px-catalog-code-highlight-default   : #e6e9ed;
+  --px-catalog-code-highlight-comment   : #656d78;
+  --px-catalog-code-highlight-property  : #ed5565;
+  --px-catalog-code-highlight-string    : #ffce54;
+  --px-catalog-code-highlight-number    : #f99157;
+  --px-catalog-code-highlight-operator  : #ed5565;
+  --px-catalog-code-highlight-keyword   : #4fc1e9;
+  --px-catalog-code-highlight-function  : #c9c;
 
   /* component gallery */
   --comonent-gallery-background        : $gray15;

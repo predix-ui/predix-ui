@@ -1,0 +1,180 @@
+// Settings
+@import "px-defaults-design/_settings.defaults.scss";
+@import "px-colors-design/_settings.colors.scss";
+
+// Generic
+@import "px-normalize-design/_generic.normalize-mini.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+
+// Based
+@import "px-headings-design/_base.headings.scss";
+
+// Objects
+@import 'px-actionable-design/_objects.actionable.scss';
+
+// Component
+
+:host {
+  display: block;
+  background-color: var(--px-catalog-code-background-color, $gray1);
+  font-size: var(--px-catalog-code-font-size, 0.88rem);
+  position: relative;
+  margin: 1rem 0;
+}
+
+.header {
+  position: relative;
+  padding: 0.2rem 0.5rem;
+  color: var(--px-catalog-code-header-color, $gray10);
+  background-color: var(--px-catalog-code-header-background-color, $gray3);
+  display: flex;
+  align-items: center;
+}
+.header__language {
+  margin-right: auto;
+  @extend .zeta;
+  text-transform: uppercase;
+}
+
+#copyTrigger {
+  color: var(--px-catalog-code-icon-color, $gray10);
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+#copyTrigger:hover {
+  color: var(--px-catalog-code-icon-color--hover, $primary-default);
+}
+#copyTrigger.copyTrigger--success,
+#copyTrigger.copyTrigger--success:hover {
+  color: var(--px-catalog-code-icon-color--success, $status-green3);
+  transition: opacity 2.5s 0.4s;
+  opacity: 0;
+}
+
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: var(--px-catalog-code-highlight-default, #2b3060);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+	// padding: 1.25rem 1.5rem;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: var(--px-catalog-code-highlight-comment, #8b97a3);
+}
+
+.token.punctuation {
+	color: var(--px-catalog-code-highlight-default, #2b3060);
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag {
+	color: var(--px-catalog-code-highlight-property, #905);
+}
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: var(--px-catalog-code-highlight-number, #df5320);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: var(--px-catalog-code-highlight-string, #568c3b);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: var(--px-catalog-code-highlight-operator, #07a);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: var(--px-catalog-code-highlight-keyword, #7b59c0);
+}
+
+.token.function {
+	color: var(--px-catalog-code-highlight-function, #DD4A68);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}

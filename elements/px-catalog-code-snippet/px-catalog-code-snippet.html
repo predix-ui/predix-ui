@@ -1,0 +1,146 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html"/>
+<link rel="import" href="../../bower_components/polymer/lib/utils/render-status.html"/>
+<link rel="import" href="../../bower_components/polymer/lib/utils/flattened-nodes-observer.html"/>
+<link rel="import" href="../../bower_components/px-icon-set/px-icon.html"/>
+<link rel="import" href="../../bower_components/px-icon-set/px-icon-set-utility.html"/>
+<link rel="import" href="../../css/px-catalog-code-snippet-styles.html"/>
+<link rel="import" href="px-catalog-prism.html"/>
+
+
+<dom-module id="px-catalog-code-snippet">
+  <template>
+    <style include="px-catalog-code-snippet-styles"></style>
+    <!-- Script tag with code will be slotted here, but will be invisible -->
+    <slot></slot>
+
+    <!-- Floating action buttons -->
+    <div class="header">
+      <div class="header__language">[[language]]</div>
+      <button id="copyTrigger" class="actionable actionable--secondary" on-click="copyCodeToClipboard">
+        <px-icon title="copy" icon="[[_copyIcon]]"></px-icon>
+      </button>
+    </div>
+
+    <!-- Highlighted code will be inserted in the #target div -->
+    <div id="target"></div>
+  </template>
+  <script>
+    {
+      class PxCatalogCodeSnippet extends Polymer.Element {
+        static get is() { return 'px-catalog-code-snippet'; }
+
+        static get properties() {
+          return {
+            language: String,
+            _copyIcon: {
+              type: String,
+              value: 'px-utl:copy'
+            }
+          };
+        }
+
+        static get observers() {
+          return ['render(language)']
+        }
+
+        /**
+         * The `<script>` element in this component's slot that holds the
+         * code to highlight.
+         *
+         * @type {HTMLTemplateElement}
+         */
+        get sourceElement() {
+          const nodes = Array.prototype.slice.call(Polymer.FlattenedNodesObserver.getFlattenedNodes(this));
+          return nodes.find(n => n.nodeName === 'SCRIPT' && n.type && n.type === 'text/code');
+        }
+
+        constructor() {
+          super();
+          this._rendering = false;
+          this._lastRenderSource = null;
+
+          this._copyAnimationEnd = e => {
+            this._copyIcon = 'px-utl:copy';
+            e.target.classList.remove('copyTrigger--success');
+            e.target.removeEventListener('transitionend', this._copyAnimationEnd);
+          };
+        }
+
+        connectedCallback() {
+          super.connectedCallback();
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            this.render();
+          });
+        }
+
+        render() {
+          const {sourceElement, language} = this;
+          if (language && sourceElement) {
+            const source = stripPreIndent(sourceElement.textContent);
+
+            /* Run it through the highlighter */
+            let highlighted = Px.Prism.highlight(source, Px.Prism.languages[language]);
+
+            /* Escape {{ }} and [[ ]] in code blocks so Polymer doesn't try to bind them */
+            highlighted = highlighted.replace(/([\{\[])[\{\[](.+)([\}\]])[\}\]]/g, '$1<span></span>$1$2$3<span></span>$3');
+
+            /* Find any escaped script tags and unescape them */
+            const closingScriptHighlighted = '<span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>';
+            highlighted = highlighted.replace(/\&lt\;\\\/script\>/g, closingScriptHighlighted);
+
+            /* Shove it into our Shadow DOM target */
+            this.$.target.innerHTML = `<pre class="language-${language}"><code class="language-${language}">${highlighted}</code></pre>`;
+          }
+        }
+
+        copyCodeToClipboard() {
+          const {target, copyTrigger} = this.$;
+          if (target && copyTrigger) {
+            window.getSelection().selectAllChildren(target);
+            document.execCommand("copy");
+
+            copyTrigger.addEventListener('transitionend', this._copyAnimationEnd);
+            this._copyIcon = 'px-utl:confirmed';
+            copyTrigger.classList.add('copyTrigger--success');
+          }
+        }
+      }
+      customElements.define(PxCatalogCodeSnippet.is, PxCatalogCodeSnippet);
+
+      /**
+       * Strips left padding from code blocks.
+       * @param  {html} source [description]
+       * @return {[type]}        [description]
+       */
+      const stripPreIndent = source => {
+        let txt = source;
+        // strip leading newline
+        txt = txt.replace(/^[\r\n]+/, "");
+        // strip trailing whitespace
+        txt = txt.replace(/\s+$/g, "");
+
+        if (/^\S/gm.test(txt)) {
+          return txt;
+        }
+
+        const re = /^[\t ]+/gm;
+        let mat, str, len, min = 1e3;
+
+        while (mat = re.exec(txt)) {
+          len = mat[0].length;
+
+          if (len < min) {
+            min = len;
+            str = mat[0];
+          }
+        }
+
+        if (min == 1e3) {
+          return txt;
+        }
+
+        return txt.replace(new RegExp("^" + str, 'gm'), "");
+      };
+    }
+  </script>
+</dom-module>
