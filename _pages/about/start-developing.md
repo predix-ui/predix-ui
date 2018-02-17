@@ -31,13 +31,13 @@ This guide covers the steps to install a single component, [px-spinner](https://
 
 For example, to install the latest version of the px-spinner component, type the following command into a command line while inside your app directory:
 
-```
+```bash
 bower install px-spinner
 ```
 
 If you'd like to add the installed component to your bower.json file under the dependencies section when you initially install the component, add "–save” to the command as follows:
 
-```
+```bash
 bower install px-spinner --save
 ```
 

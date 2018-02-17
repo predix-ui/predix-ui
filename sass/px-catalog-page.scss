@@ -19,10 +19,11 @@
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
 @import "px-headings-design/_base.headings.scss";
-@import "px-code-design/_base.code.scss";
 
-$inuit-enable-code--inline: true;
-@import "px-code-design/_base.code.scss";
+$inuit-enable-code--inline  : true;
+$inuit-code-background : transparent;
+$inuit-base-spacing-unit--tiny : 0; //set padding to 0
+@import 'px-code-design/_base.code.scss';
 
 $actionable: true;
 $actionable--action: true;
@@ -207,19 +208,6 @@ a.toc__item__link--active,
   &:hover {
     color: var(--px-catalog-page-selected-color--hover, blue);
   }
-}
-
-/*******************************************************************************
- * COMPONENT: CODE BLOCK
- ******************************************************************************/
-
-.code-block {
-  background-color: var(--px-catalog-page-code-background-color, lightgray);
-  padding: 1rem;
-}
-
-.code-block code {
-  font-size: 1rem;
 }
 
 /*******************************************************************************

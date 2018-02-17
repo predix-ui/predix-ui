@@ -4,9 +4,9 @@ const defaultTemplate = ({ content, anchors, metadata }) => `
   <link defer rel="import" href="${metadata.pathToRoot}bower_components/px-demo/px-demo-footer.html" />
   <link defer rel="import" href="${metadata.pathToRoot}elements/px-catalog-page/px-catalog-page-behavior.html" />
   <link defer rel="import" href="${metadata.pathToRoot}elements/px-catalog-page/px-catalog-page-elements.html" />
+  <link defer rel="import" href="${metadata.pathToRoot}elements/px-catalog-code-snippet/px-catalog-code-snippet.html" />
   <link defer rel="import" href="${metadata.pathToRoot}css/px-catalog-page-styles.html" />
   <link defer rel="import" href="${metadata.pathToRoot}css/px-catalog-theme-styles.html" />
-  <link defer rel="import" href="${metadata.pathToRoot}css/px-catalog-code-styles.html" />
   ${metadata.otherImports || ''}
 
   <dom-module id="${metadata.moduleName}">

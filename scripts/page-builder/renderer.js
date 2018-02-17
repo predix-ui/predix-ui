@@ -3,15 +3,6 @@ const mdContainer = require('markdown-it-container');
 const mdAnchor = require('markdown-it-anchor');
 const mdFrontmatter = require('markdown-it-front-matter');
 const yaml = require('js-yaml');
-const Prism = require('prismjs');
-// load prism languages we need, Prism is weird so it will
-// automatically assign the languages required below
-// to Prism.languages.[LANGUAGE-NAME] in the global scope
-// (that's why we don't assign require to a var)
-require('prismjs/components/prism-json');
-require('prismjs/components/prism-sass');
-require('prismjs/components/prism-scss');
-require('prismjs/components/prism-bash');
 
 const md = require('markdown-it')({
   html: true
@@ -90,13 +81,10 @@ md.renderer.rules.heading_close = function(tokens, idx, options, env, self) {
 
 /*
  * PLUGIN: CODE BLOCKS
- * Run code blocks through our own highlighter.
+ * Wrap code blocks in a <px-catalog-code-snippet> tag.
  */
 var logged = false;
 md.renderer.rules.fence = function(tokens, idx, options, env, self) {
-  // if (headerTags[tokens[idx].markup]) {
-  // tokens[idx].tag = headerTags[tokens[idx].markup];
-  // }
   var token = tokens[idx],
       info = token.info ? md.utils.unescapeAll(token.info).trim() : '',
       langName = '',
@@ -110,15 +98,18 @@ md.renderer.rules.fence = function(tokens, idx, options, env, self) {
     logged = true;
   }
 
-  if (langName !== "" && Prism.languages.hasOwnProperty(langName)) {
-    highlighted = Prism.highlight(token.content, Prism.languages[langName]);
-    /* Escapes {{ }} and [[ ]] in code blocks so Polymer doesn't try to bind them */
-    highlighted = highlighted.replace(/([\{\[])[\{\[](.+)([\}\]])[\}\]]/g, '$1<span></span>$1$2$3<span></span>$3');
-    return '<pre class="code-block"><code class="language-'+ langName +'">'+ highlighted +'</code></pre>';
-  }
-  else {
-    return '<pre class="code-block"><code>' + md.utils.escapeHtml(token.content) + '</pre></code>';
-  }
+  // Replace and closing script tags with escaped closing script tags,
+  // the code highlighter will unescape. If we don't do this then the code
+  // might close the script tag in the page and start printing random stuff.
+  const code = token.content.replace(/\<\/script\>/g, '<\/script>');
+
+  return `
+    <px-catalog-code-snippet language="${langName}">
+      <script type="text/code">
+${token.content}
+      </script>
+    </px-catalog-code-snippet>
+  `.trim();
 };
 
 md.renderer.rules.code_inline = function (tokens, idx, options, env, slf) {
