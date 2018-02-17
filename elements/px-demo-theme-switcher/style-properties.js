@@ -949,7 +949,7 @@ let PSEUDO_PREFIX = ':';
 let CLASS = 'class';
 let SELECTOR_NO_MATCH = 'should_not_match';
 
-var StyleTransformer$1 = new StyleTransformer();
+var StyleTransformer$1 = new StyleTransformer()
 
 /**
 @license
