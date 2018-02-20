@@ -12,13 +12,9 @@
     <noscript>JavaScript is off. Please enable to view full site.</noscript>
 
     <link rel="canonical" href="https://predix-ui.com/">
-
-    <link rel="preload" href="bower_components/px-typography-design/type/GEInspiraSans.woff" as="font" type="font/woff2" crossorigin/>
-    <link rel="preload" href="bower_components/px-typography-design/type/GEInspiraSans-Bold.woff" as="font" type="font/woff2" crossorigin/>
     <link rel="preconnect" href="https://www.google-analytics.com/"/>
 
     <script async type="text/javascript" src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <link async rel="import" href="bower_components/px-theme/px-theme-local-fonts-styles.html"/>
     <!--
       Asynchronously import the px-catalog element, which is the entrypoint
       for our application.
@@ -38,39 +34,36 @@
     <!--
       Basic page styles.
     //-->
-
-    <custom-style>
-      <style is="custom-style" include="px-theme-local-fonts-styles">
-        html, body {
-          margin: 0;
-          padding: 0;
-          overflow: hidden !important;
-        }
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden !important;
+      }
+      body.loading .splash__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 45px;
+        width: 100vw;
+        background-color: #eaeaea;
+      }
+      @media screen and (min-width: 1024px) {
         body.loading .splash__header {
+          height: 80px;
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        body.loading .splash__sidebar {
           position: fixed;
-          top: 0;
+          top: 80px;
           left: 0;
-          height: 45px;
-          width: 100vw;
-          background-color: #eaeaea;
+          height: calc(100vh - 80px);
+          width: 300px;
+          background-color: #f0f0f0;
         }
-        @media screen and (min-width: 1024px) {
-          body.loading .splash__header {
-            height: 80px;
-          }
-        }
-        @media screen and (min-width: 1024px) {
-          body.loading .splash__sidebar {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            height: calc(100vh - 80px);
-            width: 300px;
-            background-color: #f0f0f0;
-          }
-        }
-      </style>
-    </custom-style>
+      }
+    </style>
   </head>
 
   <!--

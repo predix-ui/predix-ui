@@ -9,7 +9,6 @@
 <link async rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
 <link async rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
 <link async rel="import" href="../../bower_components/app-route/app-location.html" />
-<link defer rel="import" href="../../bower_components/px-toggle/px-toggle.html" />
 <link async rel="import" href="../../bower_components/px-icon-set/px-icon-set-navigation.html">
 <link async rel="import" href="../../bower_components/px-icon-set/px-icon.html">
 <link async rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
@@ -78,11 +77,6 @@
                 <span class="logo__text">Predix Design System</span>
               </picture>
           </div>
-        <!-- Theme toggle -->
-        <div class="theme-toggle">
-          <span class="theme-toggle__text">Dark Theme</span>
-          <px-toggle size="small" checked="{{darkTheme}}" role="button" aria-pressed="false"></px-toggle>
-        </div>
       </div>
 
       <!-- CATALOG PAGE -->
@@ -90,7 +84,6 @@
           class="catalog-page"
           active-module="[[activeModule]]"
           anchor-path="[[_anchorPath]]"
-          dark-theme="[[darkTheme]]"
           spinner-active="[[spinnerActive]]">
       </px-catalog-page-viewer>
 
@@ -123,15 +116,6 @@
         activeName: {
           type: String,
           observer: '_updateTitle'
-        },
-
-        /**
-         * Whether to enable the dark theme for each component.
-         */
-        darkTheme: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
         },
 
         /**
