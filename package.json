@@ -55,7 +55,8 @@
     "yargs": "^11.0.0"
   },
   "scripts": {
-    "start": "node web.js"
+    "start": "node web.js",
+    "test": "echo No tests"
   },
   "engines": {
     "node": ">=6.0.0"
