@@ -36,7 +36,7 @@ componentReadyCallBack: |
             //append chart in modal
             Polymer.dom(modal).appendChild(this);
             //open modal
-            modal.modalButtonClicked();
+            modal.set('opened', true);
           }
         }
       }
@@ -44,17 +44,19 @@ componentReadyCallBack: |
 
   chart.set('toolbarConfig', expandConfig);
 
-  modal.addEventListener('btnModalNegativeClicked', function () {
-    //remove chart from modal
-    Polymer.dom(modal).removeChild(chart);
-    //restore "expand" toolbar config
-    chart.set('toolbarConfig', expandConfig);
-    chart.set('width', 550);
-    chart.set('height', 200);
-    //ensure we "clean" the sub row
-    chart.set('toolbarSubConfig', []);
-    //move chart back to the page
-    holder.appendChild(chart);
+  modal.addEventListener('opened-changed', function () {
+    if(!modal.opened) {
+      //remove chart from modal
+      Polymer.dom(modal).removeChild(chart);
+      //restore "expand" toolbar config
+      chart.set('toolbarConfig', expandConfig);
+      chart.set('width', 550);
+      chart.set('height', 200);
+      //ensure we "clean" the sub row
+      chart.set('toolbarSubConfig', []);
+      //move chart back to the page
+      holder.appendChild(chart);
+    }
   });
 ---
 
@@ -352,12 +354,13 @@ This example is implemented below. We try to fit the modal in the available spac
     auto
     last-response="{{data}}">
   </iron-ajax>
-  <px-modal id="modal" btn-modal-negative="Cancel"></px-modal>
+  <px-modal id="modal" accept-text="Close" reject-text="Cancel"></px-modal>
   <div id="holder" >
     <px-vis-timeseries
       id="chart"
       width="550"
       height="200"
+      slot="body"
       chart-data="[[data]]"
       series-config='{
         "y0":{"x":"timeStamp","y":"y0","type":"line","yAxisUnit":"u","xAxisUnit":"u","markerSize":64,"markerSymbol":"circle","markerScale":1,"markerFillOpacity":0.6,"markerStrokeOpacity":1},
