@@ -213,7 +213,10 @@
       "name": "default",
       "preset": "es5-bundled",
       "addServiceWorker": false,
-      "bundle": false
+      "bundle": false,
+      "html": {
+        "minify": false
+      }
     }
   ],
   "lint": {
