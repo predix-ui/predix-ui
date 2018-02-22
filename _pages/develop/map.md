@@ -19,10 +19,10 @@ problems, like plotting geographic data.
 
 ### What's under the hood
 
-The current major release of `px-map` uses the open source Leaflet library to
-support displaying a map with base tiles and geospatial overlays. Future
-iterations of the component may offer the ability to use a different library in
-place of Leaflet, while keeping the same basic API.
+The current major release of `px-map` uses the open source [Leaflet](http://leafletjs.com/)
+library to support displaying a map with base tiles and geospatial overlays.
+Future iterations of the component may offer the ability to use a different
+library in place of Leaflet, while keeping the same basic API.
 
 ### What you can do with px-map
 
@@ -147,7 +147,7 @@ services as tile layers on the map.
 
 <iframe height='480' scrolling='no' title='px-map-demo'
 src='//codepen.io/talimarcus/embed/BYxyNb/?height=265&theme-id=0&default-tab=html,result&embed-version=2'
-frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
+frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>
 
 ## Defining your GeoJSON data
 

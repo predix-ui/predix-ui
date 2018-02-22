@@ -396,6 +396,19 @@
         ]
       },
       {
+        "path": "map",
+        "label": "Map",
+        "module": "view-develop-map",
+        "entrypoint": "/pages/develop/map.html",
+        "keywords": [
+          "map",
+          "GeoJSON",
+          "CRS",
+          "Leaflet",
+          "GIS"
+        ]
+      },
+      {
         "path": "migrate",
         "label": "Migrate to Cirrus",
         "pages": [
