@@ -50,26 +50,6 @@ shape of the earth with the two-dimensional plane of a map.
 a CRS may either be "geographic (in which spherical coordinates are measured
 from the earth's center) or planimetric (in which the earth's coordinates are
 projected onto a two-dimensional planar surface)."
-- **Point:** A Point is a single point on a map which has no area and can be
-defined by its latitude and longitude coordinates, e.g.:
-  ```json
-  {
-    "type": "Point",
-    "coordinates": [0, 0]
-  }`
-  ```
-- **Polygon:** A Polygon represents an area on a map and is defined by an array
-of latitude and longitude coordinate arrays, e.g.:
-  ```json
-  {
-    "type": "Polygon",
-    "coordinates": [
-      [
-        [0, 0], [10, 10], [10, 0], [0, 0]
-      ]
-    ]
-  }
-  ```
 
 ### Graphic: map layers
 
@@ -170,7 +150,122 @@ src='//codepen.io/talimarcus/embed/BYxyNb/?height=265&theme-id=0&default-tab=htm
 frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 
 ## Concepts & patterns
+
 ### Defining your GeoJSON data
+
+GeoJSON is a JSON-based format used to represent a variety of geographic data
+structures. You can use GeoJSON to represent geometry (e.g. Points, Polygons),
+features, or feature collections. GeoJSON is always composed of a single object,
+and that object must have a member with the name "type." The type refers to the
+type of GeoJSON object and must be one of: `"Point"`, `"MultiPoint"`, `"LineString"`,
+`"MultiLineString"`, `"Polygon"`, `"MultiPolygon"`, `"GeometryCollection"`,
+`"Feature"`, or `"FeatureCollection"`.
+
+**Geometry Objects**
+All Geometry objects (aside from a `"GeometryCollection"`) must have a member
+with the name `"coordinates"`, the value of which is an array (or array of arrays)
+of latitude and longitude coordinates.
+- **Point:** A Point is a single point on a map which has no area and can be
+defined by its latitude and longitude coordinates, e.g.:
+  ```json
+  {
+    "type": "Point",
+    "coordinates": [0, 0]
+  }`
+  ```
+- **Polygon:** A Polygon represents an area on a map and is defined by an array
+of four or more latitude and longitude coordinate arrays (positions). Note that
+the first and last positions MUST be identical, e.g.:
+  ```json
+  {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [0, 0], [10, 10], [10, 0], [0, 0]
+      ]
+    ]
+  }
+  ```
+
+  **Feature Objects**
+  A Feature allows you to describe a Geometry with a set of properties. A Feature
+  object must have the type `"Feature"`, as well as `"geometry"` and `"properties"`
+  members. E.g.:
+    ```json
+      {
+        "type": "Feature",
+        "properties": {
+            "name": "M. A. Chidambaram Stadium",
+            "sport": "Cricket",
+            "team": "Chennai Super Kings"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [80.2792802, 13.0628075]
+        }
+      }
+    ```
+
+  **Feature Collection Objects**
+  A Feature Collection is simply a collection of individual Features. A Feature
+  Collection object must have the type `"FeatureCollection"`, as well as member
+  with the name `"Feature"` whose value is an array of Feature objects, e.g.:
+  ```json
+  {
+    "type": "FeatureCollection",
+    "features": [{
+      "type": "Feature",
+      "properties": {
+          "name": "Fenway Park",
+          "sport": "Baseball",
+          "team": "Boston Red Sox"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-71.09938384, 42.3466789]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+          "name": "Groupama Stadium",
+          "sport": "Soccer",
+          "team": "Olympique Lyonnais"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [4.9798403, 45.765295]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+          "name": "Hillsborough Stadium",
+          "sport": "Soccer",
+          "team": "Sheffield Wednesday F.C."
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-1.5006631, 53.4114317]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+          "name": "Oracle Arena",
+          "sport": "Basketball",
+          "team": "Golden State Warriors"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-122.2030494, 37.7502917]
+      }
+    }]
+  }
+  ```
+See the [GeoJSON spec](http://geojson.org/geojson-spec.html) for more guidance
+on generating valid GeoJSON.
+
 ### Color customization
 ### Handling large volumes of data
 ### Rendering data in a specific order
