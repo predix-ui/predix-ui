@@ -149,9 +149,7 @@ services as tile layers on the map.
 src='//codepen.io/talimarcus/embed/BYxyNb/?height=265&theme-id=0&default-tab=html,result&embed-version=2'
 frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 
-## Concepts & patterns
-
-### Defining your GeoJSON data
+## Defining your GeoJSON data
 
 GeoJSON is a JSON-based format used to represent a variety of geographic data
 structures. You can use GeoJSON to represent geometry (e.g. Points, Polygons),
@@ -266,6 +264,77 @@ the first and last positions MUST be identical, e.g.:
 See the [GeoJSON spec](http://geojson.org/geojson-spec.html) for more guidance
 on generating valid GeoJSON.
 
-### Color customization
-### Handling large volumes of data
-### Rendering data in a specific order
+## Color customization
+## Handling large volumes of data
+Px-map can handle large volumes of data, but there are limits. As you begin to
+approach these limits you may notice that the map takes longer to load data, or
+that panning becomes jerky. This is because there is overhead associated with
+loading data into the DOM and transforming its location when panning and zooming.
+
+### Requesting data with a bounding box query
+One method to minimize the effects of loading very large amounts of data is
+to, rather than requesting all the data for the entire map, just request the data
+that is visible within the current map bounds, i.e. a bounding box query. This
+approach has a few requirements:
+ - The resource providing the data must be able to accept bounding box queries
+ and return the data in a performant way. Retrieval and transfer of data has the
+ biggest impact on the perceived performance of the map, so the underlying
+ architecture needs to be able to get the data to the client as quickly as possible
+ to ensure a responsive user experience. Therefore, the data storage will require
+ some form of spatial indexing, such as that provided by Predix's Intelligent and
+ Dynamic Mapping Services.
+ - Your Predix app code will have to calculate the current bounds of the map and
+ pass these through as part of the request for new data. This can be done by
+ directly accessing the Leaflet.js methods.
+ - When the data is returned, the existing data should be removed from the map
+ and the new data added.
+
+### Limiting data returned to the client
+Another point to consider is what data to transfer to the client. There is a
+temptation to return all the data associated with an object as it simplifies the
+display of data within popovers. However, limiting the returned data to just the
+geometry and those properties required for styling can dramatically reduce the
+amount of data being transferred to the client and speed up response times.
+When zoomed out, the visible area on the map naturally covers a much larger area
+then when it is zoomed in. This means that a bounding box query is likely to return
+a larger number of objects, possibly overwhelming the client and the user. It is
+often necessary to restrict the bounding box query to specific collections when
+zoomed out, and to gradually turn on more collections as the user zooms in.  This
+requires the storage of the data to be considered as part of the map development
+process, as display needs may impact the design of the storage solution.
+
+### Example: displaying additional map data as the user zooms in
+The following image shows a zoomed-out map display showing just substation
+locations and high voltage conductors in an electrical network:
+
+<img src="../../img/developer-guides/map/map-zooming-1.png"/>
+
+When the user zooms in, transformers and medium voltage conductors are made visible:
+
+<img src="../../img/developer-guides/map/map-zooming-2.png"/>
+
+When the user zooms in further, switches, circuit breakers and low voltage
+conductors are made visible as well:
+
+<img src="../../img/developer-guides/map/map-zooming-3.png"/>
+
+### Rendering objects directly on the HTML canvas
+If, after all these steps have been taken, the performance of the map still does
+not meet your needs, then you may want to consider bypassing the Leaflet rendering
+code that uses DOM elements to display and track the location of objects, and
+instead, render the objects directly on an HTML canvas. There is a lot of development
+effort involved in doing this, as you not only have to reimplement the rendering
+behavior but also the ability to determine what, if any, objects the user has
+clicked on in the map. However, this approach will give you the best performance
+with large volumes of data.
+
+## Rendering data in a specific order
+By default, Leaflet.js uses three DOM elements -- points, lines, and areas -- for rendering the bulk of the objects on the map based on their geometry. Points are rendered on top of lines, and lines are rendered on top of areas. This basic approach works most of the time, but there are instances when the map requires a specific rendering order.
+
+In this example map it was important to ensure that the transformers (blue triangles) were rendered on top of all the other point objects:
+
+<img src="../../img/developer-guides/map/map-data-rendering.png"/>
+
+Leaflet.js would have rendered all the points as part of the same DOM element, in the order that they were added to that element. As the data is returned asynchronously, the rendering order is likely to be different every time the map is drawn.
+
+When more control of the rendering order is required, it is possible to add the data as Leaflet.js custom panes. Custom panes can be created with their own z-index, which can be used to force a specific rendering order. For complicated data like an electrical network, it may be necessary to have specific custom panes for each object type.
