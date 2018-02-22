@@ -133,20 +133,27 @@ Theming still relies on some Polymer-specific shims as the final mechanics of CS
 To theme components, its recommended to create a single theme at the app level that makes any desired changes once for all instances of Predix Design System components used in the app. The easiest way to create an app-level theme is to add a style tag like this to the `index.html` of the app:
 
 ```html
-<style is="custom-style">
-	html {
-	  --px-component-css-property-name: blue;
-	}
-</style>
+<custom-style> <!-- wrapper needed for Polymer 2 -->
+  <style is="custom-style">
+    html {
+      --px-component-css-property-name: blue;
+    }
+  </style>
+</custom-style>
 ```
 
 The design system provides two themes that can be installed via bower and loaded to style all components at once, the [light theme](http://github.com/predixdev/px-theme) and [dark theme](https://github.com/predixdev/px-dark-theme). To use these themes, install the theme with bower, load the theme on the page, and add a style tag like this to the `index.html` of the app:
 
 ```html
 <!-- Use this for light theme -->
-<style is="custom-style" include="px-theme-styles></style>
+<custom-style>
+  <style is="custom-style" include="px-theme-styles"></style>
+</custom-style>
+
 <!-- Use this for dark theme -->
-<style is="custom-style" include="px-dark-theme-styles></style>
+<custom-style>
+  <style is="custom-style" include="px-dark-theme-styles"></style>
+</custom-style>
 ```
 
 You can fork either of these themes and use it to create your own theme, or load either of these themes and load/provide your own theme below to override a subset of the theme properties.
