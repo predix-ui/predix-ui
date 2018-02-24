@@ -487,6 +487,22 @@
         ]
       },
       {
+        "path": "stacking-context",
+        "label": "Stacking Context",
+        "module": "view-develop-stacking-context",
+        "entrypoint": "/pages/develop/stacking-context.html",
+        "keywords": [
+          "stacking context",
+          "z-index",
+          "overlay",
+          "px-overlay-content",
+          "px-overlay-container"
+        ],
+        "redirects": [
+          "/guides/stacking-context"
+        ]
+      },
+      {
         "path": "theme",
         "label": "Theme",
         "module": "view-develop-theme",

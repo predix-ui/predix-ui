@@ -60,7 +60,7 @@
     "px-demo-design": "^2.0.4",
     "px-demo-snippet": "^1.0.1",
     "px-demo": "^3.0.0",
-    "px-dropdown": "^4.0.1",
+    "px-dropdown": "^4.6.0",
     "px-file-upload": "^1.0.0",
     "px-flag-design": "^1.0.2",
     "px-flexbox-design": "^1.0.2",
@@ -89,7 +89,7 @@
     "px-normalize-design": "^1.0.2",
     "px-notification": "^1.0.0",
     "px-number-formatter": "^4.0.0",
-    "px-overlay": "^1.0.1",
+    "px-overlay": "^2.0.0",
     "px-panel": "^1.0.0",
     "px-percent-circle": "^1.0.2",
     "px-popover": "^2.0.1",
@@ -140,6 +140,8 @@
   },
   "resolutions": {
     "polymer": "^2.0.0",
-    "webcomponentsjs": "^v1.0.19"
+    "webcomponentsjs": "^v1.0.19",
+    "px-d3-imports": "^3.0.0",
+    "pxd3": "^5.0.0"
   }
 }
