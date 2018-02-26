@@ -140,9 +140,11 @@ The change event names for all notifying properties are the property converted f
 ```
 
 The `handleChanged` or `handleClick` methods above will be called as a result of the three events listed. In the handler method, you can check `event.detail.value` (if it is a change event) or `event.detail` (if it is a rich event) and use the results accordingly. Alternatively, Angular2 provides a shorthand way of accessing the event object directly, which is useful for 2-way data binding between a Predix component and a local variable in your Angular application, e.g.
-```
+
+```html
 <px-progress-bar [value]="myValue" (value-changed)="myValue = $event.detail.value"></px-progress-bar>
 ```
+
 The property binding allows you to pass data from Angular to a Predix component whereas the event binding allows you to pass data from the Predix component back to Angular.
 
 *Advanced*: In order to use the actual Angular 2-way binding shorthand (e.g. `[(value)]="myValue"`), you need something that translates `value-changed` into `valueChanged`, the expected syntax for Angular. Similarly, in order to be compatible with `ngModel`, you need to provide a ControlValueAccessor for each custom element. There's a library available called [angular-polymer](https://github.com/platosha/angular-polymer) which provides both of these, and attempts to make it easier to use Angular and Polymer together.
