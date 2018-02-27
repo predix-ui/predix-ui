@@ -117,7 +117,56 @@ you can either (1) re-project that data to our CRS (recommended), or (2) set the
 on the map to the same one being used by your data with the `crs` property on
 px-map.
 
-## Choosing a tile server
+## Choosing a base map provider
+
+Typically, a map will display your data against a base map, such as a road map
+or satellite imagery.  This base map is a set of map tiles that are pieced
+together by the map to provide a seamless backdrop. Despite the almost ubiquitous
+presence of base map tiles in maps, access to use them is not free. The data
+contained within the base map tiles is generally copyrighted and requires a fee
+for use. Large scale map providers like Google and Bing provide free access to
+map tiles for development purposes, but there is usually a usage limit which
+prevents developers from deploying them in production applications.
+
+Even for data providers like OpenStreetmap (OSM) that provide access to copyright-free
+data, there is usually a charge to cover the costs of maintaining the tile servers
+that manage and provide the individual tiles.
+
+Px-map provides support for OSM, Bing, and Google, provided that you have an
+appropriate usage key. Fees are typically calculated based on the number of tile
+requests your application will make over a given period, normally a month.
+Budgeting for this expense can be difficult as you need to understand the number
+of map tile requests an individual user is likely to make per month and extrapolate
+this based on the number of users you expect to use the app per month. As the tiles
+are a fixed size, the size of the map in the application will dictate the number
+of tiles needed to cover it.
+
+It is also worth noting that map tile providers may impose additional constraints
+on how you can use the map tiles in your application. The providers may prevent
+you caching the tiles when the device is offline, or require that you display
+their attribution within the map. Always make sure you review and understand the
+terms and conditions of your agreement with the map tile provider.
+
+**Base map styling**
+
+Base map providers typically have more than one base map style, so you can choose
+one that shows the information that you need, styled in a way that shows off your
+data.
+
+Standard Google Maps style:
+
+<img src="../../raw-img/developer-guides/map/map-tile-layer-1.png"/>
+
+Google Maps with points of interest turned off:
+
+<img src="../../raw-img/developer-guides/map/map-tile-layer-2.png"/>
+
+Google Maps with a dark theme:
+
+<img src="../../raw-img/developer-guides/map/map-tile-layer-3.png"/>
+
+
+**Tile service options**
 
 Most px-map demos use the OpenStreetMap public tile service to serve map tiles
 (e.g. `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`) with the
