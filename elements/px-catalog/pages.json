@@ -3429,6 +3429,28 @@
         ]
       },
       {
+        "path": "px-threshold-bar",
+        "label": "Threshold Bar",
+        "module": "px-threshold-bar-demo",
+        "entrypoint": "/bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html",
+        "newComponent": true,
+        "redirects": [
+          "/components/px-threshold-bar",
+          "/modules/px-threshold-bar"
+        ],
+        "keywords": [
+          "px-threshold-bar",
+          "chart",
+          "data visualization",
+          "linear gauge",
+          "horizontal bar chart"
+        ],
+        "tags": [
+          "data display",
+          "data vis"
+        ]
+      },
+      {
         "path": "px-tile",
         "label": "Tile",
         "module": "px-tile-demo",

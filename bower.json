@@ -136,7 +136,8 @@
     "px-widget-cards": "^4.0.0",
     "px-widths-design": "^1.0.2",
     "px-widths-responsive-design": "^1.0.2",
-    "px-widths-tools-design": "^1.0.2"
+    "px-widths-tools-design": "^1.0.2",
+    "px-threshold-bar": "^1.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0",

@@ -712,7 +712,7 @@
   {
     "name": "px-overlay",
     "title": "Overlay",
-    "description": "The px-overlay is a component used for modal dialogues, popovers, and other use cases where the remainder of the application content is obscured or falls away from the primary actionable component. The overlay covers the entire screen.",
+    "description": "The px-overlay components are used for modal dialogues, popovers, and other use cases where content floats above other content. It prevents stacking context issues by hoisting the floating dialog up the dom to a container.",
     "imageUrl": "img/component-gallery/overlay",
     "imageAlt": "Overlay thumbnail",
     "tags": [
@@ -803,6 +803,17 @@
     "tags": [
       "app navigation",
       "layout"
+    ]
+  },
+  {
+    "name": "px-threshold-bar",
+    "title": "Threshold Bar",
+    "description": "The px-threshold-bar is a linear multi-threshold simple bar chart, similar to px-gauge but more compact.",
+    "imageUrl": "img/component-gallery/threshold-bar",
+    "imageAlt": "Threshold Bar thumbnail",
+    "tags": [
+      "data display",
+      "data vis"
     ]
   },
   {

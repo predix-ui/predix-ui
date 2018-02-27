@@ -1091,6 +1091,15 @@
     "entryPoint": "bower_components/px-tabs/demo/px-tabs-demo.html"
   },
   {
+    "componentName": "px-threshold-bar",
+    "label": "Threshold Bar",
+    "tags": [
+      "data display",
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html"
+  },
+  {
     "componentName": "px-tile",
     "label": "Tile",
     "tags": [
