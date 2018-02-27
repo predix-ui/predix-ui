@@ -2,6 +2,10 @@
 title: <px-icon icon="px-fea:deployments"></px-icon> Migrate to new icons
 moduleName: view-develop-migrate-icons
 pathToRoot: ../../../
+otherImports: |
+    <link async rel="import" href="../../../bower_components/px-icon-set/px-icon.html">
+    <link async rel="import" href="../../../bower_components/px-icon-set/px-icon-set-feature.html">
+    <link async rel="import" href="../../../bower_components/px-icon-set/px-icon-set-object.html">
 layout: default
 ---
 
