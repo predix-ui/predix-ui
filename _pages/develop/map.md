@@ -198,10 +198,24 @@ services as tile layers on the map.
 src='//codepen.io/talimarcus/embed/BYxyNb/?height=265&theme-id=0&default-tab=html,result&embed-version=2'
 frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>
 
-# Understanding GeoJSON
+# Geospatial Data Formats
+
+Geospatial data is available in many different formats. This can make it confusing
+to choose which data format to use in your application. Some formats are open,
+while others are proprietary to specific vendors. Some formats express data in
+plain text, while others are encoded and require specific libraries to translate
+them. One geospatial data format that has gained popularity in recent years is
+GeoJSON. GeoJSON is a very simple open format that expresses data in plain text
+and has been adopted by a wide range of vendor and tools. Lots of data sources
+are available as GeoJSON.
+
+Px-map doesn’t prescribe what data format its developers should use, but GeoJSON
+has many advantages, and there is dedicated support for it within px-map.
+
+## Understanding GeoJSON
 
 GeoJSON is a JSON-based format used to represent a variety of geographic data
-structures. You can use GeoJSON to represent geometry (e.g. Points, Polygons),
+structures. You can use GeoJSON to represent geometry (e.g. points, lines, areas),
 features, or feature collections. GeoJSON is always composed of a single object,
 and that object must have a member with the name "type." The type refers to the
 type of GeoJSON object and must be one of: `"Point"`, `"MultiPoint"`, `"LineString"`,
@@ -221,21 +235,20 @@ defined by its latitude and longitude coordinates, e.g.:
     "coordinates": [0, 0]
   }
   ```
-- **LineString:** A LineString is a line on a map which has no area and is defined
-by an array of two or more latitude and longitude coordinate arrays (positions).
+- **LineString:** A LineString is a line between two or more points on a map
+and is defined by an array of two or more latitude and longitude coordinate arrays
+(positions). A LineString can be self-crossing, and it has no area.
   ```json
   {
     "type": "LineString",
     "coordinates": [
-      [
-        [0, 0], [10, 10]
-      ]
+      [0, 0], [10, 10]
     ]
   }
   ```
 
 - **Polygon:** A Polygon represents an area on a map and is defined by an array
-of four or more postions. Note that the first and last positions MUST be identical, e.g.:
+of four or more positions. Note that the first and last positions MUST be identical, e.g.:
   ```json
   {
     "type": "Polygon",
@@ -326,7 +339,7 @@ with the name `"Feature"` whose value is an array of Feature objects, e.g.:
 }
 ```
 See the [GeoJSON spec](http://geojson.org/geojson-spec.html) for more guidance
-on generating valid GeoJSON.
+on generating valid GeoJSON, or read more about [the basic concepts behind GeoJSON](https://macwright.org/2015/03/23/geojson-second-bite).
 
 # Defining `px-map-marker-group` data
 
