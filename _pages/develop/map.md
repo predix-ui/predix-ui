@@ -173,7 +173,7 @@ defined by its latitude and longitude coordinates, e.g.:
   {
     "type": "Point",
     "coordinates": [0, 0]
-  }`
+  }
   ```
 - **Polygon:** A Polygon represents an area on a map and is defined by an array
 of four or more latitude and longitude coordinate arrays (positions). Note that
@@ -233,7 +233,7 @@ with the name `"Feature"` whose value is an array of Feature objects, e.g.:
     "type": "Feature",
     "properties": {
         "name": "Groupama Stadium",
-        "sport": "Soccer",
+        "sport": "Football",
         "team": "Olympique Lyonnais"
     },
     "geometry": {
@@ -245,7 +245,7 @@ with the name `"Feature"` whose value is an array of Feature objects, e.g.:
     "type": "Feature",
     "properties": {
         "name": "Hillsborough Stadium",
-        "sport": "Soccer",
+        "sport": "Football",
         "team": "Sheffield Wednesday F.C."
     },
     "geometry": {
@@ -270,43 +270,176 @@ with the name `"Feature"` whose value is an array of Feature objects, e.g.:
 See the [GeoJSON spec](http://geojson.org/geojson-spec.html) for more guidance
 on generating valid GeoJSON.
 
-## Defining FeatureCollections and Features in your px-map
+# Defining FeatureCollections and Features in a px-map-marker-group
 
-// Explain how to add markers and popups
+The `data` attribute on `px-map-marker-group` expects a GeoJSON feature collection
+with specific settings configured to draw each marker.
 
-# Color customization
-The default px-theme includes colors defined for map markers of types 'info', 'warning', 'important', and 'unknown'. To change these default colors, you can use the following CSS style variables.
-  ```html
-  --px-map-icon-unknown-color
-  --px-map-icon-info-color
-  --px-map-icon-warning-color
-  --px-map-icon-important-color
-  ```
-In addition to these four default icon types, px-map allows you to set a custom type on a marker, in the format 'custom-n'. 'custom-n' is a custom color defined by the developer. Custom types may be defined from 'custom-0' through 'custom-100' and must be defined consecutively with **no breaks between numbers**. Custom types can be defined in one of two ways:
+## FeatureCollection Format
 
-**1. Define custom-color CSS style variables in your HTML**
-  ```html
-  <style is="custom-style">
-    :host {
-      --px-map-color-custom-0: lime;
-      --px-map-color-custom-1: crimson;
-      --px-map-color-custom-2: cornflowerblue;
-      --px-map-color-custom-3: salmon;
-      --px-map-color-custom-4: hotpink;
+The root JavaScript Object passed to the `data` attribute should be a
+FeatureCollection object with the following keys/values:
+
+- {String} `type`: Must be 'FeatureCollection'
+- {Array}  `features`: An array of feature objects
+
+The feature collection should be formatted like this:
+
+    {
+      "type": "FeatureCollection",
+      "features": [...]
     }
-  </style>
-  ```
 
-**2. Set the `colorsByType` property on `<px-map-marker-group>`**
-```html
-  <px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
-    <px-map-marker-group
-      name='Plaques'
-      colors-by-type='{"custom-0" :"red", "custom-1" : "orange", "custom-2" : "yellow", "info" : "green"}'
-      data='[[data]]'>
-    </px-map-marker-group>
-  </px-map>
+These are required settings. Not including them or mis-formatting them will result
+in your marker group failing to draw. (An error may be logged to the console with
+a description of the issue if it is found. Some formatting issues may not be
+caught and cause a silent failure or an exception to be raised.)
+
+## Feature format
+
+Each entry in the FeatureCollection features array should be a JavaScript Object
+formatted as a Feature with the following keys/values:
+
+  - {String} `type`: Must be 'Feature'
+  - {Number} `id`: A unique numeric ID. If the feature is changed, it should keep its ID. No other features in the collection should have the same ID.
+  - {Object} `geometry`
+  - {String} `geometry.type`: Must be 'Point'
+  - {Array}  `geometry.coordinates`: a pair of coordinates in `[lng,lat]` order
+  - {Object} `properties`
+  - {Object} `properties.marker-icon`: Settings to configure a marker icon
+  - {Object} `properties.marker-popup`: [OPTIONAL] Settings to configure a marker popup
+
+For example, here is a feature that is drawn with a "static" marker icon (from `px-map-marker-static`):
+
+```json
+    {
+      "type": "Feature",
+      "id": 748082,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.273809,32.840128]
+      },
+      "properties": {
+        "marker-icon": {
+          "icon-base": "static-icon",
+          "icon-type": "info"
+        }
+      }
+    }
 ```
+
+## Defining the marker icon
+
+The `properties.marker-icon` object should describe the type of marker
+icon that should be drawn and the settings for that marker icon.
+
+Define the marker icon base using the `properties.marker-icon.icon-base` property.
+Choose from any of the built-in markers provided with `px-map`:
+
+- 'static-icon'
+- 'symbol-icon'
+
+To configure the icon, pass additional settings in the format
+`properties.marker-icon.icon-[SETTING]` in dash case. For example,
+this would configure the feature to use a "symbol" marker icon
+with a briefcase symbol and the warning color:
+
+```json
+    {
+      "type": "Feature",
+      "id": 984093,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-110.948009,37.984995]
+      },
+      "properties": {
+        "marker-icon": {
+          "icon-base": "symbol-icon",
+          "icon-icon": "px-fea:cases",
+          "icon-type": "warning"
+        }
+      }
+    }
+```
+
+See the API documentation pages for the `px-map-marker-*` components
+for more information on what markers icons and settings are available.
+
+**The `icon-type` is special**
+
+The `properties.marker-icon.icon-type` property is special and is used for more
+than configuring the type setting of your chosen marker. This setting also defines
+the color this marker will be represented as in a cluster. See the `colorsByType`
+property documentation for more information on choosing your own colors
+for each type. By default, the following colors will be used:
+
+- 'unknown': gray
+- 'info': blue
+- 'warning': yellow
+- 'important': red
+
+## Binding a popup
+
+Popups can also be bound to individual markers inside the marker group. The
+popup will be opened when the user clicks on the un-clustered marker.
+
+(It will not open if the user clicks on the cluster icon that contains the marker.
+Popups cannot be bound to cluster icons.)
+
+Use the `properties.marker-popup` object to describe the type of popup that should
+be attached and the settings for that popup.
+
+Define the popup base using the `properties.marker-popup.popup-base` property.
+Choose from any of the built-in popups provided with `px-map`:
+
+- 'info-popup'
+- 'data-popup'
+
+To configure the popup, pass additional settings in the format
+`properties.marker-popup.popup-[SETTING]` in dash case. For example,
+this would configure the feature to use an "info" popup with a title
+and description text:
+
+```json
+    {
+      "type": "Feature",
+      "id": 984093,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-110.948009,37.984995]
+      },
+      "properties": {
+        "marker-icon": {
+          "icon-base": "static-icon",
+          "icon-type": "info"
+        },
+        "marker-popup": {
+          "popup-base": "info-popup",
+          "popup-title": "Title here",
+          "popup-description": "Lorem ipsum dolor sit amet, consectetur adipisicing..."
+        }
+      }
+    }
+```
+# Styling GeoJSON data for `px-map-layer-geojson`
+
+There are two ways to style the features that the px-map-layer-geojson draws.
+To style all the features for the entire layer, use the `featureStyle` attribute.
+To style each feature individually, add a `style` object to the feature's
+`properties`. The following style options are available:
+
+  - {Boolean} `stroke`: [default=true] Set to false to disable borders on polygons/circles
+  - {String} `color`: [default=$primary-blue] Color for polygon/circle borders
+  - {Number} `weight`: [default=2] Weight for polygon/circle borders in pixels
+  - {Number} `opacity`: [default=1.0] Opacity for polygon/circle borders
+  - {Boolean} `fill`: [default=true] Set to false to disable filling polygons/circles
+  - {String} `fillColor`: [default=$dv-light-blue] Color for polygon/circle fill
+  - {Number} `fillOpacity`: [default=0.4] Opacity for polygon/circle fill
+  - {String} `fillRule`: [default='evenodd'] Defines how the [inside of a shape](https://developer.mozilla.org/docs/Web/SVG/Attribute/fill-rule) is determined
+  - {String} `lineCap`: [default='round'] Defines the [shape to be used](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linecap) at the end of the stroke
+  - {String} `lineJoin`: [default='round'] Defines the [shape to be used](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linejoin) at the corner of a stroke
+  - {String} `dashArray`: [default=null] Defines the stroke [dash pattern](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dasharray)
+  - {String} `dashOffset`: [default=null] Defines the [distance into the dash to start the dash](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dashoffset)
 
 # Handling large volumes of data
 Px-map can handle large volumes of data, but there are limits. As you begin to
@@ -392,3 +525,86 @@ data as Leaflet.js custom panes. Custom panes can be created with their own z-in
 which can be used to force a specific rendering order. For complicated data like
 an electrical network, it may be necessary to have specific custom panes for each
 object type.
+
+# Other features
+
+## Dropping a marker at the user's current location
+
+Use the `px-map-marker-locate` component together with the `px-map-control-locate`
+component to automatically find and set the latitude and longitude of the marker
+to the user's current location:
+
+```html
+    <px-map lat="12" lng="13" zoom="15">
+      <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
+
+      <px-map-control-locate last-found-location="{{location}}" move-to-location position="bottomright"></px-map-control-locate>
+      <px-map-marker-locate lat="{{location.lat}}" lng="{{location.lng}}" accuracy="{{location.accuracy}}"></px-map-marker-locate>
+    </px-map>
+```
+
+## Custom marker colors and types
+The default px-theme includes colors defined for map markers of types 'info', 'warning', 'important', and 'unknown'. To change these default colors, you can use the following CSS style variables:
+  ```html
+  --px-map-icon-unknown-color
+  --px-map-icon-info-color
+  --px-map-icon-warning-color
+  --px-map-icon-important-color
+  ```
+In addition to these four default icon types, px-map allows you to set a custom type on a marker, in the format 'custom-n'. 'custom-n' is a custom color defined by the developer. Custom types may be defined from 'custom-0' through 'custom-100' and must be defined consecutively with **no breaks between numbers**. Custom types can be defined in one of two ways:
+
+**1. Define custom-color CSS style variables in your HTML**
+  ```html
+  <style is="custom-style">
+    :host {
+      --px-map-color-custom-0: lime;
+      --px-map-color-custom-1: crimson;
+      --px-map-color-custom-2: cornflowerblue;
+      --px-map-color-custom-3: salmon;
+      --px-map-color-custom-4: hotpink;
+    }
+  </style>
+  ```
+
+**2. Set the `colorsByType` property on `<px-map-marker-group>`**
+```html
+  <px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
+    <px-map-marker-group
+      name='Plaques'
+      colors-by-type='{"custom-0" :"red", "custom-1" : "orange", "custom-2" : "yellow", "info" : "green"}'
+      data='[[data]]'>
+    </px-map-marker-group>
+  </px-map>
+```
+
+## Styling custom icons in `px-map-marker-symbol`
+
+Use the `icon` attribute to add a custom icon to the `px-map-marker-symbol` component.
+If nothing is specified for `icon`, the icon will default to a star (px-nav:favorite).
+
+```html
+<px-map-marker-symbol lat="37.7654861" lng="-122.8706668" icon="px-obj:plant"></px-map-marker-symbol>
+```
+
+Px-icons will work out of the box, but if you would like to style them or use an
+icon from an icon set other than px-icon-set, you can use the following CSS style
+variables to set the icon's stroke color, stroke width, and fill color:
+
+```html
+--px-map-marker-symbol-stroke
+--px-map-marker-symbol-stroke-width
+--px-map-marker-symbol-fill
+```
+
+For example:
+```html
+    <style is="custom-style">
+      .custom-icon {
+      --px-map-marker-symbol-stroke:none;
+      --px-map-marker-symbol-fill:white;
+      }
+    </style>
+    <px-map fit-to-markers>
+      <px-map-marker-symbol lat="38" lng="-121" icon="maps:directions-bike" class="custom-icon">
+    </px-map>
+```
