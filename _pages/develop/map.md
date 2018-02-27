@@ -152,15 +152,15 @@ data.
 
 Standard Google Maps style:
 
-<img src="../../raw-img/developer-guides/map/map-tile-layer-1.png"/>
+<img src="../../img/developer-guides/map/map-tile-layer-1.png"/>
 
 Google Maps with points of interest turned off:
 
-<img src="../../raw-img/developer-guides/map/map-tile-layer-2.png"/>
+<img src="../../img/developer-guides/map/map-tile-layer-2.png"/>
 
 Google Maps with a dark theme:
 
-<img src="../../raw-img/developer-guides/map/map-tile-layer-3.png"/>
+<img src="../../img/developer-guides/map/map-tile-layer-3.png"/>
 
 
 **Tile service options**
