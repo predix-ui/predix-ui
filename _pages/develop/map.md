@@ -42,13 +42,9 @@ specific to the purpose of that map. For example, traffic data or bike lane
 information might be set as an overlay on a road map.
 - **Control:** A map layer that allows the user to manipulate the map, e.g. by
 zooming in, out, or to their current location.
-- **CRS (Coordinate Relationship System/Coordinate Projection System):** A
-framework for defining real-world locations that attempts to reconcile the geoid
-shape of the earth with the two-dimensional plane of a map.
-[As described by ArcGIS](http://desktop.arcgis.com/en/arcmap/10.3/guide-books/map-projections/what-are-map-projections.htm),
-a CRS may either be "geographic (in which spherical coordinates are measured
-from the earth's center) or planimetric (in which the earth's coordinates are
-projected onto a two-dimensional planar surface)."
+- **CRS:** A CRS is a coordinate reference system (also known as a coordinate
+relationship system or coordinate projection system) used to project
+geographical points into pixel coordinates.
 
 ## Graphic: map layers
 
@@ -103,15 +99,20 @@ on the map and center the map on their location
 # Set up in your app
 
 ## Choosing a CRS
-As described above, a CRS is a coordinate reference system used to project
-geographical points into pixel coordinates. The CRS can only be set once before
-the map is first initialized. px-map defaults to the most common web mapping
-projection [EPSG 3857](https://epsg.io/3857). Most use cases do **not** require
-changing the default CRS being used by px-map, and we strongly recommend using
-the default. If your customers give you data in a different projection system,
-you can either (1) re-project that data to our CRS (recommended), or (2) set the CRS
-on the map to the same one being used by your data with the `crs` property on
-px-map.
+
+A CRS is framework for defining real-world locations that attempts to reconcile
+the geoid shape of the earth with the two-dimensional plane of a map. The CRS can
+only be set once before the map is first initialized. Px-map defaults to the most
+common web mapping projection [EPSG 3857](https://epsg.io/3857). Most use cases
+do **not** require changing the default CRS being used by px-map, and we strongly
+recommend using the default. If your customers give you data in a different
+projection system, you can either (1) re-project that data to our CRS (recommended),
+or (2) set the CRS on the map to the same one being used by your data with the
+`crs` property on px-map.
+
+```html
+// Add a one line code example here
+```
 
 ## Choosing a base map provider
 
@@ -212,7 +213,7 @@ type of GeoJSON object and must be one of: `"Point"`, `"MultiPoint"`, `"LineStri
 All Geometry objects (aside from a `"GeometryCollection"`) must have a member
 with the name `"coordinates"`, the value of which is an array (or array of arrays)
 of latitude and longitude coordinates **in `[lng, lat]` order**.
-- **Point:** A Point is a single point on a map which has no area and can be
+- **Point:** A Point is a single point on a map which has no area and is
 defined by its latitude and longitude coordinates, e.g.:
   ```json
   {
@@ -220,9 +221,21 @@ defined by its latitude and longitude coordinates, e.g.:
     "coordinates": [0, 0]
   }
   ```
+- **LineString:** A LineString is a line on a map which has no area and is defined
+by an array of two or more latitude and longitude coordinate arrays (positions).
+  ```json
+  {
+    "type": "LineString",
+    "coordinates": [
+      [
+        [0, 0], [10, 10]
+      ]
+    ]
+  }
+  ```
+
 - **Polygon:** A Polygon represents an area on a map and is defined by an array
-of four or more latitude and longitude coordinate arrays (positions). Note that
-the first and last positions MUST be identical, e.g.:
+of four or more postions. Note that the first and last positions MUST be identical, e.g.:
   ```json
   {
     "type": "Polygon",
