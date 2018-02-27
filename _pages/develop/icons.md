@@ -2,6 +2,10 @@
 title: <px-icon icon="px-fea:deployments"></px-icon> Use icons
 moduleName: view-develop-icons
 pathToRoot: ../../
+otherImports: |
+    <link async rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+    <link async rel="import" href="../../bower_components/px-icon-set/px-icon-set-object.html">
+    <link async rel="import" href="../../bower_components/px-icon-set/px-icon-set-feature.html">
 layout: default
 ---
 
