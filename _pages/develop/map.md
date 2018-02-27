@@ -18,14 +18,10 @@ components and Polymer. The framework includes a base mapping component (`<px-ma
 that can be used with many different subcomponents to solve common mapping UI
 problems, like plotting geographic data.
 
-## What's under the hood
-
 The current major release of px-map uses the open source [Leaflet](http://leafletjs.com/)
 library to support displaying a map with base tiles and geospatial overlays.
 Future iterations of the component may offer the ability to use a different
 library in place of Leaflet, while keeping the same basic API.
-
-## What you can do with px-map
 
 Out of the box, `px-map` includes the basic things needed to draw and plot data
 on an interactive map. It is also extensible — development teams are encouraged
@@ -256,7 +252,7 @@ members. E.g.:
           "coordinates": [80.2792802, 13.0628075]
       }
     }
-  ```
+    ```
 
 **Feature Collection Objects**
 
@@ -319,7 +315,7 @@ with the name `"Feature"` whose value is an array of Feature objects, e.g.:
 See the [GeoJSON spec](http://geojson.org/geojson-spec.html) for more guidance
 on generating valid GeoJSON.
 
-# Defining FeatureCollections and Features in a px-map-marker-group
+# Defining `px-map-marker-group` data
 
 The `data` attribute on `px-map-marker-group` expects a GeoJSON feature collection
 with specific settings configured to draw each marker.
@@ -333,12 +329,12 @@ FeatureCollection object with the following keys/values:
 - {Array}  `features`: An array of feature objects
 
 The feature collection should be formatted like this:
-
+    ```json
     {
       "type": "FeatureCollection",
       "features": [...]
     }
-
+    ```
 These are required settings. Not including them or mis-formatting them will result
 in your marker group failing to draw. (An error may be logged to the console with
 a description of the issue if it is found. Some formatting issues may not be
@@ -360,7 +356,7 @@ formatted as a Feature with the following keys/values:
 
 For example, here is a feature that is drawn with a "static" marker icon (from `px-map-marker-static`):
 
-```json
+    ```json
     {
       "type": "Feature",
       "id": 748082,
@@ -375,7 +371,7 @@ For example, here is a feature that is drawn with a "static" marker icon (from `
         }
       }
     }
-```
+    ```
 
 ## Defining the marker icon
 
@@ -393,7 +389,7 @@ To configure the icon, pass additional settings in the format
 this would configure the feature to use a "symbol" marker icon
 with a briefcase symbol and the warning color:
 
-```json
+    ```json
     {
       "type": "Feature",
       "id": 984093,
@@ -409,7 +405,7 @@ with a briefcase symbol and the warning color:
         }
       }
     }
-```
+    ```
 
 See the API documentation pages for the `px-map-marker-*` components
 for more information on what markers icons and settings are available.
@@ -449,7 +445,7 @@ To configure the popup, pass additional settings in the format
 this would configure the feature to use an "info" popup with a title
 and description text:
 
-```json
+    ```json
     {
       "type": "Feature",
       "id": 984093,
@@ -469,8 +465,9 @@ and description text:
         }
       }
     }
-```
-# Styling GeoJSON data for `px-map-layer-geojson`
+    ```
+
+# Styling `px-map-layer-geojson` GeoJSON data
 
 There are two ways to style the features that the px-map-layer-geojson draws.
 To style all the features for the entire layer, use the `featureStyle` attribute.
@@ -583,14 +580,14 @@ Use the `px-map-marker-locate` component together with the `px-map-control-locat
 component to automatically find and set the latitude and longitude of the marker
 to the user's current location:
 
-```html
+    ```html
     <px-map lat="12" lng="13" zoom="15">
       <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
 
       <px-map-control-locate last-found-location="{{location}}" move-to-location position="bottomright"></px-map-control-locate>
       <px-map-marker-locate lat="{{location.lat}}" lng="{{location.lng}}" accuracy="{{location.accuracy}}"></px-map-marker-locate>
     </px-map>
-```
+    ```
 
 ## Custom marker colors and types
 The default px-theme includes colors defined for map markers of types 'info', 'warning', 'important', and 'unknown'. To change these default colors, you can use the following CSS style variables:
@@ -616,7 +613,7 @@ In addition to these four default icon types, px-map allows you to set a custom 
   ```
 
 **2. Set the `colorsByType` property on `<px-map-marker-group>`**
-```html
+  ```html
   <px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
     <px-map-marker-group
       name='Plaques'
@@ -624,9 +621,9 @@ In addition to these four default icon types, px-map allows you to set a custom 
       data='[[data]]'>
     </px-map-marker-group>
   </px-map>
-```
+  ```
 
-## Styling custom icons in `px-map-marker-symbol`
+## Styling `px-map-marker-symbol` custom icons
 
 Use the `icon` attribute to add a custom icon to the `px-map-marker-symbol` component.
 If nothing is specified for `icon`, the icon will default to a star (px-nav:favorite).
@@ -646,7 +643,7 @@ variables to set the icon's stroke color, stroke width, and fill color:
 ```
 
 For example:
-```html
+    ```html
     <style is="custom-style">
       .custom-icon {
       --px-map-marker-symbol-stroke:none;
@@ -656,4 +653,4 @@ For example:
     <px-map fit-to-markers>
       <px-map-marker-symbol lat="38" lng="-121" icon="maps:directions-bike" class="custom-icon">
     </px-map>
-```
+    ```
