@@ -9,10 +9,11 @@ layout: default
 
 ## Features & Enhancements
 
-* [Product Switcher](#/modules/px-product-switcher) - new navigation control for switching between products/applications in a suite
-* [Notification](#/modules/px-notification) - new component for contextual / in-situ alert notifications
-* [Dropdown](#/modules/px-dropdown) - enhanced with a mobile responsive view
-* [Modal](#/modules/px-modal) - added a property and configuration for full-screen application modals
+* [Product Switcher](#/elements/px-product-switcher) - new navigation control for switching between products/applications in a suite
+* [Notification](#/elements/px-notification) - new component for contextual / in-situ alert notifications
+* [Threshold Bar](#/elements/px-threshold-bar) - new component for displaying linear horizontal gauges with configurable threshold areas
+* [Dropdown](#/elements/px-dropdown) - enhanced with a mobile responsive view
+* [Modal](#/elements/px-modal) - added a property and configuration for full-screen application modals
 
 # Q4 2017 Release
 
