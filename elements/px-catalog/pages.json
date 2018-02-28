@@ -502,7 +502,9 @@
           "monochrome",
           "branding",
           "colour",
-          "colours"
+          "colours",
+          "css variables",
+          "css custom properties"
         ]
       },
       {
