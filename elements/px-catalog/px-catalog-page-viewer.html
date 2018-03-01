@@ -116,6 +116,7 @@
           this._scrollHandler = this._handleScroll.bind(this);
           this.addEventListener('scroll', this._scrollHandler, { passive: true });
         }
+        this._scrollToAnchorPath(this._activeModuleEl, this.activeAnchor);
       },
       detached: function() {
         if (this._passiveScrollSupported && this._scrollHandler) {
@@ -208,8 +209,14 @@
         }
       },
       _scrollToAnchorPath: function(el, activeAnchor, retries) {
+        var retries = retries || 0;
         if (!el || !el.is) {
-          console.log('Element not yet defined');
+          window.setTimeout(function() {
+            retries++;
+            if(retries < 10) {
+              this._scrollToAnchorPath(this._activeModuleEl, this.activeAnchor, retries);
+            }
+          }.bind(this), 500);
         }
         else if (el.hasAttribute('has-anchors')) {
           // Element is a markdown page, jump to the requested anchor
@@ -219,14 +226,13 @@
         }
         else if (/^px\-.+\-demo$/.test(el.is)) {
           // Element is a component demo, jump to the right api viewer section
-
-          // var demoApiViewer = Polymer.dom(el.root).querySelector('px-demo-api-viewer');
-          // if (!demoApiViewer) return;
-          // var apiViewer = Polymer.dom(demoApiViewer.root).querySelector('px-api-viewer');
-          // if (!apiViewer) return;
-          // var doc = apiViewer.$.doc;
-          // if (!doc) return;
-          // doc.scrollToAnchor(activeAnchor);
+          var demoApiViewer = Polymer.dom(el.root).querySelector('px-demo-api-viewer');
+          if (!demoApiViewer) return;
+          var apiViewer = Polymer.dom(demoApiViewer.root).querySelector('px-api-viewer');
+          if (!apiViewer) return;
+          var doc = apiViewer.$.doc;
+          if (!doc) return;
+          doc.scrollToAnchor(activeAnchor);
         }
       },
       _activeModuleChanged: function(newModuleName, oldModuleName) {
