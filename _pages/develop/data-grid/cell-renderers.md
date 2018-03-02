@@ -208,6 +208,7 @@ Nothing is showing up because our custom renderer template is empty, except for 
 
 ```html
 <template>
+  <!-- Boolean renderer template-->
   <!-- @TODO: Show the data -->
 </template>
 ```
@@ -216,15 +217,17 @@ Add a bit of Hello World text to the template and hit refresh:
 
 ```html
 <template>
+  <!-- Boolean renderer template-->
   Hello World
 </template>
 ```
 
-You should see Hello World printed out for each cell in the grid. You’ve implemented your first custom renderer. But it’s not a very smart one. It shows the same data for every cell, regardless of the value. In the next section we will use the cell data to decide what to render.
+You should see Hello World printed out for each cell in the registered column. You’ve implemented your first custom renderer. But it’s not a very smart one. It shows the same data for every cell, regardless of the value. In the next section we will use the cell data to decide what to render.
 
 **Step 4: Use cell data in the custom renderer**
 
-Our boolean custom renderer is built on top of the built-in data grid renderer mixin:
+Our boolean custom renderer is built on top of the data grid renderer mixin:
+
 
 ```javascript
 class BoolCustomRenderer extends Predix.DataGridRendererMixin(Polymer.Element) {
@@ -232,8 +235,63 @@ class BoolCustomRenderer extends Predix.DataGridRendererMixin(Polymer.Element) {
 }
 ```
 
-Using this mixin exposes the `value` property, which can be used in the renderer’s template or its JavaScript.
+Using this mixin exposes the `value` property, which can be used in the renderer’s template or accessed in its methods. The grid loops over each object in its table data and uses it to create a row. Each cell in the row is assigned its data through the `value` property. The grid will pass `true` or `false` to each bool-custom-renderer instance’s `value` property the row is created.
 
-For each row, the grid will create a new instance of the boolean custom renderer and assign the registered cell data to the `value` property. We expect it to be a boolean `true` or `false` value.
+Replace the Hello World text in the bool-custom-renderer template with `[[value]]`:
 
-*Tutorial in progress, check back for the rest...*
+```html
+<template>
+  <!-- Boolean renderer template-->
+  [[value]]
+</template>
+```
+
+The grid should should render the strings “true” and “false” in the registered column. Now that we have access to the value, we can use it to get the right unicode symbol to show in the cell.
+
+Create the method `_getSymbol` on the BoolCustomRenderer class:
+
+```javascript
+class BoolCustomRenderer extends Predix.DataGridRendererMixin(Polymer.Element) {
+  static get is() { return 'bool-custom-renderer'; }
+
+  static get properties() {
+    return {};
+  }
+
+  /** Converts the cell value into a nice unicode symbol */
+  _getSymbol(value) {
+    if (value) {
+      return '✅';
+    }
+    else {
+      return '❌';
+    }
+  }
+}
+```
+
+Tip: Copy and paste the unicode symbols from the code block above. It isn’t easy to create them with your keyboard.
+
+Now use the new method in the bool-custom-renderer template:
+
+```html
+<template>
+  <!-- Boolean renderer template-->
+  [[_getSymbol(value)]]
+</template>
+```
+
+You should see the green checkmark (✅) and and red “X” (❌) symbols printed out for each cell in the registered column:
+
+<catalog-picture
+  img-src="../../img/developer-guides/data-grid/cell-renderers-tutorial-boolean-step4-symbols"
+  img-alt="Data grid cells showing symbols printed out in each cell">
+</catalog-picture>
+
+**Step 5: Conclusion**
+
+If you hit any snags or failed to implement the boolean renderer, [open the completed Glitch](https://glitch.com/edit/#!/completed-tutorial-bool-custom-renderer) compare it with your code.
+
+This tutorial covered the basics for creating a custom renderer. Custom renderers are web components that receive cell data and decide how to display it in the grid. Anything that can fit inside a web component template can be used in your renderer’s template. That means any Predix Design System component can technically be used if you import it and use it in your custom renderer template. Some components might not make sense in a data grid, like a time series chart. But try a few out and see what works.
+
+New custom renderers should be placed directly in your application. Write as many as you’d like to solve your use cases. Or fall back on the default string, number, and data renderers if you don’t need anything special.
