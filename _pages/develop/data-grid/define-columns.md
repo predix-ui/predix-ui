@@ -10,15 +10,17 @@ pathToRoot: ../../../
 The grid uses columns to decide how to render its data. Apps can use the `columns` property to show or hide certain columns, define how users can interact with columns, and change the way each column’s cells are rendered.
 
 # Use auto-generated columns
-If data is added to the grid before the `columns` property is defined the grid will automatically generate a set of columns. The first data object will be scanned, and each of its keys will be turned into a new column. The column name displayed in the grid header will be set to the key. The string renderer will be used by default.
+
+If data is added to the grid before the `columns` property is defined the grid will automatically generate a set of columns. The first data object will be scanned, and each of its keys will be turned into a new column. The column name displayed in the grid header will be set to the key. All columns are treated as strings by default.
 
 This approach works for simple use cases where the app formats and cleans the data before adding it to the grid. But relying on the grid to generate columns can lead to some unexpected outcomes:
 
 * Only the first object is scanned to generate the columns. If additional keys are defined on other objects but not the first one those keys will not be turned into columns, and the related data won’t be rendered in the grid.
-* Column names are copied exactly from the first object’s keys. If your the keys aren’t human readable or use camelCase syntax the grid headers will be hard to read.
+* Column names are copied exactly from the first object’s keys. If your keys aren’t human readable or use camelCase syntax the grid headers will be hard to read.
 * All keys found on the first object will be turned into columns and rendered. If your data includes computed values only used for rendering your UI or non-human-readable values like database IDs you may not want to clutter the grid with that information. Creating custom columns is the only way to control what data is rendered by default.
 
 # Define custom columns
+
 Set the `columns` property on the grid to an array of objects to control which columns are shown and how users can interact with those columns. The grid will ignore data that is not explicitly referenced by one of the columns, allowing apps to control what data is shown to the user.
 
 There are many options that can be set for each column. The most basic column definition should include name and path:
@@ -64,7 +66,10 @@ The grid will only display the columns that were defined, rendering the first an
 </catalog-picture>
 
 # Hide, show, freeze, and size columns
-Some datasets call for more advanced styling for each column. Hiding and showing columns can help the user focus on information that is important the current task. Freezing columns can help reduce tedious horizontal scrolling when the user wants to refer the first few columns and glance at later columns. Setting custom sizes for columns ensures space in the grid is used appropriately and cells with large amounts of data aren’t unnecessarily truncated.
+
+Some datasets call for more advanced styling for each column. Hiding and showing columns can help the user focus on information that is important to the current task. Freezing a column locks it to the left of the grid and can help reduce tedious horizontal scrolling when the user frequently refers to the first few columns. Setting custom sizes for columns ensures space in the grid is used appropriately and cells with large amounts of data aren’t unnecessarily truncated.
+
+Uses can hide and freeze columns by clicking on the three-dot button that appears when hovering over a header cell. Users can unhide columns by clicking on the table action menu at the top right of the grid.
 
 The following options can be set in column definitions to control the way columns are rendered:
 
@@ -97,11 +102,11 @@ Delivery records contain a lot of information:
 
 The dispatcher cares about the delivery code the most. It’s the identifier they rely on to ensure they’re giving the customer the right information. The app freezes the column so it is always visible.
 
-Some information, like the customer contact name, phone number, and internal record ID isn’t usually needed to answer questions from callers. The app hides these columns by default, and lets the dispatcher decide when the show the information.
+Some information, like the customer contact name, phone number, and internal record ID isn’t usually needed to answer questions from callers. The app hides these columns by default, and lets the dispatchers decide when to show the information.
 
 The address is usually long and is hard to read when it is truncated or broken across many lines. The app gives the address field more horizontal space than the rest of the columns.
 
-The column definition for this grid is more complex but helpers the user do their job with speed and precision:
+The column definition for this grid is more complex but helps the user do their job with speed and precision:
 
 ```javascript
 [
@@ -124,7 +129,8 @@ The column definition for this grid is more complex but helpers the user do thei
   },
   {
     name: 'Customer Address',
-    path: 'customerAddress'
+    path: 'customerAddress',
+    flexGrow: 2
   },
   {
     name: 'Customer Contact',

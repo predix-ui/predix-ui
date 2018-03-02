@@ -20,11 +20,11 @@ For example, cells containing time series data could use a spark line chart to v
   img-alt="Data grid cell showing a spark line chart using a custom renderer">
 </catalog-picture>
 
-Custom renders are tiny web components, just like px-data-grid and the rest of the Predix Design System components. They can display data in simple read-only formats or in complex interactive formats. Custom renderers can also be used to present new UIs for editing cell data when the grid enters editable mode.
+Custom renderers are tiny web components, just like px-data-grid and the rest of the Predix Design System components. They can display data in simple read-only formats or in complex interactive formats. Custom renderers can also be used to present new UIs for editing cell data when the grid enters editable mode.
 
 # Use built-in renderers
 
-The data grid ships with three built-in renderers: a string renderer, number renderer, and date renderer. Use the grid `columns` property to define the renderer for cells. Set the `renderer` option for each column the name of the renderer to use.
+The data grid ships with three built-in renderers: a string renderer, number renderer, and date renderer. Use the grid `columns` property to define the renderer for cells. Set the `renderer` option for each column to the name of the renderer to use.
 
 See the “Define columns” guide for more information on creating column definitions, and the px-data-grid API documentation for a complete list of available options.
 
@@ -108,7 +108,7 @@ The columns format and tableData format must match up to display the date/time c
 
 # Create custom renderers
 
-Custom renderers allow applications to change the way data is displayed and edited in the grid. Custom renders are tiny web components. When data needs to be displayed the grid creates a new instance of the custom renderer component, passes it data, and attaches it to the DOM.
+Custom renderers allow applications to change the way data is displayed and edited in the grid. Custom renderers are tiny web components. When data needs to be displayed the grid creates a new instance of the custom renderer component, passes it data, and attaches it to the DOM.
 
 Custom renderers should be written as [Polymer 2.x style components] (https://www.polymer-project.org/2.0/docs/devguide/registering-elements). The renderer component should extend the `Predix.DataGridRendererMixin` base class, which is the same base class used to create the built-in renderers.
 

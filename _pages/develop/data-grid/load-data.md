@@ -50,7 +50,7 @@ The turbine list is fetched from the API and passed to the data grid. The grid w
 
 Load data in your app, format it as an array of objects, and set it to the data grid’s `tableData` property to render it.
 
-This approach is known as a “local” data source. Local refers to your app loading and updating the data from a remote data source, like a backend API or static files hosted on a CDN. This is the simplest way to start displaying data and covers most use cases. See the “Advanced: Remote data provider” section below for a different approach.
+This approach is known as a “local” data source. Local refers to your app loading and updating the data from a data source, like a backend API or static files hosted on a CDN. Your app will likely use AJAX to make calls to a REST API for some data in JSON format, parse the data, and give it to the grid. This is the simplest way to start displaying data and covers most use cases. See the “Advanced: Remote data provider” section below for a different approach.
 
 ### Example: User management app
 
@@ -91,7 +91,7 @@ Apps using the local data source approach can update the `tableData` property at
 
 # Load remote data
 
-The data grid can load data on demand from a “remote” data source like a backend API using the `remoteDataProvider` property. The grid loads data lazily, requesting new records when the user scrolls past all the loaded data and hits the end of the table. This is a powerful feature that can be used to load large amounts of data from a remote source source on demand, increasing performance on the front-end and reducing stress on backend services.
+The data grid can load data on demand from a “remote” data source like a backend API using the `remoteDataProvider` property. The grid loads data lazily, requesting new records when the user scrolls past all the loaded data and hits the end of the table. This is a powerful feature that can be used to load large amounts of data from a remote source on demand, increasing performance on the front-end and reducing stress on backend services.
 
 See the “Remote data” guide (coming soon) for an in-depth exploration of this feature.
 
