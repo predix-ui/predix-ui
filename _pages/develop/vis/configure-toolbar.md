@@ -62,63 +62,58 @@ componentReadyCallBack: |
 
 # Introduction
 
-Each chart can embed a toolbar element which consists of a main row of items and an optional subrow of items. The subrow usually represents a context of an item of the main row, i.e clicking an item of the main row brings more options.
+Each px-vis chart can optionally contain a toolbar element which consists of a main row of items and optional sub-rows. The sub-row can contain additional sub-items related to the item in the main row.
 
 <catalog-picture img-src="../../img/guidelines/dev/vis/configure-toolbar/toolbar" img-alt="toolbar subpart" style="border:none;" caption="Toolbar with the 'zoom' main item selected"></catalog-picture>
 
-In the picture above we can see a main row consisting of a "zoom" and "pan" items. The "zoom" item has been selected, hence displaying the associated subrow presenting a set of zooming options.
+In the picture above, the main row consists of a "zoom" and "pan" option. The "zoom" item has been selected, displaying the associated sub-row with zooming options.
 
-In general the toolbar is a highly customizable element aiming at providing ways for the user to drive the interaction on a chart. More abstractly it should be used to define actions relating to the whole context of a chart as opposed to a single series: zooming, panning, fetching new data, exporting as an image... The possibilities are endless.
+The toolbar is a highly customizable element that provides ways for the user to interact with the chart. It should be used to define actions related to the whole chart as opposed to a single series: zooming, panning, fetching new data, exporting as an image, etc. For interaction and/or configuration related to a single series, use the register's dynamic menus instead.
 
-If you are trying to provide your user with interaction and/or configuration relating more specifically to a single series please see the article on how to configure the registers dynamic menus.
+# General overview
 
+Although the learning curve for configuring advanced features in the toolbar can be a bit steep, the general concept is relatively simple: the toolbar defines an `actionConfig` which is passed to the chart, which is then passed down to the component that handles user interaction on the chart. This component then uses the `actionConfig` to define what should happen on click, hover, mouseLeave, etc.
 
-# General Concept
+This user interaction component is either:
 
-Although the learning curve for configuring advanced features in the toolbar can be a bit steep the general concept is relatively simple: the toolbar defines an `actionConfig` which is passed to the chart, which then passes it to the component handling user interaction on the chart. This component then uses this `actionConfig` to defines what should happen on click, hover, mouseLeave... This user interaction component is:
+* `px-vis-interaction-space` for Timeseries, XY and Polar;
+* `px-vis-axis-interaction-space` for Parallel Coordinates and Radar (the `actionConfig` will automatically trickle down through the multi-axis and interactive-axis elements in this case).
 
-* px-vis-interaction-space for Timeseries, XY and Polar
-* px-vis-axis-interaction-space for Parallel Coordinates and Radar (the `actionConfig` will automatically trickle down through the multi axis and interactive axis element in this case)
+This means that user interactions in Timeseries, XY and Polar can happen anywhere on the chart, whereas they are limited to the axes of Parallel Coordinates and Radar.
 
-
-This also means that user interactions in Timeseries, XY and Polar can happen anywhere on the chart while it is limited to axes on Parallel Coordinates and Radar. The `actionConfig` could also be passed directly to the chart rather than coming internally from the toolbar (see Global Toolbar further down in this article)
-
-
+The `actionConfig` property can also be passed directly to the chart, rather than coming from the toolbar (see "Define a global toolbar" further down in this guide).
 
 # actionConfig
 
-`actionConfig` is a core principle of how the interactions are going to be defined. It is an object where each key represents a user defined event to handle (on the appropriate interaction space) and each value either a string representing a predefined action or the custom function that should be run for that event.
+The `actionConfig` property is the main way in which interactions are defined. It is an object, where each key represents a user-defined event to handle (on the appropriate interaction space), and each value is either a string representing a predefined action, or the custom function that should be run for that event.
 
 ## Predefined actions
 
-The predefined actions available depend on the type of interaction space the chart is using. It can be found in the 'actionMapping' of the appropriate interaction space,
+The predefined actions available depend on the type of interaction space the chart is using. They can be found in the `actionMapping` of the corresponding interaction space.
 
 Predefined actions available in all interactions spaces:
 
 * `calcTooltipData`: calculates tooltipData for the current cursor position, based on the type
 * `calcCrosshairData`: similar to calcTooltipData but for the crosshairData
 * `calcTooltipAndCrosshairData`: calcTooltipData + calcCrosshairData
-* `resetTooltipAndCrosshairData`: resets both the tooltipData and crosshairData to an empty object
 * `resetTooltip`: resets the tooltipData to an empty object
 * `resetCrosshair`: resets the crosshairData to an empty object
-
+* `resetTooltipAndCrosshairData`: resets both the tooltipData and crosshairData to an empty object
 
 Predefined actions only available in px-vis-interaction-space:
 
 * `startZooming`: starts drawing the zooming box
-* `stopZooming`: stops drawing the zooming box and calculate the new extents based on the box (effectively zooming)
-* `startPanning`: starts panning, while automatically binding a panning update on mouse move
+* `stopZooming`: stops drawing the zooming box and calculates the new extents based on the box (effectively zooming)
+* `startPanning`: starts panning, while automatically binding a panning update on mousemove
 * `stopPanning`: stops panning and removes the panning update binding on mousemove
 * `reportMouseCoords`: fires a `px-vis-interaction-space-mouse-coords` event with the current mouse coordinates
 
-
 Predefined actions only available in px-vis-axis-interaction-space:
 
-* `callAxisBrush`: toggles brushing process on an axis, automatically updating the brush on mousemove. Typically called on both mousedown and mouseup to start/stop the brushing process
-* `callAxisDrag`: toggles dragging process on an axis, automatically updating the drag on mousemove. Typically called on both mousedown and mouseup to start/stop dragging and axis.
+* `callAxisBrush`: toggles brushing on an axis, automatically updating the brush on mousemove. Typically called on both mousedown and mouseup to start/stop the brushing process
+* `callAxisDrag`: toggles dragging on an axis, automatically updating the drag on mousemove. Typically called on both mousedown and mouseup to start/stop dragging and axis.
 
-
-For example given those actions the default `actionConfig` for px-vis-interaction-space is:
+Given the actions above, the default `actionConfig` for px-vis-interaction-space is:
 
 ```javascript
 {
@@ -129,20 +124,18 @@ For example given those actions the default `actionConfig` for px-vis-interactio
 }
 ```
 
-This means that by default the interaction is the zoom box on click and calculating the tooltipData when moving the cursor over the chart. We reset the tooltipData when the mouse leaves the chart so that the register becomes empty instead of showing the last value.
+This means that the default interaction is to control the zoom box on click and calculate the tooltipData when moving the cursor over the chart. The tooltipData is reset when the mouse leaves the chart, so that the register becomes empty instead of showing the last value.
 
 ## Custom functions
 
-When running a custom function this function will be executed in the context of the chart: in your handler `this` will be the chart. The handler will have one parameter which currently is an array holding the X and Y mouse coordinates relative to the interaction space target: the whole drawing space for px-vis-interaction-space and a specific axis for px-vis-axis-interaction-space.
+When running a custom function, it will be executed in the context of the chart - in your handler, `this` will be a reference to the chart itself. The handler will have one parameter that is an array holding the X and Y mouse coordinates relative to the interaction space target - the whole drawing space for `px-vis-interaction-space`, and a specific axis for `px-vis-axis-interaction-space`.
 
-In the latest release (vis 2.1 at this time) this parameter is an object with two keys:
+As of the v2.1.0 release of px-vis, the handler's parameter is an object with two keys:
 
+* `mouseCoords`: holds the current mouse coordinates
+* `target`: holds the element against which the the mouse coordinates are expressed
 
-* `mouseCoords`: holds the same value as in the previous version.
-* `target`: holds the element against which the the mouse coordinates are expressed.
-
-
-Using this two values it is possible to retrieve the data values of a click rather than the pixel values, for example a click handler for px-vis-interaction-space could look like:
+Using these two values, it is possible to retrieve the data values of a click rather than the pixel values. For example, a click handler for `px-vis-interaction-space` could look like this:
 
 ```javascript
 handler: function(evt) {
@@ -154,10 +147,9 @@ handler: function(evt) {
 }
 ```
 
+# Toolbar configuration/customization
 
-# Toolbar Configuration/Customization
-
-The toolbar configuration dictates what items are present in the main row, what subrow is defined for each main item and what happens when clicking on a main item or a sub item. It can be passed at the chart level through the 'config' key in 'toolbarConfig':
+The toolbar configuration dictates what items are present in the main row, what sub-row is defined for each main item, and what happens when clicking on a main item or a sub-item. It can be passed at the chart level through the `config` key in `toolbarConfig`:
 
 ```javascript
 toolbarConfig = {
@@ -165,47 +157,46 @@ toolbarConfig = {
 }
 ```
 
-Each key of this 'config' object represents a new main item with each value being the configuration for this item (including the related subrow and subitems).
+Each key of this `config` object represents a new main item, with the value being the configuration for this item (including the related sub-row and sub-items).
 
 ## Predefined configurations
 
-A set of predefined main items already exists in the toolbar and can be used by passing those as keys with a value of 'true':
+A set of predefined main items already exists in the toolbar and can be used by passing these as keys with a value of 'true':
+
+* `axisBrush`: allows brushing on an axis (parallel coordinates and radar).
+* `axisDrag`: allows dragging on an axis (parallel coordinates and radar).
+* `crosshair`: enables crosshair search on the chart.
+* `crosshairWithOptions`: enables crosshair search on the chart. Defines a sub-row with different options for crosshair search: closest point, point per series and points in area. Also includes two buttons to increase and decrease the search radius.
+* `tooltip`: enables tooltip search and ensures the tooltip is on (other predefined configurations turn off the tooltip, but still allow for tooltipData to be calculated for use in the register).
+* `pan`: enables panning on the chart. Also defines a single sub-row item that resets the chart extents to fit the current dataset.
+* `zoom`: enables zooming on the chart. Also defines sub-row items for zoom in, zoom out, undo last zoom and reset zoom.
+* `advancedZoom`: same config as `zoom`, plus sub-row items for zooming only on X, zooming only on Y, and zooming on both.
+* `stripe`: enables striping. Also defines four sub-row items: inclusive striping, exclusive striping, add, and remove.
 
 
-* `axisBrush`: single main item allowing brushing on axis (parallel coordinates and radar)
-* `axisDrag`: single main item allowing dragging an axis (parallel coordinates and radar)
-* `crosshair`: single main item enabling the crosshair search on the chart
-* `crosshairWithOptions`: main item enabling the crosshair search on the chart. Defines a subrow with different options for crosshair search: closest point, point per series and points in area. Also includes two buttons to increase and decrease the search radius
-* `tooltip`: single main item enabling the tooltip search as well as ensuring an internal flag for showing tooltip is on (other predefined configurations automatically turn off that flag so that only this items allows the tooltip to show, but other configurations can still allow for tooltipData to be calculated for register use)
-* `pan`: main item enabling panning on the chart. Also defines a single sub row item that resets the chart extents to fir the current dataset
-* `zoom`: main item enabling zooming on the chart. Also defines the following subrow items: zoom in, zoom out, undo last zoom and reset zoom
-* `advancedZoom`: same config as 'zoom' plus the following subrow items: zoom only on X, zoom only on Y, zoom on both X and Y
-* `stripe`: main item enabling striping feature. Also defines four sub row items: inclusion and exclusion striping type + add and remove
+## Extending predefined configurations
 
-
-## Predefined configurations
-
-A predefined configuration can be extended if needed by using one of the predefined configuration key and passing extra configuration as the value (see Custom configurations for more info on what configuration can be added). This way it is possible to add more buttons to an existing predefined configuration.
+A predefined configuration can be extended if necessary by using one of the predefined configuration keys and passing extra configuration as the value (see below for what can be added). This way it is possible to add more buttons to an existing predefined configuration.
 
 ## Custom configurations
 
-When using a custom configuration make sure each key of your 'config' object is unique and different from the one used in the predefined configurations.
+When using a custom configuration, make sure each key of your `config` object is unique and different from those used in the predefined configurations.
 
 
-* `icon`: font awesome icon to display to represent the item
-* `title`: text representing the item, usually use this or the 'icon' property
-* `cursorIcon`: font awesome icon to display next to the cursor when hovering the interaction space target
-* `tooltipLabel`: text in the tooltip when hovering the item
-* `selectable`: whether this item is selectable, meaning that it will turn blue when clicked on. Usually used to indicate that some kind of mode has been enabled (i.e zoom only on Y) as opposed to a one time action (i.e zoom in)
-* `selected`: if selectable whether the item should be selected at first
-* `buttonGroup`: number, mandatory when selectable. In each row all items with the same buttonGroup are "mutually exclusive" in terms of selection, so only the last item selected for a buttonGroup will be selected, the other ones will be automatically deselected
-* `onClick`: function to run when clicking this item. The function will be run in the context of the chart unless 'onClickContext' is set to "toolbar". It will have one parameter containing the configuration relating to this item
-* `onClickContext`: can be set to "toolbar" to run the 'onClick' function in the context of the toolbar instead of the chart
-* `eventName`: if set an event named with this string will be fired when clicking this item. It will contain the configuration for this item
-* `actionConfig`: the action config to set on the interaction space when clicking this item. Don't forget that you might want to reset some handlers that might have been set by another item (set them to null)
+* `icon`: icon to represent the item in the toolbar.
+* `title`: description of the item (usually use this or the `icon` property, not both).
+* `cursorIcon`: icon to display next to the cursor when hovering the interaction space.
+* `tooltipLabel`: text shown in the tooltip when hovering the item.
+* `selectable`: whether this item is selectable, meaning that it will turn blue when clicked. Usually used to indicate that some kind of mode has been enabled (i.e zoom only on Y) as opposed to a one time action (i.e zoom in).
+* `selected`: if selectable, whether the item should be selected at initialization.
+* `buttonGroup`: number, mandatory when selectable. In each row, all items with the same `buttonGroup` are "mutually exclusive" in terms of selection, so only the last item selected for a buttonGroup will be selected and the others will be automatically deselected.
+* `onClick`: function to run when clicking this item. The function will be run in the context of the chart, unless `onClickContext` is set to "toolbar". It will have one parameter containing the configuration relating to this item.
+* `onClickContext`: can be set to "toolbar" to run the `onClick` function in the context of the toolbar instead of the chart.
+* `eventName`: if set, an event named with this string will be fired when clicking this item. It will contain the configuration for this item.
+* `actionConfig`: the action config to set on the interaction space when clicking this item. Don't forget that you might want to reset (set to null) some handlers that might have been set by another item.
 
 
-In addition a main item may have a 'subConfig' object defining all the sub items configurations, the global structure of the 'config' object becoming:
+In addition, a main item may have a `subConfig` object defining all the sub-item configurations. The global structure of the `config` object becomes:
 
 ```javascript
 config = {
@@ -223,7 +214,7 @@ config = {
 }
 ```
 
-the predefined configurations use the exact same pattern, the following code illustrates how the advancedZoom predefined configuration is defined internally:
+The predefined configurations use the exact same structure. The following code illustrates how the `advancedZoom` predefined configuration is coded internally:
 
 ```json
 'advancedZoom': {
@@ -285,11 +276,11 @@ the predefined configurations use the exact same pattern, the following code ill
 ```
 
 # Examples
-## Define a custom toolbar for movign a chart in a modal
+## Define a custom toolbar for moving a chart into a modal
 
-Scenario: you have a set of small non interactive charts in your app so that your user can quickly parse a lot of information. Once the user decides to investigate a chart it should be maximized and interaction allowed.
+Scenario: you have a set of small non-interactive charts in your app so that your user can quickly parse high-level information. Once the user decides to investigate a chart, it should be maximized and interactive.
 
-For this scenario we'll use px-modal and two toolbar configuration. The idea is that when the chart is in "small mode" it will use a toolbar configuration with just one button. When this button is clicked the chart will be moved into the px-modal and get a new toolbar configuration with different interactions:
+For this scenario, we'll use `px-modal` and two toolbar configurations. The idea is that when the chart is in "small mode" it will use a toolbar configuration with just one button. When this button is clicked, the chart will be moved into the px-modal and get a new toolbar configuration with different interactions:
 
 ```javascript
 smallModallModeConfig = {
@@ -326,7 +317,7 @@ modalConfig = {
 }
 ```
 
-We then listen on the px-modal for a close event and move back the chart where it initially was and restore the toolbar to the one item configuration:
+We then listen on the `px-modal` for a "close" event, then move the chart back to where it initially was and restore the toolbar to the one item configuration:
 
 
 ```javascript
@@ -345,7 +336,7 @@ modal.addEventListener('btnModalNegativeClicked', function() {
 });
 ```
 
-This example is implemented below. We try to fit the modal in the available space, this is a crude approach and a lot more could be done.
+This example is implemented below. We try to fit the modal in the available space. Note: this is a crude approach - a lot more could be done.
 
 <div>
   <iron-ajax
@@ -376,12 +367,11 @@ This example is implemented below. We try to fit the modal in the available spac
 
 ## Define a global toolbar driving several charts
 
-Scenario: have a single place that defines what interaction should be currently used on a set of charts.
+Scenario: have a single place that defines what interaction should be used on a set of charts.
 
-In this scenario we will use a px-vis-toolbar outside of the charts. This toolbar will define an `actionConfig` as well as a `toolbarSubConfig` which will be passed to each chart. The action config will define the interaction and the secondary toolbar will dictate what what secondary toolbar to show: for example when clicking the zoom main item on the global toolbar then it can pass down the set of zooming options to each chart so that each chart would be in zoom mode but the user can still independently choose which zooming options to use on each chart.
+In this scenario, we will use a `px-vis-toolbar` outside of the charts. This toolbar will define an `actionConfig` as well as a `toolbarSubConfig` which will be passed to each chart. The action config will define the interaction and the secondary toolbar will dictate which secondary toolbar to show. For example, when clicking the "zoom" main item on the global toolbar, it can pass down the set of zooming options to each chart, so that each chart will be in zoom mode but the user can still independently choose which zooming options to use on each chart.
 
 The external toolbar code is:
-
 
 ```html
 <px-vis-toolbar
@@ -398,7 +388,7 @@ The external toolbar code is:
 ```
 
 
-And all the two charts needs in terms of extra attributes are:
+Each of the two charts need a bit of extra configuration:
 
 ```html
 <px-vis-...
@@ -407,6 +397,9 @@ And all the two charts needs in terms of extra attributes are:
   action-config='[[actionConfig]]'>
 </px-vis-...>
 ```
+
+Resulting in:
+
 <div>
   <px-vis-toolbar
     current-sub-config='{{toolbarSubConfig}}'
@@ -437,8 +430,8 @@ And all the two charts needs in terms of extra attributes are:
         "y3":{"x":"timeStamp","y":"y3","type":"scatter","yAxisUnit":"u","xAxisUnit":"u","markerSize":64,"markerSymbol":"wye","markerScale":1,"markerFillOpacity":0.6,"markerStrokeOpacity":1}}'
       margin='{"left":0,"right":0,"top":0,"bottom":0}'
       x-axis-config='{"ticks":3}'
-      navigator-config='{"xAxisConfig":{"ticks":3}, "height":75}'
-    ></px-vis-timeseries>
+      navigator-config='{"xAxisConfig":{"ticks":3}, "height":75}'>
+    </px-vis-timeseries>
     <div style="margin-top: 20px;">
       <px-vis-timeseries
         id="chart3"
@@ -457,8 +450,8 @@ And all the two charts needs in terms of extra attributes are:
           "y3":{"x":"timeStamp","y":"y3","type":"line","yAxisUnit":"u","xAxisUnit":"u","markerSize":64,"markerSymbol":"circle","markerScale":1,"markerFillOpacity":0.6,"markerStrokeOpacity":1}}'
         margin='{"left":0,"right":0,"top":0,"bottom":0}'
         x-axis-config='{"ticks":3}'
-        navigator-config='{"xAxisConfig":{"ticks":3}, "height":75}'
-      ></px-vis-timeseries>
+        navigator-config='{"xAxisConfig":{"ticks":3}, "height":75}'>
+      </px-vis-timeseries>
     </div>
   </div>
 </div>
