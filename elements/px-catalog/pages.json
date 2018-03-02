@@ -2572,6 +2572,7 @@
       {
         "path": "px-data-grid",
         "label": "Data Grid",
+        "badgeText": "BETA",
         "module": "px-data-grid-demo",
         "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
         "redirects": [
