@@ -46,7 +46,7 @@ The turbine list is fetched from the API and passed to the data grid. The grid w
   img-alt="Data grid displaying 3 rows, one for each turbine, and 5 columns, one for each key in the turbine record">
 </catalog-picture>
 
-# Simple: Load local data
+# Load local data
 
 Load data in your app, format it as an array of objects, and set it to the data grid’s `tableData` property to render it.
 
@@ -89,10 +89,10 @@ Apps using the local data source approach can update the `tableData` property at
 
 *More information coming soon.*
 
-# Advanced: Load remote data
+# Load remote data
 
 The data grid can load data on demand from a “remote” data source like a backend API using the `remoteDataProvider` property. The grid loads data lazily, requesting new records when the user scrolls past all the loaded data and hits the end of the table. This is a powerful feature that can be used to load large amounts of data from a remote source source on demand, increasing performance on the front-end and reducing stress on backend services.
 
-See the “Remote data” guide for an in-depth guide on this feature.
+See the “Remote data” guide (coming soon) for an in-depth exploration of this feature.
 
-**Note:** The local and remote data source APIs cannot be used together. Your app should use the `tableData` API for local data or `remoteDataProvider` API for remote data. These properties cannot be used together for the same data grid.
+**Note:** The local and remote data source APIs cannot be used together. Your app should use the `tableData` API for local data or `remoteDataProvider` API for remote data, but not both.

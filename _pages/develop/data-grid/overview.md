@@ -7,87 +7,78 @@ pathToRoot: ../../../
 
 *This guide is under development. Check back for updates.*
 
-px-data-grid is a powerful, adaptive, data visualization tool to aid users when they have a large amount of data to display or manipulate. In its simplest form, the grid displays data in a grid or tabular format with rows and columns to provide a birds eye view of the data.
+Px-data-grid is a powerful, adaptive data visualization tool to aid users when they have a large amount of data to display or manipulate. In its simplest form, the grid displays data in a grid or tabular format with rows and columns to provide a bird's-eye view of the data.
 
 Data grid features allow users to scan, analyze, compare, filter, sort, and edit data to better understand the information, derive insights, and perform actions.
 
-**Example use cases:**
-
-* As an industrial internet user of big data, I want to analyze, manipulate and/or edit my large data-set in a tabular format in a data-grid, so that I can gain insights on the data.
-* As an industrial internet user of big data, I want to be able to easily scroll or page through my data results, so that I can scan and compare data.
-* As an industrial internet user of big data, I want to be able to sort, filter, highlight, select data, so that I can drill-down to a subset of the data.
-
 **Release status:**
 
-The beta version of the Predix Design System px-data-grid has been released with the priority user-requested features that are listed below and detailed further in the documentation.
+The beta version of the px-data-grid was released on March 2, 2018 with the most user-requested features listed below and detailed further in the documentation.
 
 # Features
 
 ## Display of data
 
-Several data formats can be displayed in the data-grid cells including text/string, number with decimal places, and date/timestamp with the capability to use custom validators. In addition, an image, spark line or micro-chart, and HTML object can be displayed.
+You can display several data formats in the data-grid cells out of the box, including text strings, numbers with decimal places, and date/timestamps. Editable cells can have custom validators based on these data types. In addition, you can easily create custom renderers to display an image, spark line / micro-chart, or any other custom HTML content that is required.
 
-The data-grid has the feature to expand a row to reveal more information. Using expandable rows is common when you have additional information for a row, or row cells that do not need to be shown at all times. This helps minimize visual clutter. There is the capability to hover over a cell and applications can also use this feature to use a tooltip or other form to show more information about the cell.
+Users can expand data-grid rows to reveal more information. Using expandable rows is common when you have additional information for a row, or cells that do not need to be shown at all times - this helps minimize visual clutter. Users can also hover over a cell and your application can detect this to display a tooltip or other component with more information about the cell.
 
 ## Theming
 
-The Predix Design System data-grid offers the ability to theme in the Predix Design System Dark Theme (suitable for control rooms/dim light situations) and Light Theme. Custom theming/branding is also possible.
-Zebra or row striping is offered which can help users to differentiate between rows.
+You can theme the px-data-grid with the Predix Design System Dark Theme (suitable for control rooms/dim light situations) or Light Theme. Custom theming/branding is also possible.
+You can enable zebra or row striping to help users scan across long rows.
 
 ## Selection and highlighting
 
-Rows, columns and/or cells can be individually highlighted based on custom rules and priority can be set. The data-grid allow single row selection with radio buttons, as well as multiple row selection with checkboxes. There is also the ability to select all the rows displayed and deselect all.
+Rows, columns and/or cells can be individually highlighted based on custom rules, and you can specify the priority of each highlight type. The data-grid allow single row selection with radio buttons, as well as multiple row selection with checkboxes. A select all / deselect all affordance is also provided.
 
-Columns can be hidden/revealed and it is possible to freeze/unfreeze columns. The frozen columns will appear left-justified on the data-grid.
+Users can show or hide columns as well as freeze or unfreeze columns. Frozen columns appear pinned to the left side of the data-grid.
 
 ## Sorting and grouping
 
-The data-grid allows sorting by a single column or multiple columns. The order of multiple sorted columns is indicated in the column header. There is also a sort indicator to indicate ascending or descending. Sorting is invoked by clicking on the column header. There is also the ability to select one or multiple rows to be sorted to the top of the data-grid.
+The data-grid allows sorting by a single column or multiple columns. The order of multiple sorted columns, as well as ascending or descending sort order, are indicated in the column headers. Sorting is invoked by clicking on the column header. Selected rows can also be sorted to the top or bottom of the grid.
 
-Grouping by column is also provided as a feature. This allows several rows to be grouped based on a specific column and appear grouped together.
+Grouping by column is also supported. This allows rows with the same value in a specific column to be grouped together in an expandable accordion.
 
 ## Sizing rows and columns
 
-The data-grid support auto-sizing of both rows and columns. Customization is also possible to set grid size and to allow for custom column width to be set. Text can be auto-wrapped or there is the capability to have an ellipsis to be used to indicate more text.
+The data-grid supports auto-sizing of both rows and columns, but you can also customize the grid height or column widths. Text can be wrapped automatically or truncated with an ellipsis.
 
 ## Grid data and manipulation
 
-The data-grid provides an API to add or delete a row and to update or edit a row with inline editing. It is possible to indicate which columns can be editable. Custom validation is possible on editable cells.
+The data-grid provides an API to add or delete rows, and to update rows with inline editing. You can configure which columns are editable, and specify custom validation for editable cells.
 
-Column re-ordering is possible with a drag and drop feature which allows the user to re-order the columns.
+Users can re-order columns with a drag-and-drop feature.
 
 There is the capability to allow applications to print or export the displayed data-grid rows which can be invoked via the Table Action menu.
 
-The data-grid supports both server side loading and client side loading with both infinite scrolling or pagination supported. There is the capability to have a fixed header with scrolling. With pagination, there are some features that cannot be used, such as Sort by Selection.
+The data-grid supports both server-side loading and client-side loading, with both infinite scrolling and pagination as options. You can choose to fix the headers in place and only scroll the data rows.
 
 ## Filtering
 
-There are two ways to filter the data-grid. There is auto-filter functionality which can be used to search or filter across the table for a string or number.
+There are two ways to filter the data-grid. The "auto-filter" will perform a simple search across the entire table for a string or value.
 
-For more advanced filtering, there is a modal which is invoked for table filtering which allows the user to set multiple filtering conditions.
-Advanced filtering allows filtering by date/timestamp range, set durations, numbers, text/string/wildcard, and number range which utilizes a slider.
-The data-grid can be filtered to show, hide, or highlight rows.
-Filters can be set for any column or specific columns.
-Several conditions are allowed depending on the data format including contains, equal, not equal, greater than, less than, starts with, ends with, and wildcard.
-The filtering conditions can be applied to "Any" column or "All" columns
+For more advanced filtering, users invoke a modal in order to set detailed filtering conditions.
+They can filter by date/time range, specific durations, numbers, text/string/wildcard, and number ranges; appropriate picker controls are provided for each.
+Filters can be used to show, hide, or highlight rows - across all columns, or only applied to specific columns.
 
 ## User preferences
 
-Applications can implement the ability to save and reset user default preferences or settings that have been applied to the table.
+Applications can implement the ability to save and reset user preferences or settings that have been applied to the data-grid.
 
-## Internalization
+## Internationalization
 
-The data-grid follows the Predix Design System internalization capability which allows applications to localize into their required languages. NOTE: Support for Right-to-Left languages is not currently available.
+The data-grid follows the same pattern as all of the other Predix Design System components for localization and internationalization. NOTE: Support for right-to-left languages is not currently available.
 
 # FAQ
 
 ### What should teams participating in the beta do?
 
-Teams should test the grid on its own or in the app, try real use cases, show stakeholders and do user tests. Any issues or requests uncovered during testing should be filed as Github issues or directed to the design system team.
+Teams should test the grid on its own or in their application, try real use cases, show stakeholders, and perform user testing. Any issues or requests uncovered during testing should be filed as [GitHub issues](https://github.com/predixdesignsystem/px-data-grid/issues) or directed to the design system team.
 
-### What does beta mean? Should I use this in production?
+### What does "beta" mean? Should I use this in production?
 
-The beta release is meant for internal testing by GE teams. During the beta period we do not recommend you use the data grid in production apps, as we will be making changes to improve stability and the overall user experience. Some APIs will also likely break during the beta period. If you wait for the general release the grid will be more stable.
+The beta release is meant for internal testing by GE teams. During the beta period, we do not recommend you use the data grid in production applications, as we will be making changes to improve stability and the overall user experience. Some APIs will also likely break during the beta period. If you wait for the general release the grid will be more stable.
 
 ### How long will the beta period last for? When will the new grid be ready for production?
 
