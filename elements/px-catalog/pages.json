@@ -1619,7 +1619,7 @@
         "label": "Data Visualization",
         "pages": [
           {
-            "path": "px-vis",
+            "path": "px-vis-framework",
             "label": "Vis Framework",
             "keywords": [
               "px-vis",
@@ -1633,13 +1633,14 @@
             ],
             "pages": [
               {
-                "path": "px-vis",
+                "path": "px-vis-catalog",
                 "label": "Vis Framework",
                 "module": "px-vis-catalog",
                 "entrypoint": "/bower_components/px-vis/demo/px-vis-catalog.html",
                 "redirects": [
                   "/components/px-vis",
-                  "/modules/px-vis"
+                  "/modules/px-vis",
+                  "/elements/vis/px-vis/px-vis"
                 ],
                 "keywords": [
                   "px-vis-catalog",
@@ -1665,7 +1666,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-area-svg",
-                  "/modules/px-vis-area-svg"
+                  "/modules/px-vis-area-svg",
+                  "/elements/vis/px-vis/px-vis-area-svg"
                 ],
                 "subcomponent": true
               },
@@ -1680,7 +1682,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-axis",
-                  "/modules/px-vis-axis"
+                  "/modules/px-vis-axis",
+                  "/elements/vis/px-vis/px-vis-axis"
                 ],
                 "subcomponent": true
               },
@@ -1695,7 +1698,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-axis-interaction-space",
-                  "/modules/px-vis-axis-interaction-space"
+                  "/modules/px-vis-axis-interaction-space",
+                  "/elements/vis/px-vis/px-vis-axis-interaction-space"
                 ],
                 "subcomponent": true
               },
@@ -1710,7 +1714,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-bar-svg",
-                  "/modules/px-vis-bar-svg"
+                  "/modules/px-vis-bar-svg",
+                  "/elements/vis/px-vis/px-vis-bar-svg"
                 ],
                 "subcomponent": true
               },
@@ -1725,7 +1730,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-brush",
-                  "/modules/px-vis-brush"
+                  "/modules/px-vis-brush",
+                  "/elements/vis/px-vis/px-vis-brush"
                 ],
                 "subcomponent": true
               },
@@ -1740,7 +1746,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-canvas",
-                  "/modules/px-vis-canvas"
+                  "/modules/px-vis-canvas",
+                  "/elements/vis/px-vis/px-vis-canvas"
                 ],
                 "subcomponent": true
               },
@@ -1755,7 +1762,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-chart-navigator",
-                  "/modules/px-vis-chart-navigator"
+                  "/modules/px-vis-chart-navigator",
+                  "/elements/vis/px-vis/px-vis-chart-navigator"
                 ],
                 "subcomponent": true
               },
@@ -1770,7 +1778,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-clip-path",
-                  "/modules/px-vis-clip-path"
+                  "/modules/px-vis-clip-path",
+                  "/elements/vis/px-vis/px-vis-clip-path"
                 ],
                 "subcomponent": true
               },
@@ -1785,7 +1794,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-clip-path-complex-area",
-                  "/modules/px-vis-clip-path-complex-area"
+                  "/modules/px-vis-clip-path-complex-area",
+                  "/elements/vis/px-vis/px-vis-clip-path-complex-area"
                 ],
                 "subcomponent": true
               },
@@ -1800,7 +1810,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-cursor",
-                  "/modules/px-vis-cursor"
+                  "/modules/px-vis-cursor",
+                  "/elements/vis/px-vis/px-vis-cursor"
                 ],
                 "subcomponent": true
               },
@@ -1815,7 +1826,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-cursor-line",
-                  "/modules/px-vis-cursor-line"
+                  "/modules/px-vis-cursor-line",
+                  "/elements/vis/px-vis/px-vis-cursor-line"
                 ],
                 "subcomponent": true
               },
@@ -1830,7 +1842,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-data-converter",
-                  "/modules/px-vis-data-converter"
+                  "/modules/px-vis-data-converter",
+                  "/elements/vis/px-vis/px-vis-data-converter"
                 ],
                 "subcomponent": true
               },
@@ -1845,7 +1858,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-dynamic-menu",
-                  "/modules/px-vis-dynamic-menu"
+                  "/modules/px-vis-dynamic-menu",
+                  "/elements/vis/px-vis/px-vis-dynamic-menu"
                 ],
                 "subcomponent": true
               },
@@ -1860,7 +1874,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-event",
-                  "/modules/px-vis-event"
+                  "/modules/px-vis-event",
+                  "/elements/vis/px-vis/px-vis-event"
                 ],
                 "subcomponent": true
               },
@@ -1875,7 +1890,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-gridlines",
-                  "/modules/px-vis-gridlines"
+                  "/modules/px-vis-gridlines",
+                  "/elements/vis/px-vis/px-vis-gridlines"
                 ],
                 "subcomponent": true
               },
@@ -1890,7 +1906,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-line-canvas",
-                  "/modules/px-vis-highlight-line-canvas"
+                  "/modules/px-vis-highlight-line-canvas",
+                  "/elements/vis/px-vis/px-vis-highlight-line-canvas"
                 ],
                 "subcomponent": true
               },
@@ -1905,7 +1922,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-line",
-                  "/modules/px-vis-highlight-line"
+                  "/modules/px-vis-highlight-line",
+                  "/elements/vis/px-vis/px-vis-highlight-line"
                 ],
                 "subcomponent": true
               },
@@ -1920,7 +1938,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-point-canvas",
-                  "/modules/px-vis-highlight-point-canvas"
+                  "/modules/px-vis-highlight-point-canvas",
+                  "/elements/vis/px-vis/px-vis-highlight-point-canvas"
                 ],
                 "subcomponent": true
               },
@@ -1935,7 +1954,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-highlight-point",
-                  "/modules/px-vis-highlight-point"
+                  "/modules/px-vis-highlight-point",
+                  "/elements/vis/px-vis/px-vis-highlight-point"
                 ],
                 "subcomponent": true
               },
@@ -1950,7 +1970,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-interactive-axis",
-                  "/modules/px-vis-interactive-axis"
+                  "/modules/px-vis-interactive-axis",
+                  "/elements/vis/px-vis/px-vis-interactive-axis"
                 ],
                 "subcomponent": true
               },
@@ -1965,7 +1986,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-interaction-space",
-                  "/modules/px-vis-interaction-space"
+                  "/modules/px-vis-interaction-space",
+                  "/elements/vis/px-vis/px-vis-interaction-space"
                 ],
                 "subcomponent": true
               },
@@ -1980,7 +2002,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-line-canvas",
-                  "/modules/px-vis-line-canvas"
+                  "/modules/px-vis-line-canvas",
+                  "/elements/vis/px-vis/px-vis-line-canvas"
                 ],
                 "subcomponent": true
               },
@@ -1995,7 +2018,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-line-svg",
-                  "/modules/px-vis-line-svg"
+                  "/modules/px-vis-line-svg",
+                  "/elements/vis/px-vis/px-vis-line-svg"
                 ],
                 "subcomponent": true
               },
@@ -2010,7 +2034,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-multi-axis",
-                  "/modules/px-vis-multi-axis"
+                  "/modules/px-vis-multi-axis",
+                  "/elements/vis/px-vis/px-vis-multi-axis"
                 ],
                 "subcomponent": true
               },
@@ -2025,7 +2050,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-multi-scale",
-                  "/modules/px-vis-multi-scale"
+                  "/modules/px-vis-multi-scale",
+                  "/elements/vis/px-vis/px-vis-multi-scale"
                 ],
                 "subcomponent": true
               },
@@ -2041,7 +2067,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-pie",
-                  "/modules/px-vis-pie"
+                  "/modules/px-vis-pie",
+                  "/elements/vis/px-vis/px-vis-pie"
                 ],
                 "subcomponent": true
               },
@@ -2056,7 +2083,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-radar-grid",
-                  "/modules/px-vis-radar-grid"
+                  "/modules/px-vis-radar-grid",
+                  "/elements/vis/px-vis/px-vis-radar-grid"
                 ],
                 "subcomponent": true
               },
@@ -2071,7 +2099,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-radial-gridlines",
-                  "/modules/px-vis-radial-gridlines"
+                  "/modules/px-vis-radial-gridlines",
+                  "/elements/vis/px-vis/px-vis-radial-gridlines"
                 ],
                 "subcomponent": true
               },
@@ -2086,7 +2115,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-radial-scale",
-                  "/modules/px-vis-radial-scale"
+                  "/modules/px-vis-radial-scale",
+                  "/elements/vis/px-vis/px-vis-radial-scale"
                 ],
                 "subcomponent": true
               },
@@ -2101,7 +2131,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-register",
-                  "/modules/px-vis-register"
+                  "/modules/px-vis-register",
+                  "/elements/vis/px-vis/px-vis-register"
                 ],
                 "subcomponent": true
               },
@@ -2116,7 +2147,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-scale",
-                  "/modules/px-vis-scale"
+                  "/modules/px-vis-scale",
+                  "/elements/vis/px-vis/px-vis-scale"
                 ],
                 "subcomponent": true
               },
@@ -2131,7 +2163,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-scatter",
-                  "/modules/px-vis-scatter"
+                  "/modules/px-vis-scatter",
+                  "/elements/vis/px-vis/px-vis-scatter"
                 ],
                 "subcomponent": true
               },
@@ -2146,7 +2179,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-scatter-canvas",
-                  "/modules/px-vis-scatter-canvas"
+                  "/modules/px-vis-scatter-canvas",
+                  "/elements/vis/px-vis/px-vis-scatter-canvas"
                 ],
                 "subcomponent": true
               },
@@ -2161,7 +2195,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-striping",
-                  "/modules/px-vis-striping"
+                  "/modules/px-vis-striping",
+                  "/elements/vis/px-vis/px-vis-striping"
                 ],
                 "subcomponent": true
               },
@@ -2176,7 +2211,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-svg",
-                  "/modules/px-vis-svg"
+                  "/modules/px-vis-svg",
+                  "/elements/vis/px-vis/px-vis-svg"
                 ],
                 "subcomponent": true
               },
@@ -2191,7 +2227,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-svg-canvas",
-                  "/modules/px-vis-svg-canvas"
+                  "/modules/px-vis-svg-canvas",
+                  "/elements/vis/px-vis/px-vis-svg-canvas"
                 ],
                 "subcomponent": true
               },
@@ -2206,7 +2243,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-threshold",
-                  "/modules/px-vis-threshold"
+                  "/modules/px-vis-threshold",
+                  "/elements/vis/px-vis/px-vis-threshold"
                 ],
                 "subcomponent": true
               },
@@ -2221,7 +2259,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-toolbar",
-                  "/modules/px-vis-toolbar"
+                  "/modules/px-vis-toolbar",
+                  "/elements/vis/px-vis/px-vis-toolbar"
                 ],
                 "subcomponent": true
               },
@@ -2236,7 +2275,8 @@
                 ],
                 "redirects": [
                   "/components/px-vis-tooltip",
-                  "/modules/px-vis-tooltip"
+                  "/modules/px-vis-tooltip",
+                  "/elements/vis/px-vis/px-vis-tooltip"
                 ],
                 "subcomponent": true
               }
