@@ -12,8 +12,8 @@
       <div class="link__container">
         <div class$="[[_getArrowClasses(parent, opened)]]" on-tap="_handleArrowTapped"></div>
         <a href$="/#[[route]]" class="link__a" on-tap="_handleLinkTapped">[[label]]</a>
-        <template is="dom-if" if="[[newComponent]]">
-          <span class="new-badge">NEW</span>
+        <template is="dom-if" if="[[badgeText]]">
+          <span class="link__badge">[[badgeText]]</span>
         </template>
       </div>
       <template is="dom-if" if="[[parent]]">
@@ -27,7 +27,7 @@
                 selected-route="[[selectedRoute]]"
                 searching="[[searching]]"
                 searched-routes="[[searchedRoutes]]"
-                new-component="[[subitem.newComponent]]">
+                badge-text="[[subitem.badgeText]]">
             </px-catalog-treenav-link>
           </template>
           </ul>
@@ -45,7 +45,7 @@
         selectedRoute: String,
         searching: Boolean,
         searchedRoutes: Array,
-        newComponent: Boolean,
+        badgeText: String,
         opened: {
           type: Boolean,
           value: false,

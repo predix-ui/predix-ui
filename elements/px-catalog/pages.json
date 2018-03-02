@@ -2572,6 +2572,30 @@
         ]
       },
       {
+        "path": "px-data-grid",
+        "label": "Data Grid",
+        "badgeText": "BETA",
+        "module": "px-data-grid-demo",
+        "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
+        "redirects": [
+          "/components/px-data-grid",
+          "/modules/px-data-grid"
+        ],
+        "keywords": [
+          "px-data-grid",
+          "data",
+          "grid",
+          "datagrid",
+          "table",
+          "datatable",
+          "pagination"
+        ],
+        "tags": [
+          "data display",
+          "mobile"
+        ]
+      },
+      {
         "path": "datetime",
         "label": "Datetime Components",
         "pages": [
@@ -3199,7 +3223,7 @@
       {
         "path": "px-notification",
         "label": "Notification",
-        "newComponent": true,
+        "badgeText": "NEW",
         "module": "px-notification-demo",
         "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
         "redirects": [
@@ -3316,7 +3340,7 @@
       {
         "path": "px-product-switcher",
         "label": "Product Switcher",
-        "newComponent": true,
+        "badgeText": "NEW",
         "module": "px-product-switcher-demo",
         "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
         "redirects": [
@@ -3422,7 +3446,7 @@
         "label": "Threshold Bar",
         "module": "px-threshold-bar-demo",
         "entrypoint": "/bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html",
-        "newComponent": true,
+        "badgeText": "NEW",
         "redirects": [
           "/components/px-threshold-bar",
           "/modules/px-threshold-bar"
