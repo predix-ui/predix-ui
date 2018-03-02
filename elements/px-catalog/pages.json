@@ -2570,6 +2570,29 @@
         ]
       },
       {
+        "path": "px-data-grid",
+        "label": "Data Grid",
+        "module": "px-data-grid-demo",
+        "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
+        "redirects": [
+          "/components/px-data-grid",
+          "/modules/px-data-grid"
+        ],
+        "keywords": [
+          "px-data-grid",
+          "data",
+          "grid",
+          "datagrid",
+          "table",
+          "datatable",
+          "pagination"
+        ],
+        "tags": [
+          "data display",
+          "mobile"
+        ]
+      },
+      {
         "path": "datetime",
         "label": "Datetime Components",
         "pages": [
