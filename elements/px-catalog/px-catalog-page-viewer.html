@@ -2,6 +2,7 @@
 <link async rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html"/>
 <link async rel="import" href="../../bower_components/iron-pages/iron-pages.html"/>
 <link async rel="import" href="../../bower_components/px-spinner/px-spinner.html"/>
+<link defer rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
 
 <dom-module id="px-catalog-page-viewer">
   <template>
@@ -217,17 +218,6 @@
           var offset = anchorEl ? (anchorEl.offsetTop-30) : 0;
           this.scrollTop = offset;
         }
-        else if (/^px\-.+\-demo$/.test(el.is)) {
-          // Element is a component demo, jump to the right api viewer section
-
-          // var demoApiViewer = Polymer.dom(el.root).querySelector('px-demo-api-viewer');
-          // if (!demoApiViewer) return;
-          // var apiViewer = Polymer.dom(demoApiViewer.root).querySelector('px-api-viewer');
-          // if (!apiViewer) return;
-          // var doc = apiViewer.$.doc;
-          // if (!doc) return;
-          // doc.scrollToAnchor(activeAnchor);
-        }
       },
       _activeModuleChanged: function(newModuleName, oldModuleName) {
         if (newModuleName && !this._modules[newModuleName]) {
@@ -237,13 +227,16 @@
           this._modules[newModuleName] = el;
         }
       },
+      _loadThemeFile: function(url){
+        return new Promise( (resolve) => {
+          this.importHref(this.resolveUrl(url),
+          (res) => resolve('resolved'),
+          null,
+          false);
+        });
+      },
       _applyTheme: function(el, darkTheme, retry) {
-        this.debounce('applyTheme', ()=>{
-          if(this.darkTheme){
-            this.importHref(this.resolveUrl('../../bower_components/px-dark-theme/px-dark-theme-styles.html',null,null,true));
-            this.importHref(this.resolveUrl('../../bower_components/px-dark-demo-theme/px-dark-demo-theme-styles.html',null,null,true));
-          }
-
+        let deb = async ()=>{
           el = this._activeModuleEl;
           retry = retry || 1;
           if (!el) {
@@ -260,25 +253,31 @@
           var isComponentDemo = componentDemoRe.test(el.nodeName.toLowerCase());
           var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
 
-          if (this.darkTheme && needDyanmicTheme) {
-            el.setAttribute('dark-theme', '');
-            var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
-            el.updateStyles(darkTheme);
+          if(this.darkTheme){
+            await this._loadThemeFile('../../bower_components/px-dark-theme/px-dark-theme-styles.html');
+            await this._loadThemeFile('../../bower_components/px-dark-demo-theme/px-dark-demo-theme-styles.html');
+
+            if (needDyanmicTheme) {
+              el.setAttribute('dark-theme', '');
+              var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+              el.updateStyles(darkTheme);
+            }
+            else if (!needDyanmicTheme) {
+              el.setAttribute('dark-theme', '');
+              el.updateStyles();
+            }
           }
-          else if (!this.darkTheme && needDyanmicTheme) {
+          if (!this.darkTheme && needDyanmicTheme) {
             el.removeAttribute('dark-theme');
             var defaultTheme = PxDemo.ThemeUtil.getDefaultThemeProperties();
             el.updateStyles(defaultTheme);
-          }
-          else if (this.darkTheme && !needDyanmicTheme) {
-            el.setAttribute('dark-theme', '');
-            el.updateStyles();
           }
           else if (!this.darkTheme && !needDyanmicTheme) {
             el.removeAttribute('dark-theme');
             el.updateStyles();
           }
-        },250);
+        }
+        this.debounce('applyTheme', deb,250);
       }
     })
   </script>
