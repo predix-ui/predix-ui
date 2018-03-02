@@ -25,9 +25,9 @@ library in place of Leaflet, while keeping the same basic API.
 
 Out of the box, `px-map` includes the basic things needed to draw and plot data
 on an interactive map. It is also extensible — development teams are encouraged
-to build their own subcomponents that add features needed for their application.
-We currently do not support visualizations, but any open source Leaflet plugin
-can be easily converted to be a px-map custom layer.
+to build their own subcomponents that add features needed for their application,
+and any open source Leaflet plugin can be easily converted to be a px-map custom
+layer.
 
 # Basic concepts
 
@@ -50,65 +50,68 @@ geographical points into pixel coordinates.
 
 # Subcomponents
 
-The following subcomponents are available for use with px-map:
-
 **Base map**
 
-- `<px-map>`: Draws the underlying map, sets location/zoom and notifies updates
-when the user interacts with the map, enables and disables interactions,
-orchestrates subcomponents
+- [`<px-map>`](https://www.predix-ui.com/#/elements/map/px-map): Draws the
+underlying map, sets location/zoom and notifies updates when the user interacts
+with the map, enables and disables interactions, orchestrates subcomponents
 
 **Tile layers**
 
-- `<px-map-tile-layer>`: Calls a tile service API to fetch underlying tile images
-for the map
-- `<px-map-tile-layer-bing>`: Calls the Bing Maps API to fetch underlying tile
-images for the map
-- `<px-map-tile-layer-google>`: Calls the Google Maps API to fetch underlying
-tile images for the map
-- `<px-map-tile-layer-wms>`: Displays WMS services as tile layers on the map.
+- [`<px-map-tile-layer>`](https://www.predix-ui.com/#/elements/map/px-map-tile-layer):
+Calls a tile service API to fetch underlying tile images for the map
+- [`<px-map-tile-layer-bing>`](https://www.predix-ui.com/#/elements/map/px-map-tile-layer-bing):
+Calls the Bing Maps API to fetch underlying tile images for the map
+- [`<px-map-tile-layer-google>`](https://www.predix-ui.com/#/elements/map/px-map-tile-layer-google):
+Calls the Google Maps API to fetch underlying tile images for the map
+- [`<px-map-tile-layer-wms>`](https://www.predix-ui.com/#/elements/map/px-map-tile-layer-wms):
+Displays [WMS services](https://en.wikipedia.org/wiki/Web_Map_Service) as tile
+layers on the map.
 
 **Overlay/visualization layers**
 
-- `<px-map-layer-geojson>`: Draws GeoJSON data as vectors on the map
-- `<px-map-layer-group>`: Groups related overlays together to allow for bulk
-interactions (e.g. hide all in the group)
-- `<px-map-marker-static>`: Creates a marker that shows the state of a point/asset
-(e.g. with color)
-- `<px-map-marker-symbol>`: Creates a marker with an icon that shows the state
-of a point/asset
-- `<px-map-marker-locate>`: Creates a marker that represents the user's location
-- `<px-map-marker-group>`: Draws many markers in clusters, useful for visualizing
-thousands of points that can be dynamically updated
+- [`<px-map-layer-geojson>`](https://www.predix-ui.com/#/elements/map/px-map-layer-geojson):
+Draws GeoJSON data as vectors on the map
+- [`<px-map-layer-group>`](https://www.predix-ui.com/#/elements/map/px-map-layer-group):
+Groups related overlays together to allow for bulk interactions (e.g. hide all in the group)
+- [`<px-map-marker-static>`](https://www.predix-ui.com/#/elements/map/px-map-marker-static):
+Draws a marker that shows the state of a point/asset (e.g. with color)
+- [`<px-map-marker-symbol>`](https://www.predix-ui.com/#/elements/map/px-map-marker-symbol):
+Draws a marker with an icon that shows the state of a point/asset
+- [`<px-map-marker-locate>`](https://www.predix-ui.com/#/elements/map/px-map-marker-locate):
+Draws a marker that represents the user's location
+- [`<px-map-marker-group>`](https://www.predix-ui.com/#/elements/map/px-map-marker-group):
+Draws many markers in clusters, useful for visualizing thousands of points that can be dynamically updated
 
 **UI components**
 
-- `<px-map-popup-info>`: Binds a popup that can include text or an image to a marker
-- `<px-map-popup-data>`: Binds a popup that can include text and key/value data
-to a marker
+- [`<px-map-popup-info>`](https://www.predix-ui.com/#/elements/map/px-map-popup-info):
+Binds a popup that can include text or an image to a marker
+- [`<px-map-popup-data>`](https://www.predix-ui.com/#/elements/map/px-map-popup-data):
+Binds a popup that can include text and key/value data to a marker
 
 **Controls**
 
-- `<px-map-control-zoom>`: Adds zoom buttons the user can tap to zoom in or out
-of the map
-- `<px-map-control-scale>`: Adds a scale that shows the distance of an area on
-the map in miles/kilometers
-- `<px-map-control-locate>`: Adds a button the user can tap to locate themselves
-on the map and center the map on their location
+- [`<px-map-control-zoom>`](https://www.predix-ui.com/#/elements/map/px-map-control-zoom):
+Adds zoom buttons the user can tap to zoom in or out of the map
+- [`<px-map-control-scale>`](https://www.predix-ui.com/#/elements/map/px-map-control-scale):
+Adds a scale that shows the distance of an area on the map in miles/kilometers
+- [`<px-map-control-locate>`](https://www.predix-ui.com/#/elements/map/px-map-control-locate):
+Adds a button the user can tap to locate themselves on the map and center the map on their location
 
 # Set up in your app
 
 ## Choosing a CRS
 
-A CRS is framework for defining real-world locations that attempts to reconcile
-the geoid shape of the earth with the two-dimensional plane of a map. The CRS can
-only be set once before the map is first initialized. Px-map defaults to the most
-common web mapping projection [EPSG 3857](https://epsg.io/3857). Most use cases
-do **not** require changing the default CRS being used by px-map, and we strongly
-recommend using the default. If your customers give you data in a different
-projection system, you can either (1) re-project that data to our CRS (recommended),
-or (2) set the CRS on the map to the same one being used by your data with the
-`crs` property on px-map.
+A coordinate reference system (CRS) is framework for defining real-world locations
+that attempts to reconcile the geoid shape of the earth with the two-dimensional
+plane of a map. The CRS can only be set once before the map is first initialized.
+Px-map defaults to the most common web mapping projection [EPSG 3857](https://epsg.io/3857).
+Most use cases do **not** require changing the default CRS being used by px-map,
+and we strongly recommend using the default. If your customers give you data in
+a different projection system, you can either (1) re-project that data to our CRS
+(recommended), or (2) set the CRS on the map to the same one being used by your
+data with the `crs` property on px-map.
 
 ```html
 // Add a one line code example here
@@ -206,7 +209,7 @@ while others are proprietary to specific vendors. Some formats express data in
 plain text, while others are encoded and require specific libraries to translate
 them. One geospatial data format that has gained popularity in recent years is
 GeoJSON. GeoJSON is a very simple open format that expresses data in plain text
-and has been adopted by a wide range of vendor and tools. Lots of data sources
+and has been adopted by a wide range of vendors and tools. Lots of data sources
 are available as GeoJSON.
 
 Px-map doesn’t prescribe what data format its developers should use, but GeoJSON
@@ -225,60 +228,60 @@ type of GeoJSON object and must be one of: `"Point"`, `"MultiPoint"`, `"LineStri
 **Geometry Objects**
 
 All Geometry objects (aside from a `"GeometryCollection"`) must have a member
-with the name `"coordinates"`, the value of which is an array (or array of arrays)
+with the name `coordinates`, the value of which is an array (or array of arrays)
 of latitude and longitude coordinates **in `[lng, lat]` order**.
 - **Point:** A Point is a single point on a map which has no area and is
 defined by its latitude and longitude coordinates, e.g.:
-  ```json
-  {
-    "type": "Point",
-    "coordinates": [0, 0]
-  }
-  ```
+```json
+{
+  "type": "Point",
+  "coordinates": [0, 0]
+}
+```
 - **LineString:** A LineString is a line between two or more points on a map
 and is defined by an array of two or more latitude and longitude coordinate arrays
 (positions). A LineString can be self-crossing, and it has no area.
-  ```json
-  {
-    "type": "LineString",
-    "coordinates": [
-      [0, 0], [10, 10]
-    ]
-  }
-  ```
+```json
+{
+  "type": "LineString",
+  "coordinates": [
+    [0, 0], [10, 10]
+  ]
+}
+```
 
 - **Polygon:** A Polygon represents an area on a map and is defined by an array
 of four or more positions. Note that the first and last positions MUST be identical, e.g.:
-  ```json
-  {
-    "type": "Polygon",
-    "coordinates": [
-      [
-        [0, 0], [10, 10], [10, 0], [0, 0]
-      ]
+```json
+{
+  "type": "Polygon",
+  "coordinates": [
+    [
+      [0, 0], [10, 10], [10, 0], [0, 0]
     ]
-  }
-  ```
+  ]
+}
+```
 
 **Feature Objects**
 
 A Feature allows you to describe a Geometry with a set of properties. A Feature
-object must have the type `"Feature"`, as well as `"geometry"` and `"properties"`
+object must have the type `"Feature"`, as well as `geometry` and `properties`
 members. E.g.:
-  ```json
-    {
-      "type": "Feature",
-      "properties": {
-          "name": "M. A. Chidambaram Stadium",
-          "sport": "Cricket",
-          "team": "Chennai Super Kings"
-      },
-      "geometry": {
-          "type": "Point",
-          "coordinates": [80.2792802, 13.0628075]
-      }
-    }
-    ```
+```json
+{
+  "type": "Feature",
+  "properties": {
+      "name": "M. A. Chidambaram Stadium",
+      "sport": "Cricket",
+      "team": "Chennai Super Kings"
+  },
+  "geometry": {
+      "type": "Point",
+      "coordinates": [80.2792802, 13.0628075]
+  }
+}
+```
 
 **Feature Collection Objects**
 
@@ -355,12 +358,12 @@ FeatureCollection object with the following keys/values:
 - {Array}  `features`: An array of feature objects
 
 The feature collection should be formatted like this:
-    ```json
-    {
-      "type": "FeatureCollection",
-      "features": [...]
-    }
-    ```
+```json
+{
+  "type": "FeatureCollection",
+  "features": [...]
+}
+```
 These are required settings. Not including them or mis-formatting them will result
 in your marker group failing to draw. (An error may be logged to the console with
 a description of the issue if it is found. Some formatting issues may not be
@@ -382,22 +385,22 @@ formatted as a Feature with the following keys/values:
 
 For example, here is a feature that is drawn with a "static" marker icon (from `px-map-marker-static`):
 
-    ```json
-    {
-      "type": "Feature",
-      "id": 748082,
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-117.273809,32.840128]
-      },
-      "properties": {
-        "marker-icon": {
-          "icon-base": "static-icon",
-          "icon-type": "info"
-        }
-      }
+```json
+{
+  "type": "Feature",
+  "id": 748082,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-117.273809,32.840128]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "static-icon",
+      "icon-type": "info"
     }
-    ```
+  }
+}
+```
 
 ## Defining the marker icon
 
@@ -415,34 +418,36 @@ To configure the icon, pass additional settings in the format
 this would configure the feature to use a "symbol" marker icon
 with a briefcase symbol and the warning color:
 
-    ```json
-    {
-      "type": "Feature",
-      "id": 984093,
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-110.948009,37.984995]
-      },
-      "properties": {
-        "marker-icon": {
-          "icon-base": "symbol-icon",
-          "icon-icon": "px-fea:cases",
-          "icon-type": "warning"
-        }
-      }
+```json
+{
+  "type": "Feature",
+  "id": 984093,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-110.948009,37.984995]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "symbol-icon",
+      "icon-icon": "px-fea:cases",
+      "icon-type": "warning"
     }
-    ```
+  }
+}
+```
 
-See the API documentation pages for the `px-map-marker-*` components
-for more information on what markers icons and settings are available.
+See the [API documentation pages](https://www.predix-ui.com/#/elements/map/px-map-marker-static)
+for the `px-map-marker-*` components for more information on what markers icons
+and settings are available.
 
 **The `icon-type` is special**
 
 The `properties.marker-icon.icon-type` property is special and is used for more
 than configuring the type setting of your chosen marker. This setting also defines
 the color this marker will be represented as in a cluster. See the `colorsByType`
-property documentation for more information on choosing your own colors
-for each type. By default, the following colors will be used:
+property [documentation](https://www.predix-ui.com/#/elements/map/px-map-marker-group:property-colorsByType)
+for more information on choosing your own colors for each type. By default, the
+following colors will be used:
 
 - 'unknown': gray
 - 'info': blue
@@ -471,27 +476,27 @@ To configure the popup, pass additional settings in the format
 this would configure the feature to use an "info" popup with a title
 and description text:
 
-    ```json
-    {
-      "type": "Feature",
-      "id": 984093,
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-110.948009,37.984995]
-      },
-      "properties": {
-        "marker-icon": {
-          "icon-base": "static-icon",
-          "icon-type": "info"
-        },
-        "marker-popup": {
-          "popup-base": "info-popup",
-          "popup-title": "Title here",
-          "popup-description": "Lorem ipsum dolor sit amet, consectetur adipisicing..."
-        }
-      }
+```json
+{
+  "type": "Feature",
+  "id": 984093,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-110.948009,37.984995]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "static-icon",
+      "icon-type": "info"
+    },
+    "marker-popup": {
+      "popup-base": "info-popup",
+      "popup-title": "Title here",
+      "popup-description": "Lorem ipsum dolor sit amet, consectetur adipisicing..."
     }
-    ```
+  }
+}
+```
 
 # Styling `px-map-layer-geojson` GeoJSON data
 
@@ -520,10 +525,9 @@ that panning becomes jerky. This is because there is overhead associated with
 loading data into the DOM and transforming its location when panning and zooming.
 
 ## Requesting data with a bounding box query
-One method to minimize the effects of loading very large amounts of data is
-to, rather than requesting all the data for the entire map, just request the data
-that is visible within the current map bounds, i.e. a bounding box query. This
-approach has a few requirements:
+Rather than requesting all of the data for the entire map, one method to minimize
+the effects of load times is to request just the data that is visible within the
+current map bounds, i.e. a bounding box query. This approach has a few requirements:
  - The resource providing the data must be able to accept bounding box queries
  and return the data in a performant way. Retrieval and transfer of data has the
  biggest impact on the perceived performance of the map, so the underlying
@@ -593,10 +597,10 @@ asynchronously, the rendering order is likely to be different every time the map
 is drawn.
 
 When more control of the rendering order is required, it is possible to add the
-data as Leaflet.js custom panes. Custom panes can be created with their own z-index,
-which can be used to force a specific rendering order. For complicated data like
-an electrical network, it may be necessary to have specific custom panes for each
-object type.
+data as [Leaflet.js custom panes](http://leafletjs.com/examples/map-panes/).
+Custom panes can be created with their own z-index, which can be used to force
+a specific rendering order. For complicated data like an electrical network, it
+may be necessary to have specific custom panes for each object type.
 
 # Other features
 
@@ -606,27 +610,29 @@ Use the `px-map-marker-locate` component together with the `px-map-control-locat
 component to automatically find and set the latitude and longitude of the marker
 to the user's current location:
 
-    ```html
-    <px-map lat="12" lng="13" zoom="15">
-      <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
+```html
+<px-map lat="12" lng="13" zoom="15">
+  <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
 
-      <px-map-control-locate last-found-location="{{location}}" move-to-location position="bottomright"></px-map-control-locate>
-      <px-map-marker-locate lat="{{location.lat}}" lng="{{location.lng}}" accuracy="{{location.accuracy}}"></px-map-marker-locate>
-    </px-map>
-    ```
+  <px-map-control-locate last-found-location="{{location}}" move-to-location position="bottomright"></px-map-control-locate>
+  <px-map-marker-locate lat="{{location.lat}}" lng="{{location.lng}}" accuracy="{{location.accuracy}}"></px-map-marker-locate>
+</px-map>
+```
 
 ## Custom marker colors and types
 The default px-theme includes colors defined for map markers of types 'info', 'warning', 'important', and 'unknown'. To change these default colors, you can use the following CSS style variables:
-  ```html
-  --px-map-icon-unknown-color
-  --px-map-icon-info-color
-  --px-map-icon-warning-color
-  --px-map-icon-important-color
-  ```
+```css
+--px-map-icon-unknown-color
+--px-map-icon-info-color
+--px-map-icon-warning-color
+--px-map-icon-important-color
+```
+
 In addition to these four default icon types, px-map allows you to set a custom type on a marker, in the format 'custom-n'. 'custom-n' is a custom color defined by the developer. Custom types may be defined from 'custom-0' through 'custom-100' and must be defined consecutively with **no breaks between numbers**. Custom types can be defined in one of two ways:
 
 **1. Define custom-color CSS style variables in your HTML**
-  ```html
+```html
+<custom-style>
   <style is="custom-style">
     :host {
       --px-map-color-custom-0: lime;
@@ -636,18 +642,19 @@ In addition to these four default icon types, px-map allows you to set a custom 
       --px-map-color-custom-4: hotpink;
     }
   </style>
-  ```
+</custom-style>
+```
 
 **2. Set the `colorsByType` property on `<px-map-marker-group>`**
-  ```html
-  <px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
-    <px-map-marker-group
-      name='Plaques'
-      colors-by-type='{"custom-0" :"red", "custom-1" : "orange", "custom-2" : "yellow", "info" : "green"}'
-      data='[[data]]'>
-    </px-map-marker-group>
-  </px-map>
-  ```
+```html
+<px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
+  <px-map-marker-group
+    name='Plaques'
+    colors-by-type='{"custom-0" :"red", "custom-1" : "orange", "custom-2" : "yellow", "info" : "green"}'
+    data='[[data]]'>
+  </px-map-marker-group>
+</px-map>
+```
 
 ## Styling `px-map-marker-symbol` custom icons
 
@@ -669,14 +676,14 @@ variables to set the icon's stroke color, stroke width, and fill color:
 ```
 
 For example:
-    ```html
-    <style is="custom-style">
-      .custom-icon {
-      --px-map-marker-symbol-stroke:none;
-      --px-map-marker-symbol-fill:white;
-      }
-    </style>
-    <px-map fit-to-markers>
-      <px-map-marker-symbol lat="38" lng="-121" icon="maps:directions-bike" class="custom-icon">
-    </px-map>
-    ```
+```html
+<style is="custom-style">
+  .custom-icon {
+  --px-map-marker-symbol-stroke:none;
+  --px-map-marker-symbol-fill:white;
+  }
+</style>
+<px-map fit-to-markers>
+  <px-map-marker-symbol lat="38" lng="-121" icon="maps:directions-bike" class="custom-icon">
+</px-map>
+```
