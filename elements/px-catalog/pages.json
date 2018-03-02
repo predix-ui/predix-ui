@@ -241,6 +241,72 @@
         ]
       },
       {
+        "path": "data-grid",
+        "label": "Data Grid",
+        "pages": [
+          {
+            "path": "overview",
+            "label": "Feature Overview",
+            "module": "view-develop-data-grid-overview",
+            "entrypoint": "/pages/develop/data-grid/overview.html"
+          },
+          {
+            "path": "load-data",
+            "label": "Load Data",
+            "module": "view-develop-data-grid-load-data",
+            "entrypoint": "/pages/develop/data-grid/load-data.html"
+          },
+          {
+            "path": "remote-data",
+            "label": "Load Remote Data",
+            "module": "view-develop-data-grid-remote-data",
+            "entrypoint": "/pages/develop/data-grid/remote-data.html"
+          },
+          {
+            "path": "define-columns",
+            "label": "Define Columns",
+            "module": "view-develop-data-grid-define-columns",
+            "entrypoint": "/pages/develop/data-grid/define-columns.html"
+          },
+          {
+            "path": "cell-renderers",
+            "label": "Cell Renderers",
+            "module": "view-develop-data-grid-cell-renderers",
+            "entrypoint": "/pages/develop/data-grid/cell-renderers.html"
+          },
+          {
+            "path": "highlight",
+            "label": "Highlight Rules",
+            "module": "view-develop-data-grid-highlight",
+            "entrypoint": "/pages/develop/data-grid/highlight.html"
+          },
+          {
+            "path": "filter",
+            "label": "Filter Rules",
+            "module": "view-develop-data-grid-filter",
+            "entrypoint": "/pages/develop/data-grid/filter.html"
+          },
+          {
+            "path": "select",
+            "label": "Single and Multi Select",
+            "module": "view-develop-data-grid-select",
+            "entrypoint": "/pages/develop/data-grid/select.html"
+          },
+          {
+            "path": "edit",
+            "label": "Editing",
+            "module": "view-develop-data-grid-edit",
+            "entrypoint": "/pages/develop/data-grid/edit.html"
+          },
+          {
+            "path": "user-actions",
+            "label": "User Actions (Export, Save As)",
+            "module": "view-develop-data-grid-user-actions",
+            "entrypoint": "/pages/develop/data-grid/user-actions.html"
+          }
+        ]
+      },
+      {
         "path": "vis",
         "label": "Data Visualization",
         "pages": [
