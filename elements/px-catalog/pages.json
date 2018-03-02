@@ -3220,7 +3220,7 @@
       {
         "path": "px-notification",
         "label": "Notification",
-        "newComponent": true,
+        "badgeText": "NEW",
         "module": "px-notification-demo",
         "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
         "redirects": [
@@ -3337,7 +3337,7 @@
       {
         "path": "px-product-switcher",
         "label": "Product Switcher",
-        "newComponent": true,
+        "badgeText": "NEW",
         "module": "px-product-switcher-demo",
         "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
         "redirects": [
@@ -3443,7 +3443,7 @@
         "label": "Threshold Bar",
         "module": "px-threshold-bar-demo",
         "entrypoint": "/bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html",
-        "newComponent": true,
+        "badgeText": "NEW",
         "redirects": [
           "/components/px-threshold-bar",
           "/modules/px-threshold-bar"
