@@ -257,12 +257,6 @@
             "entrypoint": "/pages/develop/data-grid/load-data.html"
           },
           {
-            "path": "remote-data",
-            "label": "Load Remote Data",
-            "module": "view-develop-data-grid-remote-data",
-            "entrypoint": "/pages/develop/data-grid/remote-data.html"
-          },
-          {
             "path": "define-columns",
             "label": "Define Columns",
             "module": "view-develop-data-grid-define-columns",
@@ -275,30 +269,46 @@
             "entrypoint": "/pages/develop/data-grid/cell-renderers.html"
           },
           {
+            "label": "Coming Soon",
+            "subtitle": true
+          },
+          {
+            "disabled": true,
+            "path": "remote-data",
+            "label": "Load Remote Data",
+            "module": "view-develop-data-grid-remote-data",
+            "entrypoint": "/pages/develop/data-grid/remote-data.html"
+          },
+          {
+            "disabled": true,
             "path": "highlight",
             "label": "Highlight Rules",
             "module": "view-develop-data-grid-highlight",
             "entrypoint": "/pages/develop/data-grid/highlight.html"
           },
           {
+            "disabled": true,
             "path": "filter",
             "label": "Filter Rules",
             "module": "view-develop-data-grid-filter",
             "entrypoint": "/pages/develop/data-grid/filter.html"
           },
           {
+            "disabled": true,
             "path": "select",
             "label": "Single and Multi Select",
             "module": "view-develop-data-grid-select",
             "entrypoint": "/pages/develop/data-grid/select.html"
           },
           {
+            "disabled": true,
             "path": "edit",
             "label": "Editing",
             "module": "view-develop-data-grid-edit",
             "entrypoint": "/pages/develop/data-grid/edit.html"
           },
           {
+            "disabled": true,
             "path": "user-actions",
             "label": "User Actions (Export, Save As)",
             "module": "view-develop-data-grid-user-actions",
