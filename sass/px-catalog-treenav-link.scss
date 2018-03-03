@@ -10,6 +10,7 @@
 
 // Settings
 @import "px-defaults-design/_settings.defaults.scss";
+@import "px-colors-design/_settings.colors.scss";
 
 // Generic
 @import "px-normalize-design/_generic.normalize-mini.scss";
@@ -51,6 +52,13 @@ a.link__a {
 :host([selected]) > .link > .link__container > a.link__a {
   color: var(--px-catalog-nav-text-color--selected, blue);
 }
+:host([disabled]) > .link > .link__container > a.link__a {
+  color: $gray12;
+  cursor: not-allowed;
+}
+:host([disabled]) > .link > .link__container > a.link__a:hover {
+  color: $gray12;
+}
 
 .link__container__arrow {
   display: none;
@@ -90,9 +98,21 @@ ul.sublinks {
   position: relative;
   top: -3px;
 }
-.new-badge {
+.link__badge {
   color: white;
   font-size: 12px;
   flex: 1 1 auto;
   text-align: right;
+}
+
+.link--subtitle {
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.link--subtitle .link__container {
+  padding-bottom: 4px;
+}
+.link--subtitle:not(:first-child) .link__container {
+  padding-top: 12px;
 }

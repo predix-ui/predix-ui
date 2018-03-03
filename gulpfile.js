@@ -643,6 +643,10 @@ function processPagesJSON(text) {
   let queue = pages.map(page => ({ page: page, route: `/${page.path}` }));
   while (queue.length) {
     let {page, route} = queue.shift();
+    // If this page is just a subtitle, skip it
+    if (page.subtitle) {
+      continue;
+    }
     // Assign path from root to route
     page._route = route;
     // Inline keywords

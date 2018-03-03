@@ -186,7 +186,7 @@
     "bower_components/px-demo/px-demo.html",
     "bower_components/px-toggle/px-toggle.es6.js",
     "bower_components/px-sass-doc/monogram-wdmk.png",
-    "bower_components/px-timeline/data/timeline-data.json",
+    "bower_components/px-timeline/data/industrial-data.json",
     "bower_components/px-timeline/img/immelt.jpg",
     "bower_components/px-vis/px-vis-worker.js",
     "bower_components/px-vis/px-vis-worker-scale.js",
