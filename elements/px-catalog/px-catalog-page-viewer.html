@@ -236,7 +236,7 @@
         });
       },
       _applyTheme: function(el, darkTheme, retry) {
-        let deb = async ()=>{
+        let deb = ()=>{
           el = this._activeModuleEl;
           retry = retry || 1;
           if (!el) {
@@ -254,18 +254,19 @@
           var needDyanmicTheme = isComponentDemo || el.hasAttribute("dynamic-theme");
 
           if(this.darkTheme){
-            await this._loadThemeFile('../../bower_components/px-dark-theme/px-dark-theme-styles.html');
-            await this._loadThemeFile('../../bower_components/px-dark-demo-theme/px-dark-demo-theme-styles.html');
-
-            if (needDyanmicTheme) {
-              el.setAttribute('dark-theme', '');
-              var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
-              el.updateStyles(darkTheme);
-            }
-            else if (!needDyanmicTheme) {
-              el.setAttribute('dark-theme', '');
-              el.updateStyles();
-            }
+            this._loadThemeFile('../../bower_components/px-dark-theme/px-dark-theme-styles.html')
+            .then(this._loadThemeFile('../../bower_components/px-dark-demo-theme/px-dark-demo-theme-styles.html'))
+            .then(()=>{
+              if (needDyanmicTheme) {
+                el.setAttribute('dark-theme', '');
+                var darkTheme = PxDemo.ThemeUtil.getDarkThemeProperties();
+                el.updateStyles(darkTheme);
+              }
+              else if (!needDyanmicTheme) {
+                el.setAttribute('dark-theme', '');
+                el.updateStyles();
+              }
+            });
           }
           if (!this.darkTheme && needDyanmicTheme) {
             el.removeAttribute('dark-theme');
