@@ -1,5 +1,5 @@
 <!-- Import Polymer -->
-<link defer rel="import" href="../../bower_components/polymer/polymer.html" />
+<link defer rel="import" href="../../bower_components/polymer/polymer-element.html" />
 
 <!-- Import style module -->
 <link async rel="import" href="../../css/px-catalog-theme-styles.html" />
@@ -76,156 +76,179 @@
                   <source srcset="[[importPath]]../../img/px-dev-logo.png"  class="logo__image" type="image/png">
                   <img src="[[importPath]]../../img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
                 </template>
-                <span class="logo__text">Predix Design System</span>
-              </picture>
-          </div>
-        <!-- Theme toggle -->
-        <div class="theme-toggle">
-          <span class="theme-toggle__text">Dark Theme</span>
-          <px-toggle size="small" checked="{{darkTheme}}" role="button" aria-pressed="false"></px-toggle>
-        </div>
-      </div>
+  <span class="logo__text">Predix Design System</span>
+  </picture>
+  </div>
+  <!-- Theme toggle -->
+  <div class="theme-toggle">
+    <span class="theme-toggle__text">Dark Theme</span>
+    <px-toggle size="small" checked="{{darkTheme}}" role="button" aria-pressed="false"></px-toggle>
+  </div>
+  </div>
 
-      <!-- CATALOG PAGE -->
-      <px-catalog-page-viewer
-          class="catalog-page"
-          active-module="[[activeModule]]"
-          active-anchor="[[_anchorPath]]"
-          dark-theme="[[darkTheme]]"
-          spinner-active="[[spinnerActive]]">
-      </px-catalog-page-viewer>
+  <!-- CATALOG PAGE -->
+  <px-catalog-page-viewer class="catalog-page" active-module="[[activeModule]]" active-anchor="[[_anchorPath]]" dark-theme="[[darkTheme]]" spinner-active="[[spinnerActive]]">
+  </px-catalog-page-viewer>
 
-      <!-- CATALOG NAV -->
-      <app-drawer class="catalog-nav" align="left" disable-swipe opened="{{menuOpened}}" persistent="[[isDesktopUp]]">
-        <div class="catalog-nav__tree">
-          <px-catalog-treenav pages="[[appData.pages]]" routes="[[appData.routes]]" selected-route="[[path]]"></px-catalog-treenav>
-        </div>
-      </app-drawer>
+  <!-- CATALOG NAV -->
+  <app-drawer class="catalog-nav" align="left" disable-swipe opened="{{menuOpened}}" persistent="[[isDesktopUp]]">
+    <div class="catalog-nav__tree">
+      <px-catalog-treenav pages="[[appData.pages]]" routes="[[appData.routes]]" selected-route="[[path]]"></px-catalog-treenav>
+    </div>
+  </app-drawer>
 
   </template>
   <script>
-    Polymer({
-      is: 'px-catalog',
+    class PxCatalog extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'px-catalog';
+      }
 
-      properties: {
-        /**
-         * Set to `true` to show the spinner. Set to `false` to hide the spinner.
-         *
-         * @type {Boolean}
-         */
-        spinnerActive: {
-          type: Boolean,
-          value: true
-        },
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          /* Set to `true` to show the spinner.Set to `false` to hide the spinner.
+           *
+           * @type { Boolean }
+           */
+          spinnerActive: {
+            type: Boolean,
+            value: true
+          },
 
-        /**
-         * The active page name, from the sidebar (e.g. 'px-sass-doc')
-         */
-        activeName: {
-          type: String,
-          observer: '_updateTitle'
-        },
+          /**
+           * The active page name, from the sidebar (e.g. 'px-sass-doc')
+           */
+          activeName: {
+            type: String,
+            observer: '_updateTitle'
+          },
 
-        /**
-         * Whether to enable the dark theme for each component.
-         */
-        darkTheme: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        },
+          /**
+           * Whether to enable the dark theme for each component.
+           */
+          darkTheme: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
 
-        /**
-         * Opens and closes the menu. The menu should remain open all the time
-         * on desktop-up viewports.
-         */
-        menuOpened: {
-          type: Boolean,
-          value: false
-        },
+          /**
+           * Opens and closes the menu. The menu should remain open all the time
+           * on desktop-up viewports.
+           */
+          menuOpened: {
+            type: Boolean,
+            value: false
+          },
 
-        /**
-         * Automatically set to true when the viewport becomes larger than
-         * desktop size.
-         */
-        isDesktopUp: {
-          type: Boolean,
-          observer: '_desktopBreakpointHit'
-        },
+          /**
+           * Automatically set to true when the viewport becomes larger than
+           * desktop size.
+           */
+          isDesktopUp: {
+            type: Boolean,
+            observer: '_desktopBreakpointHit'
+          },
 
-        /**
-         * Automatically set to true when the viewport becomes larger than
-         * mobile landscape size (when the phone is on its side).
-         */
-        isLandscapeUp: {
-          type: Boolean,
-          observer: '_landscapeBreakpointHit'
-        },
+          /**
+           * Automatically set to true when the viewport becomes larger than
+           * mobile landscape size (when the phone is on its side).
+           */
+          isLandscapeUp: {
+            type: Boolean,
+            observer: '_landscapeBreakpointHit'
+          },
 
-        /**
-         * Name of the active demo element tag.
-         */
-        activeModule: {
-          type: String,
-          observer: '_handleNewModuleSelected'
-        },
+          /**
+           * Name of the active demo element tag.
+           */
+          activeModule: {
+            type: String,
+            observer: '_handleNewModuleSelected'
+          },
 
-        /**
-         * Holds the pages, routes, and redirect data.
-         */
-        appData: {
-          type: Object,
-          function: () => ({})
-        },
+          /**
+           * Holds the pages, routes, and redirect data.
+           */
+          appData: {
+            type: Object,
+            function: () => ({})
+          },
 
-        /**
-         * The URL hash `path` from app-location. This is read-write: observe
-         * to be notified of changes the URL, and set to change the URL.
-         */
-        path: {
-          type: String
-        },
+          /**
+           * The URL hash `path` from app-location. This is read-write: observe
+           * to be notified of changes the URL, and set to change the URL.
+           */
+          path: {
+            type: String
+          },
 
-        /**
-         * The portion of the hash that precedes the ':' symbol. This is used to
-         * route to the correct view.
-         *
-         * Example: for 'https://www.predix-ui.com/#/elements/px-alert-message:property-message'
-         * the _pagePath would be '/elements/px-alert-message'
-         */
-        _pagePath: {
-          type: String,
-          computed: '_getPagePath(path)'
-        },
+          /**
+           * The portion of the hash that precedes the ':' symbol. This is used to
+           * route to the correct view.
+           *
+           * Example: for 'https://www.predix-ui.com/#/elements/px-alert-message:property-message'
+           * the _pagePath would be '/elements/px-alert-message'
+           */
+          _pagePath: {
+            type: String,
+            computed: '_getPagePath(path)'
+          },
 
-        /**
-         * The portion of the hash that follows the ':' symbol, if any. This is
-         * used to route to jump to a section on the page.
-         *
-         * Example: for 'https://www.predix-ui.com/#/elements/px-alert-message:property-message'
-         * the _anchorPath would be 'property-message'
-         */
-        _anchorPath: {
-          type: String,
-          computed: '_getAnchorPath(path)'
-        },
+          /**
+           * The portion of the hash that follows the ':' symbol, if any. This is
+           * used to route to jump to a section on the page.
+           *
+           * Example: for 'https://www.predix-ui.com/#/elements/px-alert-message:property-message'
+           * the _anchorPath would be 'property-message'
+           */
+          _anchorPath: {
+            type: String,
+            computed: '_getAnchorPath(path)'
+          },
 
-        /**
-         * If the last URL route was not found and the user was redirected to
-         * home, the missing path will be set here to show a 404 error message
-         * to the user.
-         */
-        _404path: {
-          type: String,
-          value: null,
-          observer: '_handle404PathChange'
-        }
-      },
+          /**
+           * If the last URL route was not found and the user was redirected to
+           * home, the missing path will be set here to show a 404 error message
+           * to the user.
+           */
+          _404path: {
+            type: String,
+            value: null,
+            observer: '_handle404PathChange'
+          }
+        };
+      }
 
-      observers: [
-        '_routeChanged(_pagePath, appData)',
-        '_sendViewEvent(activeName)'
-      ],
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      /**
+       * Use for one-time configuration of your component after local DOM is initialized.
+       */
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this._loadedRoutes = [];
+        });
+      }
+
+      static get observers() {
+        return ['_routeChanged(_pagePath, appData)', '_sendViewEvent(activeName)'];
+      }
 
       _sendViewEvent(name) {
         if (typeof name === 'string') {
@@ -236,132 +259,154 @@
             });
           });
         }
-      },
+      }
 
-      created: function() {
-        this._loadedRoutes = [];
-      },
-
-      attached: function() {
+      connectedCallback() {
+        super.connectedCallback();
         this._swUpdatedHandler = this._swUpdated.bind(this);
-        window.addEventListener('service-worker-changes-available', this._swUpdatedHandler, false);
+        window.addEventListener(
+          'service-worker-changes-available',
+          this._swUpdatedHandler,
+          false
+        );
         // If there is no hash URL when the page first loads, use the
         // homepage route
-        if (window.location.hash === "") {
+        if (window.location.hash === '') {
           this.path = '/home';
         }
-      },
+      }
 
-      detached: function() {
-        window.removeEventListener('service-worker-changes-available', this._swUpdatedHandler, false);
-      },
+      detached() {
+        window.removeEventListener(
+          'service-worker-changes-available',
+          this._swUpdatedHandler,
+          false
+        );
+      }
 
-      _swUpdated: function() {
-        this.importHref(this.resolveUrl('../px-site-notifications/px-sw-notification.html'), () => {
-          let el = Polymer.Base.create('px-sw-notification');
-          Polymer.dom(this.root).querySelector('.alert-message-container').appendChild(el);
-        }, null, false);
-      },
+      _swUpdated() {
+        this.importHref(
+          this.resolveUrl('../px-site-notifications/px-sw-notification.html'),
+          () => {
+            let el = Polymer.Base.create('px-sw-notification');
+            Polymer.dom(this.root)
+              .querySelector('.alert-message-container')
+              .appendChild(el);
+          },
+          null,
+          false
+        );
+      }
 
-
-      _getPagePath: function(path) {
+      _getPagePath(path) {
         if (path.indexOf(':') > -1) {
           return path.split(':')[0].trim();
         }
         return path;
-      },
+      }
 
-      _getAnchorPath: function(path) {
+      _getAnchorPath(path) {
         if (path.indexOf(':') > -1) {
           return path.split(':')[1].trim();
         }
         return null;
-      },
+      }
 
-      _routeChanged: function(route, appData) {
-        if (typeof route !== 'string' || typeof appData !== 'object') {
-          return;
-        }
-        var routeWithoutSlash = route[route.length-1] === '/' ? route.slice(0,route.length-1) : route;
-        var redirectTo = appData.redirects[routeWithoutSlash];
-        if (redirectTo) {
-          // This path is redirected, rewrite path to the new destination
-          this.path = redirectTo;
-          return;
-        }
+      _routeChanged(route, appData) {
 
-        var pageInfo = appData.routes[routeWithoutSlash];
-        if (!pageInfo) {
-          this._404path = route;
-          // This path is not defined, fall back to the homepage
-          this.path = '/home';
-          return;
-        }
-
-        if (this._404path && route !== '/home' && route !== '/home/') {
-          // Clear the 404
-          this._404path = null;
-        }
+        // if (typeof route !== 'string' || typeof appData !== 'object') {
+        //   return;
+        // }
+        // var routeWithoutSlash =
+        //   route[route.length - 1] === '/' ?
+        //   route.slice(0, route.length - 1) :
+        //   route;
+        // var redirectTo = appData.redirects[routeWithoutSlash];
+        // if (redirectTo) {
+        //   // This path is redirected, rewrite path to the new destination
+        //   this.path = redirectTo;
+        //   return;
+        // }
+        //
+        // var pageInfo = appData.routes[routeWithoutSlash];
+        // if (!pageInfo) {
+        //   this._404path = route;
+        //   // This path is not defined, fall back to the homepage
+        //   this.path = '/home';
+        //   return;
+        // }
+        //
+        // if (this._404path && route !== '/home' && route !== '/home/') {
+        //   // Clear the 404
+        //   this._404path = null;
+        // }
 
         // Load and/or show the module for this path
-        var spinnerAsyncHandle = this.async( () => {
+        var spinnerAsyncHandle = this.async(() => {
           this.spinnerActive = true;
-        }, 500)
+        }, 500);
         if (this._loadedRoutes.indexOf(pageInfo.entrypoint) === -1) {
           // Page entrypoint not yet loaded
 
           var url = `${this.resolveUrl(pageInfo.entrypoint).slice(1)}`;
-          this.importHref(url, function() {
-            this.cancelAsync(spinnerAsyncHandle);
-            this.spinnerActive = false;
-            this._loadedRoutes.push(pageInfo.entrypoint);
-            window.dispatchEvent(new CustomEvent('page-loaded'));
-          }.bind(this), null, false);
-        }
-        else {
+          this.importHref(
+            url,
+            () => {
+              this.cancelAsync(spinnerAsyncHandle);
+              this.spinnerActive = false;
+              this._loadedRoutes.push(pageInfo.entrypoint);
+              window.dispatchEvent(new CustomEvent('page-loaded'));
+            },
+            null,
+            false
+          );
+        } else {
           this.cancelAsync(spinnerAsyncHandle);
           this.spinnerActive = false;
         }
 
         this.activeName = pageInfo.label;
         this.activeModule = pageInfo.module;
-      },
+      }
 
       /**
        * Update the title in the <head> to match the active page.
        */
-      _updateTitle: function() {
-        this.debounce('update-title', function() {
-          if (this.activeName) {
-            document.title = 'Predix Design System | ' + this.activeName;
-          } else {
-            document.title = 'Predix Design System';
-          }
-        }, 100);
-      },
+      _updateTitle() {
+        this.debounce(
+          'update-title',
+          function() {
+            if (this.activeName) {
+              document.title = 'Predix Design System | ' + this.activeName;
+            } else {
+              document.title = 'Predix Design System';
+            }
+          },
+          100
+        );
+      }
 
       /**
        * If a new page is selected and the viewport is smaller than desktop,
        * ensures the menu is closed.
        */
-      _handleNewModuleSelected: function() {
+      _handleNewModuleSelected() {
         if (!this.isDesktopUp && this.menuOpened) {
           this.menuOpened = false;
         }
-      },
+      }
 
       /**
        * When the viewport expands to desktop-up, ensure the menu is opened.
        * When the viewport shrinks to desktop-down, ensure the menu is closed.
        */
-      _desktopBreakpointHit: function(isDesktopUp) {
+      _desktopBreakpointHit(isDesktopUp) {
         if (isDesktopUp && !this.menuOpened) {
           this.menuOpened = true;
-        }
-        else if (!isDesktopUp && this.menuOpened) {
+        } else if (!isDesktopUp && this.menuOpened) {
           this.menuOpened = false;
         }
-      },
+      }
 
       /**
        * A media query is used in the CSS to change the app-drawer component's
@@ -370,54 +415,64 @@
        * screen moves above or below that breakpoint, the app-drawer will be
        * forced to update its style variables.
        */
-      _landscapeBreakpointHit: function(newVal, oldVal) {
+      _landscapeBreakpointHit(newVal, oldVal) {
         if (typeof newVal === 'boolean' && typeof oldVal === 'boolean') {
           var drawer = Polymer.dom(this.root).querySelector('app-drawer');
           if (drawer !== null && drawer.updateStyles) {
             drawer.updateStyles();
           }
         }
-      },
+      }
 
-      _getMenuIcon: function(menuOpened) {
+      _getMenuIcon(menuOpened) {
         if (menuOpened) {
           return 'px-nav:close';
-        }
-        else {
+        } else {
           return 'px-nav:hamburger';
         }
-      },
+      }
 
-      toggleMenu: function() {
+      toggleMenu() {
         this.menuOpened = !this.menuOpened;
-      },
+      }
 
-      _get404Message: function(path) {
-        return 'The page at https://www.predix-ui.com/#'+ path +' could not be found. Try searching in the sidebar.'
-      },
+      _get404Message(path) {
+        return (
+          'The page at https://www.predix-ui.com/#' +
+          path +
+          ' could not be found. Try searching in the sidebar.'
+        );
+      }
 
-      _handle404PathChange: function(path404) {
-        if (path404){
-          this.importHref('../../bower_components/px-alert-message/px-alert-message.html', () => {
-            let el = Polymer.Base.create('px-alert-message',
-              {
-                'messageTitle': 'Page not found',
-                'message' : this._get404Message(path404),
-                'autoDismiss' : true,
-                'hideBadge' : true,
-                'type' : 'error',
-                'action' : 'acknowledge'
+      _handle404PathChange(path404) {
+        if (path404) {
+          this.importHref(
+            '../../bower_components/px-alert-message/px-alert-message.html',
+            () => {
+              let el = Polymer.Base.create('px-alert-message', {
+                messageTitle: 'Page not found',
+                message: this._get404Message(path404),
+                autoDismiss: true,
+                hideBadge: true,
+                type: 'error',
+                action: 'acknowledge'
               });
-            el.addEventListener('px-alert-message-hidden', evt => {
-              // clear the _404path property now we've handled it.
-              this._404path = null;
-            });
+              el.addEventListener('px-alert-message-hidden', evt => {
+                // clear the _404path property now we've handled it.
+                this._404path = null;
+              });
 
-            Polymer.dom(this.root).querySelector('.alert-message-container').appendChild(el);
-          }, null, false);
+              Polymer.dom(this.root)
+                .querySelector('.alert-message-container')
+                .appendChild(el);
+            },
+            null,
+            false
+          );
         }
       }
-    });
+    }
+    window.customElements.define(PxCatalog.is, PxCatalog);
 
     (function() {
       function postJSONToServer(url, body) {
@@ -433,10 +488,10 @@
             }
           };
           xhr.open('POST', url, true);
-          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify(body));
         });
-      };
+      }
 
       function getGoogleAnalyticsId() {
         if (window.___GAID___) {
@@ -448,11 +503,14 @@
           window.___GAID___ = match[1];
           return match[1];
         }
-      };
+      }
 
       function isDevEnvironment() {
-        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      };
+        return (
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1'
+        );
+      }
 
       /*
        * Check if the user is staff (has a localStore entry for 'pds_staff').
@@ -468,7 +526,7 @@
        */
       function isStaff() {
         return localStorage.getItem('pds_staff') === 'true';
-      };
+      }
 
       /*
        * Incremented when any events fail to send to the server. If 2 events
@@ -492,8 +550,12 @@
           // a design system staffer
           return;
         }
-        var eventUrl = 'https://us-central1-pds-search-api.cloudfunctions.net/events/' + eventName;
-        var eventPayload = Object.assign({}, details, { _ga: getGoogleAnalyticsId() || '' });
+        var eventUrl =
+          'https://us-central1-pds-search-api.cloudfunctions.net/events/' +
+          eventName;
+        var eventPayload = Object.assign({}, details, {
+          _ga: getGoogleAnalyticsId() || ''
+        });
         postJSONToServer(eventUrl, eventPayload)
           .then(() => {
             failedEvents = 0;
