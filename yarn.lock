@@ -1951,7 +1951,7 @@ check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
-chokidar@1.7.0:
+chokidar@1.7.0, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
   dependencies:
@@ -2892,7 +2892,7 @@ escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
-escape-string-regexp@1.0.5, escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
+escape-string-regexp@1.0.5, escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.4, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
@@ -5440,6 +5440,12 @@ markdown-it@^8.3.2:
     mdurl "^1.0.1"
     uc.micro "^1.0.3"
 
+matcher@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/matcher/-/matcher-1.1.0.tgz#4ad3a9cb6585186dc95cb8a08c7de936caed17ee"
+  dependencies:
+    escape-string-regexp "^1.0.4"
+
 md5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/md5/-/md5-2.2.1.tgz#53ab38d5fe3c8891ba465329ea23fac0540126f9"
@@ -6384,7 +6390,7 @@ plylog@^0.5.0:
     "@types/winston" "^2.2.0"
     winston "^2.2.0"
 
-polymer-analyzer@^2.0.2, polymer-analyzer@^2.3.0, polymer-analyzer@^2.7.0:
+polymer-analyzer@^2.0.2, polymer-analyzer@^2.3.0, polymer-analyzer@^2.6.0, polymer-analyzer@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/polymer-analyzer/-/polymer-analyzer-2.7.0.tgz#432fec3c71025e6a4ffcedf0f4626eba642cb171"
   dependencies:
@@ -6447,9 +6453,9 @@ polymer-bundler@^3.1.1:
     polymer-analyzer "^2.3.0"
     source-map "^0.5.6"
 
-polymer-cli@^1.5.2:
-  version "1.5.7"
-  resolved "https://registry.yarnpkg.com/polymer-cli/-/polymer-cli-1.5.7.tgz#d282b478fd13f209fcb41e563573c410fac3ea67"
+polymer-cli@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/polymer-cli/-/polymer-cli-1.6.0.tgz#b85f28a584fc1299fd7dac1fd9232a6ac6ba35b9"
   dependencies:
     "@types/babel-core" "^6.7.14"
     "@types/chalk" "^0.4.31"
@@ -6477,6 +6483,7 @@ polymer-cli@^1.5.2:
     bower-json "^0.8.1"
     bower-logger "^0.2.2"
     chalk "^1.1.3"
+    chokidar "^1.7.0"
     command-line-args "^3.0.0"
     command-line-commands "^1.0.3"
     command-line-usage "^3.0.1"
@@ -6488,13 +6495,14 @@ polymer-cli@^1.5.2:
     gunzip-maybe "^1.3.1"
     html-minifier "^3.0.1"
     inquirer "^1.0.2"
+    matcher "^1.0.0"
     merge-stream "^1.0.1"
     mz "^2.6.0"
     plylog "^0.4.0"
-    polymer-analyzer "^2.3.0"
+    polymer-analyzer "^2.6.0"
     polymer-build "^2.1.0"
-    polymer-linter "^2.0.2"
-    polymer-project-config "^3.4.0"
+    polymer-linter "^2.2.0"
+    polymer-project-config "^3.8.1"
     polyserve "^0.23.0"
     request "^2.72.0"
     rimraf "^2.6.1"
@@ -6508,7 +6516,7 @@ polymer-cli@^1.5.2:
     yeoman-environment "^1.5.2"
     yeoman-generator "^1.0.1"
 
-polymer-linter@^2.0.2:
+polymer-linter@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/polymer-linter/-/polymer-linter-2.3.0.tgz#467fd67d9c1ee151963e2d6cce72fa80810800a6"
   dependencies:
@@ -6525,9 +6533,18 @@ polymer-linter@^2.0.2:
     stable "^0.1.6"
     strip-indent "^2.0.0"
 
-polymer-project-config@^3.2.1, polymer-project-config@^3.4.0:
+polymer-project-config@^3.2.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/polymer-project-config/-/polymer-project-config-3.8.1.tgz#7e930cf3d11fcafc0394bcf3fb0f8e828a01e06c"
+  dependencies:
+    "@types/node" "^6.0.41"
+    jsonschema "^1.1.1"
+    minimatch-all "^1.1.0"
+    plylog "^0.5.0"
+
+polymer-project-config@^3.8.1:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/polymer-project-config/-/polymer-project-config-3.9.0.tgz#91583a58ca9097a1c4853c38a36927189b099ca7"
   dependencies:
     "@types/node" "^6.0.41"
     jsonschema "^1.1.1"

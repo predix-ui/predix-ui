@@ -152,6 +152,7 @@
     "bower_components/px-spinner/demo/px-spinner-demo.html",
     "bower_components/px-steps/demo/px-steps-demo.html",
     "bower_components/px-tabs/demo/px-tabs-demo.html",
+    "bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html",
     "bower_components/px-tile/demo/px-tile-demo.html",
     "bower_components/px-timeline/demo/px-timeline-demo.html",
     "bower_components/px-toggle/demo/px-toggle-demo.html",

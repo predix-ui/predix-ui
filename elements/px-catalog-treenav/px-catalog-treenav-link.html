@@ -12,23 +12,33 @@
       <div class="link__container">
         <div class$="[[_getArrowClasses(parent, opened)]]" on-tap="_handleArrowTapped"></div>
         <a href$="/#[[route]]" class="link__a" on-tap="_handleLinkTapped">[[label]]</a>
-        <template is="dom-if" if="[[newComponent]]">
-          <span class="new-badge">NEW</span>
+        <template is="dom-if" if="[[badgeText]]">
+          <span class="link__badge">[[badgeText]]</span>
         </template>
       </div>
       <template is="dom-if" if="[[parent]]">
         <iron-collapse opened="[[_isOpened(opened, searching, inSearchedRoutes)]]">
           <ul class="sublinks">
           <template is="dom-repeat" items="[[subpages]]" as="subitem">
-            <px-catalog-treenav-link
-                label="[[subitem.label]]"
-                route="[[subitem._route]]"
-                subpages="[[subitem.pages]]"
-                selected-route="[[selectedRoute]]"
-                searching="[[searching]]"
-                searched-routes="[[searchedRoutes]]"
-                new-component="[[subitem.newComponent]]">
-            </px-catalog-treenav-link>
+            <template is="dom-if" if="[[subitem.subtitle]]">
+              <div class="link link--subtitle">
+                <div class="link__container">
+                  [[subitem.label]]
+                </div>
+              </div>
+            </template>
+            <template is="dom-if" if="[[!subitem.subtitle]]">
+              <px-catalog-treenav-link
+                  label="[[subitem.label]]"
+                  route="[[subitem._route]]"
+                  subpages="[[subitem.pages]]"
+                  selected-route="[[selectedRoute]]"
+                  searching="[[searching]]"
+                  searched-routes="[[searchedRoutes]]"
+                  badge-text="[[subitem.badgeText]]"
+                  disabled="[[subitem.disabled]]">
+              </px-catalog-treenav-link>
+            </template>
           </template>
           </ul>
         </iron-collapse>
@@ -45,7 +55,11 @@
         selectedRoute: String,
         searching: Boolean,
         searchedRoutes: Array,
-        newComponent: Boolean,
+        badgeText: String,
+        disabled: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
         opened: {
           type: Boolean,
           value: false,
@@ -157,6 +171,10 @@
         }
 
         evt.preventDefault();
+        if (this.disabled) {
+          // Do nothing, this is a disabled link
+          return;
+        }
         if (this.parent) {
           // Parent categories cannot be navigated to, just toggle the open state
           this.opened = !this.opened;
