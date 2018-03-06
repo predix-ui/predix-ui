@@ -217,8 +217,6 @@ are available as GeoJSON.
 Px-map doesn’t prescribe what data format its developers should use, but GeoJSON
 has many advantages, and there is dedicated support for it within px-map.
 
-## Understanding GeoJSON
-
 GeoJSON is a JSON-based format used to represent a variety of geographic data
 structures. You can use GeoJSON to represent geometry (e.g. points, lines, areas),
 features, or feature collections. GeoJSON is always composed of a single object,
@@ -227,7 +225,7 @@ type of GeoJSON object and must be one of: `"Point"`, `"MultiPoint"`, `"LineStri
 `"MultiLineString"`, `"Polygon"`, `"MultiPolygon"`, `"GeometryCollection"`,
 `"Feature"`, or `"FeatureCollection"`.
 
-**Geometry Objects**
+### Geometry Objects
 
 All Geometry objects (aside from a `"GeometryCollection"`) must have a member
 with the name `coordinates`, the value of which is an array (or array of arrays)
@@ -265,7 +263,7 @@ of four or more positions. Note that the first and last positions MUST be identi
 }
 ```
 
-**Feature Objects**
+### Feature Objects
 
 A Feature allows you to describe a Geometry with a set of properties. A Feature
 object must have the type `"Feature"`, as well as `geometry` and `properties`
@@ -285,7 +283,7 @@ members. E.g.:
 }
 ```
 
-**Feature Collection Objects**
+### Feature Collection Objects
 
 A Feature Collection is simply a collection of individual Features. A Feature
 Collection object must have the type `"FeatureCollection"`, as well as member
@@ -351,7 +349,7 @@ on generating valid GeoJSON, or read more about [the basic concepts behind GeoJS
 The `data` attribute on `px-map-marker-group` expects a GeoJSON feature collection
 with specific settings configured to draw each marker.
 
-## FeatureCollection Format
+### FeatureCollection Format
 
 The root JavaScript Object passed to the `data` attribute should be a
 FeatureCollection object with the following keys/values:
@@ -371,7 +369,7 @@ in your marker group failing to draw. (An error may be logged to the console wit
 a description of the issue if it is found. Some formatting issues may not be
 caught and cause a silent failure or an exception to be raised.)
 
-## Feature format
+### Feature format
 
 Each entry in the FeatureCollection features array should be a JavaScript Object
 formatted as a Feature with the following keys/values:
@@ -404,7 +402,7 @@ For example, here is a feature that is drawn with a "static" marker icon (from `
 }
 ```
 
-## Defining the marker icon
+### Defining the marker icon
 
 The `properties.marker-icon` object should describe the type of marker
 icon that should be drawn and the settings for that marker icon.
@@ -456,7 +454,7 @@ following colors will be used:
 - 'warning': yellow
 - 'important': red
 
-## Binding a popup
+### Binding a popup
 
 Popups can also be bound to individual markers inside the marker group. The
 popup will be opened when the user clicks on the un-clustered marker.
