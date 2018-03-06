@@ -38,8 +38,8 @@ assets and information about them. The data concepts underlying the map include:
 information such as streets, mountains, and national parks. For example,
 satellite, terrain, and map view are all different base layer styles.
 - **Overlay:** Information that is put on top of a map's base layer that is
-specific to the purpose of that map. For example, traffic data or bike lane
-information might be set as an overlay on a road map.
+specific to the purpose of that map. For example, traffic data, bike lane
+information, or location markers might be set as an overlay on a map.
 - **Control:** A map layer that allows the user to manipulate the map, e.g. by
 zooming in, out, or to their current location.
 - **CRS:** A CRS is a coordinate reference system (also known as a coordinate
@@ -47,6 +47,8 @@ relationship system or coordinate projection system) used to project
 geographical points into pixel coordinates.
 
 ## Graphic: map layers
+
+<img src="../../img/developer-guides/map/map-layers-graphic.png"/>
 
 # Subcomponents
 
@@ -543,12 +545,12 @@ current map bounds, i.e. a bounding box query. This approach has a few requireme
 
 ## Limiting data returned to the client
 Another point to consider is what data to transfer to the client. There is a
-temptation to return all the data associated with an object as it simplifies the
+temptation to return all the data associated with an object, as it simplifies the
 display of data within popovers. However, limiting the returned data to just the
 geometry and those properties required for styling can dramatically reduce the
 amount of data being transferred to the client and speed up response times.
 When zoomed out, the visible area on the map naturally covers a much larger area
-then when it is zoomed in. This means that a bounding box query is likely to return
+than when it is zoomed in. This means that a bounding box query is likely to return
 a larger number of objects, possibly overwhelming the client and the user. It is
 often necessary to restrict the bounding box query to specific collections when
 zoomed out, and to gradually turn on more collections as the user zooms in.  This
