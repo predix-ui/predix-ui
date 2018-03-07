@@ -109,6 +109,7 @@
     "bower_components/px-data-table/demo/px-data-table-demo.html",
     "bower_components/px-data-table/demo/px-data-table-column-demo.html",
     "bower_components/px-data-table/demo/px-data-table-highlight-demo.html",
+    "bower_components/px-data-grid/demo/px-data-grid-demo.html",
     "bower_components/px-calendar-picker/demo/px-calendar-picker-demo.html",
     "bower_components/px-datetime-field/demo/px-datetime-field-demo.html",
     "bower_components/px-datetime-picker/demo/px-datetime-picker-demo.html",

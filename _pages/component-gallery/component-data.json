@@ -389,7 +389,7 @@
     "entryPoint": "bower_components/px-context-browser/demo/px-context-browser-trigger-demo.html"
   },
   {
-    "componentName": "px-vis",
+    "componentName": "px-vis-catalog",
     "label": "Vis Framework",
     "tags": [
       "data vis"
@@ -763,6 +763,15 @@
     "label": "Data Table Highlight",
     "subcomponent": true,
     "entryPoint": "bower_components/px-data-table/demo/px-data-table-highlight-demo.html"
+  },
+  {
+    "componentName": "px-data-grid",
+    "label": "Data Grid",
+    "tags": [
+      "data display",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-data-grid/demo/px-data-grid-demo.html"
   },
   {
     "componentName": "px-calendar-picker",
