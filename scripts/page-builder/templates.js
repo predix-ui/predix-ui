@@ -11,9 +11,8 @@ const defaultTemplate = ({ content, anchors, metadata }) => `
 
   <dom-module id="${metadata.moduleName}">
     <template>
-      <style include="px-catalog-page-styles"></style>
-      <style include="px-catalog-code-styles"></style>
-      <style include="px-catalog-theme-styles"></style>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      ${metadata.otherStyleIncludes || ''}
 
       <div class="page">
         ${anchors.length ? anchorListPartial(anchors) : ''}

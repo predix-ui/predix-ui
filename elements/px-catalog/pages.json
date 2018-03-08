@@ -596,6 +596,18 @@
           "production",
           "compile"
         ]
+      },
+      {
+        "path": "cla",
+        "label": "Contribution License Agreement",
+        "module": "dev-cla",
+        "entrypoint": "/pages/develop/cla.html",
+        "keywords": [
+          "OSS",
+          "BSD",
+          "license",
+          "contribution"
+        ]
       }
     ]
   },
