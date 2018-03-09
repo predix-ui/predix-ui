@@ -115,10 +115,6 @@ a different projection system, you can either (1) re-project that data to our CR
 (recommended), or (2) set the CRS on the map to the same one being used by your
 data with the `crs` property on px-map.
 
-```html
-// Add a one line code example here
-```
-
 ## Choosing a base map provider
 
 Typically, a map will display your data against a base map, such as a road map
@@ -130,7 +126,7 @@ for use. Large scale map providers like Google and Bing provide free access to
 map tiles for development purposes, but there is usually a usage limit which
 prevents developers from deploying them in production applications.
 
-Even for data providers like OpenStreetmap (OSM) that provide access to copyright-free
+Even for data providers like OpenStreetMap (OSM) that provide access to copyright-free
 data, there is usually a charge to cover the costs of maintaining the tile servers
 that manage and provide the individual tiles.
 
@@ -196,6 +192,20 @@ You can also use the `px-map-tile-layer-bing` component to load map tiles from
 the Bing API, the `<px-map-tile-layer-google>` component to load map tiles from
 the Google Maps API, or the `<px-map-tile-layer-wms>` component to display WMS
 services as tile layers on the map.
+
+**Using MapBox tiles**
+
+Mapbox allows users to create a theme for their base tiles so that the map fits
+seamlessly with the rest of the application design. However, Mapbox assumes
+you’re using vector tiles, whereas px-map requires raster tiles. You can still
+use Mapbox tiles with px-map, you’ll just need some additional information.
+
+When you create a theme in Mapbox Studio and turn that theme into a tile set,
+you’ll then need to use the id of that tile set to get the equivalent raster
+tiles. Then, you’ll want to use a URL template like this for `px-map-tile-layer`:
+`https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`
+where `id` is the id of your Mapbox tile set you just created.
+
 
 ## Example: creating a px-map in your application
 
@@ -524,7 +534,7 @@ approach these limits you may notice that the map takes longer to load data, or
 that panning becomes jerky. This is because there is overhead associated with
 loading data into the DOM and transforming its location when panning and zooming.
 
-## Requesting data with a bounding box query
+### Requesting data with a bounding box query
 Rather than requesting all of the data for the entire map, one method to minimize
 the effects of load times is to request just the data that is visible within the
 current map bounds, i.e. a bounding box query. This approach has a few requirements:
@@ -541,7 +551,7 @@ current map bounds, i.e. a bounding box query. This approach has a few requireme
  - When the data is returned, the existing data should be removed from the map
  and the new data added.
 
-## Limiting data returned to the client
+### Limiting data returned to the client
 Another point to consider is what data to transfer to the client. There is a
 temptation to return all the data associated with an object, as it simplifies the
 display of data within popovers. However, limiting the returned data to just the
@@ -570,7 +580,7 @@ conductors are made visible as well:
 
 <img src="../../img/developer-guides/map/map-zooming-3.png"/>
 
-## Rendering objects directly on the HTML canvas
+### Rendering objects directly on the HTML canvas
 If, after all these steps have been taken, the performance of the map still does
 not meet your needs, then you may want to consider bypassing the Leaflet rendering
 code that uses DOM elements to display and track the location of objects, and
