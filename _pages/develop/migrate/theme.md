@@ -28,4 +28,4 @@ Now, as part of Cirrus, you MUST apply a theme. The components no longer ship wi
 
 # Read the full guide
 
-* Read the ["Theme component styles and colors" developer guide](https://www.predix-ui.com/#/develop/theming) for a step-by-step theming tutorial
+* Read the ["Theme component styles and colors" developer guide](https://www.predix-ui.com/#/develop/theme) for a step-by-step theming tutorial.
