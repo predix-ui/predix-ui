@@ -1,0 +1,112 @@
+
+  <link defer rel="import" href="../../bower_components/polymer/polymer.html" />
+  <link defer rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
+  <link defer rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
+  <link defer rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html" />
+  <link defer rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html" />
+  <link defer rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html" />
+  <link defer rel="import" href="../../css/px-catalog-page-styles.html" />
+  <link defer rel="import" href="../../css/px-catalog-theme-styles.html" />
+  <link async rel="import" href="../../css/px-cla-styles.html">
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+
+
+  <dom-module id="dev-cla">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      <style include="px-cla-styles"></style>
+
+
+      <div class="page">
+        
+        <div class="page-content">
+          <h2 class="page-title">Contribution License Agreement</h2>
+          
+          <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  var signin = function(){
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDsENz1M-2W9zOEYuTIZUyL1GARGhT9afQ",
+      authDomain: "px-cla.firebaseapp.com",
+      databaseURL: "https://px-cla.firebaseio.com",
+      projectId: "px-cla",
+      storageBucket: "px-cla.appspot.com",
+      messagingSenderId: "400881384782"
+    };
+    firebase.initializeApp(config);
+    var provider = new firebase.auth.GithubAuthProvider();
+
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+
+      document.querySelector('#contributor-name').text = user.displayName;
+      document.querySelector('#contributor-email').text = user.email;
+      document.querySelector('#contributor-github').text = result.additionalUserInfo.username;
+
+
+      // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+        });
+  }
+</script>
+<p>Want to contribute your suggestions to the Predix Design System? <strong>Here's how you can help.</strong></p>
+<p>Please follow the below steps carefully, so your suggestions will be clear and developers can make effective fixes.
+<button onclick="signin()" class="btn btn--primary">Sign in with GitHub</button></p>
+<form action="https://formspree.io/cla@ge.com" method="POST">
+  <fieldset class="form-field" style="max-width:400px;">
+    <legend>Basic form</legend>
+    <ol class="list-bare">
+      <li class="form-field">
+        <label for="contributor-name">Name</label>
+        <input class="text-input" name="contributor-name" id="contributor-name" type="text" placeholder="Boomer King">
+      </li>
+      <li class="form-field">
+        <label for="contributor-email">Email address</label>
+        <input class="text-input" name="contributor-email" id="contributor-email" type="email" placeholder="vegas@predix-ui.com">
+      </li>
+      <li class="form-field">
+        <label for="contributor-github">Github Username</label>
+        <input class="text-input" name="contributor-github" id="contributor-github" type="text" placeholder="@borderterrier">
+      </li>
+      <li class="form-field">
+        <input name="contributor-agree" id="basic-form-checkbox" type="checkbox">
+        <span class="label--inline" for="basic-form-checkbox">I agree to your terms</span>
+      </li>
+    </ol>
+    <input class="btn" type="reset" value="Cancel">
+    <input class="btn btn--primary" type="submit" value="Submit">
+  </fieldset>
+</form>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>
+      Polymer({
+        is: 'dev-cla',
+        behaviors: [PxCatalogBehavior.Page],
+        _dynamicTheme: false,
+        ready: function(){
+          if (this._dynamicTheme) {
+            this.setAttribute('dynamic-theme', '')
+          }
+          
+        }
+
+      });
+
+    </script>
+  </dom-module>
