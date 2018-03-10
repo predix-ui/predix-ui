@@ -18,4 +18,9 @@
 $inuit-enable-input--regular : true;
 @import 'px-forms-design/_base.forms.scss';
 
+@import "px-button-group-design/_objects.button-group.scss";
+
 // Component
+
+$inuit-enable-margins : true;
+@import 'px-spacing-design/_trumps.spacing.scss';
