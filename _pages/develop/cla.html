@@ -58,17 +58,17 @@
                 <template is="dom-if" if="{{!_isIndividual}}">
                   <li class="form-field">
                     <label for="contributor-company">Company’s Legal Name</label>
-                    <input class="text-input" name="contributor-company" id="contributor-company" type="text" value="[[_company]]"/>
+                    <input class="text-input" name="contributor-company" id="contributor-company" type="text"/>
                   </li>
                 </template>
                 <li class="form-field">
                   <label for="contributor-name">Your full legal name</label>
-                  <input class="text-input" name="contributor-name" id="contributor-name" type="text" value="[[_contributor]]"/>
+                  <input class="text-input" name="contributor-name" id="contributor-name" type="text"/>
                 </li>
                 <template is="dom-if" if="{{!_isIndividual}}">
                   <li class="form-field">
                     <label for="contributor-title">Your Title</label>
-                    <input class="text-input" name="contributor-title" id="contributor-title" type="text" value="[[_title]]"/>
+                    <input class="text-input" name="contributor-title" id="contributor-title" type="text"/>
                   </li>
                 </template>
                 <li class="form-field">
@@ -93,7 +93,7 @@
                 </li>
                 <li class="form-field">
                   <label for="contributor-date">Date</label>
-                  <px-datetime-field tabindex="-1" style="pointer-events: none;" hide-time moment-obj="[[_signingDate]]"></px-datetime-field>
+                  <px-datetime-field tabindex="-1" name="contributor-date" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
                 </li>
               </ol>
             <!-- </template> -->
@@ -110,10 +110,6 @@
       static get is() {return 'dev-cla';}
       static get properties() {
         return {
-          _contributor:{
-            type: String,
-            value: ''
-          },
           _email:{
             type: String,
             value: ''
@@ -124,7 +120,7 @@
           },
           _hasData:{
             type: Boolean,
-            value: false
+            value: true
           },
           _firebaseApp:{
             type: Object,
@@ -163,19 +159,15 @@
             var user = result.user;
 
             // this._contributor = user.displayName;
+            // this._hasData = true;
             this._email = user.email;
             this._github = result.additionalUserInfo.username;
-            this._hasData = true;
           })
           .catch(error => {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
           });
       }
       _clearData(){
@@ -186,11 +178,14 @@
       }
       _submitData(evt){
         evt.preventDefault(); //Prevent the default form submit action
-        let formData = {
-          "_contributor": this._contributor,
-          "_email": this._email,
-          "_github": this._github
-        }
+        let formData = {};
+        this.shadowRoot.querySelector('form').querySelectorAll('[name]').forEach(
+          inputEl => {
+            let attrName = inputEl.attributes.name.value;
+            let key = attrName.substr(attrName.indexOf("-") + 1,  attrName.length);
+            formData[key] = inputEl.value;
+          }
+        );
         this._firebaseApp.database().ref('users/' + this._github).set(formData);
       }
       _contributorTypeClicked(evt){
@@ -199,6 +194,9 @@
       }
       _formLabel(){
         return this._isIndividual ? "Individual" : "Corporate";
+      }
+      _signingDateString(momentObj){
+        return momentObj.toString();
       }
     }
     customElements.define(DevCla.is, DevCla);
