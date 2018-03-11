@@ -1,0 +1,16 @@
+// Settings
+@import "px-defaults-design/_settings.defaults.scss";
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+
+$inuit-enable-input--regular : true;
+@import 'px-forms-design/_base.forms.scss';
+
+@import "px-button-group-design/_objects.button-group.scss";
+
+// Component
+
+$inuit-enable-margins : true;
+@import 'px-spacing-design/_trumps.spacing.scss';

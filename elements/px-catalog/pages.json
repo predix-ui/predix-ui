@@ -609,6 +609,20 @@
           "production",
           "compile"
         ]
+      },
+      {
+        "path": "cla",
+        "label": "CLA",
+        "module": "dev-cla",
+        "entrypoint": "/pages/develop/cla.html",
+        "keywords": [
+          "OSS",
+          "CLA",
+          "BSD",
+          "license",
+          "agreement",
+          "contribution"
+        ]
       }
     ]
   },
