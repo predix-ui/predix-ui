@@ -20,7 +20,7 @@
         <h2 class="page-title">General Electric Contributor License Agreement</h2>
 
         <p>Want to contribute your suggestions to the Predix Design System? <strong>Here's how you can help.</strong></p>
-        <p>Please follow the below steps carefully.</p>
+        <p>Please signn in via GitHub below so we can retrieve your details</p>
         <button on-tap="_signin" class="u-mt btn btn--primary">Sign in with GitHub</button></p>
         <p>To avoid any confusion, except for the licenses granted by You pursuant to this Agreement, You reserve all ownership rights, title, and interest in and to Your Contributions.</p>
         <p>You accept and agree to the following terms and conditions for Your Contributions to GE.</p>
@@ -46,55 +46,62 @@
         <p>This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
         <legend>You will submit contributions on behalf of:</legend>
         <div class="u-mt btn-group">
-          <input id="individual" name="btn-group" type="radio">
+          <input id="individual" name="btn-group" type="radio" checked={{_isIndividual}} on-change="_contributorTypeClicked">
           <label for="individual" class="btn">Individual</label>
-          <input id="employer" name="btn-group" type="radio">
+          <input id="employer" name="btn-group" type="radio" checked={{!_isIndividual}} on-change="_contributorTypeClicked">
           <label for="employer" class="btn">Your Employer</label>
         </div>
         <form>
           <fieldset class="u-mt form-field" style="max-width:400px;">
-            <legend>Individual</legend>
-            <ol class="list-bare">
-              <li class="form-field">
-                <label for="contributor-name">Your full legal name</label>
-                <input class="text-input" readonly name="contributor-name" id="contributor-name" type="text" value="[[_contributor]]"/>
-              </li>
-              <li class="form-field">
-                <label for="contributor-github">Your GitHub User Name</label>
-                <input class="text-input" readonly name="contributor-github" id="contributor-github" type="text" value="[[_github]]"/>
-              </li>
-              <li class="form-field">
-                <label for="contributor-email">Email address</label>
-                <input class="text-input" readonly name="contributor-email" id="contributor-email" type="email" value="[[_email]]"/>
-              </li>
-              <li class="form-field">
-                <label for="contributor-address">Physical Mailing Address</label>
-                <textarea name="contributor-address" id="contributor-address"></textarea>
-              </li>
-              <li class="form-field">
-                <label for="contributor-country">Country</label>
-                <input class="text-input" name="contributor-country" id="contributor-country" type="text"/>
-              </li>
-              <li class="form-field">
-                <label for="contributor-phone">Telephone number</label>
-                <input class="text-input" name="contributor-phone" id="contributor-phone" type="text" />
-              </li>
-              <li class="form-field">
-                <label for="contributor-date">Date</label>
-                <px-datetime-field tabindex="-1" style="pointer-events: none;" hide-time moment-obj="[[_signingDate]]"></px-datetime-field>
-              </li>
-
-
-              <!-- <li class="form-field">
-                <input name="contributor-agree" id="basic-form-checkbox" type="checkbox">
-                <span class="label--inline" for="basic-form-checkbox">I agree to your terms</span>
-              </li> -->
-            </ol>
-          <input class="btn" type="reset" value="Reset" on-tap="_clearData">
-          <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">Sign Up</button>
-        </fieldset>
-      </form>
-    </div>
+              <legend>{{_formLabel(_isIndividual)}}</legend>
+              <ol class="list-bare">
+                <template is="dom-if" if="{{!_isIndividual}}">
+                  <li class="form-field">
+                    <label for="contributor-company">Company’s Legal Name</label>
+                    <input class="text-input" name="contributor-company" id="contributor-company" type="text" value="[[_company]]"/>
+                  </li>
+                </template>
+                <li class="form-field">
+                  <label for="contributor-name">Your full legal name</label>
+                  <input class="text-input" name="contributor-name" id="contributor-name" type="text" value="[[_contributor]]"/>
+                </li>
+                <template is="dom-if" if="{{!_isIndividual}}">
+                  <li class="form-field">
+                    <label for="contributor-title">Your Title</label>
+                    <input class="text-input" name="contributor-title" id="contributor-title" type="text" value="[[_title]]"/>
+                  </li>
+                </template>
+                <li class="form-field">
+                  <label for="contributor-github">Your GitHub User Name</label>
+                  <input class="text-input" readonly name="contributor-github" id="contributor-github" type="text" value="[[_github]]"/>
+                </li>
+                <li class="form-field">
+                  <label for="contributor-email">Email address</label>
+                  <input class="text-input" readonly name="contributor-email" id="contributor-email" type="email" value="[[_email]]"/>
+                </li>
+                <li class="form-field">
+                  <label for="contributor-address">Physical Mailing Address</label>
+                  <textarea name="contributor-address" id="contributor-address"></textarea>
+                </li>
+                <li class="form-field">
+                  <label for="contributor-country">Country</label>
+                  <input class="text-input" name="contributor-country" id="contributor-country" type="text"/>
+                </li>
+                <li class="form-field">
+                  <label for="contributor-phone">Telephone number</label>
+                  <input class="text-input" name="contributor-phone" id="contributor-phone" type="text" />
+                </li>
+                <li class="form-field">
+                  <label for="contributor-date">Date</label>
+                  <px-datetime-field tabindex="-1" style="pointer-events: none;" hide-time moment-obj="[[_signingDate]]"></px-datetime-field>
+                </li>
+              </ol>
+            <!-- </template> -->
+            <input class="btn" type="reset" value="Reset" on-tap="_clearData">
+            <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">Sign Up</button>
+          </fieldset>
+        </form>
+      </div>
     </div>
     <px-demo-footer></px-demo-footer>
   </template>
@@ -126,6 +133,10 @@
           _signingDate:{
             type: Object,
             value: () => window.Px.moment()
+          },
+          _isIndividual:{
+            type: Boolean,
+            value: true
           }
         };
       }
@@ -151,7 +162,7 @@
             // The signed-in user info.
             var user = result.user;
 
-            this._contributor = user.displayName;
+            // this._contributor = user.displayName;
             this._email = user.email;
             this._github = result.additionalUserInfo.username;
             this._hasData = true;
@@ -181,6 +192,13 @@
           "_github": this._github
         }
         this._firebaseApp.database().ref('users/' + this._github).set(formData);
+      }
+      _contributorTypeClicked(evt){
+        evt = Polymer.dom(evt);
+        this._isIndividual = (evt.localTarget.id === "individual");
+      }
+      _formLabel(){
+        return this._isIndividual ? "Individual" : "Corporate";
       }
     }
     customElements.define(DevCla.is, DevCla);
