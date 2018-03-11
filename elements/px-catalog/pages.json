@@ -599,13 +599,15 @@
       },
       {
         "path": "cla",
-        "label": "Contribution License Agreement",
+        "label": "CLA",
         "module": "dev-cla",
         "entrypoint": "/pages/develop/cla.html",
         "keywords": [
           "OSS",
+          "CLA",
           "BSD",
           "license",
+          "agreement",
           "contribution"
         ]
       }
