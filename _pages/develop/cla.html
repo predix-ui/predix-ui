@@ -7,8 +7,9 @@
 <link async rel="import" href="../../css/px-catalog-page-styles.html" />
 <link async rel="import" href="../../css/px-catalog-theme-styles.html" />
 <link async rel="import" href="../../css/px-cla-styles.html">
-<link defer rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
-<link defer rel="import" href="../../bower_components/px-dropdown/px-dropdown.html">
+<link defer rel="import" href="../../bower_components/px-moment-imports/px-moment-imports.html">
+<link async rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
+<link async rel="import" href="../../bower_components/px-dropdown/px-dropdown.html">
 <script async src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
 <dom-module id="dev-cla">
@@ -86,8 +87,8 @@
                 </li>
                 <li class="form-field">
                   <label for="contributor-country">Country</label>
-                  <px-dropdown style="width:400px;" class="text-input" name="contributor-country" id="contributor-country" items="[[_countries]]">
-                    <input slot="trigger" class="text-input" name="contributor-country" id="contributor-country" type="text" value="[[_country]]"/>[[_country]]</input>
+                  <px-dropdown class="u-p0 text-input" name="contributor-country" id="contributor-country" items="[[_countries]]">
+                    <input tabindex="-1" slot="trigger" class="text-input" name="contributor-country" id="contributor-country" type="text" value="[[_country]]"></input>
                   </px-dropdown>
                 </li>
                 <li class="form-field">
@@ -100,7 +101,7 @@
                 </li>
               </ol>
             <!-- </template> -->
-            <input class="btn" type="reset" value="Reset" on-tap="_clearData">
+            <button class="btn" type="reset" value="Reset" on-tap="_clearData">Reset</button>
             <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">Sign Up</button>
           </fieldset>
         </form>
