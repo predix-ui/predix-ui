@@ -14,8 +14,8 @@ layout: default
 # Tutorials
 
 * [Predix Design System Overview](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/predix-design-system-overview)
-* [Setting up your dev environment](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/predix-design-system-overview#task_n4l_jnc_yv)
-* [Get Started with Predix UI CSS](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/example-get-started-with-predix-design-system-css-modules)
+* [Setting up your dev environment](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/using-the-predix-design-system#task_n4l_jnc_yv)
+* [Get Started with Predix UI CSS](https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/get-started-with-predix-ui-css-modules#reference_cce732a4-cd01-41c0-8f05-0fc6247faefc)
 * [Predix Web App Starter Developer Guide](https://www.predix.io/resources/tutorials/journey.html#2100)
 
 # Tools
