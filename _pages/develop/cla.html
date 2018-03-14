@@ -9,7 +9,7 @@
 <link async rel="import" href="../../css/px-cla-styles.html">
 <link defer rel="import" href="../../bower_components/px-moment-imports/px-moment-imports.html">
 <link async rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
-<link async rel="import" href="../../bower_components/px-dropdown/px-dropdown.html">
+<link async rel="import" href="../../bower_components/px-typeahead/px-typeahead.html">
 <script async src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
 <dom-module id="dev-cla">
@@ -21,9 +21,8 @@
       <div class="page-content">
         <h2 class="page-title">General Electric Contributor License Agreement</h2>
 
-        <p>Want to contribute your suggestions to the Predix Design System? We need a few details from you before we can accept your pull request.</p>
-        <p>Please sign in via GitHub below so we can retrieve your details</p>
-        <button on-tap="_signin" class="u-mt btn btn--primary">Sign in with GitHub</button></p>
+        <p>Want to contribute your suggestions to the Predix Design System? Before we can accept your pull request, you must provide the information requested below in an accurate and complete manner and agree to the terms of this General Electric Contributor License Agreement (“Agreement”) to clarify the intellectual property license granted to General Electric.  This is a legally binding document.  Please read this Agreement carefully before signing.</p>
+        <p>This Agreement is between You and General Electric Company, having a principal place of business at 33-41 Farnsworth Street, Boston, MA 02210 (“GE”).  Your acceptance of this Agreement indicates Your acknowledgement and acceptance of the terms below.</p>
         <p>To avoid any confusion, except for the licenses granted by You pursuant to this Agreement, You reserve all ownership rights, title, and interest in and to Your Contributions.</p>
         <p>You accept and agree to the following terms and conditions for Your Contributions to GE.</p>
         <p> 1.       Definitions</p>
@@ -34,18 +33,18 @@
         <p>3.       Patent License:  You hereby grant to GE, and agree to grant to GE, to the fullest extent permitted by law, a perpetual, worldwide, transferrable, non-exclusive, royalty-free, irrevocable patent license to any patent claims that are now, or become, licensable by You to make, have made, use, offer to sell, sell, import, and otherwise transfer the Contribution and the Contribution in combination with any Work, including the right to sublicense these same rights to third parties through multiple tiers of sublicensees.</p>
         <p>4.       Moral Rights:  If applicable, You hereby agree, to the fullest extent permitted by law, to waive and not to assert moral rights associated with Your Contribution against GE or any of GE’s direct and indirect licensees.</p>
         <p>5.       You further agree that:</p>
-        <p>a.       You have the full power and authority to grant the rights granted pursuant to this Agreement without the consent of any third party and Your grant of rights pursuant to this Agreement does not contradict or violate any grant of rights You have made to third parties, including but not limited to (if applicable) Your employer.</p>
-        <p>b.       If You are entering this Agreement as a legal entity, each of Your employees listed on Schedule 1 to this Agreement is authorized to submit Contributions on Your behalf.</p>
-        <p>c.        You own the copyright and patent claims covering Your Contribution that are required to grant the rights granted pursuant to this Agreement.</p>
-        <p>d.       To the best of Your Knowledge, Your Contribution does not violate the intellectual property rights of any third party.</p>
-        <p>e.        You are in compliance with applicable export control laws.</p>
-        <p>f.         If You are entering into this Agreement as an individual, You are over eighteen years old.  (if You are under eighteen years old, You must have a parent or guardian sign this Agreement)</p>
-        <p>g.       GE may publicly display the “Contributor User Name” that You provide in this Agreement as well as the fact that You have entered into this Agreement.</p>
-        <p>h.       You will promptly notify GE of any facts or circumstances that you become aware of that would make any representations made by You in this Agreement inaccurate.</p>
+        <p class="u-ml">a.       You have the full power and authority to grant the rights granted pursuant to this Agreement without the consent of any third party and Your grant of rights pursuant to this Agreement does not contradict or violate any grant of rights You have made to third parties, including but not limited to (if applicable) Your employer.</p>
+        <p class="u-ml">b.       If You are entering this Agreement as a legal entity, each of Your employees listed on Schedule 1 to this Agreement is authorized to submit Contributions on Your behalf.</p>
+        <p class="u-ml">c.        You own the copyright and patent claims covering Your Contribution that are required to grant the rights granted pursuant to this Agreement.</p>
+        <p class="u-ml">d.       To the best of Your Knowledge, Your Contribution does not violate the intellectual property rights of any third party.</p>
+        <p class="u-ml">e.        You are in compliance with applicable export control laws.</p>
+        <p class="u-ml">f.         If You are entering into this Agreement as an individual, You are over eighteen years old.  (if You are under eighteen years old, You must have a parent or guardian sign this Agreement)</p>
+        <p class="u-ml">g.       GE may publicly display the “Contributor User Name” that You provide in this Agreement as well as the fact that You have entered into this Agreement.</p>
+        <p class="u-ml">h.       You will promptly notify GE of any facts or circumstances that you become aware of that would make any representations made by You in this Agreement inaccurate.</p>
         <p>6.       This Agreement shall be governed by and interpreted in accordance with the laws of the State of New York, U.S.A. and applicable U.S. Federal law, excluding choice or conflicts of law provisions.</p>
         <p>7.       Failure by either You or GE at any time to exercise a right under, or require performance of, any provision of this Agreement shall not affect the right to subsequently exercise that right or require full performance thereof (as the case may be) at any time thereafter.  The waiver by You or GE of a breach of any provision of this Agreement shall not be taken or held to be a waiver of any subsequent breach or as nullifying the effectiveness of such provision.</p>
         <p>8.       If any part, term or provision of this Agreement is held by any court of competent jurisdiction to be unenforceable or prohibited by any law applicable to this Agreement, the rights and obligations herein shall be construed and enforced with that part, term or provision limited so as to make it enforceable to the greatest extent allowed by law, or, if it is totally unenforceable, as if this Agreement did not contain that particular part, term or provision.</p>
-        <p>This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
+        <p>9.       This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
         <legend>You will submit contributions on behalf of:</legend>
         <div class="u-mt btn-group">
           <input id="individual" name="btn-group" type="radio" checked={{_isIndividual}} on-change="_contributorTypeClicked">
@@ -73,6 +72,8 @@
                     <input class="text-input" name="contributor-title" id="contributor-title" type="text"/>
                   </li>
                 </template>
+                <p>Please sign in via GitHub below so we can retrieve your details</p>
+                <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
                 <li class="form-field">
                   <label for="contributor-github">Your GitHub User Name</label>
                   <input class="text-input" readonly name="contributor-github" id="contributor-github" type="text" value="[[_github]]"/>
@@ -87,9 +88,12 @@
                 </li>
                 <li class="form-field">
                   <label for="contributor-country">Country</label>
-                  <px-dropdown class="u-p0 text-input" name="contributor-country" id="contributor-country" items="[[_countries]]">
-                    <input tabindex="-1" slot="trigger" class="text-input" name="contributor-country" id="contributor-country" type="text" value="[[_country]]"></input>
-                  </px-dropdown>
+                  <px-typeahead
+                      placeholder="Enter your search query"
+                      local-candidates="[[_countries]]"
+                      required
+                      pattern="^[a-zA-Z . ']+$">
+                  </px-typeahead>
                 </li>
                 <li class="form-field">
                   <label for="contributor-phone">Telephone number</label>
@@ -97,12 +101,12 @@
                 </li>
                 <li class="form-field">
                   <label for="contributor-date">Date</label>
-                  <px-datetime-field tabindex="-1" name="contributor-date" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
+                  <px-datetime-field name="contributor-date" tabindex="-1" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
                 </li>
               </ol>
             <!-- </template> -->
             <button class="btn" type="reset" value="Reset" on-tap="_clearData">Reset</button>
-            <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">Sign Up</button>
+            <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">I Accept</button>
           </fieldset>
         </form>
       </div>
