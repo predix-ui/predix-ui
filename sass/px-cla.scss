@@ -11,6 +11,10 @@ $inuit-enable-input--regular : true;
 @import "px-button-group-design/_objects.button-group.scss";
 
 // Component
+px-dropdown{
+  width:400px;
+}
 
 $inuit-enable-margins : true;
+$inuit-enable-paddings--none : true;
 @import 'px-spacing-design/_trumps.spacing.scss';
