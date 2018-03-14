@@ -10,7 +10,7 @@
 <link defer rel="import" href="../../bower_components/px-moment-imports/px-moment-imports.html">
 <link async rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
 <link async rel="import" href="../../bower_components/px-typeahead/px-typeahead.html">
-<script async src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
 <dom-module id="dev-cla">
   <template>
@@ -59,32 +59,57 @@
                 <template is="dom-if" if="{{!_isIndividual}}">
                   <li class="form-field">
                     <label for="contributor-company">Company’s Legal Name</label>
-                    <input class="text-input" name="contributor-company" id="contributor-company" type="text"/>
+                    <input class="text-input"
+                           name="contributor-company"
+                           id="contributor-company"
+                           type="text"
+                           required/>
                   </li>
                 </template>
                 <li class="form-field">
                   <label for="contributor-name">Your full legal name</label>
-                  <input class="text-input" name="contributor-name" id="contributor-name" type="text"/>
+                  <input class="text-input"
+                         name="contributor-name"
+                         id="contributor-name"
+                         type="text"
+                         required
+                         pattern="^[a-zA-Z . ']+$"/>
                 </li>
                 <template is="dom-if" if="{{!_isIndividual}}">
                   <li class="form-field">
                     <label for="contributor-title">Your Title</label>
-                    <input class="text-input" name="contributor-title" id="contributor-title" type="text"/>
+                    <input class="text-input"
+                           name="contributor-title"
+                           id="contributor-title"
+                           type="text"
+                           required/>
                   </li>
                 </template>
                 <p>Please sign in via GitHub below so we can retrieve your details</p>
                 <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
                 <li class="form-field">
                   <label for="contributor-github">Your GitHub User Name</label>
-                  <input class="text-input" readonly name="contributor-github" id="contributor-github" type="text" value="[[_github]]"/>
+                  <input class$="text-input {{_getValidationClass(_hasData)}}"
+                         name="contributor-github"
+                         id="contributor-github"
+                         type="text"
+                         required
+                         readonly
+                         value="[[_github]]"/>
                 </li>
                 <li class="form-field">
                   <label for="contributor-email">Email address</label>
-                  <input class="text-input" readonly name="contributor-email" id="contributor-email" type="email" value="[[_email]]"/>
+                  <input class$="text-input {{_getValidationClass(_hasData)}}"
+                         name="contributor-email"
+                         id="contributor-email"
+                         type="email"
+                         required
+                         readonly
+                         value="[[_email]]"/>
                 </li>
                 <li class="form-field">
                   <label for="contributor-address">Physical Mailing Address</label>
-                  <textarea name="contributor-address" id="contributor-address"></textarea>
+                  <textarea name="contributor-address" id="contributor-address" required></textarea>
                 </li>
                 <li class="form-field">
                   <label for="contributor-country">Country</label>
@@ -97,7 +122,12 @@
                 </li>
                 <li class="form-field">
                   <label for="contributor-phone">Telephone number</label>
-                  <input class="text-input" name="contributor-phone" id="contributor-phone" type="tel" />
+                  <input class="text-input"
+                         name="contributor-phone"
+                         id="contributor-phone"
+                         type="tel"
+                         pattern="^[+(0-9) ]+$"
+                         required/>
                 </li>
                 <li class="form-field">
                   <label for="contributor-date">Date</label>
@@ -152,21 +182,22 @@
           }
         };
       }
-      ready(){
-        super.ready();
-        this.addEventListener('px-dropdown-selection-changed', evt => this._country = evt.detail.val)
+      constructor() {
+        super();
+        Polymer.RenderStatus.afterNextRender(this, () => {
+          // Initialize Firebase
+          var config = {
+            apiKey: 'AIzaSyDsENz1M-2W9zOEYuTIZUyL1GARGhT9afQ',
+            authDomain: 'px-cla.firebaseapp.com',
+            databaseURL: 'https://px-cla.firebaseio.com',
+            projectId: 'px-cla',
+            storageBucket: 'px-cla.appspot.com',
+            messagingSenderId: '400881384782'
+          };
+          this._firebaseApp = firebase.initializeApp(config);
+        });
       }
       _signin(){
-        // Initialize Firebase
-        var config = {
-          apiKey: 'AIzaSyDsENz1M-2W9zOEYuTIZUyL1GARGhT9afQ',
-          authDomain: 'px-cla.firebaseapp.com',
-          databaseURL: 'https://px-cla.firebaseio.com',
-          projectId: 'px-cla',
-          storageBucket: 'px-cla.appspot.com',
-          messagingSenderId: '400881384782'
-        };
-        this._firebaseApp = firebase.initializeApp(config);
         var provider = new firebase.auth.GithubAuthProvider();
 
         this._firebaseApp
@@ -181,6 +212,7 @@
             this._hasData = true;
             this._email = user.email;
             this._github = result.additionalUserInfo.username;
+            this.shadowRoot.querySelector('#contributor-address').focus();
           })
           .catch(error => {
             // Handle Errors here.
@@ -191,6 +223,8 @@
       }
       _clearData(){
         this._hasData = false;
+        this._email = '';
+        this._github = '';
       }
       _isDisabled(val){
         return val ? '' : 'btn--disabled';
@@ -216,6 +250,9 @@
       }
       _signingDateString(momentObj){
         return momentObj.toString();
+      }
+      _getValidationClass(hasData){
+        return (hasData ? '' : 'validation-error');
       }
     }
     customElements.define(DevCla.is, DevCla);

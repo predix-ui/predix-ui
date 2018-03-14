@@ -6,6 +6,8 @@
 @import "px-box-sizing-design/_generic.box-sizing.scss";
 
 $inuit-enable-input--regular : true;
+// $inuit-enable-validation-states : true;
+// $inuit-enable-error-validation-pseudo-classes : true;
 @import 'px-forms-design/_base.forms.scss';
 
 @import "px-button-group-design/_objects.button-group.scss";
