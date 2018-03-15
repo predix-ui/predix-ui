@@ -211,7 +211,8 @@
           this._firebaseApp = firebase.initializeApp(config);
         });
       }
-      _signin(){
+      _signin(evt){
+        evt.preventDefault();
         let provider = new firebase.auth.GithubAuthProvider();
 
         this._firebaseApp
@@ -230,7 +231,6 @@
             // Handle Errors here.
             let errorCode = error.code;
             let errorMessage = error.message;
-            // The email of the user's account used.
           });
       }
       _clearData(){
