@@ -251,7 +251,7 @@
             formData[key] = inputEl.value;
           }
         );
-        this._firebaseApp.database().ref('users/' + this._github).set(formData);
+        this._firebaseApp.database().ref(`users/${this._firebaseApp.auth().currentUser.uid}`).set(formData);
       }
       _contributorTypeClicked(evt){
         evt = Polymer.dom(evt);
