@@ -2,8 +2,6 @@
 <link defer rel="import" href="../../bower_components/polymer/lib/utils/gestures.html" />
 <link async rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
 <link async rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html" />
-<link async rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html" />
-<link async rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html" />
 <link async rel="import" href="../../css/px-catalog-page-styles.html" />
 <link async rel="import" href="../../css/px-catalog-theme-styles.html" />
 <link async rel="import" href="../../css/px-cla-styles.html">
@@ -18,8 +16,19 @@
     <style include="px-cla-styles"></style>
 
     <div class="page">
+      <div class="page-anchors" id="toc">
+        <ul class="toc">
+          <li class="toc__item">
+            <a class$="toc__item__link [[_getTocLinkClassName('#license-words', activeAnchor)]]" href="#" anchor="#license-words" on-tap="_handleAnchorTapped">License</a>
+          </li>
+          <li class="toc__item">
+            <a class$="toc__item__link [[_getTocLinkClassName('#license-form', activeAnchor)]]" href="#" anchor="#license-form" on-tap="_handleAnchorTapped">Agreement</a>
+          </li>
+        </ul>
+      </div>
+
       <div class="page-content">
-        <h2 class="page-title">General Electric Contributor License Agreement</h2>
+        <h2 id="license-words" class="page-title">General Electric Contributor License Agreement</h2>
 
         <p>Want to contribute your suggestions to the Predix Design System? Before we can accept your pull request, you must provide the information requested below in an accurate and complete manner and agree to the terms of this General Electric Contributor License Agreement (“Agreement”) to clarify the intellectual property license granted to General Electric.  This is a legally binding document.  Please read this Agreement carefully before signing.</p>
         <p>This Agreement is between You and General Electric Company, having a principal place of business at 33-41 Farnsworth Street, Boston, MA 02210 (“GE”).  Your acceptance of this Agreement indicates Your acknowledgement and acceptance of the terms below.</p>
@@ -45,19 +54,20 @@
         <p>7.       Failure by either You or GE at any time to exercise a right under, or require performance of, any provision of this Agreement shall not affect the right to subsequently exercise that right or require full performance thereof (as the case may be) at any time thereafter.  The waiver by You or GE of a breach of any provision of this Agreement shall not be taken or held to be a waiver of any subsequent breach or as nullifying the effectiveness of such provision.</p>
         <p>8.       If any part, term or provision of this Agreement is held by any court of competent jurisdiction to be unenforceable or prohibited by any law applicable to this Agreement, the rights and obligations herein shall be construed and enforced with that part, term or provision limited so as to make it enforceable to the greatest extent allowed by law, or, if it is totally unenforceable, as if this Agreement did not contain that particular part, term or provision.</p>
         <p>9.       This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
-        <legend>You will submit contributions on behalf of:</legend>
-        <div class="u-mt btn-group">
-          <input id="individual" name="btn-group" type="radio" checked={{_isIndividual}} on-change="_contributorTypeClicked">
-          <label for="individual" class="btn">Individual</label>
-          <input id="employer" name="btn-group" type="radio" checked={{!_isIndividual}} on-change="_contributorTypeClicked">
-          <label for="employer" class="btn">Your Employer</label>
+        <legend id="license-form">You will submit contributions on behalf of:</legend>
+        <div class="u-mt">
+          <input id="individual" name="radio-group" type="radio" checked={{_isIndividual}} on-change="_contributorTypeClicked">
+          <label for="individual" class="label--inline u-mb">Individual</label>
+          <br>
+          <input id="employer" name="radio-group" type="radio" checked={{!_isIndividual}} on-change="_contributorTypeClicked">
+          <label for="employer" class="label--inline">Employer</label>
         </div>
         <form>
-          <fieldset class="u-mt form-field" style="max-width:400px;">
-              <legend>{{_formLabel(_isIndividual)}}</legend>
+          <fieldset class="u-mt u-mb form-field" style="max-width:400px;">
               <ol class="list-bare">
                 <template is="dom-if" if="{{!_isIndividual}}">
-                  <li class="form-field">
+                  <span class="heading--section">Company Information</span>
+                  <li class="u-mt form-field">
                     <label for="contributor-company">Company’s Legal Name</label>
                     <input class="text-input"
                            name="contributor-company"
@@ -66,77 +76,81 @@
                            required/>
                   </li>
                 </template>
-                <li class="form-field">
-                  <label for="contributor-name">Your full legal name</label>
-                  <input class="text-input"
-                         name="contributor-name"
-                         id="contributor-name"
-                         type="text"
-                         required
-                         pattern="^[a-zA-Z . ']+$"/>
-                </li>
-                <template is="dom-if" if="{{!_isIndividual}}">
-                  <li class="form-field">
-                    <label for="contributor-title">Your Title</label>
-                    <input class="text-input"
-                           name="contributor-title"
-                           id="contributor-title"
-                           type="text"
-                           required/>
-                  </li>
+                <template is="dom-if" if="{{!_hasData}}" restamp="true">
+                  <p>Please sign in via GitHub below so we can retrieve your details</p>
+                  <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
                 </template>
-                <p>Please sign in via GitHub below so we can retrieve your details</p>
-                <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
-                <li class="form-field">
-                  <label for="contributor-github">Your GitHub User Name</label>
-                  <input class$="text-input {{_getValidationClass(_hasData)}}"
-                         name="contributor-github"
-                         id="contributor-github"
-                         type="text"
-                         required
-                         readonly
-                         value="[[_github]]"/>
-                </li>
-                <li class="form-field">
-                  <label for="contributor-email">Email address</label>
-                  <input class$="text-input {{_getValidationClass(_hasData)}}"
-                         name="contributor-email"
-                         id="contributor-email"
-                         type="email"
-                         required
-                         readonly
-                         value="[[_email]]"/>
-                </li>
-                <li class="form-field">
-                  <label for="contributor-address">Physical Mailing Address</label>
-                  <textarea name="contributor-address" id="contributor-address" required></textarea>
-                </li>
-                <li class="form-field">
-                  <label for="contributor-country">Country</label>
-                  <px-typeahead
+                <template is="dom-if" if="{{_hasData}}" restamp="true">
+                  <span class="u-mt heading--section">GitHub Information</span>
+                  <li class="u-mt form-field">
+                    <label for="contributor-name">Your full legal name</label>
+                    <input class="text-input"
+                    name="contributor-name"
+                    id="contributor-name"
+                    type="text"
+                    required
+                    pattern="^[a-zA-Z . ']+$"/>
+                  </li>
+                  <template is="dom-if" if="{{!_isIndividual}}">
+                    <li class="form-field">
+                      <label for="contributor-title">Your Title</label>
+                      <input class="text-input"
+                      name="contributor-title"
+                      id="contributor-title"
+                      type="text"
+                      required/>
+                    </li>
+                  </template>
+                  <li class="form-field">
+                    <label for="contributor-github">Your GitHub User Name</label>
+                    <input class$="text-input {{_getValidationClass(_hasData)}}"
+                    name="contributor-github"
+                    id="contributor-github"
+                    type="text"
+                    required
+                    readonly
+                    value="[[_github]]"/>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-email">Email address</label>
+                    <input class$="text-input {{_getValidationClass(_hasData)}}"
+                    name="contributor-email"
+                    id="contributor-email"
+                    type="email"
+                    required
+                    readonly
+                    value="[[_email]]"/>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-address">Physical Mailing Address</label>
+                    <textarea name="contributor-address" id="contributor-address" required></textarea>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-country">Country</label>
+                    <px-typeahead
                       placeholder="Enter your search query"
                       local-candidates="[[_countries]]"
                       required
                       pattern="^[a-zA-Z . ']+$">
-                  </px-typeahead>
-                </li>
-                <li class="form-field">
-                  <label for="contributor-phone">Telephone number</label>
-                  <input class="text-input"
-                         name="contributor-phone"
-                         id="contributor-phone"
-                         type="tel"
-                         pattern="^[+(0-9) ]+$"
-                         required/>
-                </li>
-                <li class="form-field">
-                  <label for="contributor-date">Date</label>
-                  <px-datetime-field name="contributor-date" tabindex="-1" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
-                </li>
+                    </px-typeahead>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-phone">Telephone number</label>
+                    <input class="text-input"
+                    name="contributor-phone"
+                    id="contributor-phone"
+                    type="tel"
+                    pattern="^[+(0-9) ]+$"
+                    required/>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-date">Date</label>
+                    <px-datetime-field name="contributor-date" tabindex="-1" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
+                  </li>
+                  <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">I Accept</button>
+                </template>
               </ol>
             <!-- </template> -->
-            <button class="btn" type="reset" value="Reset" on-tap="_clearData">Reset</button>
-            <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">I Accept</button>
           </fieldset>
         </form>
       </div>
@@ -144,7 +158,7 @@
     <px-demo-footer></px-demo-footer>
   </template>
   <script>
-    class DevCla extends Polymer.GestureEventListeners(Polymer.Element) {
+    class DevCla extends Polymer.mixinBehaviors([PxCatalogBehavior.Page], Polymer.GestureEventListeners(Polymer.Element)) {
       static get is() {return 'dev-cla';}
       static get properties() {
         return {
@@ -198,16 +212,14 @@
         });
       }
       _signin(){
-        var provider = new firebase.auth.GithubAuthProvider();
+        let provider = new firebase.auth.GithubAuthProvider();
 
         this._firebaseApp
           .auth()
           .signInWithPopup(provider)
           .then(result => {
-            // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-            var token = result.credential.accessToken;
             // The signed-in user info.
-            var user = result.user;
+            let user = result.user;
 
             this._hasData = true;
             this._email = user.email;
@@ -216,8 +228,8 @@
           })
           .catch(error => {
             // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            let errorCode = error.code;
+            let errorMessage = error.message;
             // The email of the user's account used.
           });
       }
