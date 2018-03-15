@@ -2715,27 +2715,62 @@
         ]
       },
       {
-        "path": "px-data-grid",
+        "path": "data-grid",
         "label": "Data Grid",
-        "badgeText": "BETA",
-        "module": "px-data-grid-demo",
-        "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
-        "redirects": [
-          "/components/px-data-grid",
-          "/modules/px-data-grid"
-        ],
-        "keywords": [
-          "px-data-grid",
-          "data",
-          "grid",
-          "datagrid",
-          "table",
-          "datatable",
-          "pagination"
-        ],
-        "tags": [
-          "data display",
-          "mobile"
+        "pages": [
+          {
+            "path": "px-data-grid",
+            "label": "Data Grid",
+            "badgeText": "BETA",
+            "module": "px-data-grid-demo",
+            "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
+            "redirects": [
+              "/components/px-data-grid",
+              "/modules/px-data-grid",
+              "/elements/px-data-grid"
+            ],
+            "keywords": [
+              "px-data-grid",
+              "data",
+              "grid",
+              "datagrid",
+              "table",
+              "datatable",
+              "pagination",
+              "px-data-table"
+            ],
+            "tags": [
+              "data display",
+              "mobile"
+            ]
+          },
+          {
+            "path": "px-data-grid-paginated",
+            "label": "Data Grid Paginated",
+            "badgeText": "BETA",
+            "module": "px-data-grid-paginated-demo",
+            "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-paginated-demo.html",
+            "redirects": [
+              "/components/px-data-grid-paginated",
+              "/modules/px-data-grid-paginated",
+              "/elements/px-data-grid-paginated"
+            ],
+            "keywords": [
+              "px-data-grid-paginated",
+              "px-data-grid",
+              "data",
+              "grid",
+              "datagrid",
+              "table",
+              "datatable",
+              "pagination",
+              "px-data-table"
+            ],
+            "tags": [
+              "data display",
+              "mobile"
+            ]
+          }
         ]
       },
       {
