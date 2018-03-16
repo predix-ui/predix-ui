@@ -1,5 +1,6 @@
 <link defer rel="import" href="../../bower_components/polymer/polymer-element.html" />
 <link defer rel="import" href="../../bower_components/polymer/lib/utils/gestures.html" />
+<link defer rel="import" href="../../bower_components/polymer/lib/utils/render-status.html">
 <link async rel="import" href="../../bower_components/px-demo/px-demo-footer.html" />
 <link async rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html" />
 <link async rel="import" href="../../css/px-catalog-page-styles.html" />
@@ -10,7 +11,7 @@
 <link async rel="import" href="../../bower_components/px-typeahead/px-typeahead.html">
 <link async rel="import" href="../../bower_components/px-notification/px-notification.html">
 
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
 <dom-module id="dev-cla">
   <template>
@@ -62,16 +63,16 @@
         <p>9.       This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
         <legend id="license-form">You will submit contributions on behalf of:</legend>
         <div class="u-mt">
-          <input id="individual" name="radio-group" type="radio" checked={{_isIndividual}} on-change="_contributorTypeClicked">
+          <input id="individual" name="radio-group" type="radio" checked={{_isIndividual}} on-input="_contributorTypeClicked">
           <label for="individual" class="label--inline u-mb">Individual</label>
           <br>
-          <input id="employer" name="radio-group" type="radio" checked={{!_isIndividual}} on-change="_contributorTypeClicked">
+          <input id="employer" name="radio-group" type="radio" checked={{!_isIndividual}} on-input="_contributorTypeClicked">
           <label for="employer" class="label--inline">Employer</label>
         </div>
         <form id="cla-form">
           <fieldset class="u-mt u-mb form-field" style="max-width:400px;">
               <ol class="list-bare">
-                <template is="dom-if" if="{{!_isIndividual}}">
+                <template is="dom-if" if="{{!_isIndividual}}" restamp="true">
                   <span class="heading--section">Company Information</span>
                   <li class="u-mt form-field">
                     <label for="contributor-company">Company’s Legal Name</label>
@@ -79,14 +80,16 @@
                            name="contributor-company"
                            id="contributor-company"
                            type="text"
+                           on-input="_checkFormIsValid"
                            required/>
                   </li>
                 </template>
-                <template is="dom-if" if="{{!_hasData}}" restamp="true">
+                <template is="dom-if" if="{{!_hasFetchedGithubData}}" restamp="true">
                   <p>Please sign in via GitHub below so we can retrieve your details</p>
-                  <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
+                  <button on-tap="_signin"
+                          class="u-mb btn btn--primary">Sign in with GitHub</button>
                 </template>
-                <template is="dom-if" if="{{_hasData}}" restamp="true">
+                <template is="dom-if" if="{{_hasFetchedGithubData}}" restamp="true">
                   <span class="u-mt heading--section">GitHub Information</span>
                   <li class="u-mt form-field">
                     <label for="contributor-name">Your full legal name</label>
@@ -95,6 +98,7 @@
                     id="contributor-name"
                     type="text"
                     required
+                    on-input="_checkFormIsValid"
                     pattern="^[a-zA-Z . ']+$"/>
                   </li>
                   <template is="dom-if" if="{{!_isIndividual}}">
@@ -104,12 +108,13 @@
                       name="contributor-title"
                       id="contributor-title"
                       type="text"
+                      on-input="_checkFormIsValid"
                       required/>
                     </li>
                   </template>
                   <li class="form-field">
                     <label for="contributor-github">Your GitHub User Name</label>
-                    <input class$="text-input {{_getValidationClass(_hasData)}}"
+                    <input class$="text-input {{_getValidationClass(_hasFetchedGithubData)}}"
                     name="contributor-github"
                     id="contributor-github"
                     type="text"
@@ -119,7 +124,7 @@
                   </li>
                   <li class="form-field">
                     <label for="contributor-email">Email address</label>
-                    <input class$="text-input {{_getValidationClass(_hasData)}}"
+                    <input class$="text-input {{_getValidationClass(_hasFetchedGithubData)}}"
                     name="contributor-email"
                     id="contributor-email"
                     type="email"
@@ -129,14 +134,19 @@
                   </li>
                   <li class="form-field">
                     <label for="contributor-address">Physical Mailing Address</label>
-                    <textarea name="contributor-address" id="contributor-address" required></textarea>
+                    <textarea name="contributor-address"
+                              id="contributor-address"
+                              on-input="_checkFormIsValid"
+                              required></textarea>
                   </li>
                   <li class="form-field">
                     <label for="contributor-country">Country</label>
                     <px-typeahead
+                      id="contributor-country"
                       placeholder="Enter your search query"
                       local-candidates="[[_countries]]"
                       required
+                      value={{_selectedCountry}}
                       pattern="^[a-zA-Z . ']+$">
                     </px-typeahead>
                   </li>
@@ -146,14 +156,21 @@
                     name="contributor-phone"
                     id="contributor-phone"
                     type="tel"
+                    on-input="_checkFormIsValid"
                     pattern="^[+(0-9) ]+$"
                     required/>
                   </li>
                   <li class="form-field">
                     <label for="contributor-date">Date</label>
-                    <px-datetime-field name="contributor-date" tabindex="-1" style="pointer-events: none;" hide-time value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]"></px-datetime-field>
+                    <px-datetime-field name="contributor-date"
+                                       tabindex="-1"
+                                       style="pointer-events: none;"
+                                       hide-time
+                                       value="{{_signingDateString(_signingDate)}}"
+                                       moment-obj="[[_signingDate]]">
+                    </px-datetime-field>
                   </li>
-                  <button class$="btn btn--primary {{_isDisabled(_hasData)}}" on-tap="_submitData">I Accept</button>
+                  <button disabled$="{{!_enableSubmitButton(_hasFetchedGithubData, _formIsValid, _selectedCountry)}}" class="btn btn--primary" on-tap="_submitData">I Accept</button>
                 </template>
               </ol>
             <!-- </template> -->
@@ -176,7 +193,7 @@
             type: String,
             value: ''
           },
-          _hasData:{
+          _hasFetchedGithubData:{
             type: Boolean,
             value: false
           },
@@ -199,6 +216,10 @@
           _country:{
             type: String,
             value: ''
+          },
+          _formIsValid:{
+            type: Boolean,
+            value: false
           }
         };
       }
@@ -218,6 +239,7 @@
         });
       }
       _signin(evt){
+        this._setupSpinner
         evt.preventDefault();
         let provider = new firebase.auth.GithubAuthProvider();
 
@@ -228,7 +250,7 @@
             // The signed-in user info.
             let user = result.user;
 
-            this._hasData = true;
+            this._hasFetchedGithubData = true;
             this._email = user.email;
             this._github = result.additionalUserInfo.username;
             this.shadowRoot.querySelector('#contributor-address').focus();
@@ -239,18 +261,16 @@
             let errorMessage = error.message;
           });
       }
-      _clearData(){
-        this._hasData = false;
-        this._email = '';
-        this._github = '';
-      }
-      _isDisabled(val){
-        return val ? '' : 'btn--disabled';
+      _enableSubmitButton(hasGithubData, formIsValid){
+        let countryTypeAheadEL = this.shadowRoot.querySelector('#contributor-country');
+        let countryValid = (!!countryTypeAheadEL && countryTypeAheadEL.value.length > 0);
+
+        return (formIsValid && countryValid);
       }
       _submitData(evt){
         evt.preventDefault(); //Prevent the default form submit action
         let formData = {};
-        this.shadowRoot.querySelector('form').querySelectorAll('[name]').forEach(
+        this.shadowRoot.querySelector('#cla-form').querySelectorAll('[name]').forEach(
           inputEl => {
             let attrName = inputEl.attributes.name.value;
             let key = attrName.substr(attrName.indexOf("-") + 1,  attrName.length);
@@ -270,7 +290,7 @@
         setTimeout(()=>{
           notificationEl.opened = false;
         },2500);
-        this._hasData = false;
+        this._hasFetchedGithubData = false;
         this.shadowRoot.querySelector('#cla-form').reset();
       }
       _claSubmitErrorHandler(){
@@ -295,6 +315,9 @@
       }
       _getValidationClass(hasData){
         return (hasData ? '' : 'validation-error');
+      }
+      _checkFormIsValid(){
+        this._formIsValid = this.shadowRoot.querySelector('#cla-form').checkValidity();
       }
     }
     customElements.define(DevCla.is, DevCla);
