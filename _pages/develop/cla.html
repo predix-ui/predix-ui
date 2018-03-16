@@ -14,8 +14,9 @@
 
 <dom-module id="dev-cla">
   <template>
-    <style include="px-catalog-theme-styles px-catalog-page-styles"></style>
     <style include="px-cla-styles"></style>
+    <style include="px-catalog-theme-styles px-catalog-page-styles"></style>
+
     <px-notification
       id="form-feedback-notification"
       class="cla__notification">
@@ -204,6 +205,7 @@
       }
       constructor() {
         super();
+        this.is = 'dev-cla';
         Polymer.RenderStatus.afterNextRender(this, () => {
           // Initialize Firebase
           var config = {
