@@ -14,8 +14,12 @@ $inuit-enable-input--regular : true;
 
 @import "px-button-group-design/_objects.button-group.scss";
 // Component
-px-dropdown{
-  width:400px;
+:host{
+  overflow: visible;
+}
+.cla__notification{
+  position: sticky;
+  top: 0px;
 }
 
 $inuit-enable-margins : true;

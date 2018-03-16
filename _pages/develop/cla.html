@@ -8,12 +8,18 @@
 <link defer rel="import" href="../../bower_components/px-moment-imports/px-moment-imports.html">
 <link async rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
 <link async rel="import" href="../../bower_components/px-typeahead/px-typeahead.html">
+<link async rel="import" href="../../bower_components/px-notification/px-notification.html">
+
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
 <dom-module id="dev-cla">
   <template>
     <style include="px-catalog-theme-styles px-catalog-page-styles"></style>
     <style include="px-cla-styles"></style>
+    <px-notification
+      id="form-feedback-notification"
+      class="cla__notification">
+    </px-notification>
 
     <div class="page">
       <div class="page-anchors" id="toc">
@@ -62,7 +68,7 @@
           <input id="employer" name="radio-group" type="radio" checked={{!_isIndividual}} on-change="_contributorTypeClicked">
           <label for="employer" class="label--inline">Employer</label>
         </div>
-        <form>
+        <form id="cla-form">
           <fieldset class="u-mt u-mb form-field" style="max-width:400px;">
               <ol class="list-bare">
                 <template is="dom-if" if="{{!_isIndividual}}">
@@ -251,7 +257,31 @@
             formData[key] = inputEl.value;
           }
         );
-        this._firebaseApp.database().ref(`users/${this._firebaseApp.auth().currentUser.uid}`).set(formData);
+        this._firebaseApp.database().ref(`users/${this._firebaseApp.auth().currentUser.uid}`).set(formData)
+          .then(result => this._claSubmitSuccessHandler())
+          .catch(error => this._claSubmitErrorHandler());
+      }
+      _claSubmitSuccessHandler(){
+        let notificationEl = this.shadowRoot.querySelector('#form-feedback-notification');
+        notificationEl.type= 'healthy';
+        notificationEl.statusIcon = "px-utl:confirmed";
+        notificationEl.content = "Contributor License signed successfully"
+        notificationEl.opened = true;
+        setTimeout(()=>{
+          notificationEl.opened = false;
+        },2500);
+        this._hasData = false;
+        this.shadowRoot.querySelector('#cla-form').reset();
+      }
+      _claSubmitErrorHandler(){
+        let notificationEl = this.shadowRoot.querySelector('#form-feedback-notification');
+        notificationEl.type= 'error';
+        notificationEl.statusIcon = 'px-utl:information';
+        notificationEl.content = 'Error submitting the form, please email cla@ge.com for assistance';
+        notificationEl.opened = true;
+        setTimeout(()=>{
+          notificationEl.opened = false;
+        },5000);
       }
       _contributorTypeClicked(evt){
         evt = Polymer.dom(evt);
