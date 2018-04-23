@@ -5,8 +5,6 @@ moduleName: view-develop-data-grid-overview
 pathToRoot: ../../../
 ---
 
-*This guide is under development. Check back for updates.*
-
 Px-data-grid is a powerful, adaptive data visualization tool to aid users when they have a large amount of data to display or manipulate. In its simplest form, the grid displays data in a grid or tabular format with rows and columns to provide a bird's-eye view of the data.
 
 Data grid features allow users to scan, analyze, compare, filter, sort, and edit data to better understand the information, derive insights, and perform actions.

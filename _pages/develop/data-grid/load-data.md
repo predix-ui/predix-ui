@@ -5,8 +5,6 @@ moduleName: view-develop-data-grid-load-data
 pathToRoot: ../../../
 ---
 
-*This guide is under development. Check back for updates.*
-
 The data grid renders an array of objects in rows. Apps can decide when and how to load that data using the `tableData` and `remoteDataProvider` APIs.
 
 # Structure data
@@ -85,14 +83,20 @@ The grid will display 4 rows, one for each user:
 
 # Update, add, replace local data
 
-Apps using the local data source approach can update the `tableData` property at any time to add new records, update existing records, or replace the data completely with a new set of data.
+Apps using the local data source approach can update the `tableData` property at any time to add new records, update existing records, or replace the data completely with a new set of data. Its recommended that `tableData` is copied to a new array reference after it is updated to ensure the grid refreshes its data.
 
-*More information coming soon.*
+```javascript
+function addRowToGrid() {
+  const grid = this.querySelector('px-data-grid');
+  /* The ES6 spread operator `...` creates a new array reference */
+  grid.tableData = [...grid.tableData, { /* new row data here */ }];
+};
+```
 
 # Load remote data
 
 The data grid can load data on demand from a “remote” data source like a backend API using the `remoteDataProvider` property. The grid loads data lazily, requesting new records when the user scrolls past all the loaded data and hits the end of the table. This is a powerful feature that can be used to load large amounts of data from a remote source on demand, increasing performance on the front-end and reducing stress on backend services.
 
-See the “Remote data” guide (coming soon) for an in-depth exploration of this feature.
+See the [remote data provider](https://github.com/predixdesignsystem/px-data-grid/blob/9c4819aab9416ebd6f64b3864ee52c43ccf61696/demo/px-data-grid-remote-data-provider-demo.html#L151-L189) demo page source code for an example of how to use this feature.
 
 **Note:** The local and remote data source APIs cannot be used together. Your app should use the `tableData` API for local data or `remoteDataProvider` API for remote data, but not both.

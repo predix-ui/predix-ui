@@ -324,15 +324,10 @@
             ]
           },
           {
-            "label": "Coming Soon",
-            "subtitle": true
-          },
-          {
-            "disabled": true,
-            "path": "remote-data",
-            "label": "Load Remote Data",
-            "module": "view-develop-data-grid-remote-data",
-            "entrypoint": "/pages/develop/data-grid/remote-data.html",
+            "path": "expandable-rows",
+            "label": "Expandable Rows (Details)",
+            "module": "view-develop-data-grid-expandable-rows",
+            "entrypoint": "/pages/develop/data-grid/expandable-rows.html",
             "keywords": [
               "px-data-grid-paginated",
               "px-data-grid",
@@ -342,97 +337,8 @@
               "table",
               "datatable",
               "pagination",
-              "px-data-table"
-            ]
-          },
-          {
-            "disabled": true,
-            "path": "highlight",
-            "label": "Highlight Rules",
-            "module": "view-develop-data-grid-highlight",
-            "entrypoint": "/pages/develop/data-grid/highlight.html",
-            "keywords": [
-              "px-data-grid-paginated",
-              "px-data-grid",
-              "data",
-              "grid",
-              "datagrid",
-              "table",
-              "datatable",
-              "pagination",
-              "px-data-table"
-            ]
-          },
-          {
-            "disabled": true,
-            "path": "filter",
-            "label": "Filter Rules",
-            "module": "view-develop-data-grid-filter",
-            "entrypoint": "/pages/develop/data-grid/filter.html",
-            "keywords": [
-              "px-data-grid-paginated",
-              "px-data-grid",
-              "data",
-              "grid",
-              "datagrid",
-              "table",
-              "datatable",
-              "pagination",
-              "px-data-table"
-            ]
-          },
-          {
-            "disabled": true,
-            "path": "select",
-            "label": "Single and Multi Select",
-            "module": "view-develop-data-grid-select",
-            "entrypoint": "/pages/develop/data-grid/select.html",
-            "keywords": [
-              "px-data-grid-paginated",
-              "px-data-grid",
-              "data",
-              "grid",
-              "datagrid",
-              "table",
-              "datatable",
-              "pagination",
-              "px-data-table"
-            ]
-          },
-          {
-            "disabled": true,
-            "path": "edit",
-            "label": "Editing",
-            "module": "view-develop-data-grid-edit",
-            "entrypoint": "/pages/develop/data-grid/edit.html",
-            "keywords": [
-              "px-data-grid-paginated",
-              "px-data-grid",
-              "data",
-              "grid",
-              "datagrid",
-              "table",
-              "datatable",
-              "pagination",
-              "px-data-table"
-            ]
-          },
-          {
-            "disabled": true,
-            "path": "user-actions",
-            "label": "User Actions (Export, Save As)",
-            "module": "view-develop-data-grid-user-actions",
-            "entrypoint": "/pages/develop/data-grid/user-actions.html",
-            "keywords": [
-              "px-data-grid-paginated",
-              "px-data-grid",
-              "data",
-              "grid",
-              "datagrid",
-              "table",
-              "datatable",
-              "pagination",
-              "px-data-table"
+              "px-data-table",
+              "row details"
             ]
           }
         ]

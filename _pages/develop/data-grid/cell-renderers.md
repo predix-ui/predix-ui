@@ -5,8 +5,6 @@ moduleName: view-develop-data-grid-cell-renderers
 pathToRoot: ../../../
 ---
 
-*This guide is under development. Check back for updates.*
-
 The grid uses cell renderers to format and display data. Apps can choose from a set of built-in renderers or use custom renderers to create powerful new ways to display information.
 
 # Introduction

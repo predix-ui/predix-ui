@@ -5,8 +5,6 @@ moduleName: view-develop-data-grid-define-columns
 pathToRoot: ../../../
 ---
 
-*This guide is under development. Check back for updates.*
-
 The grid uses columns to decide how to render its data. Apps can use the `columns` property to show or hide certain columns, define how users can interact with columns, and change the way each column’s cells are rendered.
 
 # Use auto-generated columns
