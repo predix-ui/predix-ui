@@ -69,16 +69,16 @@
           <px-icon icon="[[_getMenuIcon(menuOpened)]]"></px-icon>
         </div>
         <!-- Logo -->
-          <div class="logo">
-              <picture class="logo__picture">
-                <template is="dom-if" if="{{isDesktopUp}}">
-                  <source srcset="[[importPath]]../../img/px-dev-logo.webp" class="logo__image" type="image/webp">
-                  <source srcset="[[importPath]]../../img/px-dev-logo.png"  class="logo__image" type="image/png">
-                  <img src="[[importPath]]../../img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
-                </template>
-                <span class="logo__text">Predix Design System</span>
-              </picture>
-          </div>
+        <a class="logo" href="/">
+          <picture class="logo__picture">
+            <template is="dom-if" if="{{isDesktopUp}}">
+              <source srcset="[[importPath]]../../img/px-dev-logo.webp" class="logo__image" type="image/webp">
+              <source srcset="[[importPath]]../../img/px-dev-logo.png"  class="logo__image" type="image/png">
+              <img src="[[importPath]]../../img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
+            </template>
+            <span class="logo__text">Predix Design System</span>
+          </picture>
+        </a>
         <!-- Theme toggle -->
         <div class="theme-toggle">
           <span class="theme-toggle__text">Dark Theme</span>

@@ -162,6 +162,7 @@
   flex: 1 1 auto;
   flex-direction: row;
   align-items: center;
+  text-decoration: none;
 
   .logo__image {
     display: none;
@@ -177,6 +178,7 @@
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
+    color: var(--px-catalog-header-text-color, black);
   }
 
   @include px-media-query($px-catalog-screen-tablet-up) {
