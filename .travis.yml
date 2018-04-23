@@ -8,7 +8,7 @@ branches:
   - gh-pages
 before_script:
 - yarn add polymer-cli
-- polymer install
+- bower install --force
 after_success:
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then openssl aes-256-cbc -k "$password"
   -in id_rsa.enc -out id_rsa -d; fi
