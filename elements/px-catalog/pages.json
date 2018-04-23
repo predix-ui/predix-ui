@@ -2337,6 +2337,32 @@
             ]
           },
           {
+            "path": "px-vis-bar-chart",
+            "label": "Vis Bar Chart",
+            "badgeText": "NEW",
+            "module": "px-vis-bar-chart-demo",
+            "entrypoint": "/bower_components/px-vis-bar-chart/demo/px-vis-bar-chart-demo.html",
+            "redirects": [
+              "/components/px-vis-bar-chart",
+              "/modules/px-vis-bar-chart"
+            ],
+            "keywords": [
+              "px-vis-bar-chart",
+              "charts",
+              "chart",
+              "graph",
+              "graphs",
+              "viz",
+              "coords",
+              "axes",
+              "profile",
+              "comparative"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
             "path": "px-vis-parallel-coordinates",
             "label": "Vis Parallel Coordinates",
             "module": "px-vis-parallel-coordinates-demo",

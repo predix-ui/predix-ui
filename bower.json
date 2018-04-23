@@ -138,7 +138,8 @@
     "px-widths-responsive-design": "^1.0.2",
     "px-widths-tools-design": "^1.0.2",
     "px-threshold-bar": "^1.0.0",
-    "px-data-grid": "^1.0.0"
+    "px-data-grid": "^1.0.0",
+    "px-vis-bar-chart": "^1.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0",
