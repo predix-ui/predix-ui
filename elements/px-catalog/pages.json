@@ -2760,6 +2760,7 @@
       {
         "path": "data-table",
         "label": "Data Table",
+        "badgeText": "POLYMER 1 ONLY",
         "keywords": [
           "px-data-table",
           "data",
@@ -2842,7 +2843,6 @@
           {
             "path": "px-data-grid",
             "label": "Data Grid",
-            "badgeText": "BETA",
             "module": "px-data-grid-demo",
             "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-demo.html",
             "redirects": [
@@ -2868,7 +2868,6 @@
           {
             "path": "px-data-grid-paginated",
             "label": "Data Grid Paginated",
-            "badgeText": "BETA",
             "module": "px-data-grid-paginated-demo",
             "entrypoint": "/bower_components/px-data-grid/demo/px-data-grid-paginated-demo.html",
             "redirects": [
