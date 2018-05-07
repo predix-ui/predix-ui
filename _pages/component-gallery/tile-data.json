@@ -367,11 +367,31 @@
     ]
   },
   {
-    "name": "px-vis",
+    "name": "px-vis-catalog",
     "title": "Vis Framework",
     "description": "px-vis is a Predix UI data visualization framework. It is the foundation for all vis charts.",
-    "imageUrl": "img/component-gallery/vis",
+    "imageUrl": "img/component-gallery/vis-catalog",
     "imageAlt": "Vis Framework thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-demos",
+    "title": "Vis Demos",
+    "description": "The px-vis-demos component provides a set of demos that show more advanced examples of what can be done with the vis framework and vis charts.",
+    "imageUrl": "img/component-gallery/vis-demos",
+    "imageAlt": "Vis Demos thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-bar-chart",
+    "title": "Vis Bar Chart",
+    "description": "The px-vis-bar-chart component is...",
+    "imageUrl": "img/component-gallery/vis-bar-chart",
+    "imageAlt": "Vis Bar Chart thumbnail",
     "tags": [
       "data vis"
     ]
@@ -468,6 +488,26 @@
     ]
   },
   {
+    "name": "px-vis-boxplot",
+    "title": "Box Plot",
+    "description": "The px-vis-boxplot component",
+    "imageUrl": "img/component-gallery/vis-boxplot",
+    "imageAlt": "Box Plot thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-heatmap",
+    "title": "Heatmap",
+    "description": "The px-vis-heatmap component",
+    "imageUrl": "img/component-gallery/vis-heatmap",
+    "imageAlt": "Heatmap thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
     "name": "px-simple-area-chart",
     "title": "Simple Area Chart",
     "description": "The px-simple-area-chart component creates a simple stacked area chart.",
@@ -523,6 +563,28 @@
     "description": "The Data Table component is useful for displaying tabular data, and provides more functionality than a simple table. Users can sort ascending or descending on each column, filter within columns using simple search, select one or more rows, and edit data in-line with input validation. Rows are automatically paginated, but the user can select the number of rows to display in a single page. Cell borders can be configured by the developer to show up horizontally, vertically, or both.",
     "imageUrl": "img/component-gallery/data-table",
     "imageAlt": "Data Table thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-data-grid",
+    "title": "Data Grid",
+    "description": "The data grid displays tabular data with rich interactions to help users find, manage, and update important information. The px-data-grid component replaces the legacy px-data-table component and offers a wide range of new behaviors. The grid is a complete rewrite with a new API and more features that targets Polymer 2+ runtime.\"     github-org=\"predixdesignsystem",
+    "imageUrl": "img/component-gallery/data-grid",
+    "imageAlt": "Data Grid thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-data-grid-paginated",
+    "title": "Data Grid Paginated",
+    "description": "Paginated version of the data grid. The data grid displays tabular data with rich interactions to help users find, manage, and update important information. The px-data-grid component replaces the legacy px-data-table component and offers a wide range of new behaviors. The grid is a complete rewrite with a new API and more features that targets Polymer 2+ runtime.\"     github-org=\"predixdesignsystem",
+    "imageUrl": "img/component-gallery/data-grid-paginated",
+    "imageAlt": "Data Grid Paginated thumbnail",
     "tags": [
       "data display",
       "mobile"

@@ -2337,6 +2337,25 @@
             ]
           },
           {
+            "path": "px-vis-demos",
+            "label": "Vis Demos",
+            "module": "px-vis-demos-demo",
+            "entrypoint": "/bower_components/px-vis-demos/demo/px-vis-demos-demo.html",
+            "redirects": [
+              "/components/px-vis-demos",
+              "/modules/px-vis-demos"
+            ],
+            "keywords": [
+              "px-vis-demos",
+              "charts",
+              "graph",
+              "graphs"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
             "path": "px-vis-bar-chart",
             "label": "Vis Bar Chart",
             "badgeText": "NEW",
@@ -2580,6 +2599,44 @@
               "percentage",
               "gauge",
               "guage"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
+            "path": "px-vis-boxplot",
+            "label": "Box Plot",
+            "module": "px-vis-boxplot-demo",
+            "entrypoint": "/bower_components/px-vis-boxplot/demo/px-vis-boxplot-demo.html",
+            "redirects": [
+              "/components/px-vis-boxplot",
+              "/modules/px-vis-boxplot"
+            ],
+            "keywords": [
+              "px-vis-boxplot",
+              "charts",
+              "graph",
+              "graphs"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
+            "path": "px-vis-heatmap",
+            "label": "Heatmap",
+            "module": "px-vis-heatmap-demo",
+            "entrypoint": "/bower_components/px-vis-heatmap/demo/px-vis-heatmap-demo.html",
+            "redirects": [
+              "/components/px-vis-heatmap",
+              "/modules/px-vis-heatmap"
+            ],
+            "keywords": [
+              "px-vis-heatmap",
+              "charts",
+              "graph",
+              "graphs"
             ],
             "tags": [
               "data vis"

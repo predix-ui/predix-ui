@@ -389,7 +389,7 @@
     "entryPoint": "bower_components/px-context-browser/demo/px-context-browser-trigger-demo.html"
   },
   {
-    "componentName": "px-vis",
+    "componentName": "px-vis-catalog",
     "label": "Vis Framework",
     "tags": [
       "data vis"
@@ -631,6 +631,22 @@
     "entryPoint": "bower_components/px-vis/demo/px-vis-tooltip-demo.html"
   },
   {
+    "componentName": "px-vis-demos",
+    "label": "Vis Demos",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-demos/demo/px-vis-demos-demo.html"
+  },
+  {
+    "componentName": "px-vis-bar-chart",
+    "label": "Vis Bar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-bar-chart/demo/px-vis-bar-chart-demo.html"
+  },
+  {
     "componentName": "px-vis-parallel-coordinates",
     "label": "Vis Parallel Coordinates",
     "tags": [
@@ -704,6 +720,22 @@
     "entryPoint": "bower_components/px-gauge/demo/px-gauge-demo.html"
   },
   {
+    "componentName": "px-vis-boxplot",
+    "label": "Box Plot",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-boxplot/demo/px-vis-boxplot-demo.html"
+  },
+  {
+    "componentName": "px-vis-heatmap",
+    "label": "Heatmap",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-heatmap/demo/px-vis-heatmap-demo.html"
+  },
+  {
     "componentName": "px-simple-area-chart",
     "label": "Simple Area Chart",
     "tags": [
@@ -763,6 +795,24 @@
     "label": "Data Table Highlight",
     "subcomponent": true,
     "entryPoint": "bower_components/px-data-table/demo/px-data-table-highlight-demo.html"
+  },
+  {
+    "componentName": "px-data-grid",
+    "label": "Data Grid",
+    "tags": [
+      "data display",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-data-grid/demo/px-data-grid-demo.html"
+  },
+  {
+    "componentName": "px-data-grid-paginated",
+    "label": "Data Grid Paginated",
+    "tags": [
+      "data display",
+      "mobile"
+    ],
+    "entryPoint": "bower_components/px-data-grid/demo/px-data-grid-paginated-demo.html"
   },
   {
     "componentName": "px-calendar-picker",
