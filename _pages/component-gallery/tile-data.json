@@ -377,16 +377,6 @@
     ]
   },
   {
-    "name": "px-vis-demos",
-    "title": "Vis Demos",
-    "description": "The px-vis-demos component provides a set of demos that show more advanced examples of what can be done with the vis framework and vis charts.",
-    "imageUrl": "img/component-gallery/vis-demos",
-    "imageAlt": "Vis Demos thumbnail",
-    "tags": [
-      "data vis"
-    ]
-  },
-  {
     "name": "px-vis-bar-chart",
     "title": "Vis Bar Chart",
     "description": "The px-vis-bar-chart component is...",

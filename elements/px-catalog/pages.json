@@ -2339,20 +2339,136 @@
           {
             "path": "px-vis-demos",
             "label": "Vis Demos",
-            "module": "px-vis-demos-demo",
-            "entrypoint": "/bower_components/px-vis-demos/demo/px-vis-demos-demo.html",
-            "redirects": [
-              "/components/px-vis-demos",
-              "/modules/px-vis-demos"
-            ],
             "keywords": [
-              "px-vis-demos",
+              "px-vis",
+              "px-viz",
               "charts",
+              "chart",
               "graph",
-              "graphs"
+              "graphs",
+              "viz"
             ],
-            "tags": [
-              "data vis"
+            "pages": [
+              {
+                "path": "px-vis-demos-annotation",
+                "label": "Annotation",
+                "module": "px-vis-demos-annotation",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-annotation.html",
+                "keywords": [
+                  "vis",
+                  "annotation"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-annotation",
+                  "/modules/px-vis-demos-annotation"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-benchmark",
+                "label": "Benchmark",
+                "module": "px-vis-benchmark",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-benchmark.html",
+                "keywords": [
+                  "vis",
+                  "benchmark"
+                ],
+                "redirects": [
+                  "/components/px-vis-benchmark",
+                  "/modules/px-vis-benchmark"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-crosshair-module",
+                "label": "Crosshair",
+                "module": "px-vis-demos-crosshair-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-crosshair-module.html",
+                "keywords": [
+                  "vis",
+                  "crosshair"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-crosshair-module",
+                  "/modules/px-vis-demos-crosshair-module"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-dynamic-add-module",
+                "label": "Chart Generator",
+                "module": "px-vis-demos-dynamic-add-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-dynamic-add-module.html",
+                "keywords": [
+                  "vis",
+                  "dynamic-add"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-dynamic-add-module",
+                  "/modules/px-vis-demos-dynamic-add-module"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-iron-list-module",
+                "label": "Iron List",
+                "module": "px-vis-demos-iron-list-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-iron-list-module.html",
+                "keywords": [
+                  "vis",
+                  "iron-list"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-iron-list-module",
+                  "/modules/px-vis-demos-iron-list-module"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-striping-module",
+                "label": "Striping",
+                "module": "px-vis-demos-striping-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-striping-module.html",
+                "keywords": [
+                  "vis",
+                  "striping"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-striping-module",
+                  "/modules/px-vis-demos-striping-module"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-split-x-module",
+                "label": "Split X",
+                "module": "px-vis-demos-split-x-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-split-x-module.html",
+                "keywords": [
+                  "vis",
+                  "split-x"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-split-x-module",
+                  "/modules/px-vis-demos-split-x-module"
+                ],
+                "subcomponent": true
+              },
+              {
+                "path": "px-vis-demos-split-y-module",
+                "label": "Split Y",
+                "module": "px-vis-demos-split-y-module",
+                "entrypoint": "/bower_components/px-vis-demos/px-vis-demos-split-y-module.html",
+                "keywords": [
+                  "vis",
+                  "split-y"
+                ],
+                "redirects": [
+                  "/components/px-vis-demos-split-y-module",
+                  "/modules/px-vis-demos-split-y-module"
+                ],
+                "subcomponent": true
+              }
             ]
           },
           {
@@ -2606,6 +2722,7 @@
           },
           {
             "path": "px-vis-boxplot",
+            "badgeText": "NEW",
             "label": "Box Plot",
             "module": "px-vis-boxplot-demo",
             "entrypoint": "/bower_components/px-vis-boxplot/demo/px-vis-boxplot-demo.html",
@@ -2625,6 +2742,7 @@
           },
           {
             "path": "px-vis-heatmap",
+            "badgeText": "NEW",
             "label": "Heatmap",
             "module": "px-vis-heatmap-demo",
             "entrypoint": "/bower_components/px-vis-heatmap/demo/px-vis-heatmap-demo.html",

@@ -631,12 +631,52 @@
     "entryPoint": "bower_components/px-vis/demo/px-vis-tooltip-demo.html"
   },
   {
-    "componentName": "px-vis-demos",
-    "label": "Vis Demos",
-    "tags": [
-      "data vis"
-    ],
-    "entryPoint": "bower_components/px-vis-demos/demo/px-vis-demos-demo.html"
+    "componentName": "px-vis-demos-annotation",
+    "label": "Annotation",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-annotation.html"
+  },
+  {
+    "componentName": "px-vis-benchmark",
+    "label": "Benchmark",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-benchmark.html"
+  },
+  {
+    "componentName": "px-vis-demos-crosshair-module",
+    "label": "Crosshair",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-crosshair-module.html"
+  },
+  {
+    "componentName": "px-vis-demos-dynamic-add-module",
+    "label": "Chart Generator",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-dynamic-add-module.html"
+  },
+  {
+    "componentName": "px-vis-demos-iron-list-module",
+    "label": "Iron List",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-iron-list-module.html"
+  },
+  {
+    "componentName": "px-vis-demos-striping-module",
+    "label": "Striping",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-striping-module.html"
+  },
+  {
+    "componentName": "px-vis-demos-split-x-module",
+    "label": "Split X",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-split-x-module.html"
+  },
+  {
+    "componentName": "px-vis-demos-split-y-module",
+    "label": "Split Y",
+    "subcomponent": true,
+    "entryPoint": "bower_components/px-vis-demos/px-vis-demos-split-y-module.html"
   },
   {
     "componentName": "px-vis-bar-chart",
