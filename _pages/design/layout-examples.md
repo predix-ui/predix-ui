@@ -5,8 +5,7 @@ moduleName: view-design-layout-examples
 pathToRoot: ../../
 ---
 
-Example layouts and color configurations for common screens within Predix applications. Note the flexible use of color breaks to configure layouts as a light theme, dark theme or a combination of the two. These examples are included in the Design
-Starter Kit.
+Example layouts and color configurations for common screens within Predix applications. Note the flexible use of color breaks to configure layouts as a light theme, dark theme or a combination of the two. These examples are included in the [Design Starter Kit](#/about/start-designing) and the code for many of them can be found [on GitHub](https://github.com/predixdesignsystem/px-sample-layouts).
 
 
 # Inbox
