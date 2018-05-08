@@ -185,7 +185,8 @@ The design system provides two themes that can be installed via bower and loaded
 
 You can fork either of these themes and use it to create your own theme, or load either of these themes and override individual CSS variables for a specific component.
 
-## Additional resources:
+## Additional resources
+* [Angular sample application](https://github.com/predixdesignsystem/px-sample-app-angular)
 * [Angular documentation](https://angular.io/)
 * [Polymer documentation](https://www.polymer-project.org/)
 * [Angular-Polymer library](https://github.com/platosha/angular-polymer)

@@ -273,15 +273,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-const nativeShadow = !(window['ShadyDOM'] && window['ShadyDOM']['inUse']);
-let nativeCssVariables_;
+let nativeShadow = !(window['ShadyDOM'] && window['ShadyDOM']['inUse']);
+let nativeCssVariables;
 
 /**
  * @param {(ShadyCSSOptions | ShadyCSSInterface)=} settings
  */
 function calcCssVariables(settings) {
   if (settings && settings['shimcssproperties']) {
-    nativeCssVariables_ = false;
+    nativeCssVariables = false;
   } else {
     // chrome 49 has semi-working css vars, check if box-shadow works
     // safari 9.1 has a recalc bug: https://bugs.webkit.org/show_bug.cgi?id=155782
@@ -289,13 +289,13 @@ function calcCssVariables(settings) {
     // so fall back on native if we do not detect ShadyDOM
     // Edge 15: custom properties used in ::before and ::after will also be used in the parent element
     // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12414257/
-    nativeCssVariables_ = nativeShadow || Boolean(!navigator.userAgent.match(/AppleWebKit\/601|Edge\/15/) &&
+    nativeCssVariables = nativeShadow || Boolean(!navigator.userAgent.match(/AppleWebKit\/601|Edge\/15/) &&
       window.CSS && CSS.supports && CSS.supports('box-shadow', '0 0 0 var(--foo)'));
   }
 }
 
 if (window.ShadyCSS && window.ShadyCSS.nativeCss !== undefined) {
-  nativeCssVariables_ = window.ShadyCSS.nativeCss;
+  nativeCssVariables = window.ShadyCSS.nativeCss;
 } else if (window.ShadyCSS) {
   calcCssVariables(window.ShadyCSS);
   // reset window variable to let ShadyCSS API take its place
@@ -303,11 +303,6 @@ if (window.ShadyCSS && window.ShadyCSS.nativeCss !== undefined) {
 } else {
   calcCssVariables(window['WebComponents'] && window['WebComponents']['flags']);
 }
-
-// Hack for type error under new type inference which doesn't like that
-// nativeCssVariables is updated in a function and assigns the type
-// `function(): ?` instead of `boolean`.
-const nativeCssVariables = /** @type {boolean} */(nativeCssVariables_);
 
 /**
 @license
@@ -648,13 +643,8 @@ class StyleTransformer {
   get SCOPE_NAME() {
     return SCOPE_NAME;
   }
-  /**
-   * Given a node and scope name, add a scoping class to each node
-   * in the tree. This facilitates transforming css into scoped rules.
-   * @param {?} node
-   * @param {?} scope
-   * @param {?=} shouldRemoveScope
-   */
+  // Given a node and scope name, add a scoping class to each node
+  // in the tree. This facilitates transforming css into scoped rules.
   dom(node, scope, shouldRemoveScope) {
     // one time optimization to skip scoping...
     if (node['__styleScoped']) {
@@ -677,11 +667,7 @@ class StyleTransformer {
       }
     }
   }
-  /**
-   * @param {?} element
-   * @param {?} scope
-   * @param {?=} shouldRemoveScope
-   */
+
   element(element, scope, shouldRemoveScope) {
     // note: if using classes, we add both the general 'style-scope' class
     // as well as the specific scope. This enables easy filtering of all
@@ -711,11 +697,6 @@ class StyleTransformer {
     }
   }
 
-  /**
-   * @param {?} element
-   * @param {?} styleRules
-   * @param {?=} callback
-   */
   elementStyles(element, styleRules, callback) {
     let cssBuildType = element['__cssBuild'];
     // no need to shim selectors if settings.useNativeShadow, also
@@ -1053,16 +1034,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 // TODO: dedupe with shady
 /**
- * @param {string} selector
- * @return {boolean}
- * @this {Element}
+ * @const {function(string):boolean}
  */
-const matchesSelector = function(selector) {
-  const method = this.matches || this.matchesSelector ||
-    this.mozMatchesSelector || this.msMatchesSelector ||
-    this.oMatchesSelector || this.webkitMatchesSelector;
-  return method && method.call(this, selector);
-};
+const matchesSelector = ((p) => p.matches || p.matchesSelector ||
+  p.mozMatchesSelector || p.msMatchesSelector ||
+p.oMatchesSelector || p.webkitMatchesSelector)(window.Element.prototype);
 
 const IS_IE = navigator.userAgent.match('Trident');
 
@@ -1366,8 +1342,8 @@ class StyleProperties {
     }
     let selectorToMatch = hostScope;
     if (isHost) {
-      // need to transform :host because `:host` does not work with `matches`
-      if (!rule.transformedSelector) {
+      // need to transform :host under ShadowDOM because `:host` does not work with `matches`
+      if (nativeShadow && !rule.transformedSelector) {
         // transform :host into a matchable selector
         rule.transformedSelector =
         StyleTransformer$1._transformRuleCss(
