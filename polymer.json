@@ -101,6 +101,8 @@
     "bower_components/px-vis-demos/px-vis-demos-split-x-module.html",
     "bower_components/px-vis-demos/px-vis-demos-split-y-module.html",
     "bower_components/px-vis-bar-chart/demo/px-vis-bar-chart-demo.html",
+    "bower_components/px-vis-histogram/demo/px-vis-histogram-demo.html",
+    "bower_components/px-vis-paired-bar/demo/px-vis-paired-bar-demo.html",
     "bower_components/px-vis-parallel-coordinates/demo/px-vis-parallel-coordinates-demo.html",
     "bower_components/px-vis-pie-chart/demo/px-vis-pie-chart-demo.html",
     "bower_components/px-vis-polar/demo/px-vis-polar-demo.html",

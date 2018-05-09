@@ -140,6 +140,8 @@
     "px-threshold-bar": "^1.0.0",
     "px-data-grid": "^1.0.0",
     "px-vis-bar-chart": "^1.0.0",
+    "px-vis-histogram": "^1.0.0",
+    "px-vis-paired-bar": "^1.0.0",
     "px-vis-boxplot": "^1.0.0",
     "px-vis-heatmap": "^1.0.0"
   },

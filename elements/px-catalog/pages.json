@@ -2498,6 +2498,57 @@
             ]
           },
           {
+            "path": "px-vis-histogram",
+            "label": "Vis Histogram",
+            "badgeText": "NEW",
+            "module": "px-vis-histogram-demo",
+            "entrypoint": "/bower_components/px-vis-histogram/demo/px-vis-histogram-demo.html",
+            "redirects": [
+              "/components/px-vis-histogram",
+              "/modules/px-vis-histogram"
+            ],
+            "keywords": [
+              "px-vis-histogram",
+              "charts",
+              "chart",
+              "graph",
+              "graphs",
+              "viz",
+              "coords",
+              "axes",
+              "profile"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
+            "path": "px-vis-paired-bar",
+            "label": "Vis Paired Bar Chart",
+            "badgeText": "NEW",
+            "module": "px-vis-paired-bar-demo",
+            "entrypoint": "/bower_components/px-vis-paired-bar/demo/px-vis-paired-bar-demo.html",
+            "redirects": [
+              "/components/px-vis-paired-bar",
+              "/modules/px-vis-paired-bar"
+            ],
+            "keywords": [
+              "px-vis-paired-bar",
+              "charts",
+              "chart",
+              "graph",
+              "graphs",
+              "viz",
+              "coords",
+              "axes",
+              "profile",
+              "comparative"
+            ],
+            "tags": [
+              "data vis"
+            ]
+          },
+          {
             "path": "px-vis-parallel-coordinates",
             "label": "Vis Parallel Coordinates",
             "module": "px-vis-parallel-coordinates-demo",

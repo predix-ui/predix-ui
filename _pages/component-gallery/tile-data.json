@@ -387,6 +387,26 @@
     ]
   },
   {
+    "name": "px-vis-histogram",
+    "title": "Vis Histogram",
+    "description": "The px-vis-histogram component is...",
+    "imageUrl": "img/component-gallery/vis-histogram",
+    "imageAlt": "Vis Histogram thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-paired-bar",
+    "title": "Vis Paired Bar Chart",
+    "description": "The px-vis-paired-bar component is...",
+    "imageUrl": "img/component-gallery/vis-paired-bar",
+    "imageAlt": "Vis Paired Bar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
     "name": "px-vis-parallel-coordinates",
     "title": "Vis Parallel Coordinates",
     "description": "The px-vis-parallel-coordinates component allows you to draw a parallel coordinates chart. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+.",

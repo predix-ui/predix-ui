@@ -687,6 +687,22 @@
     "entryPoint": "bower_components/px-vis-bar-chart/demo/px-vis-bar-chart-demo.html"
   },
   {
+    "componentName": "px-vis-histogram",
+    "label": "Vis Histogram",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-histogram/demo/px-vis-histogram-demo.html"
+  },
+  {
+    "componentName": "px-vis-paired-bar",
+    "label": "Vis Paired Bar Chart",
+    "tags": [
+      "data vis"
+    ],
+    "entryPoint": "bower_components/px-vis-paired-bar/demo/px-vis-paired-bar-demo.html"
+  },
+  {
     "componentName": "px-vis-parallel-coordinates",
     "label": "Vis Parallel Coordinates",
     "tags": [
