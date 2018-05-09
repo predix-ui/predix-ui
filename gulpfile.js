@@ -43,7 +43,7 @@ const ora = require('ora');
 const glob = require("glob");
 const fse = require('fs-extra');
 const md = require('./scripts/page-builder');
-const {Analyzer, FSUrlLoader, generateAnalysis} = require('polymer-analyzer');
+const {Analyzer, FsUrlLoader, generateAnalysis} = require('polymer-analyzer');
 const createComponentsInfo = require('./scripts/json-builder/create-components-info.js');
 const createPagesFilter = require('./scripts/json-builder/create-pages-filter.js');
 const LunrIndexer = require('./scripts/lunr-indexer/index.js');
@@ -554,7 +554,7 @@ function buildMdFile(filePath) {
 function buildAPIAnalyzerFiles(pxElementPaths){
   // Set up Polymer Analyzer with 'bower_components' as its base directory
   let analyzer = new Analyzer({
-      urlLoader: new FSUrlLoader('./bower_components')
+      urlLoader: new FsUrlLoader('./bower_components')
   });
 
   // Create a lunr index to save info from each analysis as we go
