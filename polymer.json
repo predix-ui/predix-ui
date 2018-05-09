@@ -222,6 +222,7 @@
     "bower_components/px-dark-demo-theme/*.html",
     "bower_components/px-product-switcher/demo/Predix.png",
     "bower_components/px-vis-demos/**/*.html",
+    "bower_components/px-demo-data/**/*.json",
     "data/*.json",
     "ie/*"
   ],
