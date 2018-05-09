@@ -223,6 +223,8 @@
     "bower_components/px-product-switcher/demo/Predix.png",
     "bower_components/px-vis-demos/**/*.html",
     "bower_components/px-demo-data/**/*.json",
+    "bower_components/px-vis-histogram/demo/*.json",
+    "bower_components/px-vis-paired-bar/demo/*.json",
     "data/*.json",
     "ie/*"
   ],
