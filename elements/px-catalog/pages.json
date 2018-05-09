@@ -68,7 +68,7 @@
       },
       {
         "path": "sample-app",
-        "label": "Sample Application/Layouts",
+        "label": "Sample Application & Layouts",
         "module": "view-about-sample-app",
         "entrypoint": "/pages/about/sample-app.html",
         "keywords": [
