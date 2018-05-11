@@ -62,6 +62,6 @@
     "node": ">=6.0.0"
   },
   "devDependencies": {
-    "polymer-analyzer": "^3.0.0"
+    "polymer-analyzer": "^2.0.0"
   }
 }
