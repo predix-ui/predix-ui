@@ -241,6 +241,19 @@
         ]
       },
       {
+        "path": "css-overview",
+        "label": "CSS Overview",
+        "module": "view-develop-css-overview",
+        "entrypoint": "/pages/develop/css-overview.html",
+        "keywords": [
+          "CSS",
+          "Sass",
+          "modules",
+          "css framework",
+          "inuitcss"
+        ]
+      },
+      {
         "path": "data-grid",
         "label": "Data Grid",
         "keywords": [
