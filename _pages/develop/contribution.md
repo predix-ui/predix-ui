@@ -38,6 +38,8 @@ Feature requests are welcome, but before opening one, determine if your idea sui
 
 ## Pull Requests
 
+Pull requests require acceptance of GE's [contributor license agreement](https://www.predix-ui.com/#/develop/cla) so start by reading it over and registering your GitHub account.
+
 Your pull requests (for patches, improvements, and new features) are a big help. The requests should be focused and avoid unrelated commits. **Please ask** before making a significant pull request (e.g., implementing features, refactoring code, or porting to a different language) that our team may not merge into the component.
 
 Please follow the same coding conventions used throughout the project (indentation, accurate comments, etc.) and any other requirements (such as test coverage). **Do not edit any of the CSS files directly!** The files are automatically generated. You should edit the source files in `sass/` instead.
