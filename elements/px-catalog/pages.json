@@ -185,6 +185,15 @@
         ]
       },
       {
+        "path": "notifications",
+        "label": "Notifications & Alerts",
+        "module": "view-design-notifications",
+        "entrypoint": "/pages/design/notifications.html",
+        "redirects": [
+          "/guidelines/notifications"
+        ]
+      },
+      {
         "path": "page-layout",
         "label": "Page Layout",
         "module": "view-design-page-layout",
