@@ -1361,7 +1361,7 @@
   },
   {
     "path": "elements",
-    "label": "Components",
+    "label": "Polymer Components",
     "pages": [
       {
         "path": "px-accordion",
@@ -4133,6 +4133,13 @@
         ]
       }
     ]
+  },
+  {
+    "path": "react-elements",
+    "label": "Other Framework Components",
+    "module": "view-react-elements",
+    "badgeText": "NEW",
+    "entrypoint": "/pages/about/react-elements.html"
   },
   {
     "path": "tools",
