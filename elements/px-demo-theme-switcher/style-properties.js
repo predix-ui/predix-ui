@@ -514,12 +514,6 @@ function applyStyle(style, target, contextNode) {
 
 
 /**
- * @param {Element} element
- * @return {?string}
- */
-
-
-/**
  * Walk from text[start] matching parens and
  * returns position of the outer end paren
  * @param {string} text
@@ -612,6 +606,71 @@ function getIsExtends(element) {
  * @return {string}
  */
 
+
+/**
+ * Split a selector separated by commas into an array in a smart way
+ * @param {string} selector
+ * @return {!Array<string>}
+ */
+function splitSelectorList(selector) {
+  const parts = [];
+  let part = '';
+  for (let i = 0; i >= 0 && i < selector.length; i++) {
+    // A selector with parentheses will be one complete part
+    if (selector[i] === '(') {
+      // find the matching paren
+      const end = findMatchingParen(selector, i);
+      // push the paren block into the part
+      part += selector.slice(i, end + 1);
+      // move the index to after the paren block
+      i = end;
+    } else if (selector[i] === ',') {
+      parts.push(part);
+      part = '';
+    } else {
+      part += selector[i];
+    }
+  }
+  // catch any pieces after the last comma
+  if (part) {
+    parts.push(part);
+  }
+  return parts;
+}
+
+/**
+ * Return the polymer-css-build "build type" applied to this element
+ *
+ * @param {!HTMLElement} element
+ * @return {string} Can be "", "shady", or "shadow"
+ */
+
+
+/**
+ * Check if the given element, either a <template> or <style>, has been processed
+ * by polymer-css-build.
+ *
+ * If so, then we can make a number of optimizations:
+ * - polymer-css-build will decompose mixins into individual CSS Custom Properties,
+ * so the ApplyShim can be skipped entirely.
+ * - Under native ShadowDOM, the style text can just be copied into each instance
+ * without modification
+ * - If the build is "shady" and ShadyDOM is in use, the styling does not need
+ * scoping beyond the shimming of CSS Custom Properties
+ *
+ * @param {!HTMLElement} element
+ * @return {boolean}
+ */
+
+
+/**
+ * For templates made with tagged template literals, polymer-css-build will
+ * insert a comment of the form `<!--css-build:shadow-->`
+ *
+ * @param {!HTMLElement} element
+ * @return {string}
+ */
+
 /**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -651,32 +710,50 @@ class StyleTransformer {
   /**
    * Given a node and scope name, add a scoping class to each node
    * in the tree. This facilitates transforming css into scoped rules.
-   * @param {?} node
-   * @param {?} scope
-   * @param {?=} shouldRemoveScope
+   * @param {!Node} node
+   * @param {string} scope
+   * @param {boolean=} shouldRemoveScope
+   * @deprecated
    */
   dom(node, scope, shouldRemoveScope) {
-    // one time optimization to skip scoping...
-    if (node['__styleScoped']) {
-      node['__styleScoped'] = null;
-    } else {
-      this._transformDom(node, scope || '', shouldRemoveScope);
-    }
+    const fn = (node) => {
+      this.element(node, scope || '', shouldRemoveScope);
+    };
+    this._transformDom(node, fn);
   }
 
-  _transformDom(node, selector, shouldRemoveScope) {
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      this.element(node, selector, shouldRemoveScope);
+  /**
+   * Given a node and scope name, add a scoping class to each node in the tree.
+   * @param {!Node} node
+   * @param {string} scope
+   */
+  domAddScope(node, scope) {
+    const fn = (node) => {
+      this.element(node, scope || '');
+    };
+    this._transformDom(node, fn);
+  }
+
+  /**
+   * @param {!Node} startNode
+   * @param {!function(!Node)} transformer
+   */
+  _transformDom(startNode, transformer) {
+    if (startNode.nodeType === Node.ELEMENT_NODE) {
+      transformer(startNode);
     }
-    let c$ = (node.localName === 'template') ?
-      (node.content || node._content).childNodes :
-      node.children || node.childNodes;
+    let c$ = (startNode.localName === 'template') ?
+      // In case the template is in svg context, fall back to the node
+      // since it won't be an HTMLTemplateElement with a .content property
+      (startNode.content || startNode._content || startNode).childNodes :
+      startNode.children || startNode.childNodes;
     if (c$) {
       for (let i=0; i<c$.length; i++) {
-        this._transformDom(c$[i], selector, shouldRemoveScope);
+        this._transformDom(c$[i], transformer);
       }
     }
   }
+
   /**
    * @param {?} element
    * @param {?} scope
@@ -712,12 +789,37 @@ class StyleTransformer {
   }
 
   /**
+   * Given a node, replace the scoping class to each subnode in the tree.
+   * @param {!Node} node
+   * @param {string} oldScope
+   * @param {string} newScope
+   */
+  domReplaceScope(node, oldScope, newScope) {
+    const fn = (node) => {
+      this.element(node, oldScope, true);
+      this.element(node, newScope);
+    };
+    this._transformDom(node, fn);
+  }
+  /**
+   * Given a node, remove the scoping class to each subnode in the tree.
+   * @param {!Node} node
+   * @param {string} oldScope
+   */
+  domRemoveScope(node, oldScope) {
+    const fn = (node) => {
+      this.element(node, oldScope || '', true);
+    };
+    this._transformDom(node, fn);
+  }
+
+  /**
    * @param {?} element
    * @param {?} styleRules
    * @param {?=} callback
+   * @param {string=} cssBuild
    */
-  elementStyles(element, styleRules, callback) {
-    let cssBuildType = element['__cssBuild'];
+  elementStyles(element, styleRules, callback, cssBuild = '') {
     // no need to shim selectors if settings.useNativeShadow, also
     // a shady css build will already have transformed selectors
     // NOTE: This method may be called as part of static or property shimming.
@@ -725,7 +827,7 @@ class StyleTransformer {
     // but when the property shim is used it is called and should opt out of
     // static shimming work when a proper build exists.
     let cssText = '';
-    if (nativeShadow || cssBuildType === 'shady') {
+    if (nativeShadow || cssBuild === 'shady') {
       cssText = toCssText(styleRules, callback);
     } else {
       let {is, typeExtension} = getIsExtends(element);
@@ -792,7 +894,7 @@ class StyleTransformer {
    * @param {string=} hostScope
    */
   _transformRuleCss(rule, transformer, scope, hostScope) {
-    let p$ = rule['selector'].split(COMPLEX_SELECTOR_SEP);
+    let p$ = splitSelectorList(rule['selector']);
     // we want to skip transformation of rules that appear in keyframes,
     // because they are keyframe selectors, not element selectors.
     if (!isKeyframesSelector(rule)) {
@@ -800,7 +902,7 @@ class StyleTransformer {
         p$[i] = transformer.call(this, p, scope, hostScope);
       }
     }
-    return p$.join(COMPLEX_SELECTOR_SEP);
+    return p$.filter((part) => Boolean(part)).join(COMPLEX_SELECTOR_SEP);
   }
 
   /**
@@ -818,6 +920,44 @@ class StyleTransformer {
     });
   }
 
+  /**
+   * Preserve `:matches()` selectors by replacing them with MATCHES_REPLACMENT
+   * and returning an array of `:matches()` selectors.
+   * Use `_replacesMatchesPseudo` to replace the `:matches()` parts
+   *
+   * @param {string} selector
+   * @return {{selector: string, matches: !Array<string>}}
+   */
+  _preserveMatchesPseudo(selector) {
+    /** @type {!Array<string>} */
+    const matches = [];
+    let match;
+    while ((match = selector.match(MATCHES))) {
+      const start = match.index;
+      const end = findMatchingParen(selector, start);
+      if (end === -1) {
+        throw new Error(`${match.input} selector missing ')'`)
+      }
+      const part = selector.slice(start, end + 1);
+      selector = selector.replace(part, MATCHES_REPLACEMENT);
+      matches.push(part);
+    }
+    return {selector, matches};
+  }
+
+  /**
+   * Replace MATCHES_REPLACMENT character with the given set of `:matches()`
+   * selectors.
+   *
+   * @param {string} selector
+   * @param {!Array<string>} matches
+   * @return {string}
+   */
+  _replaceMatchesPseudo(selector, matches) {
+    const parts = selector.split(MATCHES_REPLACEMENT);
+    return matches.reduce((acc, cur, idx) => acc + cur + parts[idx + 1], parts[0]);
+  }
+
 /**
  * @param {string} selector
  * @param {string} scope
@@ -832,6 +972,14 @@ class StyleTransformer {
       selector = selector.replace(NTH, (m, type, inner) => `:${type}(${inner.replace(/\s/g, '')})`);
       selector = this._twiddleNthPlus(selector);
     }
+    // Preserve selectors like `:-webkit-any` so that SIMPLE_SELECTOR_SEP does
+    // not get confused by spaces inside the pseudo selector
+    const isMatches = MATCHES.test(selector);
+    /** @type {!Array<string>} */
+    let matches;
+    if (isMatches) {
+      ({selector, matches} = this._preserveMatchesPseudo(selector));
+    }
     selector = selector.replace(SLOTTED_START, `${HOST} $1`);
     selector = selector.replace(SIMPLE_SELECTOR_SEP, (m, c, s) => {
       if (!stop) {
@@ -842,6 +990,10 @@ class StyleTransformer {
       }
       return c + s;
     });
+    // replace `:matches()` selectors
+    if (isMatches) {
+      selector = this._replaceMatchesPseudo(selector, matches);
+    }
     if (isNth) {
       selector = this._twiddleNthPlus(selector);
     }
@@ -941,9 +1093,14 @@ class StyleTransformer {
  * @param {string} selector
  */
   _transformDocumentSelector(selector) {
-    return selector.match(SLOTTED) ?
-      this._transformComplexSelector(selector, SCOPE_DOC_SELECTOR) :
-      this._transformSimpleSelector(selector.trim(), SCOPE_DOC_SELECTOR);
+    if (selector.match(HOST)) {
+      // remove ':host' type selectors in document rules
+      return '';
+    } else if (selector.match(SLOTTED)) {
+      return this._transformComplexSelector(selector, SCOPE_DOC_SELECTOR)
+    } else {
+      return this._transformSimpleSelector(selector.trim(), SCOPE_DOC_SELECTOR);
+    }
   }
 }
 
@@ -967,6 +1124,8 @@ let CSS_CLASS_PREFIX = '.';
 let PSEUDO_PREFIX = ':';
 let CLASS = 'class';
 let SELECTOR_NO_MATCH = 'should_not_match';
+const MATCHES = /:(?:matches|any|-(?:webkit|moz)-any)/;
+const MATCHES_REPLACEMENT = '\u{e000}';
 
 var StyleTransformer$1 = new StyleTransformer()
 
@@ -1303,15 +1462,15 @@ class StyleProperties {
    * @param {Element} element
    */
   propertyDataFromStyles(rules, element) {
-    let props = {}, self = this;
+    let props = {};
     // generates a unique key for these matches
     let o = [];
     // note: active rules excludes non-matching @media rules
-    forEachRule(rules, function(rule) {
+    forEachRule(rules, (rule) => {
       // TODO(sorvell): we could trim the set of rules at declaration
       // time to only include ones that have properties
       if (!rule.propertyInfo) {
-        self.decorateRule(rule);
+        this.decorateRule(rule);
       }
       // match element against transformedSelector: selector may contain
       // unwanted uniquification and parsedSelector does not directly match
@@ -1319,7 +1478,7 @@ class StyleProperties {
       let selectorToMatch = rule.transformedSelector || rule['parsedSelector'];
       if (element && rule.propertyInfo.properties && selectorToMatch) {
         if (matchesSelector.call(element, selectorToMatch)) {
-          self.collectProperties(rule, props);
+          this.collectProperties(rule, props);
           // produce numeric key for these matches for lookup
           addToBitMask(rule.index, o);
         }
@@ -1331,7 +1490,7 @@ class StyleProperties {
   /**
    * @param {Element} scope
    * @param {StyleNode} rule
-   * @param {string|undefined} cssBuild
+   * @param {string} cssBuild
    * @param {function(Object)} callback
    */
   whenHostOrRootRule(scope, rule, cssBuild, callback) {
@@ -1356,10 +1515,6 @@ class StyleProperties {
       isRoot = parsedSelector === (hostScope + ' > *.' + hostScope) || parsedSelector.indexOf('html') !== -1;
       // :host -> x-foo for elements, but sub-rules have .x-foo in them
       isHost = !isRoot && parsedSelector.indexOf(hostScope) === 0;
-    }
-    if (cssBuild === 'shadow') {
-      isRoot = parsedSelector === ':host > *' || parsedSelector === 'html';
-      isHost = isHost && !isRoot;
     }
     if (!isRoot && !isHost) {
       return;
@@ -1388,21 +1543,21 @@ class StyleProperties {
 /**
  * @param {Element} scope
  * @param {StyleNode} rules
+ * @param {string} cssBuild
  * @return {Object}
  */
-  hostAndRootPropertiesForScope(scope, rules) {
-    let hostProps = {}, rootProps = {}, self = this;
+  hostAndRootPropertiesForScope(scope, rules, cssBuild) {
+    let hostProps = {}, rootProps = {};
     // note: active rules excludes non-matching @media rules
-    let cssBuild = rules && rules['__cssBuild'];
-    forEachRule(rules, function(rule) {
+    forEachRule(rules, (rule) => {
       // if scope is StyleDefaults, use _element for matchesSelector
-      self.whenHostOrRootRule(scope, rule, cssBuild, function(info) {
+      this.whenHostOrRootRule(scope, rule, cssBuild, (info) => {
         let element = scope._element || scope;
         if (matchesSelector.call(element, info.selector)) {
           if (info.isHost) {
-            self.collectProperties(rule, hostProps);
+            this.collectProperties(rule, hostProps);
           } else {
-            self.collectProperties(rule, rootProps);
+            this.collectProperties(rule, rootProps);
           }
         }
       });
@@ -1425,7 +1580,7 @@ class StyleProperties {
       hostSelector;
     let hostRx = new RegExp(HOST_PREFIX + rxHostSelector +
       HOST_SUFFIX);
-    let rules = StyleInfo.get(element).styleRules;
+    let {styleRules: rules, cssBuild} = StyleInfo.get(element);
     let keyframeTransforms =
       this._elementKeyframeTransforms(element, rules, scopeSelector);
     return StyleTransformer$1.elementStyles(element, rules, function(rule) {
@@ -1438,7 +1593,7 @@ class StyleProperties {
         self.applyKeyframeTransforms(rule, keyframeTransforms);
         self._scopeSelector(rule, hostRx, hostSelector, scopeSelector);
       }
-    });
+    }, cssBuild);
   }
 
   /**
@@ -1515,7 +1670,7 @@ class StyleProperties {
     rule.transformedSelector = rule.transformedSelector || rule['selector'];
     let selector = rule.transformedSelector;
     let scope = '.' + scopeId;
-    let parts = selector.split(',');
+    let parts = splitSelectorList(selector);
     for (let i=0, l=parts.length, p; (i<l) && (p=parts[i]); i++) {
       parts[i] = p.match(hostRx) ?
         p.replace(hostSelector, scope) :
