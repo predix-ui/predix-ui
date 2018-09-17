@@ -29,6 +29,15 @@ A set of Predix UI Components built on DevExpress that can be quickly assembled 
 [Checkout the DevExpress components.](/#)
 
 ## [Data Table](/#)
-A robust data table built on DevExpress that adheres to the PredixUI design and interaction standards.
+A robust data table built on DevExpress that adheres to the Predix UI design and interaction standards.
 
 --------------------------------------------------------------------------------
+
+# Highcharts Components
+
+<catalog-picture img-src="../../img/about/highcharts" img-alt="Highcharts Logo" style="border:none; width:250px; display: block; float: right;">
+</catalog-picture>
+
+A set of Predix UI data visualization components built on Highcharts. Quickly assemble robust data visualizations for your applications and provide users with the right data to make decisions.
+
+[Checkout the Highcharts components.](/#)
