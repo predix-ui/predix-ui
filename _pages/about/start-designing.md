@@ -43,6 +43,26 @@ The Starter Kit will have the components from the Predix Components Master, comp
 If you've used previous versions of the Starter Kit to build your screens, you will need to replace your symbols with those that are in the Libraries file. [Symbol Swapper](https://github.com/sonburn/symbol-swapper) is a plug-in that will help to streamline this process. Symbol Swapper provides you with a way to select a symbol and replace it with a symbol with the same name.
 <catalog-picture img-src="../../img/guidelines/symbol-swapper" img-alt="Symbol swapper"></catalog-picture>
 
+## Adding the Predix Color Swatches to Sketch
+The design starter kit includes the *Predix Design System Swatches v2.clr file*. You can setup Sketch to use the Predix color palette as part of the Colors panel.
+
+1. In sketch, open the colors panel by going to View > Show Colors
+<catalog-picture img-src="../../img/guidelines/open-colors-panel" img-alt="Opening the colors panel"></catalog-picture>
+
+The panel will show some pre-set colors from Sketch and others you might have in your system.
+
+2. Add the swatches file to your library by clicking on the gear icon > and then Open.
+<catalog-picture img-src="../../img/guidelines/open-clr-file" img-alt="Open clr file"></catalog-picture>
+
+Select the *Predix Design System Swatches v2.clr file* file and click open.
+<catalog-picture img-src="../../img/guidelines/select-clr-file" img-alt="Select clr file"></catalog-picture>
+
+3. You will now have the swatches available in your library for use whenever the colors panel is open.
+<catalog-picture img-src="../../img/guidelines/swatches-visible-in-panel" img-alt="Clr file visible in panel"></catalog-picture>
+
+You can switch between the swatches in your system by clicking the swatches name dropdown and selecting an option.
+<catalog-picture img-src="../../img/guidelines/switching-between-swatches" img-alt="Switch between swatches"></catalog-picture>
+
 # Additional Third-party Resources
 
 * [Sketch App](https://www.sketchapp.com/)
