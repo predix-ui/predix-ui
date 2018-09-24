@@ -4265,13 +4265,6 @@
     ]
   },
   {
-    "path": "react-elements",
-    "label": "Other Framework Components",
-    "module": "view-react-elements",
-    "badgeText": "NEW",
-    "entrypoint": "/pages/about/react-elements.html"
-  },
-  {
     "path": "tools",
     "label": "Tools",
     "pages": [
