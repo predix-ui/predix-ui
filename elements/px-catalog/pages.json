@@ -4135,6 +4135,13 @@
     ]
   },
   {
+    "path": "other-framework-components",
+    "label": "Other Framework Components",
+    "module": "view-other-framework-components",
+    "badgeText": "NEW",
+    "entrypoint": "/pages/about/other-framework-components.html"
+  },
+  {
     "path": "tools",
     "label": "Tools",
     "pages": [
