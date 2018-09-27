@@ -9,12 +9,12 @@ Buttons allow users to take actions in an interface.
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/buttons-hero" img-alt="Px Buttons" caption="Types of Px buttons"></catalog-picture>
 
 # Buttons
-Buttons allow users to take actions in your application, and can be used in forms, modal windows, tables, cards, and others.
+Buttons can be used in forms, modal windows, tables, cards, and more to indicate actions to the user.
 When text is included in a button, use action verbs that clearly indicate to the user what the result will be when a button is pressed.
 
 ## Sizes
-The buttons are available in four sizes. For the most part, the regular size button is the default and recommended size for desktop and mobile applications.
-Depending on the context of use, your application may require larger click targets for users, like applications that are meant to be used with protective gloves on, or large operator displays.
+Buttons are available in four sizes. For the most part, the regular size button is the default and recommended size for desktop and mobile applications.
+Depending on the context of use, your application may require larger click targets for users (like applications that are meant to be used with protective gloves on, or large operator displays).
 
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/button-sizes" img-alt="Px Button Sizes" caption="Px Button Sizes"></catalog-picture>
 
@@ -41,7 +41,7 @@ For English and other left-to-right language applications, the secondary buttons
 
 Your page should only have one call to action button, but can have various primary and secondary buttons. This is to clearly indicate the path forward to the user. When keyboard shortcuts are used, hitting “Enter” on the keyboard has the same effect as clicking the Call to Action Button.
 
-Multiple primary actions can exist within a page, but stick to a single primary button within a set of buttons in a component.
+Multiple primary actions can exist within a page, but stick to a single primary button within a set of buttons in a component or page section.
 
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/button-order" img-alt="Button placement order" caption="Button placement order"></catalog-picture>
 
@@ -81,7 +81,7 @@ The different button types can be used side-by-side depending on the desired eff
   </catalog-picture>
 </div>
 
-When giving the user multiple options, a good rule of thumb is to use the CTA button for the main action, and visually separate a destructive or negative action, and enforcing this distinction with a tertiary button.
+When giving users multiple options, a good rule of thumb is to use the CTA button for the main action, and visually separate a destructive or negative action. The distinction can be enforced with a tertiary button.
 
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/basic-button-placement-discard" img-alt="Modal with 3 action choices" caption="Modal with 3 action choices"></catalog-picture>
 
@@ -94,10 +94,10 @@ Icons can be used in buttons to better communicate the action that will be trigg
 Bare buttons lose the outline and fill, and can be used to make the page appear more open.
 When there is no text, the icon serves as the click target for the action.
 
+<catalog-picture img-src="../../img/guidelines/design/components/buttons/button-with-icons-bare-types" img-alt="Bare buttons" caption="Bare buttons"></catalog-picture>
+
 ## Behavior
 The default, hover and pressed states apply to all bare type of buttons (icon only, icon and text, text only).
-
-<catalog-picture img-src="../../img/guidelines/design/components/buttons/button-with-icons-bare-types" img-alt="Bare buttons" caption="Bare buttons"></catalog-picture>
 
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/buttons-with-icons-bare-spec" img-alt="Bare buttons spec" caption="Bare buttons spec"></catalog-picture>
 
@@ -121,7 +121,7 @@ Bare buttons can help emphasize specific actions when combined with outlined and
   </catalog-picture>
 </div>
 
-Similarly, bare buttons and iconic buttons can be used for in-line actions, or as actions in toolbars.
+Bare buttons and iconic buttons can also be used for in-line actions, or as actions in toolbars.
 
 <div class="layout">
   <catalog-picture
@@ -156,7 +156,9 @@ Similarly, bare buttons and iconic buttons can be used for in-line actions, or a
 </div>
 
 # Button Groups (Toggle buttons)
-Button groups should be used to set similar actions close together. They allow users to make single or multiple selection from a limited number of options.
+Button groups allow to toggle between similar actions and place them close together. Button groups allow for single or multiple selection from a limited number of options.
+
+When used in multi selection mode, the button group serves as a filter to display multiple options.
 
 <catalog-picture img-src="../../img/guidelines/design/components/buttons/button-groups" img-alt="Button groups" caption="Button Groups"></catalog-picture>
 
@@ -166,7 +168,7 @@ Button groups should be used to set similar actions close together. They allow u
 
 ## Usage
 Button groups can be used to toggle between different views of content in a page.
-Button groups are used less frequently than other button types.
+They are used less frequently than other button types.
 
 <div class="layout">
   <catalog-picture
