@@ -100,64 +100,175 @@
     "path": "design",
     "label": "Design Guidelines",
     "pages": [
-      {
-        "path": "color",
-        "label": "Color",
-        "module": "view-design-color",
-        "entrypoint": "/pages/design/color.html",
-        "redirects": [
-          "/guidelines/color"
-        ]
-      },
-      {
-        "path": "data-vis",
-        "label": "Data Visualization",
-        "module": "view-design-data-vis",
-        "entrypoint": "/pages/design/data-vis.html",
-        "redirects": [
-          "/guidelines/data-vis"
-        ]
-      },
-
 
       {
-        "path": "elevation-layering",
-        "label": "Elevation & Layering",
-        "module": "view-design-elevation-layering",
-        "entrypoint": "/pages/design/elevation-layering.html",
-        "redirects": [
-          "/guidelines/elevation-layering"
+        "path": "foundation",
+        "label": "Foundation",
+        "badgeText": "NEW",
+        "pages": [
+          {
+            "path": "view-design-principles",
+            "label": "Design Principles",
+            "module": "view-design-principles",
+            "entrypoint": "/pages/design/design-principles.html",
+            "redirects": [
+              "/guidelines/view-design-principles"
+            ]
+          },
+          {
+            "path": "color",
+            "label": "Color",
+            "module": "view-design-color",
+            "entrypoint": "/pages/design/color.html",
+            "redirects": [
+              "/guidelines/color"
+            ]
+          },
+          {
+            "path": "data-vis",
+            "label": "Data Visualization",
+            "module": "view-design-data-vis",
+            "entrypoint": "/pages/design/data-vis.html",
+            "redirects": [
+              "/guidelines/data-vis"
+            ]
+          },
+          {
+            "path": "elevation-layering",
+            "label": "Elevation & Layering",
+            "module": "view-design-elevation-layering",
+            "entrypoint": "/pages/design/elevation-layering.html",
+            "redirects": [
+              "/guidelines/elevation-layering"
+            ]
+          },
+          {
+            "path": "iconography",
+            "label": "Iconography",
+            "module": "view-design-iconography",
+            "entrypoint": "/pages/design/iconography.html",
+            "redirects": [
+              "/guidelines/iconography"
+            ]
+          },
+          {
+            "path": "typography",
+            "label": "Typography",
+            "module": "view-design-typography",
+            "entrypoint": "/pages/design/typography.html",
+            "redirects": [
+              "/guidelines/typography"
+            ]
+          },
+          {
+            "path": "navigation",
+            "label": "Navigation",
+            "module": "view-design-navigation",
+            "entrypoint": "/pages/design/navigation.html",
+            "redirects": [
+              "/guidelines/navigation"
+            ]
+          }
         ]
       },
       {
-        "path": "forms",
-        "label": "Forms",
-        "module": "view-design-forms",
-        "entrypoint": "/pages/design/forms.html"
-      },
-      {
-        "path": "iconography",
-        "label": "Iconography",
-        "module": "view-design-iconography",
-        "entrypoint": "/pages/design/iconography.html",
-        "redirects": [
-          "/guidelines/iconography"
+        "path": "layout",
+        "label": "Layout",
+        "badgeText": "NEW",
+        "pages": [
+          {
+            "path": "page-layout",
+            "label": "Page Layout",
+            "module": "view-design-page-layout",
+            "entrypoint": "/pages/design/page-layout.html",
+            "redirects": [
+              "/guidelines/page-layout"
+            ],
+            "keywords":[
+              "layout",
+              "page layout"
+            ]
+          },
+          {
+            "path": "layout-examples",
+            "label": "Layout Examples",
+            "module": "view-design-layout-examples",
+            "entrypoint": "/pages/design/layout-examples.html",
+            "keywords":[
+              "examples",
+              "showcase",
+              "layouts",
+              "use cases"
+            ],
+            "redirects": [
+              "/guidelines/gallery",
+              "/design/gallery"
+            ]
+          },
+          {
+            "path": "forms",
+            "label": "Forms",
+            "module": "view-design-forms",
+            "entrypoint": "/pages/design/forms.html"
+          }
         ]
       },
       {
-        "path": "layout-examples",
-        "label": "Layout Examples",
-        "module": "view-design-layout-examples",
-        "entrypoint": "/pages/design/layout-examples.html",
-        "keywords":[
-          "examples",
-          "showcase",
-          "layouts",
-          "use cases"
-        ],
-        "redirects": [
-          "/guidelines/gallery",
-          "/design/gallery"
+        "path": "communication",
+        "label": "Communication",
+        "badgeText": "NEW",
+        "pages": [
+          {
+            "path": "notifications",
+            "label": "Notifications & Alerts",
+            "module": "view-design-notifications",
+            "entrypoint": "/pages/design/notifications.html",
+            "redirects": [
+              "/guidelines/notifications"
+            ]
+          },
+          {
+            "path": "writing",
+            "label": "Writing for Design Components",
+            "module": "view-design-writing",
+            "entrypoint": "/pages/design/writing.html",
+            "redirects": [
+              "/guidelines/writing"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "components",
+        "label": "Components",
+        "badgeText": "NEW",
+        "pages": [
+          {
+            "path": "buttons-design",
+            "label": "Buttons",
+            "module": "view-design-buttons",
+            "entrypoint": "/pages/design/components/buttons.html",
+            "redirects": [
+              "/guidelines/buttons-design"
+            ],
+            "keywords": [
+              "buttons",
+              "specs"
+            ]
+          },
+          {
+            "path": "input-fields",
+            "label": "Input Fields",
+            "module": "view-design-input-fields",
+            "entrypoint": "/pages/design/input-fields.html",
+            "redirects": [
+              "/guidelines/view-design-input-fields"
+            ],
+            "keywords": [
+              "forms",
+              "input"
+            ]
+          }
         ]
       },
       {
@@ -173,51 +284,6 @@
         ],
         "redirects": [
           "/guidelines/mobile"
-        ]
-      },
-      {
-        "path": "navigation",
-        "label": "Navigation",
-        "module": "view-design-navigation",
-        "entrypoint": "/pages/design/navigation.html",
-        "redirects": [
-          "/guidelines/navigation"
-        ]
-      },
-      {
-        "path": "notifications",
-        "label": "Notifications & Alerts",
-        "module": "view-design-notifications",
-        "entrypoint": "/pages/design/notifications.html",
-        "redirects": [
-          "/guidelines/notifications"
-        ]
-      },
-      {
-        "path": "page-layout",
-        "label": "Page Layout",
-        "module": "view-design-page-layout",
-        "entrypoint": "/pages/design/page-layout.html",
-        "redirects": [
-          "/guidelines/page-layout"
-        ]
-      },
-      {
-        "path": "typography",
-        "label": "Typography",
-        "module": "view-design-typography",
-        "entrypoint": "/pages/design/typography.html",
-        "redirects": [
-          "/guidelines/typography"
-        ]
-      },
-      {
-        "path": "writing",
-        "label": "Writing for Design Components",
-        "module": "view-design-writing",
-        "entrypoint": "/pages/design/writing.html",
-        "redirects": [
-          "/guidelines/writing"
         ]
       }
     ]
@@ -1361,7 +1427,7 @@
   },
   {
     "path": "elements",
-    "label": "Components",
+    "label": "Polymer Components",
     "pages": [
       {
         "path": "px-accordion",
@@ -3701,7 +3767,6 @@
       {
         "path": "px-notification",
         "label": "Notification",
-        "badgeText": "NEW",
         "module": "px-notification-demo",
         "entrypoint": "/bower_components/px-notification/demo/px-notification-demo.html",
         "redirects": [
@@ -3818,7 +3883,6 @@
       {
         "path": "px-product-switcher",
         "label": "Product Switcher",
-        "badgeText": "NEW",
         "module": "px-product-switcher-demo",
         "entrypoint": "/bower_components/px-product-switcher/demo/px-product-switcher-demo.html",
         "redirects": [
@@ -3924,7 +3988,6 @@
         "label": "Threshold Bar",
         "module": "px-threshold-bar-demo",
         "entrypoint": "/bower_components/px-threshold-bar/demo/px-threshold-bar-demo.html",
-        "badgeText": "NEW",
         "redirects": [
           "/components/px-threshold-bar",
           "/modules/px-threshold-bar"
