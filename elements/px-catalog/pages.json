@@ -228,6 +228,15 @@
             ]
           },
           {
+            "path": "empty-states",
+            "label": "Empty States",
+            "module": "view-design-empty-states",
+            "entrypoint": "/pages/design/empty-states.html",
+            "redirects": [
+              "/guidelines/empty-states"
+            ]
+          },
+          {
             "path": "writing",
             "label": "Writing for Design Components",
             "module": "view-design-writing",
