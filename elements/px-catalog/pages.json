@@ -237,6 +237,15 @@
             ]
           },
           {
+            "path": "help-info",
+            "label": "Contextual Help & Information",
+            "module": "view-design-help-info",
+            "entrypoint": "/pages/design/help-info.html",
+            "redirects": [
+              "/guidelines/help-info"
+            ]
+          },
+          {
             "path": "writing",
             "label": "Writing for Design Components",
             "module": "view-design-writing",
