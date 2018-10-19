@@ -79,8 +79,8 @@ Only add supplementary information through icons in areas where space is limited
   </catalog-picture>
 </div>
 
-# Using Diagrams
-Often times, a picture is worth a thousand words when it comes to illustrating complex concepts. Consider using simple diagrams and imagery to help convey concepts or behavior to provide an extra layer of clarity. 
+# Using Illustrations
+Often times, a picture is worth a thousand words when it comes to explaining complex concepts. Consider using simple [illustrations](#/design/communication/illustrations) and imagery to help convey concepts or behavior to provide an extra layer of clarity. 
 
 <catalog-picture img-src="../../img/guidelines/design/help-info/diagram-in-help" img-alt="Example of a diagram as contextual information" caption="Example of a diagram as contextual information"></catalog-picture>
 

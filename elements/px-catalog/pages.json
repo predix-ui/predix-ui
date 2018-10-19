@@ -246,6 +246,15 @@
             ]
           },
           {
+            "path": "illustrations",
+            "label": "Illustrations",
+            "module": "view-design-illustrations",
+            "entrypoint": "/pages/design/illustrations.html",
+            "redirects": [
+              "/guidelines/illustrations"
+            ]
+          },
+          {
             "path": "writing",
             "label": "Writing for Design Components",
             "module": "view-design-writing",
