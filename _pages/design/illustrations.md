@@ -69,7 +69,7 @@ Simple shapes and lines are always best.
     img-src="../../img/guidelines/design/illustrations/fill-dont"
     img-alt="Shapes and lines incorrect"
     title="Don't"
-    caption="Don't use lines as a fill or a series of lines to represent a shape when a simple shapes works better.">
+    caption="Don't use lines as a fill or a series of lines to represent a shape when a simple shape works better.">
   </catalog-picture>
 </div>
 
