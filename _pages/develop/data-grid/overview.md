@@ -9,10 +9,6 @@ Px-data-grid is a powerful, adaptive data visualization tool to aid users when t
 
 Data grid features allow users to scan, analyze, compare, filter, sort, and edit data to better understand the information, derive insights, and perform actions.
 
-**Release status:**
-
-The beta version of the px-data-grid was released on March 2, 2018 with the most user-requested features listed below and detailed further in the documentation.
-
 # Features
 
 ## Display of data
@@ -70,21 +66,9 @@ The data-grid follows the same pattern as all of the other Predix Design System 
 
 # FAQ
 
-### What should teams participating in the beta do?
+### Does px-data-grid work on mobile screen sizes?
 
-Teams should test the grid on its own or in their application, try real use cases, show stakeholders, and perform user testing. Any issues or requests uncovered during testing should be filed as [GitHub issues](https://github.com/predixdesignsystem/px-data-grid/issues) or directed to the design system team.
-
-### What does "beta" mean? Should I use this in production?
-
-The beta release is meant for internal testing by GE teams. During the beta period, we do not recommend you use the data grid in production applications, as we will be making changes to improve stability and the overall user experience. Some APIs will also likely break during the beta period. If you wait for the general release the grid will be more stable.
-
-### How long will the beta period last for? When will the new grid be ready for production?
-
-The beta period will last for the month of March. During the beta we will listen to customer feedback and prioritize fixes and other requests as we receive them. We will keep teams involved in the beta up-to-date about updates to the grid, and later in March we will make an announcement when we have a firm date for releasing the grid in GA.
-
-### Does the new grid work on mobile screen sizes?
-
-No, we did not prioritize mobile for this release. We will revisit mobile/responsive behavior in a future release based on customer feedback.
+No, we are not prioritizing mobile at this stage. We may revisit mobile/responsive behavior in a future release based on customer feedback.
 
 ### What browsers does the new grid support?
 
@@ -103,4 +87,4 @@ The grid does support keyboard navigation and actions, but there are still quirk
 
 ### What's the plan for the existing px-data-table? Will you continue to support it?
 
-The px-data-table will not be updated with new features, and will not be upgraded to Polymer 2+. We are planning to open source the entire design system, and we will be opening up enhancements and support of the px-data-table to the community using it.
+The px-data-table will not be updated with new features, and will not be upgraded to Polymer 2+.

@@ -41,9 +41,9 @@ To run a local build:
   ```
 Serve the site using [npm serve](https://www.npmjs.com/package/serve) or any other static web server. To install npm serve run:
   ```
-  $ npm install -g serve
+  $ npm install -g static-server
   ```
-Then you can run `serve` from the `build/default` directory to serve the local build of the site.
+Then you can run `static-server` from the `build/default` directory to serve the local build of the site.
 
 ### Running a production build
 You should never run the `gulp prodBuild` task manually. This task is run on Travis as part of our CI/CD process when a change is pushed to production.
