@@ -810,3 +810,14 @@ gulp.task('gallery-json:tile-data', function(callback){
   fs.writeFileSync('./pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   callback();
 });
+
+gulp.task("netlify-bower-components", function(callback) {
+  // Create 'public' folder
+  if (!fs.existsSync("public_components")) {
+    fs.mkdirSync("public_components");
+  }
+  // Copy bower_components to it.
+  return gulp
+    .src(["bower_components/**/*"])
+    .pipe(gulp.dest("public_components"));
+});
