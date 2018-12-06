@@ -147,6 +147,7 @@
   },
   "resolutions": {
     "polymer": "^2.0.0",
-    "webcomponentsjs": "^v1.0.19"
+    "webcomponentsjs": "^v1.0.19",
+    "px-dropdown": "^4.6.0"
   }
 }
