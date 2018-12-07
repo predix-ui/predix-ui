@@ -5,6 +5,28 @@ pathToRoot: ../../
 layout: default
 ---
 
+# Q3/Q4 2018 Release
+
+## Features & Enhancements
+
+* [Data Grid](#/elements/px-data-grid) - the column selector and actions menu are now seperated for better clarity, with optional icon support for table and item level actions buttons
+* [Alert Message](#/elements/px-alert-message) - long alert messages are now displayed in full when the expanded property is set
+* [Icon Set](/#/modules/px-icon-set) - 6 new icons for row & column add/remove actions
+
+## Site improvements on predix-ui.com
+
+* Refreshed the Design Guidelines IA and content
+
+# Q2 2018 Release
+
+## New Components
+
+* [Bar Chart](#/elements/px-vis-bar-chart) - an interactive bar or column chart, optionally grouped or stacked
+* [Box Plot](#/elements/px-vis-boxplot) - graphically depict the distribution of data across five metrics: minimum, first quartile, median, third quartile and maximum
+* [Data Grid](#/elements/px-data-grid) - display tabular data with rich interactions to help users find, manage, and update important information. Replaces [Data Table](#/elements/px-data-table)
+* [Histogram Chart](#/elements/px-vis-histogram) - an interactive histogram chart for graphing numerical data across a configured range of values
+* [Paired Bar Chart](#/elements/px-vis-paired-bar) - an interactive bar chart for comparing two discrete related datasets
+
 # Q1 2018 Release
 
 ## Features & Enhancements
