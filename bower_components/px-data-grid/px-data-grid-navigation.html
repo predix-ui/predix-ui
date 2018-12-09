@@ -1,0 +1,76 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="px-data-grid-theme.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-data-grid-navigation-styles.html">
+
+</head><body><dom-module id="px-data-grid-navigation">
+  <template>
+    <style include="px-data-grid-navigation-styles"></style>
+
+    <!-- page size select -->
+    <div class="page-size-select">
+      [[localize('Rows per page')]]
+      <px-dropdown allow-outside-scroll="" display-value="[[_numToStr(pageSize)]]" items="[[_numArrayToStrArray(selectablePageSizes)]]" on-selected-changed="_pageSizeChange" button-style="bare--primary" disable-truncate="" disable-clear="">
+      </px-dropdown>
+    </div>
+
+    <dom-if if="[[!hidePageList]]">
+      <template>
+        <div class="right">
+          <!-- row counts -->
+          <div class="row-counts">
+            <span class="current-rows">
+              [[_getItemsRangeStr(currentPage, pageSize, totalItemCount)]]
+            </span> [[_getOfStr(totalItemCount, localize)]]
+          </div>
+
+          <!-- page selection list -->
+          <div class="page-selection">
+            <!-- back arrow -->
+            <button class="page-button arrow back" on-click="_onBackClick" disabled$="[[!_isBackArrowEnabled(currentPage, numberOfPages)]]">
+              <px-icon icon="px-nav:back"></px-icon>
+            </button>
+            <!-- page number list -->
+            <div class="page-list">
+              <template is="dom-repeat" items="[[_getPagesList(currentPage, numberOfPages)]]">
+                <template is="dom-if" if="[[_isCurrentPage(item, currentPage)]]" restamp="">
+                  <button class="page-button page-number selected">
+                    [[item]]
+                  </button>
+                </template>
+                <template is="dom-if" if="[[!_isCurrentPage(item, currentPage)]]" restamp="">
+                  <button class="page-button page-number" on-click="_onPageClick">
+                    [[item]]
+                  </button>
+                </template>
+              </template>
+            </div>
+            <!-- next arrow -->
+            <button class="page-button arrow next" on-click="_onNextClick" disabled$="[[!_isNextArrowEnabled(currentPage, numberOfPages)]]">
+              <px-icon icon="px-nav:next"></px-icon>
+            </button>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+
+  </template>
+  <script>{var DataGridNavigationElement=function(_Polymer$mixinBehavio){babelHelpers.inherits(DataGridNavigationElement,_Polymer$mixinBehavio);function DataGridNavigationElement(){babelHelpers.classCallCheck(this,DataGridNavigationElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridNavigationElement).apply(this,arguments))}babelHelpers.createClass(DataGridNavigationElement,[{key:"_pageSizeChange",value:function _pageSizeChange(event){var pageSize=this.pageSize;if(event.detail.value!==void 0&&null!==event.detail.value){pageSize=this.selectablePageSizes[event.detail.value]}this._fireChangeEvent({pageSize:pageSize,currentPage:this.currentPage})}},{key:"_onPageClick",value:function _onPageClick(event){var pageNumber=event.model.item;if(!isNaN(pageNumber)){this._fireChangeEvent({pageSize:this.pageSize,currentPage:pageNumber})}}},{key:"_onBackClick",value:function _onBackClick(event){if(1==this.currentPage){return}this._fireChangeEvent({pageSize:this.pageSize,currentPage:this.currentPage-1})}},{key:"_onNextClick",value:function _onNextClick(event){if(this.currentPage==this.numberOfPages){return}this._fireChangeEvent({pageSize:this.pageSize,currentPage:this.currentPage+1})}},{key:"_fireChangeEvent",value:function _fireChangeEvent(detail){this.dispatchEvent(new CustomEvent("navigation-change",{detail:detail,bubbles:!0}))}},{key:"_numArrayToStrArray",value:function _numArrayToStrArray(numArray){var strArray=[];numArray.forEach(function(val){return strArray.push(val.toString())});return strArray}},{key:"_numToStr",value:function _numToStr(num){return num.toString()}},{key:"_getItemsRangeStr",value:function _getItemsRangeStr(currentPage,pageSize,totalItemCount){var min=(currentPage-1)*pageSize+1;min=1>min?1:min;var max=currentPage*pageSize;max=0<totalItemCount&&max>totalItemCount?totalItemCount:max;return min+" - "+max}},{key:"_getOfStr",value:function _getOfStr(totalItemCount){return this.localize("of {total}","total",totalItemCount.toString())}},{key:"_getPagesList",value:function _getPagesList(){var pageList=[];if(this.numberOfPages<=this._pageListMaxCount){for(var i=1;i<this.numberOfPages+1;i++){pageList.push(i)}}else{if(5>this.currentPage){for(var firstPage=1,_i=0;_i<this._pageListMaxCount;_i++){pageList.push(firstPage+_i)}pageList[pageList.length-2]="\u2026"}else if(5>this.numberOfPages-this.currentPage){for(var _firstPage=this.numberOfPages-this._pageListMaxCount+1,_i2=0;_i2<this._pageListMaxCount;_i2++){pageList.push(_firstPage+_i2)}pageList[1]="\u2026"}else{for(var _firstPage2=this.currentPage-4,_i3=0;_i3<this._pageListMaxCount;_i3++){pageList.push(_firstPage2+_i3)}pageList[1]="\u2026";pageList[pageList.length-2]="\u2026"}pageList[0]=1;pageList[pageList.length-1]=this.numberOfPages}return pageList}},{key:"_isCurrentPage",value:function _isCurrentPage(pageNumber){return this.currentPage===pageNumber}},{key:"_isBackArrowEnabled",value:function _isBackArrowEnabled(currentPage){return 1<currentPage}},{key:"_isNextArrowEnabled",value:function _isNextArrowEnabled(currentPage){return currentPage<this.numberOfPages}}],[{key:"is",get:function get(){return"px-data-grid-navigation"}},{key:"properties",get:function get(){return{selectablePageSizes:{type:Array,value:[10,20,30]},pageSize:{type:Number,value:10},currentPage:{type:Number,value:0},numberOfPages:{type:Number,value:0},totalItemCount:{type:Number,value:0},hidePageList:{type:Boolean,value:!1},_pageListMaxCount:{type:Number,value:9}}}}]);return DataGridNavigationElement}(Polymer.mixinBehaviors([Polymer.AppLocalizeBehavior],Polymer.Element));customElements.define(DataGridNavigationElement.is,DataGridNavigationElement);window.Predix=window.Predix||{};Predix.DataGridNavigationElement=DataGridNavigationElement}</script>
+</dom-module>
+</body></html>

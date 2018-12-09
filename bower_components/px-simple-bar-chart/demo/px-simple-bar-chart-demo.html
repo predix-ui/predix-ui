@@ -1,0 +1,65 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-simple-bar-chart.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-simple-bar-chart-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-simple-bar-chart" description="Use this component to visualize a series or multiple series of numeric values as a bar chart or stacked bar chart.
+            Each series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally
+            representing a value.
+             It uses the data visualization color palette by default, but this can be overridden with configuration. The height and
+             width are configurable, as are the legend labels – if none are provided, the legend will not be shown.
+             We recommend using the default settings as they are designed for proper performance." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" class="flex__item flex__item--msfix">
+
+        <px-simple-bar-chart chart-data="{{props.chartData.value}}" width="{{props.width.value}}" height="{{props.height.value}}" legend-labels="{{props.legendLabels.value}}" colors="{{props.colors.value}}" legend-order="{{props.legendOrder.value}}">
+        </px-simple-bar-chart>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-simple-bar-chart" scripts-includes="[[scriptsIncludes]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-simple-bar-chart"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-simple-bar-chart-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"One Series",configReset:!0},{configName:"Multi Series",width:"500",height:"350",chartData:[[1,2,3,4,5,6,7],[2,6,5,4,3,2,7],[2,4,6,7,5,3,6],[3,3,3,3,3,3,4],[5,5,5,5,5,5,5]],colors:[],legendLabels:["Series 1","Series 2","Series 3","Series 4","Series 5"],legendOrder:"sequential"}]}},scriptsIncludes:{type:Array,value:["https://d3js.org/d3.v3.min.js"]}},demoProps:{width:{type:String,defaultValue:"auto",inputType:"text"},height:{type:String,defaultValue:"300",inputType:"text"},chartData:{type:Array,defaultValue:[[112,57,53,122,128,120,56,94,102]],inputType:"code:JSON"},colors:{type:Array,defaultValue:["#6FC9FA"],inputType:"code:JSON"},legendLabels:{type:Array,defaultValue:[],inputType:"code:JSON"},legendOrder:{type:String,value:"reverse",inputType:"dropdown",inputChoices:["sequential","reverse"]}}});</script>
+</body></html>

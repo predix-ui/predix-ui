@@ -1,0 +1,16 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-app-nav-behaviors.html">
+<link rel="import" href="css/px-app-nav-subitem-styles.html">
+
+</head><body><dom-module id="px-app-nav-subitem">
+  <template>
+    <style include="px-app-nav-subitem-styles"></style>
+
+    <template is="dom-if" if="{{_propIsTypeOf(label, 'string')}}">
+      <p class="app-nav-subitem__label">{{label}}</p>
+    </template>
+  </template>
+</dom-module>
+
+<script src="px-app-nav-subitem.es6.js"></script>
+</body></html>

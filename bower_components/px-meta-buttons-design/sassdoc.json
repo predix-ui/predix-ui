@@ -1,0 +1,288 @@
+[
+    {
+        "description": "Produce CSS for primary buttons?\n",
+        "commentRange": {
+            "start": 8,
+            "end": 10
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--primary",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 11,
+                "end": 11
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for tertiary buttons?\n",
+        "commentRange": {
+            "start": 13,
+            "end": 15
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--tertiary",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 16,
+                "end": 16
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for call to action buttons?\n",
+        "commentRange": {
+            "start": 18,
+            "end": 20
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--call-to-action",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 21,
+                "end": 21
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for small buttons?\n",
+        "commentRange": {
+            "start": 23,
+            "end": 25
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--small",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 26,
+                "end": 26
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for large buttons?\n",
+        "commentRange": {
+            "start": 28,
+            "end": 30
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--large",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 31,
+                "end": 31
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for huge buttons?\n",
+        "commentRange": {
+            "start": 33,
+            "end": 35
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--huge",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 36,
+                "end": 36
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for full buttons?\n",
+        "commentRange": {
+            "start": 38,
+            "end": 40
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--full",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 41,
+                "end": 41
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for icon buttons?\n",
+        "commentRange": {
+            "start": 43,
+            "end": 45
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--icon",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 46,
+                "end": 46
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for bare buttons?\n",
+        "commentRange": {
+            "start": 48,
+            "end": 50
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--bare",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 51,
+                "end": 51
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for bare--primary buttons?\n",
+        "commentRange": {
+            "start": 53,
+            "end": 55
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--bare--primary",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 56,
+                "end": 56
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    },
+    {
+        "description": "Produce CSS for disabled buttons?\n",
+        "commentRange": {
+            "start": 58,
+            "end": 60
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-btn--disabled",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 61,
+                "end": 61
+            }
+        },
+        "group": [
+            "px-buttons-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_meta.buttons.scss",
+            "name": "_meta.buttons.scss"
+        }
+    }
+]

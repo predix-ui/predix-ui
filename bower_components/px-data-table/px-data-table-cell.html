@@ -1,0 +1,98 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="px-edit-cell.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+
+<link rel="import" href="css/px-data-table-cell-styles.html">
+
+</head><body><dom-module id="px-data-table-cell">
+  <template>
+    <style include="px-data-table-cell-styles"></style>
+
+    <span class$="{{_getReaderClass(_editing)}}" on-mouseover="onCellHovered" on-mouseout="onCellUnHovered">
+
+      <!-- in place editing template -->
+      <px-edit-cell id="celledit" class$="{{_getEditCellClass(_editing)}}">
+        <template is="dom-if" if="{{_isEqual(cellType, 'string')}}">
+          <input id="celleditinput" type="text" placeholder="{{placeholder}}" class="u-p0 text-input" required$="{{column.required}}" on-input="_cellValueChanged" on-blur="saveCell" value="{{cellValue}}">
+        </template>
+      </px-edit-cell>
+      <!--dropdown template  -->
+      <template is="dom-if" if="{{_isEqual(cellType, 'dropdown')}}">
+        <div class="flex__item cell--container">
+          <span role="gridcell">
+            <px-dropdown class="px-dropdown-content" selected="{{cellValue}}" select-by="val" display-value="{{cellDisplayValue}}" on-px-dropdown-selection-changed="saveCell" allow-outside-scroll="true" button-style="bare" items="{{dropdownItems}}" disable-clear="">
+            </px-dropdown>
+          </span>
+        </div>
+      </template>
+      <!-- in place editing template -->
+      <template is="dom-if" if="{{_isEqual(cellType,'string')}}">
+        <div class="flex cell--container">
+          <span role="gridcell" id="cellvalue" class$="{{_getValueCellClass(_editing, cellValidation.passedValidation, cellDisplayValue)}}">{{cellDisplayValue}}
+            <template is="dom-if" if="{{cellDisplayTooltip}}">
+              <px-tooltip orientation="top" smart-orientation="" delay="1000" tooltip-message="{{cellValue}}">
+              </px-tooltip>
+            </template>
+          </span>
+        </div>
+      </template>
+      <!-- icon template -->
+      <template is="dom-if" if="{{cellEditable}}">
+        <div class="fa fa-fw cell-status--container">
+          <px-icon id="editicon" role="button" aria-label="Click to edit cell" class$="{{_getCellIconClass(_showEditIcon, _editing, cellValidation.passedValidation)}}" icon="{{_getCellIcon(_showEditIcon, _editing, cellValidation.passedValidation)}}">
+          </px-icon>
+          <template is="dom-if" if="{{!cellValidation.passedValidation}}">
+            <px-tooltip class="tooltip-font" smart-orientation="" orientation="top" tooltip-message="{{cellValidation.failedValidationErrorMessage}}">
+            </px-tooltip>
+          </template>
+        </div>
+      </template>
+      <!-- icon template -->
+    </span>
+    <!-- html content -->
+    <template is="dom-if" if="{{_isEqual(cellType,'html')}}">
+      <aha-html-echo role="gridcell" html="{{cellDisplayValue}}"></aha-html-echo>
+    </template>
+  </template>
+
+  <script>Polymer({is:"px-data-table-cell",properties:{cellType:{type:String,value:""},cellDisplayValue:{type:String,value:"",observer:"_cellDisplayValueChanged"},cellValue:{type:String,value:""},cellDisplayTooltip:{type:Boolean,value:!1},cellValidation:{type:Object,value:function value(){return{passedValidation:!0}},notify:!0},columnName:{type:String,value:""},_editing:{type:Boolean,value:!1,notify:!0,observer:"_editingChanged"},cellEditable:{type:Boolean,value:!1},dropdownItems:{type:Array,value:function value(){return[]},notify:!0,observer:"_setDropdownItem"},cellSelected:{type:Boolean,value:!1,observer:"_cellSelected"},cellHighlighted:{type:Object,value:function value(){return{value:!1}}},rowHighlighted:{type:Object,value:function value(){return{value:!1}}},_showEditIcon:{type:Boolean,value:!1},_editTimeout:{type:Object,value:function value(){return{}}},_dropdownItem:{type:Boolean,value:!1},_cellAnchor:{type:HTMLElement,value:function value(){return null}}},listeners:{tap:"editCell"},observers:["_updateHighlight(cellHighlighted.value, rowHighlighted.value)"],detached:function detached(){var tooltip=this.$$("px-tooltip");if(tooltip){tooltip.remove()}},_cellDisplayValueChanged:function _cellDisplayValueChanged(newValue){if(this.$$(".cell--value")!==void 0&&null!==this.$$(".cell--value")){if(newValue!==void 0&&""!==newValue){this.$$(".cell--value").classList.remove("empty")}else{this.$$(".cell--value").classList.add("empty")}}},_cellValueChanged:function _cellValueChanged(evt){clearTimeout(this._editTimeout);this._editTimeout=setTimeout(function(){this.fire("validate",{newValue:this.$$("#celleditinput").value});this.fire("px-cell-validate",{newValue:this.$$("#celleditinput").value})}.bind(this),300)},onCellHovered:function onCellHovered(evt){this.set("_showEditIcon",this.cellEditable)},onCellUnHovered:function onCellUnHovered(evt){this.set("_showEditIcon",!1)},_isEqual:function _isEqual(source,target){if(!Array.isArray(target)||!this._typeofComparison(target,"object")){return source===target}return},isNotEqual:function isNotEqual(source,target){if(!Array.isArray(target)||!this._typeofComparison(target,"object")){return source!==target}return},_areAnyEqual:function _areAnyEqual(source,arr){if(Array.isArray(arr)){var flag=!1,i=0,len=arr.length;for(;i<len;i++){if(source===arr[i]){return!0}}return!1}else{console.log("You must pass an array into this function");return!1}},_getReaderClass:function _getReaderClass(){var datum=this.cellValue,classList=[];classList="dropdown"===this.cellType?["flex","ddviewing"]:["flex","viewing"];if(null===datum||datum===void 0||!this._typeofComparison(datum,"string")&&0===datum.trim().length){classList.push("empty")}return classList.join(" ")},ready:function ready(){this.addEventListener("exit-edit-mode",this._exitEditMode.bind(this));this.addEventListener("undo-edit-mode",this._undoEditMode.bind(this));this.addEventListener("setDropdownItem",this._setDropdownItem),this.toggleClass("td",!0);this.toggleClass("aha-"+this.columnName.replace(/\s/g,"-")+"-td",!0)},attached:function attached(){this.toggleClass("td__dropdown",this._dropdownItem);this._cellAnchor=this},_setDropdownItem:function _setDropdownItem(){this.set("_dropdownItem",0<this.dropdownItems.length)},_editingChanged:function _editingChanged(newValue,oldValue){if(newValue){this.fire("px-cell-editing")}},_exitEditMode:function _exitEditMode(){document.activeElement.blur()},_undoEditMode:function _undoEditMode(evt){this.set("_cancelSave",!0);document.activeElement.blur()},editCell:function editCell(){var editCell=this.$$(".cell--edit"),valueCell=this.$$(".cell--value");if(this.cellEditable&&"dropdown"!==this.cellType&&"html"!==this.cellType){this.set("_editing",!0);this.toggleClass("cell__edit",this._editing);this.set("_undoValue",this.$$(".cell--value").innerText);Polymer.dom(editCell).querySelector("input,select,textarea").focus()}},saveCell:function saveCell(evt){this._editing=!1;this.toggleClass("cell__edit",this._editing);var value;if(!0===this._cancelSave){this.set("_cancelSave",!1);value=this._undoValue;Polymer.dom(this.$$(".cell--edit")).querySelector("input,select,textarea").value=value}else if(this._dropdownItem&&!0===evt.detail.selected){value=evt.detail.val}else{value=evt.target.value}this.fire("save",{newValue:value});this.fire("px-cell-save",{newValue:value})},_getEditCellClass:function _getEditCellClass(editing){var classList=["cell--edit"];if(!editing){classList.push("hidden")}return classList.join(" ")},_getValueCellClass:function _getValueCellClass(editing,valid,cellDisplayValue){var classList=["cell--value"];if(editing){classList.push("hidden")}if(!cellDisplayValue){classList.push("cell--value__empty")}this.toggleClass("cell--value__validation-failed",!valid);return classList.join(" ")},_getCellIcon:function _getCellIcon(showEditIcon,editing,valid){if(valid){if(showEditIcon){return"px-utl:edit"}}else{return"px-utl:failure"}},_getCellIconClass:function _getCellIconClass(showEditIcon,editing,valid){var classList=["cell--status--container--icon"];if(!valid){classList.push("cell--value--icon__validation-failed")}else{if(editing||!showEditIcon){classList.push("visuallyhidden")}}return classList.join(" ")},_cellSelected:function _cellSelected(selected){if(this.rowHighlighted&&this.rowHighlighted.value){this.toggleClass("cell--value__highlight--selected__row",selected)}else if(this.cellHighlighted&&this.cellHighlighted.value){this.toggleClass("cell--value__highlight--selected",selected)}else{this.toggleClass("selected",selected)}},_updateHighlight:function _updateHighlight(cellHighlight,rowHighlight){this._clearHighlight();if(rowHighlight){this.toggleClass(this.rowHighlighted.highlightClass,rowHighlight)}if(cellHighlight){this.toggleClass(this.cellHighlighted.highlightClass,cellHighlight)}},_clearHighlight:function _clearHighlight(){this.toggleClass("px-data-table-highlight--high",!1);this.toggleClass("px-data-table-highlight--medium",!1);this.toggleClass("px-data-table-highlight--low",!1)},_typeofComparison:function _typeofComparison(val,comparator){return babelHelpers.typeof(val)===comparator||!1}});</script>
+</dom-module>
+
+<!--
+/**
+ * @module aha-html-echo
+ *
+ *
+ * Generates html elements dynamically, inspired by sortable-table
+ * https://github.com/stevenrskelton/sortable-table
+ *
+ * WARNING! Potential XSS vulnerability if `html` comes from an untrusted source
+ *
+ *    <aha-html-echo
+ *         html="html">
+ *    </aha-html-echo>
+ *
+ * @class aha-html-echo
+ * @author Michael Heinrichs<michael.heinrichs@canoo.com>
+ *
+ */
+-->
+<script>Polymer({is:"aha-html-echo",properties:{html:{type:String,value:"",observer:"onHtmlChanged"}},onHtmlChanged:function onHtmlChanged(){if(this.html===void 0){this.html=""}this.innerHTML=this.html}});</script>
+</body></html>

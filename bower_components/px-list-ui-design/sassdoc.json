@@ -1,0 +1,275 @@
+[
+    {
+        "description": "Default list-ui and list-ui__item\n",
+        "commentRange": {
+            "start": 60,
+            "end": 60
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-list-ui-namespace}list-ui,\n%#{$inuit-list-ui-namespace}list-ui",
+            "value": "margin:  0;\n  padding: 0;\n  list-style: none;",
+            "line": {
+                "start": 62,
+                "end": 124
+            }
+        },
+        "group": [
+            "px-list-ui-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Enable list-uis with tiny padding?\n",
+        "commentRange": {
+            "start": 40,
+            "end": 42
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-list-ui--tiny",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 43,
+                "end": 43
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Enable list-uis with small padding?\n",
+        "commentRange": {
+            "start": 45,
+            "end": 47
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-list-ui--small",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 48,
+                "end": 48
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Enable list-uis with large padding?\n",
+        "commentRange": {
+            "start": 50,
+            "end": 52
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-list-ui--large",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 53,
+                "end": 53
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Enable list-uis with huge padding?\n",
+        "commentRange": {
+            "start": 55,
+            "end": 57
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-enable-list-ui--huge",
+            "value": "false",
+            "scope": "default",
+            "line": {
+                "start": 58,
+                "end": 58
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:flag"
+        ],
+        "type": "Boolean [default]",
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Prepend value for all generated classes\n",
+        "commentRange": {
+            "start": 10,
+            "end": 13
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-list-ui-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 14,
+                "end": 14
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:style"
+        ],
+        "type": "String [default]",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Border width\n",
+        "commentRange": {
+            "start": 16,
+            "end": 19
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-list-ui-border-width",
+            "value": "1px",
+            "scope": "default",
+            "line": {
+                "start": 20,
+                "end": 20
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:style"
+        ],
+        "type": "Number [default]",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Border style\n",
+        "commentRange": {
+            "start": 22,
+            "end": 25
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-list-ui-border-style",
+            "value": "solid",
+            "scope": "default",
+            "line": {
+                "start": 26,
+                "end": 26
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:style"
+        ],
+        "type": "String [default]",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Border color\n",
+        "commentRange": {
+            "start": 28,
+            "end": 31
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-list-ui-border-color",
+            "value": "var(--px-list-ui-border-color, $gray10)",
+            "scope": "default",
+            "line": {
+                "start": 32,
+                "end": 32
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-list-ui-border-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    },
+    {
+        "description": "Interior border color\n",
+        "commentRange": {
+            "start": 34,
+            "end": 37
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-list-ui-separator-color",
+            "value": "var(--px-list-ui-separator-color, $gray5)",
+            "scope": "default",
+            "line": {
+                "start": 38,
+                "end": 38
+            }
+        },
+        "group": [
+            "px-list-ui-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-list-ui-separator-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.list-ui.scss",
+            "name": "_objects.list-ui.scss"
+        }
+    }
+]

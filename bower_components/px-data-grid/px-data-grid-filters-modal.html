@@ -1,0 +1,56 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-modal/px-modal.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-data-grid-filters-modal-styles.html">
+
+<link rel="import" href="px-data-grid-filter.html">
+
+</head><body><dom-module id="px-data-grid-filters-modal">
+  <template>
+    <style include="px-data-grid-filters-modal-styles"></style>
+
+    <px-modal id="filtersModal" header-text="[[localize('Filter Columns')]]" open-trigger="[[filtersModalTrigger]]">
+      <div slot="body">
+        <px-data-grid-filter id="filters" columns="[[columns]]" filters="{{filters}}" temp-filters="{{_tempFilters}}" compact-mode="[[compactMode]]" string-comparators="[[stringComparators]]" number-comparators="[[numberComparators]]" localize="[[localize]]">
+        </px-data-grid-filter>
+
+        <template is="dom-if" if="[[_showSaveCheckbox(offerFilterSaving, _tempFilters, _tempFilters.*)]]" restamp="">
+          <input id="saveFilterSet" type="checkbox">
+          <label class="label--inline" for="saveFilterSet">[[localize('Save this filter set')]]</label>
+        </template>
+      </div>
+      <div slot="actions" class="action-buttons">
+        <template is="dom-if" if="[[_hasAnyEntity(_tempFilters, _tempFilters.*)]]">
+          <button class="btn" on-click="_reset">[[localize('Reset')]]</button>
+        </template>
+      </div>
+      <button slot="reject-trigger" class="btn action-btn" on-click="_cancel">[[localize('Cancel')]]</button>
+      <button slot="accept-trigger" class="btn btn--call-to-action action-btn" on-click="_apply">[[localize('Apply')]]</button>
+    </px-modal>
+
+    <px-modal-trigger trigger="{{filtersModalTrigger}}">
+      <button class="btn table-filters">
+        <px-icon icon="px-utl:filter"></px-icon>
+        [[localize('Table Filters')]]
+      </button>
+    </px-modal-trigger>
+  </template>
+
+  <script>{var DataGridFiltersModalElement=function(_Polymer$Element){babelHelpers.inherits(DataGridFiltersModalElement,_Polymer$Element);function DataGridFiltersModalElement(){babelHelpers.classCallCheck(this,DataGridFiltersModalElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridFiltersModalElement).apply(this,arguments))}babelHelpers.createClass(DataGridFiltersModalElement,[{key:"ready",value:function ready(){var _this=this;babelHelpers.get(babelHelpers.getPrototypeOf(DataGridFiltersModalElement.prototype),"ready",this).call(this);this.addEventListener("update-modal-focusable-elements",function(event){_this.$.filtersModal.findFocusableElements()})}},{key:"open",value:function open(){this.$.filtersModal.opened=!0}},{key:"_apply",value:function _apply(){this.$.filters.applyFilters();var checkbox=this.shadowRoot.querySelector("#saveFilterSet");if(checkbox&&checkbox.checked){this.dispatchEvent(new CustomEvent("save-filters",{bubbles:!0,composed:!0,detail:{filters:this.filters}}))}this.$.filtersModal.opened=!1}},{key:"_cancel",value:function _cancel(){this.$.filters.cancelChanges();this.$.filtersModal.opened=!1}},{key:"_reset",value:function _reset(){this.$.filters.resetFilters();this.set("filters",this.initialFilterState)}},{key:"_hasAnyEntity",value:function _hasAnyEntity(filters){return 0<filters.filter(function(filter){return filter.entities&&0<filter.entities.length}).length}},{key:"_showSaveCheckbox",value:function _showSaveCheckbox(offerFilterSaving,filters){return offerFilterSaving&&filters&&this._hasAnyEntity(filters)}}],[{key:"is",get:function get(){return"px-data-grid-filters-modal"}},{key:"properties",get:function get(){return{columns:Array,filters:{type:Array,notify:!0},initialFilterState:{type:Array},offerFilterSaving:{type:Boolean,value:!1},compactMode:{type:Boolean,value:!1},stringComparators:{type:Array},numberComparators:{type:Array},_tempFilters:{type:Array},localize:Function}}}]);return DataGridFiltersModalElement}(Polymer.Element);customElements.define(DataGridFiltersModalElement.is,DataGridFiltersModalElement);window.Predix=window.Predix||{};Predix.DataGridFiltersModalElement=DataGridFiltersModalElement}</script>
+
+</dom-module>
+</body></html>

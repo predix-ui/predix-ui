@@ -1,0 +1,17 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+</head><body><dom-module id="catalog-picture">
+  <template>
+    <style>:host{display:block;padding:1rem;margin-bottom:1rem;}.caption{margin:1rem 0 0 0;font-style:italic;color:var(--px-catalog-page-text-color--light, gray);}.title{display:block;margin-top:0;padding-bottom:.5em;margin-bottom:.75em;color:var(--px-catalog-picture-title-color--light, gray);border-bottom:1px solid var(--px-catalog-picture-title-color--light, gray);}picture, img{max-width:100%;max-height:var(--px-catalog-picture-max-height, initial);}picture{display:block;align-self:center;}</style>
+
+    <picture>
+      <template is="dom-if" if="[[title]]"><p class="title">[[title]]</p></template>
+      <source srcset$="[[importPath]][[imgSrc]].webp" type="image/webp">
+      <source srcset$="[[importPath]][[imgSrc]].png" type="image/png">
+      <img src$="[[importPath]][[imgSrc]].png" alt$="[[imgAlt]]">
+      <p class="caption">[[caption]]</p>
+    </picture>
+  </template>
+  <script>Polymer({is:"catalog-picture",properties:{imgSrc:{type:String,value:""},imgAlt:{type:String,value:""},caption:{type:String,value:""},title:{type:String,value:""}}});</script>
+</dom-module>
+</body></html>

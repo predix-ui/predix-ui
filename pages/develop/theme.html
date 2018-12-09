@@ -1,0 +1,163 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-theme">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#what-is-a-theme', activeAnchor)]]" href="#" anchor="#what-is-a-theme" on-tap="_handleAnchorTapped">What is a theme</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#available-themes', activeAnchor)]]" href="#" anchor="#available-themes" on-tap="_handleAnchorTapped">Available Themes</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#how-to-apply-a-theme', activeAnchor)]]" href="#" anchor="#how-to-apply-a-theme" on-tap="_handleAnchorTapped">How to apply a theme</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#install', activeAnchor)]]" href="#" anchor="#install" on-tap="_handleAnchorTapped">Install</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#import', activeAnchor)]]" href="#" anchor="#import" on-tap="_handleAnchorTapped">Import</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#include-in-your-app', activeAnchor)]]" href="#" anchor="#include-in-your-app" on-tap="_handleAnchorTapped">Include in your app</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#overriding-individual-styles', activeAnchor)]]" href="#" anchor="#overriding-individual-styles" on-tap="_handleAnchorTapped">Overriding individual styles</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#more-information', activeAnchor)]]" href="#" anchor="#more-information" on-tap="_handleAnchorTapped">More information</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Theme component styles and colors</h2>
+          
+          
+<p>This guide addresses how to apply a theme to the Predix Design System components in your application.</p>
+<h3 id="what-is-a-theme">What is a theme</h3>
+<p>Themes are a collection of CSS variables used to apply styles to Predix Design System components. Predix Design System components look at these CSS variables to apply a variety of styles, including colors, typefaces, and other styles. The API docs for each component include a list of available CSS variables. This approach is based on the methodology outlined by Polymer <a href="https://www.polymer-project.org/1.0/docs/devguide/styling.html#xscope-styling">here</a>.</p>
+<p>The Predix Design System components ship with generic colors and fonts by default. Apps should apply a theme, either one of the provided themes or a custom one, to match components with their overall visual style.</p>
+<div class="halves guidelines">
+  <catalog-picture title="chart-unthemed" img-src="../../img/guidelines/dev/migrate_theme/chart-unthemed" caption="Example of a chart unthemed">
+  </catalog-picture>
+  <catalog-picture title="chart-themed" img-src="../../img/guidelines/dev/migrate_theme/chart-themed" caption="Example of a chart with theming applied">
+  </catalog-picture>
+</div>
+<div class="halves guidelines">
+  <catalog-picture title="slider-unthemed" img-src="../../img/guidelines/dev/migrate_theme/slider-unthemed" caption="Example of slider unthemed">
+  </catalog-picture>
+  <catalog-picture title="slider-themed" img-src="../../img/guidelines/dev/migrate_theme/slider-themed" caption="Example of slider with theming applied">
+  </catalog-picture>
+</div>
+<h3 id="available-themes">Available Themes</h3>
+<p>Predix Design System supplies two, prebuilt themes:</p>
+<ul>
+<li><a href="https://github.com/PredixDev/px-theme">Light Theme</a></li>
+<li><a href="https://github.com/PredixDev/px-theme">Dark Theme</a></li>
+</ul>
+<p>You can view these two themes on this website. Simply flip the switch in the upper right-hand corner.</p>
+<p>You can also build your own themes by defining the CSS variables listed in each component.</p>
+<h3 id="how-to-apply-a-theme">How to apply a theme</h3>
+<p>Applying a theme is easy. Simply include the theme in your project, import it, and include the style - the styles are automatically applied to your components.</p>
+<h4 id="install">Install</h4>
+<p>Install the theme in your project by including it in your <code class="code code--inline">bower.json</code>:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+"px-theme": "^3.0.0"
+// OR
+"px-dark-theme": "^2.0.0"
+
+      </script>
+    </px-catalog-code-snippet><h4 id="import">Import</h4>
+<p>Import it onto your page:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<link rel="import" href="../px-theme/px-theme-styles.html">
+<!-- OR -->
+<link defer rel="import" href="../px-dark-theme/px-dark-theme-styles.html">
+
+      </script>
+    </px-catalog-code-snippet><h4 id="include-in-your-app">Include in your app</h4>
+<p>Include the styles in your app:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<custom-style>
+  <style include="px-theme-styles" is="custom-style"></style>
+</custom-style>
+<!-- OR -->
+<custom-style>
+  <style include="px-dark-theme-styles" is="custom-style"></style>
+</custom-style>
+
+      </script>
+    </px-catalog-code-snippet><p>Note: the <code class="code code--inline">&lt;custom-style&gt;</code> wrapper is only needed for Polymer 2. <a href="https://www.polymer-project.org/2.0/docs/upgrade#shadow-dom-styles">Documentation here</a>.</p>
+<p>The styles will be available on your page and cascade down to subcomponents. So if you import the styles at the main page of your app, everything should receive it. If you just import it to a subcomponent, then only that subcomponent and its children will pick up the styles.</p>
+<h3 id="overriding-individual-styles">Overriding individual styles</h3>
+<p>The same <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables">CSS variables</a> (or "custom properties") used for applying an application-wide theme can also be used for overriding individual styles within many of the Predix Design System components and CSS repositories.</p>
+<p>Refer to the "Styling" section of the API documentation of each element for a list of the custom properties available for that component or module. The CSS modules allow for override via <em>either</em> Sass or CSS variables - more on that <a href="/#/css/px-starter-kit-design">here</a>.</p>
+<p>Like the theming <code class="code code--inline">include</code> statements above, CSS variables must be wrapped in a custom-style block in order to be used with the Predix Polymer components. This provides a shim for older browsers that don't natively support CSS custom properties.
+You can optionally combine the placement of individual variables with the theming block as shown below.</p>
+<p>In addition, you should scope the variables appropriately to target the desired component(s), or use the <code class="code code--inline">html</code> selector to apply custom properties across all instances of a component in your application.
+In this example, the button styles in the first block would be applied to every button instance in an application, whereas the second block would apply to all px-dropdowns, and the third would only apply to elements with the <code class="code code--inline">myDropdown</code> class.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<custom-style>
+  <style include="px-theme-styles" is="custom-style">
+    html {
+      --px-btn-background: black;
+      --px-btn-background--hover: darkgray;
+      --px-btn-background--pressed: lightgray;
+      --px-btn-color: white;
+    }
+    px-dropdown {
+      --px-dropdown-bg-color: black;
+    }
+    .myDropdown {
+      --px-dropdown-text-color: white;
+    }
+  </style>
+</custom-style>
+
+      </script>
+    </px-catalog-code-snippet><h4 id="more-information">More information</h4>
+<p>For further documentation on the use of themes, CSS custom properties, dynamically or programmatically applying variables, and limitations of the shim, please refer to the <a href="https://www.polymer-project.org/2.0/docs/devguide/custom-css-properties">Polymer documentation</a>.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-theme",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

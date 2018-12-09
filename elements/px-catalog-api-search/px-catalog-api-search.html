@@ -1,0 +1,64 @@
+<!-- Dependencies --><html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-doc-viewer/iron-doc-property.html">
+<link rel="import" href="../../bower_components/iron-doc-viewer/iron-doc-function.html">
+<!-- Styles -->
+<link rel="import" href="../../css/px-catalog-page-styles.html">
+<link rel="import" href="../../css/px-catalog-api-search-styles.html">
+<script src="lunr.js"></script>
+
+</head><body><dom-module id="px-catalog-api-search">
+  <template>
+    <style include="px-catalog-page-styles"></style>
+    <style include="px-catalog-api-search-styles"></style>
+    <style>.api-results__element{margin-top:4rem;padding-top:.5rem;}.api-results__element:first-of-type{margin-top:2rem;}</style>
+
+    <iron-ajax id="lunrIndexAjax" url="../../data/lunr-index.json" last-response="{{lunrIndex}}"></iron-ajax>
+    <iron-ajax id="lunrSourceAjax" url="../../data/lunr-source.json" last-response="{{lunrSource}}"></iron-ajax>
+
+    <div class="beta-banner">
+      This tool is currently in beta. The results might not include all documented APIs. Check the component page if you can't find something you're looking for.
+    </div>
+
+    <section class="page">
+      <h2 class="selected">API Search</h2>
+      <input type="text" class="text-input" placeholder="Enter a property, method, or event to search all APIs..." value="{{_searchTerm::input}}">
+      <div class="api-results">
+        <template is="dom-if" if="[[_results]]">
+          <p class="api-results__count">Found [[_results.entriesCount]] matches in [[_results.elementsCount]] components.</p>
+        </template>
+
+        <!-- RESULTS -->
+        <template is="dom-repeat" items="[[_results.elements]]" as="element">
+          <div class="api-results__element">
+            <p class="api-results__element__name heading--section">[[element.name]]</p>
+            <!-- PROPERTIES -->
+            <template is="dom-if" if="[[_any(element.property)]]">
+              <p class="heading--subsection">Properties</p>
+              <template is="dom-repeat" items="[[element.property]]" as="property">
+                <iron-doc-property descriptor="[[property.descriptor]]"></iron-doc-property>
+              </template>
+            </template>
+            <!-- METHODS -->
+            <template is="dom-if" if="[[_any(element.method)]]">
+              <p class="heading--subsection">Methods</p>
+              <template is="dom-repeat" items="[[element.method]]" as="method">
+                <iron-doc-function descriptor="[[method.descriptor]]"></iron-doc-function>
+              </template>
+            </template>
+            <!-- EVENTS -->
+            <template is="dom-if" if="[[_any(element.event)]]">
+              <p class="heading--subsection">Events</p>
+              <template is="dom-repeat" items="[[element.event]]" as="event">
+                <iron-doc-property descriptor="[[event.descriptor]]"></iron-doc-property>
+              </template>
+            </template>
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
+  <script>Polymer({is:"px-catalog-api-search",properties:{lunrIndex:{type:Object,observer:"_handleLunrIndexLoaded"},_lunr:{type:Object},lunrSource:{type:Object},_searchTerm:{type:String,value:""},_results:{type:Array}},observers:["_findMatches(_lunr, lunrSource, _searchTerm)"],attached:function attached(){this.$.lunrIndexAjax.generateRequest();this.$.lunrSourceAjax.generateRequest()},_handleLunrIndexLoaded:function _handleLunrIndexLoaded(index){if(!index)return;this._lunr=lunr.Index.load(index)},_findMatches:function _findMatches(lunr,source,term){if(!(lunr===void 0||source===void 0||term===void 0)){this.debounce("find-matches",function(){var matchingEntries=lunr.search(term).slice(0,100),matchingResults=matchingEntries.map(function(entry){return source.documents[source.index[entry.ref]]});this._results=this._groupByElement(matchingResults)},100)}},_itIs:function _itIs(a,b){return a===b},_any:function _any(arr){return Array.isArray(arr)&&0<arr.length},_groupByElement:function _groupByElement(entries){var results=entries.reduce(function(acc,e){var groupIndex=acc.index[e.component];if("number"===typeof groupIndex){acc.elements[groupIndex][e.type].push(e);return acc}var newLen=acc.elements.push({name:e.component,method:[],property:[],event:[]}),newIndex=acc.index[e.component]=newLen-1;acc.elements[newIndex][e.type].push(e);return acc},{elements:[],index:{}});results.elementsCount=results.elements.length;results.entriesCount=entries.length;return results}});</script>
+</dom-module>
+</body></html>

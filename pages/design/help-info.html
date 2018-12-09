@@ -1,0 +1,101 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-help-info">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-icons', activeAnchor)]]" href="#" anchor="#using-icons" on-tap="_handleAnchorTapped">Using Icons</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#help-icon', activeAnchor)]]" href="#" anchor="#help-icon" on-tap="_handleAnchorTapped">Help Icon</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#information-icon', activeAnchor)]]" href="#" anchor="#information-icon" on-tap="_handleAnchorTapped">Information Icon</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-illustrations', activeAnchor)]]" href="#" anchor="#using-illustrations" on-tap="_handleAnchorTapped">Using Illustrations</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Contextual Help &amp; Information</h2>
+          
+          
+<p>Contextual help and supplementary information in your application can provide quick guidance and support for complex activities or workflows. Use contextual information to supplement the information displayed on the page and help users make better decisions.</p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Use simple language</h4>
+<p>Make sure the supplementary information clarifies any possible questions in simple and clear language.</p>
+<h4>Be concise</h4>
+<p>Provide enough information for the user to continue with the task. Keep the information concise, but provide ways to access more in-depth documentation in case the user wants to dive deeper.</p>
+<h4>Keep it contextual</h4>
+<p>Help and supplementary information should be relevant to the user's activity, current page, and task. Do not make the user hunt for information when you could show the information directly.</p>
+<h4>Make the interface clear and intentional</h4>
+<p>Strive to make the interface as clear as possible so you minimize the use of clarifying information. Do not use contextual help as a crutch to fix a bad design or bad labels.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/help-info/help-do" img-alt="Help info correct" title="Do" caption="Use the page layout to display relevant information to make decisions">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/help-info/help-dont" img-alt="Help info incorrect" title="Don't" caption="Don't hide information that is needed to make a decision">
+  </catalog-picture>
+</div>
+<h3 id="using-icons">Using Icons</h3>
+<p>Icons can be used in your application to indicate that supplementary information or help is available.</p>
+<h4 id="help-icon">Help Icon</h4>
+<p>Use the help icon (?) to indicate that extensive help is available to the user. Whenever possible, bring in snippets of content from your product documentation in the context of the page the user is currently viewing.&nbsp;
+Help should be accessible through a visible, consistent area in your application (like the global navigation).</p>
+<p><catalog-picture img-src="../../img/guidelines/design/help-info/product-help-open" img-alt="Opening product help from a global menu" caption="Opening product help from a global menu"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/help-info/product-help" img-alt="Example of product help in context" caption="Example of product help in context"></catalog-picture></p>
+<h4 id="information-icon">Information Icon</h4>
+<p>The information icon (i) indicates that some additional explanatory content is available, but not an extensive help system. Use it to provide clarifying information.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/help-info/info-in-context" img-alt="Additional information in context" caption="Showing additional information in context"></catalog-picture></p>
+<p>Use pop-overs to display contextual information on click of the information icon.&nbsp;
+<catalog-picture img-src="../../img/guidelines/design/help-info/info-popup" img-alt="Opening contextual information" caption="Opening contextual information"></catalog-picture></p>
+<p>You can complement information by providing links to dive into the full documentation if desired.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/help-info/info-pop-up-help" img-alt="Contextual information with access to product documentation" caption="Example of opening contextual information with access to product documentation"></catalog-picture></p>
+<p>Only add supplementary information through icons in areas where space is limited but some clarification may be needed. Do not hide information that is relevant to make a decision.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/help-info/help-spare-do" img-alt="Information icon correct" title="Do" caption="Use contextual help only when necessary, and use the icon in areas where space is limited.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/help-info/help-all-fields-dont" img-alt="Information icon incorrect" title="Don't" caption="Do not abuse the info icon. Make sure your labels are clear to reduce the need for additional information.">
+  </catalog-picture>
+</div>
+<h3 id="using-illustrations">Using Illustrations</h3>
+<p>Often times, a picture is worth a thousand words when it comes to explaining complex concepts. Consider using simple <a href="#/design/communication/illustrations">illustrations</a> and imagery to help convey concepts or behavior to provide an extra layer of clarity.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/help-info/diagram-in-help" img-alt="Example of a diagram as contextual information" caption="Example of a diagram as contextual information"></catalog-picture></p>
+<p>Note that having illustrated information does not replace good information architecture, layout, and clear actions in your page.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-help-info",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

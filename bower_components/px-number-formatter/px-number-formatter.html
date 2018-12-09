@@ -1,0 +1,30 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-number-formatter-behavior.html">
+
+<!--
+A wrapper for px-number-formatter-behavior to provide declarative number formatting and display.
+
+Refer to the [Numbro.js API](http://numbrojs.com/format.html) for information on the "format" strings you can use.
+
+### Usage
+
+    <px-number-formatter
+        value="1000"
+        format="0,0">
+    </px-number-formatter>
+
+@element px-number-formatter
+@blurb A wrapper for the [numbro.js](http://numbrojs.com/) library.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-number-formatter">
+  <template>
+    <style include="px-number-formatter-styles"></style>
+    <span id="span"></span>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-number-formatter",behaviors:[PxNumberFormatter.formatter],properties:{},attached:function attached(){this.targetElement=this.$.span;if(this.value||0===this.value){this._format(this.value)}}});</script>
+</body></html>

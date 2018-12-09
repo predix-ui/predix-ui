@@ -1,0 +1,12 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="codemirror/import.html">
+<link rel="import" href="css/px-code-editor-styles.html">
+
+</head><body><dom-module id="px-code-editor">
+  <template>
+    <style include="px-code-editor-styles"></style>
+    <div id="editorContainer"></div>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-code-editor",properties:{mode:{type:String,observer:"_modeChanged"},value:{type:String,observer:"_valueChanged",notify:!0},editor:{type:Object,readOnly:!0,notify:!0}},_valueChanged:function _valueChanged(value){if("string"===typeof value){if(!this.editor){this._initializeEditor();return}if(this.editor.getValue()!==value){this.editor.setValue(value);this._refresh()}}},_modeChanged:function _modeChanged(mode){if("string"===typeof mode){if(!this.editor){this._initializeEditor()}else{this.editor.setOption("mode",mode)}}},_initializeEditor:function _initializeEditor(){if(!this.editor&&"string"===typeof this.value&&"string"===typeof this.mode){this.scopeSubtree(this.$.editorContainer,!0);var editor=CodeMirror(this.$.editorContainer,{mode:this.mode,value:this.value,theme:"predix",lineWrapping:!1,lineNumbers:!1});this._setEditor(editor);editor.on("changes",this._onEditorChanges.bind(this));this._refresh()}},_refresh:function _refresh(){var _this=this;Polymer.RenderStatus.afterNextRender(this,function(){_this.editor.refresh()})},_onEditorChanges:function _onEditorChanges(e){var _this2=this;this.debounce("handle-editor-changes",function(){var value=_this2.editor.getValue();_this2.fire("px-code-editor-updated",{value:value});_this2.value=value},20)}});</script>
+</body></html>

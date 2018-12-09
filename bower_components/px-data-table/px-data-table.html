@@ -1,0 +1,174 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="aha-table.html">
+<link rel="import" href="px-data-table-column.html">
+<link rel="import" href="px-data-table-highlight.html">
+<link rel="import" href="../px-validation/px-validation.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-data-table-styles.html">
+
+
+<!--
+
+Element that defines a data table, optionally using a sub-element for advanced column settings.
+Use the dropdown at the top of this screen to see documentation on the `px-data-table-column` and `px-data-table-highlight` sub-components.
+
+### Client-Side VS Server-Side Data Paradigms
+
+There are two main paradigms for the source of data in a table.
+
+In a *Client-Side* model, the browser makes one request for the _complete set_ of data.
+This means that sorting, filtering, and pagination all happen in memory on the client.
+While this produces snappy tables with reasonably sized data sets, it can lead to a sluggish UI
+for larger data sets. This works great with data sets that don't change frequently,
+since the full payload would have to be resent for every update.
+
+In a *Server-Side* model, the browser makes a request for a _subset_ of data for a particular page.
+Sorting, filtering, and pagination requests will have to be made to a service for a new _subset_ of data
+that matches the user's intended criteria. This prevents the browser from being overwhelmed with excessively
+large data sets by only exposing one page's worth of data at a time. This is ideal for larger data sets or
+where it is preferable to make multiple small requests instead of fewer larger requests. Due to the increased
+frequency of requests, the UI is more likely to display data in sync with the server.
+
+### Client-Side Data Usage
+
+See the `README.md` and `docs` files in the repo for more details and advanced examples.
+
+Minimum:
+
+    <px-data-table table-data="{{data}}"></px-data-table>
+
+Advanced:
+
+    <px-data-table filterable selectable striped table-data="{{data}}">
+      // See px-data-table-column API using dropdown at top of screen.
+      <px-data-table-column name="first" ...></px-data-table-column>
+      <px-data-table-column name="last" ...></px-data-table-column>
+      <px-data-table-column name="color" ...></px-data-table-column>
+      <px-data-table-column name="date" ...></px-data-table-column>
+    </px-data-table>
+
+### Server-Side Data Usage
+
+See the `README.md` and `docs` files in the repo for more details and advanced examples.
+
+For container element `ContainerEl`, create the following event listeners and request new data based on the user-intended change. Upon receiving updated data, update the variables bound to the `table-data`, `total-entries`, and `first-item-index` attributes.
+
+Minimum:
+
+    <px-data-table
+      total-entries="100"
+      first-item-index="11"
+      table-data="{{dataSubset}}"
+      remote-data="true"
+      >
+    </px-data-table>
+
+Advanced:
+
+In the following example `serverResponse` is an object that is updated upon the response of a server.
+
+    <px-data-table
+      id="remoteDataTable"
+      total-entries="{{serverResponse.totalRecordsCount}}"
+      first-item-index="{{serverResponse.recordIndexOfSubset}}"
+      table-data="{{serverResponse.dataSubset}}"
+      remote-data="true"
+      >
+      <px-data-table-column
+        name="first"
+        sortable
+        filter-function-name="myTableCustomFunctions.filterWholeWord"
+        sort-function-name="myTableCustomFunctions.sortByEmailDomain">
+      </px-data-table-column>
+      <px-data-table-column name="last"></px-data-table-column>
+      <px-data-table-column name="color"></px-data-table-column>
+      <px-data-table-column name="date"></px-data-table-column>
+    </px-data-table>
+
+
+### Integrating with other frameworks (ex: Angular):
+
+You may not be able to use 2-way binding with the objects/arrays in other frameworks such as Angular.
+
+We suggest instead to use events and selectors, for example:
+
+    document.getElementById("myDataTable").addEventListener("px-row-click", function(e) {
+        ...
+    });
+
+    document.getElementById("myDataTable").addEventListener("px-select-all-click", function(e) {
+        ...
+    });
+
+    $scope.doSomethingWithSelectedRows = function() {
+        $scope.allSelectedRows = document.getElementById("myDataTable").selectedRows;
+    };
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-data-table-border-color` | The table border color
+`--px-data-table-separator-color` | The table separator color
+`--px-data-table-header-text-color` | The text color of header rows
+`--px-data-table-header-background-color` | The background color of header rows
+`--px-data-table-row-background-color--hover` | The background color of a row when hovered
+`--px-data-table-row-cursor--hover` | The cursor style of a row when hovered
+`--px-data-table-cell-border-color--edit` | The cell border color when in edit mode
+`--px-data-table-cell-border-color--selected` | The cell border color when selected
+`--px-data-table-cell-border-validation--failed` | The cell border color when validation fails
+`--px-data-table-cell-background-color--selected` | The cell background color when selected
+`--px-data-table-cell-background-color--edit` | The cell background color when in edit mode
+`--px-data-table-background-color-striped--even` | The background color of a striped cell (even)
+`--px-data-table-cell-text-color--selected` | The cell text color when selected
+`--px-data-table-cell-text-color-validation--failed` | The cell text color when validation fails
+`--px-data-table-cell-text-color--sorted` | The text color of a sorted column
+`--px-data-table-cell-text-color--editing` | The text color of a cell in edit mode
+`--px-data-table-results-text-color--none` | The text color for the "no results" message
+`--px-data-table-insertion-indicator-td-background-color` | The color of the insertion indicator for reordering
+`--px-data-table-text-input-background-color--filter` | The background color of a filter input box
+`--px-data-table-text-color--dragged` | The text color of a dragged item
+`--px-data-table-text-color--hover` | The text color of a column header when hovered
+`--px-data-table-highlight--high` | A highlight of value 'high'
+`--px-data-table-highlight--medium` | A highlight of value 'medium'
+`--px-data-table-highlight--low` | A highlight of value 'low'
+`--px-data-table-padding-top` | The top padding for table cells
+`--px-data-table-padding-bottom` |  The bottom padding for table cells
+`--px-data-table-padding-left` |  The left padding for table cells
+`--px-data-table-padding-right` |  The right padding for table cells
+
+
+@element px-data-table
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-data-table">
+  <template>
+    <style include="px-data-table-styles"></style>
+
+
+    <div class="flex">
+      <aha-table data-remote="{{dataRemote}}" data="{{tableData}}" enable-column-reorder="{{enableColumnReorder}}" enable-column-resize="{{enableColumnResize}}" filterable="{{filterable}}" first-item-index="{{firstItemIndex}}" hide-pagination-control="{{hidePaginationControl}}" id="dataTable" include-all-columns="{{includeAllColumns}}" language="{{language}}" meta="{{meta}}" page-size-options="{{pageSizeOptions}}" page-size="{{pageSize}}" resources="{{resources}}" selectable="{{selectable}}" selected-rows="{{selectedRows}}" show-column-chooser="{{showColumnChooser}}" single-select="{{singleSelect}}" sortable="{{sortable}}" striped="{{striped}}" table-cells="{{tableCells}}" table-columns="{{tableColumns}}" total-entries="{{totalEntries}}" use-key-if-missing="{{useKeyIfMissing}}">
+        <content></content>
+      </aha-table>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-data-table",behaviors:[Polymer.AppLocalizeBehavior],properties:{tableData:{type:Array,value:function value(){return[]},notify:!0},striped:{type:Boolean,value:!1},filterable:{type:Boolean,value:!1},sortable:{type:Boolean,value:!1},tableColumns:{type:Boolean,value:!1},tableCells:{type:Boolean,value:!1},selectable:{type:Boolean,value:!1},singleSelect:{type:Boolean,value:!1},hidePaginationControl:{type:Boolean,value:!1},totalEntries:{type:Number,value:10,notify:!0},firstItemIndex:{type:Number,value:1,notify:!0},dataRemote:{type:Boolean,value:!1},pageSize:{type:Number,value:10},selectedRows:{type:Array,value:function value(){return[]},notify:!0},showColumnChooser:{type:Boolean,value:!1},enableColumnReorder:{type:Boolean,value:!1},enableColumnResize:{type:Boolean,value:!1},includeAllColumns:{type:Boolean,value:!1},pageSizeOptions:{type:Array,value:function value(){return[{key:"1",val:"10"},{key:"2",val:"20"},{key:"3",val:"50"},{key:"4",val:"100"}]}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{Selected:"Selected",of:"of","Show/Hide Column":"Show/Hide Column",Filter:"Filter","Rows per page":"Rows per page","No Results":"No Results"}}}}}});</script>
+</body></html>

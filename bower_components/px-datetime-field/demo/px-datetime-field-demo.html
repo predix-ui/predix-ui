@@ -1,0 +1,69 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+
+
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-datetime-field.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-datetime-field-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-datetime-field" description="This component allows the user to select a date and time precisely to the second or millisecond.
+          The counter represents when the px-datetime-field event/date property of the
+        field is being fired/updated. The behavior depends on whether the field uses
+        buttons. If it has buttons, then it is fired when the user clicks the apply button AND the date/time is valid.
+        If it doesn't have buttons, then it is fired every time a valid change is made to the date or time." desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]" class="flex__item flex__item--msfix"></px-demo-props>
+
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}" config="[[chosenConfig]]" class="flex__item flex__item--msfix"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <p class="u-mb0">Event fired: <strong>moment-obj-changed</strong></p>
+        <p class="zeta u-mt0">See API Reference below for more details</p>
+        <p class="u-mb++">Submitted date: <strong>{{props.momentObj.value}}</strong></p>
+
+        <px-datetime-field moment-obj="{{props.momentObj.value}}" date-format="{{props.dateFormat.value}}" time-format="{{props.timeFormat.value}}" required="{{props.required.value}}" show-buttons="{{props.showButtons.value}}" allow-wrap="{{props.allowWrap.value}}" block-future-dates="{{props.blockFutureDates.value}}" block-past-dates="{{props.blockPastDates.value}}" hide-time="{{props.hideTime.value}}" hide-date="{{props.hideDate.value}}" show-time-zone="{{props.showTimeZone.value}}" hide-icon="{{props.hideIcon.value}}" time-zone="{{props.timeZone.value}}" min-date="{{props.minDate.value}}" max-date="{{props.maxDate.value}}">
+        </px-datetime-field>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-datetime-field" links-includes="[[linksIncludes]]" suppress-property-values="[[suppressPropertyValues]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-datetime-field" hide="[[apiHide]]">
+    </px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-datetime-field-demo",properties:{props:{type:Object,value:function value(){var props=this.demoProps;props.timeZone.inputLocalCandidates=Px.moment.tz.names();return props}},suppressPropertyValues:{type:Array,value:function value(){return["momentObj"]}},configs:{type:Array,value:function value(){return[{configName:"Blank state",dateFormat:"YYYY/MM/DD",timeFormat:"hh:mm:ss A",showButtons:!1,allowWrap:!1,blockFutureDates:!1,blockPastDates:!1,hideTime:!1,hideDate:!1,hideIcon:!1,showTimeZone:"dropdown",timeZone:"UTC",momentObj:null},{configName:"Predefined date",dateFormat:"MM/DD/YY",timeFormat:"hh:mm:ss A",showButtons:!0,allowWrap:!0,blockFutureDates:!0,blockPastDates:!1,hideTime:!1,hideDate:!1,hideIcon:!1,showTimeZone:"abbreviatedText",timeZone:"America/Los_Angeles",momentObj:Px.moment()},{configName:"Min/Max date",dateFormat:"DD/MM/YY",timeFormat:"HH:mm:ss.SSS",showButtons:!1,allowWrap:!1,blockFutureDates:!1,blockPastDates:!1,hideTime:!1,hideDate:!1,hideIcon:!1,showTimeZone:"dropdown",timeZone:"America/New_York",momentObj:Px.moment().startOf("day")}]}},apiHide:{type:Array,value:function value(){return["keyBindings"]}},timeZoneList:{type:Array,value:function value(){return[Px.moment.tz.names()]}},timeZone:{type:String,value:"UTC"}},demoProps:{hideDate:{type:Boolean,defaultValue:!1,inputType:"toggle"},hideTime:{type:Boolean,defaultValue:!1,inputType:"toggle"},hideIcon:{type:Boolean,defaultValue:!1,inputType:"toggle"},required:{type:Boolean,defaultValue:!1,inputType:"toggle"},showButtons:{type:Boolean,defaultValue:!1,inputType:"toggle"},allowWrap:{type:Boolean,defaultValue:!1,inputType:"toggle"},blockFutureDates:{type:Boolean,defaultValue:!1,inputType:"toggle"},blockPastDates:{type:Boolean,defaultValue:!1,inputType:"toggle"},dateFormat:{type:String,defaultValue:"YYYY/MM/DD",inputType:"text",inputPlaceholder:"YYYY/MM/DD"},timeFormat:{type:String,defaultValue:"HH:mm:ss",inputType:"text",inputPlaceholder:"HH:mm:ss"},timeZone:{type:String,defaultValue:"UTC",inputType:"typeahead",inputPlaceholder:"UTC",inputLocalCandidates:[]},showTimeZone:{type:String,defaultValue:"dropdown",inputType:"dropdown",inputChoices:["none","dropdown","extendedDropdown","text","abbreviatedText"]},minDate:{type:String,defaultValue:Px.moment().subtract(3,"month").toISOString(),inputType:"text",inputPlaceholder:"ISOString"},maxDate:{type:String,defaultValue:Px.moment().add(3,"month").toISOString(),inputType:"text"},momentObj:{type:Object,defaultValue:null}},ready:function ready(){this.linksIncludes=["px-datetime-common/px-polygit-imports-datetime.html"]}});</script>
+</body></html>

@@ -1,0 +1,90 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-notification-styles.html">
+
+<!--
+A notification provides a way to notify the user of a state change or
+actions taken on a specific context. The context can be a component, page, etc.
+Notifications communicate where the notification applies to and catch
+the user's attention. A notification can be dismissed or persistent
+depending on the type of action or state.
+
+### Basic usage
+
+A basic notification takes text as content, a status icon to the left
+of the text, and an action icon on the right side of the notification.
+
+    <px-notification
+      type="healthy"
+      status-icon="px-utl:confirmed"
+      content="Your dashboard has been successfully created."
+      action-icon="px-nav:close"
+      opened>
+    </px-notification>
+
+It is possible to configure a notification without a status
+icon or an action icon/button:
+
+    <px-notification
+      small
+      type="info"
+      content="26 Filters 2,479,322 Devices"
+      opened>
+    </px-notification>
+
+### Custom content
+
+You can use slots to insert custom content in the notification.
+Note that it is not recommended to put anything but text or chips in the `content`
+slot, or to put anything but icons or buttons in the `right` slot. Anything in
+the `right` slot should be actionable. There should only ever be one top level
+element in the `right` slot.
+
+    <px-notification
+      type="info"
+      opened>
+      <div slot="content" class="chips">
+        <px-chip content="Name" class="chip--light" show-icon not-selectable></px-chip>
+        <px-chip content="Location" class="chip--light" show-icon not-selectable></px-chip>
+        <px-chip content="Date" class="chip--light" show-icon not-selectable></px-chip>
+      </div>
+      <button slot="right" class="btn--light">Clear All</button>
+    </px-notification>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-notification-height` | Height of the notification. Defaults to 80px on a mobile device, and 40px otherwise.
+
+@element px-notification
+@blurb A component providing a way to notify the user of a state change or actions taken on a specific context.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-notification">
+  <template>
+    <style include="px-notification-styles"></style>
+    <div class$="notification-left [[_hideIfEmpty(statusIcon)]]">
+      <px-icon class="notification-icon" icon="[[statusIcon]]"></px-icon>
+    </div>
+    <div class="notification-content">
+      <slot name="content">
+        <div>[[content]]</div>
+      </slot>
+    </div>
+    <div class="notification-right" on-tap="_handleTap">
+      <slot name="right">
+        <div class$="[[_hideIfEmpty(actionIcon)]]">
+          <button class="btn btn--bare btn--icon">
+            <px-icon class="notification-icon" icon="[[actionIcon]]"></px-icon>
+          </button>
+      </div>
+      </slot>
+    <div>
+  </div></div></template>
+
+  <script>(function(){"use strict";Polymer({is:"px-notification",properties:{statusIcon:{type:String,value:""},content:{type:String,value:""},actionIcon:{type:String,value:""},type:{type:String,value:"info",reflectToAttribute:!0},small:{type:Boolean,value:!1,reflectToAttribute:!0},opened:{type:Boolean,value:!1,reflectToAttribute:!0}},_hideIfEmpty:function _hideIfEmpty(icon){if("string"!==typeof icon||""===icon)return"hidden"},_handleTap:function _handleTap(){this.fire("px-notification-action-tapped")}})})();</script>
+</dom-module>
+</body></html>

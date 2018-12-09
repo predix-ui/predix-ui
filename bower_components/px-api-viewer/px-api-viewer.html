@@ -1,0 +1,55 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-location/iron-location.html">
+<link rel="import" href="../iron-doc-viewer/iron-doc-element.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="css/px-api-viewer-styles.html">
+<link rel="import" href="find-polyfill.html">
+
+<!--
+Element providing API documentation for a requested Polymer component
+
+##### Usage
+
+    <px-api-viewer source="demo_component"></px-api-viewer>
+
+### Styling
+The following custom properties are available for styling. Use them with the default tooltip-style property (omit it, or use value "dark").
+
+Custom property | Description
+----------------|-------------
+`--px-tooltip-text-color` | Text color for the tooltip
+`--px-tooltip-background-color` | Background color for the tooltip
+
+@element px-api-viewer
+@blurb Element providing API documentation for a requested Polymer component
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-api-viewer">
+  <template>
+    <iron-ajax auto="" url="[[_getAPIUrl(source, apiSourceFilePath)]]" handle-as="json" on-response="_handleResponse">
+    </iron-ajax>
+    <style include="iron-doc-default-theme"></style>
+    <style include="px-api-viewer-styles"></style>
+    <iron-location hash="{{_hash}}"></iron-location>
+    <iron-doc-element id="doc" descriptor="[[_targetElementDescriptor]]" base-href="[[_getBaseHref(disableHashPrefix)]]" fragment-prefix="[[_getFragmentPrefix(source, pagePath)]]">
+    </iron-doc-element>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-api-viewer",properties:{_elementDescriptor:{type:Object,notify:!0},source:{type:String,value:"",notify:!0},apiSourceFilePath:{type:String,value:""},hide:{type:Array,value:function value(){return[]}},markPrivate:{type:Array,value:function value(){return[]}},markReadOnly:{type:Array,value:function value(){return[]}},changeDescription:{type:Array,value:function value(){return[]}},disableHashPrefix:{type:Boolean,value:!1},pagePath:{type:String,value:""},_targetElementDescriptor:{type:Object},_anchor:{type:String,value:"",computed:"_getAnchorFromHash(_hash)",observer:"_tryScrollToAnchor"},_baseHref:{type:String},_elementDescriptorTrigger:{type:Number,value:0}},observers:["_getTargetElementDesc(source, _elementDescriptor, _elementDescriptorTrigger)"],attached:function attached(){this._handlePageLoaded=this._handlePageLoaded||this._handlePageLoaded.bind(this);window.addEventListener("page-loaded",this._handlePageLoaded,!1)},detached:function detached(){window.removeEventListener("page-loaded",this._handlePageLoaded,!1)},_cleanAPIDocs:function _cleanAPIDocs(){var categories=["methods","properties"],thisElement=this._elementDescriptor.elements.find(function(eleAPI){return eleAPI.tagname===this.source},this);categories.forEach(function(apiClass){var elementAPICollection=thisElement[apiClass];elementAPICollection=this._hideAPI(elementAPICollection);elementAPICollection=this._changeDescription(elementAPICollection);elementAPICollection.forEach(function(apiItem){this._markReadOnly(apiItem);this._markPrivate(apiItem)},this);thisElement[apiClass]=elementAPICollection},this);return thisElement},_hideAPI:function _hideAPI(inputSetToFilter){var propertiesToMutate=[];propertiesToMutate=inputSetToFilter.filter(function(currentProperty){return-1===this.hide.indexOf(currentProperty.name)}.bind(this));return propertiesToMutate},_markPrivate:function _markPrivate(property){if(-1!==this.markPrivate.indexOf(property.name)){property.privacy="protected"}},_markReadOnly:function _markReadOnly(property){if(-1!==this.markReadOnly.indexOf(property.name)){property.metadata.polymer.readOnly=!0}},_changeDescription:function _changeDescription(inputSetToChange){this.changeDescription.forEach(function(propertyToChange){var itemToUpdate=inputSetToChange.find(function(property){return propertyToChange.name===property.name});if(itemToUpdate){itemToUpdate.description=propertyToChange.desc}});return inputSetToChange},_handleResponse:function _handleResponse(val){var eleDescriptor=val.target.lastResponse;this._elementDescriptor=eleDescriptor;this._cleanAPIDocs();this.set("_elementDescriptor",eleDescriptor);this.set("_elementDescriptorTrigger",this._elementDescriptorTrigger++);this.fire("pxElementAPIReceived",eleDescriptor[15])},_getAPIUrl:function _getAPIUrl(){var parentFolder=this.importPath.substr(0,this.importPath.indexOf(this.tagName.toLowerCase()));if(this.apiSourceFilePath){return parentFolder+this.apiSourceFilePath}else{return parentFolder+this.source+"/"+this.source+"-api.json";;}},_handlePageLoaded:function _handlePageLoaded(){},_tryScrollToAnchor:function _tryScrollToAnchor(anchor){},_getAnchorFromHash:function _getAnchorFromHash(hash){if(!hash||""===hash||-1===hash.indexOf(":")){return""}return hash.split(":")[1]},_getTargetElementDesc:function _getTargetElementDesc(name,descriptor){if("object"===babelHelpers.typeof(this._targetElementDescriptor)){this._targetElementDescriptor={}}var d;if(!(name===void 0||descriptor===void 0)){d=descriptor.elements.filter(function(el){return el.name===name||el.tagname===name})[0]}this.set("_targetElementDescriptor",d)},_getFragmentPrefix:function _getFragmentPrefix(name,pagePath){if(""===pagePath){if(""!==window.location.hash){return-1<window.location.hash.indexOf(":")?window.location.hash.slice(1).split(":")[0]+":":window.location.hash.slice(1)+":"}return""}return pagePath},_getBaseHref:function _getBaseHref(disableHashPrefix){if(disableHashPrefix){return""}return"#"}});</script>
+</body></html>

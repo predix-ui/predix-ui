@@ -1,0 +1,69 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+ 
+
+<!-- Imports for this component -->
+<link rel="import" href="px-vis-bar-svg-demo-component.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-vis-bar-svg-demo">
+  <template>
+   
+
+  <!-- Light theme -->
+  <custom-style>
+    <style include="px-theme-styles" is="custom-style"></style>
+  </custom-style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-bar-svg" description="[[description]]" parent-name="px-vis">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive force-hide-props="">
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+      <!-- Props -->
+     <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-vis-bar-svg-demo-component dataset="[[props.dataset.value]]" type="[[props.type.value]]"></px-vis-bar-svg-demo-component>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" hide-codepen="" element-name="px-vis-bar-svg">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer api-source-file-path="px-vis/px-vis-api.json" source="px-vis-bar-svg" hide="[[apiHide]]" mark-read-only="[[apiMarkReadOnly]]" change-description="[[apiChangeDescription]]"></px-demo-api-viewer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-bar-svg-demo",properties:{description:{type:String,value:"Example of a bar drawing object. Bound elements are set from other components, such as px-vis-svg and px-vis-scale, and passed into px-vis-bar-svg. Chart data for the bar must be in the form provided by d3.stack."},props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Single Series Column",configShowProps:[],dataset:"single",type:"column"},{configName:"Multi Series Column",configShowProps:[],dataset:"multi",type:"column"},{configName:"Single Series Bar",configShowProps:[],dataset:"single",type:"bar"},{configName:"Multi Series Bar",configShowProps:[],dataset:"multi",type:"bar"}]}},apiHide:{type:Array,value:function value(){return["seriesClipPath","pxSvgElem"]}},apiMarkReadOnly:{type:Array,value:function value(){return["barBuilder","barGroup","barPath"]}},apiChangeDescription:{type:Array,value:function value(){return[{name:"chartData",desc:"The data based on which the chart draws. Unlike most other vis components, bar requires data in a different form. Pass the standard vis dataset through d3.stack before passing to the bar component:  https://github.com/d3/d3-shape/blob/master/README.md#stack"}]}}},demoProps:{svg:{value:"[[svg]]"},seriesId:{value:"mySeries"},completeSeriesConfig:{value:"[[seriesConfig]]"},chartData:{value:"[[stackedChartData]]"},x:{value:"[[iScale]]"},y:{value:"[[dScale]]"},type:{value:"column"},domainChanged:{value:"[[domainChanged]]"},dataset:{value:"single"}}});</script>
+</body></html>

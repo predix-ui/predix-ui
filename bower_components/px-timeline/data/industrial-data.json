@@ -1,0 +1,95 @@
+[
+  {
+    "metaData": {
+      "editedBy": "Alison Jones",
+      "editedDate": "2017-12-04 14:12:00-07",
+      "editorTitle": "Head Maintenance Technician",
+      "customIcon": "px-fea:administration"
+    },
+    "content": {
+      "title": "Engine Inspection at Caledonia Shop",
+      "bodyType": "Video",
+      "body": [
+        {
+          "video": "https://www.youtube.com/embed/VATyEPvuQy8",
+          "headline": "Results of shop engine inspection",
+          "host": "Remote",
+          "text": "Findings attached"
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "John Smith",
+      "editedDate": "2018-01-27 18:28:10-07",
+      "editorTitle": "Director of Maintenance",
+      "customIcon": "px-utl:confirmed"
+    },
+    "content": {
+      "title": "A-check",
+      "bodyType": "text",
+      "body": [
+        {
+          "text": "A-check conducted at PredixAir maintenance hangar 3 after 260 cycles."
+        }
+      ]
+    }
+  }, {
+    "metaData": {
+      "editedBy": "PredixAir Operations",
+      "editedDate": "2018-02-12 06:37:00-07",
+      "customIcon": "px-obj:airplane"
+    },
+    "content": {
+      "title": "SFO > CVG",
+      "bodyType": "LIST",
+      "body": [
+        { "key": "Takeoff",
+          "value": "SFO - Mon Sep 12 2016 06:37:00-07"
+        },
+        { "key": "Arrival",
+          "value": "CVG - Mon Sep 12 2016 3:15:00-04"
+        },
+        { "key": "Flight Time",
+          "value": "5 hours, 43 minutes"
+        }
+      ]
+    }
+  },{
+    "metaData": {
+      "editedBy": "GE Digital",
+      "editedDate": "2018-02-23 00:00:00-07"
+    },
+    "content": {
+      "title": "Contact Details",
+      "bodyType": "table",
+      "body": [
+        {
+          "first": "Valentine",
+          "last": "Meyer",
+          "email": "valentinemeyer@scentric.com"
+        },
+        {
+          "first": "Silva",
+          "last": "Alexander",
+          "email": "silvaalexander@gmail.com"
+        },
+        {
+          "first": "Hopkins",
+          "last": "Wong",
+          "email": "hopkinswong@hotmail.com"
+        },
+        {
+          "first": "Joe",
+          "last": "Sherman",
+          "email": "joejoe@yahoo.com"
+        },
+        {
+          "first": "Jane",
+          "last": "Bartlett",
+          "email": "jane@scentric.com"
+        }
+      ]
+    }
+  }
+]

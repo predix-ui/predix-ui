@@ -1,0 +1,71 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="css/px-datetime-picker-styles.html">
+<link rel="import" href="../px-datetime-field/px-datetime-field.html">
+<link rel="import" href="../px-datetime-common/px-datetime-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-buttons.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+<link rel="import" href="../px-overlay/px-overlay-content.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+<link rel="import" href="px-datetime-picker-content.html">
+
+<!--
+The datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+#### Usage
+
+    <px-datetime-picker
+      collapse-at="720">
+    </px-datetime-picker>
+
+
+#### Styling
+The following custom properties are available for styling. Please also refer to px-forms-design and px-buttons-design for additional style variables used by this component.
+
+Custom property | Description
+:----------------|:-------------
+`--px-datetime-picker-background-color` | Background color for the panel
+`--px-datetime-picker-btn-container-background-color` | Background color for the button wrapper When `fillContainer` is true
+`--px-datetime-picker-border-color` | Border color for the panel
+`--px-datetime-picker-z-index` | The z-index of the container
+
+@element px-datetime-picker
+@blurb Element allowing to pick a date using a calendar or by typing it
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-picker">
+  <template>
+    <style include="px-datetime-picker-styles"></style>
+
+    <template is="dom-if" if="[[_collapseQueryIsValid(collapseAt)]]">
+      <iron-media-query query$="(max-width: {{_getCollapseQuery(collapseAt)}})" query-matches="{{_belowCollapseSize}}"></iron-media-query>
+    </template>
+
+    <px-datetime-field id="field" slot="dropdown-trigger" moment-obj="{{_tempMomentObj}}" date-format="[[dateFormat]]" time-format="[[timeFormat]]" hide-time="[[hideTime]]" time-zone="{{timeZone}}" show-time-zone="[[showTimeZone]]" is-selected="[[opened]]" block-future-dates="[[blockFutureDates]]" block-past-dates="[[blockPastDates]]" min-date="[[minDate]]" max-date="[[maxDate]]" required="[[required]]" is-valid="{{fieldIsValid}}" prevent-notification-on-change="" prevent-cell-focus="[[_fillContainer]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" hoist="[[hoist]]" container-type="[[containerType]]">
+    </px-datetime-field>
+    <px-overlay-content hoist="[[hoist]]" container-type="[[containerType]]" event-names="[&quot;px-datetime-button-clicked&quot;]">
+      <px-datetime-picker-content id="content" opened="{{opened}}" temp-moment-obj="{{_tempMomentObj}}" time-format="[[timeFormat]]" hide-time="[[hideTime]]" time-zone="[[timeZone]]" show-buttons="[[showButtons]]" base-date="[[_tempMomentObj]]" day-week-start-index="[[dayWeekStartIndex]]" block-future-dates="[[blockFutureDates]]" block-past-dates="[[blockPastDates]]" min-date="[[minDate]]" max-date="[[maxDate]]" field-is-valid="[[fieldIsValid]]" fill-container="[[_fillContainer]]" fit-into-element="[[_fitIntoElement]]" field-elem="[[_returnField()]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+      </px-datetime-picker-content>
+    </px-overlay-content>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-picker",behaviors:[PxDatetimeBehavior.TempMoment,PxDatetimeBehavior.Buttons,PxOverlayBehavior.sharedProperties],properties:{showTimeZone:{type:String,value:""},hideTime:{type:Boolean,value:!1},dateFormat:{type:String,value:"MM/DD/YYYY"},timeFormat:{type:String,value:"HH:mm A"},required:{type:Boolean,value:!1},opened:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_processClose"},fieldIsValid:{type:Boolean},fillContainer:{type:Boolean,value:!1,observer:"_syncFillContainer"},_fillContainer:{type:Boolean,reflectToAttribute:!0},fitIntoElement:{type:Object,value:window,observer:"_syncFitIntoElement"},_fitIntoElement:{type:Object},collapseAt:{type:Number},collapsed:{type:Boolean,value:!1,notify:!0,readOnly:!0},_belowCollapseSize:{type:Boolean,observer:"_handleBelowCollapseSizeChanged"},resources:{type:Object,value:function value(){return{en:{Today:"Today"}}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},hoist:{type:Boolean,value:!1}},listeners:{"px-datetime-entry-icon-clicked":"_iconClicked","px-datetime-button-clicked":"_buttonClicked",tap:"_handleTap"},keyBindings:{esc:"_onEsc",enter:"_onEnter"},attached:function attached(){this.$.field.addEventListener("moment-obj-changed",this._tempMomentChanged.bind(this,"field"));this.$.content.addEventListener("temp-moment-obj-changed",this._tempMomentChanged.bind(this,"content"))},focus:function focus(){this.$.field.focus()},_onEsc:function _onEsc(evt){this._rollbackTempMoment();this.$.content._close()},_onEnter:function _onEnter(evt){this._validateCalendarMoment()},_handleTap:function _handleTap(evt){if(!0===this.opened){for(var path=Polymer.dom(evt).path,i=0;i<path.length;i++){if("PX-DROPDOWN"===path[i].nodeName){this.$.content._close();return}}}},_tempMomentChanged:function _tempMomentChanged(origin){this.debounce("_tempMomentChanged",function(){if("field"===origin){this._applyTempMoment()}else if("content"===origin&&!this.showButtons){this._applyTempMoment();this.$.content._close()}},0)},_validateCalendarMoment:function _validateCalendarMoment(){if(this.opened){if(this.$.field.isValid){this._applyTempMoment();this.$.content._close()}else{}}},_buttonClicked:function _buttonClicked(evt){if(evt.detail.action){this._validateCalendarMoment()}else{this._rollbackTempMoment();this.$.content._close()}},_iconClicked:function _iconClicked(evt){if("Date"===evt.detail.dateOrTime){this.$.content._open()}},_processClose:function _processClose(newVal,oldVal){if(oldVal===void 0||newVal){return}if(!1===newVal&&this.showButtons){this._rollbackTempMoment()}},_getCollapseQuery:function _getCollapseQuery(collapseAt){if("number"===typeof collapseAt){return collapseAt+"px"}if("string"===typeof collapseAt&&"px"===collapseAt.slice(-2)||!isNaN(parseInt(collapseAt))){return collapseAt}},_collapseQueryIsValid:function _collapseQueryIsValid(query){if("number"===typeof query){return!0}if("string"===typeof query&&"px"===query.slice(-2)&&!isNaN(parseInt(query))){return!0}if(null===query){this.set("collapseAt",0);return!0}return!1},_handleBelowCollapseSizeChanged:function _handleBelowCollapseSizeChanged(newVal,oldVal){if(newVal){this._fillContainer=!0;this._fitIntoElement=window;this._setCollapsed(!0)}if(!newVal){this._fillContainer=this.fillContainer;this._fitIntoElement=this.fitIntoElement;this._setCollapsed(!1)}},_syncFillContainer:function _syncFillContainer(newVal,oldVal){newVal?this._fillContainer=!0:this._fillContainer=!1},_syncFitIntoElement:function _syncFitIntoElement(newVal,oldVal){if(!this._belowCollapseSize){this._fitIntoElement=newVal}},_returnField:function _returnField(){return this.$.field}});</script>
+</body></html>

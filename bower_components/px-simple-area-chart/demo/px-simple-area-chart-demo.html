@@ -1,0 +1,69 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-simple-area-chart.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-simple-area-chart-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-simple-area-chart" description="The px-simple-area-chart component creates a simple stacked area chart." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-simple-area-chart prevent-resize="[[props.preventResize.value]]" width="[[props.width.value]]" height="[[props.height.value]]" x-axis-type="[[props.xAxisType.value]]" chart-data="[[props.chartData.value]]" series-config="[[props.seriesConfig.value]]">
+        </px-simple-area-chart>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-simple-area-chart" codepen-link="https://glitch.com/edit/#!/px-simple-area-chart-demo">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-simple-area-chart"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-simple-area-chart-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0}]}},apiHide:{type:Array,value:function value(){return["chartExtents","chartHorizontalAlignment","chartVerticalAlignment","defaultSeriesConfig","domainChanged","generateLayers","hideRegister","includeAllSeries","layer","numberOfLayers","pxSvgElem","tooltipConfig"]}},apliMarkReadOnly:{type:Array,value:function value(){return["svg","tooltipData","x","y"]}},apiChangeDescription:{type:Array,value:function value(){return[{name:"seriesConfig",desc:"An optional configuration file to associate series name, units, and colors.\n\n{\n\n\"seriesKey\": {  //seriesKey is a unique identifier for the configuration\n\n\"name\": \"My Series\",  //human readable name\n\n\"x\": \"x\",  //index or key name for independent variable\n\n\"y\": \"y\",  //index or key name for dependent variable\n\n\"xAxisUnit\": \"Volt\" //Unit to be used for the X axis. Can be ignored if x axis is time based\n\n\"yAxisUnit\": \"Oranges\" //unit to be used for the Y axis.\n\n\"color\": \"rgb(0,0,0)\", //color you want the chart\n\n}\n\n}"}]}}},demoProps:{preventResize:{type:Boolean,defaultValue:!0,inputType:"toggle"},width:{type:Number,defaultValue:700,inputDisabled:!1,inputType:"text"},height:{type:Number,defaultValue:450,inputDisabled:!1,inputType:"text"},xAxisType:{type:String,defaultValue:"time",inputType:"dropdown",inputChoices:["time","timeLocal","linear"]},chartData:{type:Array,defaultValue:[{x:139710246e4,y2:23,y1:30,y:56},{x:139713966e4,y2:20,y1:35,y:40},{x:13971774e5,y2:28,y1:40,y:43},{x:139722804e4,y2:25,y1:38,y:33},{x:139724826e4,y2:26,y1:33,y:47},{x:139729128e4,y2:30,y1:40,y:41},{x:13973181e5,y2:32,y1:30,y:26},{x:13973421e5,y2:28,y1:35,y:42},{x:139739082e4,y2:35,y1:40,y:27},{x:13974081e5,y2:35,y1:34,y:38},{x:13974588e5,y2:40,y1:38,y:36},{x:139752294e4,y2:35,y1:40,y:32}],inputType:"code:JSON"},seriesConfig:{type:Object,defaultValue:{fistSeries:{name:"First",x:"x",y:"y",yAxisUnit:"bofs"},secondSeries:{name:"Second",x:"x",y:"y1",yAxisUnit:"bofs"},thirdSeries:{name:"Third",x:"x",y:"y2",yAxisUnit:"bofs"}},inputType:"code:JSON"}}});</script>
+</body></html>

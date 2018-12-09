@@ -1,0 +1,32 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+
+<link rel="import" href="../px-vis/px-vis-behavior-colors.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+
+<link rel="import" href="px-heatmap-behavior.html">
+
+
+</head><body><dom-module id="px-vis-heatmap-custom-column">
+  <template>
+
+  </template>
+  <script>Polymer({is:"px-vis-heatmap-custom-column",behaviors:[PxVisBehavior.baseSize,PxVisBehavior.chartExtents,PxVisBehavior.commonMethods,PxVisBehavior.completeSeriesConfig,PxVisBehavior.dataExtents,PxVisBehavior.margins,PxVisBehavior.observerCheck,PxVisBehavior.svgDefinition,PxVisBehavior.updateStylesOverride,PxVisBehaviorD3.domainUpdate,PxVisBehaviorChart.subConfiguration,PxBehaviorHeatmap.normalizeObjects],properties:{columnData:{type:Array},columnLabel:{type:String},columnWidth:{type:Number,value:100},borderColor:{type:String,value:"black"},borderWidth:{type:String,value:"1px"},textColor:{type:String,value:"black"},textSize:{type:String,value:"12px"},columnLabelTextColor:{type:String},columnLabelTextSize:{type:String},columnLabelSpacing:{type:Number,value:15},drawDebounceTime:{type:Number,value:100},_stylesResolved:{type:Boolean,value:!1},_svgGroup:{type:Object}},observers:["_drawElement(columnWidth, columnData.*, columnLabel, borderColor, borderWidth, margin.*, x, y, domainChanged, completeSeriesConfig, seriesKey, _stylesResolved)","_resolveCssVars(_stylesUpdated)"],detached:function detached(){if(!this._isObjEmpty(this._svgGroup)){this._svgGroup.remove()}},_drawElement:function _drawElement(){var _this=this,exts=this.chartExtents||this.dataExtents;if(!exts||this.hasUndefinedArguments(arguments)){return}exts=this._normalizeExtentsObj(exts);this.debounce("custom-column-drawn-debounce",function(){if(!_this._isObjEmpty(_this._svgGroup)){_this._svgGroup.remove()}var xOffset=_this.x(exts.x[exts.x.length-1])+_this.x.bandwidth(),yOffset=0;if(0!==xOffset&&!xOffset){return}var translate="translate("+xOffset+", "+yOffset+")";_this._svgGroup=_this.svg.append("g").attr("transform",translate);exts.y.forEach(function(yVal,i){var yPos=this.y(yVal);this._appendSvgLine(this._svgGroup,0,this.columnWidth,yPos,yPos)}.bind(_this));_this.columnData.forEach(function(data,i){var yPos=this.y(data.y)+this.y.bandwidth()/2;this._appendSvgText(this._svgGroup,this.columnWidth/2,yPos,data.value,this.textColor,this.textSize)}.bind(_this));var yPos=_this.y(exts.y[0])+_this.y.bandwidth();_this._appendSvgLine(_this._svgGroup,0,_this.columnWidth,yPos,yPos);if(_this.columnLabel){yPos=_this.y(exts.y[0])+_this.y.bandwidth()+_this.columnLabelSpacing;_this._appendSvgText(_this._svgGroup,_this.columnWidth/2,yPos,_this.columnLabel,_this.columnLabelTextColor,_this.columnLabelTextSize)}},this.drawDebounceTime)},_appendSvgLine:function _appendSvgLine(svg,x1,x2,y1,y2,stroke,strokeWidth){svg.append("line").attr("x1",x1).attr("x2",x2).attr("y1",y1).attr("y2",y2).style("stroke",this.borderColor).style("stroke-width",this.borderWidth)},_appendSvgText:function _appendSvgText(svg,x,y,text,textColor,textSize){svg.append("text").attr("x",x).attr("y",y).text(text).attr("text-anchor","middle").attr("alignment-baseline","middle").attr("font-size",textSize).attr("fill",textColor)},_resolveCssVars:function _resolveCssVars(){this.debounce("resolve-css-vars",function(){var seriesConfig=this.completeSeriesConfig||{},config=seriesConfig[this.seriesKey]||{};this.borderColor=config.borderColor||this._checkThemeVariable("--px-vis-heatmap-custom-column-border-color","red");this.borderWidth=config.borderWidth||this._checkThemeVariable("--px-vis-heatmap-custom-column-border-width","10px");this.textColor=config.textColor||this._checkThemeVariable("--px-vis-heatmap-custom-column-text-color","black");this.textSize=config.textSize||this._checkThemeVariable("--px-vis-heatmap-custom-column-text-size","12px");this.columnLabelTextColor=config.columnLabelTextColor||this._checkThemeVariable("--px-vis-heatmap-custom-column-label-text-color","black");this.columnLabelTextSize=config.columnLabelTextColor||this._checkThemeVariable("--px-vis-heatmap-custom-column-label-text-size","12px");this.set("_stylesResolved",!this._stylesResolved)}.bind(this),10)}});</script>
+</dom-module>
+</body></html>

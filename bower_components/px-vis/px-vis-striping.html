@@ -1,0 +1,72 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-scale
+      x-axis-type="time"
+      y-axis-type="linear"
+      complete-series-config="[[seriesConfig]]"
+      data-extents="[[dataExtents]]"
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      chart-data="{{chartData}}"
+      x="{{x}}"
+      y="{{y}}"
+      domain-changed="{{domainChanged}}"
+      selected-domain="[[selectedDomain]]">
+    </px-vis-scale>
+    <px-vis-svg
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      svg="{{svg}}">
+    </px-vis-svg>
+    <px-vis-striping
+      svg="[[svg]]"
+      series-id="mySeries"
+      complete-series-config="[[seriesConfig]]"
+      chart-data="[[chartData]]"
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      x="[[x]]"
+      y="[[y]]"
+      domain-changed="[[domainChanged]]">
+    </px-vis-striping>
+
+@element px-vis-striping
+@blurb Element which draws a striping series onto the chart
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-striping">
+  <template>
+    <style include="px-vis-styles"></style>
+
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-striping",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.canvasContext,PxVisBehaviorD3.axes,PxVisBehavior.commonMethods,PxVisBehaviorD3.domainUpdate,PxVisBehavior.dynamicConfigProperties,PxVisBehavior.serieToRedrawOnTop,PxVisBehavior.stripProperties,PxVisBehaviorD3.clipPathBoolean],properties:{drawDebounceTime:{type:Number,value:10}},observers:["_requestCanvasCreation(stripeConfig)","_redraw(canvasContext, domainChanged, stripeData.*, stripeConfig.*)","_drawOnTop(serieToRedrawOnTop)"],attached:function attached(){if(this._isDirty){this._redraw();this._isDirty=!1}},detached:function detached(){this._isDirty=!0},_redraw:function _redraw(){if(this.hasUndefinedArguments(arguments)){return}if(!this.preventInitialDrawing){this.drawCanvas(!0)}},drawCanvas:function drawCanvas(allowCanvasClearing){if(0<this.drawDebounceTime){this.debounce("drawCanvasStriping",function(){this._drawCanvasDebounced(allowCanvasClearing)}.bind(this),this.drawDebounceTime)}else{this._drawCanvasDebounced(allowCanvasClearing)}},_drawCanvasDebounced:function _drawCanvasDebounced(allowCanvasClearing){if(!this.x||!this.domainChanged||this._isObjEmpty(this.stripeData)){return}this.canvasContext.pxClearCanvas();this._initiateRendering()},_initiateRendering:function _initiateRendering(){var keys=Object.keys(this.stripeConfig),dash;if(this.clipPath){this.drawClipPath()}for(var i=0;i<keys.length;i++){this.canvasContext.fillStyle=this.stripeConfig[keys[i]].fillColor;this.canvasContext.strokeStyle=this.stripeConfig[keys[i]].fillColor;dash=this.stripeConfig[keys[i]].dash?this.stripeConfig[keys[i]].dash:[5,2];this.canvasContext.setLineDash(dash);this.canvasContext.globalAlpha=this.stripeConfig[keys[i]].fillOpacity;if(this.stripeData[keys[i]]&&this.stripeData[keys[i]].length){this._renderStripes(this.stripeData[keys[i]])}}},_renderStripes:function _renderStripes(data){for(var x,w,i=0;i<data.length;i++){x=this.x(data[i][0]),w=data[i][1]||0===data[i][1]?this.x(data[i][1])-x:0;if(0===w){this.canvasContext.beginPath();this.canvasContext.moveTo(x,0);this.canvasContext.lineTo(x,this.height);this.canvasContext.stroke()}else{this.canvasContext.fillRect(x,0,w,this.height)}}},drawClipPath:function drawClipPath(){var _Mathmax=Math.max;this.canvasContext.beginPath();var w=_Mathmax(this.width-this.margin.left-this.margin.right,0),h=_Mathmax(this.height-this.margin.top-this.margin.bottom,0);this.canvasContext.rect(0,0,w,h);this.canvasContext.clip()},_drawOnTop:function _drawOnTop(serieToRedraw){if(this.hasUndefinedArguments(arguments)){return}if(serieToRedraw===this.seriesId){this.drawCanvas(!1)}},_requestCanvasCreation:function _requestCanvasCreation(){if(this.hasUndefinedArguments(arguments)){return}this.set("canvasLayersConfig.striping",{})}});</script>
+</body></html>

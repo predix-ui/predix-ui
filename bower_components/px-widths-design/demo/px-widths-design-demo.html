@@ -1,0 +1,70 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-widths-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-widths-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-widths-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-widths-design" description="The Predix UI Widths module is a series of width helper classes that you can use to size things like grid systems." layer="objects" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-widths-tools-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<px-sass-doc-option slot="options" option-name="Divisions" choose-with="dropdown" choices="[
+    &quot;whole&quot;,
+    &quot;halves&quot;,
+    &quot;thirds&quot;,
+    &quot;quarters&quot;,
+    &quot;sixths&quot;
+  ]" default-choice="whole">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<div class$="{{layoutItemClasses}}"></div>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+
+<section slot="usage">
+```
+<!-- Whole Division  -->
+<div class="u-1/1"></div>
+
+
+<!-- Halves Divisions  -->
+<div class="u-1/2"></div>
+
+
+<!-- Thirds Divisions  -->
+<div class="u-1/3"></div>
+
+
+<!-- Quarters Divisions  -->
+<div class="u-1/4"></div>
+
+
+<!-- Sixths Divisions  -->
+<div class="u-1/6"></div>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-widths-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.layoutItemClasses=this._layoutItemClasses();this.importCode=this._importCode();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_layoutItemClasses:function _layoutItemClasses(){var opts=this.selectedOptions||{};if("whole"===opts.Divisions)return"u-1/1";if("halves"===opts.Divisions)return"u-1/2";if("thirds"===opts.Divisions)return"u-1/3";if("quarters"===opts.Divisions)return"u-1/4";if("sixths"===opts.Divisions)return"u-1/6"},_importCode:function _importCode(){return"@import \"px-widths-design/_trumps.widths.scss\";"}});</script>
+</body></html>

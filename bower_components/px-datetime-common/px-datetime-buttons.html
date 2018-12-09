@@ -1,0 +1,48 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-datetime-behavior.html">
+<link rel="import" href="px-datetime-validate.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-datetime-buttons-styles.html">
+
+<!--
+Date time button component.
+
+### Usage
+
+    <px-datetime-button>
+    </px-datetime-button>
+
+@element px-datetime-buttons
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-buttons">
+  <template>
+    <style include="px-datetime-buttons-styles"></style>
+    <div class="dt-btn-wrapper">
+      <template is="dom-if" if="{{ !hideCancel }}">
+        <button type="button" class="btn u-mr-" on-tap="_fireCancelEvent">[[localize('Cancel')]]</button>
+      </template>
+      <template is="dom-if" if="{{ !hideSubmit }}">
+        <button class$="{{submitBtnClasses('btn btn--primary', isSubmitButtonValid)}}" type="button" on-tap="_fireSubmitEvent" id="submitButton" disabled="{{!isSubmitButtonValid}}">
+        <i class$="{{submitIcon}}"></i>[[localize('Apply')]]</button>
+      </template>
+    </div>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-datetime-buttons",behaviors:[PxDatetimeBehavior.Validate,Polymer.AppLocalizeBehavior],properties:{isSubmitButtonValid:{type:Boolean,value:!0},hideSubmit:{type:Boolean,value:!1},hideCancel:{type:Boolean,value:!1},submitIcon:{type:String},spaceBetween:{type:Boolean,value:!1,reflectToAttribute:!0},resources:{type:Object,value:function value(){return{en:{Cancel:"Cancel",Apply:"Apply"}}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0}},observers:["_submitButtonState(isSubmitButtonValid)"],_fireCancelEvent:function _fireCancelEvent(){this.fire("px-datetime-button-clicked",{action:!1})},_fireSubmitEvent:function _fireSubmitEvent(){this.fire("px-datetime-button-clicked",{action:!0})},submitBtnClasses:function submitBtnClasses(base,submitButtonValid){return submitButtonValid?base:base+" btn--disabled"},_isEqual:function _isEqual(source,target){return source===target}});</script>
+</body></html>

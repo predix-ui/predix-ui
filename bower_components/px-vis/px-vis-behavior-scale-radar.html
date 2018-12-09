@@ -1,0 +1,20 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+
+<script>var PxVisBehaviorScale=window.PxVisBehaviorScale=window.PxVisBehaviorScale||{};PxVisBehaviorScale.radar=[{properties:{_calculatedExtents:{type:Object,notify:!0},radar:{type:Boolean,value:!1}},listeners:{"px-vis-request-pixel-for-data":"_pixelRequest"},_setXScale:function _setXScale(radius,forceRecreation){var range=[0,2*Math.PI],x;if(this.x&&!forceRecreation){this.x.range(range);if(this.domainChanged){this.set("domainChanged",this.domainChanged+1)}}else{x=Px.d3.scalePoint().range(range).padding(.5).align(0);x._scaleType="ordinal";this.set("x",x)}},_setYScale:function _setYScale(radius,centerOffset,forceRecreation){var range=[centerOffset,radius];if(this.y&&!forceRecreation){this.y.range(range);if(this.domainChanged){this.set("domainChanged",this.domainChanged+1)}}else{var y=Px.d3.scaleLinear().nice().range(range);y._scaleType="linear";this.set("y",y)}},_recreateScales:function _recreateScales(){if(this.x){this._setXScale(this._radius,!0)}if(this.y){this._setYScale(this._radius,this.centerOffset,!0)}},_generateChartExtents:function _generateChartExtents(){if(this.chartData&&0<this.chartData.length&&this.dimensions&&0<this.dimensions.length){var ext={x:this.chartExtents&&this.chartExtents.x?this.chartExtents.x:this.dimensions,y:null},min=1/0,max=-Infinity,doMin=!0,doMax=!0;if(this.chartExtents&&this.chartExtents.y&&2===this.chartExtents.y.length){min="dynamic"===this.chartExtents.y[0]?1/0:this.chartExtents.y[0];max="dynamic"===this.chartExtents.y[1]?-Infinity:this.chartExtents.y[1];doMin=min===1/0?!0:!1;doMax=max===-Infinity?!0:!1}if(doMin||doMax){for(var i=0;i<this.dimensions.length;i++){for(var j=0;j<this.chartData.length;j++){if(this._isValidData(this.chartData[j][this.dimensions[i]])&&(!this.hardMute||!this._combinedMutedSeries[this.chartData[j][this.seriesKey]])){min=doMin?Math.min(min,this.chartData[j][this.dimensions[i]]):min;max=doMax?Math.max(max,this.chartData[j][this.dimensions[i]]):max}}}}if(min===max){max+=1}ext.y=[min,max];this.set("_calculatedExtents",ext)}},_setDomain:function _setDomain(){this.debounce("_setDomain",function(){if(this._doesObjHaveValues(this.x)&&this._doesObjHaveValues(this.y)&&this._doesObjHaveValues(this._calculatedExtents)){var exts=this._calculatedExtents;this.x.domain(exts.x);this.y.domain(exts.y);this.set("domainChanged",this.domainChanged+1)}}.bind(this),10)},_updateDomain:function _updateDomain(axesDomain){if(this.y){this.y.domain(axesDomain.value);this.set("domainChanged",this.domainChanged+1)}},getPixelFromData:function getPixelFromData(data,axis,margin){var x,y,marg=margin?margin:this.margin,oob=!1;if(data>this.y.domain()[1]||data<this.y.domain()[0]){oob=!0}x=this.y(data)*Math.sin(this.x(axis))+this._extendedCenter[0];y=this.y(data)*Math.cos(Math.PI-this.x(axis))+this._smallerSide/2+marg.top;return{pixel:[x,y],outOfBounds:oob}},getDataFromPixel:function getDataFromPixel(pixelVal,axis){return[axis,this.y.invert(pixelVal[1])]},_pixelRequest:function _pixelRequest(evt){var res=this.getPixelFromData(evt.detail.data[1],evt.detail.series,evt.detail.margin);evt.detail.callback(res)}},PxVisBehavior.commonMethods,PxVisBehavior.dataset,PxVisBehaviorD3.axes,PxVisBehavior.sizing,PxVisBehavior.chartExtents,PxVisBehaviorD3.radialAxisConfig,PxVisBehaviorD3.domainUpdate,PxVisBehaviorD3.selectedDomain,PxVisBehavior.mutedSeries];</script>
+</head><body></body></html>

@@ -1,0 +1,53 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../css/px-list-inline-design-demo-styles.html">
+<link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-list-inline-design-demo">
+  <template>
+    <!-- 0: Import the styles-->
+    <style include="px-list-inline-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-list-inline-design" description="The Predix UI List Inline module simply displays a list as a delimited horizontal row." layer="objects" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-defaults-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<!-- N/A -->
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<ul class="list-inline">
+  <li>List Item</li><li>List Item</li><li>List Item</li>
+</ul>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+@import 'px-list-inline-design/_objects.list-inline.scss';
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+```
+<!-- List Inline -->
+<ul class="list-inline">
+  <li>List Item</li>
+  <li>List Item</li>
+  <li>List Item</li>
+</ul>
+
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-list-inline-design-demo",attached:function attached(){this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)}});</script>
+</body></html>

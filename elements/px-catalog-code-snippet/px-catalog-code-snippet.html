@@ -1,0 +1,29 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/utils/render-status.html">
+<link rel="import" href="../../bower_components/polymer/lib/utils/flattened-nodes-observer.html">
+<link rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+<link rel="import" href="../../bower_components/px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../../css/px-catalog-code-snippet-styles.html">
+<link rel="import" href="px-catalog-prism.html">
+
+
+</head><body><dom-module id="px-catalog-code-snippet">
+  <template>
+    <style include="px-catalog-code-snippet-styles"></style>
+    <!-- Script tag with code will be slotted here, but will be invisible -->
+    <slot></slot>
+
+    <!-- Floating action buttons -->
+    <div class="header">
+      <div class="header__language">[[language]]</div>
+      <button id="copyTrigger" class="actionable actionable--secondary" on-click="copyCodeToClipboard">
+        <px-icon title="copy" icon="[[_copyIcon]]"></px-icon>
+      </button>
+    </div>
+
+    <!-- Highlighted code will be inserted in the #target div -->
+    <div id="target"></div>
+  </template>
+  <script>{var PxCatalogCodeSnippet=function(_Polymer$Element){babelHelpers.inherits(PxCatalogCodeSnippet,_Polymer$Element);babelHelpers.createClass(PxCatalogCodeSnippet,[{key:"sourceElement",get:function get(){var nodes=Array.prototype.slice.call(Polymer.FlattenedNodesObserver.getFlattenedNodes(this));return nodes.find(function(n){return"SCRIPT"===n.nodeName&&n.type&&"text/code"===n.type})}}],[{key:"is",get:function get(){return"px-catalog-code-snippet"}},{key:"properties",get:function get(){return{language:String,_copyIcon:{type:String,value:"px-utl:copy"}}}},{key:"observers",get:function get(){return["render(language)"]}}]);function PxCatalogCodeSnippet(){var _this;babelHelpers.classCallCheck(this,PxCatalogCodeSnippet);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(PxCatalogCodeSnippet).call(this));_this._rendering=!1;_this._lastRenderSource=null;_this._copyAnimationEnd=function(e){_this._copyIcon="px-utl:copy";e.target.classList.remove("copyTrigger--success");e.target.removeEventListener("transitionend",_this._copyAnimationEnd)};return _this}babelHelpers.createClass(PxCatalogCodeSnippet,[{key:"connectedCallback",value:function connectedCallback(){var _this2=this;babelHelpers.get(babelHelpers.getPrototypeOf(PxCatalogCodeSnippet.prototype),"connectedCallback",this).call(this);Polymer.RenderStatus.afterNextRender(this,function(){_this2.render()})}},{key:"render",value:function render(){var sourceElement=this.sourceElement,language=this.language;if(language&&sourceElement){var source=stripPreIndent(sourceElement.textContent),highlighted=Px.Prism.highlight(source,Px.Prism.languages[language]);highlighted=highlighted.replace(/([\{\[])[\{\[](.+)([\}\]])[\}\]]/g,"$1<span></span>$1$2$3<span></span>$3");var closingScriptHighlighted="<span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>script</span><span class=\"token punctuation\">></span></span>";highlighted=highlighted.replace(/\&lt\;\\\/script\>/g,closingScriptHighlighted);this.$.target.innerHTML="<pre class=\"language-".concat(language,"\"><code class=\"language-").concat(language,"\">").concat(highlighted,"</code></pre>")}}},{key:"copyCodeToClipboard",value:function copyCodeToClipboard(){var _this$$=this.$,target=_this$$.target,copyTrigger=_this$$.copyTrigger;if(target&&copyTrigger){window.getSelection().selectAllChildren(target);document.execCommand("copy");copyTrigger.addEventListener("transitionend",this._copyAnimationEnd);this._copyIcon="px-utl:confirmed";copyTrigger.classList.add("copyTrigger--success")}}}]);return PxCatalogCodeSnippet}(Polymer.Element);customElements.define(PxCatalogCodeSnippet.is,PxCatalogCodeSnippet);var stripPreIndent=function stripPreIndent(source){var txt=source;txt=txt.replace(/^[\r\n]+/,"");txt=txt.replace(/\s+$/g,"");if(/^\S/gm.test(txt)){return txt}var re=/^[\t ]+/gm,mat,str,len,min=1e3;while(mat=re.exec(txt)){len=mat[0].length;if(len<min){min=len;str=mat[0]}}if(1e3==min){return txt}return txt.replace(new RegExp("^"+str,"gm"),"")}}</script>
+</dom-module>
+</body></html>

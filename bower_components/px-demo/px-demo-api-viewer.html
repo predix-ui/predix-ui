@@ -1,0 +1,42 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-api-viewer/px-api-viewer.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Creates a header for Predix UI demo pages.
+
+##### Usage
+
+    <px-demo-header
+        module-name="px-calendar-picker"
+        description="The px-calendar-picker component includes various elements used for structuring responsive layouts. This component allows the user to select a date or date range. The main use of this component is to be used in the px-range-panel.">
+    </px-demo-header>
+
+@element px-demo-header
+@blurb Creates a header for Predix UI demo pages.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-api-viewer">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <div class="demo-background--api">
+      <div class="flex flex--col demo-layout--center u-pt++ u-pb++">
+        <div>
+          <px-api-viewer api-source-file-path="[[apiSourceFilePath]]" source="{{source}}" mark-read-only="{{markReadOnly}}" mark-private="{{markPrivate}}" hide="{{hide}}" change-description="{{changeDescription}}" filter-tag-by-prefix="px-"></px-api-viewer>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-api-viewer",properties:{source:{type:String,value:""},apiSourceFilePath:{type:String,value:""},hide:{type:Array,value:function value(){return[]}},markPrivate:{type:Array,value:function value(){return[]}},markReadOnly:{type:Array,value:function value(){return[]}},changeDescription:{type:Array,value:function value(){return[]}},filterTagByPrefix:{type:String,value:""}}});</script>
+</body></html>

@@ -1,0 +1,61 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+<link defer="" rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link defer="" rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link defer="" rel="import" href="../../bower_components/px-icon-set/px-icon-set-feature.html">
+<link defer="" rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+
+<!-- Styles -->
+<link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+<link defer="" rel="import" href="../../css/px-catalog-component-gallery-styles.html">
+<link rel="import" href="../../css/px-catalog-theme-styles.html">
+
+
+<link defer="" rel="import" href="../../bower_components/px-tile/px-tile.html">
+<link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+<link defer="" rel="import" href="../../bower_components/px-chip/px-chip.html">
+<link defer="" rel="import" href="../../elements/px-lazy-load/px-lazy-load-behavior.html">
+
+
+</head><body><dom-module id="view-component-gallery">
+  <template>
+    <!-- Include the style modules in body to ensure they come after their imported code (which will be inlined at the end of <head> by vulcanize in production) -->
+    <style include="px-catalog-page-styles"></style>
+    <style include="px-catalog-component-gallery-styles"></style>
+    <style include="px-catalog-theme-styles"></style>
+
+    <iron-ajax auto="" url="[[importPath]]tile-data.json" last-response="{{tileData}}"></iron-ajax>
+
+    <div class="page page--full-width">
+
+      <p class="heading--page u-m0">Gallery</p>
+      <p class="u-m--">See below for some examples of the Predix Design System components and CSS modules that are available. Click an item below, or use the search bar and menu to the left for more information.</p>
+      <template is="dom-repeat" items="{{tags}}">
+        <px-chip class="component-gallery__chip" content="{{item.name}}" selected="{{item.selected}}" dark-theme$="[[darkTheme]]"></px-chip>
+      </template>
+      <hr class="component-gallery__hr">
+
+      <div id="tileContainer" class="layout component-gallery__layout">
+        <template is="dom-repeat" id="tileRepeat" items="[[tileData]]" sort="{{_computeSort('Alphabetical')}}" filter="{{_computeFilter(tags.*)}}">
+          <a class="layout__item component-gallery__layout__item" href$="/#/modules/{{item.name}}">
+            <px-tile dark-theme$="[[darkTheme]]" main-title="{{item.title}}" overlay-description="{{item.description}}" hoverable="">
+              <img slot="thumbnail" class="js-lazy-image" data-src="[[_computeImageUrlPng(item.imageUrl, themeName)]]" alt="">
+              <div class="component-gallery_tile-footer" slot="footer">
+                <px-icon class="component-gallery_icon" icon="px-fea:tag"></px-icon>
+                <ul class="list-inline">
+                  <template is="dom-repeat" items="{{item.tags}}" as="tag">
+                    <li class="caps zeta">{{tag}}</li>
+                  </template>
+                </ul>
+              </div>
+            </px-tile>
+          </a>
+        </template>
+      </div>
+
+    </div>
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+  </template>
+  <script>Polymer({is:"view-component-gallery",behaviors:[PxLazyLoadBehavior],properties:{tileData:{type:Array},sortMode:{type:String,value:"Alphabetical"},darkTheme:{type:Boolean},themeName:{type:String,value:"light",computed:"_getThemeName(darkTheme)",observer:"_resetLazyLoad"},tags:{type:Array,value:[{name:"Alerts",selected:!1},{name:"App Navigation",selected:!1},{name:"Asset Navigation",selected:!1},{name:"Buttons",selected:!1},{name:"CSS",selected:!1},{name:"Data Display",selected:!1},{name:"Data Input",selected:!1},{name:"Data Vis",selected:!1},{name:"Layout",selected:!1},{name:"Messaging",selected:!1},{name:"Mobile",selected:!1},{name:"Status",selected:!1},{name:"Visual",selected:!1}]},dynamicTheme:{type:Boolean,value:!0,reflectToAttribute:!0}},attached:function attached(){this.listen(this.$.tileRepeat,"dom-change","_runLazyLoad")},detached:function detached(){this.unlisten(this.$.tileRepeat,"dom-change","_runLazyLoad")},_runLazyLoad:function _runLazyLoad(){if(this.themeName){this._setIntersectionObserver()}},_resetLazyLoad:function _resetLazyLoad(){if(1<this.$.tileContainer.childElementCount){this._resetImages();this._runLazyLoad()}},_computeImageUrlPng:function _computeImageUrlPng(url,theme){if("string"===typeof url&&"string"===typeof theme){return url+"_"+theme+".png"}},_computeSort:function _computeSort(sortMode){if("Alphabetical"===sortMode){return function(a,b){return a.title>b.title?1:-1}}else{return null}},_getThemeName:function _getThemeName(darkTheme){return darkTheme?"dark":"light"},_computeFilter:function _computeFilter(){var filteredTags=[];for(var key in this.tags){if(this.tags.hasOwnProperty(key)&&this.tags[key].selected){filteredTags.push(this.tags[key].name.toLowerCase())}}if(0===filteredTags.length){return null}else{return function(item){if(item.tags&&item.tags.length){for(var tag in item.tags){if(-1<filteredTags.indexOf(item.tags[tag]))return!0}return!1}}}}});</script>
+</dom-module>
+</body></html>

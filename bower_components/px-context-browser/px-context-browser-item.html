@@ -1,0 +1,52 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="px-context-browser-actions.html">
+<link rel="import" href="css/px-context-browser-item-styles.html">
+
+</head><body><dom-module id="px-context-browser-item">
+  <template>
+    <style include="px-context-browser-item-styles"></style>
+
+    <template is="dom-if" if="[[!styleAsFavorite]]">
+      <section class="context-browser-item" asset-action="activate">
+        <div class="context-browser-text">
+          <div class="context-browser-text__label regular">
+            [[label]]
+          </div>
+        </div>
+        <div class="actions">
+          <template is="dom-if" if="[[canFavorite]]">
+            <px-context-browser-action-favorite class="action" active$="{{favorited}}" asset-action="favorite"></px-context-browser-action-favorite>
+          </template>
+          <template is="dom-if" if="[[canSelect]]">
+            <px-context-browser-action-select class="action" asset-action="select"></px-context-browser-action-select>
+          </template>
+          <template is="dom-if" if="[[canOpen]]" restamp="">
+            <px-context-browser-action-open class="action action--open" asset-action="activate">
+          </px-context-browser-action-open></template>
+        </div>
+      </section>
+    </template>
+
+    <template is="dom-if" if="[[styleAsFavorite]]">
+      <section class="context-browser-item" asset-action="select">
+        <div class="context-browser-text">
+          <div class="context-browser-text__label regular">
+            [[label]]
+          </div>
+          <div id="breadcrumbs" class="context-browser-text__breadcrumbs context-browser-label--breadcrumbs zeta">
+            [[_truncatedBreadcrumbs]]
+          </div>
+        </div>
+        <div class="actions">
+          <template is="dom-if" if="[[canFavorite]]">
+            <px-context-browser-action-favorite class="action" active$="{{favorited}}" asset-action="favorite"></px-context-browser-action-favorite>
+          </template>
+        </div>
+      </section>
+    </template>
+
+  </template>
+</dom-module>
+<script>Polymer({is:"px-context-browser-item",behaviors:[Polymer.IronResizableBehavior],properties:{label:{type:String},breadcrumbs:{type:Array},_breadcrumbsFontStyles:{type:Object},_breadcrumbsWidth:{type:Number},_truncatedBreadcrumbs:{type:String,computed:"_computeTruncatedBreadcrumbs(breadcrumbs, _breadcrumbsFontStyles, _breadcrumbsWidth)"},selected:{type:Boolean,value:!1,reflectToAttribute:!0},favorited:{type:Boolean,value:!1},styleAsFavorite:{type:Boolean,value:!1,reflectToAttribute:!0},canSelect:{type:Boolean,value:!1},canOpen:{type:Boolean,value:!1},canFavorite:{type:Boolean,value:!1},visible:{type:Boolean,value:!0}},observers:["_handleFavoritesItemVisible(visible, styleAsFavorite)"],listeners:{"iron-resize":"_handleResize"},_handleFavoritesItemVisible:function _handleFavoritesItemVisible(visible,styleAsFavorite){if(visible&&styleAsFavorite){this._updateBreadcrumbsInfo()}},_handleResize:function _handleResize(){if(this.visible&&this.styleAsFavorite){this._updateBreadcrumbsInfo()}},_updateBreadcrumbsInfo:function _updateBreadcrumbsInfo(){var _this=this;this.debounce("update-breadcrumbs-width",function(){window.requestAnimationFrame(function(){setTimeout(function(){if(!_this._breadcrumbsWidth||!_this.__breadcrumbsFontStyles){var el=Polymer.dom(_this.root).querySelector("#breadcrumbs");if(!el)return;_this._breadcrumbsFontStyles=_this._getFontStyles(el);_this._breadcrumbsWidth=el.getBoundingClientRect().width}})})},5)},_computeTruncatedBreadcrumbs:function _computeTruncatedBreadcrumbs(breadcrumbs,fontStyles,width){if(breadcrumbs&&fontStyles&&width){return this._truncateBreadcrumbs(breadcrumbs,fontStyles,width)}},_getFontStyles:function _getFontStyles(el){var styles=window.getComputedStyle(el),size=styles.fontSize,family=styles.fontFamily;return{size:size,family:family}},_truncateBreadcrumbs:function _truncateBreadcrumbs(items,fontStyles,width){if(!items.length){return""}var ellipWidth=this._getTextWidth("\u2026 > ",fontStyles),caratWidth=this._getTextWidth(" > ",fontStyles),available=width,len=items.length,visible=len,lastResult;while(0<visible){var itemsToFit=items.slice(-1*visible),textToMeasure=itemsToFit.join(" > ");if(visible<len&&1<len){textToMeasure="... > "+textToMeasure}var measure=this._getTextWidth(textToMeasure,fontStyles);if(available>measure){return textToMeasure}visible--}var prefix=1<len?"... > ":"";return prefix+items[len-1]},_getTextWidth:function _getTextWidth(text,fontStyles){var canvas=this._textMeasureCanvas=this._textMeasureCanvas?this._textMeasureCanvas:document.createElement("canvas"),context=canvas.getContext("2d");context.font=fontStyles.size+" "+fontStyles.family;return Math.round(context.measureText(text).width)}});</script>
+</body></html>

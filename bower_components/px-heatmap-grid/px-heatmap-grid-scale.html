@@ -1,0 +1,25 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="css/px-heatmap-grid-styles.html">
+
+
+</head><body><dom-module id="px-heatmap-grid-scale">
+  <template class="flex flex--col flex--left flex--justify flex--stretch">
+    <style include="px-heatmap-grid-styles"></style>
+    <div class$="u-pl- u-pr- scale-container flex flex--row flex--left flex--top {{disabledHeader}}">
+      <div class="scale-gradient"></div>
+      <div class="u-ml-- scale-values flex flex--col flex--justify">
+        <div>{{computedScale.max}}</div>
+        <div>{{computedScale.mid}}</div>
+        <div>{{computedScale.min}}</div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-heatmap-grid-scale",properties:{scale:{type:Array,value:function value(){return[0,100]},observer:"_scaleChanged"},computedScale:{type:Object,value:function value(){return{min:0,mid:50,max:100}}},scaleColorFrom:{type:String,observer:"_scaleColorFromChanged"},scaleColorTo:{type:String,observer:"_scaleColorToChanged"},hideColHeader:{type:Boolean,value:!1,observer:"_hideColHeaderChanged"}},attached:function attached(){this._scaleChanged(this.scale,[]);this._lookupColors()},_scaleChanged:function _scaleChanged(newScale,oldScale){if(newScale!==oldScale&&newScale&&2===newScale.length&&this.computedScale){var computedScale={min:newScale[0],mid:Math.round((newScale[1]-newScale[0])/2)+ +newScale[0],max:newScale[1]};this.set("computedScale",computedScale)}},_scaleColorFromChanged:function _scaleColorFromChanged(newColor,oldColor){if(newColor&&newColor!==oldColor){var scale=Polymer.dom(this.root).querySelector(".scale-gradient");scale.style.background="linear-gradient(to top, "+newColor+", "+this.scaleColorTo+")";this._lookupColors()}},_scaleColorToChanged:function _scaleColorToChanged(newColor,oldColor){if(newColor&&newColor!==oldColor){var scale=Polymer.dom(this.root).querySelector(".scale-gradient");scale.style.background="linear-gradient(to top, "+this.scaleColorFrom+", "+newColor+")";this._lookupColors()}},_lookupColors:function _lookupColors(){var reg=/rgb\(([0-9+,?\s?]+)\)/g,matches,colors=[],iColor=window.getComputedStyle(Polymer.dom(this.root).querySelector(".scale-gradient")).backgroundImage;while(null!==(matches=reg.exec(iColor))){colors.push(matches[1])}if(2>colors.length){console.warn("Invalid --px-heatmap-grid-start-color or --px-heatmap-grid-end-color detected. Did you specify it correctly? RGB notation is required for the heatmap to calculate the proper color of each cell based on value.")}this.scaleColorFrom="rgb("+colors[0]+")";this.scaleColorTo="rgb("+colors[1]+")";this.fire("scale-colors-changed",{from:this.scaleColorFrom,to:this.scaleColorTo})},_hideColHeaderChanged:function _hideColHeaderChanged(newValue,oldValue){if(newValue!==void 0&&newValue!==oldValue){!1===newValue?this.disabledHeader="":this.disabledHeader="disable-col-header"}}});</script>
+</body></html>

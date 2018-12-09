@@ -1,0 +1,32 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!-- Import sub-components -->
+<link rel="import" href="px-demo-header.html">
+
+<!--
+Partials, style modules and helpers for creating demo pages for Predix UI components.
+
+### Usage
+
+    <px-demo counter-value="1"><a href="javascript:" on-click="handleClick">Click here to increment counter:</a><span>{{counterValue}}</span></px-demo>
+
+@element px-demo
+@blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo">
+  <template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo",properties:{counterValue:{type:Number,value:0,notify:!0}},handleClick:function handleClick(event,detail,sender){this.increment()},increment:function increment(){this.counterValue++}});</script>
+</body></html>

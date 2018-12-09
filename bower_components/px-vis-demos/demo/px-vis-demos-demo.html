@@ -1,0 +1,80 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../css/px-vis-demos-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-vis-demos-demo">
+  <template>
+    <style include="px-vis-demos-styles"></style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-demos" description="The px-vis-demos component provides a set of demos that show more advanced examples of what can be done with the vis framework and vis charts." desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+
+      <px-demo-component slot="px-demo-component">
+        <ul class="list-ui list-ui--small">
+          <li class="list-ui__item">
+            <a href="[[importPath]]../annotations.html" target="_blank">Annotations Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../benchmark.html" target="_blank">Benchmark Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../crosshair.html" target="_blank">Crosshair &amp; Lasso Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../dynamic_add.html" target="_blank">Chart Generator Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../iron-list.html" target="_blank">Iron List Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../striping.html" target="_blank">Striping Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../split_zoom_x.html" target="_blank">Split Zoom X Demo</a>
+          </li>
+          <li class="list-ui__item">
+            <a href="[[importPath]]../split_zoom_y.html" target="_blank">Split Zoom Y Demo</a>
+          </li>
+        </ul>
+      </px-demo-component>
+    </px-demo-interactive>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-demos-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0}]}}},demoProps:{counterValue:{type:Number,defaultValue:"0",inputType:"text"}}});</script>
+</body></html>

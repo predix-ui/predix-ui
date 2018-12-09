@@ -1,0 +1,59 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-deck-selector.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-deck-selector-demo">
+  <template>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-deck-selector" description="Element which displays a dropdown of decks and returns the url for the selected deck. Set the decks using an array of objects with &quot;name&quot; and &quot;url&quot; properties. When a user selects a new deck, the &quot;selected-deck&quot; property will be updated and the &quot;selected-deck-changed&quot; event will be fired." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-deck-selector config-options="{{props.configOptions.value}}" decks="{{props.decks.value}}">
+        </px-deck-selector>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-deck-selector">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-deck-selector"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-deck-selector-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Basic",configReset:!0},{configName:"No config option",configOptions:"",configHideProps:["configOptions"]}]}}},demoProps:{decks:{type:Array,defaultValue:[{name:"First Deck",url:"/deck1"},{name:"Second Deck",url:"/deck2"},{name:"Third Deck",url:"/deck3"}],inputType:"code:JSON"},configOptions:{type:Object,defaultValue:{edit:!0,actionType:"Add Dashboard",eventType:"addDashboard"},inputType:"code:JSON"}}});</script>
+</body></html>

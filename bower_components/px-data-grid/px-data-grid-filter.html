@@ -1,0 +1,37 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="px-data-grid-filter-section.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-data-grid-filter-styles.html">
+
+</head><body><dom-module id="px-data-grid-filter">
+  <template>
+    <style include="px-data-grid-filter-styles"></style>
+
+    <template is="dom-repeat" items="{{tempFilters}}" as="section">
+      <px-data-grid-filter-section section="{{section}}" columns="[[columns]]" compact-mode="[[compactMode]]" string-comparators="[[stringComparators]]" number-comparators="[[numberComparators]]" localize="[[localize]]">
+      </px-data-grid-filter-section>
+    </template>
+
+    <!--
+    <button class="btn btn--bare--primary" on-click="_addGroup">
+      <px-icon style="--iron-icon-height:16px" icon="px-utl:add"></px-icon> Add filter section
+    </button>
+    -->
+  </template>
+  <script>{var DataGridFilterElement=function(_Polymer$Element){babelHelpers.inherits(DataGridFilterElement,_Polymer$Element);function DataGridFilterElement(){babelHelpers.classCallCheck(this,DataGridFilterElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridFilterElement).apply(this,arguments))}babelHelpers.createClass(DataGridFilterElement,[{key:"_addGroup",value:function _addGroup(){this.push("filters",{entities:[],action:"show",operationType:"all"})}},{key:"_filtersObserver",value:function _filtersObserver(filters){if(!filters){return}this._restoreTempFilters()}},{key:"applyFilters",value:function applyFilters(){this.set("filters",this.tempFilters)}},{key:"cancelChanges",value:function cancelChanges(){this._restoreTempFilters()}},{key:"resetFilters",value:function resetFilters(){this.set("filters",[{entities:[],action:"show",operationType:"all"}])}},{key:"_restoreTempFilters",value:function _restoreTempFilters(){this.set("tempFilters",JSON.parse(JSON.stringify(this.filters)))}}],[{key:"is",get:function get(){return"px-data-grid-filter"}},{key:"properties",get:function get(){return{columns:{type:Array},filters:{type:Array,notify:!0},tempFilters:{type:Array,notify:!0},compactMode:{type:Boolean,value:!1},stringComparators:{type:Array},numberComparators:{type:Array},localize:Function}}},{key:"observers",get:function get(){return["_filtersObserver(filters, filters.*)"]}}]);return DataGridFilterElement}(Polymer.Element);customElements.define(DataGridFilterElement.is,DataGridFilterElement);window.Predix=window.Predix||{};Predix.DataGridFilterElement=DataGridFilterElement}</script>
+</dom-module>
+</body></html>

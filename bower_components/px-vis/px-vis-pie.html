@@ -1,0 +1,60 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="px-vis-behavior-colors.html">
+<link rel="import" href="css/px-vis-pie-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-pie
+        svg="[[svg]]"
+        clip-path="[[clipPath]]"
+        series-id="[[item.name]]"
+        series-number="[[index]]"
+        chart-data="[[item]]"
+        x="[[x]]"
+        y="[[y]]"
+        muted-series="[[mutedSeries]]">
+    </px-vis-pie>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-pie-empty-color` | The color for an empty pie chart
+  `--px-vis-pie-title-color` | The color for the title name
+  `--px-vis-pie-title-font-size` | The size for the title name
+  `--px-vis-pie-title-value-color` | The color for the title data value
+  `--px-vis-pie-title-value-font-size` | The size for the title data value
+
+@element px-vis-pie
+@blurb Creates an interactive pie or donut chart
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-pie">
+    <template>
+      <style include="px-vis-pie-styles"></style>
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-pie",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.svg,PxVisBehavior.dataset,PxVisBehavior.mutedSeries,PxVisBehavior.commonMethods,PxVisBehavior.sizing,PxVisBehavior.dataset,PxVisBehavior.completeSeriesConfig,PxColorsBehavior.getSeriesColors,PxColorsBehavior.dataVisColorTheming,PxVisBehavior.updateStylesOverride],properties:{empty:{type:Boolean,value:!1,observer:"_emptyChanged"},seriesNumber:{type:Number,value:0},innerRadius:{type:Number,value:0},_innerRadiusPx:{type:Number,computed:"_calcInnerRadiusPx(innerRadius, radius, donut)"},donut:{type:Boolean,value:!1},pieGroup:{type:Object,value:function value(){return{}}},total:{Type:Number,value:0},radius:{type:Number},_arcs:{type:Object},_currentRotationAngle:{type:Number,value:0},usePercentage:{type:Boolean,value:!1},preserveDataOrder:{type:Boolean,value:!1}},observers:["drawElement(radius,svg,chartData.*,completeSeriesConfig, usePercentage, donut, innerRadius, _stylesUpdated)"],drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}this._checkInitialGroupCreation();this._updateDrawing()},_checkInitialGroupCreation:function _checkInitialGroupCreation(){if(this._isObjEmpty(this.pieGroup)){this.pieGroup=this.svg.append("g").attr("series-id","pie_").attr("class","pie-slice")}},_updateDrawing:function _updateDrawing(){this.debounce("_updateDrawing",function(){var _this=this,data=this.chartData,isFirstDrawing=this._arcs?!1:!0;xKey=this.empty?"":this.completeSeriesConfig[Object.keys(this.completeSeriesConfig)[0]].x;if(this.empty){this._pie=Px.d3.pie()([1])}else{var gen=Px.d3.pie().value(function(d){return d[xKey]});if(this.preserveDataOrder){gen.sort(null).sortValues(null)}this._pie=gen(data)}this._arcs=this.pieGroup.selectAll(".slice").property("_previousData",function(d){return{startAngle:d.startAngle,endAngle:d.endAngle,innerRadius:d.innerRadius,outerRadius:d.outerRadius}}).data(this._pie,function(d){return d.data.y});var tweenArc=function tweenArc(b){b.innerRadius=_this._innerRadiusPx;b.outerRadius=_this.radius;if(!this._previousData){this._previousData={startAngle:isFirstDrawing?0:b.startAngle,endAngle:isFirstDrawing?0:b.startAngle,innerRadius:b.innerRadius?b.innerRadius:0,outerRadius:b.outerRadius?b.outerRadius:_this._radius}}var interpolate=Px.d3.interpolateObject(this._previousData,b);return function(t){return Px.d3.arc()(interpolate(t))}};this._arcs.exit().remove();this._arcs.enter().append("svg:path").attr("class","slice").on("tap",this._onSliceClick.bind(this)).on("mouseenter",this._sliceMouseEnter.bind(this)).on("mouseleave",this._mouseLeaveSlice.bind(this)).merge(this._arcs).attr("fill",function(d,i){d.innerRadius=this._innerRadiusPx;d.outerRadius=this._radius;return this.empty?this._checkThemeVariable("--px-vis-pie-empty-color","rgb(0,0,0)"):this._getColor(d.data.colorIndex)}.bind(this)).attr("opacity",this.empty?.5:1).transition().duration(750).attrTween("d",tweenArc);if(this.empty){this._arcs.selectAll("path").attr("fill",this._checkThemeVariable("--px-vis-pie-empty-color","rgb(0,0,0)"))}else{this._arcs.selectAll("path").attr("fill",function(d,i){return this._getColor(d.data.colorIndex)}.bind(this))}this._positionChart(0)}.bind(this),5)},_sliceMouseEnter:function _sliceMouseEnter(datum,index,group){var rotatedDatum={startAngle:datum.startAngle+this._currentRotationAngle,endAngle:datum.endAngle+this._currentRotationAngle,innerRadius:this._innerRadiusPx,outerRadius:this.radius};this.fire("px-vis-pie-mouse-enter-slice",{datum:datum,rotatedDatum:rotatedDatum})},_mouseLeaveSlice:function _mouseLeaveSlice(datum,index,group){this.fire("px-vis-pie-mouse-leave-slice",{datum:datum})},_positionChart:function _positionChart(transitionTime){this.pieGroup.transition().duration(transitionTime).attr("transform","rotate("+this._radToDeg(this._currentRotationAngle)+")")},_onSliceClick:function _onSliceClick(datum,index,group){this.fire("px-vis-pie-slice-clicked",{datum:datum});this._centerOnSlice(datum,index,group)},_centerOnSlice:function _centerOnSlice(datum,index,group){if(!this.empty){this.set("_currentRotationAngle",this._getRotationAngle(datum));this._positionChart(750);window.setTimeout(function(){this.fire("px-vis-pie-centered-on-slice",{datum:datum})}.bind(this),750)}},_radToDeg:function _radToDeg(angle){return 180*angle/Math.PI},_getRotationAngle:function _getRotationAngle(slice){var _MathPI=Math.PI,start=slice.startAngle,end=slice.endAngle,mid=start+(end-start)/2,adjusted=mid<_MathPI?-mid:2*_MathPI-mid;return adjusted},_calcInnerRadiusPx:function _calcInnerRadiusPx(){if(this.hasUndefinedArguments(arguments)){return}if(this.donut){return 0===this.innerRadius?this.radius-30:this.innerRadius*this.radius}else{return 0}},_emptyChanged:function _emptyChanged(){if(this.hasUndefinedArguments(arguments)){return}if(this.empty){this.drawElement()}}});</script>
+</body></html>

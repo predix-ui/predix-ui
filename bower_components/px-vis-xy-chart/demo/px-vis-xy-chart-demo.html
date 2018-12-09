@@ -1,0 +1,98 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+<link rel="import" href="../../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+
+<!-- Imports for this component -->
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../px-vis/px-vis-chart-navigator.html">
+<link rel="import" href="../px-vis-xy-chart.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-vis-xy-chart-demo">
+  <template>
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-xy-chart" description="The px-vis-xy-chart component allows the user to draw lines or scatter against an X and Y axis. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+. The navigator is independent of the chart and has been added to demonstrate how it can be linked to an XY chart" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" id="inputDemoProps" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" class="flex__item flex" style="width: 100%">
+        <!-- <iron-ajax
+          url="../../px-demo-data/demo_data.json"
+          handle-as="json"
+          last-response="{{data}}" auto></iron-ajax>
+        <iron-ajax
+          url="demo_data_ordinal.json"
+          handle-as="json"
+          last-response="{{dataOrdinal}}" auto></iron-ajax>
+        <iron-ajax
+            url="events.json"
+            handle-as="json"
+            last-response="{{eventData}}" auto></iron-ajax> -->
+
+        <div class="flex--column flex__item" style="width:100%; height:500px">
+          <div style="height:90%">
+            <px-vis-xy-chart id="chart" chart-data="{{props.chartData.value}}" width="{{appliedWidth}}" height="{{appliedHeight}}" prevent-resize="{{props.preventResize.value}}" chart-horizontal-alignment="{{props.chartHorizontalAlignment.value}}" chart-vertical-alignment="{{props.chartVerticalAlignment.value}}" margin="{{props.margin.value}}" x-axis-config="{{props.xAxisConfig.value}}" y-axis-config="{{props.yAxisConfig.value}}" register-config="{{props.registerConfig.value}}" tooltip-config="{{props.tooltipConfig.value}}" show-tooltip="{{props.showTooltip.value}}" hide-register="{{props.hideRegister.value}}" hide-gridlines-x="{{props.hideGridlinesX.value}}" hide-gridlines-y="{{props.hideGridlinesY.value}}" series-config="{{props.seriesConfig.value}}" dynamic-menu-config="{{props.dynamicMenuConfig.value}}" event-config="{{props.eventConfig.value}}" event-data="{{props.eventData.value}}" chart-extents="{{props.chartExtents.value}}" time-domain="[[selectedDomain]]" time-data="{{props.timeData.value}}" toolbar-config="{{props.toolbarConfig.value}}" match-ticks="{{props.matchTicks.value}}" selection-type="{{props.selectionType.value}}" render-to-canvas="{{props.renderToCanvas.value}}" debounce-resize-timing="{{props.debounceResizeTiming.value}}">
+            </px-vis-xy-chart>
+          </div>
+          <div style="height:10%">
+            <px-vis-chart-navigator id="navigator" x-axis-type="time" y-axis-type="linear" chart-extents="{{props.chartExtents.value}}" width="[[props.width.value]]" height="{{props.navHeight.value}}" prevent-resize="" margin="{{props.navMargin.value}}" chart-data="{{props.chartData.value}}" series-config="{{props.navSeriesConfig.value}}" selected-domain="{{selectedDomain}}" debounce-resize-timing="{{props.debounceResizeTiming.value}}">
+            </px-vis-chart-navigator>
+          </div>
+        </div>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-vis-xy-chart" codepen-link="https://glitch.com/edit/#!/px-vis-xy-chart-demo" suppress-property-values="[[suppressPropertyValues]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-vis-xy-chart" hide="[[apiHide]]" mark-private="[[apiMarkPrivate]]" mark-read-only="[[apliMarkReadOnly]]" change-description="[[apiChangeDescription]]">
+    </px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-xy-chart-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",width:700,height:400}]}},apiHide:{type:Array,value:function value(){return["defaultEventConfig","generateLayers","mouseRect","numberOfLayers","offset","seriesKey","svg","addClipPath","cloneSVGElem","generateRandomID","assignParentResizable"]}},apiMarkPrivate:{type:Array,value:function value(){return["clipPath","completeSeriesConfig","dataExtents","domainChanged","layer","pxSvgElem","pxSvgElemLower","seriesClipPath"]}},apliMarkReadOnly:{type:Array,value:function value(){return["axes","canvasContext","drawnTickValues","extentsData","mousePosition","seriesToAxes","tooltipData","x","y","numLeftAxes","numRightAxes","leftAxisSize","rightAxisSize","zoomStack"]}},apiChangeDescription:{type:Array,value:function value(){return[{name:"xAxisType",desc:"Sets the type of data for the x values\n\nValid entries are:\n\n* `time`: for time domains in UTC [default].\n\n* `timeLocal`: for local time domains."}]}},suppressPropertyValues:{type:Array,value:function value(){return["chartData"]}},appliedWidth:{type:Number,defaultValue:400},appliedHeight:{type:Number,defaultValue:400}},demoProps:{preventResize:{type:Boolean,defaultValue:!1,inputType:"toggle",inputLabel:"Prevent Resize [demo max 500px height]"},debounceResizeTiming:{type:Number,defaultValue:250,inputType:"text"},width:{type:Number,defaultValue:400,inputDisabled:!1,inputType:"text"},height:{type:Number,defaultValue:400,inputDisabled:!1,inputType:"text"},renderToCanvas:{type:Boolean,defaultValue:!1,inputType:"toggle"},chartHorizontalAlignment:{type:String,defaultValue:"center",inputType:"dropdown",inputChoices:["left","center","right"]},chartVerticalAlignment:{type:String,defaultValue:"center",inputType:"dropdown",inputChoices:["top","center","bottom"]},margin:{type:Object,defaultValue:{top:30,bottom:60,left:75,right:20},inputType:"code:JSON"},showTooltip:{type:Boolean,defaultValue:!1,inputType:"toggle"},tooltipConfig:{type:Object,defaultValue:{forceDateTimeDisplay:!0},inputType:"code:JSON"},hideRegister:{type:Boolean,defaultValue:!1,inputType:"toggle"},registerConfig:{type:Object,defaultValue:{type:"horizontal",forceDateTimeDisplay:!0},inputType:"code:JSON"},selectionType:{type:String,defaultValue:"xy",inputType:"dropdown",inputChoices:["xy","xAxis","yAxis"]},chartData:{type:Array,defaultValue:[{Date:146821385e4,T48A:1332,T48B:1346,T48C:1330,T48D:1342,Line:1340},{Date:1468213968e3,T48A:1336,T48B:1343,T48C:1336,T48D:1340,Line:1343},{Date:1468214133e3,T48A:1341,T48B:1345,T48C:1331,T48D:1333,Line:1345},{Date:1468214253e3,T48A:1348,T48B:1344,T48C:1343,T48D:1339,Line:1350},{Date:1468214374e3,T48A:1352,T48B:1346,T48C:1335,T48D:1342,Line:1357},{Date:1468214564e3,T48A:1341,T48B:1342,T48C:1344,T48D:1346},{Date:1468214682e3,T48A:1348,T48B:1353,T48C:1337,T48D:1331},{Date:1468214852e3,T48A:1346,T48B:1348,T48C:1339,T48D:1335},{Date:146823147e4,T48A:1353,T48B:1355},{Date:146823159e4,T48A:1359,T48B:1359},{Date:1468232041e3,T48A:1357,T48B:1359},{Date:1468232184e3,T48A:1357,T48B:1359},{Date:1468232301e3,T48A:1353,T48B:1359},{Date:1468232417e3,T48A:1353,T48B:1357},{Date:1468232576e3,T48A:1353,T48B:1355},{Date:1468232693e3,T48A:1355,T48B:1360},{Date:1468232845e3,T48A:1355,T48B:1355},{Date:1468232966e3,T48A:1353,T48B:1359},{Date:1468233083e3,T48A:1355,T48B:1357}],inputType:"code:JSON"},seriesConfig:{type:Object,defaultValue:{firstSerie:{type:"scatter",name:"Serie1",xAxisUnit:"Hz",yAxisUnit:"Hz",x:"T48A",y:"T48B",axis:{id:"axis1",number:1,side:"left"}},secondSerie:{type:"line",name:"Serie2",x:"T48A",y:"Line",axis:{id:"axis2",number:2,side:"left"}},thirdSerie:{type:"scatter",name:"Serie3",xAxisUnit:"Hz",yAxisUnit:"Hz",x:"T48A",y:"T48C",axis:{id:"axis1",number:1,side:"left"}}},inputType:"code:JSON"},chartExtents:{type:Object,defaultValue:{x:["dynamic","dynamic"],y:["dynamic","dynamic"]},inputType:"code:JSON"},eventData:{type:Array,defaultValue:[{id:"123",label:"Fa Icon",x:"1334"},{id:"456",label:"Unicode",x:"1342"},{id:"789",label:"Default",x:"1346"}],inputType:"code:JSON"},eventConfig:{type:Object,defaultValue:{"Fa Icon":{color:"blue",dataKey:"x",icon:"px-fea:deployments",type:"px",offset:[0,0]},Unicode:{color:"green",dataKey:"x",icon:"px-fea:bug",type:"px",offset:[1,0]},"Event Png":{icon:"ge_logo.png",dataKey:"x",type:"image",offset:[0,-20],size:"20"}},inputType:"code:JSON"},matchTicks:{type:Boolean,defaultValue:!1,inputType:"toggle",inputLabel:"matchTicks [Currently not dynamic]"},xAxisConfig:{type:Object,defaultValue:{title:"X",labelPosition:"center",orientation:"bottom"},inputType:"code:JSON"},yAxisConfig:{type:Object,defaultValue:{title:"Y",labelPosition:"center",orientation:"left"},inputType:"code:JSON"},hideGridlinesX:{type:Boolean,defaultValue:!1,inputType:"toggle"},hideGridlinesY:{type:Boolean,defaultValue:!1,inputType:"toggle"},timeData:{type:String,defaultValue:"Date",inputType:"text"},dynamicMenuConfig:{type:Array,defaultValue:[{name:"Delete",action:"function(data) {var newConf = {}, confKeys = Object.keys(this.seriesConfig); for(var i=0; i<confKeys.length; i++) { if(data.additionalDetail.name !== confKeys[i]) {newConf[confKeys[i]] = this.seriesConfig[confKeys[i]];}}this.set(\"seriesConfig\", newConf);}",eventName:"delete",icon:"px-vis:trash-series"},{name:"Bring To Front",action:"function(data) {this.set(\"serieToRedrawOnTop\", data.additionalDetail.name);}",eventName:"bring-to-front",icon:"px-vis:bring-to-front"}],inputType:"code:JSON"},toolbarConfig:{type:Array,defaultValue:{config:{advancedZoom:!0,pan:!0,tooltip:!0,logHover:{buttonGroup:2,tooltipLabel:"The submenu item of this menu will define custom mouse interaction",icon:"px-nav:notification",subConfig:{customClick:{icon:"px-nav:play",buttonGroup:3,tooltipLabel:"define some custom mouse interactions on chart",eventName:"my-custom-click",actionConfig:{mousedown:"function(mousePos) { console.log(\"custom click on chart. Context is the chart. Mouse pos is available: \" + JSON.stringify(mousePos))}",mouseup:"function(mousePos) { console.log(\"custom action on mouse up the chart \" + JSON.stringify(mousePos));}",mouseout:"function(mousePos) { console.log(\"custom action on mouse out the chart \" + JSON.stringify(mousePos));}",mousemove:"function(mousePos) { console.log(\"custom action on hovering the chart \");}"}},customClick2:{buttonGroup:3,icon:"px-nav:pause",tooltipLabel:"Remove all custom interactions",actionConfig:{mousedown:null,mouseup:null,mouseout:null,mousemove:null}}}}}},inputType:"code:JSON"},navHeight:{type:Number,defaultValue:100},navMargin:{type:Object,defaultValue:{top:5,right:10,bottom:20,left:10}},navSeriesConfig:{type:Object,defaultValue:{T48A:{type:"line",name:"Trend",x:"Date",y:"T48A"}}}},observers:["_preventResizeChanged(props.preventResize.value)","_appliedWidthChanged(appliedWidth)","_appliedHeightChanged(appliedHeight)","_widthChanged(props.width.value)","_heightChanged(props.height.value)","_renderToCanvasChanged(props.renderToCanvas.value, props.noCanvasProgressiveRendering.value)"],_preventResizeChanged:function _preventResizeChanged(){this.set("props.width.inputDisabled",!this.props.preventResize.value);this.set("props.height.inputDisabled",!this.props.preventResize.value)},_widthChanged:function _widthChanged(){if(this.props.preventResize.value){this.set("appliedWidth",this.props.width.value)}},_heightChanged:function _heightChanged(){if(this.props.preventResize.value){this.set("appliedHeight",this.props.height.value)}},_appliedWidthChanged:function _appliedWidthChanged(){this.set("props.width.value",this.appliedWidth)},_appliedHeightChanged:function _appliedHeightChanged(){this.set("props.height.value",this.appliedHeight)},_renderToCanvasChanged:function _renderToCanvasChanged(){this.set("props.noCanvasProgressiveRendering.inputDisabled",!this.props.renderToCanvas.value);this.set("props.progressiveRenderingPointsPerFrame.inputDisabled",!this.props.renderToCanvas.value||this.props.noCanvasProgressiveRendering.value);this.set("props.progressiveRenderingMinFrames.inputDisabled",!this.props.renderToCanvas.value||this.props.noCanvasProgressiveRendering.value)}});</script>
+</body></html>

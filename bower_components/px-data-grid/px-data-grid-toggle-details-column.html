@@ -1,0 +1,37 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../vaadin-checkbox/vaadin-checkbox.html">
+
+</head><body><dom-module id="px-data-grid-toggle-details-column">
+  <template>
+    <template class="header">
+      <!-- empty header -->
+    </template>
+
+    <template id="defaultBodyTemplate">
+      <template is="dom-if" if="[[!item.hasChildren]]">
+        <div class="toggle-details" on-click="_onToggleClick">
+          <px-icon icon="[[_getChevronIcon(detailsOpened)]]"></px-icon>
+        </div>
+      </template>
+    </template>
+
+  </template>
+
+  <script>{var DataGridToggleDetailsColumnElement=function(_Vaadin$GridColumnEle){babelHelpers.inherits(DataGridToggleDetailsColumnElement,_Vaadin$GridColumnEle);function DataGridToggleDetailsColumnElement(){babelHelpers.classCallCheck(this,DataGridToggleDetailsColumnElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridToggleDetailsColumnElement).apply(this,arguments))}babelHelpers.createClass(DataGridToggleDetailsColumnElement,[{key:"_prepareBodyTemplate",value:function _prepareBodyTemplate(){var template=this._prepareTemplatizer(this._findTemplate("template:not(.header):not(.footer)")||this.$.defaultBodyTemplate);template.templatizer.dataHost=template===this.$.defaultBodyTemplate?this:this.dataHost;return template}},{key:"_onToggleClick",value:function _onToggleClick(e){e.stopPropagation();e.model.detailsOpened=!e.model.detailsOpened;if(e.model.detailsOpened&&e.model.parentModel&&e.model.parentModel._gridValue){var vaadinGrid=e.model.parentModel._gridValue;Polymer.RenderStatus.afterNextRender(vaadinGrid,function(){return vaadinGrid.notifyResize()})}}},{key:"_getChevronIcon",value:function _getChevronIcon(detailsOpened){return detailsOpened?"px-utl:chevron":"px-utl:chevron-right"}}],[{key:"is",get:function get(){return"px-data-grid-toggle-details-column"}},{key:"properties",get:function get(){return{width:{type:String,value:"30px"},flexGrow:{type:Number,value:0},isDataColumn:{type:Boolean,value:!1,readOnly:!0},template:Object,_indeterminate:Boolean}}}]);return DataGridToggleDetailsColumnElement}(Vaadin.GridColumnElement);customElements.define(DataGridToggleDetailsColumnElement.is,DataGridToggleDetailsColumnElement);window.Predix=window.Predix||{};Predix.DataGridToggleDetailsColumnElement=DataGridToggleDetailsColumnElement}</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,33 @@
+<!--
+@license
+Copyright (c) 2017 Vaadin Ltd.
+This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../vaadin-control-state-mixin/vaadin-control-state-mixin.html">
+
+</head><body><dom-module id="vaadin-checkbox-default-theme" theme-for="vaadin-checkbox">
+  <template>
+    <style>:host{display:inline-block;outline:none;}:host([hidden]){display:none !important;}[part="wrapper"]{display:inline-flex;align-items:center;outline:none;}:host([focus-ring]){box-shadow:0 0 2px 2px Highlight;}[part="native-checkbox"]{outline:0;margin-right:0;}[part="label"]{padding:0 5px;outline:none;}:host([disabled]) [part="label"]{opacity:0.5;}</style>
+  </template>
+</dom-module>
+
+<dom-module id="vaadin-checkbox">
+  <template>
+    <style>:host([disabled]){-webkit-tap-highlight-color:transparent;}</style>
+
+    <label part="wrapper" id="label">
+      <input id="nativeCheckbox" type="checkbox" part="native-checkbox" checked="{{checked::change}}" disabled$="[[disabled]]" indeterminate="{{indeterminate::change}}" role="presentation" tabindex="-1">
+
+      <span part="checkbox"></span>
+
+      <span part="label">
+        <slot></slot>
+      </span>
+    </label>
+
+  </template>
+  <script>{var CheckboxElement=function(_Vaadin$ControlStateM){babelHelpers.inherits(CheckboxElement,_Vaadin$ControlStateM);babelHelpers.createClass(CheckboxElement,null,[{key:"is",get:function get(){return"vaadin-checkbox"}},{key:"version",get:function get(){return"1.0.3"}},{key:"properties",get:function get(){return{checked:{type:Boolean,value:!1,notify:!0,observer:"_checkedChanged",reflectToAttribute:!0},indeterminate:{type:Boolean,notify:!0,observer:"_indeterminateChanged",reflectToAttribute:!0},value:{type:String,value:"on"}}}}]);function CheckboxElement(){var _this;babelHelpers.classCallCheck(this,CheckboxElement);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(CheckboxElement).call(this));_this.name;return _this}babelHelpers.createClass(CheckboxElement,[{key:"ready",value:function ready(){babelHelpers.get(babelHelpers.getPrototypeOf(CheckboxElement.prototype),"ready",this).call(this);this.setAttribute("role","checkbox");this.addEventListener("click",this._handleClick.bind(this));this._addActiveListeners();var attrName=this.getAttribute("name");if(attrName){this.name=attrName}}},{key:"_checkedChanged",value:function _checkedChanged(checked){if(this.indeterminate){this.setAttribute("aria-checked","mixed")}else{this.setAttribute("aria-checked",checked)}}},{key:"_indeterminateChanged",value:function _indeterminateChanged(indeterminate){if(indeterminate){this.setAttribute("aria-checked","mixed")}else{this.setAttribute("aria-checked",this.checked)}}},{key:"_addActiveListeners",value:function _addActiveListeners(){var _this2=this;this._addEventListenerToNode(this,"down",function(e){if(!_this2.disabled){_this2.setAttribute("active","")}});this._addEventListenerToNode(this,"up",function(){return _this2.removeAttribute("active")});this.addEventListener("keydown",function(e){if(!_this2.disabled&&32===e.keyCode){e.preventDefault();_this2.setAttribute("active","")}});this.addEventListener("keyup",function(e){if(!_this2.disabled&&32===e.keyCode){e.preventDefault();_this2._toggleChecked();_this2.removeAttribute("active");if(_this2.indeterminate){_this2.indeterminate=!1}}})}},{key:"_handleClick",value:function _handleClick(e){if(!this.disabled&&!this.indeterminate){if(e.composedPath()[0]!==this.$.nativeCheckbox){e.preventDefault();this._toggleChecked()}}}},{key:"_toggleChecked",value:function _toggleChecked(){this.checked=!this.checked}},{key:"name",get:function get(){return this.checked?this._storedName:""},set:function set(name){this._storedName=name}},{key:"focusElement",get:function get(){return this.$.label}}]);return CheckboxElement}(Vaadin.ControlStateMixin(Vaadin.ThemableMixin(Polymer.GestureEventListeners(Polymer.Element))));customElements.define(CheckboxElement.is,CheckboxElement);window.Vaadin=window.Vaadin||{};Vaadin.CheckboxElement=CheckboxElement}</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,33 @@
+<!--
+@license
+Copyright (c) 2017 Vaadin Ltd.
+This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../vaadin-control-state-mixin/vaadin-control-state-mixin.html">
+
+</head><body><dom-module id="vaadin-radio-button-default-theme" theme-for="vaadin-radio-button">
+  <template>
+    <style>:host{display:inline-block;outline:none;}:host([hidden]){display:none !important;}[part="wrapper"]{display:inline-flex;align-items:center;outline:none;}:host([focus-ring]){box-shadow:0 0 2px 2px Highlight;}[part="native-radio"]{margin:3px 0 3px 3px;}[part="label"]{padding:0 5px;}:host([disabled]) [part="label"]{opacity:0.5;}</style>
+  </template>
+</dom-module>
+
+<dom-module id="vaadin-radio-button">
+  <template>
+    <style>:host([disabled]){-webkit-tap-highlight-color:transparent;}</style>
+
+    <label part="wrapper" on-click="_preventDefault">
+      <input type="radio" part="native-radio" checked="{{checked::change}}" disabled$="[[disabled]]" role="presentation" tabindex="-1">
+
+      <span part="radio"></span>
+
+      <span part="label">
+        <slot></slot>
+      </span>
+    </label>
+  </template>
+
+  <script>{var RadioButtonElement=function(_Vaadin$ControlStateM){babelHelpers.inherits(RadioButtonElement,_Vaadin$ControlStateM);babelHelpers.createClass(RadioButtonElement,null,[{key:"is",get:function get(){return"vaadin-radio-button"}},{key:"version",get:function get(){return"1.0.0-alpha8"}},{key:"properties",get:function get(){return{checked:{type:Boolean,value:!1,notify:!0,observer:"_checkedChanged",reflectToAttribute:!0},value:{type:String,value:"on"}}}}]);function RadioButtonElement(){var _this;babelHelpers.classCallCheck(this,RadioButtonElement);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(RadioButtonElement).call(this));_this.name;return _this}babelHelpers.createClass(RadioButtonElement,[{key:"ready",value:function ready(){babelHelpers.get(babelHelpers.getPrototypeOf(RadioButtonElement.prototype),"ready",this).call(this);this.setAttribute("role","radio");this._addActiveListeners();this.name=this.getAttribute("name")}},{key:"_checkedChanged",value:function _checkedChanged(checked){this.setAttribute("aria-checked",checked)}},{key:"_addActiveListeners",value:function _addActiveListeners(){var _this2=this;this._addEventListenerToNode(this,"down",function(e){if(!_this2.disabled){_this2.setAttribute("active","")}});this._addEventListenerToNode(this,"up",function(e){_this2.removeAttribute("active");if(!_this2.checked&&!_this2.disabled){_this2.checked=!0}});this.addEventListener("keydown",function(e){if(!_this2.disabled&&32===e.keyCode){e.preventDefault();_this2.setAttribute("active","")}});this.addEventListener("keyup",function(e){if(!_this2.disabled&&32===e.keyCode){e.preventDefault();_this2.setAttribute("checked","");_this2.removeAttribute("active")}})}},{key:"_preventDefault",value:function _preventDefault(e){e.preventDefault()}},{key:"name",get:function get(){return this.checked?this._storedName:""},set:function set(name){this._storedName=name}},{key:"focusElement",get:function get(){return this.shadowRoot.querySelector("[part=\"wrapper\"]")}}]);return RadioButtonElement}(Vaadin.ControlStateMixin(Vaadin.ThemableMixin(Polymer.GestureEventListeners(Polymer.Element))));customElements.define(RadioButtonElement.is,RadioButtonElement);window.Vaadin=window.Vaadin||{};Vaadin.RadioButtonElement=RadioButtonElement}</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,44 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-dropdown-styles.html">
+
+
+</head><body><dom-module id="px-dropdown-trigger">
+  <template>
+    <style include="px-dropdown-styles"></style>
+    <div class="trigger">
+      <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
+        <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
+          <div id="label" title="{{displayValueSelected}}" class="dropdown-label">{{displayValueSelected}}</div>
+        </template>
+        <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
+          <px-icon class="custom-icon" icon="{{icon}}"></px-icon>
+        </template>
+        <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+          <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="clear"></px-icon>
+        </template>
+        <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+          <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
+        </template>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-dropdown-trigger",behaviors:[Polymer.AppLocalizeBehavior],listeners:{tap:"_handleTapped"},properties:{opened:{type:Boolean,notify:!0,value:!1},trigger:{type:HTMLElement,readOnly:!0,notify:!0,value:null},hideChevron:{type:Boolean,value:!1},displayValue:{type:String,notify:!0,value:"Select",observer:"_displayValueChanged"},displayValueSelected:{type:String,notify:!0},buttonStyle:{type:String,value:"default"},hideSelected:{type:Boolean,value:!1},icon:{type:String,value:""}},attached:function attached(){this._setTrigger(this)},detached:function detached(){this._setTrigger(null)},_handleTapped:function _handleTapped(evt){evt.preventDefault();if(!this.disabled){this.fire("trigger-tapped")}},clear:function clear(){this.fire("clear-tapped")},_isEqual:function _isEqual(a,b){return a===b},_getDisabledClass:function _getDisabledClass(){return this.disabled?"btn--disabled":""},_getClass:function _getClass(){if("bare"===this.buttonStyle)return"btn--bare u-ph0";else if("bare--primary"===this.buttonStyle)return"btn--bare--primary u-ph0";else if("tertiary"===this.buttonStyle)return"btn--tertiary";else if("icon"===this.buttonStyle)return"btn--bare btn--icon";else return""},_displayValueChanged:function _displayValueChanged(){this.displayValueSelected=this.displayValue},_showClearButton:function _showClearButton(disableClear,buttonStyle,opened,selected,selectedValues){if(disableClear||"icon"===buttonStyle){return!1}else if(opened&&("string"===typeof selected||"number"===typeof selected||0<selectedValues.length)){return!0}else{return!1}},_showChevron:function _showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues){if(hideChevron||"icon"===buttonStyle){return!1}else if(!opened||disableClear||opened&&!selected&&0===selectedValues.length){return!0}else{return!1}}});</script>
+</body></html>

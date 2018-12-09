@@ -1,0 +1,26 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../neon-animation/neon-animations.html">
+<link rel="import" href="../neon-animation/neon-animation-behavior.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../web-animations-js/web-animations-next-lite.min.html">
+
+<link rel="import" href="px-app-nav-item.html">
+<link rel="import" href="css/px-app-nav-subgroup-styles.html">
+
+</head><body><dom-module id="px-app-nav-subgroup">
+  <template>
+    <style include="px-app-nav-subgroup-styles"></style>
+
+    <px-app-nav-item id="itemButton" dropdown="" cancel-select="" icon="{{icon}}" label="{{label}}" selected$="{{selected}}" overflowed$="{{overflowed}}" collapsed$="{{collapsed}}" only-show-icon$="[[onlyShowIcon]]" empty-icon="[[emptyIcon]]">
+    </px-app-nav-item>
+
+    <div class="app-nav-subgroup__dropdown" id="groupcontainer">
+      <div class="app-nav-subgroup__dropdown__content" id="groupcontent">
+        <slot></slot>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>(function(){Polymer({is:"px-app-nav-subgroup",behaviors:[Polymer.NeonAnimationRunnerBehavior],properties:{selected:{type:Boolean,value:!1,notify:!0,reflectToAttribute:!0},collapsed:{type:Boolean,value:!1,reflectToAttribute:!0},overflowed:{type:Boolean,value:!1,reflectToAttribute:!0},item:{type:Object},label:{type:String},icon:{type:String},emptyIcon:{type:Boolean,value:!1},opened:{type:Boolean},onlyShowIcon:{type:Boolean,value:!1,observer:"_onlyShowIconChanged"},_reopen:{type:Boolean,value:!1},animationConfig:{type:Array}},listeners:{"neon-animation-finish":"_onNeonAnimationFinish"},attached:function attached(){this.listen(this.$.itemButton,"tap","_handleSelfTapped");if(!this.animationConfig){this.animationConfig={open:{name:"expand-subgroup-animation",node:this.$.groupcontainer,endHeightNode:this.$.groupcontent,timing:{easing:"ease-in"}},close:{name:"contract-subgroup-animation",node:this.$.groupcontainer,startHeightNode:this.$.groupcontent,timing:{easing:"ease-out"}}}}},detached:function detached(){this.unlisten(this.$.itemButton,"tap","_handleSelfTapped")},_toggleGroup:function _toggleGroup(){if(this.opened){this.closeGroup()}else{this.openGroup()}},openGroup:function openGroup(){this.opened=!0;this.playAnimation("open")},closeGroup:function closeGroup(){this.opened=!1;this.playAnimation("close")},_onNeonAnimationFinish:function _onNeonAnimationFinish(evt){if(this.opened){this.$.groupcontainer.style.height=this.$.groupcontent.getBoundingClientRect().height+"px"}else{this.$.groupcontainer.style.height="0px"}},_handleSelfTapped:function _handleSelfTapped(evt){this._toggleGroup()},_onlyShowIconChanged:function _onlyShowIconChanged(newVal,oldVal){if("boolean"!==typeof oldVal)return;if(newVal&&!oldVal&&this.opened){this.closeGroup();this._reopen=!0;return}if(!newVal&&oldVal&&this._reopen){this.openGroup();this._reopen=!1;return}}});Polymer({is:"expand-subgroup-animation",behaviors:[Polymer.NeonAnimationBehavior],configure:function configure(config){var node=config.node,endHeightNode=config.endHeightNode,height=endHeightNode.getBoundingClientRect().height,timing=Object.assign({},this.timingFromConfig(config),{duration:calculateAnimationDuration(height)});this._effect=new KeyframeEffect(node,[{height:"0px"},{height:height+"px"}],timing);return this._effect}});Polymer({is:"contract-subgroup-animation",behaviors:[Polymer.NeonAnimationBehavior],configure:function configure(config){var node=config.node,startHeightNode=config.startHeightNode,height=startHeightNode.getBoundingClientRect().height,timing=Object.assign({},this.timingFromConfig(config),{duration:calculateAnimationDuration(height)});timing.duration=calculateAnimationDuration(height);this._effect=new KeyframeEffect(node,[{height:height+"px"},{height:"0px"}],timing);return this._effect}});function calculateAnimationDuration(height){return 1e3*height/800}})();</script>
+</body></html>

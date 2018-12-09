@@ -1,0 +1,254 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-css-overview">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#single-responsibility-principle', activeAnchor)]]" href="#" anchor="#single-responsibility-principle" on-tap="_handleAnchorTapped">Single Responsibility Principle</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#preferred-selectors', activeAnchor)]]" href="#" anchor="#preferred-selectors" on-tap="_handleAnchorTapped">Preferred Selectors</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#specificity', activeAnchor)]]" href="#" anchor="#specificity" on-tap="_handleAnchorTapped">Specificity</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#inverted-triangle-css', activeAnchor)]]" href="#" anchor="#inverted-triangle-css" on-tap="_handleAnchorTapped">Inverted Triangle CSS</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#specificity-graph', activeAnchor)]]" href="#" anchor="#specificity-graph" on-tap="_handleAnchorTapped">Specificity Graph</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#make-everything-opt-in', activeAnchor)]]" href="#" anchor="#make-everything-opt-in" on-tap="_handleAnchorTapped">Make Everything Opt-In</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#bem', activeAnchor)]]" href="#" anchor="#bem" on-tap="_handleAnchorTapped">BEM</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#base-spacing-unit', activeAnchor)]]" href="#" anchor="#base-spacing-unit" on-tap="_handleAnchorTapped">Base Spacing Unit</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#layout-systems', activeAnchor)]]" href="#" anchor="#layout-systems" on-tap="_handleAnchorTapped">Layout Systems</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-spacing-design', activeAnchor)]]" href="#" anchor="#px-spacing-design" on-tap="_handleAnchorTapped">px-spacing-design</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-layout-design', activeAnchor)]]" href="#" anchor="#px-layout-design" on-tap="_handleAnchorTapped">px-layout-design</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-flexbox-design', activeAnchor)]]" href="#" anchor="#px-flexbox-design" on-tap="_handleAnchorTapped">px-flexbox-design</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#additional-resources', activeAnchor)]]" href="#" anchor="#additional-resources" on-tap="_handleAnchorTapped">Additional resources</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">CSS Modules Overview</h2>
+          
+          
+<p>The Predix Design System's CSS modules are a collection of Sass-based repos under the <a href="https://github.com/predixdesignsystem/">predixdesignsystem</a> org on GitHub. The CSS modules are independent of the design system's components; however, the components use the CSS modules in their Sass. We recommend using the CSS modules and the components in conjunction with each other.</p>
+<p>The CSS modules are based off of <a href="https://github.com/inuitcss">inuitcss</a>. Inuitcss is a powerful, Sass-based, BEM, OOCSS framework designed with scalability and performance in mind. Its goal is to help you get started, and then it gets out of your way. It was created by Harry Roberts. The Predix Design System CSS modules are built with the same methodologies as inuitcss. Understanding these methodologies will help you understand and use the CSS modules.</p>
+<h3 id="single-responsibility-principle">Single Responsibility Principle</h3>
+<p>The purpose behind the single responsibility principle is to allow systems to be composable. Things are broken down into their smallest possible parts to ensure each part fulfills its responsibility well. We can then combine responsibilities to create more complex components. This modularity allows for incredible flexibility.</p>
+<h3 id="preferred-selectors">Preferred Selectors</h3>
+<p>Both frameworks are based almost exclusively on a class-based architecture. In order to understand why a class-based architecture makes a system easier to work with, we need to understand specificity.</p>
+<h4 id="specificity">Specificity</h4>
+<p>Specificity is a value that is determined by the selector. The purpose of specificity is to be the tie breaker of which style gets applied to elements. If an element has two or more conflicting property declarations, the one with the highest specificity will win out. If an element has the same specificity, then the declaration that is defined last will win out.</p>
+<ul>
+<li>Elements or pseudo-elements add a value of 0,0,0,1</li>
+<li>Class attributes, attribute selection, or pseudo-classes add a value of 0,0,1,0</li>
+<li>ID attributes add a value of 0,1,0,0</li>
+<li>All inline styles have a value of 1,0,0,0</li>
+</ul>
+<p>Examples</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+p { color: red; } /* 0,0,0,1 */
+p .btn { color: orange; } /*  0,0,1,1 */
+.btn.btn.btn.btn.btn.btn.btn.btn.btn.btn.btn { color: red; } /*  0,0,11,0 */
+#btn { color: purple; } /*  0,1,0,0 */
+
+      </script>
+    </px-catalog-code-snippet><p>Classes are the preferred selector because they are highly reusable with relatively low specificity. It is also very easy to be descriptive with class names as opposed to multiple elements chained together (e.g. .nav-primary {} is much nicer than header ul {}). It is not recommended to use IDs, as they are very high in specificity and they are not reusable.</p>
+<p>Note: Chaining classes together can never over ride the specficty of an ID. This can be seen in the last two examples above. The specficy of 0,0,11,0 is still lower than 0,1,0,0.</p>
+<h3 id="inverted-triangle-css">Inverted Triangle CSS</h3>
+<p>One of the most common problems in CSS is not understanding why an element is getting a specific style. Even with a good understanding of how specificity works, without a well-organized CSS file, it can be nearly impossible to untangle subtree collisions.</p>
+<p>We can use the Inverted Triangle CSS architecture (ITCSS) to fully manage every line of CSS in the project. ITCSS is organized with the styles that have the most reach and lowest specificity at the top of a CSS file down to the most explicit and highest specificity declarations. ITCSS works with the cascade and selector specificity; it is performance and scale-oriented out of the box.</p>
+<p><catalog-picture img-src="../../img/developer-guides/css-guide/css-guide-inverted-triangle" img-alt="Inverted Triangle" caption="The settings, tools, generic, and base layers should remain relatively untouched. The majority of the CSS for a component should reside in the component layer.">
+</catalog-picture></p>
+<ul>
+<li><strong>Settings</strong>: global variables, site-wide settings, config switches</li>
+<li><strong>Tools</strong>: site-wide mixins and functions.</li>
+<li><strong>Generic</strong>: Low-specificity, far-reaching rule sets</li>
+<li><strong>Base/Elements</strong>: HTML elements</li>
+<li><strong>Meta</strong>: shortcut libraries with collections of objects (Predix Design System specific)</li>
+<li><strong>Objects</strong>: design patterns</li>
+<li><strong>Components</strong>: complete chunks of UI</li>
+<li><strong>Trumps</strong>: high-specificity, very explicit selectors. Overrides and helper classes</li>
+</ul>
+<p>For more details check out <a href="https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/">this article</a>.</p>
+<h3 id="specificity-graph">Specificity Graph</h3>
+<p>The specificity graph is a simple model for diagramming the progression of specificity from top to bottom of your CSS file. Since specificity is one of the most troublesome features in CSS, we want to make sure it is as predictable as possible. As we saw above, ITCSS aims to organize the CSS file from lowest specificity at the top to the highest specificity at the bottom. The specificity graph is a graphical representation of this organization. You can see how the different layers of ITCSS fit within the graph.</p>
+<p><catalog-picture img-src="../../img/developer-guides/css-guide/css-guide-specficity" img-alt="Ideal Secificity Graph" caption="On the x-axis, we plot the location in the stylesheet (line 0 to line 3K), and on the y-axis, we plot the specificity of that selector.">
+</catalog-picture></p>
+<p>For more details check out <a href="https://csswizardry.com/2014/10/the-specificity-graph/">this article</a>.</p>
+<h3 id="make-everything-opt-in">Make Everything Opt-In</h3>
+<p>The goal behind making everything opt-in is to allow developers to choose only the CSS they need. It’s easier to opt in to something than it is to undo it. The opt-in method reduces file bloat; the Starter Kit is only 1KB after being gzipped. Additional functionally can be added through configurable flags, but is off by default.</p>
+<p>You can see this being implemented in the CSS modules with our Sass flags. If someone wants to use our button styles, they have to import the button scss file into their Sass.
+<code class="code code--inline">@import 'px-buttons-design/_objects.buttons.scss';</code>This will import only the base button style. If you look inside <a href="https://github.com/predixdesignsystem/px-buttons-design/blob/master/_objects.buttons.scss">px-buttons-design/_objects.buttons.scss</a>, anything that is wrapped in an <code class="code code--inline">@if</code> will be ignored unless the flag is set to true above the <code class="code code--inline">@import</code> statement. It is necessary for the flag to be set to <code class="code code--inline">true</code> above the import so that the flag is true at the point in time when the scss file is parsed.</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+$inuit-enable-btn--primary : true;
+@import 'px-buttons-design/_objects.buttons.scss';
+
+      </script>
+    </px-catalog-code-snippet><p>In the example above, the <code class="code code--inline">$inuit-enable-btn--primary</code> flag is set to <code class="code code--inline">true</code>. The styles in the</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+@if ($inuit-enable-btn--primary == true) {
+  .#{$inuit-btn-namespace}btn--primary,
+  %#{$inuit-btn-namespace}btn--primary {
+    border-color: $inuit-btn-primary-border-color;
+    box-shadow: $inuit-btn-shadow;
+    background-color: $inuit-btn-primary-background;
+    ...
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><p>will now be included in the css file. This opt-in approach makes it so the CSS file size can stay as small as possible. You can see all the other button configurations and their flags on the <a href="#/css/visual/buttons/px-buttons-design">Predix Design System site</a>.</p>
+<h3 id="bem">BEM</h3>
+<p>BEM is a front-end naming methodology that stands for block, element, and modifier. The purpose of BEM is to tell other developers more about what a piece of markup is doing. It can be verbose, but it is friendly to developers that are new to the project. Absolutely everything is either a Block, an Element, or a Modiﬁer.</p>
+<p>Block - The root of a piece of UI. It is a self-contained starting context and can have any number of Elements or Modifiers
+associated with it.</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+/* Block */
+.panel {}
+.person {}
+
+      </script>
+    </px-catalog-code-snippet><p>Element - Denoted by two underscores. A descendent, component part of a Block. An element inherits styes. It can also carry Modifiers.</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+/* Element */
+.panel__title {}
+.person__hand {}
+
+      </script>
+    </px-catalog-code-snippet><p>Modifier - Denoted by two hyphens. A variation of a Block or Element. These extend styles.</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+/* Modifier */
+.panel--large {}
+.person__hand--female {}
+
+      </script>
+    </px-catalog-code-snippet><h3 id="base-spacing-unit">Base Spacing Unit</h3>
+<p>The purpose of a base spacing unit is to keep everything consistent visually and in code. Everything is based around it. In the CSS modules we have a spacing system based on multiples of 5. This is defined in <a href="https://github.com/predixdesignsystem/px-defaults-design/blob/master/_settings.defaults.scss">px-defaults-design/_settings.defaults.scss</a></p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+$inuit-base-spacing-unit : 15px
+$inuit-base-spacing-unit—tiny : 5px
+$inuit-base-spacing-unit—small : 10px
+$inuit-base-spacing-unit—large : 20px
+$inuit-base-spacing-unit—huge : 30px
+
+      </script>
+    </px-catalog-code-snippet><h3 id="layout-systems">Layout Systems</h3>
+<p>Objects shouldn’t care where they live; they should never carry layout rules. This allows the objects to be highly reusable and predictable. Use an abstracted meta-system to lay objects out. For example a button should not care where it lives.</p>
+<p>The main partials we have for layout are <code class="code code--inline">px-spacing-design</code>, <code class="code code--inline">px-layout-design</code>, and <code class="code code--inline">px-flexbox-design</code>.</p>
+<h4 id="px-spacing-design"><code class="code code--inline">px-spacing-design</code></h4>
+<p>is a set of utility classes used to add margin and padding to individual elements, and also set up in multiples of 5 to match the base spacing unit. Spacing design can be confusing to read at first, but once you know the syntax, it is easy to use. The class names are broken up into type, direction, size, and positive/negative values.</p>
+<ul>
+<li><strong>type</strong>: <code class="code code--inline">m</code> Margin, or <code class="code code--inline">p</code> Padding</li>
+<li><strong>direction</strong>: <code class="code code--inline">t</code> Top, <code class="code code--inline">r</code> Right, <code class="code code--inline">b</code> Bottom, <code class="code code--inline">l</code> Left, <code class="code code--inline">h</code> Horizontal, <code class="code code--inline">v</code> Vertical, or omitted for All directions</li>
+<li><strong>size</strong>: can be <code class="code code--inline">0</code> None, <code class="code code--inline">--</code> Tiny, <code class="code code--inline">-</code> Small, omitted for regular, <code class="code code--inline">+</code> Large, or <code class="code code--inline">++</code> Huge</li>
+<li><strong>negative</strong>: <code class="code code--inline">-</code> Negative, or omitted for positive (note: paddings must always be positive)</li>
+</ul>
+<p>All spacing classes start with <code class="code code--inline">u-</code> which just mean it is a utility class, a holdover from inuitcss.</p>
+<p><code class="code code--inline">u-mt+</code> means margin, top, large. It will add a 20px top margin to whatever element it is placed on.</p>
+<p><code class="code code--inline">u-p0</code> means padding, all around, none. It will add zero padding around the entire element.</p>
+<p>You can check all possible configurations and what flags need to be enabled in the <a href="#/css/layout/px-spacing-design">documentation</a>.</p>
+<h4 id="px-layout-design"><code class="code code--inline">px-layout-design</code></h4>
+<p>is a powerful, flexible alternative to the traditional grid system, built using flex. The number of <code class="code code--inline">.layout__items</code> inside of each <code class="code code--inline">.layout</code> will flexibly resize if the viewport changes. You do not need to set widths on <code class="code code--inline">.layout__item</code>s for the grid to function. However, if you wish, you can override default grid behavior by assigning widths to layout items with the classes found in <code class="code code--inline">px-widths-design</code>. For some examples, check out the <a href="#/css/layout/px-layout-design">documentation</a>.
+If IE doesn’t need to be supported, then CSS grid would also be a good solution, though there is no CSS partial for grid in the Predix Design System at this time.</p>
+<h4 id="px-flexbox-design"><code class="code code--inline">px-flexbox-design</code></h4>
+<p>exposes many features available in flexbox layouts with simple, easy-to-use classes. Not all the classes are named the same as the corresponding CSS flexbox properties. You can check out all of the classes and their flexbox equivalents in the <a href="#/css/layout/px-flexbox-design">documentation</a>.</p>
+<h3 id="additional-resources">Additional resources</h3>
+<p>This is a high-level overview of what we think are the most important ideas to understand when using the Predix Design System CSS modules. For more resources check out the links below.</p>
+<ul>
+<li><a href="https://github.com/inuitcss/getting-started">inuitcss Getting Started</a></li>
+<li><a href="https://www.youtube.com/watch?v=1OKZOV-iLj4">Harry Roberts Presentation on ITCSS</a></li>
+<li><a href="http://csswizardry.com/2012/07/shoot-to-kill-css-selector-intent/">Selectors</a></li>
+<li><a href="https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/">ITCSS (inverted triangle)</a></li>
+<li><a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">BEM</a></li>
+<li><a href="http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/">Namespacing</a></li>
+<li><a href="https://en.bem.info/forum/4/">BEM Mixes</a></li>
+<li><a href="http://flexbox.io/">Flexbox videos</a></li>
+<li><a href="http://csswizardry.com/2015/03/can-css-be-too-modular/">Modular CSS</a></li>
+<li><a href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/">Object Oriented CSS (OOCSS)</a></li>
+</ul>
+<p>More CSS resources:</p>
+<ul>
+<li><a href="https://github.com/katiefenn/parker">Parker - stylesheet analysis tool</a></li>
+<li><a href="https://zellwk.com/blog/media-query-units/">PX, EM or REM</a></li>
+<li><a href="http://csswizardry.com/2016/02/mixins-better-for-performance/">Extend vs Mixin</a></li>
+<li><a href="https://csstriggers.com/">CSS Triggers</a></li>
+<li><a href="https://github.com/brigade/scss-lint">scss-lint</a></li>
+<li><a href="https://www.filamentgroup.com/lab/compressive-images.html">Compressive Images</a></li>
+<li><a href="https://www.webpagetest.org/">Performance Quality</a></li>
+</ul>
+<p>If you want more information by Harry Roberts, check out <a href="https://twitter.com/csswizardry">https://twitter.com/csswizardry</a> and <a href="http://csswizardry.com/archive/">http://csswizardry.com/archive/</a></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-css-overview",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

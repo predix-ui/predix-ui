@@ -1,0 +1,46 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of5 bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-tabs/px-tabs.html">
+<link rel="import" href="../px-app-helpers/object-assign-polyfill/object-assign-polyfill.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!-- Common demo behaviors -->
+<link rel="import" href="px-demo-behaviors.html">
+
+<!--
+Displays a list of configs that the user can choose from to set the demo's
+configurable options.
+
+##### Usage
+
+        <px-demo-configs configs="{{configs}}" chosen-config="{{chosenConfig}}">
+        </px-demo-configs>
+
+@element px-demo-configs
+@blurb Holds a tab set for a demo page.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-configs">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <template is="dom-if" if="_hasConfigs(configs)">
+      <px-tabs selected="{{_selectedTab}}" bare="" no-bottom-border="">
+        <template is="dom-repeat" items="{{_userConfigs}}">
+          <px-tab>{{_findConfigName(item, index)}}</px-tab>
+        </template>
+      </px-tabs>
+    </template>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-configs",behaviors:[PxDemoBehaviors.manageProps],properties:{configs:{type:Array,value:function value(){return[]}},chosenConfig:{type:Object,notify:!0,value:function value(){return{}}},props:{type:Object,notify:!0},_selectedTab:{type:Number,value:0},_userConfigs:{type:Array,value:function value(){return[]}}},observers:["_setChosenConfig(_selectedTab, _userConfigs)","_updateProps(chosenConfig)","_createUserConfigs(configs)","_updateUserConfigProps(props.*)"],_createUserConfigs:function _createUserConfigs(){this.debounce("create-user-configs",function(){for(var configs=this.configs,i=0;i<configs.length;i++){this.push("_userConfigs",Object.assign({},{},configs[i]))}},200)},_indexPlusOne:function _indexPlusOne(num){return num+1},_findConfigName:function _findConfigName(item,index){if(!item.configName)return"Option "+this._indexPlusOne(index);return item.configName},_setChosenConfig:function _setChosenConfig(selected){this.debounce("set-chosen-config",function(){var configs=this._userConfigs||[];if("undefined"===typeof selected||!configs.length)return{};this.set("chosenConfig",{});this.set("chosenConfig",configs[selected])},20)},_updateProps:function _updateProps(newConfig){if(newConfig&&"object"===babelHelpers.typeof(newConfig)&&Object.keys(newConfig).length){this.debounce("update-props",function(){if(this._updatingProps)return;this._updatingProps=!0;if(newConfig.configReset){this.applyPropDefaults(!0)};if(this.setProperties){this._setBatch(newConfig)}else{this._setIndividually(newConfig)}this._updatingProps=!1},10)}},_setBatch:function _setBatch(newConfig){for(var propsToSet=Object.keys(newConfig),props={},i=0,propName;i<propsToSet.length;i++){propName=propsToSet[i];if("configName"===propName||"configReset"===propName)continue;var pathToVal="props."+propsToSet[i]+".value",newVal=newConfig[propName];props[pathToVal]=newVal}this.setProperties(props)},_setIndividually:function _setIndividually(newConfig){for(var propsToSet=Object.keys(newConfig),i=0,propName;i<propsToSet.length;i++){propName=propsToSet[i];if("configName"===propName||"configReset"===propName)continue;var pathToVal="props."+propsToSet[i]+".value",oldVal=this.get(pathToVal),newVal=newConfig[propName];if("undefined"!==typeof oldVal&&oldVal!==newVal){this.set(pathToVal,newVal)}}},_hasConfigs:function _hasConfigs(configs){return 0<this.configs.length},_updateUserConfigProps:function _updateUserConfigProps(propChangeInfo){if(propChangeInfo&&"object"===babelHelpers.typeof(propChangeInfo)&&propChangeInfo.path&&-1!==propChangeInfo.path.indexOf(".value")){this.debounce("update-user-config-props",function(){var propName=propChangeInfo.path.replace("props.","").replace(".value",""),propVal=propChangeInfo.value,configIndex=this.get("_selectedTab"),configPropPath="_userConfigs."+configIndex+"."+propName,configPropVal=this.get(configPropPath);if(configPropVal!==propVal){this.set(configPropPath,propVal)}},50)}}});</script>
+</body></html>

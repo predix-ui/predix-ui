@@ -1,0 +1,72 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+<link rel="import" href="../../px-demo/css/px-demo-styles.html">
+<link rel="import" href="../../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../px-vis-histogram.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-vis-histogram-demo">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-histogram" description="The px-vis-histogram component is...">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <iron-ajax url="[[importPath]]data.json" handle-as="json" last-response="{{data}}" auto="">
+        </iron-ajax>
+        <px-vis-histogram prevent-resize="{{props.preventResize.value}}" width="{{props.width.value}}" height="{{props.height.value}}" debounce-resize-timing="{{props.debounceResizeTiming.value}}" margin="{{props.margin.value}}" chart-type="{{props.chartType.value}}" overlaping-histograms="{{props.overlapingHistograms.value}}" show-tooltip="{{props.showTooltip.value}}" tooltip-config="{{props.tooltipConfig.value}}" hide-register="{{props.hideRegister.value}}" register-config="{{props.registerConfig.value}}" chart-data="[[data]]" series-config="{{props.seriesConfig.value}}" threshold-data="{{props.thresholdData.value}}" display-threshold-title="{{props.displayThresholdTitle.value}}" threshold-config="{{props.thresholdConfig.value}}" reference-data="{{props.referenceData.value}}" right-reference-config="{{props.rightReferenceConfig.value}}" left-reference-config="{{props.leftReferenceConfig.value}}" x-axis-config="{{props.xAxisConfig.value}}" y-axis-config="{{props.yAxisConfig.value}}">
+        </px-vis-histogram>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-vis-histogram" codepen-link="https://glitch.com/edit/#!/px-vis-hitogram-demo">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-vis-histogram" api-source-file-path="px-vis-histogram-api.json"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-histogram-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Column",chartType:"column",overlapingHistograms:!1,seriesConfig:{USA:{x:"weight",y:"usa"}},xAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},yAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f"},"-3σ":{direction:"vertical",hideValue:"true"},"3σ":{direction:"vertical",hideValue:"true"}}},{configName:"Bar",chartType:"bar",overlapingHistograms:!1,seriesConfig:{USA:{y:"weight",x:"usa"}},yAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},xAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f",direction:"vertical"},"-3σ":{hideValue:"true"},"3σ":{hideValue:"true"}}},{configName:"Stacked column",chartType:"column",overlapingHistograms:!1,seriesConfig:{Northeast:{x:"weight",y:"northeast"},Midwest:{x:"weight",y:"midwest"},South:{x:"weight",y:"south"},West:{x:"weight",y:"west"}},xAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},yAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f"},"-3σ":{direction:"vertical",hideValue:"true"},"3σ":{direction:"vertical",hideValue:"true"}}},{configName:"Stacked bar",chartType:"bar",overlapingHistograms:!1,seriesConfig:{Northeast:{y:"weight",x:"northeast"},Midwest:{y:"weight",x:"midwest"},South:{y:"weight",x:"south"},West:{y:"weight",x:"west"}},yAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},xAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f",direction:"vertical"},"-3σ":{hideValue:"true"},"3σ":{hideValue:"true"}}},{configName:"Overlaping column",chartType:"column",overlapingHistograms:!0,seriesConfig:{South:{x:"weight",y:"south"},West:{x:"weight",y:"west"}},xAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},yAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f"},"-3σ":{direction:"vertical",hideValue:"true"},"3σ":{direction:"vertical",hideValue:"true"}}},{configName:"Overlaping bar",chartType:"bar",overlapingHistograms:!0,seriesConfig:{South:{y:"weight",x:"south"},West:{y:"weight",x:"west"}},yAxisConfig:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},xAxisConfig:{title:"Births"},thresholdConfig:{lots:{format:".0f",direction:"vertical"},"-3σ":{hideValue:"true"},"3σ":{hideValue:"true"}}}]}},apiHide:{type:Array,value:function value(){return["generateLayers","numberOfLayers","svg","addClipPath","cloneSVGElem","domainChanged","generateRandomID","isMultiY","mutedSeries","hardMute","selectedDomain","wwDataSyncCounter","zoomInPercentage","zoomOutPercentage","zoomStack"]}},apiMarkPrivate:{type:Array,value:function value(){return["clipPath","completeSeriesConfig","dataExtents","_domainChanged","layer","pxSvgElem","seriesClipPath"]}},apliMarkReadOnly:{type:Array,value:function value(){return["drawnTickValues","extentsData","mousePosition","tooltipData","x","y"]}},apiChangeDescription:{type:Array,value:function value(){return[{name:"chartExtents",desc:"Developer set chart extents for the chart. The chart will draw to whatever values are specified in the chartExtents. Setting this and not using \"dynamic\" will prevent the chart from having to parse the data to find the extents and therefore improve performance for initial rendering ``` { \"x\": [\"low\",\"medium\",\"high\"], \"y\": [5,50] }```"}]}}},demoProps:{preventResize:{type:Boolean,defaultValue:!0,inputType:"toggle"},width:{type:Number,defaultValue:"1000",inputType:"text"},height:{type:Number,defaultValue:"500",inputType:"text"},debounceResizeTiming:{type:Number,defaultValue:250,inputType:"text"},margin:{type:Object,defaultValue:{left:100,top:10,bottom:50,right:30},inputType:"code:JSON"},chartType:{type:String,defaultValue:"column"},overlapingHistograms:{type:Boolean,defaultValue:!1,inputType:"toggle"},showTooltip:{type:Boolean,defaultValue:!1,inputType:"toggle"},tooltipConfig:{type:Object,defaultValue:{},inputType:"code:JSON"},hideRegister:{type:Boolean,defaultValue:!1,inputType:"toggle"},registerConfig:{type:Object,defaultValue:{type:"vertical"},inputType:"code:JSON"},seriesConfig:{type:Object,defaultValue:{USA:{x:"weight",y:"usa"}},inputType:"code:JSON"},thresholdData:{type:Array,defaultValue:[{type:"-3\u03C3",value:"1000-1499"},{type:"3\u03C3",value:"5000-8165"},{type:"lots",value:"1300000"}],inputType:"code:JSON"},displayThresholdTitle:{type:Boolean,defaultValue:!0,inputType:"toggle"},thresholdConfig:{type:Object,defaultValue:{lots:{format:".0f"},"-3σ":{direction:"vertical",hideValue:"true"},"3σ":{direction:"vertical",hideValue:"true"}},inputType:"code:JSON"},referencedData:{type:Array,defaultValue:[],inputType:"code:JSON"},referenceConfig:{type:Object,defaultValue:{},inputType:"code:JSON"},xAxisConfig:{type:Object,defaultValue:{title:"Weight",unit:"Grams",appendUnitInTitle:"true"},inputType:"code:JSON"},yAxisConfig:{type:Object,defaultValue:{title:"Births"},inputType:"code:JSON"}}});</script>
+</body></html>

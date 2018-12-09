@@ -1,0 +1,39 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+<link rel="import" href="../css/px-normalize-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-normalize-design-demo">
+  <template>
+    <!-- 0: Import the styles-->
+    <style include="px-normalize-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-normalize-design" description="The Predix UI Normalize module is based on normalize.css at version v3.0.2. Normalize.css makes browsers render all elements more consistently and in line with modern standards. It is developed and maintained by Nicolas Gallagher." layer="generic" dependencies="[
+    &quot;http://github.com/PredixDev/px-defaults-design&quot;
+  ]" selected-options="{{selectedOptions}}" hide-demo-container="true">
+
+<!-- 2: Set Options -->
+<!-- N/A -->
+
+<!-- 3: Make HTML Demo -->
+<!-- N/A -->
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+@import "px-normalize-design/_generic.normalize.scss";
+</section>
+
+<!-- 5: Set Usage HTML -->
+<!-- N/A -->
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-normalize-design-demo"});</script>
+</body></html>

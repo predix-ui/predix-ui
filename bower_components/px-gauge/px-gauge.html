@@ -1,0 +1,84 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+  Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+  siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+  'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-gauge-styles.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-d3-imports/px-d3-imports-step-one.html">
+<link rel="import" href="../px-d3-imports/px-d3-imports.html">
+
+<!--
+
+### Usage
+
+Simple
+
+    <px-gauge value="10"></px-gauge>
+
+Advanced
+
+    <px-gauge value="30"
+        min="0"
+        max="100"
+        bar-width="0"
+        unit="unit"
+        error="[ [0, 12], [79, 100] ]"
+        abnormal="[  [12, 32], [68, 79]  ]"
+        anomaly="[ [32, 45],  [54, 68]  ]"
+        normal="[ [45, 54] ]">
+    </px-gauge>
+
+### Styling
+  The following custom properties are available for styling.
+
+Custom property | Description
+----------------|-------------
+`--px-gauge-fill-error-color` | Color of the gauge fill in error state
+`--px-gauge-fill-anomaly-color` | Color of the gauge fill in anomaly state
+`--px-gauge-fill-abnormal-color` | Color of the gauge fill in abnormal state
+`--px-gauge-fill-normal-color` | Color of the gauge fill in normal state
+`--px-gauge-empty-color` | Color of the gauge background
+`--px-gauge-needle-color` | Color of the gauge needle
+
+@element px-gauge
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-gauge">
+  <template>
+    <style include="px-gauge-styles"></style>
+    <div id="chart">
+      <svg xmlns="http://www.w3.org/2000/svg" id="chartSVG">
+        <g id="chartG">
+          <path class="arc chart-filled"></path>
+          <path class="arc chart-empty"></path>
+          <path class="needle" transform="rotate(-180)"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="text-wrapper text--center">
+      <span class="text-value">{{_valueOfProcess}}</span>
+      <span class="text-unit">{{unit}}</span>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-gauge",behaviors:[PxVisBehavior.sizing,PxVisBehavior.svgDefinition,Polymer.IronResizableBehavior],properties:{value:{type:Number,value:0},error:{type:Array,value:function value(){return[]},notify:!0,observer:"_changeFilledGaugeBarState"},anomaly:{type:Array,value:function value(){return[]},notify:!0,observer:"_changeFilledGaugeBarState"},abnormal:{type:Array,value:function value(){return[]},notify:!0,observer:"_changeFilledGaugeBarState"},normal:{type:Array,value:function value(){return[[0,100]]},notify:!0,observer:"_changeFilledGaugeBarState"},_states:{type:Array,value:function value(){return["error","abnormal","anomaly","normal"]},notify:!0,observer:"_changeFilledGaugeBarState"},min:{type:Number,value:0},max:{type:Number,value:100},unit:{type:String,value:""},_valueOfProcess:{type:Number,value:0,notify:!0},barWidth:{type:Number,value:0,notify:!0},_actualBarWidth:{type:Number,computed:"_computeActualBarWidth(barWidth, width)",observer:"_barWidthChanged"},_calculatedValue:{type:Number,value:0,computed:"_computeValue(value, min, max)",observer:"_valueChanged"},margin:{type:Object,value:function value(){return{top:0,right:0,bottom:10,left:0}}},preventResize:{type:Boolean,value:!1},_filledBarArc:{type:Object},_emptyBarArc:{type:Object},_targetPerc:{type:Number,value:0}},observers:["_drawChart(width, height, _chart)"],listeners:{"iron-resize":"_onIronResize"},attached:function attached(){this.set("svg",Px.d3.select(this.$$("#chartSVG")));this.set("_chart",this.svg.select("#chartG"));this.notifyResize()},_onIronResize:function _onIronResize(){this.debounce("ironresize",function(){if(!this.preventResize){var wrapperRect=this.$.chart.getBoundingClientRect();if(!wrapperRect.width){window.requestAnimationFrame(function(){this.async(this.notifyResize,1)}.bind(this));return}this.set("width",Math.max(wrapperRect.width,0));this.set("height",this.width/2)}},100)},_computeValue:function _computeValue(){return(this.value-this.min)/(this.max-this.min)},_computeActualBarWidth:function _computeActualBarWidth(barWidth,width){return parseInt(parseInt(this.barWidth||0)||50*this.width/300)},_d3Select:function _d3Select(selector){return Px.d3.select(this.$$(selector))},_percToDeg:function _percToDeg(perc){return 360*perc},_percToRad:function _percToRad(perc){return this._degToRad(this._percToDeg(perc))},_degToRad:function _degToRad(deg){return deg*Math.PI/180},_valueChanged:function _valueChanged(){this._chart&&this._moveTo(this._calculatedValue)},_barWidthChanged:function _barWidthChanged(){this._drawChart();this._chart&&this._moveTo(this._calculatedValue)},_drawChart:function _drawChart(){if(this.svg){this.debounce("_drawChartDebounced",function(){this._drawChartDebounced();this._moveTo(this._calculatedValue)},310)}},_drawChartDebounced:function _drawChartDebounced(){this.svg.attr("width",this.width+this.margin.left+this.margin.right);this.svg.attr("height",this.height+this.margin.top+this.margin.bottom);this._chart.attr("transform","translate("+(this.width+this.margin.left)/2+", "+(this.height+this.margin.top)+")");this._calculateGaugeBarsArc();this._adjustFontSize();this._generateNeedlePath()},_calculateGaugeBarsArc:function _calculateGaugeBarsArc(){var radius=this.width/2,chartInset=10;this._filledBarArc=Px.d3.arc().outerRadius(radius-chartInset).innerRadius(radius-chartInset-this._actualBarWidth);this._emptyBarArc=Px.d3.arc().outerRadius(radius-chartInset).innerRadius(radius-chartInset-this._actualBarWidth)},_generateNeedlePath:function _generateNeedlePath(){this._chart.select(".needle").attr("d","M 0.114 -"+this.width/60+" c 0 0 0.298 1.273 "+(this.width/2-10)+" "+this.width/90+" c 1.071 0.06 1.091 1.233 -0.035 "+this.width/80+" C "+(this.width/2-10)+" 1.876 1.683 "+this.width/60+" 0.114 "+this.width/60+" Z")},_adjustFontSize:function _adjustFontSize(){this._d3Select(".text-value").style("font-size",this._actualBarWidth+"px");this._d3Select(".text-unit").style("font-size",.8333*this._actualBarWidth+"px")},_repaintGauge:function _repaintGauge(){var nextStart=.75,arcStartRad=this._percToRad(nextStart),arcEndRad=arcStartRad+this._percToRad(this._currentPerc/2);this._filledBarArc.startAngle(arcStartRad).endAngle(arcEndRad);nextStart+=this._currentPerc/2;arcStartRad=this._percToRad(nextStart);arcEndRad=arcStartRad+this._percToRad((1-this._currentPerc)/2);this._emptyBarArc.startAngle(arcStartRad).endAngle(arcEndRad);this._chart.select(".chart-filled").attr("d",this._filledBarArc);this._chart.select(".chart-empty").attr("d",this._emptyBarArc);this._changeFilledGaugeBarState()},_changeFilledGaugeBarState:function _changeFilledGaugeBarState(){this._chart&&this._states&&this._states.forEach(function(state){var isMatched=!1,ranges=this[state];if(ranges){for(var i=0,range;i<ranges.length;i++){range=ranges[i];if(!isMatched){isMatched=this.value>range[0]&&this.value<=range[1]}}this._chart.select(".chart-filled").classed(state,isMatched)}}.bind(this))},_moveTo:function _moveTo(targetPerc){if(this._filledBarArc&&this._emptyBarArc){targetPerc=targetPerc||0;if(1<targetPerc)return;var scale=Px.d3.scaleLinear().range([0,1]).domain([0,1]),oldPerc=this._targetPerc;this._chart.transition().delay(100).ease(Px.d3.easeCubic).duration(800).select(".needle").tween("progress",function(){return function(percentOfPercent){this._currentPerc=oldPerc+percentOfPercent*(targetPerc-oldPerc);this.set("_valueOfProcess",(1==percentOfPercent?this.value:parseInt(this.min+this._currentPerc*(this.max-this.min)))||0);this._repaintGauge();return this._d3Select(".needle").attr("transform","rotate("+(-180+180*scale(this._currentPerc))+")")}.bind(this)}.bind(this)).on("end",function(){this.set("_targetPerc",targetPerc)}.bind(this))}}});</script>
+</body></html>

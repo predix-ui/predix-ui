@@ -1,0 +1,23 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/mutable-data.html">
+
+</head><body><dom-module id="px-data-grid-cell-content-wrapper">
+  <template>
+  </template>
+  <script>{var DataGridCellContentWrapperElement=function(_Polymer$MutableData){babelHelpers.inherits(DataGridCellContentWrapperElement,_Polymer$MutableData);babelHelpers.createClass(DataGridCellContentWrapperElement,null,[{key:"is",get:function get(){return"px-data-grid-cell-content-wrapper"}},{key:"properties",get:function get(){return{item:{type:Object,notify:!0},column:{type:Object},cellColor:{type:String,observer:"_cellColorChanged"},_itemWas:{type:Object,value:void 0},localize:Function,_valueElement:Element}}},{key:"observers",get:function get(){return["_render(column.renderer, column.path, column.editable, item,  localize, item.*)"]}}]);function DataGridCellContentWrapperElement(){var _this;babelHelpers.classCallCheck(this,DataGridCellContentWrapperElement);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridCellContentWrapperElement).call(this));_this._boundValueChangedListener=_this._valueChangedListener.bind(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this)));return _this}babelHelpers.createClass(DataGridCellContentWrapperElement,[{key:"ready",value:function ready(){var _this2=this;babelHelpers.get(babelHelpers.getPrototypeOf(DataGridCellContentWrapperElement.prototype),"ready",this).call(this);this.addEventListener("mouseover",this._fireCellHoverEvent);this.addEventListener("mouseout",this._fireCellUnhoverEvent);document.addEventListener("editing-item-changed",function(event){if(!_this2._valueElement){return}if(event.detail.item===_this2.item&&_this2.column.editable){_this2._valueElement._editing=!0}else if(_this2._valueElement._editing&&event.detail.item!==_this2.item){_this2._valueElement._editing=!1}})}},{key:"focus",value:function focus(){var input=this._valueElement.shadowRoot.querySelector("#editingTemplateInput");if(input&&input.focus){input.focus()}}},{key:"_fireCellHoverEvent",value:function _fireCellHoverEvent(event){this.dispatchEvent(new CustomEvent("cell-hover",{bubbles:!0,composed:!0,detail:{item:this.item,column:this.column,cellContent:this.get(this.column.path,this.item)}}))}},{key:"_fireCellUnhoverEvent",value:function _fireCellUnhoverEvent(event){this.dispatchEvent(new CustomEvent("cell-unhover",{bubbles:!0,composed:!0,detail:{item:this.item,column:this.column,cellContent:this.get(this.column.path,this.item)}}))}},{key:"_valueChangedListener",value:function _valueChangedListener(event){if(!this.column||!this.column.path){return}this.set("item."+this.column.path,event.detail.value)}},{key:"_cellColorChanged",value:function _cellColorChanged(color){if(color){if("default"===color){this.style.backgroundColor="#FFE070"}else{this.style.backgroundColor=color}}else{this.style.backgroundColor=null}}},{key:"_render",value:function _render(renderer,path,editable,item,localize){if(path===void 0||item===void 0){return}var newItem=this._itemWas&&item!==this._itemWas;this._itemWas=item;if((!this._valueElement||newItem)&&renderer){this._valueElement=document.createElement(renderer);this._valueElement.addEventListener("value-changed",this._boundValueChangedListener);this._valueElement.column=this.column;this.shadowRoot.textContent="";this.shadowRoot.appendChild(this._valueElement)}var value;if(path){value=this.get(path,item);if(value===void 0){value=""}}else{value=item}if(renderer){this._valueElement.initialValue=value;this._valueElement.editable=editable;this._valueElement.localize=localize;this._valueElement.item=item}else{this.shadowRoot.textContent=value}}}]);return DataGridCellContentWrapperElement}(Polymer.MutableData(Polymer.Element));customElements.define(DataGridCellContentWrapperElement.is,DataGridCellContentWrapperElement);window.Predix=window.Predix||{};Predix.DataGridCellContentWrapperElement=DataGridCellContentWrapperElement}</script>
+</dom-module>
+</body></html>

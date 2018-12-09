@@ -1,0 +1,38 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="px-app-nav-behaviors.html">
+<link rel="import" href="css/px-app-nav-item-styles.html">
+
+</head><body><dom-module id="px-app-nav-item">
+  <template>
+    <style include="px-app-nav-item-styles"></style>
+
+    <template is="dom-if" if="{{_propIsTypeOf(icon, 'string')}}">
+      <px-icon class$="app-nav-item__icon {{_addClassIfHasLabel(label)}}" icon="{{icon}}"></px-icon>
+    </template>
+
+    <template is="dom-if" if="{{emptyIcon}}">
+      <div class="app-nav-item__icon app-nav-item__icon--with-label app-nav-item__icon--empty"></div>
+    </template>
+    <template is="dom-if" if="{{emptyLabel}}">
+      <div class="app-nav-item__label app-nav-item__label--empty"></div>
+    </template>
+
+    <template is="dom-if" if="{{_propIsTypeOf(label, 'string')}}">
+      <p class="app-nav-item__label">{{label}}</p>
+    </template>
+
+    <template is="dom-if" if="{{empty}}">
+      <div class="app-nav-item__icon app-nav-item__icon--with-label app-nav-item__icon--empty"></div>
+      <div class="app-nav-item__label app-nav-item__label--empty"></div>
+    </template>
+
+    <template is="dom-if" if="{{dropdown}}">
+      <px-icon class="app-nav-item__dropdown-icon" icon="px-utl:chevron"></px-icon>
+    </template>
+  </template>
+</dom-module>
+
+<script src="px-app-nav-item.es6.js"></script>
+</body></html>

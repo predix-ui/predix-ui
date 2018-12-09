@@ -1,0 +1,134 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-transpile">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#es6-browser-support', activeAnchor)]]" href="#" anchor="#es6-browser-support" on-tap="_handleAnchorTapped">ES6 browser support</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#es6-components', activeAnchor)]]" href="#" anchor="#es6-components" on-tap="_handleAnchorTapped">ES6 components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#how-to-transpile-apps', activeAnchor)]]" href="#" anchor="#how-to-transpile-apps" on-tap="_handleAnchorTapped">How to transpile apps</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#with-polymer-cli', activeAnchor)]]" href="#" anchor="#with-polymer-cli" on-tap="_handleAnchorTapped">With polymer-cli</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#with-a-custom-build-tools', activeAnchor)]]" href="#" anchor="#with-a-custom-build-tools" on-tap="_handleAnchorTapped">With a custom build tools</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#why-we-use-es6-features', activeAnchor)]]" href="#" anchor="#why-we-use-es6-features" on-tap="_handleAnchorTapped">Why we use ES6 features</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Transpile ES6 to ES5</h2>
+          
+          
+<p>Some Predix Design System components use EcmaScript 2015 (aka ES6) JavaScript features. If users are accessing your app from browsers that do not support ES6 you will need to add a new transpilation step to your build process.</p>
+<h3 id="es6-browser-support">ES6 browser support</h3>
+<p>The following browsers support the ES6 features used in Predix Design System components[1]:</p>
+<ul>
+<li>Chrome or Chromium version 49 or later</li>
+<li>Safari or Mobile Safari 10 or later</li>
+<li>Edge 15.15063 or later</li>
+<li>Firefox 51 or later</li>
+</ul>
+<p>All other browsers require code transpilation to parse ES6 components, including: Internet Explorer 11, Safari 8-9, and older versions of Chrome, Firefox, Edge, and Mobile Safari.</p>
+<h3 id="es6-components">ES6 components</h3>
+<p>The following components are built using ES6 features:</p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/px-app-header">px-app-header</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-app-nav">px-app-nav</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-accordion">px-accordion</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-branding-bar">px-branding-bar</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-breadcrumbs">px-breadcrumbs</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/context-browser/px-context-browser">px-context-browser</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map">px-map</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-slider">px-slider</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-toggle">px-toggle</a></li>
+<li><a href="https://www.predix-ui.com/#/elements/px-tree">px-tree</a></li>
+</ul>
+<p>This list may be updated periodically as new components are created or existing components are ported over to use ES6.</p>
+<h3 id="how-to-transpile-apps">How to transpile apps</h3>
+<p>ES6 code includes new JavaScript language features that do not run natively on older browsers. Transpilation is the process of converting this code to equivalent ES5 code that can run on older browsers. These conversions include transforming new syntax styles to compatible old styles (e.g. arrow functions, const/let declarations), adding polyfills for new language features that didn’t exist in ES5 (e.g. Map, WeakMap, Set, WeakSet), and extending existing standard prototypes to add new behaviors (e.g. Array.from).</p>
+<p>Transpilation happens during the build process before an app is pushed into production. Transpilation can be run as a development task to allow realtime testing of code on non-ES6 browsers during development. The best tools and approach to use depend on your existing build process and the framework you’ve chosen to build your app.</p>
+<h4 id="with-polymer-cli">With polymer-cli</h4>
+<p>Google’s Polymer team make the <a href="https://www.polymer-project.org/2.0/docs/tools/polymer-cli">polymer-cli</a>, a robust command-line utility that can be used to add transpilation to build and development pipelines.</p>
+<p>The polymer-cli tool should be used for the following apps:</p>
+<ul>
+<li>Apps based on the <a href="https://github.com/predixdev/predix-webapp-starter">predix-webapp-starter</a> or its predecessor, predix-seed</li>
+<li>Apps built using Polymer as a framework (e.g. from the Polymer starter kit)</li>
+<li>Apps with separate a separate repository or folder of Polymer elements that are built separately from the main app</li>
+</ul>
+<p>To use polymer-cli, you will need to install the polymer-cli with NPM and add a <a href="https://www.polymer-project.org/2.0/docs/tools/polymer-json">polymer.json</a> file to your application. You should install polymer-cli globally: <code class="code code--inline">$ npm install -g polymer-cli</code>. See the resources section below for more help with these steps.</p>
+<p>If you started your project from the <a href="https://github.com/predixdev/predix-webapp-starter">predix-webapp-starter</a> this configuration is already done for you. You can use the starter's develop or deploy scripts (e.g. <code class="code code--inline">$ gulp</code>) which invoke the polymer-cli automatically in the background.</p>
+<p>Two polymer-cli commands are available to help with transpilation: <em>build</em> to transpile code before pushing to production, and <em>serve</em> to transpile code in realtime during development. Run <code class="code code--inline">$ polymer build</code> or <code class="code code--inline">$ polymer serve</code> in your shell to use these commands. If you already use a task runner like Gulp, you can also run these commands as part of your existing tasks. See the <a href="https://github.com/PredixDev/predix-webapp-starter/blob/master/gulpfile.js">predix-webapp-starter Gulpfile</a> for an example.</p>
+<p>The following resources are available to help with installing and configuring polymer-cli:</p>
+<ul>
+<li>Documentation: <a href="https://www.polymer-project.org/2.0/docs/tools/polymer-cli">Using the Polymer CLI</a></li>
+<li>Documentation: <a href="https://www.polymer-project.org/2.0/docs/tools/polymer-json">Configuring your polymer.json file</a></li>
+<li>Documentation: <a href="https://www.polymer-project.org/2.0/docs/es6">ES6 and compilation to ES5</a></li>
+<li>Example: default predix-webapp-starter configuration
+<ul>
+<li><a href="https://github.com/PredixDev/predix-webapp-starter/blob/master/gulpfile.js">Gulp task to run polymer-cli build</a></li>
+<li><a href="https://github.com/PredixDev/predix-webapp-starter/blob/master/polymer.json">polymer.json file</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="with-a-custom-build-tools">With a custom build tools</h4>
+<p>If your app uses custom build tools like webpack you can configure your tools to transpile the Predix Design System components. Most build tools use <a href="https://babeljs.io/">babel</a> to transpile code. You’ll need to figure out the recommended way to setup babel or another transpilation library in your build tools.</p>
+<p>You should be aware of the following things when you configure your build tools[1]:</p>
+<ul>
+<li>Polymer requires all ES6 features except modules</li>
+<li>You must compile all the Predix Design System components, the Polymer library, and any third-party elements you're using, but not the polyfills</li>
+</ul>
+<p>The following resources are available to help with configuring custom build tools:</p>
+<ul>
+<li>Tutorial: <a href="http://robdodson.me/how-to-use-polymer-with-webpack/">How to use Polymer with Webpack</a></li>
+<li>Tool: <a href="https://github.com/webpack-contrib/polymer-webpack-loader">polymer-webpack-loader: WebPack Loader for Polymer Web Components</a></li>
+<li>Tool/Example: <a href="https://github.com/Polymer/polymer-build">polymer-build: A set of structured Gulp tasks that are used under the hood in the polymer-cli to transpile code</a></li>
+</ul>
+<h3 id="why-we-use-es6-features">Why we use ES6 features</h3>
+<p>ES6 introduced many new JavaScript language features that increase developer productivity, code quality, and extensibility. Some features, like <code class="code code--inline">const</code> and <code class="code code--inline">let</code> for block scoped variable definition, protect against writing code that could create unexpected problems in production. Even when code like this is transformed back to its ES5 equivalent without the same protections, the compiler will find the issues and throw an error.</p>
+<p>Additionally, the web components Custom Element v1 specification recommends using the <code class="code code--inline">class</code> keyword to define elements. Our components don’t yet use the <code class="code code--inline">class</code> keyword to define themselves, but we expect to introduce that in the near future when as we upgrade. This change will be undertaken as part of the transition from Polymer 1.x to Polymer 2/3.</p>
+<hr>
+<p>[1] Thanks to the Polymer Authors and the <a href="https://www.polymer-project.org/2.0/docs/es6#compile">ES6 and compilation to ES5</a> documentation for this information.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-transpile",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

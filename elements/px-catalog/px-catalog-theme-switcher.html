@@ -1,0 +1,5 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../px-demo-theme-switcher/px-demo-theme-util.html">
+
+<script>(function(){Polymer({is:"px-catalog-theme-switcher",properties:{darkTheme:{type:Boolean,observer:"updateTheme"},global:{type:Boolean,value:!1,observer:"updateTheme"},target:{type:HTMLElement,observer:"updateTheme"}},created:function created(){this._lastTheme="default"},updateTheme:function updateTheme(){this.debounce("update-theme",this._updateTheme.bind(this),5)},_updateTheme:function _updateTheme(){if("boolean"===typeof this.darkTheme){if("default"===this._lastTheme&&!this.darkTheme||"dark"===this._lastTheme&&this.darkTheme){return}var theme=this.darkTheme?PxDemo.ThemeUtil.getDarkThemeProperties():PxDemo.ThemeUtil.getDefaultThemeProperties();if(null===theme){console.log((this.darkTheme?"Dark theme":"Default theme")+"not loaded. Try again later.");return}if(this.global){Polymer.updateStyles(theme)}if(babelHelpers.instanceof(this.target,HTMLElement)){this.target.updateStyles(theme)}this._lastTheme=this.darkTheme?"dark":"default"}}})})();</script>
+</head><body></body></html>

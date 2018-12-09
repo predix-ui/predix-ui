@@ -1,0 +1,81 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis-timeseries/px-vis-timeseries.html">
+<link rel="import" href="../px-vis-xy-chart/px-vis-xy-chart.html">
+<link rel="import" href="../px-vis-polar/px-vis-polar.html">
+<link rel="import" href="../iron-list/iron-list.html">
+
+<!--
+REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+
+### Usage
+
+    <px-vis-demos-ts-split-x counter-value="1"></px-vis-demos-ts-split-x>
+
+@element px-vis-demos-ts-split-x
+@blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-vis-iron-list">
+  <template>
+    <!-- <style include="px-vis-demos-ts-split-x-styles"></style> -->
+    <iron-list items="[[_internalData]]" as="item" style="height: 100vh">
+      <template>
+        <div>
+          <template is="dom-if" if="[[item.isTimeseries]]">
+            <px-vis-timeseries chart-data="[[item.chartData]]" series-config="[[item.seriesConfig]]" chart-extents="[[item.chartExtents]]" disable-navigator="" height="300" render-to-canvas="" draw-debounce-time="{
+                &quot;chartData&quot;: 150,
+                &quot;filteredChartData&quot;: 150,
+                &quot;highlightData&quot;: 10,
+                &quot;markers&quot;: 10
+              }">
+            </px-vis-timeseries>
+          </template>
+          <template is="dom-if" if="[[item.isXY]]">
+            <px-vis-xy-chart chart-data="[[item.chartData]]" series-config="[[item.seriesConfig]]" chart-extents="[[item.chartExtents]]" height="300" margin="{&quot;bottom&quot;: 25, &quot;left&quot;: 40}" render-to-canvas="" draw-debounce-time="{
+                &quot;chartData&quot;: 150,
+                &quot;filteredChartData&quot;: 150,
+                &quot;highlightData&quot;: 10,
+                &quot;markers&quot;: 10
+              }" prevent-web-worker-synchronization="">
+            </px-vis-xy-chart>
+          </template>
+          <template is="dom-if" if="[[item.isPolar]]">
+              <div style="height: 300px">
+                <px-vis-polar chart-data="[[item.chartData]]" series-config="[[item.seriesConfig]]" chart-extents="[[item.chartExtents]]" render-to-canvas="" draw-debounce-time="{
+                    &quot;chartData&quot;: 150,
+                    &quot;filteredChartData&quot;: 150,
+                    &quot;highlightData&quot;: 10,
+                    &quot;markers&quot;: 10
+                  }">
+                </px-vis-polar>
+              </div>
+            </template>
+        </div>
+      </template>
+    </iron-list>
+
+
+  </template>
+</dom-module>
+<script src="dist/px-vis-iron-list.js"></script>
+</body></html>

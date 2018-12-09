@@ -1,0 +1,51 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../px-datetime-range-field/px-datetime-range-field.html">
+<link rel="import" href="../px-overlay/px-overlay-content.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+<link rel="import" href="px-rangepicker-content.html">
+<link rel="import" href="css/px-rangepicker-styles.html">
+
+<!--
+The datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+#### Usage
+
+    <px-rangepicker
+      from-moment="{{...}}"
+      to-moment="{{...}}">
+    </px-rangepicker>
+
+#### Styling
+The following custom property is available for styling. Please also refer to px-forms-design, px-datetime-range-field, and px-datetime-range-panel for additional style variables used by this component.
+
+Custom property | Description
+:----------------|:-------------
+`px-datetime` components | the css variables are defined in the other `px-datetime` components
+`--px-datetime-field-margin-bottom` | Sets the margin under the fields. If allowWrap is true this should be set to 20px.
+`--px-datetime-range-field-margin-between-fields` | When `showFieldTitles` is true this is the amount of space between the fields
+`--px-datetime-range-field-column-min-width` | When `fullWidth` is true this sets the min-width that each field is allowed to be before the grid wraps.
+`--px-datetime-range-field-justify-fields` | Sets the flex `justify-content` value for the fields
+
+
+@element px-rangepicker
+@blurb Element allowing to choose a date (and time) range
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-rangepicker">
+  <template>
+    <style include="px-rangepicker-styles"></style>
+
+    <px-datetime-range-field id="rangeField" slot="dropdown-trigger" from-moment="{{_tempFromMomentObj}}" to-moment="{{_tempToMomentObj}}" date-format="{{dateFormat}}" time-format="{{timeFormat}}" hide-time="{{hideTime}}" time-zone="{{timeZone}}" hide-icon="{{hideIcon}}" show-time-zone="[[showTimeZone]]" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" hide-validation-messages="{{hideValidationMessages}}" prevent-notification-on-change="" allow-wrap="[[allowWrap]]" show-field-titles="[[showFieldTitles]]" full-width="[[fullWidth]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]" required="[[required]]" hoist="[[hoist]]" container-type="[[containerType]]">
+    </px-datetime-range-field>
+    <px-overlay-content hoist="[[hoist]]" container-type="[[containerType]]" event-names="[&quot;px-datetime-button-clicked&quot;]">
+      <px-rangepicker-content id="rangepickerContent" position-target="[[_returnFieldElem()]]" opened="{{opened}}" scroll-action="{{scrollAction}}" is-valid="{{isValid}}" from-moment="{{_tempFromMomentObj}}" to-moment="{{_tempToMomentObj}}" time-format="{{timeFormat}}" hide-time="{{hideTime}}" hide-presets="{{hidePresets}}" show-buttons="{{showButtons}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" preset-ranges="{{presetRanges}}" time-zone="[[timeZone]]" day-week-start-index="[[dayWeekStartIndex]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+      </px-rangepicker-content>
+    </px-overlay-content>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-rangepicker",behaviors:[PxDatetimeBehavior.TempRange,PxDatetimeBehavior.Buttons,PxOverlayBehavior.sharedProperties],properties:{opened:{type:Boolean,notify:!0,observer:"_processClose"},dateFormat:{type:String,value:"MM/DD/YYYY"},timeFormat:{type:String,value:"HH:mm A"},hideTime:{type:Boolean,value:!1},hidePresets:{type:Boolean,value:!1},hideIcon:{type:Boolean,value:!1},allowWrap:{type:Boolean,value:!1},showFieldTitles:{type:Boolean,value:!1,reflectToAttribute:!0},fullWidth:{type:Boolean,value:!1,reflectToAttribute:!0},scrollAction:{type:String,value:"lock"},isValid:{type:Boolean,notify:!0,value:!0},required:{type:Boolean,value:!1},hideValidationMessages:{type:Boolean,value:!1},showTimeZone:{type:String,value:""},presetRanges:{type:Object,value:function value(){var now=Px.moment();return[{displayText:"Last 7 Days",startDateTime:now.clone().subtract(7,"days"),endDateTime:now},{displayText:"This Month",startDateTime:now.clone().startOf("month"),endDateTime:now.clone().endOf("month")},{displayText:"Last Month",startDateTime:now.clone().subtract(1,"months").startOf("month"),endDateTime:now.clone().subtract(1,"months").endOf("month")}]}},hoist:{type:Boolean,value:!1}},listeners:{"px-datetime-entry-icon-clicked":"_toggleBoxOpen","px-datetime-button-clicked":"_buttonClicked",tap:"_handleTap"},keyBindings:{esc:"_onEsc",enter:"_onEnter"},attached:function attached(){this.$.rangeField.addEventListener("from-moment-changed",this._rangeFieldMomentChanged.bind(this));this.$.rangeField.addEventListener("to-moment-changed",this._rangeFieldMomentChanged.bind(this));this.$.rangeField.addEventListener("is-valid-changed",this._handleValidation.bind(this))},_onEsc:function _onEsc(evt){if(this.opened){this.set("opened",!1)}},_onEnter:function _onEnter(evt){if(this.opened){this._validateCalendarMoment();this.set("opened",!1)}},_toggleBoxOpen:function _toggleBoxOpen(){this.$.rangepickerContent._toggleBoxOpen()},_processClose:function _processClose(newVal,oldVal){if(oldVal===void 0||newVal){return}var canApplyValues=!this.showButtons&&this.$.rangepickerContent.timeIsValid&&this.$.rangeField.isValid;if(canApplyValues){this._applyTempRangeMoment(canApplyValues)}else{this._rollbackTempFromMoment(this.fromMoment);this._rollbackTempToMoment(this.toMoment)}},_rangeFieldMomentChanged:function _rangeFieldMomentChanged(){if(!this.opened){this._applyTempRangeMoment()}},_handleValidation:function _handleValidation(e){if(e.detail.value){this.isValid=!0;this.$.rangepickerContent._handleValidation(!0)}else{this.isValid=!1;this.$.rangepickerContent._handleValidation(!1)}},_validateCalendarMoment:function _validateCalendarMoment(){if(this.opened&&this.isValid){this._applyTempRangeMoment();this.fire("px-datetime-range-submitted",{fromMoment:this.fromMoment,toMoment:this.toMoment});this.set("opened",!1)}},_buttonClicked:function _buttonClicked(evt){if(evt.detail.action){this._validateCalendarMoment()}else{this._rollbackTempFromMoment();this._rollbackTempToMoment()}this.set("opened",!1)},_handleTap:function _handleTap(evt){if(!0===this.opened){for(var path=Polymer.dom(evt).path,i=0;i<path.length;i++){if("PX-DROPDOWN"===path[i].nodeName){this.set("opened",!1);return}}}},_returnFieldElem:function _returnFieldElem(){return this.$.rangeField}});</script>
+</body></html>

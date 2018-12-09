@@ -1,0 +1,40 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-percent-circle-styles.html">
+
+<!--
+
+### Usage
+
+    <px-percent-circle val="20" max="40" thickness="10"></px-percent-circle>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-percent-circle-fill-color` | Fill color for the circle
+`--px-percent-circle-background-color` | Background color for the circle
+`--px-percent-circle-text-color` | Fill color for text
+
+@element px-percent-circle
+@blurb A simple donut chart that fills clockwise based on a percentage.
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-percent-circle">
+  <template>
+    <style include="px-percent-circle-styles"></style>
+
+    <svg id="container" height="100%" width="100%">
+      <circle id="background" cx$="[[_cx]]" cy$="[[_cy]]" r$="[[_r]]" stroke-width$="[[_thickness]]"></circle>
+      <path id="arc" stroke-width$="[[_thickness]]" d$="[[_arcPath]]"></path>
+      <text id="text" x$="[[_cx]]" y$="[[_cy]]" font-size$="[[_placement.tf]]" dx$="[[_placement.tx]]" dy$="[[_placement.ty]]">
+        <tspan id="label">[[_percent]]</tspan>
+        <tspan id="percent" font-size$="[[_placement.pf]]" dx$="[[_placement.px]]" dy$="[[_placement.py]]">%</tspan>
+      </text>
+    </svg>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-percent-circle",properties:{val:{type:Number,value:0},max:{type:Number,value:100},thickness:{type:Number,value:30},_val:{type:Number,computed:"_computedVal(val)"},_max:{type:Number,computed:"_computedMax(max)"},_size:{type:Number,computed:"_computedSize(this.getBoundingClientRect())",observer:"_setViewBoxAttribute",value:300},_thickness:{type:Number,computed:"_computedThickness(_size,thickness)"},_percent:{type:Number,computed:"_computedPercent(_val,_max)"},_placement:{type:Object,computed:"_computedPlacement(_size)"},_cx:{type:Number,computed:"_computedCoordinate(_size)"},_cy:{type:Number,computed:"_computedCoordinate(_size)"},_r:{type:Number,computed:"_computedRadius(_size, _thickness)"},_arcPath:{type:String,computed:"_computedArcPath(_cx, _cy, _r, _percent)"}},_computedPlacement:function _computedPlacement(size){return{tf:.3*size+"px",tx:.01*size,ty:.09*size,pf:.2*size+"px",px:-.05*size,py:0}},_computedVal:function _computedVal(val){val=parseInt(val);if((!val||0>val)&&0!==val){console.log("Px Percent Circle: invalid value converted to 0%");return 0}return val},_computedMax:function _computedMax(max){max=parseInt(max);if(!max||0>=max){console.log("Px Percent Circle: invalid max, assumed to be 100");return 100}return max},_computedPercent:function _computedPercent(val,max){if(val>max){console.log("Px Percent Circle: invalid value converted to 100%");this._max=100;this._val=100;return 100}return Math.round(100*(val/max))},_setViewBoxAttribute:function _setViewBoxAttribute(size){this.$.container.setAttribute("viewBox",["0","0",size,size].join(" "))},_computedCoordinate:function _computedCoordinate(val){return val/2},_computedRadius:function _computedRadius(val,stroke){return val/2-stroke},_computedSize:function _computedSize(rect){return Math.min(rect.height,rect.width)},_computedThickness:function _computedThickness(size,thickness){thickness=parseInt(thickness);return!thickness||1>thickness||.1<=thickness/size?.1*size:thickness},_computedArcPath:function _computedArcPath(x,y,r,percent){var delta=percent/100,startAngle=0,endAngle=360*delta;endAngle=360<=endAngle?359.99:endAngle;var start=this._polarToCartesian(x,y,r,endAngle),end=this._polarToCartesian(x,y,r,startAngle),arcSweep=180>=endAngle-startAngle?"0":"1",d=["M",start.x,start.y,"A",r,r,0,arcSweep,0,end.x,end.y].join(" ");return d},_polarToCartesian:function _polarToCartesian(centerX,centerY,radius,angleInDegrees){var angleInRadians=(angleInDegrees-90)*Math.PI/180;return{x:centerX+radius*Math.cos(angleInRadians),y:centerY+radius*Math.sin(angleInRadians)}}});</script>
+</body></html>

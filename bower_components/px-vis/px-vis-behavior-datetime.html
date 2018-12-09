@@ -1,0 +1,17 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../px-moment-imports/px-moment-imports.html">
+<script>var PxVisBehaviorTime=window.PxVisBehaviorTime=window.PxVisBehaviorTime||{};PxVisBehaviorTime.datetime={properties:{firstDateTimeFormat:{type:String,value:"HH:mm:ss ZZ"},secondDateTimeFormat:{type:String,value:"DD MMM YYYY"},separator:{type:String,value:"|"},timezone:{type:String,value:"utc"}},formatTimestamp:function formatTimestamp(datetime,timezone,format){if("utc"!==timezone.toLowerCase()){if(Px.moment.tz.zone(timezone)){return Px.moment.tz(datetime,timezone).format(format)}else{console.warn("(\u3065\uFF61\u25D5\u203F\u203F\u25D5\uFF61)\u3065 Invalid timezone specified; defaulting to UTC")}}return Px.moment.utc(datetime).format(format)}};</script>
+</head><body></body></html>

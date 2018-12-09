@@ -1,0 +1,200 @@
+<html><head><link defer="" rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-data-grid-define-columns">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#use-auto-generated-columns', activeAnchor)]]" href="#" anchor="#use-auto-generated-columns" on-tap="_handleAnchorTapped">Use auto-generated columns</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#define-custom-columns', activeAnchor)]]" href="#" anchor="#define-custom-columns" on-tap="_handleAnchorTapped">Define custom columns</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#hide-show-freeze-and-size-columns', activeAnchor)]]" href="#" anchor="#hide-show-freeze-and-size-columns" on-tap="_handleAnchorTapped">Hide, show, freeze, and size columns</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#change-cell-renderers', activeAnchor)]]" href="#" anchor="#change-cell-renderers" on-tap="_handleAnchorTapped">Change cell renderers</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#additional-column-configurations', activeAnchor)]]" href="#" anchor="#additional-column-configurations" on-tap="_handleAnchorTapped">Additional column configurations</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Data Grid: Define Columns</h2>
+          
+          
+<p>The grid uses columns to decide how to render its data. Apps can use the <code class="code code--inline">columns</code> property to show or hide certain columns, define how users can interact with columns, and change the way each column’s cells are rendered.</p>
+<h3 id="use-auto-generated-columns">Use auto-generated columns</h3>
+<p>If data is added to the grid before the <code class="code code--inline">columns</code> property is defined the grid will automatically generate a set of columns. The first data object will be scanned, and each of its keys will be turned into a new column. The column name displayed in the grid header will be set to the key. All columns are treated as strings by default.</p>
+<p>This approach works for simple use cases where the app formats and cleans the data before adding it to the grid. But relying on the grid to generate columns can lead to some unexpected outcomes:</p>
+<ul>
+<li>Only the first object is scanned to generate the columns. If additional keys are defined on other objects but not the first one those keys will not be turned into columns, and the related data won’t be rendered in the grid.</li>
+<li>Column names are copied exactly from the first object’s keys. If your keys aren’t human readable or use camelCase syntax the grid headers will be hard to read.</li>
+<li>All keys found on the first object will be turned into columns and rendered. If your data includes computed values only used for rendering your UI or non-human-readable values like database IDs you may not want to clutter the grid with that information. Creating custom columns is the only way to control what data is rendered by default.</li>
+</ul>
+<h3 id="define-custom-columns">Define custom columns</h3>
+<p>Set the <code class="code code--inline">columns</code> property on the grid to an array of objects to control which columns are shown and how users can interact with those columns. The grid will ignore data that is not explicitly referenced by one of the columns, allowing apps to control what data is shown to the user.</p>
+<p>There are many options that can be set for each column. The most basic column definition should include name and path:</p>
+<ul>
+<li><code class="code code--inline">{string} name</code> - Name to display at the top of the grid above the column. If none is given the column header will be blank.</li>
+<li><code class="code code--inline">{string} path</code> - The key to use to get the values for each cell in the column from the grid data objects</li>
+</ul>
+<p>See the px-data-grid API documentation for a full list of options.</p>
+<h4>Example: First and last names</h4>
+<p>The following is a simple <code class="code code--inline">columns</code> definition that will show the first name and last name for a list of people in a grid:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+[
+  {
+    name: 'First Name',
+    path: 'first'
+  },
+  {
+    name: 'Last Name',
+    path: 'last'
+  }
+]
+
+      </script>
+    </px-catalog-code-snippet><p>The grid data should use the same paths defined for each column:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+[
+  { "first": "Ada",   "last": "Lovelace", "id": 0 },
+  { "first": "Grace", "last": "Hopper",   "id": 1 },
+  { "first": "Mae",   "last": "Jemison",  "id": 2 },
+  { "first": "Sally", "last": " Ride",    "id": 3 }
+]
+
+      </script>
+    </px-catalog-code-snippet><p>The grid will only display the columns that were defined, rendering the first and last name for each person but ignoring the <code class="code code--inline">id</code> field:</p>
+<p><catalog-picture img-src="../../img/developer-guides/data-grid/define-columns-first-last-names" img-alt="Data grid cells showing first and last names for each person but hiding the ID field">
+</catalog-picture></p>
+<h3 id="hide-show-freeze-and-size-columns">Hide, show, freeze, and size columns</h3>
+<p>Some datasets call for more advanced styling for each column. Hiding and showing columns can help the user focus on information that is important to the current task. Freezing a column locks it to the left of the grid and can help reduce tedious horizontal scrolling when the user frequently refers to the first few columns. Setting custom sizes for columns ensures space in the grid is used appropriately and cells with large amounts of data aren’t unnecessarily truncated.</p>
+<p>Uses can hide and freeze columns by clicking on the three-dot button that appears when hovering over a header cell. Users can unhide columns by clicking on the table action menu at the top right of the grid.</p>
+<p>The following options can be set in column definitions to control the way columns are rendered:</p>
+<ul>
+<li><code class="code code--inline">{boolean} hidden=false</code> - Hidden columns aren’t shown on the grid, but can be shown later. Set to <code class="code code--inline">true</code> to hide the column. Set to <code class="code code--inline">false</code> to hide the column. Defaults to false.</li>
+<li><code class="code code--inline">{boolean} frozen=false</code> - Frozen columns are fixed at the beginning of the grid and don’t move when the user scrolls horizontally. Set to <code class="code code--inline">true</code> to freeze the column. Set to <code class="code code--inline">false</code> to unfreeze the column. Defaults to false.</li>
+<li><code class="code code--inline">{number} flexGrow=1</code> - Columns with larger flex grow values are given more horizontal space in the grid. Increase the flex grow value for columns to make them larger and reduce cell truncation or wasted space. All columns default to <code class="code code--inline">1</code>.  This value works like the CSS <code class="code code--inline">flex-grow</code> rule.</li>
+</ul>
+<p>See the px-data-grid API documentation for a full list of options.</p>
+<h4>Example: Delivery tracking app</h4>
+<p>Dispatchers can review a list of parts out for delivery to customers today. Each delivery record includes a unique Delivery Code that is given to the customer when they make the order. When customers call in to get an updated delivery time for their order, the dispatcher must find the row containing the correct Delivery Code and find the estimated delivery time and location of the driver.</p>
+<p>Delivery records contain a lot of information:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "deliveryCode": "AA-08947-D",
+  "estimatedArrival": "2018-02-04 11:30:00",
+  "driverLocation": "Concord, CA",
+  "customer" : "Acme Widgets, Inc.",
+  "customerAddress": "555 Main Street, Suite 398-A, Walnut Creek, CA 94440",
+  "customerContact": "Alexander C",
+  "customerPhone": "555-222-3040",
+  "partNumber": "CRANK_9938_D03",
+  "weight": 104,
+  "id": "00001293"
+}
+
+      </script>
+    </px-catalog-code-snippet><p>The dispatcher cares about the delivery code the most. It’s the identifier they rely on to ensure they’re giving the customer the right information. The app freezes the column so it is always visible.</p>
+<p>Some information, like the customer contact name, phone number, and internal record ID isn’t usually needed to answer questions from callers. The app hides these columns by default, and lets the dispatchers decide when to show the information.</p>
+<p>The address is usually long and is hard to read when it is truncated or broken across many lines. The app gives the address field more horizontal space than the rest of the columns.</p>
+<p>The column definition for this grid is more complex but helps the user do their job with speed and precision:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+[
+  {
+    name: 'Delivery Code',
+    path: 'deliveryCode',
+    frozen: true
+  },
+  {
+    name: 'ETA',
+    path: 'estimatedArrival'
+  },
+  {
+    name: 'Driver Location',
+    path: 'driverLocation'
+  },
+  {
+    name: 'Customer Company',
+    path: 'customer'
+  },
+  {
+    name: 'Customer Address',
+    path: 'customerAddress',
+    flexGrow: 2
+  },
+  {
+    name: 'Customer Contact',
+    path: 'customerContact',
+    hidden: true
+  },
+  {
+    name: 'Customer Phone #',
+    path: 'customerPhone',
+    hidden: true
+  },
+  {
+    name: 'Part #',
+    path: 'partNumber'
+  },
+  {
+    name: 'Part Weight',
+    path: 'weight'
+  },
+  {
+    name: 'Internal ID',
+    path: 'id',
+    hidden: true
+  }
+]
+
+      </script>
+    </px-catalog-code-snippet><p>The app uses these <code class="code code--inline">columns</code> and sets the grid’s <code class="code code--inline">tableData</code> property to the sample record. The resulting grid shows the delivery code all the time, even when the user scrolls horizontally, and hides the customer contact, customer phone number, and internal ID:</p>
+<p><catalog-picture img-src="../../img/developer-guides/data-grid/define-columns-delivery-tracking" img-alt="Data grid cells showing the delivery code all the time, even when the user scrolls horizontally, and hiding the customer contact, customer phone number, and internal ID">
+</catalog-picture></p>
+<p>The user can show those columns if they’re needed later using the Actions button:</p>
+<img class="gif" src="../../img/developer-guides/data-grid/cell-renderers-show-column-action.gif">
+<h3 id="change-cell-renderers">Change cell renderers</h3>
+<p>Columns decide how their cells should be displayed to the user by defining renderers. The data grid comes with a few built-in renderers, and all columns use the string renderer by default. Read the “Cell renderers” guide for more information on using different default renderers or defining custom renderers.</p>
+<h3 id="additional-column-configurations">Additional column configurations</h3>
+<p>See the px-data-grid API documentation for a full list of configuration options for columns.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-data-grid-define-columns",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

@@ -1,0 +1,18 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="px-datetime-shared-behavior.html">
+
+<script>(function(){var PxDatetimeBehavior=window.PxDatetimeBehavior=window.PxDatetimeBehavior||{};PxDatetimeBehavior.RangeMoments={properties:{fromMoment:{type:Object,notify:!0,value:function value(){return null}},toMoment:{type:Object,notify:!0,value:function value(){return null}}}};PxDatetimeBehavior.Range=[{properties:{presetRanges:{type:Object}},observers:["_localeChanged(language)","_timeZoneChanged(timeZone)"],_localeChanged:function _localeChanged(){if(this.language!==void 0){if(this.fromMoment){this.set("fromMoment",this.fromMoment.locale(Px.moment.locale()))}if(this.toMoment){this.set("toMoment",this.toMoment.locale(Px.moment.locale()))}}},_timeZoneChanged:function _timeZoneChanged(){if(this.timeZone!==void 0){if(this.fromMoment){var newMom=this.fromMoment.clone().tz(this.timeZone);this.set("fromMoment",newMom)}if(this.toMoment){newMom=this.toMoment.clone().tz(this.timeZone);this.set("toMoment",newMom)}}},_validateRangeOrder:function _validateRangeOrder(fromMoment,toMoment){if(null===fromMoment&&null===toMoment){return!0}if(fromMoment&&toMoment){return fromMoment.isBefore(toMoment)}else{return!1}}},PxDatetimeBehavior.Shared,PxDatetimeBehavior.RangeMoments];PxDatetimeBehavior.TempRange=[{properties:{_tempFromMomentObj:{type:Object,notify:!0},_tempToMomentObj:{type:Object,notify:!0}},observers:["_localeChangedTemp(language)","_timeZoneChangedTemp(timeZone)","_rollbackTempFromMoment(fromMoment)","_rollbackTempToMoment(toMoment)"],_applyTempRangeMoment:function _applyTempRangeMoment(){var changed=!1;if(null===this.fromMoment||null===this._tempFromMomentObj||this.fromMoment.toISOString()!==this._tempFromMomentObj.toISOString()){this.set("fromMoment",this._tempFromMomentObj);changed=!0}if(null===this.toMoment||null===this._tempToMomentObj||this.toMoment.toISOString()!==this._tempToMomentObj.toISOString()){this.set("toMoment",this._tempToMomentObj);changed=!0}return changed},_rollbackTempFromMoment:function _rollbackTempFromMoment(fromMoment){this.set("_tempFromMomentObj",this.fromMoment)},_rollbackTempToMoment:function _rollbackTempToMoment(toMoment){this.set("_tempToMomentObj",this.toMoment)},_localeChangedTemp:function _localeChangedTemp(){if(this.language!==void 0){if(this._tempFromMomentObj){this.set("_tempFromMomentObj",this._tempFromMomentObj.locale(Px.moment.locale()))}if(this._tempToMomentObj){this.set("_tempToMomentObj",this._tempToMomentObj.locale(Px.moment.locale()))}}},_timeZoneChangedTemp:function _timeZoneChangedTemp(){if(this.timeZone!==void 0){if(this._tempFromMomentObj){this.set("_tempFromMomentObj",this._tempFromMomentObj.clone().tz(this.timeZone))}if(this._tempToMomentObj){this.set("_tempToMomentObj",this._tempToMomentObj.clone().tz(this.timeZone))}}}},PxDatetimeBehavior.Range]})();</script>
+</head><body></body></html>

@@ -1,0 +1,138 @@
+<html><head><link defer="" rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-data-grid-overview">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#features', activeAnchor)]]" href="#" anchor="#features" on-tap="_handleAnchorTapped">Features</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#display-of-data', activeAnchor)]]" href="#" anchor="#display-of-data" on-tap="_handleAnchorTapped">Display of data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#theming', activeAnchor)]]" href="#" anchor="#theming" on-tap="_handleAnchorTapped">Theming</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#selection-and-highlighting', activeAnchor)]]" href="#" anchor="#selection-and-highlighting" on-tap="_handleAnchorTapped">Selection and highlighting</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#sorting-and-grouping', activeAnchor)]]" href="#" anchor="#sorting-and-grouping" on-tap="_handleAnchorTapped">Sorting and grouping</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#sizing-rows-and-columns', activeAnchor)]]" href="#" anchor="#sizing-rows-and-columns" on-tap="_handleAnchorTapped">Sizing rows and columns</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#grid-data-and-manipulation', activeAnchor)]]" href="#" anchor="#grid-data-and-manipulation" on-tap="_handleAnchorTapped">Grid data and manipulation</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#filtering', activeAnchor)]]" href="#" anchor="#filtering" on-tap="_handleAnchorTapped">Filtering</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#user-preferences', activeAnchor)]]" href="#" anchor="#user-preferences" on-tap="_handleAnchorTapped">User preferences</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#internationalization', activeAnchor)]]" href="#" anchor="#internationalization" on-tap="_handleAnchorTapped">Internationalization</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#faq', activeAnchor)]]" href="#" anchor="#faq" on-tap="_handleAnchorTapped">FAQ</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Data Grid: Feature Overview</h2>
+          
+          
+<p>Px-data-grid is a powerful, adaptive data visualization tool to aid users when they have a large amount of data to display or manipulate. In its simplest form, the grid displays data in a grid or tabular format with rows and columns to provide a bird's-eye view of the data.</p>
+<p>Data grid features allow users to scan, analyze, compare, filter, sort, and edit data to better understand the information, derive insights, and perform actions.</p>
+<h3 id="features">Features</h3>
+<h4 id="display-of-data">Display of data</h4>
+<p>You can display several data formats in the data-grid cells out of the box, including text strings, numbers with decimal places, and date/timestamps. Editable cells can have custom validators based on these data types. In addition, you can easily create custom renderers to display an image, spark line / micro-chart, or any other custom HTML content that is required.</p>
+<p>Users can expand data-grid rows to reveal more information. Using expandable rows is common when you have additional information for a row, or cells that do not need to be shown at all times - this helps minimize visual clutter. Users can also hover over a cell and your application can detect this to display a tooltip or other component with more information about the cell.</p>
+<h4 id="theming">Theming</h4>
+<p>You can theme the px-data-grid with the Predix Design System Dark Theme (suitable for control rooms/dim light situations) or Light Theme. Custom theming/branding is also possible.
+You can enable zebra or row striping to help users scan across long rows.</p>
+<h4 id="selection-and-highlighting">Selection and highlighting</h4>
+<p>Rows, columns and/or cells can be individually highlighted based on custom rules, and you can specify the priority of each highlight type. The data-grid allow single row selection with radio buttons, as well as multiple row selection with checkboxes. A select all / deselect all affordance is also provided.</p>
+<p>Users can show or hide columns as well as freeze or unfreeze columns. Frozen columns appear pinned to the left side of the data-grid.</p>
+<h4 id="sorting-and-grouping">Sorting and grouping</h4>
+<p>The data-grid allows sorting by a single column or multiple columns. The order of multiple sorted columns, as well as ascending or descending sort order, are indicated in the column headers. Sorting is invoked by clicking on the column header. Selected rows can also be sorted to the top or bottom of the grid.</p>
+<p>Grouping by column is also supported. This allows rows with the same value in a specific column to be grouped together in an expandable accordion.</p>
+<h4 id="sizing-rows-and-columns">Sizing rows and columns</h4>
+<p>The data-grid supports auto-sizing of both rows and columns, but you can also customize the grid height or column widths. Text can be wrapped automatically or truncated with an ellipsis.</p>
+<h4 id="grid-data-and-manipulation">Grid data and manipulation</h4>
+<p>The data-grid provides an API to add or delete rows, and to update rows with inline editing. You can configure which columns are editable, and specify custom validation for editable cells.</p>
+<p>Users can re-order columns with a drag-and-drop feature.</p>
+<p>There is the capability to allow applications to print or export the displayed data-grid rows which can be invoked via the Table Action menu.</p>
+<p>The data-grid supports both server-side loading and client-side loading, with both infinite scrolling and pagination as options. You can choose to fix the headers in place and only scroll the data rows.</p>
+<h4 id="filtering">Filtering</h4>
+<p>There are two ways to filter the data-grid. The "auto-filter" will perform a simple search across the entire table for a string or value.</p>
+<p>For more advanced filtering, users invoke a modal in order to set detailed filtering conditions.
+They can filter by date/time range, specific durations, numbers, text/string/wildcard, and number ranges; appropriate picker controls are provided for each.
+Filters can be used to show, hide, or highlight rows - across all columns, or only applied to specific columns.</p>
+<h4 id="user-preferences">User preferences</h4>
+<p>Applications can implement the ability to save and reset user preferences or settings that have been applied to the data-grid.</p>
+<h4 id="internationalization">Internationalization</h4>
+<p>The data-grid follows the same pattern as all of the other Predix Design System components for localization and internationalization. NOTE: Support for right-to-left languages is not currently available.</p>
+<h3 id="faq">FAQ</h3>
+<h4>Does px-data-grid work on mobile screen sizes?</h4>
+<p>No, we are not prioritizing mobile at this stage. We may revisit mobile/responsive behavior in a future release based on customer feedback.</p>
+<h4>What browsers does the new grid support?</h4>
+<p>The new grid supports the same browsers as the other Predix Design System components:</p>
+<ul>
+<li>Chrome: Last two major versions</li>
+<li>Safari: Last two major versions</li>
+<li>Firefox: Last two major versions</li>
+<li>Edge</li>
+<li>Internet Explorer 11</li>
+<li>Last two major versions of standard iOS and Android browsers</li>
+</ul>
+<h4>Does the new grid meet accessibility standards?</h4>
+<p>The grid does support keyboard navigation and actions, but there are still quirks we are working out.</p>
+<h4>What's the plan for the existing px-data-table? Will you continue to support it?</h4>
+<p>The px-data-table will not be updated with new features, and will not be upgraded to Polymer 2+.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-data-grid-overview",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

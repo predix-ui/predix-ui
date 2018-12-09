@@ -1,0 +1,59 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="px-data-grid-renderer-mixin.html">
+<link rel="import" href="px-data-grid-theme.html">
+<link rel="import" href="css/px-data-grid-string-renderer-styles.html">
+
+<!--
+
+### Styling
+The following custom properties are available for styling of the string-renderer content.
+
+Custom property | Description
+'--px-data-grid-cell-string-column-overflow' | controls the overflow behavior, visible, hidden
+'--px-data-grid-cell-string-column-white-space' | controls how white-spaces are handled, normal, nowrap
+'--px-data-grid-cell-string-column-word-wrap' | controls how word-wrapping is handled normal, break-word
+'--px-data-grid-cell-string-column-text-overflow' | controls how text-overflow is handled, clip, ellipsis
+'--px-data-grid-cell-string-column-editor-align-items | control editor alignment when in edit mode, center, flex-end, flex-start'
+
+Examples:
+Make string-renderer columns wrap the content:
+--px-data-grid-cell-string-column-overflow: hidden;
+--px-data-grid-cell-string-column-word-wrap: break-word;
+
+Make string-renderer columns use ellipsis overflow:
+--px-data-grid-cell-string-column-text-overflow: ellipsis;
+--px-data-grid-cell-string-column-white-space: nowrap;
+--px-data-grid-cell-string-column-overflow: hidden;
+
+-->
+
+
+</head><body><dom-module id="px-data-grid-string-renderer">
+  <template>
+    <style include="px-data-grid-string-renderer-styles"></style>
+    <template is="dom-if" if="[[!_editing]]">[[value]]</template>
+    <template is="dom-if" if="[[_editing]]" restamp="">
+      <div class="input-container">
+        <input id="editingTemplateInput" class$="{{getClasses(validationResult)}}" type="text" value="{{value::change}}">
+        <px-tooltip for="editingTemplateInput" orientation="top" tooltip-message="[[validationResult.message]]" opened="[[_showValidationError]]" ignore-target-events="">
+      </px-tooltip></div>
+    </template>
+  </template>
+  <script>{var DataGridStringRenderer=function(_Predix$DataGridRende){babelHelpers.inherits(DataGridStringRenderer,_Predix$DataGridRende);function DataGridStringRenderer(){babelHelpers.classCallCheck(this,DataGridStringRenderer);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridStringRenderer).apply(this,arguments))}babelHelpers.createClass(DataGridStringRenderer,[{key:"validate",value:function validate(){return{valid:!this.column.required||0<this.value.length,message:this.localize("Value is required")}}},{key:"getClasses",value:function getClasses(result){return!result||result.valid?"text-input":"text-input validation-error"}}],[{key:"is",get:function get(){return"px-data-grid-string-renderer"}}]);return DataGridStringRenderer}(Predix.DataGridRendererMixin(Polymer.Element));customElements.define(DataGridStringRenderer.is,DataGridStringRenderer);window.Predix=window.Predix||{};Predix.DataGridStringRenderer=DataGridStringRenderer}</script>
+</dom-module>
+</body></html>

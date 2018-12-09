@@ -1,0 +1,63 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-simple-line-chart.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-simple-line-chart-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-simple-line-chart" description="The Simple Line Chart provides a quick way to visualize linear data. Configuration options include
+      setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line
+      at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing
+      the labels of the min, max, and threshold." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <div>
+          <px-simple-line-chart width="{{props.width.value}}" height="{{props.height.value}}" min="{{props.min.value}}" max="{{props.max.value}}" columns="{{props.columns.value}}" rows="{{props.rows.value}}" line-data="{{props.lineData.value}}" threshold="{{props.threshold.value}}" min-label="{{props.minLabel.value}}" max-label="{{props.maxLabel.value}}" threshold-label="{{props.thresholdLabel.value}}" max-data-points="{{props.maxDataPoints.value}}">
+          </px-simple-line-chart>
+        </div>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-simple-line-chart" scripts-includes="[[scriptsIncludes]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-simple-line-chart"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-simple-line-chart-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},scriptsIncludes:{type:Array,value:function value(){return["https://d3js.org/d3.v3.min.js"]}},configs:{type:Array,value:function value(){var data=[[139710246e4,1.99],[139713966e4,1.92],[13971774e5,1.97],[139722804e4,1.12],[139724826e4,1.09],[139729128e4,1],[13973181e5,1.99],[13973421e5,1.75],[139739082e4,1.11],[13974081e5,1.93],[13974588e5,1.84],[139752294e4,1.99]];return[{configName:"Simple",configShowProps:["lineData","width","height","columns","rows"],configReset:!0},{configName:"Full config",lineData:data,width:"350",height:"250",min:"0.5",max:"3.0",columns:"5",rows:"3",threshold:"1.8",minLabel:"min",maxLabel:"max",thresholdLabel:"avg"}]}}},demoProps:{lineData:{type:Array,defaultValue:[[1,2],[2,3],[3,4]],inputType:"code:JSON"},width:{type:String,defaultValue:"",inputType:"text"},height:{type:String,defaultValue:"",inputType:"text"},min:{type:String,defaultValue:"",inputType:"text"},max:{type:String,defaultValue:"",inputType:"text"},columns:{type:String,defaultValue:"7",inputType:"text"},rows:{type:String,defaultValue:"7",inputType:"text"},threshold:{type:String,defaultValue:"",inputType:"text"},minLabel:{type:String,defaultValue:"",inputType:"text"},maxLabel:{type:String,defaultValue:"",inputType:"text"},thresholdLabel:{type:String,defaultValue:"",inputType:"text"}}});</script>
+</body></html>

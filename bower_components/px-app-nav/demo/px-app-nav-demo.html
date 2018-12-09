@@ -1,0 +1,64 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this componnent -->
+
+<link rel="import" href="../px-app-nav.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-app-nav-demo">
+  <template>
+    <style>#wrapper{position:relative;}px-app-nav{z-index:10;}px-app-nav[vertical]{position:absolute;top:0;left:0;}</style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-app-nav" description="The side navigation is the highest level of navigation, for navigating between major sections of the application.
+            Navigation items can be nested, with sub-items. Each major navigation item should have a unique and descriptive icon." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" id="demoComponent" style="width:100%; height:500px; position:relative; display:block;">
+        <px-app-nav id="appNav" items="[[props.items.value]]" vertical="[[props.vertical.value]]" collapse-with-icon="[[props.collapseWithIcon.value]]" collapse-all="[[props.collapseAll.value]]" collapse-at="[[props.collapseAt.value]]" selected-meta="{{props.selectedMeta.value}}" selected="{{selected}}" selected-route="{{props.selectedRoute.value}}">
+        </px-app-nav>
+
+        <div id="wrapper">
+          <h4>Selected property is:</h4>
+          <p>[[_returnJson(selected)]]</p>
+        </div>
+</px-demo-component>
+<!-- END Component ------------------------------------------------------>
+
+<px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-app-nav">
+</px-demo-component-snippet>
+</px-demo-interactive>
+
+<!-- API Viewer -->
+<px-demo-api-viewer source="px-app-nav"></px-demo-api-viewer>
+
+<!-- Footer -->
+<px-demo-footer></px-demo-footer>
+
+</template>
+
+</dom-module>
+<script>Polymer({is:"px-app-nav-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Horizontal",configReset:!0},{configName:"Vertical",vertical:!0,configReset:!0},{configName:"Collapsed All",collapseAll:!0,configReset:!0},{configName:"Collapsed At",collapseAll:null,collapseAt:500,configReset:!0}]}}},demoProps:{items:{type:Array,defaultValue:[{label:"Home",id:"home",icon:"px-fea:home"},{label:"Alerts",id:"alerts",icon:"px-fea:alerts",metadata:{openCases:"12",closedCases:"82"}},{label:"Assets",id:"assets",icon:"px-fea:asset",children:[{label:"Asset #1",id:"a1"},{label:"Asset #2",id:"a2"}]},{label:"Dashboards",id:"dashboards",icon:"px-fea:dashboard",children:[{label:"See Live Truck View",id:"trucks",icon:"px-obj:truck"},{label:"Track Orders",id:"orders",icon:"px-fea:orders"},{label:"Analyze Invoices",id:"invoices",icon:"px-fea:templates"}]}],inputType:"code:JSON"},vertical:{type:Boolean,defaultValue:!1,inputType:"toggle"},collapseWithIcon:{type:Boolean,defaultValue:!1,inputType:"toggle"},collapseAll:{type:Boolean,defaultValue:!1,inputType:"toggle"},collapseAt:{type:Number,defaultValue:!1,inputType:"number",inputHelpText:"collapseAll must be null for collapseAt to work"},selectedRoute:{type:Array,defaultValue:["home"],inputType:"code:JSON"},selectedMeta:{type:Object,defaultValue:{},inputType:"code:JSON",inputHelpText:"Read Only"}},observers:["_returnPos(props.vertical.value)"],listeners:{firstItem:"firstItemFunction",subitemTwo:"subitemTwoFunction"},attached:function attached(){var div=this.$.demoComponent,nav=this.$.appNav;nav.set("fitInto",div);window.requestAnimationFrame(function(){nav.notifyResize()})},firstItemFunction:function firstItemFunction(e){console.log("Event 'firstItem' attached to a nav item via the 'eventName' prop was fired")},subitemTwoFunction:function subitemTwoFunction(e){console.log("Event 'subitemTwo' attached to a nav item via the 'eventName' prop was fired.")},_returnJson:function _returnJson(json){return JSON.stringify(json)},_returnPos:function _returnPos(vertical){var div=this.$$("#wrapper");if(vertical){div.style.top="10px";div.style.left="90px"}else{div.style.top="20px";div.style.left="10px"}}});</script>
+</body></html>

@@ -1,0 +1,91 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Creates a header for Predix UI demo pages.
+
+##### Usage
+
+    <px-demo-header
+        module-name="px-calendar-picker"
+        description="The px-calendar-picker component includes various elements used for structuring responsive layouts. This component allows the user to select a date or date range. The main use of this component is to be used in the px-range-panel.">
+    </px-demo-header>
+
+@element px-demo-header
+@blurb Creates a header for Predix UI demo pages.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-header">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <section class="demo-background--base">
+      <div class="demo-layout--center u-pv++ text--shadow">
+        <div class="flex flex--row flex--wrap">
+          <div class="flex__item flex__item__msfix u-mb">
+            <h1 class="delta">{{moduleName}}</h1>
+            <div class="demo-text-width--max">
+              <p>{{description}}</p>
+            </div>
+            <template is="dom-if" if="{{!hideShields}}">
+              <div class="flex u-mb demo-header__shield-badge-container">
+                <img class="demo-header__badge-container__badge u-mr--" src="{{_getShieldUrl(_shieldName, githubOrg, 'Travis')}}" alt="Travis Status" onerror="this.style.display='none'" on-load="_shieldImgLoaded">
+                <img class="demo-header__badge-container__badge u-mr--" src="{{_getShieldUrl(_shieldName, githubOrg, 'Bower')}}" alt="Bower Version" onerror="this.style.display='none'" on-load="_shieldImgLoaded">
+                <img class="demo-header__badge-container__badge u-mr--" src="{{_getShieldUrl(_shieldName, githubOrg, 'GitHub')}}" alt="GitHub Issues Count" onerror="this.style.display='none'" on-load="_shieldImgLoaded">
+              </div>
+            </template>
+            <div class="flex flex--row">
+              <div class="flex flex--col flex--middle u-mr++">
+                <template is="dom-if" if="{{mobile}}">
+                  <span class="caps u-mb--">Mobile</span>
+                  <px-icon title="Recommended for mobile" class="device-icon u-mr--" icon="px-utl:phone"></px-icon>
+                </template>
+                <template is="dom-if" if="{{!mobile}}">
+                  <span class="caps u-mb-- muted">Mobile</span>
+                  <px-icon title="Not recommended for mobile" class="device-icon u-mr-- muted" icon="px-utl:phone"></px-icon>
+                </template>
+              </div>
+              <div class="flex flex--col flex--middle u-mr++">
+                <template is="dom-if" if="{{tablet}}">
+                  <span class="caps u-mb--">Tablet</span>
+                  <px-icon title="Recommended for tablet" class="device-icon u-mr--" icon="px-utl:tablet"></px-icon>
+                </template>
+                <template is="dom-if" if="{{!tablet}}">
+                  <span class="caps u-mb-- muted">Tablet</span>
+                  <px-icon title="Not recommended for tablet" class="device-icon u-mr-- muted" icon="px-utl:tablet"></px-icon>
+                </template>
+              </div>
+              <div class="flex flex--col flex--middle u-mr++">
+                <template is="dom-if" if="{{desktop}}">
+                  <span class="caps u-mb--">Desktop</span>
+                  <px-icon title="Recommended for desktop" class="device-icon u-mr--" icon="px-utl:desktop-computer"></px-icon>
+                </template>
+                <template is="dom-if" if="{{!desktop}}">
+                  <span class="caps u-mb-- muted">Desktop</span>
+                  <px-icon title="Not recommended for desktop" class="device-icon u-mr-- muted" icon="px-utl:desktop-computer"></px-icon>
+                </template>
+              </div>
+            </div>
+          </div>
+          <a class="actionable u-mt+" href="https://github.com/[[githubOrg]]/{{_shieldName}}" target="_blank" rel="noopener">
+            <px-icon class="menu__open u-mr--" icon="px-nav:new-window"></px-icon>View on Github
+          </a>
+        </div>
+      </div>
+    </section>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-header",properties:{moduleName:{type:String,value:""},description:{type:String,value:""},hideShields:{type:Boolean,value:!1},parentName:{type:String,value:""},_shieldName:{type:String,computed:"_computeShieldName(moduleName, parentName)"},desktop:{type:Boolean,value:!1},tablet:{type:Boolean,value:!1},mobile:{type:Boolean,value:!1},githubOrg:{type:String,value:"predixdesignsystem"}},_computeShieldName:function _computeShieldName(moduleName,parentName){if(moduleName&&"string"===typeof moduleName){parentName=parentName||"";return parentName.length?parentName:moduleName}},_getShieldUrl:function _getShieldUrl(shield,org,service){if("string"===typeof shield){if("Travis"===service){return"https://img.shields.io/travis/"+org+"/"+shield+"/master.svg?style=flat-square"}else if("Bower"===service){return"https://img.shields.io/github/tag/"+org+"/"+shield+".svg?style=flat-square&label=bower"}else if("GitHub"===service){return"https://img.shields.io/github/issues-raw/"+org+"/"+shield+".svg?style=flat-square"}}},_shieldImgLoaded:function _shieldImgLoaded(evt){evt=Polymer.dom(evt);this.toggleClass("demo-header__badge-container__badge--loaded",!0,evt.localTarget)}});</script>
+</body></html>

@@ -1,0 +1,61 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../css/predix-ui-hero-animation-icons-styles.html">
+
+</head><body><dom-module id="predix-ui-hero-animation-chart">
+  <template>
+    <style include="predix-ui-hero-animation-icons-styles">.draw{animation:draw 2s ease;}@keyframes draw{from{width:0;opacity:0;}10%{opacity:1;}to{width:230;}}.fade{animation:fade 0.5s linear;}@keyframes fade{from{fill-opacity:1;}to{fill-opacity:0;}}.barFade{animation:barFade 0.5s linear;}@keyframes barFade{from{fill-opacity:0;}to{fill-opacity:1;}}.barDraw{animation:barDraw 2.5s ease-in-out;}@keyframes barDraw{0%{height:0;}100%{height:70;}}.hide{fill-opacity:0 !important;}.register-text{fill:var(--animation-chart-labels-color, #d8e0e5);}</style>
+
+    <div id="wrapper">
+      <svg id="base" xmlns="http://www.w3.org/2000/svg" width$="[[size]]" height$="[[size]]" viewBox="0 0 300 50">
+
+        <g id="chart">
+          <polygon id="chart1" class="chart-color-1" clip-path="url(#cp1)" points="230 13.77 230 1.53 217.92 2.79 205.82 0 193.73 0.26 181.64 2.26 169.55 1.79 157.46 0.37 145.37 3.05 133.28 5.21 121.2 6.26 109.11 4.84 97.01 4.79 84.92 7.52 72.84 10.68 60.74 8.81 48.65 8.81 36.56 13 24.48 9.73 12.38 13.62 0.29 15.49 0.29 19.87 12.38 18.87 24.48 15.87 32.53 15.13 24.48 15.87 12.38 18.87 0.29 19.87 0.29 35.3 0 45.3 230 45.3 230 19.3 217.91 20.56 214.45 19.76 217.91 20.56 230 19.3 230 13.77"></polygon>
+          <polygon id="chart2" class="chart-color-2" clip-path="url(#cp2)" points="217.92 12.3 205.82 13.9 193.73 11.3 181.64 13.22 169.56 14.56 157.46 14.3 145.37 12.16 133.28 14.5 121.19 18.4 109.11 16.3 97.01 17.75 84.92 16.22 72.84 13.16 60.74 13.7 48.65 15.79 36.56 14.79 24.48 15.9 12.38 18.9 0.29 19.86 0.29 33.24 12.38 31.38 24.48 27.49 24.48 27.49 12.38 31.37 0.29 33.24 0.29 35.3 0 45.3 230 45.3 230 19.3 217.92 20.54 214.46 19.74 217.92 20.54 230 19.3 230 13.76 217.92 12.3"></polygon>
+          <polygon id="chart3" class="chart-color-3" clip-path="url(#cp3)" points="217.92 20.55 205.82 17.76 193.73 18.02 181.64 20.02 169.56 19.55 157.46 18.13 145.37 20.81 133.28 22.97 121.2 24.02 109.1 22.6 97.01 22.55 84.92 25.28 72.83 28.44 60.74 26.57 48.65 26.57 36.56 30.75 24.48 27.49 12.38 31.38 0.29 33.25 0.29 35.3 0 45.3 230 45.3 230 29.23 230 29.2 230 19.28 217.92 20.55"></polygon>
+
+          <clipPath id="cp1">
+            <rect id="cp1Rect" x="0" y="0" width="230" height="45"></rect>
+          </clipPath>
+          <clipPath id="cp2">
+            <rect id="cp2Rect" x="0" y="0" width="230" height="45"></rect>
+          </clipPath>
+          <clipPath id="cp3">
+            <rect id="cp3Rect" x="0" y="0" width="230" height="45"></rect>
+          </clipPath>
+        </g>
+
+        <g id="register">
+          <clipPath id="cpr">
+            <rect id="cprRect" x="265" y="-16" width="35" height="70"></rect>
+          </clipPath>
+
+          <rect id="bar1" class="chart-color-1" x="261" y="-15" width="1" height="10"></rect>
+          <g>
+            <rect x="267" y="-7" width="25" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="-11" width="17" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="-15" width="28" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+          </g>
+
+          <rect id="bar2" class="chart-color-2" x="261" y="8" width="1" height="10"></rect>
+          <g>
+            <rect x="267" y="16" width="25" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="12" width="17" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="8" width="28" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+          </g>
+
+          <rect id="bar3" class="chart-color-3" x="261" y="29" width="1" height="10"></rect>
+          <g>
+            <rect x="267" y="38" width="25" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="34" width="17" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+            <rect x="267" y="29" width="28" height="1" class="register-text" clip-path="url(#cpr)"></rect>
+          </g>
+        </g>
+
+        <rect on-mouseenter="play" x="0" y="0" width="300" height="50" fill="none" pointer-events="all"></rect>
+      </svg>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"predix-ui-hero-animation-chart",properties:{size:{type:Number,value:305},_animationPlaying:{type:Boolean,value:!1},_boundDraw:Function,_boundReset:Function},ready:function ready(){this._boundDraw=this._draw.bind(this);this._boundReset=this._reset.bind(this)},play:function play(){if(this._animationPlaying){return}this._animationPlaying=!0;this.$.base.addEventListener("animationend",this._boundDraw);this.$.base.classList.add("fade")},_draw:function _draw(){this.$.base.removeEventListener("animationend",this._boundDraw);this.$.chart1.classList.add("hide");this.$.chart2.classList.add("hide");this.$.chart3.classList.add("hide");this.$.cp3Rect.classList.add("draw");this.$.bar1.classList.add("barFade");this.$.bar2.classList.add("barFade");this.$.bar3.classList.add("barFade");this.$.cprRect.classList.add("barDraw");this.$.base.classList.remove("fade");this.$.chart3.classList.remove("hide");setTimeout(function(){this.$.cp2Rect.classList.add("draw");this.$.chart2.classList.remove("hide")}.bind(this),250);setTimeout(function(){this.$.cp1Rect.classList.add("draw");this.$.chart1.classList.remove("hide")}.bind(this),500);this.$.cp1Rect.addEventListener("animationend",this._boundReset)},_reset:function _reset(){this.$.cp1Rect.removeEventListener("animationend",this._boundReset);this.$.cp1Rect.classList.remove("draw");this.$.cp2Rect.classList.remove("draw");this.$.cp3Rect.classList.remove("draw");this.$.bar1.classList.remove("barFade");this.$.bar2.classList.remove("barFade");this.$.bar3.classList.remove("barFade");this.$.cprRect.classList.remove("barDraw");this._animationPlaying=!1}});</script>
+</body></html>

@@ -1,0 +1,52 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-chip/px-chip.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="css/px-data-grid-filters-preview-styles.html">
+
+
+</head><body><dom-module id="px-data-grid-filters-preview">
+  <template>
+    <style include="px-data-grid-filters-preview-styles"></style>
+
+    <template is="dom-if" if="[[!_filtersGrouped(flattenFilterEntities)]]">
+      <template is="dom-repeat" items="[[filters]]" as="section">
+        <template is="dom-repeat" items="[[section.entities]]" as="entity">
+          <template is="dom-if" if="[[entity.active]]">
+            <px-tooltip for="chip-[[index]]" orientation="top" smartorientation="" tooltip-message="[[_getTooltipMessage(entity, section, filters.*, localize)]]">
+            </px-tooltip>
+            <px-chip id="chip-[[index]]" class="filter-entity-chip" content="[[_getChipTitle(entity, entity.*)]]" icon="px-utl:close" entity="[[entity]]" section="[[section]]" not-selectable="" show-icon="">
+            </px-chip>
+          </template>
+        </template>
+      </template>
+    </template>
+
+    <template is="dom-if" if="[[_filtersGrouped(flattenFilterEntities)]]">
+      <px-chip id="filter-group-chip" not-selectable="" content="[[flattenFilterEntities.length]] [[localize('filters applied')]]">
+      </px-chip>
+    </template>
+
+    <template is="dom-if" if="[[_hasMultipleFilters(flattenFilterEntities)]]">
+      <button class="btn btn--small btn--bare--primary clear-all-filters" on-click="_dispatchClearFilters">[[localize('Clear all filters')]]</button>
+    </template>
+  </template>
+
+  <script>{var DataGridFiltersPreviewElement=function(_Polymer$Element){babelHelpers.inherits(DataGridFiltersPreviewElement,_Polymer$Element);function DataGridFiltersPreviewElement(){babelHelpers.classCallCheck(this,DataGridFiltersPreviewElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridFiltersPreviewElement).apply(this,arguments))}babelHelpers.createClass(DataGridFiltersPreviewElement,[{key:"ready",value:function ready(){var _this=this;babelHelpers.get(babelHelpers.getPrototypeOf(DataGridFiltersPreviewElement.prototype),"ready",this).call(this);this.addEventListener("px-chip-tapped",function(ev){var chip=ev.composedPath()[0];if(chip.entity){_this.dispatchEvent(new CustomEvent("remove-filter",{detail:{section:chip.section,entity:chip.entity},bubbles:!0,composed:!0}))}else{_this.dispatchEvent(new CustomEvent("trigger-filters-modal",{bubbles:!0,composed:!0}))}})}},{key:"_dispatchClearFilters",value:function _dispatchClearFilters(){this.dispatchEvent(new CustomEvent("clear-filters",{bubbles:!0,composed:!0}))}},{key:"_getColumnById",value:function _getColumnById(columnId){if("-any-"===columnId){return{id:"-any-",type:"string",header:this.localize("Any column"),path:"any"}}return this.columns.filter(function(column){return column.id===columnId})[0]}},{key:"_getFlattenFilterEntities",value:function _getFlattenFilterEntities(filters){return filters.map(function(section){return section.entities}).reduce(function(a,b){return a.concat(b)},[]).filter(function(entity){return entity.active})}},{key:"_capitalizeString",value:function _capitalizeString(str){return str.charAt(0).toUpperCase()+str.slice(1)}},{key:"_underscoreToHumanReadable",value:function _underscoreToHumanReadable(str){return this._capitalizeString(str.split("_").join(" "))}},{key:"_getTooltipMessage",value:function _getTooltipMessage(entity,section){var column=this._getColumnById(entity.columnId),name=column.header?column.header:column.name?column.name:column.path;switch(column.type){case"number":if(entity.leftBound!==void 0&&entity.rightBound!==void 0){return"".concat(section.action," ").concat(section.operationType," / ").concat(name," / ").concat(this.localize("Between"))}else if(entity.condition!==void 0&&entity.value!==void 0){return"".concat(section.action," ").concat(section.operationType," / ").concat(name," / ")+"".concat(this.localize(this._underscoreToHumanReadable(entity.condition)))}break;case"date":{return"Date Range /\n                ".concat(this._formatDateForTooltip(entity.dateFrom,column)," -\n                ").concat(this._formatDateForTooltip(entity.dateTo,column),"\n              ")}default:return"".concat(section.action," ").concat(section.operationType," / ").concat(name," / ").concat(entity.pattern);}}},{key:"_getChipTitle",value:function _getChipTitle(entity){var column=this._getColumnById(entity.columnId);switch(column.type){case"number":if(entity.leftBound!==void 0&&entity.rightBound!==void 0){return"".concat(entity.leftBound,", ").concat(entity.rightBound)}else if(entity.value!==void 0){return entity.value}break;case"date":{return"\n                ".concat(this._formatDateForChip(entity.dateFrom,column)," -\n                ").concat(this._formatDateForChip(entity.dateTo,column),"\n              ")}default:if(15>=entity.query.length){return entity.query}else{return entity.query.slice(0,11)+"\u2026"+entity.query.slice(-4)}}}},{key:"_filtersGrouped",value:function _filtersGrouped(flattenFilterEntities){return flattenFilterEntities.length>this.filtersLimit}},{key:"_hasMultipleFilters",value:function _hasMultipleFilters(flattenFilterEntities){return 1<flattenFilterEntities.length}},{key:"_formatDateForTooltip",value:function _formatDateForTooltip(value,column){return this._getFormattedDate(value,column,this._getSourceTimezone(column),this._getSourceFormat(column),this._getDisplayTimezone(column),this._getDisplayFormat(column))}},{key:"_formatDateForChip",value:function _formatDateForChip(value,column){return this._getFormattedDate(value,column,this._getSourceTimezone(column),this._getSourceFormat(column),this._getDisplayTimezone(column),"YYYY/MM/DD")}},{key:"_getFormattedDate",value:function _getFormattedDate(value,column,sourceTimezone,sourceFormat,displayTimezone,displayFormat){var result;if(value){var momentValue;if("ISO"===this.dateFormat){momentValue=window.Px.moment(value)}else{momentValue=window.Px.moment.tz(value,sourceFormat,sourceTimezone)}if(momentValue){if("ISO"===this.displayFormat){result=momentValue.toISOString()}else{result=momentValue.tz(displayTimezone).format(displayFormat)}}else{console.warn("Unknown date value: \""+value+"\"");result=""}}else{result=""}return result}},{key:"_getSourceTimezone",value:function _getSourceTimezone(column){if(column.dateFormat&&column.dateFormat.timezone){return column.dateFormat.timezone}else{return"UTC"}}},{key:"_getDisplayTimezone",value:function _getDisplayTimezone(column){if(column.rendererConfig&&column.rendererConfig.timezone){return column.rendererConfig.timezone}else{return"UTC"}}},{key:"_getSourceFormat",value:function _getSourceFormat(column){if(column.dateFormat&&column.dateFormat.format){return column.dateFormat.format}else{return"ISO"}}},{key:"_getDateFormat",value:function _getDateFormat(column){if(column.rendererConfig&&column.rendererConfig.displayFormat){return column.rendererConfig.displayFormat}else{return"YYYY/MM/DD"}}},{key:"_getDisplayFormat",value:function _getDisplayFormat(column){if(column.rendererConfig&&column.rendererConfig.displayFormat){return column.rendererConfig.displayFormat}else{return"YYYY/MM/DD HH:mm:ss"}}}],[{key:"is",get:function get(){return"px-data-grid-filters-preview"}},{key:"properties",get:function get(){return{filters:{type:Array},flattenFilterEntities:{type:Array,computed:"_getFlattenFilterEntities(filters, filters.*)"},filtersLimit:{type:Number,value:5},columns:{type:Array},localize:Function}}}]);return DataGridFiltersPreviewElement}(Polymer.Element);customElements.define(DataGridFiltersPreviewElement.is,DataGridFiltersPreviewElement);window.Predix=window.Predix||{};Predix.DataGridFiltersPreviewElement=DataGridFiltersPreviewElement}</script>
+
+</dom-module>
+</body></html>

@@ -1,0 +1,106 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-spacing-responsive-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-spacing-responsive-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-spacing-responsive-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-spacing-responsive-design" description="The Predix UI Spacing Responsive module is an extension of the default px-spacing-design module and provides breakpoint-based classes for nudging margins and paddings around responsively." layer="trumps" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-spacing-design&quot;,
+    &quot;https://github.com/PredixDev/px-helpers-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<px-sass-doc-option slot="options" option-name="Margin Size" choose-with="dropdown" choices="[
+    &quot;tiny&quot;,
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;,
+    &quot;none&quot;,
+    &quot;negative-tiny&quot;,
+    &quot;negative-small&quot;,
+    &quot;negative-regular&quot;,
+    &quot;negative-large&quot;,
+    &quot;negative-huge&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Margin Direction" choose-with="dropdown" choices="[
+    &quot;all (default)&quot;,
+    &quot;top&quot;,
+    &quot;right&quot;,
+    &quot;bottom&quot;,
+    &quot;left&quot;,
+    &quot;vertical&quot;,
+    &quot;horizontal&quot;
+  ]" default-choice="all (default)">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Padding Size" choose-with="dropdown" choices="[
+    &quot;none&quot;,
+    &quot;tiny&quot;,
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Padding Direction" choose-with="dropdown" choices="[
+    &quot;all (default)&quot;,
+    &quot;top&quot;,
+    &quot;right&quot;,
+    &quot;bottom&quot;,
+    &quot;left&quot;,
+    &quot;vertical&quot;,
+    &quot;horizontal&quot;
+  ]" default-choice="all (default)">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Reverse RTL" choose-with="boolean">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Breakpoint" choose-with="dropdown" choices="[
+    &quot;desk&quot;,
+    &quot;portable&quot;,
+    &quot;lap-and-up&quot;,
+    &quot;lap&quot;,
+    &quot;palm&quot;
+  ]" default-choice="desk">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html" style="border: 1px solid black; opacity: 0.5;width:max-content" dir="{{direction}}">
+<div id="parent" class$="{{divClasses}}">
+  <div id="child"></div>
+</div>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+For each "breakpoint" set in px-helpers-design [$breakpoint list](https://github.com/PredixDev/px-helpers-design/blob/master/_generic.helpers.scss#L23-L30), a class will be appended i.e. u-[breakpoint-name]-classname, where the classname follows the following convention. Margin dimensions are set in the Predix UI [spacing-design](https://github.com/PredixDev/px-spacing-design) module.
+```
+.u-[breakpoint]-[negative][type][direction][size]
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-spacing-responsive-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.importCode=this._importCode();this.divClasses=this._divClasses();this.direction=this._direction();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_divClasses:function _divClasses(){var opts=this.selectedOptions||{},strings=[],margin="u-",padding="u-";margin+=opts.Breakpoint;if(-1<opts["Margin Size"].indexOf("negative"))margin+="-";margin+="-m";if("top"===opts["Margin Direction"])margin+="t";if("right"===opts["Margin Direction"])margin+="r";if("bottom"===opts["Margin Direction"])margin+="b";if("left"===opts["Margin Direction"])margin+="l";if("vertical"===opts["Margin Direction"])margin+="v";if("horizontal"===opts["Margin Direction"])margin+="h";if("none"===opts["Margin Size"])margin+="0";if(-1<opts["Margin Size"].indexOf("tiny"))margin+="--";if(-1<opts["Margin Size"].indexOf("small"))margin+="-";if(-1<opts["Margin Size"].indexOf("large"))margin+="+";if(-1<opts["Margin Size"].indexOf("huge"))margin+="++";padding+=opts.Breakpoint;padding+="-p";if("top"===opts["Padding Direction"])padding+="t";if("right"===opts["Padding Direction"])padding+="r";if("bottom"===opts["Padding Direction"])padding+="b";if("left"===opts["Padding Direction"])padding+="l";if("vertical"===opts["Padding Direction"])padding+="v";if("horizontal"===opts["Padding Direction"])padding+="h";if("none"===opts["Padding Size"])padding+="0";if("tiny"===opts["Padding Size"])padding+="--";if("small"===opts["Padding Size"])padding+="-";if("large"===opts["Padding Size"])padding+="+";if("huge"===opts["Padding Size"])padding+="++";strings.push(margin);strings.push(padding);return strings.join(" ").trim()},_importCode:function _importCode(){var opts=this.selectedOptions||{},strings=[];if("negative-huge"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--negative-huge : true;");if("negative-large"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--negative-large : true;");if("negative"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--negative : true;");if("negative-small"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--negative-small : true;");if("negative-tiny"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--negative-tiny : true;");if("none"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--none : true;");if("tiny"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--tiny : true;");if("small"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--small : true;");if("regular (default)"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins : true;");if("large"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--large : true;");if("huge"===opts["Margin Size"])strings.push("$inuit-enable-responsive-margins--huge : true;");if(!0===opts["Reverse RTL"])strings.push("$inuit-enable-responsive-margins--rtl : true;");if("none"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings--none : true;");if("tiny"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings--tiny : true;");if("small"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings--small : true;");if("regular (default)"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings : true;");if("large"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings--large : true;");if("huge"===opts["Padding Size"])strings.push("$inuit-enable-responsive-paddings--huge : true;");if(!0===opts["Reverse RTL"])strings.push("$inuit-enable-responsive-paddings--rtl : true;");return(strings.join("\n")+"\n@import 'px-spacing-responsive-design/_trumps.spacing-responsive.scss';").trim()},_direction:function _direction(){var opts=this.selectedOptions||{};if(!0===opts["Reverse RTL"]){return"rtl"}else{return"ltr"}}});</script>
+</body></html>

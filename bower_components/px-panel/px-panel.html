@@ -1,0 +1,80 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-panel-styles.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+<!--
+
+### Usage
+
+Docked to its parent container (default):
+
+    <px-panel>
+      <div slot="content">Content</div>
+    </px-panel>
+
+#### Note: The parent container should be positioned (e.g. relative, absolute, or fixed; not static).
+
+Docked to the window:
+
+    <px-panel position="left" fixed>
+      <div slot="content">Content</div>
+    </px-panel>
+
+Full configuration example:
+
+    <px-panel background="dark" fixed floating minimizable>
+
+      // Use this slot for the panel in its minimized state.
+      // Write your own openPanel handler that calls .open() on the px-panel
+      <div slot="minimized">
+        <px-icon icon="px-nav:expand" style="transform:rotate(-90deg)" on-tap="openPanel"></px-icon>
+      </div>
+
+      // Use this slot for the main content of your panel in its opened state.
+      // Write your own closePanel handler that calls .close() on the px-panel
+      <div slot="content">
+        <px-icon icon="px-nav:close" on-tap="closePanel"></px-icon>
+        // Other content with appropriate layout
+        <button class="btn" on-tap="closePanel">Cancel</button>
+        <button class="btn btn--primary" on-tap="closePanel">Apply</button>
+      </div>
+
+    </px-panel>
+
+### Styling
+
+Custom property | Description
+:------------ | :-------------
+`--px-panel-size` | Width (left/right) or height (top/bottom) of the panel
+`--px-panel-size--minimized` | Width (left/right) or height (top/bottom) of the panel when "minimized"
+`--px-panel-bg-color--light` | Background color for "light" panels
+`--px-panel-bg-color--medium` | Background color for "medium" panels
+`--px-panel-bg-color--dark` | Background color for "dark" panels
+`--px-panel-offset--top` | Offset for top of panel when "floating"
+`--px-panel-offset--right` | Offset for right side of panel when "floating"
+`--px-panel-offset--bottom` | Offset for bottom of panel when "floating"
+`--px-panel-offset--left` | Offset for left side of panel when "floating"
+`--px-panel-z-index` | Z-index of the panel - should be adjusted if multiple overlapping panels are possible
+
+    @element px-panel
+    @blurb A panel for placing controls or content. Can be fixed or shown and hidden.
+    @homepage index.html
+    @demo index.html
+-->
+
+</head><body><dom-module id="px-panel">
+  <template>
+    <style include="px-panel-styles"></style>
+    <div class$="container {{_getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,_fullSize)}}" aria-expanded$="[[opened]]">
+      <div class="content" aria-hidden$="[[!opened]]">
+        <slot name="content"></slot>
+      </div>
+      <div class="minimized" aria-hidden$="[[_isHidden(minimizable,opened)]]">
+        <slot name="minimized"></slot>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script src="dist/px-panel.js"></script>
+</body></html>

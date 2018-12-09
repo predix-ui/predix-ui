@@ -1,0 +1,60 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-selector/iron-selectable.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="px-tab.html">
+<link rel="import" href="css/px-tabs-styles.html">
+
+<!--
+The px-tabs and px-tab components together provide the tabbed interface. The tabbed content is expected to be contained in a separate iron-pages component.
+
+Note: There is no limit on the number of tabs in a set, but there is no support for scrolling or wrapping.
+
+### Usage
+```
+    <px-tabs selected="{{selected}}">
+        <px-tab>Tab 1</px-tab>
+        <px-tab>Tab 2</px-tab>
+        <px-tab>Tab 3</px-tab>
+    </px-tabs>
+    <iron-pages selected="{{selected}}">
+        <div>Tab 1 content</div>
+        <div>Tab 2 content</div>
+        <div>Tab 3 content</div>
+    </iron-pages>
+```
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-tab-color` | Text color for unselected tabs
+`--px-tab-color--hover` | Text color for unselected tabs on hover
+`--px-tab-color--active` | Text color for unselected tabs on press
+`--px-tab-color--selected` | Text and border color for selected tab
+`--px-tab-border-color` | Border color for unselected tabs
+|
+`--px-tabs-container` | Mixin for the tab container (e.g. to add flex-wrap)
+
+@element px-tabs
+@blurb Container for px-tab elements
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-tabs">
+  <template>
+    <style include="px-tabs-styles"></style>
+
+    <div id="container" class="tabs-container" tabindex="0">
+      <div class="tabs-container__nav flex">
+        <slot id="tabdefs"></slot>
+      </div>
+    </div>
+
+    <iron-a11y-keys target="[[_target]]" keys="right up" on-keys-pressed="_increment"></iron-a11y-keys>
+    <iron-a11y-keys target="[[_target]]" keys="left down" on-keys-pressed="_decrement"></iron-a11y-keys>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-tabs",behaviors:[Polymer.IronSelectableBehavior],listeners:{"iron-select":"_onIronSelect"},properties:{_target:{type:Object,value:function value(){return""}}},attached:function attached(){this.setAttribute("role","tablist");this._target=this.$.container},_increment:function _increment(evt){evt.detail.keyboardEvent.preventDefault();this.selectNext()},_decrement:function _decrement(evt){evt.detail.keyboardEvent.preventDefault();this.selectPrevious()},_onIronSelect:function _onIronSelect(evt){this.fire("px-tab-changed",{tabID:Polymer.dom(evt).event.detail.item.id},{bubbles:!0,cancelable:!1})}});</script>
+</body></html>

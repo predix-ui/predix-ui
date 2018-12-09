@@ -1,0 +1,89 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="css/px-login-styles.html">
+<link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../px-popover/px-popover.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+<!--
+Element providing a login/logout button that integrates nicely with Cloud Foundry's UAA.
+Supports custom menu items for other routes in your application, for instance a "Settings" page.
+By default, the component will call UAA for user info on load, but this can be disabled with the
+do-not-fetch-user-info-on-load property.
+
+### Usage
+
+    <px-login
+      login-url="/login"
+      logout-url="/logout"
+      user-info-url="/userinfo"
+      do-not-fetch-user-info-on-load
+      popover-location="bottom"
+      menu-items='[{"url":"#settings","label":"Settings"},{"url":"#account","label":"My Account"}]'>
+    </px-login>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:------------|:-------------
+`--px-login-button-width`   | Width of the login button including icons and text
+`--px-login-custom-icon-height` | Use with the `custom-icon` slot
+`--px-login-custom-icon-width` | Use with the `custom-icon` slot
+`--px-login-custom-icon-radius` | Use with the `custom-icon` slot
+
+@element px-login
+@blurb Element providing a login/logout button.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-login">
+  <template>
+    <style include="px-login-styles"></style>
+    <iron-ajax id="userInfoAjax" url="{{userInfoUrl}}" handle-as="json" method="GET"></iron-ajax>
+    <div>
+      <div hidden$="{{!_showLogin}}">
+        <button class="btn btn--bare login-button" id="loginButton">
+          <px-icon icon="px-nav:generic-user" class="login-button--user-icon text--center"></px-icon>
+          <template is="dom-if" if="[[!collapsed]]">[[localize("Sign In")]]</template>
+        </button>
+      </div>
+      <div hidden$="{{_showLogin}}">
+        <px-popover id="userPopover" orientation="[[popoverLocation]]" enhanced="true" for="userNameButton" hide-overlay="true">
+          <ul class="list-bare">
+            <template is="dom-repeat" items="{{menuItems}}">
+              <li class="login-menu--item truncate"><a class="actionable actionable--action" href$="{{item.url}}" title="{{item.label}}">{{item.label}}</a></li>
+            </template>
+            <li id="logoutButton"><a href="#" class="actionable actionable--action">[[localize("Sign Out")]]</a></li>
+          </ul>
+        </px-popover>
+        <button id="userNameButton" name="userNameButton" class="btn btn--bare login-button">
+          <template is="dom-if" if="[[!customUserIcon]]">
+            <px-icon icon="px-nav:generic-user" class="login-button--user-icon text--center"></px-icon>
+          </template>
+          <template is="dom-if" if="[[customUserIcon]]">
+            <div class="custom-icon">
+              <slot name="custom-icon"></slot>
+            </div>
+          </template>
+          <template is="dom-if" if="[[!collapsed]]">
+            <div class="truncate" title="{{userName}}">{{userName}}</div>
+            <px-icon icon="px-utl:chevron" class="login-button--chevron-icon"></px-icon>
+          </template>
+        </button>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-login",behaviors:[Polymer.AppLocalizeBehavior],properties:{loginUrl:{type:String,value:"/login"},userInfoUrl:{type:String,value:"/userinfo"},logoutUrl:{type:String,value:"/logout"},userName:{type:String},userInfo:{type:Object,notify:!0},userNameKey:{type:String,value:"user_name"},doNotFetchUserInfoOnLoad:{type:Boolean,value:!1},popoverLocation:{type:String,value:"bottom"},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{"Sign In":"Sign In","Sign Out":"Sign Out"}}}},menuItems:{type:Array},_showLogin:{type:Boolean,value:!0,computed:"_computeShowLogin(userName)"},customUserIcon:{type:Boolean,value:!1},collapsed:{type:Boolean,value:!1,observer:"_hidePopover"}},loginClicked:function loginClicked(event,detail,sender){window.location=Polymer.dom(this).getOwnerRoot().host.loginUrl},logoutClicked:function logoutClicked(event,detail,sender){event.preventDefault();var pxLogin=Polymer.dom(this).getOwnerRoot().host;pxLogin.userName=null;pxLogin.userInfo=null;window.location=pxLogin.logoutUrl},_computeShowLogin:function _computeShowLogin(userName){return!userName||1>userName.length},_fetchUserInfo:function _fetchUserInfo(url){this.$.userInfoAjax.url=url;if(url&&!this.doNotFetchUserInfoOnLoad){this.$.userInfoAjax.generateRequest()}},_hidePopover:function _hidePopover(collapsed){if(collapsed)this.$.userPopover.hide()},ready:function ready(){var self=this;this.$.loginButton.addEventListener("click",this.loginClicked);this.$.logoutButton.addEventListener("click",this.logoutClicked);this.$.userNameButton.addEventListener("click",function(){setTimeout(function(){self.$.userPopover.show()},10)});this.$.userInfoAjax.addEventListener("response",function(event){if(event.detail.response){self.userInfo=event.detail.response;self.userName=event.detail.response[self.userNameKey];this.fire("px-login-response-received",event.detail.response)}});this.$.userInfoAjax.addEventListener("error",function(event){this.fire("px-login-error-received",event.detail.error);console.log(event.detail.error)});this._fetchUserInfo(this.userInfoUrl)}});</script>
+</body></html>

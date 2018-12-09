@@ -1,0 +1,85 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-validator.html">
+
+<!--
+Element providing built-in as well as developer supplied validation solutions.
+Should be used in combination with [px-forms-design](https://www.predix-ui.com/#/css/px-forms-design/)
+to style inputs and display appropriate error messages in proximity to the input.
+
+### Usage
+Basic:
+
+    <px-validation>
+      <px-validator
+        validation-method="isNumber"
+        import="px-example-validator.html">
+      </px-validator>
+    </px-validation>
+
+In multi-step validation, the specified methods are tested in order. The first to fail will return an error. Example:
+
+    <px-validation>
+      <px-validator
+        multi-step-validation='["isNumber", "isBetween"]'
+        import="px-example-validator.html">
+      </px-validator>
+    </px-validation>
+
+The `import` property should specify the path of a file containing your validation methods.
+See [px-example-validator.html](https://github.com/PredixDev/px-validation/blob/master/px-example-validator.html)
+for an example structure for this file and its methods.
+
+### Usage with px-forms-design
+HTML:
+
+    <px-validation id="myValidator">
+      <px-validator multi-step-validation='["isNumber", "isBetween"]' import="px-example-validator.html"></px-validator>
+    </px-validation>
+    <input id="myInput" class="text-input input--regular" type="text" on-keyup="isValid"/><br/>
+    <small id="myError" class="caps form-field__help validation-error hidden">Enter a number between 1 and 5</small>
+
+JavaScript:
+
+    isValid: function() {
+      var result = myValidator.validate(myInput.value, 1, 5);
+      if(result.passedValidation) {
+        myErrorMessage.classList.add('hidden');
+        myInput.classList.remove('validation-error');
+      }
+      else {
+        myErrorMessage.classList.remove('hidden');
+        myInput.classList.add('validation-error');
+      }
+    }
+
+### Additional arguments
+There are two ways to specify additional arguments to be used in your validation methods:
+
+JavaScript:
+
+    myValidator.validate(value, 1, 5);
+
+HTML:
+
+    <px-validation>
+      <px-validator validation-method="isBetween" arguments="[1,5]">
+      </px-validator>
+    </px-validation>
+
+Arguments passed in the `arguments` property will be included *after* the ones passed in the JavaScript method call.
+
+
+
+@element px-validation
+@blurb Element providing built-in as well as developer supplied validation solutions
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-validation">
+  <template>
+    <slot></slot>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-validation",validate:function validate(value){var result={passedValidation:!0},validationResult,args=Array.from(arguments);Polymer.dom(this).querySelectorAll("px-validator").forEach(function(validatorEl){args=args.concat(validatorEl.arguments);validatorEl.validators.every(function(validatorMethod){validationResult=validatorMethod.apply(null,args);if(!validationResult.passedValidation){result=validationResult;return!1}return!0})});return result}});</script>
+</body></html>

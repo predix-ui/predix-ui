@@ -1,0 +1,111 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-alert-label/px-alert-label.html">
+<link rel="import" href="css/px-alert-message-styles.html">
+
+<!--
+
+### Usage
+
+    <px-alert-message
+        type="important"
+        message-title="Heads up!"
+        message="This definitely needs our attention."
+        action="https://www.predix.io/"
+        auto-dismiss="5000"
+        language="en">
+    </px-alert-message>
+
+With custom icon instead of the default severity badges:
+
+    <px-alert-message type="information" message-title="Oops!" hide-badge>
+      <px-icon icon="px-fea:analysis" style="color:white"></px-icon>
+    </px-alert-message>
+
+With custom content instead of the title/message:
+
+    <px-alert-message type="information">
+      <table slot="content">
+        ...
+      </table>
+    </px-alert-message>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-alert-message-background-color` | Background color for the body of the alert
+`--px-alert-message-text-color` | Text color for the title and message
+`--px-alert-message-color--important` | Status color for an 'important' alert
+`--px-alert-message-color--warning` | Status color for a 'warning' alert
+`--px-alert-message-color--error` | Status color for an 'error' alert
+`--px-alert-message-color--information` | Status color for an 'information' alert
+`--px-alert-message-dismiss-icon-color` | Color of the dismiss icon
+
+@element px-alert-message
+@blurb Alert message
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-alert-message">
+  <template>
+    <style include="px-alert-message-styles"></style>
+
+    <div id="alert" class="alert-message shadow-notification flex flex--left flex--stretch" on-animationend="_handleAnimationEnd">
+      <template is="dom-if" if="{{ !_isTrue(type, 'more') }}">
+        <div class$="severity flex flex--center {{type}}">
+          <template is="dom-if" if="{{ !_isTrue(type, 'custom') }}">
+            <template is="dom-if" if="{{ !hideBadge }}">
+              <px-alert-label id="icon" type="{{type}}" label="{{_getLabel(type, hideSeverity)}}" badge=""></px-alert-label>
+            </template>
+          </template>
+          <slot></slot>
+        </div>
+      </template>
+      <div class="message-column flex flex--middle">
+        <div class="message-container">
+          <slot name="content">
+            <div class$="[[_getMessageClassNames(type, expanded)]]" id="message">
+              <span class="title">{{ messageTitle }}</span>
+              <span>{{ message }}</span>
+            </div>
+          </slot>
+          <span id="showMoreButton" class$="[[_getShowMoreClassNames(overset)]]" hidden$="[[!overset]]">[[_showBtnText]]</span>
+        </div>
+      </div>
+      <template is="dom-if" if="{{ action }}">
+        <div class="action">
+          <template is="dom-if" if="{{ _isTrue(action, 'dismiss') }}">
+            <button id="dismissButton" class="btn btn--bare dismiss" on-click="_action">
+              <px-icon icon="px-nav:close"></px-icon>
+            </button>
+          </template>
+          <template is="dom-if" if="{{ !_isTrue(action, 'dismiss') }}">
+            <button id="actionButton" class="btn btn--tertiary" on-click="_action">[[_actionText]]</button>
+          </template>
+        </div>
+      </template>
+
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-alert-message",behaviors:[Polymer.AppLocalizeBehavior],properties:{language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{"Show More":"Show More",OK:"OK",Open:"Open"}}}},type:{type:String,reflect:!0,value:"information"},messageTitle:{type:String,observer:"_checkMessageLength"},message:{type:String,observer:"_checkMessageLength"},autoDismiss:{type:Number,observer:"setAutoDismiss"},action:{type:String,reflect:!0},hideBadge:{type:Boolean,value:!1},hideSeverity:{type:Boolean,value:!1},_actionText:{type:String,computed:"_computeActionText(action, language, resources)"},_showBtnText:{type:String,computed:"_computeShowBtnText(expanded, language, resources)"},visible:{type:Boolean,value:!1,notify:!0,observer:"_handleVisibleChanged"},disableAutoShow:{type:Boolean,value:!1},expanded:{type:Boolean,notify:!0,value:!1},_expandedOnOpen:{type:Boolean,value:!1},overset:{type:Boolean,value:!1,readOnly:!0,notify:!0}},observers:["_checkMessageLength(language, resources, type)"],created:function created(){this._pendingDismiss=null},attached:function attached(){this.listen(this,"app-localize-resources-loaded","_checkMessageLength");this.listen(this.$.showMoreButton,"tap","_toggleExpansion");if(!this.disableAutoShow){this.visible=!0}this._expandedOnOpen=this.expanded},detached:function detached(){this.unlisten(this,"app-localize-resources-loaded","_checkMessageLength");this.unlisten(this.$.showMoreButton,"tap","_toggleExpansion")},_getMessageClassNames:function _getMessageClassNames(type,expanded){var classNames="message "+type;if(!expanded){classNames+=" collapsed-message"}return classNames},_getShowMoreClassNames:function _getShowMoreClassNames(overset){var classNames="actionable show-more";if(!overset){classNames+=" visuallyhidden"}return classNames},setAutoDismiss:function setAutoDismiss(dismissAfter){if(this._pendingDismissTask){this.cancelAsync(this._pendingDismissTask)}if("number"===typeof dismissAfter&&0<dismissAfter&&this.visible){this._pendingDismissTask=this.async(function(){this._pendingDismissTask=null;this.visible=!1;this.fire("px-alert-message-action-auto-dismissed")},dismissAfter)}},_isTrue:function _isTrue(a,b){return a===b},_toggleExpansion:function _toggleExpansion(){this.expanded=!this.expanded},_checkMessageLength:function _checkMessageLength(){this.debounce("check-message-length",function(){if(this.expanded&&!this._expandedOnOpen){this.expanded=!1}this._expandedOnOpen=!1;var messageDiv=this.$.message;if("more"===this.type){this._setOverset(!1);return}if(messageDiv.scrollHeight<=messageDiv.clientHeight){this._setOverset(!1)}else{this._setOverset(!0)}},1)},_action:function _action(){if(-1!=this.action.indexOf("http")){window.open(this.action)}else if("dismiss"===this.action||"acknowledge"===this.action){this.visible=!1}this.fire("px-alert-message-action-triggered",{action:this.action})},_computeActionText:function _computeActionText(action){if("acknowledge"===action){return this.localize("OK")}else if(action!==void 0&&-1!=action.indexOf("http")){return this.localize("Open")}else{return""}},_computeShowBtnText:function _computeShowBtnText(isExpanded){if(isExpanded){return this.localize("Show Less")}else{return this.localize("Show More")}},_getLabel:function _getLabel(type,hideSeverity){if(hideSeverity)return;if("important"===type)return"1";if("warning"===type)return"2";if("error"===type)return"3";if("information"===type)return"4";if("unknown"===type)return"5"},_handleVisibleChanged:function _handleVisibleChanged(isVisible){var alert=Polymer.dom(this.root).querySelector("#alert");if(null===alert){return}if(isVisible&&!alert.classList.contains("alert-message--visible")){alert.classList.add("alert-message--visible");alert.classList.add("fade-in");this._checkMessageLength();this.setAutoDismiss(this.autoDismiss||null)}else if(!isVisible&&alert.classList.contains("alert-message--visible")){this.expanded=!1;alert.classList.add("fade-out")}},_handleAnimationEnd:function _handleAnimationEnd(evt){var target=Polymer.dom(evt).rootTarget;if(target&&target===this.$.alert){if(target.classList.contains("fade-out")){target.classList.remove("alert-message--visible");target.classList.remove("fade-out");this.fire("px-alert-message-hidden")}if(target.classList.contains("fade-in")){target.classList.remove("fade-in")}}}});</script>
+</body></html>

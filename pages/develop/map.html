@@ -1,0 +1,754 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-map">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#overview', activeAnchor)]]" href="#" anchor="#overview" on-tap="_handleAnchorTapped">Overview</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#basic-concepts', activeAnchor)]]" href="#" anchor="#basic-concepts" on-tap="_handleAnchorTapped">Basic concepts</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#graphic-map-layers', activeAnchor)]]" href="#" anchor="#graphic-map-layers" on-tap="_handleAnchorTapped">Graphic: map layers</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#subcomponents', activeAnchor)]]" href="#" anchor="#subcomponents" on-tap="_handleAnchorTapped">Subcomponents</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#set-up-in-your-app', activeAnchor)]]" href="#" anchor="#set-up-in-your-app" on-tap="_handleAnchorTapped">Set up in your app</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#choosing-a-crs', activeAnchor)]]" href="#" anchor="#choosing-a-crs" on-tap="_handleAnchorTapped">Choosing a CRS</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#choosing-a-base-map-provider', activeAnchor)]]" href="#" anchor="#choosing-a-base-map-provider" on-tap="_handleAnchorTapped">Choosing a base map provider</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#example-creating-a-px-map-in-your-application', activeAnchor)]]" href="#" anchor="#example-creating-a-px-map-in-your-application" on-tap="_handleAnchorTapped">Example: creating a px-map in your application</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#geospatial-data-formats', activeAnchor)]]" href="#" anchor="#geospatial-data-formats" on-tap="_handleAnchorTapped">Geospatial Data Formats</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#defining-px-map-marker-group-data', activeAnchor)]]" href="#" anchor="#defining-px-map-marker-group-data" on-tap="_handleAnchorTapped">Defining px-map-marker-group data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#styling-px-map-layer-geojson-geojson-data', activeAnchor)]]" href="#" anchor="#styling-px-map-layer-geojson-geojson-data" on-tap="_handleAnchorTapped">Styling px-map-layer-geojson GeoJSON data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#handling-large-volumes-of-data', activeAnchor)]]" href="#" anchor="#handling-large-volumes-of-data" on-tap="_handleAnchorTapped">Handling large volumes of data</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#example-displaying-additional-map-data-as-the-user-zooms-in', activeAnchor)]]" href="#" anchor="#example-displaying-additional-map-data-as-the-user-zooms-in" on-tap="_handleAnchorTapped">Example: displaying additional map data as the user zooms in</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#rendering-data-in-a-specific-order', activeAnchor)]]" href="#" anchor="#rendering-data-in-a-specific-order" on-tap="_handleAnchorTapped">Rendering data in a specific order</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#other-features', activeAnchor)]]" href="#" anchor="#other-features" on-tap="_handleAnchorTapped">Other features</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#dropping-a-marker-at-the-users-current-location', activeAnchor)]]" href="#" anchor="#dropping-a-marker-at-the-users-current-location" on-tap="_handleAnchorTapped">Dropping a marker at the user's current location</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#custom-marker-colors-and-types', activeAnchor)]]" href="#" anchor="#custom-marker-colors-and-types" on-tap="_handleAnchorTapped">Custom marker colors and types</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#styling-px-map-marker-symbol-custom-icons', activeAnchor)]]" href="#" anchor="#styling-px-map-marker-symbol-custom-icons" on-tap="_handleAnchorTapped">Styling px-map-marker-symbol custom icons</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Developing with px-map</h2>
+          
+          <style>.gif{width:100%;margin-top:.25rem;}</style>
+<h3 id="overview">Overview</h3>
+<p>Px-map is a lightweight framework for building interactive maps with web
+components and Polymer. The framework includes a base mapping component (<code class="code code--inline">&lt;px-map&gt;</code>)
+that can be used with many different subcomponents to solve common mapping UI
+problems, like plotting geographic data.</p>
+<p>The current major release of px-map uses the open source <a href="http://leafletjs.com/">Leaflet</a>
+library to support displaying a map with base tiles and geospatial overlays.
+Future iterations of the component may offer the ability to use a different
+library in place of Leaflet, while keeping the same basic API.</p>
+<p>Out of the box, <code class="code code--inline">px-map</code> includes the basic things needed to draw and plot data
+on an interactive map. It is also extensible&nbsp;— development teams are encouraged
+to build their own subcomponents that add features needed for their application,
+and any open source Leaflet plugin can be easily converted to be a px-map custom
+layer.</p>
+<h3 id="basic-concepts">Basic concepts</h3>
+<p>Use the map to plot geographic data such as individual assets or clusters of
+assets and information about them. The data concepts underlying the map include:</p>
+<ul>
+<li><strong>Base layer:</strong> The base layer of a map renders tile images that include
+information such as streets, mountains, and national parks. For example,
+satellite, terrain, and map view are all different base layer styles.</li>
+<li><strong>Overlay:</strong> Information that is put on top of a map's base layer that is
+specific to the purpose of that map. For example, traffic data, bike lane
+information, or location markers might be set as an overlay on a map.</li>
+<li><strong>Control:</strong> A map layer that allows the user to manipulate the map, e.g. by
+zooming in, out, or to their current location.</li>
+<li><strong>CRS:</strong> A CRS is a coordinate reference system (also known as a coordinate
+relationship system or coordinate projection system) used to project
+geographical points into pixel coordinates.</li>
+</ul>
+<h4 id="graphic-map-layers">Graphic: map layers</h4>
+<img src="../../img/developer-guides/map/map-layers-graphic.png">
+<h3 id="subcomponents">Subcomponents</h3>
+<p><strong>Base map</strong></p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map"><code class="code code--inline">&lt;px-map&gt;</code></a>: Draws the
+underlying map, sets location/zoom and notifies updates when the user interacts
+with the map, enables and disables interactions, orchestrates subcomponents</li>
+</ul>
+<p><strong>Tile layers</strong></p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-tile-layer"><code class="code code--inline">&lt;px-map-tile-layer&gt;</code></a>:
+Calls a tile service API to fetch underlying tile images for the map</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-tile-layer-bing"><code class="code code--inline">&lt;px-map-tile-layer-bing&gt;</code></a>:
+Calls the Bing Maps API to fetch underlying tile images for the map</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-tile-layer-google"><code class="code code--inline">&lt;px-map-tile-layer-google&gt;</code></a>:
+Calls the Google Maps API to fetch underlying tile images for the map</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-tile-layer-wms"><code class="code code--inline">&lt;px-map-tile-layer-wms&gt;</code></a>:
+Displays <a href="https://en.wikipedia.org/wiki/Web_Map_Service">WMS services</a> as tile
+layers on the map.</li>
+</ul>
+<p><strong>Overlay/visualization layers</strong></p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-layer-geojson"><code class="code code--inline">&lt;px-map-layer-geojson&gt;</code></a>:
+Draws GeoJSON data as vectors on the map</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-layer-group"><code class="code code--inline">&lt;px-map-layer-group&gt;</code></a>:
+Groups related overlays together to allow for bulk interactions (e.g. hide all in the group)</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-marker-static"><code class="code code--inline">&lt;px-map-marker-static&gt;</code></a>:
+Draws a marker that shows the state of a point/asset (e.g. with color)</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-marker-symbol"><code class="code code--inline">&lt;px-map-marker-symbol&gt;</code></a>:
+Draws a marker with an icon that shows the state of a point/asset</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-marker-locate"><code class="code code--inline">&lt;px-map-marker-locate&gt;</code></a>:
+Draws a marker that represents the user's location</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-marker-group"><code class="code code--inline">&lt;px-map-marker-group&gt;</code></a>:
+Draws many markers in clusters, useful for visualizing thousands of points that can be dynamically updated</li>
+</ul>
+<p><strong>UI components</strong></p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-popup-info"><code class="code code--inline">&lt;px-map-popup-info&gt;</code></a>:
+Binds a popup that can include text or an image to a marker</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-popup-data"><code class="code code--inline">&lt;px-map-popup-data&gt;</code></a>:
+Binds a popup that can include text and key/value data to a marker</li>
+</ul>
+<p><strong>Controls</strong></p>
+<ul>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-control-zoom"><code class="code code--inline">&lt;px-map-control-zoom&gt;</code></a>:
+Adds zoom buttons the user can tap to zoom in or out of the map</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-control-scale"><code class="code code--inline">&lt;px-map-control-scale&gt;</code></a>:
+Adds a scale that shows the distance of an area on the map in miles/kilometers</li>
+<li><a href="https://www.predix-ui.com/#/elements/map/px-map-control-locate"><code class="code code--inline">&lt;px-map-control-locate&gt;</code></a>:
+Adds a button the user can tap to locate themselves on the map and center the map on their location</li>
+</ul>
+<h3 id="set-up-in-your-app">Set up in your app</h3>
+<h4 id="choosing-a-crs">Choosing a CRS</h4>
+<p>A coordinate reference system (CRS) is framework for defining real-world locations
+that attempts to reconcile the geoid shape of the earth with the two-dimensional
+plane of a map. The CRS can only be set once before the map is first initialized.
+Px-map defaults to the most common web mapping projection <a href="https://epsg.io/3857">EPSG 3857</a>.
+Most use cases do <strong>not</strong> require changing the default CRS being used by px-map,
+and we strongly recommend using the default. If your customers give you data in
+a different projection system, you can either (1) re-project that data to our CRS
+(recommended), or (2) set the CRS on the map to the same one being used by your
+data with the <code class="code code--inline">crs</code> property on px-map.</p>
+<h4 id="choosing-a-base-map-provider">Choosing a base map provider</h4>
+<p>Typically, a map will display your data against a base map, such as a road map
+or satellite imagery.  This base map is a set of map tiles that are pieced
+together by the map to provide a seamless backdrop. Despite the almost ubiquitous
+presence of base map tiles in maps, access to use them is not free. The data
+contained within the base map tiles is generally copyrighted and requires a fee
+for use. Large scale map providers like Google and Bing provide free access to
+map tiles for development purposes, but there is usually a usage limit which
+prevents developers from deploying them in production applications.</p>
+<p>Even for data providers like OpenStreetMap (OSM) that provide access to copyright-free
+data, there is usually a charge to cover the costs of maintaining the tile servers
+that manage and provide the individual tiles.</p>
+<p>Px-map provides support for OSM, Bing, and Google, provided that you have an
+appropriate usage key. Fees are typically calculated based on the number of tile
+requests your application will make over a given period, normally a month.
+Budgeting for this expense can be difficult as you need to understand the number
+of map tile requests an individual user is likely to make per month and extrapolate
+this based on the number of users you expect to use the app per month. As the tiles
+are a fixed size, the size of the map in the application will dictate the number
+of tiles needed to cover it.</p>
+<p>It is also worth noting that map tile providers may impose additional constraints
+on how you can use the map tiles in your application. The providers may prevent
+you caching the tiles when the device is offline, or require that you display
+their attribution within the map. Always make sure you review and understand the
+terms and conditions of your agreement with the map tile provider.</p>
+<p><strong>Base map styling</strong></p>
+<p>Base map providers typically have more than one base map style, so you can choose
+one that shows the information that you need, styled in a way that shows off your
+data.</p>
+<p>Standard Google Maps style:</p>
+<img src="../../img/developer-guides/map/map-tile-layer-1.png">
+<p>Google Maps with points of interest turned off:</p>
+<img src="../../img/developer-guides/map/map-tile-layer-2.png">
+<p>Google Maps with a dark theme:</p>
+<img src="../../img/developer-guides/map/map-tile-layer-3.png">
+<p><strong>Tile service options</strong></p>
+<p>Most px-map demos use the OpenStreetMap public tile service to serve map tiles
+(e.g. <code class="code code--inline">https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</code>) with the
+px-map-tile-layer subcomponent. This tile service is used for demo purposes only.
+<strong>You should not use this tile service for production applications; you will
+need to implement or purchase your own tile service.</strong></p>
+<p>The <a href="https://operations.osmfoundation.org/policies/tiles/">OpenStreetMap Tile Usage Policy</a>
+details specific restrictions for developers using their public tile service.
+These restrictions include the following provision: "Heavy use (e.g. distributing
+an app that uses tiles from openstreetmap.org) is forbidden without prior
+permission." If you choose to use the OpenStreetMap service for demos or development,
+you should likely replace the service URLs when your app is shipped to production.</p>
+<p>The following list of companies provide tile service APIs that may be free or
+paid and should be compatible with the <code class="code code--inline">px-map-tile-layer</code> (note that these are
+not endorsed, but just offered as options):</p>
+<ul>
+<li><a href="https://www.mapbox.com/help/how-mapbox-data-works/">Mapbox</a></li>
+<li><a href="https://carto.com/location-data-services/basemaps/">Carto</a></li>
+<li><a href="https://mapzen.com/products/maps/">Mapzen</a></li>
+</ul>
+<p>You can also use the <code class="code code--inline">px-map-tile-layer-bing</code> component to load map tiles from
+the Bing API, the <code class="code code--inline">&lt;px-map-tile-layer-google&gt;</code> component to load map tiles from
+the Google Maps API, or the <code class="code code--inline">&lt;px-map-tile-layer-wms&gt;</code> component to display WMS
+services as tile layers on the map.</p>
+<p><strong>Using MapBox tiles</strong></p>
+<p>Mapbox allows users to create a theme for their base tiles so that the map fits
+seamlessly with the rest of the application design. However, Mapbox assumes
+you’re using vector tiles, whereas px-map requires raster tiles. You can still
+use Mapbox tiles with px-map, you’ll just need some additional information.</p>
+<p>When you create a theme in Mapbox Studio and turn that theme into a tile set,
+you’ll then need to use the id of that tile set to get the equivalent raster
+tiles. Then, you’ll want to use a URL template like this for <code class="code code--inline">px-map-tile-layer</code>:
+<code class="code code--inline">https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}</code>
+where <code class="code code--inline">id</code> is the id of your Mapbox tile set you just created.</p>
+<h4 id="example-creating-a-px-map-in-your-application">Example: creating a px-map in your application</h4>
+<iframe height="480" scrolling="no" title="px-map-demo" src="//codepen.io/talimarcus/embed/BYxyNb/?height=265&amp;theme-id=0&amp;default-tab=html,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;"></iframe>
+<h3 id="geospatial-data-formats">Geospatial Data Formats</h3>
+<p>Geospatial data is available in many different formats. This can make it confusing
+to choose which data format to use in your application. Some formats are open,
+while others are proprietary to specific vendors. Some formats express data in
+plain text, while others are encoded and require specific libraries to translate
+them. One geospatial data format that has gained popularity in recent years is
+GeoJSON. GeoJSON is a very simple open format that expresses data in plain text
+and has been adopted by a wide range of vendors and tools. Lots of data sources
+are available as GeoJSON.</p>
+<p>Px-map doesn’t prescribe what data format its developers should use, but GeoJSON
+has many advantages, and there is dedicated support for it within px-map.</p>
+<p>GeoJSON is a JSON-based format used to represent a variety of geographic data
+structures. You can use GeoJSON to represent geometry (e.g. points, lines, areas),
+features, or feature collections. GeoJSON is always composed of a single object,
+and that object must have a member with the name "type." The type refers to the
+type of GeoJSON object and must be one of: <code class="code code--inline">"Point"</code>, <code class="code code--inline">"MultiPoint"</code>, <code class="code code--inline">"LineString"</code>,
+<code class="code code--inline">"MultiLineString"</code>, <code class="code code--inline">"Polygon"</code>, <code class="code code--inline">"MultiPolygon"</code>, <code class="code code--inline">"GeometryCollection"</code>,
+<code class="code code--inline">"Feature"</code>, or <code class="code code--inline">"FeatureCollection"</code>.</p>
+<h4>Geometry Objects</h4>
+<p>All Geometry objects (aside from a <code class="code code--inline">"GeometryCollection"</code>) must have a member
+with the name <code class="code code--inline">coordinates</code>, the value of which is an array (or array of arrays)
+of latitude and longitude coordinates <strong>in <code class="code code--inline">[lng, lat]</code> order</strong>.</p>
+<ul>
+<li><strong>Point:</strong> A Point is a single point on a map which has no area and is
+defined by its latitude and longitude coordinates, e.g.:</li>
+</ul>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Point",
+  "coordinates": [0, 0]
+}
+
+      </script>
+    </px-catalog-code-snippet><ul>
+<li><strong>LineString:</strong> A LineString is a line between two or more points on a map
+and is defined by an array of two or more latitude and longitude coordinate arrays
+(positions). A LineString can be self-crossing, and it has no area.</li>
+</ul>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "LineString",
+  "coordinates": [
+    [0, 0], [10, 10]
+  ]
+}
+
+      </script>
+    </px-catalog-code-snippet><ul>
+<li><strong>Polygon:</strong> A Polygon represents an area on a map and is defined by an array
+of four or more positions. Note that the first and last positions MUST be identical, e.g.:</li>
+</ul>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Polygon",
+  "coordinates": [
+    [
+      [0, 0], [10, 10], [10, 0], [0, 0]
+    ]
+  ]
+}
+
+      </script>
+    </px-catalog-code-snippet><h4>Feature Objects</h4>
+<p>A Feature allows you to describe a Geometry with a set of properties. A Feature
+object must have the type <code class="code code--inline">"Feature"</code>, as well as <code class="code code--inline">geometry</code> and <code class="code code--inline">properties</code>
+members. E.g.:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Feature",
+  "properties": {
+      "name": "M. A. Chidambaram Stadium",
+      "sport": "Cricket",
+      "team": "Chennai Super Kings"
+  },
+  "geometry": {
+      "type": "Point",
+      "coordinates": [80.2792802, 13.0628075]
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><h4>Feature Collection Objects</h4>
+<p>A Feature Collection is simply a collection of individual Features. A Feature
+Collection object must have the type <code class="code code--inline">"FeatureCollection"</code>, as well as member
+with the name <code class="code code--inline">"Feature"</code> whose value is an array of Feature objects, e.g.:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {
+        "name": "Fenway Park",
+        "sport": "Baseball",
+        "team": "Boston Red Sox"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-71.09938384, 42.3466789]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+        "name": "Groupama Stadium",
+        "sport": "Football",
+        "team": "Olympique Lyonnais"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [4.9798403, 45.765295]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+        "name": "Hillsborough Stadium",
+        "sport": "Football",
+        "team": "Sheffield Wednesday F.C."
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-1.5006631, 53.4114317]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+        "name": "Oracle Arena",
+        "sport": "Basketball",
+        "team": "Golden State Warriors"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2030494, 37.7502917]
+    }
+  }]
+}
+
+      </script>
+    </px-catalog-code-snippet><p>See the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a> for more guidance
+on generating valid GeoJSON, or read more about <a href="https://macwright.org/2015/03/23/geojson-second-bite">the basic concepts behind GeoJSON</a>.</p>
+<h3 id="defining-px-map-marker-group-data">Defining <code class="code code--inline">px-map-marker-group</code> data</h3>
+<p>The <code class="code code--inline">data</code> attribute on <code class="code code--inline">px-map-marker-group</code> expects a GeoJSON feature collection
+with specific settings configured to draw each marker.</p>
+<h4>FeatureCollection Format</h4>
+<p>The root JavaScript Object passed to the <code class="code code--inline">data</code> attribute should be a
+FeatureCollection object with the following keys/values:</p>
+<ul>
+<li>{String} <code class="code code--inline">type</code>: Must be 'FeatureCollection'</li>
+<li>{Array}  <code class="code code--inline">features</code>: An array of feature objects</li>
+</ul>
+<p>The feature collection should be formatted like this:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "FeatureCollection",
+  "features": [...]
+}
+
+      </script>
+    </px-catalog-code-snippet><p>These are required settings. Not including them or mis-formatting them will result
+in your marker group failing to draw. (An error may be logged to the console with
+a description of the issue if it is found. Some formatting issues may not be
+caught and cause a silent failure or an exception to be raised.)</p>
+<h4>Feature format</h4>
+<p>Each entry in the FeatureCollection features array should be a JavaScript Object
+formatted as a Feature with the following keys/values:</p>
+<ul>
+<li>{String} <code class="code code--inline">type</code>: Must be 'Feature'</li>
+<li>{Number} <code class="code code--inline">id</code>: A unique numeric ID. If the feature is changed, it should keep its ID. No other features in the collection should have the same ID.</li>
+<li>{Object} <code class="code code--inline">geometry</code></li>
+<li>{String} <code class="code code--inline">geometry.type</code>: Must be 'Point'</li>
+<li>{Array}  <code class="code code--inline">geometry.coordinates</code>: a pair of coordinates in <code class="code code--inline">[lng,lat]</code> order</li>
+<li>{Object} <code class="code code--inline">properties</code></li>
+<li>{Object} <code class="code code--inline">properties.marker-icon</code>: Settings to configure a marker icon</li>
+<li>{Object} <code class="code code--inline">properties.marker-popup</code>: [OPTIONAL] Settings to configure a marker popup</li>
+</ul>
+<p>For example, here is a feature that is drawn with a "static" marker icon (from <code class="code code--inline">px-map-marker-static</code>):</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Feature",
+  "id": 748082,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-117.273809,32.840128]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "static-icon",
+      "icon-type": "info"
+    }
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><h4>Defining the marker icon</h4>
+<p>The <code class="code code--inline">properties.marker-icon</code> object should describe the type of marker
+icon that should be drawn and the settings for that marker icon.</p>
+<p>Define the marker icon base using the <code class="code code--inline">properties.marker-icon.icon-base</code> property.
+Choose from any of the built-in markers provided with <code class="code code--inline">px-map</code>:</p>
+<ul>
+<li>'static-icon'</li>
+<li>'symbol-icon'</li>
+</ul>
+<p>To configure the icon, pass additional settings in the format
+<code class="code code--inline">properties.marker-icon.icon-[SETTING]</code> in dash case. For example,
+this would configure the feature to use a "symbol" marker icon
+with a briefcase symbol and the warning color:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Feature",
+  "id": 984093,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-110.948009,37.984995]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "symbol-icon",
+      "icon-icon": "px-fea:cases",
+      "icon-type": "warning"
+    }
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><p>See the <a href="https://www.predix-ui.com/#/elements/map/px-map-marker-static">API documentation pages</a>
+for the <code class="code code--inline">px-map-marker-*</code> components for more information on what markers icons
+and settings are available.</p>
+<p><strong>The <code class="code code--inline">icon-type</code> is special</strong></p>
+<p>The <code class="code code--inline">properties.marker-icon.icon-type</code> property is special and is used for more
+than configuring the type setting of your chosen marker. This setting also defines
+the color this marker will be represented as in a cluster. See the <code class="code code--inline">colorsByType</code>
+property <a href="https://www.predix-ui.com/#/elements/map/px-map-marker-group:property-colorsByType">documentation</a>
+for more information on choosing your own colors for each type. By default, the
+following colors will be used:</p>
+<ul>
+<li>'unknown': gray</li>
+<li>'info': blue</li>
+<li>'warning': yellow</li>
+<li>'important': red</li>
+</ul>
+<h4>Binding a popup</h4>
+<p>Popups can also be bound to individual markers inside the marker group. The
+popup will be opened when the user clicks on the un-clustered marker.</p>
+<p>(It will not open if the user clicks on the cluster icon that contains the marker.
+Popups cannot be bound to cluster icons.)</p>
+<p>Use the <code class="code code--inline">properties.marker-popup</code> object to describe the type of popup that should
+be attached and the settings for that popup.</p>
+<p>Define the popup base using the <code class="code code--inline">properties.marker-popup.popup-base</code> property.
+Choose from any of the built-in popups provided with <code class="code code--inline">px-map</code>:</p>
+<ul>
+<li>'info-popup'</li>
+<li>'data-popup'</li>
+</ul>
+<p>To configure the popup, pass additional settings in the format
+<code class="code code--inline">properties.marker-popup.popup-[SETTING]</code> in dash case. For example,
+this would configure the feature to use an "info" popup with a title
+and description text:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "type": "Feature",
+  "id": 984093,
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-110.948009,37.984995]
+  },
+  "properties": {
+    "marker-icon": {
+      "icon-base": "static-icon",
+      "icon-type": "info"
+    },
+    "marker-popup": {
+      "popup-base": "info-popup",
+      "popup-title": "Title here",
+      "popup-description": "Lorem ipsum dolor sit amet, consectetur adipisicing..."
+    }
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><h3 id="styling-px-map-layer-geojson-geojson-data">Styling <code class="code code--inline">px-map-layer-geojson</code> GeoJSON data</h3>
+<p>There are two ways to style the features that the px-map-layer-geojson draws.
+To style all the features for the entire layer, use the <code class="code code--inline">featureStyle</code> attribute.
+To style each feature individually, add a <code class="code code--inline">style</code> object to the feature's
+<code class="code code--inline">properties</code>. The following style options are available:</p>
+<ul>
+<li>{Boolean} <code class="code code--inline">stroke</code>: [default=true] Set to false to disable borders on polygons/circles</li>
+<li>{String} <code class="code code--inline">color</code>: [default=$primary-blue] Color for polygon/circle borders</li>
+<li>{Number} <code class="code code--inline">weight</code>: [default=2] Weight for polygon/circle borders in pixels</li>
+<li>{Number} <code class="code code--inline">opacity</code>: [default=1.0] Opacity for polygon/circle borders</li>
+<li>{Boolean} <code class="code code--inline">fill</code>: [default=true] Set to false to disable filling polygons/circles</li>
+<li>{String} <code class="code code--inline">fillColor</code>: [default=$dv-light-blue] Color for polygon/circle fill</li>
+<li>{Number} <code class="code code--inline">fillOpacity</code>: [default=0.4] Opacity for polygon/circle fill</li>
+<li>{String} <code class="code code--inline">fillRule</code>: [default='evenodd'] Defines how the <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/fill-rule">inside of a shape</a> is determined</li>
+<li>{String} <code class="code code--inline">lineCap</code>: [default='round'] Defines the <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linecap">shape to be used</a> at the end of the stroke</li>
+<li>{String} <code class="code code--inline">lineJoin</code>: [default='round'] Defines the <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linejoin">shape to be used</a> at the corner of a stroke</li>
+<li>{String} <code class="code code--inline">dashArray</code>: [default=null] Defines the stroke <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dasharray">dash pattern</a></li>
+<li>{String} <code class="code code--inline">dashOffset</code>: [default=null] Defines the <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dashoffset">distance into the dash to start the dash</a></li>
+</ul>
+<h3 id="handling-large-volumes-of-data">Handling large volumes of data</h3>
+<p>Px-map can handle large volumes of data, but there are limits. As you begin to
+approach these limits you may notice that the map takes longer to load data, or
+that panning becomes jerky. This is because there is overhead associated with
+loading data into the DOM and transforming its location when panning and zooming.</p>
+<h4>Requesting data with a bounding box query</h4>
+<p>Rather than requesting all of the data for the entire map, one method to minimize
+the effects of load times is to request just the data that is visible within the
+current map bounds, i.e. a bounding box query. This approach has a few requirements:</p>
+<ul>
+<li>The resource providing the data must be able to accept bounding box queries
+and return the data in a performant way. Retrieval and transfer of data has the
+biggest impact on the perceived performance of the map, so the underlying
+architecture needs to be able to get the data to the client as quickly as possible
+to ensure a responsive user experience. Therefore, the data storage will require
+some form of spatial indexing, such as that provided by Predix's Intelligent and
+Dynamic Mapping Services.</li>
+<li>Your Predix app code will have to calculate the current bounds of the map and
+pass these through as part of the request for new data. This can be done by
+directly accessing the Leaflet.js methods.</li>
+<li>When the data is returned, the existing data should be removed from the map
+and the new data added.</li>
+</ul>
+<h4>Limiting data returned to the client</h4>
+<p>Another point to consider is what data to transfer to the client. There is a
+temptation to return all the data associated with an object, as it simplifies the
+display of data within popovers. However, limiting the returned data to just the
+geometry and those properties required for styling can dramatically reduce the
+amount of data being transferred to the client and speed up response times.
+When zoomed out, the visible area on the map naturally covers a much larger area
+than when it is zoomed in. This means that a bounding box query is likely to return
+a larger number of objects, possibly overwhelming the client and the user. It is
+often necessary to restrict the bounding box query to specific collections when
+zoomed out, and to gradually turn on more collections as the user zooms in.  This
+requires the storage of the data to be considered as part of the map development
+process, as display needs may impact the design of the storage solution.</p>
+<h4 id="example-displaying-additional-map-data-as-the-user-zooms-in">Example: displaying additional map data as the user zooms in</h4>
+<p>The following image shows a zoomed-out map displaying just substation
+locations and high voltage conductors in an electrical network:</p>
+<img src="../../img/developer-guides/map/map-zooming-1.png">
+<p>When the user zooms in, transformers and medium voltage conductors are made visible:</p>
+<img src="../../img/developer-guides/map/map-zooming-2.png">
+<p>When the user zooms in further, switches, circuit breakers, and low voltage
+conductors are made visible as well:</p>
+<img src="../../img/developer-guides/map/map-zooming-3.png">
+<h4>Rendering objects directly on the HTML canvas</h4>
+<p>If, after all these steps have been taken, the performance of the map still does
+not meet your needs, then you may want to consider bypassing the Leaflet rendering
+code that uses DOM elements to display and track the location of objects, and
+instead, render the objects directly on an HTML canvas. There is a lot of development
+effort involved in doing this, as you not only have to reimplement the rendering
+behavior but also the ability to determine what, if any, objects the user has
+clicked on in the map. However, this approach will give you the best performance
+with large volumes of data.</p>
+<h3 id="rendering-data-in-a-specific-order">Rendering data in a specific order</h3>
+<p>By default, Leaflet.js uses three DOM elements -- points, lines, and areas --
+for rendering the bulk of the objects on the map based on their geometry. Points
+are rendered on top of lines, and lines are rendered on top of areas. This basic
+approach works most of the time, but there are instances when the map requires a specific rendering order.</p>
+<p>In the following map, it was important to ensure that the transformers (blue
+triangles) were rendered on top of all the other point objects:</p>
+<img src="../../img/developer-guides/map/map-data-rendering.png">
+<p>Leaflet.js would have rendered all the points as part of the same DOM element,
+in the order that they were added to that element. As the data is returned
+asynchronously, the rendering order is likely to be different every time the map
+is drawn.</p>
+<p>When more control of the rendering order is required, it is possible to add the
+data as <a href="http://leafletjs.com/examples/map-panes/">Leaflet.js custom panes</a>.
+Custom panes can be created with their own z-index, which can be used to force
+a specific rendering order. For complicated data like an electrical network, it
+may be necessary to have specific custom panes for each object type.</p>
+<h3 id="other-features">Other features</h3>
+<h4 id="dropping-a-marker-at-the-users-current-location">Dropping a marker at the user's current location</h4>
+<p>Use the <code class="code code--inline">px-map-marker-locate</code> component together with the <code class="code code--inline">px-map-control-locate</code>
+component to automatically find and set the latitude and longitude of the marker
+to the user's current location:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-map lat="12" lng="13" zoom="15">
+  <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
+
+  <px-map-control-locate last-found-location="{{location}}" move-to-location position="bottomright"></px-map-control-locate>
+  <px-map-marker-locate lat="{{location.lat}}" lng="{{location.lng}}" accuracy="{{location.accuracy}}"></px-map-marker-locate>
+</px-map>
+
+      </script>
+    </px-catalog-code-snippet><h4 id="custom-marker-colors-and-types">Custom marker colors and types</h4>
+<p>The default px-theme includes colors defined for map markers of types 'info', 'warning', 'important', and 'unknown'. To change these default colors, you can use the following CSS style variables:</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+--px-map-icon-unknown-color
+--px-map-icon-info-color
+--px-map-icon-warning-color
+--px-map-icon-important-color
+
+      </script>
+    </px-catalog-code-snippet><p>In addition to these four default icon types, px-map allows you to set a custom type on a marker, in the format 'custom-n'. 'custom-n' is a custom color defined by the developer. Custom types may be defined from 'custom-0' through 'custom-100' and must be defined consecutively with <strong>no breaks between numbers</strong>. Custom types can be defined in one of two ways:</p>
+<p><strong>1. Define custom-color CSS style variables in your HTML</strong></p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<custom-style>
+  <style is="custom-style">
+    :host {
+      --px-map-color-custom-0: lime;
+      --px-map-color-custom-1: crimson;
+      --px-map-color-custom-2: cornflowerblue;
+      --px-map-color-custom-3: salmon;
+      --px-map-color-custom-4: hotpink;
+    }
+  </style>
+</custom-style>
+
+      </script>
+    </px-catalog-code-snippet><p><strong>2. Set the <code class="code code--inline">colorsByType</code> property on <code class="code code--inline">&lt;px-map-marker-group&gt;</code></strong></p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-map style="height: 400px; width: 400px;" lat="32.8" lng="-117.4" zoom="10">
+  <px-map-marker-group
+    name='Plaques'
+    colors-by-type='{"custom-0" :"red", "custom-1" : "orange", "custom-2" : "yellow", "info" : "green"}'
+    data='[[data]]'>
+  </px-map-marker-group>
+</px-map>
+
+      </script>
+    </px-catalog-code-snippet><h4 id="styling-px-map-marker-symbol-custom-icons">Styling <code class="code code--inline">px-map-marker-symbol</code> custom icons</h4>
+<p>Use the <code class="code code--inline">icon</code> attribute to add a custom icon to the <code class="code code--inline">px-map-marker-symbol</code> component.
+If nothing is specified for <code class="code code--inline">icon</code>, the icon will default to a star (px-nav:favorite).</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-map-marker-symbol lat="37.7654861" lng="-122.8706668" icon="px-obj:plant"></px-map-marker-symbol>
+
+      </script>
+    </px-catalog-code-snippet><p>Px-icons will work out of the box, but if you would like to style them or use an
+icon from an icon set other than px-icon-set, you can use the following CSS style
+variables to set the icon's stroke color, stroke width, and fill color:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+--px-map-marker-symbol-stroke
+--px-map-marker-symbol-stroke-width
+--px-map-marker-symbol-fill
+
+      </script>
+    </px-catalog-code-snippet><p>For example:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<style is="custom-style">
+  .custom-icon {
+  --px-map-marker-symbol-stroke:none;
+  --px-map-marker-symbol-fill:white;
+  }
+</style>
+<px-map fit-to-markers>
+  <px-map-marker-symbol lat="38" lng="-121" icon="maps:directions-bike" class="custom-icon">
+</px-map>
+
+      </script>
+    </px-catalog-code-snippet>
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-map",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

@@ -1,0 +1,296 @@
+[
+    {
+        "description": "Shadow 1 : Component\n",
+        "commentRange": {
+            "start": 54,
+            "end": 54
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-shadows-namespace}shadow-component,\n%#{$inuit-shadows-namespace}shadow-component",
+            "value": "box-shadow: $inuit-shadow-component;",
+            "line": {
+                "start": 56,
+                "end": 83
+            }
+        },
+        "group": [
+            "px-shadows-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Shadow 3 : Temporary State\n",
+        "commentRange": {
+            "start": 60,
+            "end": 60
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-shadows-namespace}shadow-temporary,\n%#{$inuit-shadows-namespace}shadow-temporary",
+            "value": "box-shadow: $inuit-shadow-temporary;",
+            "line": {
+                "start": 62,
+                "end": 83
+            }
+        },
+        "group": [
+            "px-shadows-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Shadow 4 : Navigation\n",
+        "commentRange": {
+            "start": 66,
+            "end": 66
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-shadows-namespace}shadow-navigation,\n%#{$inuit-shadows-namespace}shadow-navigation",
+            "value": "box-shadow: $inuit-shadow-navigation;",
+            "line": {
+                "start": 68,
+                "end": 83
+            }
+        },
+        "group": [
+            "px-shadows-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Shadow 8 : Notification\n",
+        "commentRange": {
+            "start": 72,
+            "end": 72
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-shadows-namespace}shadow-notification,\n%#{$inuit-shadows-namespace}shadow-notification",
+            "value": "box-shadow: $inuit-shadow-notification;",
+            "line": {
+                "start": 74,
+                "end": 83
+            }
+        },
+        "group": [
+            "px-shadows-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Shadow 12 : Modal State\n",
+        "commentRange": {
+            "start": 78,
+            "end": 78
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-shadows-namespace}shadow-modal,\n%#{$inuit-shadows-namespace}shadow-modal",
+            "value": "box-shadow: $inuit-shadow-modal;",
+            "line": {
+                "start": 80,
+                "end": 83
+            }
+        },
+        "group": [
+            "px-shadows-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets a prepended namespace for all generated classes.\n\n",
+        "commentRange": {
+            "start": 10,
+            "end": 14
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadows-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 15,
+                "end": 15
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "String [default]",
+        "todo": [
+            "n/a"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets the box shadow for level 1: Component\n\n",
+        "commentRange": {
+            "start": 17,
+            "end": 21
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadow-component",
+            "value": "0px 1px 1px var(--px-shadow-component, rgba($black, .2))",
+            "scope": "private",
+            "line": {
+                "start": 22,
+                "end": 22
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "box-shadow | String [default]",
+        "todo": [
+            "--px-shadow-component"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets the box shadow for level 3: Temporary state\n\n",
+        "commentRange": {
+            "start": 24,
+            "end": 28
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadow-temporary",
+            "value": "0px 1px 3px var(--px-shadow-temporary, rgba($black, .2))",
+            "scope": "private",
+            "line": {
+                "start": 29,
+                "end": 29
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "box-shadow | String [default]",
+        "todo": [
+            "--px-shadow-temporary"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets the box shadow for level 4: navigation\n\n",
+        "commentRange": {
+            "start": 31,
+            "end": 35
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadow-navigation",
+            "value": "0px 2px 4px var(--px-shadow-navigation, rgba($black, .2))",
+            "scope": "private",
+            "line": {
+                "start": 36,
+                "end": 36
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "box-shadow | String [default]",
+        "todo": [
+            "--px-shadow-navigation"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets the box shadow for level 8: Notification\n\n",
+        "commentRange": {
+            "start": 38,
+            "end": 42
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadow-notification",
+            "value": "0px 4px 8px var(--px-shadow-notification, rgba($black, .2))",
+            "scope": "private",
+            "line": {
+                "start": 43,
+                "end": 43
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "box-shadow | String [default]",
+        "todo": [
+            "--px-shadow-notification"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    },
+    {
+        "description": "Sets the box shadow for level 12: Modal state\n\n",
+        "commentRange": {
+            "start": 45,
+            "end": 49
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-shadow-modal",
+            "value": "0px 6px 12px var(--px-shadow-modal, rgba($black, .2))",
+            "scope": "private",
+            "line": {
+                "start": 50,
+                "end": 50
+            }
+        },
+        "group": [
+            "px-shadows-design:variables:style"
+        ],
+        "type": "box-shadow | String [default]",
+        "todo": [
+            "--px-shadow-modal"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.shadows.scss",
+            "name": "_objects.shadows.scss"
+        }
+    }
+]

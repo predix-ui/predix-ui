@@ -1,0 +1,76 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-icon-set/px-icon-set-communication.html">
+<link rel="import" href="css/px-vis-annotations-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-svg
+        ...
+        svg="{{svg}}">
+    </px-vis-svg>
+    <px-vis-scale
+        ...
+        x="{{x}}"
+        y="{{y}}"
+        domain-changed="{{domainChanged}}">
+    </px-vis-scale>
+
+    <px-vis-annotations
+        svg="[[svg]]"
+        x="[[x]]"
+        y="[[y]]"
+        margin="[[margin]]"
+        domain-changed="[[domainChanged]]"
+        complete-series-config="[[completeSeriesConfig]]"
+        annotation-data="[[data]]">
+    </px-vis-annotations>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-vis-annotations-icon-color` | Color of the annotation icon
+`--px-vis-annotations-icon-fill` | Color of the fill of annotation icon
+`--px-vis-annotations-icon-hover-fill` | Color of the fill of annotation icon when hovered
+`--px-vis-annotations-icon-pressed-fill` | Color of the fill of annotation icon when pressed
+
+@element px-vis-annotations
+@blurb Element which draws annotations on a chart
+@homepage index.html
+@demo demo/index.html
+
+-->
+
+</head><body><dom-module id="px-vis-annotations">
+    <template>
+      <style include="px-vis-annotations-styles"></style>
+
+      <template id="template" is="dom-repeat" items="[[annotationData]]" as="item">
+        <px-icon icon="px-com:comment" data="[[item]]" class$="annotation--icon [[strongClass]]" style$="[[_getTransform(item, x, y, domainChanged, completeSeriesConfig, forceRecalc, hide)]]" on-mouseover="_mouseOver" on-mouseleave="_mouseLeave" on-click="_mouseClick" on-mouseenter="_mouseEnter" on-mouseout="_mouseOut">
+        </px-icon>
+      </template>
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-annotations",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.sizing,PxVisBehaviorD3.svg,PxVisBehavior.annotationData],properties:{_iconWidth:{type:Number,value:12},_iconHeight:{type:Number,value:12},forceRecalc:{type:Boolean,value:!1},hide:{type:Boolean,value:!1},strongClass:{type:String,value:"",computed:"_computeStrongClass(showStrongIcon)"}},_computeStrongClass:function _computeStrongClass(strong){return strong?"strong":""},_getTransform:function _getTransform(item){var _Mathfloor=Math.floor;if(this.hasUndefinedArguments(arguments)){return}var coords,oob;if(this.hide){return"display:none"}this.fire("px-vis-request-pixel-for-data",{callback:function(info){coords=info.pixel;oob=info.outOfBounds}.bind(this),data:[item.x,item.y],series:item.series,margin:this.margin});if(oob||isNaN(coords[0])||isNaN(coords[1])){return"display: none"}else{coords[0]-=this._iconWidth/2;coords[1]-=this._iconHeight;return"transform: translate("+_Mathfloor(coords[0])+"px,"+_Mathfloor(coords[1])+"px)"}},_mouseOver:function _mouseOver(evt){this._requestAnnotation(evt,"over")},_mouseLeave:function _mouseLeave(evt){this._requestAnnotation(evt,"leave")},_mouseClick:function _mouseClick(evt){this._requestAnnotation(evt,"click")},_mouseEnter:function _mouseEnter(evt){this._requestAnnotation(evt,"enter")},_mouseOut:function _mouseOut(evt){this._requestAnnotation(evt,"out")},_requestAnnotation:function _requestAnnotation(evt,eventName){var target=Polymer.dom(evt).localTarget;this.fire("px-vis-event-request",{eventName:"px-vis-annotation-"+eventName,data:{annotationData:this.$.template.itemForElement(target),icon:target}})}});</script>
+</body></html>

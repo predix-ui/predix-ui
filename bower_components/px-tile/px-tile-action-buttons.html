@@ -1,0 +1,52 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/px-tile-styles.html">
+
+<!--
+
+### Usage
+    This is a helper component to support display of button on hover effect in px-tile and avoid duplicate code
+    
+    <px-tile-action-buttons action-buttons="{{actionButtons}}" primary="true" overlay="false"></px-tile-action-buttons>
+    
+    If items <= 3 it will display the elements one after the other
+    If items > 3 it will display the list of elements in a dropdown
+    
+
+@element px-tile-action-buttons
+@blurb A tile component for actionable icons/buttons/text
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-tile-action-buttons">
+  <template>
+    <style include="px-tile-styles"></style>
+    <template is="dom-if" if="{{_isDisplayButtons}}">
+      <div class="flex flex--right">
+		    <template is="dom-repeat" items="[[_items]]">
+           <button class$="btn {{_getBtnClazz(item)}}" style$="{{_getBtnColor(item)}} {{item.style}}" on-tap="_onSelected">
+		         <template is="dom-if" if="{{item.icon}}">
+		          <px-icon icon="{{item.icon}}"></px-icon>
+		        </template>
+		         <template is="dom-if" if="{{!item.buttonIcon}}">
+		           <span>{{item.label}}</span>
+		         </template>
+		      </button>
+		    </template>
+	    </div>
+    </template>
+    <template is="dom-if" if="{{_isDisplayDropdown}}"> 
+      <div class="flex flex--right">
+				<px-dropdown id="pxDropdown" items="[[_items]]" sort-mode="key" select-by="key" button-style="icon" icon="px-nav:more" disable-clear="" hide-chevron="">
+				</px-dropdown>
+      </div>
+    </template>
+  </template>
+</dom-module>
+<script src="dist/px-tile-action-buttons.js"></script>
+</body></html>

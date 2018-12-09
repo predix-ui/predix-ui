@@ -1,0 +1,23 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="px-data-grid-header-cell.html">
+
+</head><body><dom-module id="px-data-grid-column">
+  <script>{var DataGridColumnElement=function(_Vaadin$GridColumnEle){babelHelpers.inherits(DataGridColumnElement,_Vaadin$GridColumnEle);function DataGridColumnElement(){babelHelpers.classCallCheck(this,DataGridColumnElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridColumnElement).apply(this,arguments))}babelHelpers.createClass(DataGridColumnElement,[{key:"_stampHeaderTemplate",value:function _stampHeaderTemplate(headerTemplate,headerCell){if(!headerTemplate||!headerCell||headerCell._instance){return}var inst=headerTemplate.templatizer.createInstance(),headerCellContentWrapper=document.createElement("px-data-grid-header-cell");headerCellContentWrapper.appendChild(inst.root);headerCellContentWrapper.groupByColumnAllowed=this.groupByColumnAllowed;headerCellContentWrapper._column=this;headerCell._content.appendChild(headerCellContentWrapper);headerCell._instance=inst;headerCell.parentElement.hidden=!1;this._headerCellContentWrapper=headerCellContentWrapper}},{key:"_updateGroupByColumnAllowed",value:function _updateGroupByColumnAllowed(newVal){if("boolean"===typeof newVal&&babelHelpers.instanceof(this._headerCellContentWrapper,HTMLElement)&&this._headerCellContentWrapper.groupByColumnAllowed!==newVal){this._headerCellContentWrapper.groupByColumnAllowed=newVal}}},{key:"_updateI18n",value:function _updateI18n(localize,_headerCellContentWrapper){if(!_headerCellContentWrapper){return}_headerCellContentWrapper.localize=localize}},{key:"_typeChanged",value:function _typeChanged(type){if(type&&-1==this._permittedTypes.indexOf(type.toLowerCase())){console.warn("".concat(type," is unsupported type for px-data-grid-column."))}}},{key:"_mappedObjectChanged",value:function _mappedObjectChanged(obj){if(obj){Object.defineProperty(obj,"_element",{value:this,configurable:!0,enumerable:!1})}}},{key:"_checkIfValueChanged",value:function _checkIfValueChanged(value,propertyName){if(this.mappedObject){if(this.mappedObject[propertyName]!=value){this.mappedObject[propertyName]=value;this._fireStatusChange(this.mappedObject,propertyName,value,!0)}else{this._fireStatusChange(this.mappedObject,propertyName,value,!1)}}}},{key:"_columnHiddenChanged",value:function _columnHiddenChanged(hidden){this._checkIfValueChanged(hidden,"hidden")}},{key:"_columnFrozenChanged",value:function _columnFrozenChanged(frozen){this._checkIfValueChanged(frozen,"frozen")}},{key:"_fireStatusChange",value:function _fireStatusChange(mappedObject,propertyName,value,updatedModel){var _this=this;this._renderDebouncer=Polymer.Debouncer.debounce(this._renderDebouncer,Polymer.Async.timeOut.after(this.timeout),function(){_this.dispatchEvent(new CustomEvent("column-change",{detail:{column:mappedObject,type:propertyName,value:value,updatedModel:updatedModel},bubbles:!0}))})}}],[{key:"is",get:function get(){return"px-data-grid-column"}},{key:"properties",get:function get(){return{name:{type:String},path:{type:String},mappedObject:{type:Object,observer:"_mappedObjectChanged"},_headerCellContentWrapper:{type:Element},type:{type:String,value:"string",observer:"_typeChanged"},_permittedTypes:{type:Array,value:["string","number","date"]},isDataColumn:{type:Boolean,value:!1},groupByColumnAllowed:{type:Boolean,observer:"_updateGroupByColumnAllowed"},localize:Function}}},{key:"observers",get:function get(){return["_updateI18n(localize, _headerCellContentWrapper)","_columnHiddenChanged(hidden)","_columnFrozenChanged(frozen)"]}}]);return DataGridColumnElement}(Vaadin.GridColumnElement);customElements.define(DataGridColumnElement.is,DataGridColumnElement);window.Predix=window.Predix||{};Predix.DataGridColumnElement=DataGridColumnElement}</script>
+</dom-module>
+</body></html>

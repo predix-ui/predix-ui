@@ -1,0 +1,69 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-scale
+      x-axis-type="time"
+      y-axis-type="linear"
+      complete-series-config="[[seriesConfig]]"
+      data-extents="[[dataExtents]]"
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      chart-data="{{chartData}}"
+      x="{{x}}"
+      y="{{y}}"
+      domain-changed="{{domainChanged}}"
+      selected-domain="[[selectedDomain]]">
+    </px-vis-scale>
+    <px-vis-svg
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      svg="{{svg}}">
+    </px-vis-svg>
+    <px-vis-scatter
+      svg="[[svg]]"
+      series-id="mySeries"
+      complete-series-config="[[seriesConfig]]"
+      chart-data="[[chartData]]"
+      x="[[x]]"
+      y="[[y]]"
+      domain-changed="[[domainChanged]]">
+    </px-vis-scatter>
+
+@element px-vis-scatter
+@blurb Element which draws a scatter series onto the chart
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-scatter">
+  <template>
+    <style include="px-vis-styles"></style>
+
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-scatter",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.svg,PxVisBehaviorD3.axes,PxVisBehavior.dataset,PxVisBehavior.mutedSeries,PxVisBehavior.commonMethods,PxVisBehaviorD3.clipPath,PxVisBehavior.completeSeriesConfig,PxVisBehaviorD3.radialLineGenerator,PxVisBehaviorD3.domainUpdate,PxVisBehavior.polarData,PxVisBehavior.seriesId,PxVisBehavior.dynamicConfigProperties,PxVisBehaviorD3.serieToRedrawOnTopSVG,PxVisBehavior.isAttached,PxVisBehaviorD3.scatterMarkers,PxVisBehaviorD3.scatterArrow],properties:{seriesNumber:{type:Number,value:0},scatterGroup:{type:Object,value:function value(){return{}}},scatterDots:{type:Object},scatterBuilder:{type:Object},arrowDots:{type:Object},arrowBuilder:{type:Object},radial:{type:Boolean,value:!1},timeData:{type:String,value:"Timestamp"},drawDebounceTime:{type:Number,value:10}},observers:["drawElement(svg, domainChanged, chartData.*, completeSeriesConfig.*, radial, counterClockwise,markerSymbol, markerScale, markerSize, markerFillOpacity, markerStrokeOpacity)","isIdInMuted(mutedSeries.*)","_addClipPath(clipPath)","_drawOnTop(serieToRedrawOnTop)"],ready:function ready(){this._watchConfigProperty("markerSymbol","circle");this._watchConfigProperty("markerScale",1);this._watchConfigProperty("markerSize",64);this._watchConfigProperty("markerFillOpacity",.6);this._watchConfigProperty("markerStrokeOpacity",1);this._watchConfigProperty("mutedOpacity",.3)},attached:function attached(){if(this._isDirty){this.drawElement()}this._isDirty=!1},detached:function detached(){this._isDirty=!0;this.scatterDots=null;if(this._doesD3HaveValues(this.scatterGroup)){this.scatterGroup.remove();this.scatterGroup=null}},drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}if(!this.preventInitialDrawing){if(0<this.drawDebounceTime){this.debounce("draw",function(){this._drawElementDebounced()}.bind(this),this.drawDebounceTime)}else{this._drawElementDebounced()}}},_drawElementDebounced:function _drawElementDebounced(){if(this.y&&this.domainChanged&&this._isAttached&&this.chartData){if(this._isObjEmpty(this.scatterGroup)){this.scatterGroup=this.svg.append("g").attr("series-id","scatter_"+this.seriesId).attr("class","series-scatter")}if(this.radial){this._defineRadialLine(!1,this.multiPath,this.counterClockwise,this.useDegrees);if(this.showArrows){this._buildArrows()}}this.scatterBuilder=this.scatterGroup.selectAll("path.symbol").data(this.chartData);this.scatterBuilder.exit().remove();this.scatterBuilder.enter().append("path").attr("class","symbol").merge(this.scatterBuilder).attr("d",Px.d3.symbol().type(this.markerMapping[this.markerSymbol]).size(this.markerSize)).attr("transform",this._applyTransform.bind(this)).each(function(d,i,paths){if(!this._isValidData(d[this.completeSeriesConfig[this.seriesId].y])||!this._isValidData(d[this.completeSeriesConfig[this.seriesId].x])){paths[i].remove()}}.bind(this));this.scatterDots=this.scatterGroup.selectAll("path.symbol");this._colorScatter();this._addClipPath();this.isIdInMuted();this.fire("px-vis-scatter-rendering-ended")}},_addClipPath:function _addClipPath(){if(this.hasUndefinedArguments(arguments)){return}this.addClipPath(this.scatterGroup)},isIdInMuted:function isIdInMuted(){if(this.hasUndefinedArguments(arguments)){return}if(this.mutedSeries.hasOwnProperty(this.seriesId)&&this._doesD3HaveValues(this.scatterDots)){this._colorScatter()}},_applyTransform:function _applyTransform(d){if(!this._isValidData(d[this.completeSeriesConfig[this.seriesId].y])||!this._isValidData(d[this.completeSeriesConfig[this.seriesId].x])){return""}if(this.radial){var line=this.line([d]),coors=line.slice(1).slice(0,-1);return"translate("+coors+")"+" scale("+this.markerScale+")"}else{var xTrans=this.x(d[this.completeSeriesConfig[this.seriesId].x]),yTrans=this.y(d[this.completeSeriesConfig[this.seriesId].y]);return"translate("+xTrans+","+yTrans+")"+" scale("+this.markerScale+")"}},_colorScatter:function _colorScatter(){var muted=this.mutedSeries[this.seriesId];this.scatterGroup.attr("fill",this.completeSeriesConfig[this.seriesId].color).attr("fill-opacity",muted?this.mutedOpacity:this.markerFillOpacity).attr("stroke",this.completeSeriesConfig[this.seriesId].color).attr("stroke-opacity",muted?0:this.markerStrokeOpacity)},_drawOnTop:function _drawOnTop(serieToRedrawOnTop){if(this.hasUndefinedArguments(arguments)){return}if(this.scatterGroup&&this.seriesId){this._drawSVGOnTop(serieToRedrawOnTop,this.seriesId,this.scatterGroup)}},_buildArrows:function _buildArrows(){this.arrowBuilder=this.scatterGroup.selectAll("path.arrow").data(this.chartData);this.arrowBuilder.exit().remove();this.arrowBuilder.enter().append("path").attr("class","arrow").merge(this.arrowBuilder).attr("d",Px.d3.symbol().type(this.markerMapping[this.arrowConfig.symbol]).size(this.arrowConfig.size)).attr("transform",this._transformArrow.bind(this)).each(function(d,i,paths){if(!this._isValidData(d[this.completeSeriesConfig[this.seriesId].x])||!this._isValidData(d[this.completeSeriesConfig[this.seriesId].y])||0===i||!this._isValidData(this.chartData[i-1][this.completeSeriesConfig[this.seriesId].x])||!this._isValidData(this.chartData[i-1][this.completeSeriesConfig[this.seriesId].y])){paths[i].remove()}}.bind(this));this.arrowDots=this.scatterGroup.selectAll("path.arrow")},_transformArrow:function _transformArrow(d,i){var _MathPI=Math.PI;if(!this._isValidData(d[this.completeSeriesConfig[this.seriesId].x])||!this._isValidData(d[this.completeSeriesConfig[this.seriesId].y])||0===i||!this._isValidData(this.chartData[i-1][this.completeSeriesConfig[this.seriesId].x])||!this._isValidData(this.chartData[i-1][this.completeSeriesConfig[this.seriesId].y])){return""}var p0=this.line([this.chartData[i-1]]),p1=this.line([d]),coords0=p0.slice(1).slice(0,-1).split(","),coords1=p1.slice(1).slice(0,-1).split(","),dx=(+coords1[0]-+coords0[0])/2,dy=(+coords1[1]-+coords0[1])/2,h=Math.sqrt(dx*dx+dy*dy),x,y,angle,angleDeg;if(h<this.arrowConfig.minLength){return""}x=dx+ +coords0[0];y=dy+ +coords0[1];angle=Math.atan2(dy,dx)+_MathPI/2;angleDeg=180*angle/_MathPI;return"rotate("+angleDeg+" "+x+","+y+") translate("+x+","+y+") scale("+this.arrowConfig.scale+")"}});</script>
+</body></html>

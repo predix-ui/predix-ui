@@ -1,0 +1,982 @@
+[
+  {
+    "name": "px-actionable-design",
+    "title": "Actionable Text/Icons",
+    "description": "Predix UI Actionable module is a simple implementation of added button type behaviors to text. Actionable text allows the user to initiate an secondary action associated to the text string.",
+    "imageUrl": "img/component-gallery/actionable-design",
+    "imageAlt": "Actionable Text/Icons thumbnail",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ]
+  },
+  {
+    "name": "px-buttons-design",
+    "title": "Buttons",
+    "description": "The Predix UI Buttons module is a simple, robust, extensible baseline for building entire suites of buttons on.",
+    "imageUrl": "img/component-gallery/buttons-design",
+    "imageAlt": "Buttons thumbnail",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ]
+  },
+  {
+    "name": "px-button-group-design",
+    "title": "Button Group",
+    "description": "The Predix UI Button Group module is an implementation of button groups, either multiple or unique select.",
+    "imageUrl": "img/component-gallery/button-group-design",
+    "imageAlt": "Button Group thumbnail",
+    "tags": [
+      "css",
+      "visual",
+      "buttons"
+    ]
+  },
+  {
+    "name": "px-code-design",
+    "title": "Code",
+    "description": "The Predix UI Code module provides styling for block and inline code snippets.",
+    "imageUrl": "img/component-gallery/code-design",
+    "imageAlt": "Code thumbnail",
+    "tags": [
+      "css",
+      "visual"
+    ]
+  },
+  {
+    "name": "px-colors-design",
+    "title": "Colors",
+    "description": "The colors module assigns Sass variables for the Predix Design System default color palette.",
+    "imageUrl": "img/component-gallery/colors-design",
+    "imageAlt": "Colors thumbnail",
+    "tags": [
+      "css",
+      "visual"
+    ]
+  },
+  {
+    "name": "px-forms-design",
+    "title": "Forms",
+    "description": "The Predix UI Forms module is a simple implementation of forms and form fields. Form layouts follow rhythmic spacing with simple numeric patterns. The distance between elements creates the grouping and the visual hierarchy.",
+    "imageUrl": "img/component-gallery/forms-design",
+    "imageAlt": "Forms thumbnail",
+    "tags": [
+      "css",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-headings-design",
+    "title": "Headings",
+    "description": "Headings gives you base-level text sizes in the form of easy-to-apply classes along with styled heading classes. Use its classes to style H1-H6 heading tags or other text elements. These type sizes are loose multiples of 15px as a basic unit. The sizes and styles follow a typographic rhythm, which makes the sizing distinct and gives the visual hierarchy emphasis.",
+    "imageUrl": "img/component-gallery/headings-design",
+    "imageAlt": "Headings thumbnail",
+    "tags": [
+      "css",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-helpers-design",
+    "title": "Helpers",
+    "description": "A series of helper classes for use throughout Predix UI.",
+    "imageUrl": "img/component-gallery/helpers-design",
+    "imageAlt": "Helpers thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-list-bare-design",
+    "title": "List Bare",
+    "description": "The Predix UI List Bare module simply removes bullets and indents from lists.",
+    "imageUrl": "img/component-gallery/list-bare-design",
+    "imageAlt": "List Bare thumbnail",
+    "tags": [
+      "data display",
+      "css"
+    ]
+  },
+  {
+    "name": "px-list-inline-design",
+    "title": "List Inline",
+    "description": "The Predix UI List Inline module simply displays a list as a delimited horizontal row.",
+    "imageUrl": "img/component-gallery/list-inline-design",
+    "imageAlt": "List Inline thumbnail",
+    "tags": [
+      "data display",
+      "css"
+    ]
+  },
+  {
+    "name": "px-list-ui-design",
+    "title": "List UI",
+    "description": "The Predix UI List UI module creates blocky, keyline-delimited list items.",
+    "imageUrl": "img/component-gallery/list-ui-design",
+    "imageAlt": "List UI thumbnail",
+    "tags": [
+      "data display",
+      "css"
+    ]
+  },
+  {
+    "name": "px-shadows-design",
+    "title": "Shadows",
+    "description": "The Predix UI Shadows module provides a set of predefined shadow styles that give a visual rhythm to the design system.",
+    "imageUrl": "img/component-gallery/shadows-design",
+    "imageAlt": "Shadows thumbnail",
+    "tags": [
+      "css",
+      "visual"
+    ]
+  },
+  {
+    "name": "px-tables-design",
+    "title": "Tables",
+    "description": "Predix UI has some useful helpers for common <table> patterns.",
+    "imageUrl": "img/component-gallery/tables-design",
+    "imageAlt": "Tables thumbnail",
+    "tags": [
+      "data display",
+      "css"
+    ]
+  },
+  {
+    "name": "px-box-design",
+    "title": "Box",
+    "description": "The Box module simply boxes off content, with a variety of padding options.",
+    "imageUrl": "img/component-gallery/box-design",
+    "imageAlt": "Box thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-flag-design",
+    "title": "Flag",
+    "description": "The Predix UI Flag module is similar in appearance to the classic OOCSS' media object, however it utilizes 'display: table-cell' to give us control over the vertical alignments of the text and image.",
+    "imageUrl": "img/component-gallery/flag-design",
+    "imageAlt": "Flag thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-flexbox-design",
+    "title": "Flexbox",
+    "description": "Flexbox creates layout classes to give elements sizes and dynamically put elements in the right place. The flexbox module a wrapper around all of CSS flexbox's non-unit-based properties.",
+    "imageUrl": "img/component-gallery/flexbox-design",
+    "imageAlt": "Flexbox thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-layout-design",
+    "title": "Layout",
+    "description": "The Predix UI Layout module defines the 'grid' for Predix UI. Layout items can be autosized, or given a specific width, and layouts reflow responsively on smaller viewports.",
+    "imageUrl": "img/component-gallery/layout-design",
+    "imageAlt": "Layout thumbnail",
+    "tags": [
+      "css",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-spacing-design",
+    "title": "Spacing",
+    "description": "The Predix UI Spacing module is a collection of helper classes for spacings like margin and padding.",
+    "imageUrl": "img/component-gallery/spacing-design",
+    "imageAlt": "Spacing thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-spacing-responsive-design",
+    "title": "Spacing (Responsive)",
+    "description": "The Predix UI Spacing Responsive module is an extension of the default px-spacing-design module and provides breakpoint-based classes for nudging margins and paddings around responsively.",
+    "imageUrl": "img/component-gallery/spacing-responsive-design",
+    "imageAlt": "Spacing (Responsive) thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-widths-design",
+    "title": "Widths",
+    "description": "The Predix UI Widths module is a series of width helper classes that you can use to size things like grid systems.",
+    "imageUrl": "img/component-gallery/widths-design",
+    "imageAlt": "Widths thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-widths-responsive-design",
+    "title": "Widths (Responsive)",
+    "description": "The Predix UI Widths Responsive module is an extension of the default px-widths-design module and provides breakpoint-based classes for widths on elements.",
+    "imageUrl": "img/component-gallery/widths-responsive-design",
+    "imageAlt": "Widths (Responsive) thumbnail",
+    "tags": [
+      "css"
+    ]
+  },
+  {
+    "name": "px-accordion",
+    "title": "Accordion",
+    "description": "The px-accordion component provides expandable and collapsible subsection headers for a page. An optional \"action\" icon on the right side will fire an event when pressed.",
+    "imageUrl": "img/component-gallery/accordion",
+    "imageAlt": "Accordion thumbnail",
+    "tags": [
+      "mobile",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-alert-label",
+    "title": "Alert Label",
+    "description": "Alert labels are used to draw attention to a particular piece of information on the screen. Each type of     label (important, warning, error, information, healthy, and unknown) has its own distinct     background color and appropriate font color for maximum visibility. The text within the label is configurable,     but will always show up in all capital letters. Avoid using action verbs in an alert label, as users may     confuse the label for a button.",
+    "imageUrl": "img/component-gallery/alert-label",
+    "imageAlt": "Alert Label thumbnail",
+    "tags": [
+      "mobile",
+      "alerts"
+    ]
+  },
+  {
+    "name": "px-alert-message",
+    "title": "Alert Message",
+    "description": "Alert Messages appear in a queue within the message container. Each message consists of an icon, title,      body, and action. See Alert Icons for more on the default icons available –- a custom icon can also be defined.      The title appears in bold, whereas the message body text does not. The action on the right will appear      as an “X” for dismissing the alert, an “OK” button for acknowledging it, or an “Open” button if a URL is specified.      If Auto Dismiss is enabled, the alert will disappear on its own after a configurable delay period. The      text on the alert messages should be kept short, ideally around three lines.",
+    "imageUrl": "img/component-gallery/alert-message",
+    "imageAlt": "Alert Message thumbnail",
+    "tags": [
+      "alerts"
+    ]
+  },
+  {
+    "name": "px-app-header",
+    "title": "App Header",
+    "description": "The px-app-header component can be used as a wrapper for the px-app-nav. It provides a container that stays fixed to the top of the screen. By default, the branding bar will shrink to a minimized state as the user scrolls down the page, unless the \"fixed\" property is set.",
+    "imageUrl": "img/component-gallery/app-header",
+    "imageAlt": "App Header thumbnail",
+    "tags": [
+      "layout",
+      "app navigation"
+    ]
+  },
+  {
+    "name": "px-app-nav",
+    "title": "App Nav",
+    "description": "The side navigation is the highest level of navigation, for navigating between major sections of the application.       Navigation items can be nested, with sub-items. Each major navigation item should have a unique and descriptive icon.",
+    "imageUrl": "img/component-gallery/app-nav",
+    "imageAlt": "App Nav thumbnail",
+    "tags": [
+      "app navigation",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-branding-bar",
+    "title": "Branding Bar",
+    "description": "A component providing a header area to contain title, logo and branding content.",
+    "imageUrl": "img/component-gallery/branding-bar",
+    "imageAlt": "Branding Bar thumbnail",
+    "tags": [
+      "layout"
+    ]
+  },
+  {
+    "name": "px-breadcrumbs",
+    "title": "Breadcrumbs",
+    "description": "Breadcrumb dropdown displays the navigational path of the user through a context browser.     The breadcrumb links provide a way to see the path of navigation or contextual relationship between objects.     It also provides a quick way to navigate backwards within a path or within a specific context.",
+    "imageUrl": "img/component-gallery/breadcrumbs",
+    "imageAlt": "Breadcrumbs thumbnail",
+    "tags": [
+      "app navigation",
+      "asset navigation",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-card",
+    "title": "Card Element",
+    "description": "The px-card component shows content formatted as a card. Cards consist of header, actions, and content areas. Place content directly inside the <px-card> tag to display it in the card content area.",
+    "imageUrl": "img/component-gallery/card",
+    "imageAlt": "Card Element thumbnail",
+    "tags": [
+      "mobile",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-deck-selector",
+    "title": "Deck Selector",
+    "description": "Element which displays a dropdown of decks and returns the url for the selected deck. Set the decks using an array of objects with \"name\" and \"url\" properties. When a user selects a new deck, the \"selected-deck\" property will be updated and the \"selected-deck-changed\" event will be fired.",
+    "imageUrl": "img/component-gallery/deck-selector",
+    "imageAlt": "Deck Selector thumbnail",
+    "tags": [
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-widget-cards",
+    "title": "Widget Cards",
+    "description": "Cards consist of a header area and content area. A few layout configurations are provided in the px-widget-cards component to help you organize content in a responsive grid within a card.",
+    "imageUrl": "img/component-gallery/widget-cards",
+    "imageAlt": "Widget Cards thumbnail",
+    "tags": [
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-chip",
+    "title": "Chip",
+    "description": "A chip is a representation of an object or a series of information. For example, a chip can be used to represent a contact or a filter. Use a chip in order to represent complex information in a compact way.",
+    "imageUrl": "img/component-gallery/chip",
+    "imageAlt": "Chip thumbnail",
+    "tags": [
+      "mobile",
+      "data display",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-clipboard",
+    "title": "Clipboard",
+    "description": "Px-clipboard is used to quickly and easily cut/copy text onto the user's clipboard.     The value to be cut/copied must be placed in an input/textarea INSIDE px-clipboard, and referenced with copy-from.     If the copy-from attribute does not exist, the data-clipboard-text property must be used.",
+    "imageUrl": "img/component-gallery/clipboard",
+    "imageAlt": "Clipboard thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-context-browser",
+    "title": "Context Browser",
+    "description": "The context browser allows the user to drill down through a hierarchical menu in order to switch the context of the overall view. Examples of possible contexts include specific locations organized geographically, physical assets organized by model or other classification, or employees organized by department or function. When a user clicks on the title or arrow, the expanded view of the context browser covers cards and other content on the page. Selecting an item in the context browser causes the children of that item to show up in the next panel over, and also causes a button to appear within that selected row that allows the user to submit/save that context, which also re-collapses the browser.",
+    "imageUrl": "img/component-gallery/context-browser",
+    "imageAlt": "Context Browser thumbnail",
+    "tags": [
+      "app navigation",
+      "asset navigation"
+    ]
+  },
+  {
+    "name": "px-vis-catalog",
+    "title": "Vis Framework",
+    "description": "px-vis is a Predix UI data visualization framework. It is the foundation for all vis charts.",
+    "imageUrl": "img/component-gallery/vis-catalog",
+    "imageAlt": "Vis Framework thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-bar-chart",
+    "title": "Vis Bar Chart",
+    "description": "The px-vis-bar-chart component is...",
+    "imageUrl": "img/component-gallery/vis-bar-chart",
+    "imageAlt": "Vis Bar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-histogram",
+    "title": "Vis Histogram",
+    "description": "The px-vis-histogram component is...",
+    "imageUrl": "img/component-gallery/vis-histogram",
+    "imageAlt": "Vis Histogram thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-paired-bar",
+    "title": "Vis Paired Bar Chart",
+    "description": "The px-vis-paired-bar component is...",
+    "imageUrl": "img/component-gallery/vis-paired-bar",
+    "imageAlt": "Vis Paired Bar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-parallel-coordinates",
+    "title": "Vis Parallel Coordinates",
+    "description": "The px-vis-parallel-coordinates component allows you to draw a parallel coordinates chart. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+.",
+    "imageUrl": "img/component-gallery/vis-parallel-coordinates",
+    "imageAlt": "Vis Parallel Coordinates thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-pie-chart",
+    "title": "Vis Pie Chart",
+    "description": "The px-vis-pie-chart allows you to draw a pie or donut chart for some data. It can automatically use percentages or use the raw data in tooltip and register. When clicking on a slice the pie will rotate to display this slice at the top. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+.",
+    "imageUrl": "img/component-gallery/vis-pie-chart",
+    "imageAlt": "Vis Pie Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-polar",
+    "title": "Vis Polar Chart",
+    "description": "The px-vis-polar component allows to draw a phase and amplitude on a polar plot. Initial height and width can be set but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is expecting the phase in radians but can use degrees by using the useDegrees property. The chart is built off px-vis components which utilize d3.js 4.0+. The navigator is independent of the chart and has been added to demonstrate how it can be linked to a polar chart.",
+    "imageUrl": "img/component-gallery/vis-polar",
+    "imageAlt": "Vis Polar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-radar",
+    "title": "Vis Radar Chart",
+    "description": "The px-vis-radar component allows you to draw a radar (spider) chart. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+.",
+    "imageUrl": "img/component-gallery/vis-radar",
+    "imageAlt": "Vis Radar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-spark",
+    "title": "Vis Spark",
+    "description": "The px-vis-spark is a visualization element usually referred to as a sparkline - a small line or bar chart without axes or measures that provides a user a glimpse of a trend.",
+    "imageUrl": "img/component-gallery/vis-spark",
+    "imageAlt": "Vis Spark thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-timeseries",
+    "title": "Vis Timeseries",
+    "description": " The px-vis-timeseries component creates a timeseries chart. With timeseries, you can create line and scatter timeseries charts complete with user interaction, events, thresholds, and a navigator. The chart is built off px-vis components which utilize d3.js 4.0+.",
+    "imageUrl": "img/component-gallery/vis-timeseries",
+    "imageAlt": "Vis Timeseries thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-xy-chart",
+    "title": "Vis XY Chart",
+    "description": "The px-vis-xy-chart component allows the user to draw lines or scatter against an X and Y axis. Initial height and width can be set, but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is built off px-vis components which utilize d3.js 4.0+. The navigator is independent of the chart and has been added to demonstrate how it can be linked to an XY chart",
+    "imageUrl": "img/component-gallery/vis-xy-chart",
+    "imageAlt": "Vis XY Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-percent-circle",
+    "title": "Percent Circle",
+    "description": "The px-percent-circle is the simplest possible donut chart - a single ring that fills clockwise based on a percentage. Perfect for dashboards where many percent circles may appear in a row or column.",
+    "imageUrl": "img/component-gallery/percent-circle",
+    "imageAlt": "Percent Circle thumbnail",
+    "tags": [
+      "data vis",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-gauge",
+    "title": "Gauge",
+    "description": "The px-gauge component radially visualizes a single value within a range.",
+    "imageUrl": "img/component-gallery/gauge",
+    "imageAlt": "Gauge thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-boxplot",
+    "title": "Box Plot",
+    "description": "The px-vis-boxplot component",
+    "imageUrl": "img/component-gallery/vis-boxplot",
+    "imageAlt": "Box Plot thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-vis-heatmap",
+    "title": "Heatmap",
+    "description": "The px-vis-heatmap component",
+    "imageUrl": "img/component-gallery/vis-heatmap",
+    "imageAlt": "Heatmap thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-simple-area-chart",
+    "title": "Simple Area Chart",
+    "description": "The px-simple-area-chart component creates a simple stacked area chart.",
+    "imageUrl": "img/component-gallery/simple-area-chart",
+    "imageAlt": "Simple Area Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-simple-bar-chart",
+    "title": "Simple Bar Chart",
+    "description": "Use this component to visualize a series or multiple series of numeric values as a bar chart or stacked bar chart.       Each series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally       representing a value.       It uses the data visualization color palette by default, but this can be overridden with configuration. The height and       width are configurable, as are the legend labels – if none are provided, the legend will not be shown.       We recommend using the default settings as they are designed for proper performance.",
+    "imageUrl": "img/component-gallery/simple-bar-chart",
+    "imageAlt": "Simple Bar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-simple-horizontal-bar-chart",
+    "title": "Simple Horizontal Bar Chart",
+    "description": "The Simple Horizontal Bar Chart provides a quick way to visualize data in bars.    Each series is represented by a sequence of verically aligned bars, the length of    each proportionally representing a value.    It uses the data visualization color palette by default, but this can be overridden with configuration. The height and    width are configurable, as are the legend labels – if none are provided, the legend will not be shown.    We recommend using the default settings as they are designed for proper performance.",
+    "imageUrl": "img/component-gallery/simple-horizontal-bar-chart",
+    "imageAlt": "Simple Horizontal Bar Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-simple-line-chart",
+    "title": "Simple Line Chart",
+    "description": "The Simple Line Chart provides a quick way to visualize linear data. Configuration options include    setting the minimum and maximum values for the Y-axis, whether or not to include a orange horizontal line    at a certain threshold value, setting the number of vertical and horizontal grid marks; and customizing    the labels of the min, max, and threshold.",
+    "imageUrl": "img/component-gallery/simple-line-chart",
+    "imageAlt": "Simple Line Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-simple-win-loss-chart",
+    "title": "Simple Win-Loss Chart",
+    "description": "Use this component to visualize a series of positive & negative values as a bar chart. The series is represented by a sequence of horizontally aligned rectangle bars, the height of each proportionally representing a value.    Positive values are represented above the x-axis in one color, and negative values are displayed below the axis, in a different color - these two colors are configurable. The width and height of the component are also configurable, or can be set to \"auto\" for a responsive layout.",
+    "imageUrl": "img/component-gallery/simple-win-loss-chart",
+    "imageAlt": "Simple Win-Loss Chart thumbnail",
+    "tags": [
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-data-table",
+    "title": "Data Table",
+    "description": "The Data Table component is useful for displaying tabular data, and provides more functionality than a simple table. Users can sort ascending or descending on each column, filter within columns using simple search, select one or more rows, and edit data in-line with input validation. Rows are automatically paginated, but the user can select the number of rows to display in a single page. Cell borders can be configured by the developer to show up horizontally, vertically, or both.",
+    "imageUrl": "img/component-gallery/data-table",
+    "imageAlt": "Data Table thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-data-grid",
+    "title": "Data Grid",
+    "description": "The data grid displays tabular data with rich interactions to help users find, manage, and update important information. The px-data-grid component replaces the legacy px-data-table component and offers a wide range of new behaviors. The grid is a complete rewrite with a new API and more features that targets Polymer 2+ runtime.\"     github-org=\"predixdesignsystem",
+    "imageUrl": "img/component-gallery/data-grid",
+    "imageAlt": "Data Grid thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-data-grid-paginated",
+    "title": "Data Grid Paginated",
+    "description": "Paginated version of the data grid. The data grid displays tabular data with rich interactions to help users find, manage, and update important information. The px-data-grid component replaces the legacy px-data-table component and offers a wide range of new behaviors. The grid is a complete rewrite with a new API and more features that targets Polymer 2+ runtime.\"     github-org=\"predixdesignsystem",
+    "imageUrl": "img/component-gallery/data-grid-paginated",
+    "imageAlt": "Data Grid Paginated thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-calendar-picker",
+    "title": "Calendar Picker",
+    "description": "The px-calendar-picker component renders a calendar for a given decade, year, or month, and allows users to select a date or range from the calendar. One main use of this component is in the px-range-panel.",
+    "imageUrl": "img/component-gallery/calendar-picker",
+    "imageAlt": "Calendar Picker thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-datetime-field",
+    "title": "Datetime Field",
+    "description": "This component allows the user to select a date and time precisely to the second or millisecond.      The counter represents when the px-datetime-field event/date property of the     field is being fired/updated. The behavior depends on whether the field uses     buttons. If it has buttons, then it is fired when the user clicks the apply button AND the date/time is valid.     If it doesn't have buttons, then it is fired every time a valid change is made to the date or time.",
+    "imageUrl": "img/component-gallery/datetime-field",
+    "imageAlt": "Datetime Field thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-datetime-picker",
+    "title": "Datetime Picker",
+    "description": "The px-datetime-picker component includes various elements used for structuring responsive layouts. This component allows the user to select a date or date range. The main use of this component is to be used in the px-range-panel.",
+    "imageUrl": "img/component-gallery/datetime-picker",
+    "imageAlt": "Datetime Picker thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-datetime-range-field",
+    "title": "Datetime Range Field",
+    "description": "The px-datetime-range-field component includes various elements used for structuring responsive layouts.     This component allows the user to select a date and time range precisely to the second or millisecond.     This counter represents when the px-datetime-range-field event/range property of the     range fields are being fired/updated. The behavior depends on whether the range field uses     buttons. If it has buttons, then it is fired when the user clicks the apply button AND the date/time is valid.     If it doesn't have buttons, then it is fired every time a valid change is made to the date or time.",
+    "imageUrl": "img/component-gallery/datetime-range-field",
+    "imageAlt": "Datetime Range Field thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-datetime-range-panel",
+    "title": "Datetime Range Panel",
+    "description": "The px-datetime-range-panel component includes various elements used for structuring responsive layouts.    This component allows the user to select a date and time range precisely to the second or millisecond.      The main use of this component is to be used in the px-rangepicker.",
+    "imageUrl": "img/component-gallery/datetime-range-panel",
+    "imageAlt": "Datetime Range Panel thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-rangepicker",
+    "title": "Rangepicker",
+    "description": "The px-rangepicker component includes various elements used for structuring responsive layouts.      This component allows the user to select a date and time range precisely to the second or millisecond.      The main use case for the Rangepicker is to plot time series data, where the user needs      to be able to select exactly what timeframe they would like to see.",
+    "imageUrl": "img/component-gallery/rangepicker",
+    "imageAlt": "Rangepicker thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-dropdown",
+    "title": "Dropdown",
+    "description": "Dropdowns have two primary use cases. First, as a form control, dropdown lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a dropdown. The second primary use case for a dropdown list is as a filter or navigation item, where invoking an option from the dropdown menu results in an action of some kind.",
+    "imageUrl": "img/component-gallery/dropdown",
+    "imageAlt": "Dropdown thumbnail",
+    "tags": [
+      "app navigation",
+      "buttons",
+      "data input",
+      "btn"
+    ]
+  },
+  {
+    "name": "px-file-upload",
+    "title": "File Upload",
+    "description": " The px-file-upload component allows user to select one or more files from their filesystem by invoking the standard dialog, or by dragging and dropping files onto the target area, if supported by their browser.",
+    "imageUrl": "img/component-gallery/file-upload",
+    "imageAlt": "File Upload thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-heatmap-grid",
+    "title": "Heatmap Grid",
+    "description": "The px-heatmap-grid is a highly visual and flexible interactive component for visualizing a data set based on a heat map scale of colors.",
+    "imageUrl": "img/component-gallery/heatmap-grid",
+    "imageAlt": "Heatmap Grid thumbnail",
+    "tags": [
+      "data display"
+    ]
+  },
+  {
+    "name": "px-icon-set",
+    "title": "Icons",
+    "description": "Wrapper for the Predix icon set which leverages px-icon. Please refer to the px-icon API and the full list of Predix icons below the demo.",
+    "imageUrl": "img/component-gallery/icon-set",
+    "imageAlt": "Icons thumbnail",
+    "tags": [
+      "mobile",
+      "visual"
+    ]
+  },
+  {
+    "name": "px-inbox",
+    "title": "Inbox",
+    "description": "A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.",
+    "imageUrl": "img/component-gallery/inbox",
+    "imageAlt": "Inbox thumbnail",
+    "tags": [
+      "mobile",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-key-value-pair",
+    "title": "Key-Value Pair",
+    "description": "The px-key-value-pair component allows you to prominently display information in a dashboard.",
+    "imageUrl": "img/component-gallery/key-value-pair",
+    "imageAlt": "Key-Value Pair thumbnail",
+    "tags": [
+      "data display"
+    ]
+  },
+  {
+    "name": "px-kpi",
+    "title": "KPI",
+    "description": "The px-kpi element is for displaying KPIs in a dashboard layout as a tile with one large number value.",
+    "imageUrl": "img/component-gallery/kpi",
+    "imageAlt": "KPI thumbnail",
+    "tags": [
+      "data display",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-login",
+    "title": "Login",
+    "description": "The px-login element provides a login/logout button that integrates nicely with Cloud Foundry's UAA. (Note that Sign In does not work in this demo page. You can set the User name property to simulate sign in here.)",
+    "imageUrl": "img/component-gallery/login",
+    "imageAlt": "Login thumbnail",
+    "tags": [
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-map",
+    "title": "Map Base",
+    "description": "The px-map component is a framework for creating maps in your application.",
+    "imageUrl": "img/component-gallery/map",
+    "imageAlt": "Map Base thumbnail",
+    "tags": [
+      "data display"
+    ]
+  },
+  {
+    "name": "px-modal",
+    "title": "Modal",
+    "description": "Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. Avoid using modals frequently or stacking modals.",
+    "imageUrl": "img/component-gallery/modal",
+    "imageAlt": "Modal thumbnail",
+    "tags": [
+      "messaging",
+      "alerts"
+    ]
+  },
+  {
+    "name": "px-notification",
+    "title": "Notification",
+    "description": "A component providing a way to notify the user of a state change or actions taken on a specific context.",
+    "imageUrl": "img/component-gallery/notification",
+    "imageAlt": "Notification thumbnail",
+    "tags": [
+      "alerts",
+      "mobile",
+      "messaging"
+    ]
+  },
+  {
+    "name": "px-overlay",
+    "title": "Overlay",
+    "description": "The px-overlay components are used for modal dialogues, popovers, and other use cases where content floats above other content. It prevents stacking context issues by hoisting the floating dialog up the dom to a container.",
+    "imageUrl": "img/component-gallery/overlay",
+    "imageAlt": "Overlay thumbnail",
+    "tags": [
+      "messaging"
+    ]
+  },
+  {
+    "name": "px-panel",
+    "title": "Panel",
+    "description": "The px-panel component provides a container for placing controls or content. Can be fixed or relatively positioned, and persistent or shown and hidden.",
+    "imageUrl": "img/component-gallery/panel",
+    "imageAlt": "Panel thumbnail",
+    "tags": [
+      "layout"
+    ]
+  },
+  {
+    "name": "px-popover",
+    "title": "Popover",
+    "description": "The popover is similar to a tooltip, but is invoked by clicking instead of hovering on a target component. Popovers have an optional title, and can also contain richer content – longer or formatted text, labels, badges, etc. Popovers stay visible on screen until the user clicks outside of the popover.",
+    "imageUrl": "img/component-gallery/popover",
+    "imageAlt": "Popover thumbnail",
+    "tags": [
+      "messaging"
+    ]
+  },
+  {
+    "name": "px-progress-bar",
+    "title": "Progress Bar",
+    "description": "The basic progress bar indicates the progress of an activity with explicit start and end times, or known duration.      The filled portion of the bar grows from left to right to indicate the percentage of progress.      The infinite progress bar indicates an ongoing activity with an indefinite end, such as loading data. The animation hints at      forward progress, but since an end time cannot be calculated, does not explicitly display the amount of progress.",
+    "imageUrl": "img/component-gallery/progress-bar",
+    "imageAlt": "Progress Bar thumbnail",
+    "tags": [
+      "status",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-product-switcher",
+    "title": "Product Switcher",
+    "description": "The px-product-switcher component is a navigation component for switching between products or applications, a level above the standard px-app-nav for navigation within an application.",
+    "imageUrl": "img/component-gallery/product-switcher",
+    "imageAlt": "Product Switcher thumbnail",
+    "tags": [
+      "app navigation",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-slider",
+    "title": "Slider",
+    "description": "The px-slider component allows a user to select a numeric value from a range of acceptable values. The minimum and maximum values, step, and default value can all be specified in configuration. When the isRange property is enabled, a second input box appears on the right hand side of the slider, and two thumb controls appear on the slider bar with the second value accessible via the endValue property. Note the blue slider bar between the two thumb controls to indicate the selected range.",
+    "imageUrl": "img/component-gallery/slider",
+    "imageAlt": "Slider thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-spinner",
+    "title": "Spinner",
+    "description": "The Spinner indicates an ongoing activity with an indefinite end, such as loading data. The size      is configurable. Adding the \"finished\" attribute causes the spinner to disappear when the activity is complete.",
+    "imageUrl": "img/component-gallery/spinner",
+    "imageAlt": "Spinner thumbnail",
+    "tags": [
+      "status",
+      "mobile"
+    ]
+  },
+  {
+    "name": "px-steps",
+    "title": "Steps",
+    "description": "A Polymer component for visually representing a sequence of steps and any progress made on such. Useful for creating wizards, multi-step forms, and other step-by-step interactions.",
+    "imageUrl": "img/component-gallery/steps",
+    "imageAlt": "Steps thumbnail",
+    "tags": [
+      "app navigation",
+      "status"
+    ]
+  },
+  {
+    "name": "px-tabs",
+    "title": "Tabs",
+    "description": "A classic design for organizing content on multiple tabs.",
+    "imageUrl": "img/component-gallery/tabs",
+    "imageAlt": "Tabs thumbnail",
+    "tags": [
+      "app navigation",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-threshold-bar",
+    "title": "Threshold Bar",
+    "description": "The px-threshold-bar is a linear multi-threshold simple bar chart, similar to px-gauge but more compact.",
+    "imageUrl": "img/component-gallery/threshold-bar",
+    "imageAlt": "Threshold Bar thumbnail",
+    "tags": [
+      "data display",
+      "data vis"
+    ]
+  },
+  {
+    "name": "px-tile",
+    "title": "Tile",
+    "description": "The px-tile component has two states and a sliding animation.",
+    "imageUrl": "img/component-gallery/tile",
+    "imageAlt": "Tile thumbnail",
+    "tags": [
+      "mobile",
+      "data display",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-timeline",
+    "title": "Timeline",
+    "description": "The px-timeline is a flexible interactive timeline component for visualizing a time based series of events and documenting details relevant to each event respectively.",
+    "imageUrl": "img/component-gallery/timeline",
+    "imageAlt": "Timeline thumbnail",
+    "tags": [
+      "data display",
+      "mobile",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-toggle",
+    "title": "Toggle",
+    "description": "Toggle is a simple on/off switch web component. Use it to create UI elements that enable and disable things.",
+    "imageUrl": "img/component-gallery/toggle",
+    "imageAlt": "Toggle thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-tooltip",
+    "title": "Tooltip",
+    "description": "A tooltip is a type of popup that provides additional information to users once they hover over the invoking element for a configurable delay period. When the mouse leaves the target area, the tooltip goes away. Not generally recommended for mobile applications, where hover behavior can be inconsistent.",
+    "imageUrl": "img/component-gallery/tooltip",
+    "imageAlt": "Tooltip thumbnail",
+    "tags": [
+      "messaging"
+    ]
+  },
+  {
+    "name": "px-tree",
+    "title": "Tree",
+    "description": "This component provides an expandable and selectable tree. The contents are controlled primarily through a structured object of branch and leaf nodes.",
+    "imageUrl": "img/component-gallery/tree",
+    "imageAlt": "Tree thumbnail",
+    "tags": [
+      "app navigation",
+      "asset navigation",
+      "mobile",
+      "layout"
+    ]
+  },
+  {
+    "name": "px-typeahead",
+    "title": "Typeahead",
+    "description": "Px-typeahead is a Predix UI component similar to a dropdown which shows possible autocompletion options for a given search term based on a list of possible values.",
+    "imageUrl": "img/component-gallery/typeahead",
+    "imageAlt": "Typeahead thumbnail",
+    "tags": [
+      "mobile",
+      "data input"
+    ]
+  },
+  {
+    "name": "px-validation",
+    "title": "Validation",
+    "description": "Px-validation is a component that provides one or more built-in or developer-supplied validation methods for form elements, data table entries, etc. This component only handles the validation logic and return success/error object - see px-forms-design or px-data-table to see how this logic is then handled by the UI of the individual components.     Be sure to click the link below to view the API documentation for the child component, px-validator.",
+    "imageUrl": "img/component-gallery/validation",
+    "imageAlt": "Validation thumbnail",
+    "tags": [
+      "data input"
+    ]
+  },
+  {
+    "name": "px-view-header",
+    "title": "View Header",
+    "description": "The view header is located at the top of the page/view, as an alternative to px-context-browser. The view header provides the user an overview of the content they are viewing and interacting with.",
+    "imageUrl": "img/component-gallery/view-header",
+    "imageAlt": "View Header thumbnail",
+    "tags": [
+      "app navigation",
+      "mobile",
+      "layout"
+    ]
+  }
+]

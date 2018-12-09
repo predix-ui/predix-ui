@@ -1,0 +1,59 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-notification.html">
+<link rel="import" href="../../px-chip/px-chip.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-notification-demo">
+  <template>
+    <style>.btn--light{border:1px solid white;box-shadow:none;background-color:transparent;color:white;outline:none;cursor:pointer;font-family:"GE Inspira Sans", sans-serif;// need this to get correct font in IE and Edge for slotted elements;}.btn--light:hover{background-color:rgba(255,255,255,0.2);}.btn--light:active{background-color:rgba(255,255,255,0.4);}</style>
+
+    <!-- Header -->
+  <px-demo-header module-name="px-notification" description="A component providing a way to notify the user of a state change or actions taken on a specific context." desktop="" tablet="" mobile="">
+  </px-demo-header>
+
+  <!-- Interactive -->
+  <px-demo-interactive>
+    <!-- Configs -->
+    <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+    <!-- Props -->
+    <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+    <!-- Component ---------------------------------------------------------->
+    <px-demo-component slot="px-demo-component" style="width: 100%;">
+      <px-notification type="{{props.type.value}}" status-icon="{{props.statusIcon.value}}" content="{{props.content.value}}" action-icon="{{props.actionIcon.value}}" opened="{{props.opened.value}}" small="{{props.small.value}}" on-px-notification-action-tapped="_handleActionIconButtonTapped">
+        <template is="dom-if" if="{{_showCustomContent(chosenConfig.configName, 'Confirmation')}}" restamp="true">
+          <button slot="right" class="btn--light">Undo</button>
+        </template>
+      </px-notification>
+
+  </px-demo-component>
+  <!-- END Component ------------------------------------------------------>
+
+  <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-notification">
+  </px-demo-component-snippet>
+</px-demo-interactive>
+
+<!-- API Viewer -->
+<px-demo-api-viewer source="px-notification"></px-demo-api-viewer>
+
+<!-- Footer -->
+<px-demo-footer></px-demo-footer>
+
+</template>
+
+</dom-module>
+<script>Polymer({is:"px-notification-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Status",configReset:!0},{configName:"Confirmation",type:"important",content:"Widget has been removed from your dashboard.",statusIcon:"px-utl:delete",actionIcon:"",opened:!0,lightDomContent:"<button slot=\"right\" class=\"whiteButton\">Undo</button>"}]}}},demoProps:{type:{type:String,defaultValue:"healthy",inputType:"dropdown",inputChoices:["important","warning","error","info","unknown","healthy"]},statusIcon:{type:String,defaultValue:"px-utl:filter",inputType:"text"},content:{type:String,defaultValue:"26 Filters",inputType:"text"},actionIcon:{type:String,defaultValue:"px-nav:close",inputType:"text"},opened:{type:Boolean,defaultValue:!0,inputType:"toggle"},small:{type:Boolean,defaultValue:!1,inputType:"toggle"},lightDomContent:{type:String,defaultValue:""}},_showCustomContent:function _showCustomContent(selectedTab,contentToShow){return selectedTab===contentToShow},_handleActionIconButtonTapped:function _handleActionIconButtonTapped(){if("px-nav:close"===this.props.actionIcon.value){this.set("props.opened.value",!1)}}});</script>
+</body></html>

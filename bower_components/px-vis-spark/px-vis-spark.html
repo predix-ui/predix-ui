@@ -1,0 +1,71 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-vis-spark-styles.html">
+<link rel="import" href="../px-vis/px-vis-line-svg.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../px-simple-win-loss-chart/px-simple-win-loss-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-area-svg.html">
+
+
+<!--
+
+### Usage
+
+    <px-vis-spark type="line" width="250" height="40" data='[{"x":0,"y":0},...]'></px-vis-spark>
+    <px-vis-spark type="bar" width="250" height="50" data="[1,2,3]"></px-vis-spark>
+    <px-vis-spark type="winLoss" width="300" height="50" data="[1,-2,3]"></px-vis-spark>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-vis-series-color-0` | Color of the line and area
+
+`--px-vis-font-family` | The font family for all labels and text
+
+@element px-vis-spark
+@blurb A visualization element usually referred to as a sparkline - a small line chart or bar chart without axes or measures that provides a user a glimpse of a trend.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-spark">
+  <template>
+    <style include="px-vis-spark-styles"></style>
+    <template is="dom-if" if="{{data}}">
+      <div id="wrapper" class="wrapper flex">
+        <template is="dom-if" if="{{_isEqual(type,'line')}}">
+          <px-vis-svg width="[[width]]" height="[[height]]" svg="{{svg}}">
+          </px-vis-svg>
+          <px-vis-scale x-axis-type="time" y-axis-type="linear" complete-series-config="[[_seriesConfig]]" data-extents="[[_extents]]" width="[[width]]" height="[[height]]" chart-data="[[data]]" x="{{x}}" y="{{y}}" domain-changed="{{domainChanged}}">
+          </px-vis-scale>
+          <px-vis-line-svg svg="[[svg]]" series-id="spark" chart-data="[[data]]" complete-series-config="[[_seriesConfig]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]">
+          </px-vis-line-svg>
+          <template is="dom-if" if="{{!disableGradient}}" restamp="">
+            <px-vis-area-svg svg="[[svg]]" series-id="spark" complete-series-config="[[_areaConfig]]" chart-data="[[_stackData]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]">
+            </px-vis-area-svg>
+          </template>
+        </template>
+        <template is="dom-if" if="{{_isEqual(type,'bar')}}">
+          <px-simple-win-loss-chart class="simpleBar" chart-data="{{data}}" width="{{width}}" height="{{height}}">
+          </px-simple-win-loss-chart>
+        </template>
+        <template is="dom-if" if="{{_isEqual(type,'winLoss')}}">
+          <px-simple-win-loss-chart class="simpleWinLoss" chart-data="{{data}}" width="{{width}}" height="{{height}}">
+          </px-simple-win-loss-chart>
+        </template>
+      </div>
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-spark",behaviors:[Polymer.IronResizableBehavior,PxColorsBehavior.dataVisColorTheming,PxColorsBehavior.getSeriesColors,PxVisBehaviorD3.domainUpdate,PxVisBehavior.updateStylesOverride,PxVisBehavior.commonMethods],properties:{type:{type:String,value:"line"},data:{type:Array,value:function value(){return[]},observer:"_dataChanged"},_stackData:{type:Object,computed:"_computeStack(data.*, type)"},preventResize:{type:Boolean,value:!1},width:{type:String,value:"300"},height:{type:String,value:"50"},_seriesConfig:{type:Object},_extents:{type:Object,value:function value(){return{x:[1/0,-Infinity],y:[1/0,-Infinity]}}},_gradient:{type:Object},_gradientStop1:{type:Object},_gradientStop2:{type:Object},_gradientStop3:{type:Object},disableGradient:{type:Boolean,value:!1}},listeners:{"iron-resize":"_onIronResize","px-data-vis-colors-applied":"_generateSeriesConfig"},observers:["createGradient(svg, _areaConfig)","_adjustGradients(domainChanged)"],_onIronResize:function _onIronResize(){if(this.preventResize||this.preventResize===void 0){return}this.debounce("ironresize",function(){var _Mathmax=Math.max,wrapperRect=this.$$("#wrapper").getBoundingClientRect();this.set("width",_Mathmax(wrapperRect.width,0));this.set("height",_Mathmax(wrapperRect.height,0))},50)},_isEqual:function _isEqual(a,b){return a===b},_dataChanged:function _dataChanged(){this.set("_extents",{x:[1/0,-Infinity],y:[1/0,-Infinity]})},_generateSeriesConfig:function _generateSeriesConfig(){this.set("_seriesConfig",{spark:{name:"spark",x:"x",y:"y",color:this._getColor(0)}});this.set("_areaConfig",{spark:{name:"spark",x:"x",y:"y",color:"url(#sparkGradient)"}})},_computeStack:function _computeStack(){if(!this.data||0===this.data.length){return}if("line"!==this.type){return[]}var stack=Px.d3.stack();stack.keys(["y"]);return stack(this.data)},createGradient:function createGradient(){if(this._isD3Empty(this.svg)){return}if(!this._gradient){this._gradient=this.svg.append("defs").append("linearGradient").attr("id","sparkGradient").attr("x1",0).attr("x2",0).attr("y1",0).attr("y2",1);this._gradientStop1=this._gradient.append("stop").attr("offset","0%").attr("stop-opacity","0.15");this._gradientStop2=this._gradient.append("stop").attr("stop-opacity","0.05");this._gradientStop3=this._gradient.append("stop").attr("stop-opacity","0.15");this._adjustGradients()}this._gradientStop1.attr("stop-color",this._getColor(0));this._gradientStop2.attr("stop-color",this._getColor(0));this._gradientStop3.attr("stop-color",this._getColor(0))},_adjustGradients:function _adjustGradients(){if(!this.data||!this._gradientStop3){return}for(var isNeg=!1,i=0;i<this.data.length;i++){if(0>this.data[i].y){isNeg=!0}}if(isNeg){var y=this.y(0),r=this.y.range(),p=100*(y/(r[0]-r[1]));this._gradientStop2.attr("offset",p+"%");this._gradientStop3.attr("offset","100%")}else{this._gradientStop2.attr("offset","70%");this._gradientStop3.attr("offset","0%")}}});</script>
+</body></html>

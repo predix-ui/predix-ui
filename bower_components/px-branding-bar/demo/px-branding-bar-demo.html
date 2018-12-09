@@ -1,0 +1,59 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-branding-bar.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-branding-bar-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-branding-bar" description="A component providing a header area to contain title, logo and branding content." desktop="" tablet="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" style="width: 100%;">
+        <px-branding-bar application-title="[[props.applicationTitle.value]]">
+          <template is="dom-if" if="{{isCustomContent(chosenConfig.configName)}}" restamp="true">
+            <span slot="title">Hello Predix</span>
+            <px-icon slot="logo" icon="px-utl:alert"></px-icon>
+          </template>
+        </px-branding-bar>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-branding-bar">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-branding-bar"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-branding-bar-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",applicationTitle:"Predix Design System",configReset:!0},{configName:"Custom Header",applicationTitle:"n/a - see demo snippet",lightDomContent:"<span slot=\"title\">Hello Predix</span><px-icon slot=\"logo\" icon=\"px-utl:alert\"></px-icon>"}]}}},demoProps:{applicationTitle:{type:String,value:"Predix Design System",inputType:"text",inputPlaceholder:""},lightDomContent:{type:String,defaultValue:""}},isCustomContent:function isCustomContent(selectedTab){return"Custom Header"===selectedTab}});</script>
+</body></html>

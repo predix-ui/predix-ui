@@ -1,0 +1,11 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><html><head><link rel="import" href="boot.html">
+<script>(function(){"use strict";var LiteralString=function(){function LiteralString(string){babelHelpers.classCallCheck(this,LiteralString);this.value=string.toString()}babelHelpers.createClass(LiteralString,[{key:"toString",value:function toString(){return this.value}}]);return LiteralString}();function literalValue(value){if(babelHelpers.instanceof(value,LiteralString)){return value.value}else{throw new Error("non-literal value passed to Polymer.htmlLiteral: ".concat(value))}}function htmlValue(value){if(babelHelpers.instanceof(value,HTMLTemplateElement)){return value.innerHTML}else if(babelHelpers.instanceof(value,LiteralString)){return literalValue(value)}else{throw new Error("non-template value passed to Polymer.html: ".concat(value))}}Polymer.html=function html(strings){for(var template=document.createElement("template"),_len=arguments.length,values=Array(1<_len?_len-1:0),_key=1;_key<_len;_key++){values[_key-1]=arguments[_key]}template.innerHTML=values.reduce(function(acc,v,idx){return acc+htmlValue(v)+strings[idx+1]},strings[0]);return template};Polymer.htmlLiteral=function(strings){for(var _len2=arguments.length,values=Array(1<_len2?_len2-1:0),_key2=1;_key2<_len2;_key2++){values[_key2-1]=arguments[_key2]}return new LiteralString(values.reduce(function(acc,v,idx){return acc+literalValue(v)+strings[idx+1]},strings[0]))}})();</script>
+</head><body></body></html>

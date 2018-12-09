@@ -1,0 +1,64 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Component container code for Predix UI demos.
+
+##### Usage
+
+    <px-demo-interactive>
+    </px-demo-interactive>
+
+@element px-demo-header
+@blurb Creates a header for Predix UI demo pages.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-interactive">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <!-- If a code editor instance was given, it will go outside everything
+         because it appears as an overlay. -->
+    <slot name="px-demo-code-editor"></slot>
+
+    <section class="demo-background--interactive">
+      <!-- Tabs go above -->
+      <div class="demo-configs-container [ u-ph++ u-pt++ ]">
+        <slot name="px-demo-configs"></slot>
+      </div>
+
+      <!-- Wraps around all interactive -->
+      <article class="demo-container-flex [ u-ph++ u-pb++ ]">
+
+        <!-- The demo properties go in here -->
+        <div class="demo-properties-container">
+          <div id="propsContainer" class="demo-properties">
+            <slot name="px-demo-props"></slot>
+          </div>
+        </div>
+
+        <!-- The demo component and snippet go in here -->
+        <div class="demo-component-code-container flex__item flex__item--msfix u-mt+">
+          <div class=" demo-component-container u-p++">
+            <slot name="px-demo-component"></slot>
+          </div>
+
+          <slot name="px-demo-component-snippet"></slot>
+        </div>
+
+      </article>
+    </section>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-interactive",properties:{propsShouldBeVisible:{type:Boolean,value:!0,readOnly:!0}},listeners:{"px-demo-props-some-visible":"_ensurePropsContainerVisible","px-demo-props-none-visible":"_ensurePropsContainerHidden"},_ensurePropsContainerVisible:function _ensurePropsContainerVisible(){var propsContainer=this.$.propsContainer;if(propsContainer&&propsContainer.classList.contains("visuallyhidden")){propsContainer.classList.remove("visuallyhidden")}},_ensurePropsContainerHidden:function _ensurePropsContainerHidden(){var propsContainer=this.$.propsContainer;if(propsContainer&&!propsContainer.classList.contains("visuallyhidden")){propsContainer.classList.add("visuallyhidden")}},attached:function attached(){var demoComponentContent=Polymer.dom(this.root).querySelector("content[select=px-demo-component]");Polymer.dom(demoComponentContent).observeNodes(this._demoComponentLightDomLoaded.bind(this))},_demoComponentLightDomLoaded:function _demoComponentLightDomLoaded(){this.fire("px-demo-component-light-dom-loaded")}});</script>
+</body></html>

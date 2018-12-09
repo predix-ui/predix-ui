@@ -1,0 +1,40 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-data-converter.html" defer="">
+<link rel="import" href="../px-vis-timeseries/px-vis-timeseries.html" defer="">
+<link rel="import" href="../iron-ajax/iron-ajax.html" defer="">
+
+</head><body><dom-module id="px-vis-demos-split-y-module">
+  <template>
+    <px-vis-timeseries id="timeseries0" series-config="[[seriesConfig]]" dynamic-menu-config="[[menuConfig]]" disable-navigator="" height="600" width="1000" default-series-config="{
+        &quot;type&quot;: &quot;line&quot;,
+        &quot;x&quot;: &quot;timeStamp&quot;,
+        &quot;axis&quot;: {
+          &quot;id&quot;: &quot;axis1&quot;,
+          &quot;side&quot;: &quot;left&quot;,
+          &quot;number&quot;: &quot;1&quot;
+        }
+      }" cursor-config="{
+        &quot;horizontalLine&quot;: &quot;none&quot;
+      }" chart-data="[[chartData]]" render-to-canvas="">
+    </px-vis-timeseries>
+
+    <iron-ajax id="randomData" url="[[importPath]]../px-demo-data/demo-data/random/d4x1000.json" handle-as="json" last-response="{{chartData}}" auto="">
+    </iron-ajax>
+  </template>
+  <script>Polymer({is:"px-vis-demos-split-y-module",properties:{seriesConfig:{tyhpe:Object,value:function value(){return{y2:{y:"y2"},y3:{y:"y3"}}}},axisCount:{type:Number,value:1},menuConfig:Array},attached:function attached(){var menu=[{name:"Delete",action:this._deleteSeries,actionContext:this,eventName:"delete",icon:"px-vis:trash-series"},{name:"Split Y",action:this._splitY,actionContext:this,eventName:"split-y",icon:"px-vis:expand-radius"}];this.set("menuConfig",menu)},_deleteSeries:function _deleteSeries(data){var conf=this.seriesConfig;this.set("seriesConfig",void 0);delete conf[data.additionalDetail];this.set("seriesConfig",conf)},_splitY:function _splitY(data){var conf=this.seriesConfig;this.set("seriesConfig",void 0),name=data.additionalDetail,series=Object.keys(conf),extents={};this.axisCount+=1;conf[name].axis={id:"axis"+name,side:"left",number:this.axisCount};series.forEach(function(s){extents[s]=Px.d3.extent(this.chartData,function(d){return d[conf[s].y]})}.bind(this));series.forEach(function(s){var delta=1.1*(extents[s][1]-extents[s][0]);conf[s].yMin=name===s?extents[s][0]-delta:extents[s][0];conf[s].yMax=name===s?extents[s][1]:extents[s][1]+delta});this.set("seriesConfig",conf)}});</script>
+</dom-module>
+</body></html>

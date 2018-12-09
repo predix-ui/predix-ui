@@ -1,0 +1,78 @@
+<!-- Dependencies --><html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="predix-ui-hero-animation.html">
+
+<!-- Styles -->
+<link rel="import" href="../../css/px-hero-image-styles.html">
+
+</head><body><dom-module id="px-hero-image">
+  <template>
+    <style include="px-hero-image-styles"></style>
+
+    <iron-media-query query="(min-width: 719px)" query-matches="{{largeScreen}}">
+    </iron-media-query>
+    <div class="wrapper">
+
+      <div class="hero__text">
+        <template is="dom-if" if="{{!dark}}">
+          <picture class="hero__picture">
+            <source srcset="[[importPath]]../../img/home-page/predix_ds_logo.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/predix_ds_logo.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/predix_ds_logo.png" alt="Predix Design System">
+          </picture>
+        </template>
+        <template is="dom-if" if="{{dark}}">
+          <picture class="hero__picture">
+            <source srcset="[[importPath]]../../img/home-page/predix_ds_logo_dark.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/predix_ds_logo_dark.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/predix_ds_logo_dark.png" alt="Predix Design System">
+          </picture>
+        </template>
+        <p>Our user interface components enable you to quickly and easily create Industrial Internet web applications that run
+          on dedicated Predix services and data.</p>
+        <a href="/#/about/what-is-predix-ui" target="_top"><button class="btn btn--primary">Learn More</button></a>
+      </div>
+
+
+      <!--MOBILE-->
+      <template is="dom-if" if="{{!largeScreen}}">
+        <template is="dom-if" if="{{!dark}}">
+          <picture class="hero-picture--bg">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_bkd_light.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_bkd_light.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/mobile_hero_bkd_light.png" alt="hero-background-image" style="width:100%; height: 100%;">
+          </picture>
+          <picture class="hero-picture--fg">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_light.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_light.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/mobile_hero_light.png" alt="hero-image" style="max-width: 100%;">
+          </picture>
+        </template>
+
+        <template is="dom-if" if="{{dark}}">
+          <picture class="hero-picture--bg">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_bkd_dark.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_bkd_dark.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/mobile_hero_bkd_dark.png" alt="hero-background-image" style="width:100%; height: 100%;">
+          </picture>
+          <picture class="hero-picture--fg">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_dark.webp" type="image/webp">
+            <source srcset="[[importPath]]../../img/home-page/mobile_hero_dark.png" type="image/png">
+            <img src="[[importPath]]../../img/home-page/mobile_hero_dark.png" alt="hero-image" style="max-width: 100%;">
+          </picture>
+        </template>
+      </template>
+
+      <!--DESKTOP-->
+      <template is="dom-if" if="{{largeScreen}}">
+        <div class="hero-picture--bg">
+          <predix-ui-hero-animation></predix-ui-hero-animation>
+        </div>
+      </template>
+
+    </div>
+
+  </template>
+  <script>Polymer({is:"px-hero-image",properties:{dark:{type:Boolean,value:!1,reflectToAttribute:!0},largeScreen:{type:Boolean,value:!1,reflectToAttribute:!0}}});</script>
+</dom-module>
+</body></html>

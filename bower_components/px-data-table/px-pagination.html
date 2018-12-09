@@ -1,0 +1,68 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/aha-table-styles.html">
+
+<!--
+Element that provides pagination.
+
+##### Usage
+
+      <px-pagination number-of-items="{{numberOfItems}}" page-size="{{pageSize}}" first-item-index-to-display="{{firstItemIndex}}"></px-pagination>
+
+
+@element px-pagination.html
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-pagination">
+  <template>
+    <style include="aha-table-styles"></style>
+
+    <div class="paginationContainer">
+
+			<span class="pagesize  u-mr+">
+				<span class="rowsPerPage u-mr--">{{localize('Rows per page')}}</span>
+        <px-dropdown id="dropdown" selected="{{pageSize}}" display-value="{{pageSize}}" select-by="val" button-style="bare--primary" items="{{pageSizeOptions}}" disable-clear=""></px-dropdown>
+			</span>
+
+      <div>
+        <span class="summary">
+          <strong>{{firstItemIndexToDisplay}}-{{lastItemIndexToDisplay}}</strong>
+          <span>{{localize('of')}}</span>
+          <span>{{numberOfItems}}</span>
+        </span>
+        <button id="previous" class$="btn {{_getPageupClass(currentPage)}}" on-click="goToPreviousPage">
+          <px-icon icon="px-nav:back"></px-icon>
+        </button>
+        <template is="dom-repeat" items="{{_pagerButtons(pageCount, currentPage)}}" as="page">
+          <span on-click="_goToPage" class$="{{_getPagerButtonClass(page.val, currentPage)}}">{{page.val}}</span>
+        </template>
+        <button id="next" class$="btn {{_getPagedownClass(currentPage, pageCount)}}" on-click="goToNextPage">
+          <px-icon icon="px-nav:next"></px-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </template>
+</dom-module>
+
+<script>var _Polymer;Polymer((_Polymer={is:"px-pagination",behaviors:[Polymer.AppLocalizeBehavior],listeners:{"selected-changed":"_handleDropdownChange"},properties:{numberOfItems:{type:Number,notify:!0,observer:"_goBackToFirstPage"},pageSize:{type:Number,value:10,notify:!0,observer:"_conditionallyUpdatePageSize"},dataRemote:{type:Boolean,value:!1},pageSizeOptions:{type:Array,value:function value(){return[{key:"1",val:"10"},{key:"2",val:"20"},{key:"3",val:"50"},{key:"4",val:"100"}]}},firstItemIndexToDisplay:{type:Number,notify:!0,value:1,observer:"_conditionallyUpdateDisplay"},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{of:"of","Rows per page":"Rows per page"}}}}},ready:function ready(){this.set("itemoftext","of");this.set("pagesizetitle","Rows per page")},_goBackToFirstPage:function _goBackToFirstPage(){this.goToPageNumber(1)},goToNextPage:function goToNextPage(){if(this.currentPage<this.pageCount){if(!this.dataRemote){this.goToPageNumber(this.currentPage+1)}else{this._triggerPageChangeRequest(this.currentPage+1)}}},goToPageNumber:function goToPageNumber(number){if(number){this.currentPage=number;this.updateDisplay()}},goToPreviousPage:function goToPreviousPage(){if(1<this.currentPage){if(!this.dataRemote){this.goToPageNumber(this.currentPage-1)}else{this._triggerPageChangeRequest(this.currentPage-1)}}},setPageSize:function setPageSize(size){this._updatePageSize(size)},updateDisplay:function updateDisplay(){var _Mathceil=Math.ceil;this.set("pageCount",_Mathceil(this.numberOfItems/this.pageSize));if(!this.dataRemote){if(0===this.pageCount){this.set("firstItemIndexToDisplay",0);this.set("lastItemIndexToDisplay",0)}else{this.set("firstItemIndexToDisplay",(this.currentPage-1)*this.pageSize+1);if(this.currentPage===this.pageCount){this.set("lastItemIndexToDisplay",this.numberOfItems)}else{this.set("lastItemIndexToDisplay",this.currentPage*this.pageSize)}}}else{this.set("currentPage",_Mathceil(this.firstItemIndexToDisplay/this.pageSize));if(this.currentPage===this.pageCount){this.set("lastItemIndexToDisplay",this.numberOfItems)}else{this.set("lastItemIndexToDisplay",this.currentPage*this.pageSize)}}}},babelHelpers.defineProperty(_Polymer,"_goBackToFirstPage",function _goBackToFirstPage(){if(!this.dataRemote){this.goToPageNumber(1)}else{this.updateDisplay()}}),babelHelpers.defineProperty(_Polymer,"_conditionallyUpdateDisplay",function _conditionallyUpdateDisplay(){if(this.dataRemote){this.updateDisplay()}}),babelHelpers.defineProperty(_Polymer,"_conditionallyUpdatePageSize",function _conditionallyUpdatePageSize(newPageSize){if(this.dataRemote){this._updatePageSize(parseInt(newPageSize,10))}}),babelHelpers.defineProperty(_Polymer,"_triggerPageChangeRequest",function _triggerPageChangeRequest(intendedPage){this.fire("px-page-change-intent",intendedPage)}),babelHelpers.defineProperty(_Polymer,"_triggerPageSizeChangeRequest",function _triggerPageSizeChangeRequest(intendedPageSize){this.fire("px-page-size-change-intent",intendedPageSize)}),babelHelpers.defineProperty(_Polymer,"_getPageupClass",function _getPageupClass(currentPage){return[1===currentPage?"btn--disabled":"","btn--bare"].join(" ")}),babelHelpers.defineProperty(_Polymer,"_getPagedownClass",function _getPagedownClass(currentPage,pageCount){return[0>=pageCount||currentPage===pageCount?"btn--disabled":"","btn--bare"].join(" ")}),babelHelpers.defineProperty(_Polymer,"_getPagerButtonClass",function _getPagerButtonClass(buttonValue,currentPage){var classList=["btn"];if(buttonValue===currentPage){classList.push("btn--tertiary u-ml")}else{classList.push("btn--bare")}return classList.join(" ")}),babelHelpers.defineProperty(_Polymer,"_pagerButtons",function _pagerButtons(){if(this.pageCount){var noOfPagerButtons=0,pagerNavButtonsConfig=[],i;if(9>=this.pageCount){noOfPagerButtons=this.pageCount;pagerNavButtonsConfig=Array.apply(null,Array(noOfPagerButtons)).map(function(val,index){return{val:index+1}})}else if(this.pageCount<=this.currentPage+3){pagerNavButtonsConfig.push({val:1});pagerNavButtonsConfig.push({val:"..."});for(i=this.pageCount-6;i<=this.pageCount;i++){pagerNavButtonsConfig.push({val:i})}}else{if(5>=this.currentPage){pagerNavButtonsConfig=Array.apply(null,Array(7)).map(function(val,index){return{val:index+1}});pagerNavButtonsConfig.push({val:"..."});pagerNavButtonsConfig.push({val:this.pageCount})}else{pagerNavButtonsConfig.push({val:1});pagerNavButtonsConfig.push({val:"..."});for(i=this.currentPage-3;i<this.currentPage+2;i++){pagerNavButtonsConfig.push({val:i})}pagerNavButtonsConfig.push({val:"..."});pagerNavButtonsConfig.push({val:this.pageCount})}}return pagerNavButtonsConfig}}),babelHelpers.defineProperty(_Polymer,"_updatePageSize",function _updatePageSize(size){this.set("pageSize",size);if(!this.dataRemote){this._goBackToFirstPage()}else{this._triggerPageSizeChangeRequest(size);this.updateDisplay()}}),babelHelpers.defineProperty(_Polymer,"_handleDropdownChange",function _handleDropdownChange(e){this._triggerPageSizeChangeRequest(e.target.value||e.target.selected)}),babelHelpers.defineProperty(_Polymer,"_goToPage",function _goToPage(evt){if(!this.dataRemote){this.goToPageNumber(parseInt(evt.target.textContent))}else{this._triggerPageChangeRequest(parseInt(evt.target.textContent))}}),_Polymer));</script>
+</body></html>

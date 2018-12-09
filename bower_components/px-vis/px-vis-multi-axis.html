@@ -1,0 +1,101 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-chart.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="px-vis-interactive-axis.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-multi-axis
+        svg="[[svg]]"
+        width="[[width]]"
+        height="[[height]]"
+        margin="[[margin]]"
+        offset="[[_offset]]"
+        length="[[_minDim]]"
+        x="[[x]]"
+        y="[[y]]"
+        complete-series-config="{{completeSeriesConfig}}"
+        series-key="[[seriesKey]]"
+        chart-data="[[chartData]]"
+        dimensions="[[dimensions]]"
+        axes="[[axes]]"
+        redraw-series="true"
+        stroke-width="2"
+        match-ticks="[[matchTicks]]"
+        grid-ticks="{{gridTicks}}"
+        grid-axis="{{gridAxis}}"
+        common-axis="[[commonAxis]]"
+        truncation-length="[[truncationLength]]"
+        displayed-values="{{displayedValues}}"
+        append-unit-in-title
+        domain-changed="[[domainChanged]]"
+        axis-groups="{{axisGroups}}"
+        radial
+        single-domain
+        label-position="inline"
+        label-one-axis
+        axis-color="salmon"
+        ticks="[[ticks]]"
+        label-rotation="180"
+        brush-to-remove="[[brushToRemove]]"
+        center-offset="[[centerOffset]]"
+        drawn-tick-values="{{drawnTickValues}}"
+        title-type-size="15"
+        label-type-size="12">
+    </px-vis-multi-axis>
+
+### d3 reference
+https://github.com/mbostock/d3/wiki/SVG-Axes
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-font-family` | The font family for all labels and text
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  `--px-vis-axis-inline-title-color` | The color for the axis title
+  `--px-vis-axis-inline-type-color` | The color for the axis lines, axis ticks, and axis tick labels when using 'inline' labelPosition
+  `--px-vis-axis-inline-box-color` | The color for the tick boxes when using 'inline' labelPosition
+
+
+@element px-vis-axis
+@blurb d3 element creating an axis for the chart
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-multi-axis">
+    <template>
+      <style include="px-vis-styles"></style>
+
+      <!-- don't bind domain changed since other props already depend on it, avoiding drawing each axis twice-->
+      <!-- don't double bind drawnTickValues or each axis update will trigger multi axis to reset the prop on every axis. Use event instead-->
+      <template id="bof" is="dom-repeat" items="[[_internalDimensions]]">
+        <px-vis-interactive-axis id="ia_[[item]]" prevent-initial-drawing="[[preventInitialDrawing]]" class="multiAxis" svg="[[svg]]" x="[[x]]" y="[[_returnY(item, _internalDimensionsChanged)]]" category-key="[[categoryKey]]" dimension="[[item]]" axes="[[axes]]" dimensions="[[dimensions]]" series-key="[[seriesKey]]" height="[[_heightOrLen]]" width="[[width]]" margin="[[margin]]" chart-data="[[chartData]]" radial="[[radial]]" orientation="[[_getOrientation(item, orientationFromDimensions, domainChanged, _pokeOrientation)]]" title="[[_getTitle(item,completeSeriesConfig, axisConfig)]]" title-location="[[_computeTitleLocation(item, titleLocation, _pokeTitleLocation)]]" title-type-size="[[titleTypeSize]]" label-type-size="[[labelTypeSize]]" stroke-width="[[strokeWidth]]" outer-tick-size="0" truncation-length="[[truncationLength]]" complete-series-config="[[completeSeriesConfig]]" append-unit-in-title="[[appendUnitInTitle]]" unit="[[_getUnit(item, completeSeriesConfig)]]" prevent-series-bar="[[preventSeriesBar]]" domain-changed="[[_internalDimensionsChanged]]" selected-domain="[[selectedDomain]]" title-truncation="true" disable-ticks="[[_calcDisableTicks(item,recalcTicks)]]" label-position="[[labelPosition]]" axis-color="[[axisColor]]" axis-line-color="[[axisLineColor]]" axis-tick-color="[[axisTickColor]]" axis-label-color="[[axisLabelColor]]" axis-title-color="[[axisTitleColor]]" ticks="[[ticks]]" tick-values="[[_returnTickValues(item, tickValues.*)]]" label-rotation="[[labelRotation]]" label-translation="[[labelTranslation]]" series-on-axis="[[_returnSeriesArray(seriesToAxes, item)]]" muted-series="[[mutedSeries]]" combined-muted-series="[[combinedMutedSeries]]" hard-mute="[[hardMute]]" drawn-tick-values="[[drawnTickValues]]" rebuild-on-draw="[[_rebuildOnDraw]]" disable-brush="[[disableBrush]]" drag-behavior="[[dragBehavior]]" redraw-series="[[redrawSeries]]" brush-domains="[[brushDomains]]" hide-and-show-on-hover="[[_isFirst(index, commonAxis)]]" cartesian-drag-behavior="[[cartesianDragBehavior]]" brush-to-remove="[[brushToRemove]]" action-config="[[actionConfig]]" interaction-space-config="[[interactionSpaceConfig]]" center-offset="[[centerOffset]]" smaller-side="[[smallerSide]]" time-domain="[[timeDomain]]">
+        </px-vis-interactive-axis>
+      </template>
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-multi-axis",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.svgDefinition,PxVisBehavior.sizing,PxVisBehavior.completeSeriesConfig,PxVisBehavior.commonMethods,PxVisBehaviorD3.axisConfig,PxVisBehavior.dataset,PxVisBehavior.dimensions,PxVisBehavior.mutedSeries,PxVisBehaviorD3.dynamicRedraw,PxVisBehavior.commonAxis,PxVisBehaviorD3.domainUpdate,PxVisBehaviorD3.selectedDomain,PxVisBehavior.radial,PxVisBehaviorD3.radialAxisConfig,PxVisBehavior.seriesToAxes,PxVisBehaviorChart.subConfiguration,PxVisBehavior.preventInitialDrawing,PxVisBehavior.categories,PxVisBehavior.actionConfigGeneric,PxVisBehavior.interactionSpaceConfigGeneric,PxVisBehavior.combinedMutedSeries,PxVisBehavior.brushDomains,PxVisBehavior.timeDomain,PxVisBehavior.titleTruncation],properties:{matchTicks:{type:Boolean,value:!1},gridTicks:{type:Object,notify:!0},gridAxis:{type:Object,notify:!0},appendUnitInTitle:{type:Boolean,value:!1},displayedValues:{type:Object,notify:!0},_internalDimensions:{type:Array},_internalDimensionsChanged:{type:Number,value:0},singleDomain:{type:Boolean,value:!1},labelOneAxis:{type:Boolean,value:!1},length:{type:Number,value:null},_heightOrLen:{type:Number,computed:"_calcH(height,length)"},brushToRemove:{type:Boolean,value:!1},_lastDomainChanged:{type:Number,value:0},_pokeTitleLocation:{type:Boolean,value:!1},recalcTicks:{type:Boolean,value:!1},orientationFromDimensions:{type:Boolean,value:!1},leftAxisSize:{type:Number},rightAxisSize:{type:Number},disableBrush:{type:Boolean,value:!1},preventSeriesBar:{type:Boolean,value:!1},cartesianDragBehavior:{type:Boolean,value:!1},_pokeOrientation:{type:Boolean,value:!1},axisConfig:{type:Object,value:function value(){return{}}},allowEmptyTitle:{type:Boolean,value:!1},_axisDoneCounter:{type:Number,value:0},_rebuildOnDraw:{type:Boolean,value:!0},_mutedSeriesPerBrush:{type:Object,value:function value(){return{}}},_displayedTitlesCounter:{type:Number,value:0},_displayedTitlesBuilder:{type:Object,value:function value(){return{}}},_drawnTickValuesChangedCounter:{type:Number,value:0},_normalizedTicks:{type:Boolean,value:!1},smallerSide:{type:Number,value:0}},observers:["_axisConfigChanged(axisConfig.*)","_computedInternalDimensions(domainChanged, x, dimensions)","_recalcGTransforms(leftAxisSize, rightAxisSize)","_toggleTitleLocation(length)"],listeners:{"px-vis-drag-dimension-swapped":"_axisDragged","px-vis-axis-displayed-title-changed":"_displayedTitleChanged","px-vis-recalc-title-location":"_toggleTitleLocation","px-axis-orientation-changed":"_toggleOrientation","dom-change":"_axisConfigChanged","px-vis-axis-drawn-tick-values-changed":"_drawnTickValuesChanged"},_axisConfigChanged:function _axisConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}if(this.axisConfig&&this._doesObjHaveValues(this.dimensions)){for(var keys=Object.keys(this.axisConfig),hasProps=!1,hasAC=!1,props={},propKeys=[],configs={},axesConfigs=[],i=0,k;i<keys.length;i++){k=keys[i];if(-1===this.dimensions.indexOf(k)){props[k]=this.axisConfig[k];propKeys.push(k);hasProps=!0}else{var o={};o[k]=this.axisConfig[k];axesConfigs.push(o);hasAC=!0}}if(!hasProps&&hasAC){for(var i=0;i<axesConfigs.length;i++){var obj=axesConfigs[i],a=Object.keys(obj);if(this.$$("#ia_"+a)){this.$$("#ia_"+a).set("axisConfig",obj)}}return}if(hasProps){for(var i=0;i<this.dimensions.length;i++){configs[this.dimensions[i]]=this._copyConfig(propKeys,props)}}if(hasAC){for(var i=0;i<axesConfigs.length;i++){var obj=axesConfigs[i],a=Object.keys(obj),confKeys=Object.keys(axesConfigs[i][a]);configs[a]=configs[a]||{};for(var j=0;j<confKeys.length;j++){configs[a][confKeys[j]]=obj[a][confKeys[j]]}}}for(var i=0,a;i<this.dimensions.length;i++){a=this.dimensions[i];if(this.$$("#ia_"+a)){this.$$("#ia_"+a).set("axisConfig",configs[a])}}}},_copyConfig:function _copyConfig(k,conf){for(var c={},i=0;i<k.length;i++){c[k[i]]=conf[k[i]]}return c},_axisDragged:function _axisDragged(e){if(this.cartesianDragBehavior){this.x.leftDomain(e.detail.lDims);this.x.rightDomain(e.detail.rDims);this.set("dimensions",e.detail.dimensions)}else{this.x.domain(this.dimensions)}this.$$("px-vis-interactive-axis#ia_"+e.detail.swappedDim).recalcTranform()},_computeTitleLocation:function _computeTitleLocation(item,titleLocation){var _Mathcos=Math.cos,_Mathsin=Math.sin,_MathPI=Math.PI;if(this.hasUndefinedArguments(arguments)){return}if(this.radial){var r=180*this.x(item)/_MathPI,attrs={x:null,y:null,r:-1*(r+180),anchor:null};if(10<r&&100>=r){attrs.anchor="start";attrs.x=0;attrs.y=this.length+10}else if(100<r&&170>r){attrs.anchor="start";attrs.x=-12*_Mathsin(_MathPI-this.x(item));attrs.y=this.length+10+12*_Mathcos(_MathPI-this.x(item))}else if(170<=r&&190>=r){attrs.anchor="middle";attrs.x=-12*_Mathsin(_MathPI-this.x(item));attrs.y=this.length+10+12}else if(190<r&&260>r){attrs.anchor="end";attrs.x=-12*_Mathsin(_MathPI-this.x(item));attrs.y=this.length+10+12*_Mathcos(_MathPI-this.x(item))}else if(260<=r&&355>r){attrs.anchor="end";attrs.x=0;attrs.y=this.length+10}else{attrs.anchor="middle";attrs.x=-12*_Mathsin(_MathPI-this.x(item));attrs.y=this.length+10}return attrs}return titleLocation},_toggleTitleLocation:function _toggleTitleLocation(){if(this.hasUndefinedArguments(arguments)){return}this.set("_pokeTitleLocation",!this._pokeTitleLocation)},_calcH:function _calcH(height,length){if(this.hasUndefinedArguments(arguments)){return}if(length){return length}return height},_returnY:function _returnY(item){if(this.hasUndefinedArguments(arguments)){return}return this.singleDomain?this.y:this.y[item]},_calcDisableTicks:function _calcDisableTicks(item){if(this.hasUndefinedArguments(arguments)){return}if(this.labelOneAxis){return this.dimensions[0]===item?!1:!0}return!1},_computedInternalDimensions:function _computedInternalDimensions(){if(this.hasUndefinedArguments(arguments)){return}if(this._lastDomainChanged!==this.domainChanged){this._lastDomainChanged=this.domainChanged;this._rebuildOnDraw=!0;var notFirst=this._internalDimensions?!0:!1,dimsChanged=notFirst&&this.dimensions.join()===this._internalDimensions.join()?!1:!0;this.set("_internalDimensions",this.dimensions);if(dimsChanged&&notFirst){this.$.bof.render();this.set("_pokeTitleLocation",!this._pokeTitleLocation)}this.set("_internalDimensionsChanged",this._internalDimensionsChanged+1)}else if(0===this.dimensions.length&&this._internalDimensions&&0<this._internalDimensions.length){this.set("_internalDimensions",[]);this.set("_internalDimensionsChanged",0)}},_getTitle:function _getTitle(item){if(this.hasUndefinedArguments(arguments)){return}if(this.completeSeriesConfig){if(this.axisConfig&&this.axisConfig[item]&&this.axisConfig[item].title){return this.axisConfig[item].title}else if(this.completeSeriesConfig[item]&&this.completeSeriesConfig[item].title){return this.completeSeriesConfig[item].title}else{return this.allowEmptyTitle?"":item}}},deleteAllBrushes:function deleteAllBrushes(){this.$.axisBrush.deleteAllBrushes()},_getOrientation:function _getOrientation(axisId,orientationFromDimensions){if(this.hasUndefinedArguments(arguments)){return}if(orientationFromDimensions){var rDims=this.x.rightDomain();if(-1!==rDims.indexOf(axisId)){return"right"}return"left"}return"left"},_recalcGTransforms:function _recalcGTransforms(leftSize,rightSize){if(this.hasUndefinedArguments(arguments)){return}if(leftSize&&rightSize&&this._doesD3HaveValues(this.svg)&&this._doesD3HaveValues(this.svg.selectAll(".dimension"))){this.svg.selectAll(".dimension").attr("transform",function(d){return this.x(d)||0===this.x(d)?"translate("+this.x(d)+",0)":""}.bind(this))}},_returnSeriesArray:function _returnSeriesArray(arr,axisId){if(this.hasUndefinedArguments(arguments)){return}return arr&&arr[axisId]?arr[axisId]:[]},_toggleOrientation:function _toggleOrientation(){this.set("_pokeOrientation",!this._pokeOrientation)},_getUnit:function _getUnit(item,completeSeriesConfig){if(this.hasUndefinedArguments(arguments)){return}if(this.completeSeriesConfig[item]&&this.completeSeriesConfig[item].yAxisUnit){return this.completeSeriesConfig[item].yAxisUnit}else if(this.seriesToAxes&&this.seriesToAxes[item]){for(var i=0,series;i<this.seriesToAxes[item].length;i++){series=this.seriesToAxes[item][i];if(this.completeSeriesConfig[series]&&this.completeSeriesConfig[series].yAxisUnit){return this.completeSeriesConfig[series].yAxisUnit}}}return""},_drawnTickValuesChanged:function _drawnTickValuesChanged(evt){this._drawnTickValuesChangedCounter++;this.debounce("_drawnTickValuesChangedFallback",function(){this._applyDrawnTickValuesChanged(evt.detail.drawnTickValues)}.bind(this),10);if(this._drawnTickValuesChangedCounter===this._internalDimensions.length){this.cancelDebouncer("_drawnTickValuesChangedFallback");this._applyDrawnTickValuesChanged(evt.detail.drawnTickValues)}},_applyDrawnTickValuesChanged:function _applyDrawnTickValuesChanged(val){this.set("drawnTickValues",val);this._drawnTickValuesChangedCounter=0},_displayedTitleChanged:function _displayedTitleChanged(evt){this._displayedTitlesCounter++;this._displayedTitlesBuilder[evt.detail.id]=evt.detail.displayedTitle;this.debounce("_displayedTitleChangedFallback",function(){if(this.displayedValues){for(var keys=Object.keys(this.displayedValues),i=0;i<keys.length;i++){if(!this._displayedTitlesBuilder[keys[i]]){this._displayedTitlesBuilder[keys[i]]=this.displayedValues[keys[i]]}}}this._applyDisplayedTitlesChanged()}.bind(this),50);if(this._displayedTitlesCounter===this._internalDimensions.length){this.cancelDebouncer("_displayedTitleChangedFallback");this._applyDisplayedTitlesChanged()}evt.stopPropagation();evt.stopImmediatePropagation()},_applyDisplayedTitlesChanged:function _applyDisplayedTitlesChanged(){this.set("displayedValues",this._displayedTitlesBuilder);this._displayedTitlesCounter=0;this._displayedTitlesBuilder={}},_isFirst:function _isFirst(index){if(this.hasUndefinedArguments(arguments)){return}if(!this.commonAxis){return!1}return 0===index?!1:!0},_returnTickValues:function _returnTickValues(item,tickValues){if(this.tickValues){return this.tickValues[item]}}});</script>
+</body></html>

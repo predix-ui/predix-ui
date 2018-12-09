@@ -1,0 +1,350 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  <link defer="" rel="import" href="../../bower_components/px-modal/px-modal.html">
+<link defer="" rel="import" href="../../bower_components/px-modal/px-modal-trigger.html">
+<link defer="" rel="import" href="../../bower_components/px-dropdown/px-dropdown.html">
+
+
+  </head><body><dom-module id="view-develop-stacking-context">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#the-problem', activeAnchor)]]" href="#" anchor="#the-problem" on-tap="_handleAnchorTapped">The Problem</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#hoisting-predix-design-system-components', activeAnchor)]]" href="#" anchor="#hoisting-predix-design-system-components" on-tap="_handleAnchorTapped">Hoisting Predix Design System Components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-overlay', activeAnchor)]]" href="#" anchor="#px-overlay" on-tap="_handleAnchorTapped">px-overlay</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-overlay-container', activeAnchor)]]" href="#" anchor="#px-overlay-container" on-tap="_handleAnchorTapped">px-overlay-container</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-overlay-content', activeAnchor)]]" href="#" anchor="#px-overlay-content" on-tap="_handleAnchorTapped">px-overlay-content</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#how-to-use-px-overlay-content', activeAnchor)]]" href="#" anchor="#how-to-use-px-overlay-content" on-tap="_handleAnchorTapped">How to use px-overlay-content</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#styles', activeAnchor)]]" href="#" anchor="#styles" on-tap="_handleAnchorTapped">Styles</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#slotted-content', activeAnchor)]]" href="#" anchor="#slotted-content" on-tap="_handleAnchorTapped">Slotted content</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#dynamic-content', activeAnchor)]]" href="#" anchor="#dynamic-content" on-tap="_handleAnchorTapped">Dynamic Content</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Everything You Always Wanted to Know About Stacking Contexts* (*But Were Afraid to Ask)</h2>
+          
+          
+<h3 id="the-problem">The Problem</h3>
+<p>First, to understand the basics of stacking contexts, what they are, and how they get created, please check out the great MDN docs here: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context</a></p>
+<h4>TL;DR?</h4>
+<ul>
+<li>Stacking contexts can be contained in other stacking contexts, and together create a hierarchy of stacking contexts.</li>
+<li>Each stacking context is completely independent from its siblings: only descendant elements are considered when stacking is processed.</li>
+<li>Each stacking context is self-contained: after the element's contents are stacked, the whole element is considered in the stacking order of the parent stacking context.</li>
+</ul>
+<p>Practically, this means that once you have created a stacking context, descendent elements are trapped in that stacking context and it is very hard to get them out of it.</p>
+<p>Some common examples of where this is problematic are with modals or other floating elements that either appear below content that they should cover, or are being cut off by their stacking parent. Here is an example of a dropdown being trapped in the modal's stacking context (you'll notice the dropdown content is cut off by the edge of the modal):</p>
+<px-modal header-text="This is a modal" accept-text="Close" reject-text="Close" open-trigger="[[trigger]]">
+  <div style="margin-left:25px; margin-right:25px;" slot="body">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt labore, tenetur maiores eos aut explicabo. Soluta eaque illum, repudiandae, minus nesciunt itaque, aperiam consequuntur explicabo voluptatum veniam eveniet debitis vel.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt labore, tenetur maiores eos aut explicabo. Soluta eaque illum, repudiandae, minus nesciunt itaque, aperiam consequuntur explicabo voluptatum veniam eveniet debitis vel.</p>
+    <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;iPhone&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Android&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Blackberry&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;I am a menu item so I cannot be selected&quot;,&quot;disableSelect&quot;:true},{&quot;key&quot;:&quot;5&quot;,&quot;val&quot;:&quot;Flip Phone&quot;,&quot;disabled&quot;:true}]">
+    </px-dropdown>
+  </div>
+</px-modal>
+<px-modal-trigger trigger="{{trigger}}">
+  <button class="btn">Open Modal</button>
+</px-modal-trigger>
+<p>In some cases, these elements are siblings and just need different z-indexes. The Predix Design System uses the following z-index scheme:</p>
+<p><catalog-picture img-src="../../img/guidelines/design/elevation-layering/shadow_scale" img-alt="shadow scale"></catalog-picture></p>
+<p>In other cases, where an element is a descendent of something that created a new stacking context, that element is trapped in the stacking context and has to be dealt with in a different way.</p>
+<p>If you find yourself in a stacking context trap, the best solution is to place elements outside the stacking context. In other words, avoid the trap altogether. Otherwise, all attempts to solve the issue are a hack of one sort or another, and it is far better to avoid the situation altogether.</p>
+<p>Consider if you really need to create a stacking context in the first place.  If so, can you move child elements demonstrating the stacking context issue to a different part of your DOM, outside of the stacking context? Why not?</p>
+<p>If you are truly stuck with your stacking context trap, then the <code class="code code--inline">px-overlay</code> repo is here to help. The rest of this guide will explain how to use it in different scenarios.</p>
+<h3 id="hoisting-predix-design-system-components">Hoisting Predix Design System Components</h3>
+<p>The <code class="code code--inline">px-dropdown</code>, <code class="code code--inline">px-rangepicker</code>, and <code class="code code--inline">px-datetime-picker</code> components already use px-overlay internally. To activate it, add the <code class="code code--inline">hoist</code> property to the component.</p>
+<h3 id="px-overlay">px-overlay</h3>
+<p>The <code class="code code--inline">px-overlay</code> components take elements trapped in a stacking context and hoist them up the DOM, outside of the stacking context. This allows them to be displayed visually over other stacking context elements. Here is that same modal/dropdown demo, but with hoisting enabled on the dropdown (you'll notice that the dropdown content is no longer cut off by the modal):</p>
+<px-modal header-text="This is a modal" accept-text="Close" reject-text="Close" open-trigger="[[trigger2]]">
+  <div style="margin-left:25px; margin-right:25px;" slot="body">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt labore, tenetur maiores eos aut explicabo. Soluta eaque illum, repudiandae, minus nesciunt itaque, aperiam consequuntur explicabo voluptatum veniam eveniet debitis vel.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt labore, tenetur maiores eos aut explicabo. Soluta eaque illum, repudiandae, minus nesciunt itaque, aperiam consequuntur explicabo voluptatum veniam eveniet debitis vel.</p>
+    <px-dropdown hoist="" items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;iPhone&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Android&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Blackberry&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;I am a menu item so I cannot be selected&quot;,&quot;disableSelect&quot;:true},{&quot;key&quot;:&quot;5&quot;,&quot;val&quot;:&quot;Flip Phone&quot;,&quot;disabled&quot;:true}]">
+    </px-dropdown>
+  </div>
+</px-modal>
+<px-modal-trigger trigger="{{trigger2}}">
+  <button class="btn">Open Modal</button>
+</px-modal-trigger>
+<p>There are two components in <code class="code code--inline">px-overlay</code>:</p>
+<ul>
+<li><code class="code code--inline">px-overlay-content</code> - a container for elements which should get hoisted up the DOM</li>
+<li><code class="code code--inline">px-overlay-container</code> - a container which resides outside the stacking context to hold the hoisted elements</li>
+</ul>
+<h4 id="px-overlay-container">px-overlay-container</h4>
+<p>Ideally, you should add a <code class="code code--inline">px-overlay-container</code> just outside of the stacking context trap to catch your content. If you do not add one, then one will be created at the body level and your content will be added there.</p>
+<p><code class="code code--inline">px-overlay-container</code> has a few optional properties:</p>
+<ul>
+<li><code class="code code--inline">z-index</code> - by default, it has a z-index of 1250 which should put it above everything in the Predix Design System. The <code class="code code--inline">--px-overlay-container-z-index</code> CSS variable allows you to customize the z-index of the container.</li>
+<li><code class="code code--inline">containerType</code> - this is a string which allows you to specify which content should hoist to which container. Both content and container have this property, and a container will only accept content from a <code class="code code--inline">px-overlay-content</code> with a matching <code class="code code--inline">containerType</code>.</li>
+</ul>
+<h4>Basic Usage:</h4>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<div>
+  <px-overlay-container type="foo"></px-overlay-container>
+  <div id="stackTrap">
+    <px-overlay-content type="foo">
+      <div id="stuffToHoist">I will go up the DOM</div>
+    </px-overlay-content>
+  </div>
+</div>
+
+      </script>
+    </px-catalog-code-snippet><h4 id="px-overlay-content">px-overlay-content</h4>
+<p><code class="code code--inline">px-overlay-content</code> is a wrapper for the elements you want to hoist up the DOM out of a stacking context trap. Depending what you want to do, this can be normal HTML elements or might need to be a web component.</p>
+<p><code class="code code--inline">px-overlay-content</code> optional properties:</p>
+<ul>
+<li><code class="code code--inline">hoist</code> - a Boolean, which is true by default. Most likely you are choosing to use <code class="code code--inline">px-overlay-content</code> because you want to hoist the content up. However, if you are using it within another component such as our Predix Design components, you may not want to hoist.</li>
+<li><code class="code code--inline">eventNames</code> - an array of events which should get refired in the original location. Since we have physically moved the content from one part of the DOM to another, events will no longer propagate up through the same elements as before. To mitigate this, the <code class="code code--inline">px-overlay-container</code> will register event listeners for events in <code class="code code--inline">eventNames</code>. When one of these events is caught, it will refire the event from the original location. The thing to be aware of is that although the <code class="code code--inline">detail</code> of that event will be the same, the target, path, etc will be different and start only from <code class="code code--inline">px-overlay-content</code>. To get the full path or rootTarget, the original event which is caught by the container is available on the new event at the <code class="code code--inline">sourceEvent</code> property. If you need just the rootTarget, look at the <code class="code code--inline">sourceEvent</code>. If you need the full path, you’ll have to combine the paths from the new event with the event.sourceEvent paths.</li>
+<li><code class="code code--inline">containerType</code> - a string which allows you to specify which content should hoist to which container. Both content and container have this property and a container will only accept content from a <code class="code code--inline">px-overlay-content</code> with a matching <code class="code code--inline">containerType</code>. If a matching container is not found, one will be created at the document body.</li>
+</ul>
+<h4>Basic Usage:</h4>
+<p>The usage for <code class="code code--inline">px-overlay-content</code> is pretty straightforward. Whatever you want to get hoisted up is a child of the component.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<div>
+  <px-overlay-container type="foo"></px-overlay-container>
+  <div id="stackTrap">
+    <px-overlay-content type="foo" >
+      <div id="stuffToHoist" class="myStyles">I will go up the DOM</div>
+    </px-overlay-content>
+  </div>
+</div>
+
+      </script>
+    </px-catalog-code-snippet><p>In this example, the <code class="code code--inline">div#stuffToHoist</code> will be moved up into <code class="code code--inline">px-overlay-container</code>. If you were to look in your inspector, you would see:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<div>
+  <px-overlay-container type="foo">
+    <div id="overlayHost">
+      <div>
+        <div id="stuffToHoist" class="myStyles">I will go up the DOM</div>
+      </div>
+    </div>
+  </px-overlay-container>
+  <div id="stackTrap">
+    <px-overlay-content type="foo" >
+    </px-overlay-content>
+  </div>
+</div>
+
+      </script>
+    </px-catalog-code-snippet><h3 id="how-to-use-px-overlay-content">How to use px-overlay-content</h3>
+<h4 id="styles">Styles</h4>
+<p>When hoisting HTML elements, you may find that the styles are no longer being applied. Since the elements have been moved to a different position in the DOM, styles that are out of scope or have specific paths may no longer apply. For example:</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+  #stackTrap {
+    font-family: papyrus;
+  }
+
+  #stackTrap .myStyles {
+    color: salmon;
+  }
+
+  .myStyles {
+    font-size: 24px;
+  }
+
+
+      </script>
+    </px-catalog-code-snippet><p>If these styles were declared at the body originally, all three styles would apply to the <code class="code code--inline">#stuffToHoist</code> div. It would inherit the <code class="code code--inline">font-family</code> from <code class="code code--inline">#stackTrap</code>; as a descendent of <code class="code code--inline">#stackTrap</code>, it had the proper relationship to get the font <code class="code code--inline">color</code>, and it has the class to get the <code class="code code--inline">font-size</code>. However, after moving, it can no longer get the <code class="code code--inline">font-family</code> nor the <code class="code code--inline">color</code>. Only the <code class="code code--inline">font-size</code> would apply.</p>
+<p>In situations where you are within a shadow-root, then you’d lose the styles altogether as the styles are encapsulated within the shadow-root and the hoisted content may fall outside.</p>
+<p>To solve this, you have two options:</p>
+<ol>
+<li>Change your CSS so that it applies to <code class="code code--inline">#stuffToHoist</code> regardless of DOM position (or use inline styles on <code class="code code--inline">#stuffToHoist</code>).</li>
+<li>Change this to a web component so the styles will travel with the HTML element. (Recommended)</li>
+</ol>
+<h4>Example of using a web component:</h4>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<dom-module id="my-content-to-hoist">
+  <template>
+    <style>
+      .myStyles {
+        font-size: 24px;
+        color: salmon;
+        font-family: papyrus;
+      }
+    </style>
+    <div id="stuffToHoist" class="myStyles">I will go up the DOM</div>
+  </template>
+</dom-module>
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="js">
+      <script type="text/code">
+  Polymer({ is: "my-content-to-hoist" });
+
+      </script>
+    </px-catalog-code-snippet><h4 id="slotted-content">Slotted content</h4>
+<p>Similar to styling, slotted content causes an issue when trying to hoist content up the DOM. This is due to the way browsers treat slots and how light DOM content gets placed in slots.</p>
+<p>To allow light DOM content to travel up the DOM, you will have to wrap it in a web component. For example, <code class="code code--inline">px-modal</code> allows slotted content. Normally you would code it like this:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-modal
+  open-trigger="{{openTrigger}}"
+  reject-text="Abort"
+  accept-text="Starman">
+  <h1 slot="header">My Custom Title</h1>
+  <div slot="body">
+    <p>My custom body</p>
+    <px-icon icon="px-fea:deployments"></px-icon>
+  </div>
+</px-modal>
+
+      </script>
+    </px-catalog-code-snippet><p>If you wrap the <code class="code code--inline">px-modal</code> tag in <code class="code code--inline">px-overlay-content</code>, then the modal would be hoisted up the DOM, but the custom header and body would not, leaving an empty modal.</p>
+<p>To fix this, wrap it in a web component:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<dom-module id="example-wrapped-modal">
+  <template>
+    <px-modal
+      open-trigger="{{openTrigger}}"
+      reject-text="Abort"
+      accept-text="Starman">
+      <h1 slot="header">My Custom Title</h1>
+      <div slot="body">
+        <p>My custom body</p>
+        <px-icon icon="px-fea:deployments"></px-icon>
+      </div>
+    </px-modal>
+  </template>
+</dom-module>
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="js">
+      <script type="text/code">
+  Polymer({ is: 'example-wrapped-modal' });
+
+      </script>
+    </px-catalog-code-snippet><p>and then wrap this new component in <code class="code code--inline">px-overlay-content</code>:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-modal-trigger trigger="{{openTrigger}}">
+  <button>Open Modal</button>
+</px-modal-trigger>
+<px-overlay-content event-names='["px-modal-rejected", "px-modal-accepted", "px-modal-dismissed"]'>
+  <example-wrapped-modal open-trigger="[[openTrigger]]"></example-wrapped-modal>
+</px-overlay-content>
+
+      </script>
+    </px-catalog-code-snippet><h4 id="dynamic-content">Dynamic Content</h4>
+<p>Adding dynamic content works fine in Polymer 2. Polymer 1 is a complicated story.</p>
+<p>Using a dom-repeat:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-overlay-content>
+  <template is="dom-repeat" items="[[myItems]]">
+    <p>[[item]]</p>
+  </template>
+</px-overlay-content>
+
+      </script>
+    </px-catalog-code-snippet><p><code class="code code--inline">items</code> will be appended into the <code class="code code--inline">px-overlay-container</code> in Polymer 2.x and Polymer 1.x with Shadow DOM. Polymer 1.x in Shady DOM will not work. To make it work, wrap the dom-repeat in an element:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-overlay-content>
+  <div>
+    <template is="dom-repeat" items="[[myItems]]">
+      <p>[[item]]</p>
+    </template>
+  </div>
+</px-overlay-content>
+
+      </script>
+    </px-catalog-code-snippet><p>This now works in all scencarios.</p>
+<p>If instead you are appending dynamic content manually, like so:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-overlay-content>
+</px-overlay-content>
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="js">
+      <script type="text/code">
+  const overlay = document.querySelector('px-overlay-content');
+  const elem = document.createElement('div');
+  elem.textContent = 'hello';
+
+  overlay.appendChild(elem);
+
+      </script>
+    </px-catalog-code-snippet><p>This again, works fine in Polymer 2, but fails in Polymer 1.x in both Shadow and Shady DOM. The solution is the same as before, wrap it in a div.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-overlay-content>
+  <div id="wrapper"></div>
+</px-overlay-content>
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="js">
+      <script type="text/code">
+  const wrapper= document.querySelector('#wrapper');
+  const elem = document.createElement('div');
+  elem.textContent = 'hello';
+
+  wrapper.appendChild(elem);
+
+      </script>
+    </px-catalog-code-snippet><p>This now works in all scenarios.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-stacking-context",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

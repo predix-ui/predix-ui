@@ -1,0 +1,55 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-typography-design-demo">
+  <template>
+    <!-- 0: Import the styles-->
+    <style>.weight--normal{font-weight:400!important;}.weight--bold{font-weight:600!important;}</style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-typography-design" description="The Predix UI Typography module defines styles for basic typography." layer="base" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-colors-design&quot;,
+    &quot;https://github.com/PredixDev/px-defaults-design&quot;,
+    &quot;https://github.com/PredixDev/px-mixins-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<px-sass-doc-option slot="options" option-name="Font Weight" choose-with="dropdown" choices="[
+    &quot;normal (default)&quot;,
+    &quot;bold&quot;
+  ]" default-choice="normal (default)">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<span class$="{{typeClasses}}">This is GE Inspira Sans!</span>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+```
+<!-- Normal -->
+<span class="weight--normal">Normal Text</span>
+
+
+<!-- Bold -->
+<span class="weight--bold">Bold Text</span>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-typography-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.importCode=this._importCode();this.typeClasses=this._typeClasses();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_typeClasses:function _typeClasses(){var opts=this.selectedOptions||{};if("normal (default)"===opts["Font Weight"])return"weight--normal";if("bold"===opts["Font Weight"])return"weight--bold"},_importCode:function _importCode(){return"@import \"px-typography-design/_base.typography.scss\";"}});</script>
+</body></html>

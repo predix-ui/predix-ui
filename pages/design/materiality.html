@@ -1,0 +1,114 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-materiality">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#color-usage', activeAnchor)]]" href="#" anchor="#color-usage" on-tap="_handleAnchorTapped">Color Usage</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#recommended-combinations', activeAnchor)]]" href="#" anchor="#recommended-combinations" on-tap="_handleAnchorTapped">Recommended Combinations</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#spacing-and-separation', activeAnchor)]]" href="#" anchor="#spacing-and-separation" on-tap="_handleAnchorTapped">Spacing and Separation</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#reinforcing-hierarchy', activeAnchor)]]" href="#" anchor="#reinforcing-hierarchy" on-tap="_handleAnchorTapped">Reinforcing Hierarchy</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#contrast-and-accessibility', activeAnchor)]]" href="#" anchor="#contrast-and-accessibility" on-tap="_handleAnchorTapped">Contrast and Accessibility</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Materiality</h2>
+          
+          
+<p>A distinctive element of the Predix Design System is to use material breaks to create a unique appearance for your application. Applications can be created with an entirely dark theme, a high contrast theme or a combination of the two. While the decision
+to use a light or dark theme is at the designer's discretion, there are some general guidelines for color combinations.</p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Consider the application's environment</h4>
+<p>The Predix Design System offers a lot of flexibility to allow you to design an application to best suit your use case. For low or no-light environments, consider a consistent dark theme to combat eye fatigue.</p>
+<h4>Be consistent across pages in your app</h4>
+<p>Pick a theme and stick with it. Audit your pages and workflows to make sure the layout and color usage will remain expected and consistent.</p>
+<h4>Use color with purpose</h4>
+<p>Highlight important data visualizations and high impact information and do it consistently across your app. Cascade backgrounds from dark to light to reinforce information hierarchy.</p>
+<h4>Avoid nesting containers</h4>
+<p>Avoid nesting containers as they eat up space and create visual noise making the information hard to scan. Instead, use spacing and padding as cues to separate information into digestible chunks.</p>
+<h3 id="color-usage">Color Usage</h3>
+<p>The Design System <a href="/#/css/px-colors-design/" target="_top">color palette</a> contains an extensive palette of greys designed to be used as material breaks on a page layout. Using colors intended for data visualizations can be distracting and
+hinder readability and usability.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/color_do" img-alt="Use greys and neutrals for material breaks." title="Do" caption="Use subtle neutral colors from the Predix palette of greys for material breaks.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/color_dont" img-alt="Don't use data vis colors for materials." title="Don't" caption="Don't use data visualization or alert colors as backgrounds for information.">
+  </catalog-picture>
+</div>
+<h3 id="recommended-combinations">Recommended Combinations</h3>
+<p>When applying material breaks, use colors within the same range. For example, with a dark theme use greys 16, 17, 18 and 19 together. Keep dramatic material breaks to a minimum, choosing only to do so when it augments certain important information
+such as data visualizations.</p>
+<h4>Example Color Combinations<br></h4>
+<p><catalog-picture img-src="../../img/guidelines/design/materiality/example_color_combinations" img-alt="Example color combinations"></catalog-picture></p>
+<h3 id="spacing-and-separation">Spacing and Separation</h3>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/nesting_do" img-alt="Use content to navigate in smaller apps" title="Do" caption="Use space and similar colors to suggest information regions.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/nesting_dont" img-alt="Don't create navigation scheme with two items" title="Don't" caption="Avoid nesting blocks of color to separate information.">
+  </catalog-picture>
+</div>
+<h3 id="reinforcing-hierarchy">Reinforcing Hierarchy</h3>
+<p>Data viz on dark - reinforce information hierarchy</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/cascade_do" img-alt="Gently cascade color" title="Do" caption="Cascade color to indicate an information hierarchy, use minimal dramatic breaks.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/materiality/cascade_dont" img-alt="Avoid exessive material breaks and banding." title="Don't" caption="Avoid using excessive color banding to separate information.">
+  </catalog-picture>
+</div>
+<h3 id="contrast-and-accessibility">Contrast and Accessibility</h3>
+<p>In their default states, the Predix Design System components pass accessibility contrast test with an AAA or AA18 . The color palette allows for expanded choices should you have more stringent requirements or an extreme environment that calls for
+a unique design.</p>
+<p>Check your contrast ratios to ensure they fall within accessibility standards with <a href="http://contrast-grid.eightshapes.com/">EightShapes' Contrast Grid</a>.</p>
+<ul>
+<li><a href="http://contrast-grid.eightshapes.com/?background-colors=ffffff%2C%20%24white%0D%0A%23EBEFF2%2C%20%24gray%201%0D%0A%23E2E8ED%2C%20%24gray2&amp;foreground-colors=%23677E8C%2C%20%24gray10%0D%0A%232C404C%2C%20%24gray15&amp;es-color-form__tile-size=compact">Light Theme</a></li>
+<li><a href="http://contrast-grid.eightshapes.com/?background-colors=%2323343F%2C%20%24gray16%0D%0A%231B2A33%2C%20%24gray17%0D%0A%23121F26%2C%20%24gray18&amp;foreground-colors=%23B6C3CC%2C%20%24gray5%0D%0A%23677E8C%2C%20%24gray10%0D%0A&amp;es-color-form__tile-size=compact">Dark Theme</a></li>
+</ul>
+<p><catalog-picture img-src="../../img/guidelines/design/materiality/contrast_chart" img-alt="Eight Shapes Contrast Chart"></catalog-picture></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-materiality",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

@@ -1,0 +1,39 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+</head><body><dom-module id="px-data-grid-edit-column">
+  <template>
+
+    <!-- Keep header empty -->
+    <template class="header" id="defaultHeaderTemplate">
+    </template>
+
+    <template id="defaultBodyTemplate">
+      <template is="dom-if" if="[[!item.hasChildren]]">
+        <button class$="[[_resolveButtonClass(item, edittedItem)]]" style$="[[_resolveHiddenStyle(item, edittedItem)]]" on-click="_handleButtonClick" data-item="[[item]]">
+          <px-icon icon="[[_resolveIcon(item, edittedItem)]]" class$="[[_resolveIconClass(item, edittedItem)]]"></px-icon>
+        </button>
+      </template>
+    </template>
+  </template>
+
+  <script>{var DataGridEditColumnElement=function(_Vaadin$GridColumnEle){babelHelpers.inherits(DataGridEditColumnElement,_Vaadin$GridColumnEle);function DataGridEditColumnElement(){babelHelpers.classCallCheck(this,DataGridEditColumnElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridEditColumnElement).apply(this,arguments))}babelHelpers.createClass(DataGridEditColumnElement,[{key:"_resolveHiddenStyle",value:function _resolveHiddenStyle(item,edittedItem){if(edittedItem&&edittedItem!==item){return"visibility: hidden"}else{return""}}},{key:"_resolveIcon",value:function _resolveIcon(item,edittedItem){if(item===edittedItem){return"px-utl:close"}else{return"px-utl:edit"}}},{key:"_resolveButtonClass",value:function _resolveButtonClass(item,edittedItem){if(item===edittedItem){return"btn btn--bare btn--icon item-edit-cancel-button action-column-button"}else{return"btn btn--bare btn--icon action-column-button edit-button"}}},{key:"_resolveIconClass",value:function _resolveIconClass(item,edittedItem){if(item===edittedItem){return"rounded"}else{return""}}},{key:"_updateHoverEffect",value:function _updateHoverEffect(edittedItem){if(this._cells){this._cells.forEach(function(cell){if(edittedItem){cell.removeAttribute("hidden-unless-hover")}else{cell.setAttribute("hidden-unless-hover","1")}})}}},{key:"_prepareHeaderTemplate",value:function _prepareHeaderTemplate(){var headerTemplate=this._prepareTemplatizer(this._findTemplate("template.header")||this.$.defaultHeaderTemplate);headerTemplate.templatizer.dataHost=headerTemplate===this.$.defaultHeaderTemplate?this:this.dataHost;return headerTemplate}},{key:"_prepareBodyTemplate",value:function _prepareBodyTemplate(){var template=this._prepareTemplatizer(this._findTemplate("template:not(.header):not(.footer)")||this.$.defaultBodyTemplate);template.templatizer.dataHost=template===this.$.defaultBodyTemplate?this:this.dataHost;return template}},{key:"_stampBodyTemplate",value:function _stampBodyTemplate(template,cells){var _this=this;if(!template||!this._cells){return}this._cells.forEach(function(cell){if(cell._template!==template){cell._template=template;cell._content.innerHTML="";var inst=template.templatizer.createInstance();cell._content.appendChild(inst.root);cell._instance=inst;if(!_this.edittedItem){cell.setAttribute("hidden-unless-hover","1")}inst.index=cell.parentElement.index;inst.item=cell.parentElement._item}})}},{key:"connectedCallback",value:function connectedCallback(){babelHelpers.get(babelHelpers.getPrototypeOf(DataGridEditColumnElement.prototype),"connectedCallback",this).call(this);if(this._grid){}}},{key:"_handleButtonClick",value:function _handleButtonClick(e){if(this.edittedItem){this._handleCancel(e)}else{this._handleEdit(e)}}},{key:"_handleEdit",value:function _handleEdit(e){var editItem=e.target.dataItem;if(editItem==void 0){console.warn("No item mapping on edit button");return}e.stopPropagation();e.details={item:editItem};this.edit(e)}},{key:"_handleCancel",value:function _handleCancel(e){e.stopPropagation();this.cancel(e)}}],[{key:"is",get:function get(){return"px-data-grid-edit-column"}},{key:"properties",get:function get(){return{cancel:Function,edit:Function,isDataColumn:{type:Boolean,value:!1,readOnly:!0},width:{type:String,value:"30px"},edittedItem:{type:Object},editMode:{type:Boolean,value:!1},flexGrow:{type:Number,value:0}}}},{key:"observers",get:function get(){return["_updateHoverEffect(edittedItem)"]}}]);return DataGridEditColumnElement}(Vaadin.GridColumnElement);window.customElements.define(DataGridEditColumnElement.is,DataGridEditColumnElement);window.Predix=window.Predix||{};Predix.DataGridEditColumnElement=DataGridEditColumnElement}</script>
+
+
+</dom-module>
+</body></html>

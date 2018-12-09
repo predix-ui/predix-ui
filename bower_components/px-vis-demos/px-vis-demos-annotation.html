@@ -1,0 +1,181 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-data-converter.html">
+<link rel="import" href="../px-vis-timeseries/px-vis-timeseries.html">
+<link rel="import" href="../px-vis-xy-chart/px-vis-xy-chart.html">
+<link rel="import" href="../px-vis-parallel-coordinates/px-vis-parallel-coordinates.html">
+<link rel="import" href="../px-vis-radar/px-vis-radar.html">
+<link rel="import" href="../px-vis-polar/px-vis-polar.html">
+<link rel="import" href="../px-modal/px-modal.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="../px-popover/px-popover.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="helpers/tooltip-content.html">
+<link rel="import" href="css/px-vis-demos-annotation-styles.html">
+
+<!--
+REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+
+### Usage
+
+    <px-vis-demos-annotation counter-value="1"></px-vis-demos-annotation>
+
+@element px-vis-demos-annotation
+@blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-vis-demos-annotation">
+  <template>
+    <style include="px-vis-demos-annotation-styles"></style>
+    <div class="wapper">
+      <div class="minHeight">
+        <px-vis-timeseries id="timeseries" disable-navigator="" series-config="{
+            &quot;y0&quot;:{&quot;y&quot;:&quot;y0&quot;},
+            &quot;y1&quot;:{&quot;y&quot;:&quot;y1&quot;},
+            &quot;y2&quot;:{&quot;y&quot;:&quot;y2&quot;},
+            &quot;y3&quot;:{&quot;y&quot;:&quot;y3&quot;}
+          }" default-series-config="{
+            &quot;type&quot;: &quot;line&quot;,
+            &quot;x&quot;: &quot;timeStamp&quot;
+          }" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" highlighter-config="{
+            &quot;showTooltipData&quot;: &quot;true&quot;
+          }" chart-data="[[chartData]]" render-to-canvas="" crosshair-data="{{crosshairData}}" toolbar-config="{
+            &quot;config&quot;: {
+              &quot;advancedZoom&quot;: true,
+              &quot;tooltip&quot;: true,
+              &quot;pan&quot;: true
+            }
+          }">
+        </px-vis-timeseries>
+      </div>
+      <div class="minHeight">
+        <px-vis-xy-chart id="xy" margin="{
+            &quot;top&quot;: 5,
+            &quot;bottom&quot;:25,
+            &quot;left&quot;:50,
+            &quot;right&quot;: 10
+          }" render-to-canvas="" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" series-config="{
+            &quot;y1&quot;:{&quot;y&quot;:&quot;y1&quot;},
+            &quot;y2&quot;:{&quot;y&quot;:&quot;y2&quot;},
+            &quot;y3&quot;:{&quot;y&quot;:&quot;y3&quot;}
+          }" chart-extents="{
+            &quot;x&quot;: [-45, -4],
+            &quot;y&quot;: [-10, 20]
+          }" register-config="{
+            &quot;width&quot;: &quot;200&quot;,
+            &quot;forceDateTimeDisplay&quot;: &quot;true&quot;
+          }" default-series-config="{
+            &quot;type&quot;: &quot;scatter&quot;,
+            &quot;x&quot;: &quot;y0&quot;
+          }" chart-data="[[chartData]]" complete-series-config="{{completeSeriesConfigXY}}" time-data="timeStamp" toolbar-config="{
+            &quot;config&quot;: {
+              &quot;advancedZoom&quot;: true,
+              &quot;tooltip&quot;: true,
+
+              &quot;pan&quot;: true
+            }
+          }">
+        </px-vis-xy-chart>
+      </div>
+      <div class="minHeight">
+        <px-vis-parallel-coordinates id="para" chart-data="[[chartData]]" category-key="category" categories="[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]" skip-keys="{&quot;x&quot;:true}" series-key="timeStamp" match-ticks="" generate-axes-from-data="" axis-register-config="{
+            &quot;forceDateTimeDisplay&quot;: true
+          }" toolbar-config="{
+            &quot;config&quot;: {
+              &quot;bareZoom&quot;: true,
+              &quot;tooltip&quot;: true,
+              &quot;pan&quot;: true,
+
+              &quot;axisDrag&quot;: true,
+              &quot;axisMuteSeries&quot;: true
+            }
+          }">
+        </px-vis-parallel-coordinates>
+      </div>
+      <div class="minHeight">
+        <px-vis-radar id="radar" chart-data="[[chartData]]" category-key="category" categories="[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]" skip-keys="{&quot;x&quot;:true}" series-key="timeStamp" generate-axes-from-data="" axis-register-config="{
+            &quot;forceDateTimeDisplay&quot;: true
+          }" toolbar-config="{
+            &quot;config&quot;: {
+              &quot;bareZoom&quot;: true,
+              &quot;tooltip&quot;: true,
+              &quot;pan&quot;: true,
+              &quot;axisDrag&quot;: true,
+              &quot;axisMuteSeries&quot;: true
+            }
+          }">
+        </px-vis-radar>
+      </div>
+      <div class="minHeight" style="width:100vw; height: 800px">
+        <px-vis-polar id="polar" allow-negative-values="" margin="{
+          &quot;left&quot;: 100,
+          &quot;top&quot;: 60,
+          &quot;bottom&quot;: 40,
+          &quot;right&quot;: 50
+        }" toolbar-config="{
+            &quot;config&quot;: {
+              &quot;advancedZoom&quot;: true,
+              &quot;tooltip&quot;: true,
+              &quot;pan&quot;: true
+            }
+          }" height="400" chart-data="[[chartData]]" series-config="{
+            &quot;firstSerie&quot;: {
+              &quot;y&quot;: &quot;y1&quot;,
+              &quot;x&quot;:&quot;y0&quot;
+            },
+            &quot;secondSerie&quot;: {
+              &quot;y&quot;: &quot;y2&quot;,
+              &quot;x&quot;:&quot;y0&quot;
+            }
+          }" render-to-canvas="" register-config="{
+            &quot;forceDateTimeDisplay&quot;: true
+          }" time-data="timeStamp">
+        </px-vis-polar>
+      </div>
+
+    <px-modal id="modal" accept-text="Create" reject-text="Cancel">
+      <div slot="body">
+        <p>associated value: <strong>[[_readableValues]]</strong></p>
+        <p>Note for series <strong>[[_seriesFound]]</strong>:</p>
+        <!-- don't put closing tag on next line or textarea gets empty spaces -->
+        <textarea id="modalText" value$="{{annotationText}}"></textarea>
+      </div>
+    </px-modal>
+
+    <px-tooltip id="tooltip" smart-orientation="" delay="50" orientation="top" ignore-target-events="" for="[[_ttTarget]]">
+      <tooltip-content id="ttContent" edit-mode="[[editMode]]">
+      </tooltip-content>
+    </px-tooltip>
+
+
+    <iron-ajax id="random1" url="[[importPath]]../px-demo-data/demo-data/random/d4x1000.json" handle-as="json" last-response="{{chartData}}" auto="">
+    </iron-ajax>
+
+
+  </div></template>
+  <script src="dist/px-vis-demos-annotation.js"></script>
+</dom-module>
+</body></html>

@@ -1,0 +1,77 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-datetime-common/px-datetime-entry.html">
+<link rel="import" href="../px-datetime-common/px-datetime-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-buttons.html">
+<link rel="import" href="../px-datetime-field/px-datetime-field.html">
+<link rel="import" href="../px-datetime-common/px-datetime-validate.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+<link rel="import" href="css/px-datetime-range-field-styles.html">
+
+<!--
+The datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+### Usage
+
+    <px-datetime-range-field from-moment="{{...}}" to-moment="{{...}}">
+    </px-datetime-range-field>
+
+
+### Styling
+
+The following custom properties are available for styling. Please also refer to px-forms-design for additional style variables used by this component.
+
+Custom property | Description
+:----------------|:-------------
+`--px-datetime-range-field-to-color` | Text color of the "TO" between start and end date input fields
+`--px-datetime-range-field-display` | Sets the display value for the field wrapper
+`--px-datetime-field-margin-bottom` | Sets the margin under the fields. If allowWrap is true this should be set to 20px.
+`--px-datetime-range-field-margin-between-fields` | When `showFieldTitles` is true this is the amount of space between the fields
+`--px-datetime-range-field-column-min-width` | When `fullWidth` is true this sets the min-width that each field is allowed to be before the grid wraps.
+`--px-datetime-range-field-justify-fields` | Sets the flex `justify-content` value for the fields
+`--px-datetime-range-field-margin-between-fields-overwrite` | Adds margin right if `full-width` & `show-field-titles` are true
+
+@element px-datetime-range-field
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-range-field">
+  <template>
+    <style include="px-datetime-range-field-styles"></style>
+
+    <div class$="{{_getWrapClass(allowWrap, showButtons, showFieldTitles)}} dt-fields-justify dt-position">
+      <div id="fromFields" class$="{{_getFromFieldClass(allowWrap, showFieldTitles)}} dt-field-wrapper">
+        <span class="a11y">[[localize('from date')]]</span>
+        <template is="dom-if" if="{{showFieldTitles}}">
+          <label>[[localize('From Date')]]</label>
+        </template>
+        <px-datetime-field id="fromDate" moment-obj="{{_tempFromMomentObj}}" date-format="[[dateFormat]]" time-format="[[timeFormat]]" show-time-zone="[[showTimeZone]]" time-zone="{{timeZone}}" hide-time="[[hideTime]]" hide-date="[[hideDate]]" hide-icon="{{hideIcon}}" is-valid="{{_fromValid}}" hide-validation-message="[[!_showFromValidationMessage]]" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]" required="[[required]]" hoist="[[hoist]]" container-type="[[containerType]]">
+        </px-datetime-field>
+        <template is="dom-if" if="{{_handleRangeValidationMessage(_isRangeValid, hideValidationMessages)}}">
+          <div class="form-field__help validation-error dt-validation-text">[[localize('from cannot be later than to date')]]</div>
+        </template>
+      </div>
+
+      <template is="dom-if" if="{{!showFieldTitles}}">
+        <span class="caps dt-to u-mh-">[[localize('TO')]]</span>
+      </template>
+
+      <div id="toFields" class$="{{_getToFieldClass(showButtons, allowWrap, showFieldTitles)}} dt-field-wrapper">
+        <span class="a11y">[[localize('to date')]]</span>
+        <template is="dom-if" if="{{showFieldTitles}}">
+          <label>[[localize('To Date')]]</label>
+        </template>
+        <px-datetime-field id="toDate" moment-obj="{{_tempToMomentObj}}" date-format="[[dateFormat]]" time-format="[[timeFormat]]" show-time-zone="[[showTimeZone]]" time-zone="{{timeZone}}" hide-time="[[hideTime]]" hide-date="[[hideDate]]" hide-icon="{{hideIcon}}" is-valid="{{_toValid}}" hide-validation-message="[[!_showToValidationMessage]]" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]" required="[[required]]" hoist="[[hoist]]" container-type="[[containerType]]">
+        </px-datetime-field>
+      </div>
+      <template is="dom-if" if="{{showButtons}}">
+        <px-datetime-buttons id="dtBtns" is-submit-button-valid="[[isValid]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+        </px-datetime-buttons>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-range-field",behaviors:[PxDatetimeBehavior.TempRange,PxDatetimeBehavior.Buttons,PxDatetimeBehavior.Validate,PxOverlayBehavior.sharedProperties],properties:{dateFormat:{type:String,value:"YYYY-MM-DD"},timeFormat:{type:String,value:"HH:mm:ss"},showTimeZone:{type:String,value:""},hideTime:{type:Boolean,value:!1},hideDate:{type:Boolean,value:!1},hideIcon:{type:Boolean,value:!1},isValid:{type:Boolean,notify:!0,computed:"_getIsValid(_fromValid, _toValid, _isRangeValid)"},required:{type:Boolean,value:!1},_isRangeValid:{type:Boolean,value:!0},_fromValid:{type:Boolean},_toValid:{type:Boolean},_showFromValidationMessage:{type:Boolean,value:!1},_showToValidationMessage:{type:Boolean,value:!1},hideValidationMessages:{type:Boolean,value:!1},allowWrap:{type:Boolean,value:!1},fullWidth:{type:Boolean,value:!1,reflectToAttribute:!0},showFieldTitles:{type:Boolean,value:!1,reflectToAttribute:!0},resources:{type:Object,value:function value(){return{en:{"from can not be later than to":"from can not be later than to",from:"from",TO:"TO"}}}},hoist:{type:Boolean,value:!1}},keyBindings:{esc:"_onEsc",enter:"_onEnter"},observers:["_validationMessagePriority(_fromValid, _toValid, _isRangeValid, hideValidationMessages)","_validateSetMomentObj(fromMoment, toMoment)"],listeners:{"px-datetime-button-clicked":"_dateTimeButtons",blur:"_tempMomentChanged"},ready:function ready(){this.listen(this.$.fromDate,"px-next-field","_focusFirstToEntry");this.listen(this.$.toDate,"px-previous-field","_focusLastFromEntry");this.listen(this.$.fromDate,"moment-obj-changed","_tempMomentChanged");this.listen(this.$.toDate,"moment-obj-changed","_tempMomentChanged")},_focusFirstToEntry:function _focusFirstToEntry(evt){this.$.toDate._focusFirstEntry();evt.stopPropagation();evt.stopImmediatePropagation()},_focusLastFromEntry:function _focusLastFromEntry(evt){this.$.fromDate._focusLastEntry();evt.stopPropagation();evt.stopImmediatePropagation()},_getWrapClass:function _getWrapClass(allowWrap,showButtons,showFieldTitles){var classList="";classList+=allowWrap?"flex--wrap ":"";classList+=showFieldTitles&&showButtons?"flex--middle":"flex--top";return classList},_getFromFieldClass:function _getFromFieldClass(allowWrap,showFieldTitles){var classList="";classList+=showFieldTitles?"dt-fields-space-between":"";return classList},_getToFieldClass:function _getToFieldClass(showButtons,allowWrap){var classList="";classList+=showButtons?"u-mr- ":"";return classList},_getIsValid:function _getIsValid(_fromValid,_toValid,_isRangeValid){return _fromValid&&_toValid&&_isRangeValid},_isOneFieldEmpty:function _isOneFieldEmpty(){if(this._tempFromMomentObj&&!this._tempToMomentObj||!this._tempFromMomentObj&&this._tempToMomentObj){return!0}else{return!1}},_validateRangeAndFailedClass:function _validateRangeAndFailedClass(fromMoment,toMoment){if(!this._validateRangeOrder(fromMoment,toMoment)){this.$.fromDate._forcedFailedClass=!0;this.$.toDate._forcedFailedClass=!0;return!1}else{this.$.fromDate._forcedFailedClass=!1;this.$.toDate._forcedFailedClass=!1;return!0}},_validationMessagePriority:function _validationMessagePriority(_fromValid,_toValid,_isRangeValid,hideValidationMessages){if(_fromValid!==void 0&&_toValid!==void 0){if(!_isRangeValid||hideValidationMessages){this.set("_showFromValidationMessage",!1);this.set("_showToValidationMessage",!1)}else if(!_fromValid){this.set("_showFromValidationMessage",!0);this.set("_showToValidationMessage",!1)}else if(!_toValid){this.set("_showFromValidationMessage",!1);this.set("_showToValidationMessage",!0)}else{this.set("_showFromValidationMessage",!0);this.set("_showToValidationMessage",!0)}}},_handleRangeValidationMessage:function _handleRangeValidationMessage(_isRangeValid,hideValidationMessages){return hideValidationMessages||_isRangeValid?!1:!0},_dateTimeButtons:function _dateTimeButtons(evt){if(evt.detail.action){this._applyChanges()}else{this._cancelChanges()}},_onEsc:function _onEsc(){this._cancelChanges()},_onEnter:function _onEnter(){this._applyChanges()},_tempMomentChanged:function _tempMomentChanged(){if(!this.showButtons){this._applyChanges()}else{this._applyChanges(!0)}},_validateSetMomentObj:function _validateSetMomentObj(fromMoment,toMoment){if(fromMoment===void 0||toMoment===void 0){return}this._validateMomentObj(fromMoment);this._validateMomentObj(toMoment);this._validateRangeAndFailedClass(this.fromMoment,this.toMoment)?this._isRangeValid=!0:this._isRangeValid=!1},_applyChanges:function _applyChanges(preventApply){if(!this._isOneFieldEmpty()){if(this._validateRangeAndFailedClass(this._tempFromMomentObj,this._tempToMomentObj)){this.set("_isRangeValid",!0);if(this.isValid&&!preventApply){if(this._applyTempRangeMoment()){this.fire("px-datetime-range-submitted",{fromMoment:this.fromMoment,toMoment:this.toMoment})}}}else{this.set("_isRangeValid",!1)}}},_cancelChanges:function _cancelChanges(){this.$.fromDate._cancelChanges();this.$.toDate._cancelChanges();this._rollbackTempFromMoment();this._rollbackTempToMoment();this._applyChanges(!0)}});</script>
+</body></html>

@@ -1,0 +1,69 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-view-header-styles.html">
+
+<!--
+The view header is located at the top of the page/view, as an alternative to px-context-browser. The view header provides the user an overview of the content they are viewing and interacting with. The header contains two content insertion points that will automatically render anything with id of "left" and "right" to the appropriate spots in the header.
+
+### Usage
+Simple:
+
+    <px-view-header title="Title" subtitle="Subtitle"></px-view-header>
+
+Using content insertion points:
+
+    <px-view-header title="Title" subtitle="Subtitle">
+      <div slot="left" class="actionable">Back</div>
+      <button slot="right" class="btn btn--primary">Save</div>
+    </px-view-header>
+
+Using px-deck-selector:
+
+    <px-view-header use-deck-selector="true">
+      <px-deck-selector slot="px-deck-selector" decks='[...]' config-options='...'></px-deck-selector>
+    </px-view-header>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-view-header-background-color` | Background color for the view header
+
+@element px-view-header
+@blurb The view header is located at the top of the page/view, as an alternative to px-context-browser.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-view-header">
+  <template>
+    <style include="px-view-header-styles"></style>
+
+    <div class="vh-header">
+      <div>
+        <slot name="left"></slot>
+      </div>
+      <div class="vh-header-text vh-header-text--ms-fix">
+        <template is="dom-if" if="{{useDeckSelector}}">
+          <slot name="center"></slot>
+        </template>
+        <template is="dom-if" if="{{!useDeckSelector}}">
+          <div class="regular vh-title truncate" title="[[title]]">[[title]]</div>
+          <template is="dom-if" if="{{subtitle}}">
+            <div class="zeta vh-subtitle truncate" title="[[subtitle]]">[[subtitle]]</div>
+          </template>
+        </template>
+      </div>
+      <div>
+        <slot name="right"></slot>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-view-header",properties:{title:{type:String},subtitle:{type:String},useDeckSelector:{type:Boolean,value:!1}}});</script>
+</body></html>

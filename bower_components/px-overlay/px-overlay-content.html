@@ -1,0 +1,48 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-overlay-behavior.html">
+<link rel="import" href="px-overlay-container.html">
+
+<!--
+A component which hoists it's slotted content up to a px-overlay-container. This is done to escape out of stacking contexts so overlays / modals / floating content can be shown over other content.
+
+If no px-overlay-container is found between px-overlay-content and the document body, one is created at the document body.
+
+### Usage
+
+#### Generic
+```
+    <px-overlay-content
+        container-type="foo"
+        event-names='["my-first-event-from-element-1", "my-second-event-from-my-element"]'>
+        <my-element></my-element>
+    </px-overlay-content>
+```
+
+@element px-overlay-content
+@blurb A component which hoists it's slotted content up to a px-overlay-container
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-overlay-content">
+  <template>
+    <style>:host{width:0;height:0;}</style>
+    <slot id="myslot"></slot>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-overlay-content",behaviors:[PxOverlayBehavior.sharedProperties],properties:{_content:Array,_container:HTMLElement,_slot:HTMLElement,eventNames:{type:Array,value:function value(){return[]}},_isAttached:{type:Boolean,value:!1},hoist:{type:Boolean,value:!0}},observers:["_hoistPropChanged(hoist)"],created:function created(){this._onSlotChangedBound=this._onSlotChange.bind(this)},ready:function ready(){this._slot=this.$.myslot},attached:function attached(){Polymer.RenderStatus.afterNextRender(this,function(){this._slot.addEventListener("slotchange",this._onSlotChangedBound);this._content=this._getSlotContent();this._isAttached=!0;this._hoistPropChanged(this.hoist)}.bind(this))},detached:function detached(){this._isAttached=!1;if(this._container){this._container.detachContent(this)}},hoistOverlay:function hoistOverlay(){var event=new CustomEvent("px-overlay-attachment-request",{bubbles:!0,composed:!0,cancelable:!0});this.dispatchEvent(event);if(!event.defaultPrevented){var elem=document.createElement("px-overlay-container");if(this.containerType){elem.setAttribute("container-type",this.containerType)}document.body.appendChild(elem);Polymer.RenderStatus.afterNextRender(elem,function(){this.dispatchEvent(event)}.bind(this))}},_hoistPropChanged:function _hoistPropChanged(hoist){if(!this._isAttached){return}if(hoist&&!this._container){this.hoistOverlay()}if(!hoist&&this._container){this._container.detachContent(this);this._container=void 0;this._content.forEach(function(elem){Polymer.dom(this).appendChild(elem)}.bind(this))}},_onSlotChange:function _onSlotChange(){if(!this.hoist||!this._container){return}var newContent=this._getSlotContent();if(newContent.length){for(var i=0;i<newContent.length;i++){this._content.push(newContent[i])}this._container.appendNewContent(this,newContent)}},_getSlotContent:function _getSlotContent(){var content=Polymer.FlattenedNodesObserver?Polymer.FlattenedNodesObserver.getFlattenedNodes(this):Polymer.dom(this).getEffectiveChildNodes();return content.filter(function(n){return n.nodeType===Node.ELEMENT_NODE})},removeChild:function removeChild(elem){if(!elem){return}if(!this.hoist){var f=Element.prototype.removeChild;f.apply(this,arguments);return}var i=this._content.indexOf(elem);if(-1===i){console.warn("This child should have been hoisted but was not... Trying to remove locally.");var f=Element.prototype.removeChild;f.apply(this,arguments);return}this._content.splice(i,1);this._container.removeElem(this,elem)}});</script>
+</body></html>

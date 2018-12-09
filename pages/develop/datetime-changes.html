@@ -1,0 +1,116 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-datetime-changes">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#general-changes-to-all-of-the-datetime-components', activeAnchor)]]" href="#" anchor="#general-changes-to-all-of-the-datetime-components" on-tap="_handleAnchorTapped">General changes to all of the datetime components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#individual-components', activeAnchor)]]" href="#" anchor="#individual-components" on-tap="_handleAnchorTapped">Individual Components</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-calendar-picker', activeAnchor)]]" href="#" anchor="#px-calendar-picker" on-tap="_handleAnchorTapped">px-calendar-picker</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-field', activeAnchor)]]" href="#" anchor="#px-datetime-field" on-tap="_handleAnchorTapped">px-datetime-field</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-range-field', activeAnchor)]]" href="#" anchor="#px-datetime-range-field" on-tap="_handleAnchorTapped">px-datetime-range-field</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-range-panel', activeAnchor)]]" href="#" anchor="#px-datetime-range-panel" on-tap="_handleAnchorTapped">px-datetime-range-panel</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-rangepicker', activeAnchor)]]" href="#" anchor="#px-rangepicker" on-tap="_handleAnchorTapped">px-rangepicker</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Datetime Release Notes</h2>
+          
+          
+<h4>The datetime components</h4>
+<ul>
+<li><a href="#/components/px-calendar-picker">px-calendar-picker</a> v2</li>
+<li><a href="#/components/px-datetime-field">px-datetime-field</a> v2</li>
+<li><a href="#/components/px-datetime-picker">px-datetime-picker</a> v2</li>
+<li><a href="#/components/px-datetime-range-field">px-datetime-range-field</a> v2</li>
+<li><a href="#/components/px-datetime-range-panel">px-datetime-range-panel</a> v2</li>
+<li><a href="#/components/px-rangepicker">px-rangepicker</a> v3</li>
+<li>px-datetime-common v2 - This repo holds the core logic for the other datetime components.</li>
+</ul>
+<h4 id="general-changes-to-all-of-the-datetime-components">General changes to all of the datetime components</h4>
+<ul>
+<li>Polymer 1.x/2.x hybrid support.</li>
+<li>Allowed to have an blank state.</li>
+<li>For single date components, the property <code class="code code--inline">dateTime</code> has been removed. The <code class="code code--inline">momentObj</code> is the new source of truth. To set an initial value, pass in a moment object to the <code class="code code--inline">momentObj</code> property. Listen to the <code class="code code--inline">moment-obj-changed</code> event to know when the moment object has been updated.</li>
+<li>For range components, the property <code class="code code--inline">range</code> has been removed. The <code class="code code--inline">fromMoment</code> and <code class="code code--inline">toMoment</code> are the new sources of truth. To set an initial value, pass in moment objects to the <code class="code code--inline">fromMoment</code> and <code class="code code--inline">toMoment</code> properties. Listen to the <code class="code code--inline">px-datetime-range-submitted</code> event to know when either one of the moment objects has been updated. Another option is to listen to <code class="code code--inline">from-moment-changed</code> and <code class="code code--inline">to-moment-changed</code> to know when <code class="code code--inline">fromMoment</code> and <code class="code code--inline">toMoment</code> update separately.</li>
+<li>Updated validation to catch <code class="code code--inline">blockFutureDates</code>/<code class="code code--inline">blockPastDates</code>/<code class="code code--inline">minDate</code>/<code class="code code--inline">maxDate</code> validation errors to the millisecond.</li>
+<li>Renamed properties <code class="code code--inline">min</code> and <code class="code code--inline">max</code> to <code class="code code--inline">minDate</code> and <code class="code code--inline">maxDate</code>.</li>
+</ul>
+<h3 id="individual-components">Individual Components</h3>
+<h4 id="px-calendar-picker">px-calendar-picker</h4>
+<ul>
+<li>Removed the <code class="code code--inline">singleSelectedDate</code> property.</li>
+</ul>
+<h4 id="px-datetime-field">px-datetime-field</h4>
+<ul>
+<li>Added the <code class="code code--inline">required</code> property. If this is set, the component will be invalid when left empty.</li>
+<li>Added the <code class="code code--inline">isFieldValid</code> property. Reflects if the input field is valid.</li>
+<li>Replaced <code class="code code--inline">showValidationMessage</code> with <code class="code code--inline">hideValidationMessage</code>. <code class="code code--inline">hideValidationMessage</code> is <code class="code code--inline">false</code> by default.</li>
+<li>Renamed <code class="code code--inline">preventNotificationOnChange</code> to <code class="code code--inline">preventApply</code>.</li>
+</ul>
+<h4 id="px-datetime-range-field">px-datetime-range-field</h4>
+<ul>
+<li>Added the <code class="code code--inline">required</code> property. If this is set, the component will be invalid if left empty.</li>
+<li>Removed <code class="code code--inline">preventNotificationOnChange</code>.</li>
+</ul>
+<h4 id="px-datetime-range-panel">px-datetime-range-panel</h4>
+<ul>
+<li>Updated the component's position from <code class="code code--inline">absolute</code> to <code class="code code--inline">static</code>.</li>
+</ul>
+<h4 id="px-rangepicker">px-rangepicker</h4>
+<ul>
+<li>Exposed the <code class="code code--inline">hideIcon</code> property.</li>
+<li>The panel now dynamically aligns to the rangepicker's position on the screen.</li>
+<li>Updated <code class="code code--inline">_opened</code> to <code class="code code--inline">opened</code>.</li>
+</ul>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-datetime-changes",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

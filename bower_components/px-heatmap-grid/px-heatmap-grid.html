@@ -1,0 +1,170 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-heatmap-grid-styles.html">
+<link rel="import" href="px-heatmap-grid-table.html">
+<link rel="import" href="px-heatmap-grid-scale.html">
+<link rel="import" href="../px-spinner/px-spinner.html">
+
+<!--
+
+### Basic Usage
+
+    <px-heatmap-grid heatmap-data={{data}}></px-heatmap-grid>
+
+### Option 1
+The heat map data is an array of cell objects, where:
+- `row` is the title to display for that row
+- `col` is the title to display for that column
+- `value` is the value displayed in the cell and used to calculate the cell color
+
+Cells are grouped by rows and columns with same titles. In this example, two cells are going to be displayed on each row and column.
+
+```
+[
+  {
+    "row": "Application 1",
+    "col": "Operator 1",
+    "value": 16.639
+  },
+  {
+    "row": "Application 1",
+    "col": "Operator 2",
+    "value": 55.464
+  }
+  {
+    "row": "Application 2",
+    "col": "Operator 1",
+    "value": 61.897
+  },
+  {
+    "row": "Application 2",
+    "col": "Operator 2",
+    "value": 47.479
+  }
+]
+```
+
+### Option 2
+The heat map data is an array of objects that contain a column of data, where:
+- `col` is the title to display for that column
+- `values` is the array of values displayed for that column
+
+Example:
+```
+[
+  {
+    "col": "Operator 1",
+    "values": [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    "col": "Operator 2",
+    "values": [7, 8, 9, 10, 11, 12, 13]
+  },
+  {
+    "col": "Operator 3",
+    "values": [14, 15, 16, 17, 18, 19, 20]
+  }
+]
+```
+
+As only columns are specified in this dataset, the option to hide/show row titles has no effect.
+
+### Option 3
+The heat map data is an array of objects that contain a row of data, where:
+- `row` is the title to display for that row;
+- `values` is the array of values displayed for that row.
+
+Example:
+```
+[
+  {
+    "row": "Application 1",
+    "values": [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    "row": "Application 2",
+    "values": [7, 8, 9, 10, 11, 12, 13]
+  },
+  {
+    "row": "Application 3",
+    "values": [14, 15, 16, 17, 18, 19, 20]
+  }
+]
+```
+
+As only rows are specified in this dataset, the option to hide/show column titles has no effect.
+
+### Option 4
+The heat map data is an array of arrays that contain all of the data. Each sub-array is displayed as a row of data in the heat map.
+
+Example:
+```
+[
+    [0, 1, 2, 3, 4, 5, 6],
+    [7, 8, 9, 10, 11, 12, 13],
+    [14, 15, 16, 17, 18, 19, 20]
+]
+```
+
+As no row nor column titles are specified, the options to show/hide the column and row titles have no effect.
+
+### Option 5
+The heat map data is a simple array with all of the data. The data is displayed as a single row in the heat map.
+
+Example:
+```
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+```
+
+As no row nor column titles are specified, the options to show/hide the column and row titles have no effect.
+
+### Styling
+The following variables are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-heatmap-grid-start-color` | The color mapped to the scale min (MUST be in rgb notation)
+`--px-heatmap-grid-end-color` | The color mapped to the scale max (MUST be in rgb notation)
+`--px-heatmap-grid-cell-min-width` | The min width for each cell
+`--px-heatmap-grid-cell-max-width` | The max width for each cell
+`--px-heatmap-grid-cell-min-height` | The min height for each cell
+`--px-heatmap-grid-cell-max-height` | The max height for each cell
+`--px-heatmap-grid-table-border-width` | The heatmap table border width
+`--px-heatmap-grid-table-border-color` | The heatmap table border color
+`--px-heatmap-grid-table-border-style` | The heatmap table border style
+`--px-heatmap-grid-values-font-size` | The heatmap values font size
+`--px-heatmap-grid-values-font-color` | The heatmap values font color
+`--px-heatmap-grid-values-font-weight` | The heatmap values font weight
+`--px-heatmap-grid-header-font-size` | The heatmap column and row headers font size
+`--px-heatmap-grid-header-font-color` | The heatmap column and row headers font color
+`--px-heatmap-grid-header-font-weight` | The heatmap column and row headers font weight
+`--px-heatmap-grid-sorting-icon-color` | The sorting icon color
+
+@element px-heatmap-grid
+@blurb A highly visual and flexible interactive component for visualizing a data set based on a heat map scale of colors
+@homepage _index.html
+@demo _index.html
+-->
+
+</head><body><dom-module id="px-heatmap-grid">
+  <template>
+    <style include="px-heatmap-grid-styles"></style>
+    <div class="flex flex--row flex--left flex--top flex--stretch">
+      <template is="dom-if" if="{{loading}}">
+        <px-spinner size="50" class="spinner"></px-spinner>
+      </template>
+      <template is="dom-if" if="{{!loading}}">
+        <px-heatmap-grid-table data="{{heatmapData}}" scale="{{scale}}" hide-row-header="{{hideRowHeader}}" hide-col-header="{{hideColHeader}}" aggregation-type="{{aggregationType}}" hide-values="{{hideValues}}" scale-color-from="{{_scaleColorFrom}}" scale-color-to="{{_scaleColorTo}}">
+        </px-heatmap-grid-table>
+        <px-heatmap-grid-scale scale="{{scale}}" hidden$="{{hideScale}}" scale-color-from="{{_scaleColorFrom}}" scale-color-to="{{_scaleColorTo}}" hide-col-header="{{hideColHeader}}">
+        </px-heatmap-grid-scale>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-heatmap-grid",properties:{heatmapData:{type:Array,notify:!0,value:function value(){return[]}},scaleMin:{type:Number,value:0,observer:"_scaleChanged"},scaleMax:{type:Number,value:100,observer:"_scaleChanged"},hideScale:{type:Boolean,value:!1},hideColHeader:{type:Boolean,value:!1},hideRowHeader:{type:Boolean,value:!1},hideValues:{type:Boolean,value:!1},aggregationType:{type:String,value:"disabled"},_scaleColorFrom:{type:String},_scaleColorTo:{type:String},loading:{type:Boolean,value:!1,observer:"_loadingChanged"}},ready:function ready(){this.addEventListener("set-heatmap-data",this._setHeatmapDataEventCallback);this.addEventListener("scale-colors-changed",this._scaleColorsChangedEventCallback)},detached:function detached(){this.removeEventListener("set-heatmap-data",this._setHeatmapDataEventMethod);this.removeEventListener("scale-colors-changed",this._scaleColorsChangedEventCallback)},_setHeatmapDataEventCallback:function _setHeatmapDataEventCallback(e){this.setData(e.detail.data)},_scaleColorsChangedEventCallback:function _scaleColorsChangedEventCallback(e){e.stopPropagation();this.setColors(e.detail.from,e.detail.to)},_scaleChanged:function _scaleChanged(newScale,oldScale){if(newScale!==oldScale&&newScale){this.set("scale",[this.scaleMin,this.scaleMax])}},toggleScale:function toggleScale(){this.set("hideScale",!this.hideScale)},toggleRowHeader:function toggleRowHeader(){this.set("hideRowHeader",!this.hideRowHeader)},toggleColHeader:function toggleColHeader(){this.set("hideColHeader",!this.hideColHeader)},toggleHeaders:function toggleHeaders(){this.toggleColHeader();this.toggleRowHeader()},toggleValues:function toggleValues(){this.set("hideValues",!this.hideValues)},setData:function setData(data){this.set("heatmapData",data)},setRange:function setRange(min,max){this.set("scaleMin",min);this.set("scaleMax",max)},setColors:function setColors(from,to){this.set("_scaleColorFrom",from);this.set("_scaleColorTo",to)},_loadingChanged:function _loadingChanged(n,o){var _this=this;if(n!==void 0&&n!==o){if(n){setTimeout(function(){var spinner=Polymer.dom(_this.root).querySelector("px-spinner");if(spinner){spinner.finished=!1}})}else{setTimeout(function(){var spinner=Polymer.dom(_this.root).querySelector("px-spinner");if(spinner){spinner.finished=!0}})}}}});</script>
+</body></html>

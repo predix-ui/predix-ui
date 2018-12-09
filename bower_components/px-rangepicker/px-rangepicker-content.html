@@ -1,0 +1,24 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html">
+<link rel="import" href="../px-datetime-range-panel/px-datetime-range-panel.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="css/px-rangepicker-content-styles.html">
+
+<!--
+We needed to split the rangepicker into two different components
+because of the way we hoist the panel
+-->
+</head><body><dom-module id="px-rangepicker-content">
+  <template>
+    <style include="px-rangepicker-content-styles"></style>
+
+    <iron-dropdown id="dropdown" opened="{{opened}}" vertical-align="auto" horizontal-align="auto" scroll-action="{{scrollAction}}" dynamic-align="" vertical-offset="50" position-target="[[positionTarget]]">
+      <px-datetime-range-panel id="panel" time-is-valid="{{timeIsValid}}" slot="dropdown-content" class$="{{_handleIsValid(isValid)}}" from-moment="{{fromMoment}}" to-moment="{{toMoment}}" time-format="{{timeFormat}}" hide-time="{{hideTime}}" hide-presets="{{hidePresets}}" show-buttons="{{showButtons}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" preset-ranges="{{presetRanges}}" time-zone="[[timeZone]]" day-week-start-index="[[dayWeekStartIndex]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+      </px-datetime-range-panel>
+    </iron-dropdown>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-rangepicker-content",behaviors:[PxDatetimeBehavior.TempRange,PxDatetimeBehavior.Buttons],properties:{opened:{type:Boolean,notify:!0},dateFormat:{type:String},timeFormat:{type:String},hideTime:{type:Boolean},hidePresets:{type:Boolean},hideIcon:{type:Boolean},allowWrap:{type:Boolean},showFieldTitles:{type:Boolean},scrollAction:{type:String,reflectToAttribute:!0},isValid:{type:Boolean,observer:"_updatedStyleOnValid"},timeIsValid:{type:Boolean},required:{type:Boolean},hideValidationMessages:{type:Boolean},showTimeZone:{type:String},presetRanges:{type:Object},positionTarget:HTMLElement},_toggleBoxOpen:function _toggleBoxOpen(){this.$.dropdown.toggle()},_handleValidation:function _handleValidation(isValid){this.$.panel.allowApply=isValid},_handleIsValid:function _handleIsValid(isValid){return isValid?"":"invalid"},_updatedStyleOnValid:function _updatedStyleOnValid(){this.updateStyles()}});</script>
+</body></html>

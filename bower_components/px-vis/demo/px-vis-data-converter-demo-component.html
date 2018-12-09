@@ -1,0 +1,51 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<link rel="import" href="../px-vis-scale.html">
+<link rel="import" href="../px-vis-svg.html">
+<link rel="import" href="../px-vis-data-converter.html">
+
+<link rel="import" href="../css/px-vis-styles.html">
+
+</head><body><dom-module id="px-vis-data-converter-demo-component">
+  <template>
+    <style include="px-vis-styles"></style>
+    <style>:host{width:100%;}</style>
+
+    <px-vis-data-converter data-key="series" id-key="id" name-key="name" original-data="[[originalData]]" series-config="{{seriesConfig}}" chart-data="{{chartData}}">
+    </px-vis-data-converter>
+
+    <div class="flex flex--row flex--spaced flex--top" style="width: 100%;">
+      <div>
+        <strong>input: original-data</strong>
+        <pre>[[_formatName(originalData)]]</pre>
+      </div>
+
+      <div>
+        <strong>output:  chart-data</strong>
+        <pre>[[_formatName(chartData)]]</pre>
+      </div>
+
+      <div>
+        <strong>output: series-config</strong>
+        <pre>[[_formatName(seriesConfig)]]</pre>
+      </div>
+    </div>
+
+  </template>
+  <script>Polymer({is:"px-vis-data-converter-demo-component",properties:{originalData:{type:Array,value:function value(){return[{series:[[139710246e4,11.4403],[139713966e4,13.1913],[142781352e4,17.1241],[142783974e4,34.1624],[142792092e4,17.9158],[null,null]],max:35.4784,min:7.6531,mean:15.330657585139331,id:"px-elliot",name:"elliot"},{series:[[139710246e4,96.5],[139713966e4,96.5],[142781352e4,79],[142783974e4,48.2],[142792092e4,96.5],[null,null]],max:96.5,min:10,mean:91.5203170028819,id:"px-benoit",name:"benoit"}]}},aggregatedData:{type:Array}},_formatName:function _formatName(data){return JSON.stringify(data,null," ")}});</script>
+</dom-module>
+</body></html>

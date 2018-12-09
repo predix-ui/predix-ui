@@ -1,0 +1,18 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="px-datetime-shared-behavior.html">
+
+<script>(function(){var PxDatetimeBehavior=window.PxDatetimeBehavior=window.PxDatetimeBehavior||{};PxDatetimeBehavior.SingleMoment=[{properties:{momentObj:{type:Object,notify:!0,value:function value(){return null}}},observers:["_localeChanged(language)","_timeZoneChanged(timeZone)"],_localeChanged:function _localeChanged(){if(this.language!==void 0&&this.momentObj){this.set("momentObj",this.momentObj.locale(Px.moment.locale()))}},_timeZoneChanged:function _timeZoneChanged(){if(this.timeZone!==void 0&&this.momentObj){var newMom=this.momentObj.clone().tz(this.timeZone);this.set("momentObj",newMom)}}},PxDatetimeBehavior.Shared];PxDatetimeBehavior.TempMoment=[{properties:{_tempMomentObj:{type:Object,notify:!0}},observers:["_localeChangedTemp(language)","_timeZoneChangedTemp(timeZone)","_rollbackTempMoment(momentObj)"],_applyTempMoment:function _applyTempMoment(){if(null===this.momentObj||null===this._tempMomentObj||this.momentObj.toISOString()!==this._tempMomentObj.toISOString()){this.set("momentObj",this._tempMomentObj)}},_rollbackTempMoment:function _rollbackTempMoment(){this.set("_tempMomentObj",this.momentObj)},_localeChangedTemp:function _localeChangedTemp(){if(this.language!==void 0&&this._tempMomentObj){this.set("_tempMomentObj",this._tempMomentObj.locale(Px.moment.locale()))}},_timeZoneChangedTemp:function _timeZoneChangedTemp(){if(this.timeZone!==void 0&&this._tempMomentObj){var newMom=this._tempMomentObj.clone().tz(this.timeZone);this.set("_tempMomentObj",newMom)}}},PxDatetimeBehavior.SingleMoment]})();</script>
+</head><body></body></html>

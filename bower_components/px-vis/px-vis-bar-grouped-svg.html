@@ -1,0 +1,69 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+Unlike most other drawing elements that can use chartData directly, bar requires that data first be passed through d3.stack: https://github.com/d3/d3-shape/blob/master/README.md#stack
+
+### Usage
+
+    <px-vis-svg
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      svg="{{svg}}">
+    </px-vis-svg>
+    <px-vis-scale
+      x-axis-type="scaleBand"
+      y-axis-type="linear"
+      complete-series-config="[[seriesConfig]]"
+      data-extents="[[dataExtents]]"
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      chart-data={{chartData}}
+      x="{{x}}"
+      y="{{y}}"
+      selected-domain="[[selectedDomain]]">
+    </px-vis-scale>
+
+    <px-vis-bar-grouped-svg
+      svg="[[svg]]"
+      complete-series-config="[[seriesConfig]]"
+      chart-data="[[chartData]]"
+      x="[[x]]"
+      y="[[y]]"
+      domain-changed="[[domainChanged]]">
+    </px-vis-bar-grouped-svg>
+
+@element px-vis-bar-grouped-svg
+@blurb Element which draws bar series onto the chart
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-bar-grouped-svg">
+    <template>
+      <style include="px-vis-styles"></style>
+
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-bar-grouped-svg",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.svg,PxVisBehaviorD3.axes,PxVisBehavior.dataset,PxVisBehavior.commonMethods,PxVisBehaviorD3.clipPath,PxVisBehavior.completeSeriesConfig,PxVisBehavior.dynamicConfigProperties,PxVisBehaviorD3.domainUpdate,PxVisBehavior.preventInitialDrawing],properties:{barRects:Object,barBuilder:Object,barGroup:Object,drawDebounceTime:{type:Number,value:10},_iAxis:String,_dAxis:String,_funcsWereSet:{type:Number,value:0},type:{type:String,value:"column"},_returnX:Function,_returnY:Function,_returnWidth:Function,_returnHeight:Function,groupScale:Function,ordinalKey:String,groupColors:Object,colorByGroup:{type:Boolean,value:!1},highlightBar:{type:String,value:""},_chartAreaHeight:{type:Number,computed:"_computeChartAreaHeight(height, margin.*)"}},observers:["drawElement(svg, y, domainChanged, chartData.*, completeSeriesConfig.*, preventInitialDrawing, _funcsWereSet)","_addClipPath(clipPath)","_muteBars(highlightBar)","_setFuncs(type, groupScale, ordinalKey)"],detached:function detached(){if(this._debouncers.draw){this._debouncers.draw.cancel()}if(this._doesD3HaveValues(this.barRects)){this.barRects.remove()}if(this._doesD3HaveValues(this.barGroup)){this.barGroup.remove()}},drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}if(!this.preventInitialDrawing){if(0<this.drawDebounceTime){this.debounce("draw",function(){this._drawElementDebounced()}.bind(this),this.drawDebounceTime)}else{this._drawElementDebounced()}}},_drawElementDebounced:function _drawElementDebounced(){if(!this._funcsWereSet||!this.domainChanged||this._isD3Empty(this.svg)||!this.y||0===this.chartData.length||this._isObjEmpty(this.completeSeriesConfig)){return}var barGroupBuilder=this.svg.selectAll("g.seriesGroups").data(this.chartData);barGroupBuilder.exit().remove();barGroupBuilder.enter().append("g").attr("series-id","bars").attr("class","seriesGroups").merge(barGroupBuilder).attr("fill",function(d,i){return this.colorByGroup&&this.groupColors?this.groupColors[d[this.ordinalKey]]:null}.bind(this)).attr("transform",this._transformGroups.bind(this));this.barGroup=this.svg.selectAll("g.seriesGroups");var barBuilder=this.barGroup.selectAll("rect.series-bar").data(function(d){return this.seriesKeys.map(function(key){return{cscKey:key,key:this.completeSeriesConfig[key][this._dAxis],value:d[this.completeSeriesConfig[key][this._dAxis]]}}.bind(this))}.bind(this));barBuilder.exit().remove();barBuilder.enter().append("rect").attr("class","series-bar").merge(barBuilder).attr("series-id",function(d,i){return"bar_"+d.cscKey+"_"+i}.bind(this)).attr("series-keys",function(d,i){return d.cscKey}).attr("x",this._returnX.bind(this)).attr("y",this._returnY.bind(this)).attr("width",this._returnWidth.bind(this)).attr("height",this._returnHeight.bind(this)).attr("fill",function(d,i){return this.colorByGroup?null:this.completeSeriesConfig[d.cscKey].color}.bind(this));this.barRects=this.barGroup.selectAll("rect.series-bar");this._addClipPath();this.fire("px-vis-bar-grouped-svg-rendering-ended")},_setFuncs:function _setFuncs(){var _Mathabs=Math.abs;if(this.type===void 0||!this.groupScale||!this.ordinalKey){return}if("bar"===this.type){this._returnX=function(d){return 0>this.x(d.value)-this.x(0)?this.x(d.value):this.x(0)};this._returnY=function(d){return this.groupScale(d.key)};this._returnWidth=function(d){return _Mathabs(this.x(d.value)-this.x(0))};this._returnHeight=function(){return this.groupScale.bandwidth()};this._transformGroups=function(d){return"translate(0,"+this.y(d[this.ordinalKey])+")"};this._iAxis="y";this._dAxis="x"}else{this._returnX=function(d){return this.groupScale(d.key)};this._returnY=function(d,i){return 0>this.y(0)-this.y(d.value)?this.y(0):this.y(d.value)};this._returnWidth=function(){return this.groupScale.bandwidth()};this._returnHeight=function(d,i){return _Mathabs(this.y(0)-this.y(d.value))};this._transformGroups=function(d){return"translate("+this.x(d[this.ordinalKey])+",0)"};this._iAxis="x";this._dAxis="y"}this.set("_funcsWereSet",this._funcsWereSet+1)},_muteBars:function _muteBars(){if(!this.barRects){return}if(""===this.highlightBar){this.barGroup.classed("muted",!1);return}var ordKey=this.ordinalKey;ordVal=this.highlightBar;this.barGroup.classed("muted",function(){return Px.d3.select(this).data()[0][ordKey]!==ordVal})},_addClipPath:function _addClipPath(){if(this.hasUndefinedArguments(arguments)){return}this.addClipPath(this.barGroup)},_computeChartAreaHeight:function _computeChartAreaHeight(){return this.height-this.margin.top-this.margin.bottom}});</script>
+</body></html>

@@ -1,0 +1,172 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-modal-trigger.html">
+<link rel="import" href="css/px-modal-styles.html">
+<link rel="import" href="../iron-fit-behavior/iron-fit-behavior.html">
+<link rel="import" href="../iron-overlay-behavior/iron-focusables-helper.html">
+
+<!--
+Modals open over the page content and prompt the user to take some actions before
+they continue using the app. Modals can be used to confirm the user wants to
+complete a destructive action, to prompt a specific input needed before moving
+forward, or to inform the user of some important information.
+
+### Basic usage
+
+To create a basic modal, pass some text in for the user to read and provide strings
+for the accept and reject trigger buttons. Open the modal by setting the `opened`
+property to `true`:
+
+    <px-modal
+        header-text="Confirm delete"
+        body-text="Do you want to delete this record? The record will be deleted permanently."
+        accept-text="Permanently Delete Record"
+        reject-text="Cancel"
+        opened>
+    </px-modal>
+
+Use the `<px-modal-trigger>` element to create a target the user can tap to open
+the modal. Data-bind the wrapper's `trigger` property to the modal's `openTrigger`
+property to connect the two:
+
+    <px-modal-trigger trigger="{{trigger}}">
+      <button>Open the modal</button>
+    </px-modal-trigger>
+    <px-modal open-trigger="[[trigger]]" header-text="..." body-text="..." accept-text="..." reject-text="...">
+    </px-modal>
+
+### Custom content
+
+The app can pass in custom content to display for the modal header, body,
+and accept and reject trigger sections. Use the `header`, `body`, `actions`,
+`accept-trigger`, and `reject-trigger` slots to define custom content:
+
+    <px-modal opened>
+      <div slot="header">Confirm delete</div>
+      <div slot="body">
+        <p>Do you want to delete this record? The record will be deleted permanently.</p>
+      </div>
+      <div style="width:100%" slot="actions">
+        <button>Custom action</button>
+      </div>
+      <button slot="reject-trigger">Cancel</button>
+      <button slot="accept-trigger">Permanently Delete Record</button>
+    </px-modal>
+
+When the user taps on elements passed into the trigger slots the modal will
+automatically hide itself and fire relevant events.
+
+### Application modal
+
+As opposed to the modal dialog use case above, your application may need to provide a larger, more interactive
+modal - the user is still focused on completing a task outside of the regular application flow, but may need more
+space. An example would be drilling down from a table into a detail view for a specific row in that table,
+taking some action to disposition the row, and returning the user to the main view. In this case, use the `fill-container`
+and `fit-into` properties to specify what portion of the screen should be taken up by the modal
+(usually the main content frame of your application):
+
+    <px-modal id="myModal" header-text="Detail view" fill-container>
+      <div slot="body">
+        // Content here
+      </div>
+    </px-modal>
+
+    <script>
+      var modal = document.getElementById('myModal');
+      var frame = document.getElementById('myApplicationFrame');
+      modal.set('fitInto', frame);
+    </script>
+
+
+### Responding to accept and reject triggers
+
+The user can accept or reject a modal prompt. Apps may want to respond differently
+depending on what the user selects. For example, if the user accepts a delete
+confirmation modal the app should delete the record, and if the user rejects the
+modal the apps should cancel the deletion. Listen for the `px-modal-rejected`
+and `px-modal-accepted` events to respond to user actions:
+
+    <px-modal
+        id="confirmModal"
+        header-text="Confirm delete"
+        body-text="Do you want to delete this record? The record will be deleted permanently."
+        accept-text="Permanently Delete Record"
+        reject-text="Cancel"
+        opened>
+    </px-modal>
+    <script>
+      var modal = document.getElementById('confirmModal');
+      modal.addEventListener('px-modal-rejected', function(e) {
+        // ... handle reject action here ...
+      });
+      modal.addEventListener('px-modal-accepted', function(e) {
+        // ... handle accept action here ...
+      });
+    </script>
+
+By default, the modal is dismissed when the user presses the escape key. Listen
+for the `px-modal-dismissed` event to respond to this action. Set the
+`disableCloseOnEscape` property to `true` to keep the modal open when the
+user presses the escape key.
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description
+:------------|:-------------
+`--px-modal-background-color`            | Background color of the modal dialog
+`--px-modal-background-color--container` | Background color of the modal dialog when fill-container is true
+`--px-modal-overlay-color`               | Color of the overlay that covers the screen behind the modal dialog
+`--px-modal-text-color`                  | Text color for content set with properties (slotted content will not use this color)
+`--px-modal-text-color--container`       | Text color for content set with properties when fill-container is true
+`--px-modal-z-index`                     | z-index value for the modal
+
+@element px-modal
+@blurb Shows a modal that overlays the screen
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-modal">
+  <template>
+    <style include="px-modal-styles"></style>
+
+    <div class="modal" id="modal" on-transitionend="_handleTransitionEnd">
+      <div id="box" class="modal__box shadow-modal" style="display:none">
+        <div>
+          <!-- Header -->
+          <div class="modal__header">
+            <slot name="header">
+              <span class="modal__header__text epsilon weight--normal">[[headerText]]</span>
+            </slot>
+          </div>
+          <!-- Body -->
+          <div class="modal__body">
+            <slot name="body">
+              <span class="modal__body__text">[[bodyText]]</span>
+            </slot>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div class="modal__triggers">
+          <!-- Custom actions -->
+          <slot name="actions"></slot>
+          <!-- Actions: Reject -->
+          <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
+            <slot name="reject-trigger">
+              <button type="button" class="btn" id="reject-trigger-button">[[rejectText]]</button>
+            </slot>
+          </div>
+          <!-- Actions: Accept -->
+          <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
+            <slot name="accept-trigger">
+              <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>(function(){Polymer({is:"px-modal",behaviors:[Polymer.IronFitBehavior],properties:{headerText:String,bodyText:String,acceptText:String,rejectText:String,opened:{type:Boolean,value:!1,notify:!0,reflectToAttribute:!0,observer:"_handleOpenedChanged"},openTrigger:{type:HTMLElement,observer:"_handleOpenTriggerUpdated"},disableCloseOnEscape:{type:Boolean,value:!1},disableAutoFocus:{type:Boolean,value:!1},fillContainer:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_handleFillContainerChanged"},autoFitOnAttach:{type:Boolean,value:!0},_focusableElements:{type:Array,value:[]}},observers:["_refit(fillContainer, fitInto)"],created:function created(){var _this=this;this._modalKeypressFn=this._handleModalKeypress.bind(this);this._openTriggerTappedFn=function(){_this.opened=!0};this._openTriggerKeydownFn=function(evt){if("Enter"===evt.key){_this.opened=!0}}},_handleOpenedChanged:function _handleOpenedChanged(opened){if(opened){this.$.box.style.display="flex";this.addEventListener("keydown",this._modalKeypressFn,!1)}else{this.removeEventListener("keydown",this._modalKeypressFn)}},_handleTransitionEnd:function _handleTransitionEnd(evt){var _this2=this;if(Polymer.dom(evt).rootTarget===this.$.modal){this.debounce("handle-transition-end",function(){if(_this2.opened){_this2.refit();_this2._elementFocusedBeforeOpened=document.activeElement;_this2.findFocusableElements();if(_this2._focusableElements.length){if(_this2._firstFocusableElement&&!_this2.disableAutoFocus){_this2._firstFocusableElement.focus()}}}else{_this2.$.box.style.display="none";if(_this2._elementFocusedBeforeOpened&&!_this2.disableAutoFocus){_this2._elementFocusedBeforeOpened.focus()}_this2._elementFocusedBeforeOpened=null}},1)}},findFocusableElements:function findFocusableElements(){this._focusableElements=Polymer.IronFocusablesHelper.getTabbableNodes(this);if(this._focusableElements.length){this._firstFocusableElement=this._focusableElements[0];this._lastFocusableElement=this._focusableElements[this._focusableElements.length-1]}else{this._firstFocusableElement=null;this._lastFocusableElement=null}},_handleModalKeypress:function _handleModalKeypress(evt){if("Tab"===evt.key&&!evt.shiftKey){var lastFocusedElement=Polymer.dom(evt).rootTarget;if(lastFocusedElement){var lastFocusedElementIndex=this._focusableElements.indexOf(lastFocusedElement);if(this._focusableElements[lastFocusedElementIndex+1]){this._focusableElements[lastFocusedElementIndex+1].focus()}else{this._firstFocusableElement.focus()}}else{this._firstFocusableElement.focus()}evt.preventDefault()}if("Tab"===evt.key&&evt.shiftKey){var _lastFocusedElement=Polymer.dom(evt).rootTarget;if(_lastFocusedElement){var _lastFocusedElementIndex=this._focusableElements.indexOf(_lastFocusedElement);if(this._focusableElements[_lastFocusedElementIndex-1]){this._focusableElements[_lastFocusedElementIndex-1].focus()}else{this._lastFocusableElement.focus()}}else{this._lastFocusableElement.focus()}evt.preventDefault();if(_lastFocusedElement&&this._lastFocusableElement&&_lastFocusedElement===this._firstFocusableElement){evt.preventDefault();this._lastFocusableElement.focus()}}if("Escape"===evt.key&&!this.disableCloseOnEscape){this.opened=!1;this.fire("px-modal-dismissed")}},_handleOpenTriggerUpdated:function _handleOpenTriggerUpdated(newTrigger,oldTrigger){if(oldTrigger){oldTrigger.removeEventListener("click",this._openTriggerTappedFn);oldTrigger.removeEventListener("keydown",this._openTriggerKeydownFn)}if(newTrigger){newTrigger.addEventListener("click",this._openTriggerTappedFn,!1);newTrigger.addEventListener("keydown",this._openTriggerKeydownFn,!1)}},_handleRejectTriggerTapped:function _handleRejectTriggerTapped(e){var target=Polymer.dom(e).rootTarget,triggerContainer=Polymer.dom(this.root).querySelector("#reject-trigger-container");if(target!==triggerContainer&&!target.hasAttribute("disabled")){this.opened=!1;this.fire("px-modal-rejected")}},_handleAcceptTriggerTapped:function _handleAcceptTriggerTapped(e){var target=Polymer.dom(e).rootTarget,triggerContainer=Polymer.dom(this.root).querySelector("#accept-trigger-container");if(target!==triggerContainer&&!target.hasAttribute("disabled")){this.opened=!1;this.fire("px-modal-accepted")}},_handleFillContainerChanged:function _handleFillContainerChanged(newValue){if(!0===newValue){this.listen(this.fitInto,"scroll","_refit");this.listen(this.fitInto,"resize","_refit")}else{this.unlisten(this.fitInto,"scroll","_refit");this.unlisten(this.fitInto,"resize","_refit")}},_refit:function _refit(){if(this.fillContainer&&this.fitInto){this.debounce("refit",function(){this.refit()},10)}}});if(!Array.prototype.find){Object.defineProperty(Array.prototype,"find",{value:function value(predicate){if(null==this){throw new TypeError("\"this\" is null or not defined")}var o=Object(this),len=o.length>>>0;if("function"!==typeof predicate){throw new TypeError("predicate must be a function")}var thisArg=arguments[1],k=0;while(k<len){var kValue=o[k];if(predicate.call(thisArg,kValue,k,o)){return kValue}k++}return}})}})();</script>
+</body></html>

@@ -1,0 +1,31 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="css/px-auto-filter-field-styles.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+
+</head><body><dom-module id="px-auto-filter-field">
+  <template>
+    <style include="px-auto-filter-field-styles"></style>
+    <div class="search__form">
+      <input id="search-field" class="text-input input--small search__box" type="text" name="autofilter" value="{{value::input}}" placeholder="{{placeholder}}">
+      
+      <px-icon class="search__icon" icon="px-utl:search"></px-icon>
+    </div>
+  </template>
+  <script>{var AutoFilterFieldElement=function(_Polymer$Element){babelHelpers.inherits(AutoFilterFieldElement,_Polymer$Element);function AutoFilterFieldElement(){babelHelpers.classCallCheck(this,AutoFilterFieldElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(AutoFilterFieldElement).apply(this,arguments))}babelHelpers.createClass(AutoFilterFieldElement,[{key:"_onChange",value:function _onChange(){var _this=this;this._renderDebouncer=Polymer.Debouncer.debounce(this._renderDebouncer,Polymer.Async.timeOut.after(this.timeout),function(){_this.dispatchEvent(new CustomEvent("filter-change",{detail:{value:_this.value},bubbles:!0}))})}}],[{key:"is",get:function get(){return"px-auto-filter-field"}},{key:"properties",get:function get(){return{placeholder:{type:String},timeout:{type:Number,value:400},value:{type:String,notify:!0,observer:"_onChange"}}}}]);return AutoFilterFieldElement}(Polymer.Element);customElements.define(AutoFilterFieldElement.is,AutoFilterFieldElement);window.Predix=window.Predix||{};Predix.AutoFilterFieldElement=AutoFilterFieldElement}</script>
+</dom-module>
+</body></html>

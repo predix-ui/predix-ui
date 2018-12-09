@@ -1,0 +1,41 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-widths-tools-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-widths-tools-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-widths-tools-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-widths-tools-design" description="The Predix UI Widths Tools allows you to generate a suite of utility classes for sizing pieces of UI." layer="tools" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-defaults-design&quot;
+  ]" hide-demo-container="" selected-options="{{selectedOptions}}">
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+Pass in the fraction you'd like the widths to have - with a <strong>space</strong> instead of <strong>/</strong> - and an optional suffix for responsive widths.
+
+```
+<!-- @param {Number} $inuit-widths-columns            - Number of columns -->
+<!-- @param {String} $inuit-widths-breakpoint [null]  - Name of breakpoint -->
+
+@include inuit-widths($inuit-widths-columns, $inuit-widths-breakpoint: null);
+
+
+<!-- E.g. to create thirds and quarters for a small breakpoint: -->
+@include inuit-widths(3 4, -sm);
+
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<script>Polymer({is:"px-widths-tools-design-demo"});</script>
+</body></html>

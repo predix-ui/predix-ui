@@ -1,0 +1,118 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+<link rel="import" href="../px-vis/px-vis-axis.html">
+<link rel="import" href="../px-vis/px-vis-clip-path.html">
+<link rel="import" href="../px-vis/px-vis-threshold.html">
+<link rel="import" href="../px-vis/px-vis-gridlines.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+
+<link rel="import" href="../px-vis/px-vis-box-whisker.html">
+<link rel="import" href="../px-vis/px-vis-behavior-colors.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+
+<link rel="import" href="css/px-vis-boxplot-styles.html">
+
+<!--
+Creates an interactive box plot chart with both vertical and horizontal orientation.
+
+### Usage
+
+    <px-vis-boxplot
+      chart-data=[[chartData]]
+      width="500"
+      height="300">
+    </px-vis-boxplot>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  |
+  |
+  |
+  `--px-vis-gridlines-color` | The color for the gridlines
+  |
+  |
+  |
+  `--px-vis-threshold-color` | The default color for a threshold
+  |
+  |
+  |
+  `--px-tooltip-background-color` | The color of the tooltip
+  `--px-tooltip-text-color` | The color of the tooltip text
+  `--px-tooltip-light-background-color` | The color of the light version tooltip
+  `--px-tooltip-light-text-color` | The color of the light version tooltip text
+  `--px-tooltip-light-border-color`| The color of the light version tooltip border
+  |
+  |
+  |
+  `--px-vis-font-family` | The font family for all labels and text
+
+
+
+@element px-vis-boxplot
+@blurb Creates an interactive box plot chart
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-vis-boxplot">
+  <template>
+    <style include="px-vis-boxplot-styles"></style>
+
+    <px-vis-svg width="[[width]]" height="[[height]]" margin="[[_internalMargin]]" svg="{{svg}}" px-svg-elem="{{pxSvgElem}}">
+    </px-vis-svg>
+    <px-vis-clip-path clip-path="{{clipPath}}" series-clip-path="{{serieClipPath}}" svg="[[svg]]" width="[[width]]" height="[[height]]" margin="[[_internalMargin]]">
+    </px-vis-clip-path>
+    <px-vis-scale id="scale" x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" complete-series-config="[[completeSeriesConfig]]" chart-extents="[[chartExtents]]" data-extents="[[dataExtents]]" width="[[width]]" height="[[height]]" margin="[[_internalMargin]]" chart-data="[[chartData]]" x="{{x}}" y="{{y}}" scale-padding="[[scalePadding]]" domain-changed="{{domainChanged}}">
+    </px-vis-scale>
+    <!-- y axis -->
+    <px-vis-axis id="yAxis" svg="[[layer.1]]" axis="[[y]]" axis-type="[[yAxisType]]" margin="[[_internalMargin]]" width="[[width]]" height="[[height]]" orientation="left" label-position="center" prevent-series-bar="" complete-series-config="[[completeSeriesConfig]]" muted-series="[[mutedSeries]]" domain-changed="[[domainChanged]]" clip-path="[[clipPath]]">
+    </px-vis-axis>
+    <!-- x axis -->
+    <px-vis-axis id="xAxis" svg="[[layer.1]]" axis="[[x]]" axis-type="[[xAxisType]]" margin="[[_internalMargin]]" width="[[width]]" height="[[height]]" orientation="bottom" label-position="center" prevent-series-bar="" complete-series-config="[[completeSeriesConfig]]" muted-series="[[mutedSeries]]" domain-changed="[[domainChanged]]" clip-path="[[clipPath]]">
+    </px-vis-axis>
+    <!-- gridlines -->
+    <template is="dom-if" if="[[_showGridlines(hideGridLines, orientation, 'horizontal')]]" restamp="">
+      <px-vis-gridlines svg="[[layer.0]]" axis="[[x]]" margin="[[_internalMargin]]" length="[[height]]" orientation="bottom" domain-changed="[[domainChanged]]" clip-path="[[clipPath]]">
+      </px-vis-gridlines>
+    </template>
+    <template is="dom-if" if="[[_showGridlines(hideGridLines, orientation, 'vertical')]]" restamp="">
+      <px-vis-gridlines svg="[[layer.0]]" axis="[[y]]" margin="[[_internalMargin]]" length="[[width]]" orientation="left" domain-changed="[[domainChanged]]" clip-path="[[clipPath]]">
+      </px-vis-gridlines>
+    </template>
+    <!-- box and whisker components -->
+    <template is="dom-repeat" items="[[chartData]]" restamp="">
+      <px-vis-box-whisker series-key="[[_getBoxWhiskerSeriesKey(item)]]" complete-series-config="[[completeSeriesConfig]]" data="[[_getBoxWhiskerData(item)]]" position="[[_getBoxWhiskerPosition(item)]]" orientation="[[orientation]]" svg="[[layer.1]]" x="[[x]]" y="[[y]]" box-width="[[_boxWidth]]" edge-width="[[_edgeWidth]]" domain-changed="[[domainChanged]]" draw-debounce-time="[[boxWhiskerConfig.drawDebounceTime]]" on-px-vis-box-mouseover="_handleBoxMouseover" on-px-vis-box-mouseout="_handleBoxMouseout" on-px-vis-outlier-mouseover="_handleOutlierMouseover" on-px-vis-outlier-mouseout="_handleOutlierMouseout">
+      </px-vis-box-whisker>
+    </template>
+    <!-- threshold lines -->
+    <px-vis-threshold id="threshold" svg="[[layer.2]]" complete-series-config="[[completeSeriesConfig]]" threshold-data="[[thresholdData]]" threshold-config="[[thresholdConfig]]" width="[[width]]" height="[[height]]" margin="[[_internalMargin]]" x="[[x]]" y="[[y]]" type="[[thresholdType]]" domain-changed="[[domainChanged]]" show-threshold-box="[[showThresholdBox]]" language="[[language]]" clip-path="[[clipPath]]">
+    </px-vis-threshold>
+    <!-- tooltip -->
+    <px-tooltip id="tooltip" orientation="top" ignore-target-events="" clip-path="[[clipPath]]" delay="[[tooltipDelay]]">
+      <div id="tooltipContent"></div>
+    </px-tooltip>
+  </template>
+  <script>Polymer({is:"px-vis-boxplot",behaviors:[PxColorsBehavior.dataVisColors,PxColorsBehavior.dataVisColorTheming,PxColorsBehavior.getSeriesColors,PxVisBehavior.axisTypes,PxVisBehavior.baseSize,PxVisBehavior.chartExtents,PxVisBehavior.completeSeriesConfig,PxVisBehavior.dataset,PxVisBehavior.dataExtents,PxVisBehavior.margins,PxVisBehavior.observerCheck,PxVisBehavior.seriesId,PxVisBehavior.thresholds,PxVisBehavior.updateStylesOverride,PxVisBehaviorD3.domainUpdate,PxVisBehaviorChart.axisConfigs,PxVisBehaviorChart.layers,PxVisBehaviorChart.saveImage,PxVisBehaviorChart.subConfiguration,PxVisBehaviorChart.thresholdConfig,PxVisBehaviorD3.canvasContext],properties:{chartData:{type:Array,value:[],notify:!0},seriesConfig:{type:Object},margin:{type:Object,value:[]},boxWhiskerConfig:{type:Object},scalePadding:{type:Number,value:.5},orientation:{type:String,value:"vertical"},hideGridLines:{type:Boolean,value:!1},tooltipDelay:{type:Number,value:0},thresholdType:{type:String,value:"y"},_internalMargin:{type:Object},_defaultMargin:{type:Object,value:{top:10,right:10,bottom:50,left:50}},_defaultColor:{type:String,value:"#000"},_boxWidth:{type:Number},_edgeWidth:{type:Number},_paddingOuter:{type:Number,value:.5},_stylesResolved:{type:Boolean,value:!1}},observers:["_chartDataChanged(chartData, chartData.*, scalePadding, _paddingOuter)","_boxWhiskerConfigChanged(boxWhiskerConfig)","_orientationChanged(orientation)","_xAxisConfigChanged(xAxisConfig)","_yAxisConfigChanged(yAxisConfig)","_thresholdConfigChanged(thresholdConfig)","_updateSeriesConfig(seriesConfig)","_setScalePadding(domainChanged, x, y)","_updateMargin(margin, orientation, xAxisConfig.*, yAxisConfig.*)","_resolveCssVars(_stylesUpdated, completeSeriesConfig)"],listeners:{"px-data-vis-colors-applied":"_updateSeriesConfig"},ready:function ready(){this.set("numberOfLayers",5);this.tooltipContent=this.$.tooltip.querySelector("#tooltipContent")},_chartDataChanged:function _chartDataChanged(chartData){this.dataExtents=this._calcDataExtents(this.chartData)},_orientationChanged:function _orientationChanged(orientation){if("horizontal"===orientation){this.xAxisType="linear";this.yAxisType="scaleBand";this.thresholdType="x"}else{this.xAxisType="scaleBand";this.yAxisType="linear";this.thresholdType="y"}var newDataExtends=this._calcDataExtents(this.chartData);if(newDataExtends){this.dataExtents=newDataExtends}},_calcDataExtents:function _calcDataExtents(chartData){var _Mathmax=Math.max,_Mathmin=Math.min,_this=this;if(!chartData){console.warn("Cannot update data extents as chartData is null");return}var exts={x:[]};chartData.forEach(function(item){return exts.x.push(_this._getBoxWhiskerPosition(item))});exts.y=[1/0,-Infinity];for(var i in chartData){if("object"!==babelHelpers.typeof(chartData[i])){continue}var data=this._getBoxWhiskerData(chartData[i]),outliersMin=1/0,outliersMax=-Infinity;if(data.outliers){outliersMin=_Mathmin.apply(Math,data.outliers);outliersMax=_Mathmax.apply(Math,data.outliers)}exts.y=[_Mathmin(exts.y[0],data.min,outliersMin),_Mathmax(exts.y[1],data.max,outliersMax)]}if(exts.y[0]!==1/0&&exts.y[1]!==-Infinity){exts.y[1]+=(exts.y[1]-exts.y[0])/10}else{exts.y=[0,100]}if("horizontal"===this.orientation){var y=exts.y;exts.y=exts.x;exts.x=y}return exts},_resolveFirstKey:function _resolveFirstKey(obj){for(var prop in obj){if("object"===babelHelpers.typeof(obj[prop])){return prop}}return},_resolveFirstValue:function _resolveFirstValue(obj){for(var prop in obj){if("object"===babelHelpers.typeof(obj[prop])){return obj[prop]}}return},_getBoxWhiskerSeriesKey:function _getBoxWhiskerSeriesKey(item){return this._resolveFirstKey(item)},_getBoxWhiskerData:function _getBoxWhiskerData(item){var value=this._resolveFirstValue(item);if(value===void 0){console.warn("Failed to find first value of "+item);return}else{return value.data}},_getBoxWhiskerPosition:function _getBoxWhiskerPosition(item){return this._resolveFirstValue(item).position},_showGridlines:function _showGridlines(hideGridLines,orientation,direction){return!hideGridLines&&orientation===direction},_boxWhiskerConfigChanged:function _boxWhiskerConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}var comps;if(this.shadowRoot){comps=this.shadowRoot.querySelectorAll("px-vis-box-whisker")}else{comps=Polymer.dom(this.root).querySelectorAll("px-vis-box-whisker")}if(comps){comps.forEach(function(comp){this._applyConfigToElement(this.boxWhiskerConfig,comp)}.bind(this))}},_xAxisConfigChanged:function _xAxisConfigChanged(xAxisConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(xAxisConfig,this.$.xAxis)},_yAxisConfigChanged:function _yAxisConfigChanged(yAxisConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(yAxisConfig,this.$.yAxis)},_thresholdConfigChanged:function _thresholdConfigChanged(thresholdConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(thresholdConfig,this.$.threshold)},_updateSeriesConfig:function _updateSeriesConfig(){this.debounce("_updateSeriesConfig",function(){var seriesConfig=this.seriesConfig||this._generateSeriesConfig(this.chartData);this.set("completeSeriesConfig",seriesConfig)},10)},_generateSeriesConfig:function _generateSeriesConfig(chartData){var _this2=this,seriesConfig={};chartData.forEach(function(item){var seriesKey=_this2._getBoxWhiskerSeriesKey(item);seriesConfig[seriesKey]={name:seriesKey,x:"position",y:"data"}});return seriesConfig},_setScalePadding:function _setScalePadding(){if(this.hasUndefinedArguments(arguments)){return}var scaleFunc="horizontal"===this.orientation?this.y:this.x;if(scaleFunc.paddingOuter){scaleFunc.paddingOuter(this._paddingOuter);this._boxWidth=scaleFunc.bandwidth();this._edgeWidth=this._boxWidth/3}},_updateMargin:function _updateMargin(){var margin=this.margin;if(!margin||0==margin.length){margin={top:"bottom"===this.$.xAxis.orientation?this._defaultMargin.top:this._defaultMargin.bottom,bottom:"bottom"===this.$.xAxis.orientation?this._defaultMargin.bottom:this._defaultMargin.top,left:"left"===this.$.yAxis.orientation?this._defaultMargin.left:this._defaultMargin.right,right:"left"===this.$.yAxis.orientation?this._defaultMargin.right:this._defaultMargin.left}}this.set("_internalMargin",margin)},_handleBoxMouseover:function _handleBoxMouseover(event,details){this._showTooltip(details.svgEl,this._createTooltipMessageBox(details));this._setHoveredEl(details.svgEl,this.tooltipDelay)},_handleBoxMouseout:function _handleBoxMouseout(event,details){this._closeTooltip();this._setHoveredEl(void 0,0)},_handleOutlierMouseover:function _handleOutlierMouseover(event,details){this._showTooltip(details.svgEl,this._createTooltipMessageOutlier(details));this._setHoveredEl(details.svgEl,this.tooltipDelay)},_handleOutlierMouseout:function _handleOutlierMouseout(event,details){this._closeTooltip();this._setHoveredEl(void 0,0)},_setHoveredEl:function _setHoveredEl(hoveredEl,delay){var boxWhiskers;if(this.shadowRoot){boxWhiskers=this.shadowRoot.querySelectorAll("px-vis-box-whisker")}else{boxWhiskers=Polymer.dom(this.root).querySelectorAll("px-vis-box-whisker")}this.debounce("opacityTimeout",function(){boxWhiskers.forEach(function(boxWhisker){var boxEl=boxWhisker.getSvgBoxElement(),outlierEls=boxWhisker.getSvgOutlierElements();if(!hoveredEl||boxEl===hoveredEl){boxEl.classList.remove("primaryDataMask")}else{boxEl.classList.add("primaryDataMask")}outlierEls.forEach(function(outlierEl){if(!hoveredEl||outlierEl===hoveredEl){outlierEl.classList.remove("primaryDataMask")}else{outlierEl.classList.add("primaryDataMask")}})})},delay)},_showTooltip:function _showTooltip(el,msg){this.$.tooltip.for=el;this.tooltipContent.innerHTML=msg;this.$.tooltip.opened=!0},_closeTooltip:function _closeTooltip(){this.$.tooltip.opened=!1},_createTooltipMessageBox:function _createTooltipMessageBox(item){var _NumberparseFloat=Number.parseFloat,msg="<h1 style=\"font-weight:500;font-size:20px;margin:0 0 15px 0;\">";msg+=this.completeSeriesConfig[item.seriesKey].name;msg+="</h1>";msg+="<div style=\"float:left;margin-right:15px;\">"+"Maximum:<br>"+"Upper quartile:<br>"+"Median:<br>"+"Lower quartile:<br>"+"Minimum:"+"</div>";msg+="<div style=\"float:right;text-align:right;\">"+_NumberparseFloat(item.data.max)+"<br>"+_NumberparseFloat(item.data.q3)+"<br>"+_NumberparseFloat(item.data.median)+"<br>"+_NumberparseFloat(item.data.q1)+"<br>"+_NumberparseFloat(item.data.min)+"</div>";msg+="<div style=\"clear:both;\"></div>";msg+="</div>";return msg},_createTooltipMessageOutlier:function _createTooltipMessageOutlier(item){var msg="<h1 style=\"text-weight:bold;font-size:125%;\">";msg+=this.completeSeriesConfig[item.seriesKey].name;msg+="</h1>";if(item.data){msg+="Outlier: "+Number.parseFloat(item.data)+"<br>"}return msg},_resolveCssVars:function _resolveCssVars(){this.debounce("resolve-css-vars",function(){var comps;if(this.shadowRoot){comps=this.shadowRoot.querySelectorAll("px-vis-box-whisker")}else{comps=Polymer.dom(this.root).querySelectorAll("px-vis-box-whisker")}if(comps){comps.forEach(function(comp){comp.updateStyles()})}this.$.yAxis.updateStyles();this.$.xAxis.updateStyles();this.$.threshold.updateStyles();this.$.tooltip.updateStyles();var gridlines=this._getGridlines();if(gridlines){gridlines.updateStyles()}this.set("_stylesResolved",!this._stylesResolved)}.bind(this),10)},_getGridlines:function _getGridlines(){if(this.shadowRoot){return this.shadowRoot.querySelector("px-vis-gridlines")}else{return Polymer.dom(this.root).querySelector("px-vis-gridlines")}}});</script>
+</dom-module>
+</body></html>

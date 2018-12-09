@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "The `px-truncate-text` helper truncates text that does not fit in its container.\nThe component uses a purely CSS-based approach but offers middle and end\ntruncation options to support different design approaches.\n\nUse this component to gracefully hide text that doesn't fit inside containers\nlike buttons, menus, dropdowns, or cells.\n\n### Customize characters for data\n\nSet the `characters` property to the number of characters that should be shown\nat the end of the string when it is truncated. If you know the domain of the\ntext that will be truncated, e.g. you know they are asset IDs with an important\npattern at the front and in the last 4 characters, you can customize the\ntruncation behavior to show the user the most useful information.\n\n### Fit in container\n\nBy default, the element will fill 100% of the width available to it then\nsquish down when its container shrinks. Its recommended to place it inside a\ndisplay block container with a fixed width, but it can fit inside any\nDOM structure that allows it to measure its width with CSS 'width: 100%'.\n\n### Usage\n\n    <div style=\"display: block; width: 200px;\">\n      <px-truncate-text text=\"Steam Generator Alpha A.a97847120ds9\"></px-truncate-text>\n    </div>",
+      "summary": "",
+      "path": "px-truncate-text.html",
+      "properties": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to truncate. If the text does not fit in the space allowed for the\ncomponent it will truncated in the middle or at the end.\n\nExample: 'Steam Generator Asset No 12345' > 'Steam Gener...12345'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 57,
+              "column": 6
+            },
+            "end": {
+              "line": 57,
+              "column": 18
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "characters",
+          "type": "number",
+          "description": "Number of characters to show at the end of the truncated text when the\ntext does not fit. Set to `0` to truncate at the end of the text.\nIf the number of characters is more than the length of the string,\nthe entire string will be shown and end-truncated.\n\nExample with characters set to `3`:\n'A bit of text that does not fit' > 'A bit of text...fit'\n\nExample with characters set to `0`:\n'A bit of text that does not fit' > 'A bit of text tha...'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 6
+            },
+            "end": {
+              "line": 73,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "8"
+        },
+        {
+          "name": "_leftText",
+          "type": "string",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 74,
+              "column": 6
+            },
+            "end": {
+              "line": 77,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_rightText",
+          "type": "string",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 78,
+              "column": 6
+            },
+            "end": {
+              "line": 81,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_computeLeftText",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 4
+            },
+            "end": {
+              "line": 92,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "characters"
+            }
+          ]
+        },
+        {
+          "name": "_computeRightText",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 94,
+              "column": 4
+            },
+            "end": {
+              "line": 101,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "characters"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 48,
+          "column": 10
+        },
+        "end": {
+          "line": 102,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "text",
+          "description": "Text to truncate. If the text does not fit in the space allowed for the\ncomponent it will truncated in the middle or at the end.\n\nExample: 'Steam Generator Asset No 12345' > 'Steam Gener...12345'",
+          "sourceRange": {
+            "start": {
+              "line": 57,
+              "column": 6
+            },
+            "end": {
+              "line": 57,
+              "column": 18
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "characters",
+          "description": "Number of characters to show at the end of the truncated text when the\ntext does not fit. Set to `0` to truncate at the end of the text.\nIf the number of characters is more than the length of the string,\nthe entire string will be shown and end-truncated.\n\nExample with characters set to `3`:\n'A bit of text that does not fit' > 'A bit of text...fit'\n\nExample with characters set to `0`:\n'A bit of text that does not fit' > 'A bit of text tha...'",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 6
+            },
+            "end": {
+              "line": 73,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "px-truncate-text"
+    }
+  ]
+}

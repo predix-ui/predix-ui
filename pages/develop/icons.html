@@ -1,0 +1,185 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  <link async="" rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon-set-object.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon-set-feature.html">
+
+
+  </head><body><dom-module id="view-develop-icons">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#getting-started', activeAnchor)]]" href="#" anchor="#getting-started" on-tap="_handleAnchorTapped"> Getting started</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#upgrading-px-components', activeAnchor)]]" href="#" anchor="#upgrading-px-components" on-tap="_handleAnchorTapped"> Upgrading Px components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-icons-in-your-appcomponent', activeAnchor)]]" href="#" anchor="#using-icons-in-your-appcomponent" on-tap="_handleAnchorTapped"> Using icons in your app/component</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#under-the-hood', activeAnchor)]]" href="#" anchor="#under-the-hood" on-tap="_handleAnchorTapped"> Under the hood</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#custom-styling', activeAnchor)]]" href="#" anchor="#custom-styling" on-tap="_handleAnchorTapped"> Custom styling</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#requesting-new-icons', activeAnchor)]]" href="#" anchor="#requesting-new-icons" on-tap="_handleAnchorTapped"> Requesting new icons</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-non-px-icons', activeAnchor)]]" href="#" anchor="#using-non-px-icons" on-tap="_handleAnchorTapped"> Using non-px icons</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title"><px-icon icon="px-fea:deployments"></px-icon> Use icons</h2>
+          
+          
+<p>This guide addresses how to use icons in the Predix Design System.</p>
+<h3 id="getting-started"><px-icon icon="px-fea:home"></px-icon> Getting started</h3>
+<p>To start using the Predix Design System icons, you should first check out all the available icons on our site <a href="https://www.predix-ui.com/#/elements/px-icon-set">here</a>.</p>
+<p>The site shows each icon along with its full name, the set it belongs to, and its optimized size. While possible to change the size of the icon from its optimized size, they were designed to be used at the specified size and may not look as good at a different size. Our Design recommendation is to NOT change the size of the icon and instead, either use a different icon, or request an new optimized icon. Consult with your designers.</p>
+<h3 id="upgrading-px-components"><px-icon icon="px-fea:microservice"></px-icon> Upgrading Px components</h3>
+<p>If you want to specify icons for Predix Design System components, follow the specific instructions on each component. In general, you'll want to replace the Font Awesome name with the full icon names, listed next to each icon on our website, such as, <code class="code code--inline">px-obj:airplane</code>. Some components may require you to break up the name into a <code class="code code--inline">set</code> and an <code class="code code--inline">icon</code>. The set is the first part of the string before the colon (<code class="code code--inline">px-obj</code>) and the icon name is the second part (<code class="code code--inline">airplane</code>).</p>
+<h3 id="using-icons-in-your-appcomponent"><px-icon icon="px-fea:products"></px-icon> Using icons in your app/component</h3>
+<p>If you're upgrading, the first step is to remove <code class="code code--inline">px-polymer-font-awesome</code> from your bower and remove all imports for <code class="code code--inline">px-polymer-font-awesome.html</code>. <code class="code code--inline">px-icon-set</code> replaces <code class="code code--inline">px-polymer-font-awesome</code>, so you will not be able to have both.</p>
+<p>To use the Predix Design System icons in your own app or component, you'll want to add <code class="code code--inline">px-icon-set</code> to your bower dependencies.</p>
+<px-catalog-code-snippet language="js">
+      <script type="text/code">
+"px-icon-set": "^2.0.0"
+
+      </script>
+    </px-catalog-code-snippet><p>The <code class="code code--inline">px-icon-set</code> will install all the icon sets and a <code class="code code--inline">px-icon</code> component used to actually display the icons. You can choose the specific sets you want to incude, such or just import them all with <code class="code code--inline">px-icon-set.html</code>.</p>
+<p>Example only importing feature and navigation sets:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<link rel="import" href="../px-icon-set/px-icon-set-feature.html" />
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html" />
+
+      </script>
+    </px-catalog-code-snippet><p>Example only importing all sets:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<link rel="import" href="../px-icon-set/px-icon-set.html" />
+
+      </script>
+    </px-catalog-code-snippet><p>You'll also want to import the <code class="code code--inline">px-icon</code> component</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<link rel="import" href="../px-icon-set/px-icon.html" />
+
+      </script>
+    </px-catalog-code-snippet><p>With a set and the icon component imported, you can now use the <code class="code code--inline">px-icon</code> component display an icon <px-icon icon="px-obj:airplane"></px-icon></p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-icon icon="px-obj:airplane"></px-icon>
+
+      </script>
+    </px-catalog-code-snippet><h3 id="under-the-hood"><px-icon icon="px-obj:automobile"></px-icon> Under the hood</h3>
+<p>The <code class="code code--inline">px-icon-sets</code> are a type of <code class="code code--inline">iron-iconset-svg</code> and <code class="code code--inline">px-icon</code> is a wrapper around <code class="code code--inline">iron-icon</code> providing styling and sizing of the icon. To learn more about these, check out Polymer's docs on them: <a href="https://www.webcomponents.org/element/PolymerElements/iron-icon/">iron-icon</a> and <a href="https://www.webcomponents.org/element/PolymerElements/iron-iconset-svg">icon-icon-set</a></p>
+<p>Using <code class="code code--inline">iron-iconset-svg</code> you can also create your own icons and use them in your app.</p>
+<p>Since our icon sets are relying on <code class="code code--inline">iron-icon</code>, you can just use <code class="code code--inline">iron-icon</code> to display our icon sets. However, <code class="code code--inline">px-icon</code> provides several customizations on top of <code class="code code--inline">icon-icon</code>: first, <code class="code code--inline">iron-icon</code> by default has a fill and no stroke; second, <code class="code code--inline">px-icon</code> auto-sizes the icon to its optimized size, which <code class="code code--inline">iron-icon</code> does not.</p>
+<style>.custom-styling{color:#fdc52e;--iron-icon-width:28px;--iron-icon-height:28px;--iron-icon:{stroke-width:0.75;};}</style>
+<h3 id="custom-styling"><px-icon class="custom-styling" icon="px-utl:edit"></px-icon> Custom styling</h3>
+<p>You can change the color of <code class="code code--inline">px-icon</code> via the color CSS property. However, other property changes will require CSS variables. Since <code class="code code--inline">px-icon</code> uses <code class="code code--inline">iron-icon</code>, if you want the ability to do more styling, you can just use the <code class="code code--inline">icon-icon</code> css variables listed in their docs.</p>
+<p>Here is an example:</p>
+<style>.custom-icon{color:#bae;--iron-icon-width:100px;--iron-icon-height:100px;--iron-icon:{stroke-width:0.6;};}</style>
+<p><px-icon class="custom-icon" icon="px-obj:gas-turbine"></px-icon></p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+.custom-icon {
+  color: #bae;
+  --iron-icon-width: 100px;
+  --iron-icon-height: 100px;
+  --iron-icon: {
+    stroke-width: 0.6;
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-icon class="custom-icon" icon="px-obj:gas-turbine"></px-icon>
+
+      </script>
+    </px-catalog-code-snippet><p>Note, the width and height were changed by way of example, but it is not recommended to tinker with the size. Since we did change the width and height, the line weight of the icon got scaled up and was too thick, so to compensate, we use the <code class="code code--inline">--icon-icon</code> mixin to reduce the <code class="code code--inline">stroke-width</code>.</p>
+<h3 id="requesting-new-icons"><px-icon icon="px-obj:imaging-machine"></px-icon> Requesting new icons</h3>
+<p>If you have an idea for a new icon, please feel free to to log a Github issue on the <code class="code code--inline">px-icon-set</code> repo.</p>
+<!--
+should link to the social icons set, but cheating to avoid a) adding as a dependency for this one silly demo, 2) setting up a CDN that may or may not be reliable, 3) path issues with their links if I did do a CDN.
+
+blatantly stolen from : https://github.com/PolymerElements/iron-icons/blob/master/social-icons.html
+-->
+<!--
+@license
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<iron-iconset-svg name="social" size="24">
+<svg><defs>
+<g id="cake"><path d="M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0l-1.07-1.07-1.09 1.07C6.75 16.64 5.88 17 4.96 17c-.73 0-1.4-.23-1.96-.61V21c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-4.61c-.56.38-1.23.61-1.96.61-.92 0-1.79-.36-2.44-1.01zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12C21 10.34 19.66 9 18 9z"></path></g>
+<g id="pages"><path d="M3 5v6h5L7 7l4 1V3H5c-1.1 0-2 .9-2 2zm5 8H3v6c0 1.1.9 2 2 2h6v-5l-4 1 1-4zm9 4l-4-1v5h6c1.1 0 2-.9 2-2v-6h-5l1 4zm2-14h-6v5l4-1-1 4h5V5c0-1.1-.9-2-2-2z"></path></g>
+</defs></svg>
+</iron-iconset-svg>
+<style>.companion-cube{--iron-icon-width:32px;--iron-icon-height:32px;--iron-icon:{stroke-width:0.7;};}</style>
+<h3 id="using-non-px-icons"><px-icon class="companion-cube" icon="social:pages"></px-icon> Using non-px icons</h3>
+<p>You can also use non-px icons with the <code class="code code--inline">px-icon</code> component or <code class="code code--inline">iron-icon</code>, such as Polymer's <a href="https://www.webcomponents.org/element/PolymerElements/iron-icons">iron-icons</a>. Just bring them into your project and use them like you would use a Px icon. Note that since the <code class="code code--inline">px-icon</code> component uses a stroke instead of a fill, some iron-icons may not work great, having been designed with a fill. In this case, consider just using <code class="code code--inline">iron-icon</code>.</p>
+<px-catalog-code-snippet language="css">
+      <script type="text/code">
+.the-cake-is-a-lie {
+  color: #2AD;
+  --iron-icon-width: 50px;
+  --iron-icon-height: 50px;
+  --iron-icon: {
+    stroke-width: 0.5;
+  }
+}
+
+      </script>
+    </px-catalog-code-snippet><px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-icon class="the-cake-is-a-lie" icon="social:cake"></px-icon>
+
+      </script>
+    </px-catalog-code-snippet><style>.the-cake-is-a-lie{color:#2AD;--iron-icon-width:50px;--iron-icon-height:50px;--iron-icon:{stroke-width:0.5;};}</style>
+<p><px-icon class="the-cake-is-a-lie" icon="social:cake"></px-icon></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-icons",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

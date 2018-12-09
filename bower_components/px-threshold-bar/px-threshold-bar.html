@@ -1,0 +1,91 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+
+<link rel="import" href="css/px-threshold-bar-styles.html">
+
+<!--
+The px-threshold-bar is a linear multi-threshold simple bar chart used to show multiple thresholds for a single
+data-source, while also showing the actual data value positioned in the overall threshold.
+The user can specify as many thresholds as they want, configuring the color for each threshold.
+They can also specify a unit of measure, if desired, using the `uom` property.
+To show only the threshold bar with no actual value, don't set the value property.
+
+### Usage
+
+    <px-threshold-bar
+      min="0"
+      max="100"
+      value="25"
+      uom="%"
+      config='[{"min": 0,"max": 50,"color": "red"}, {"min": 50,"max": 100,"color": "green"}]'>
+    </px-threshold-bar>
+
+
+### Styling
+The following variables are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-threshold-bar-marker-color` | The color of the marker caret, line, and value | `black`
+`--px-threshold-bar-scale-color` | The color of the tick lines and labels | `gray`
+`--px-threshold-bar-height` | The height of the threshold bar | `10px`
+`--px-threshold-bar-width` | The width of the threshold bar | `200px`
+`--px-threshold-bar-line-width` | The width of the marker line  | `1px`
+
+
+@element px-threshold-bar
+@blurb The px-threshold-bar is a linear multi-threshold simple bar chart
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-threshold-bar">
+  <template>
+    <style include="px-threshold-bar-styles"></style>
+    <div class="flex flex--col flex--top">
+      <div class="value-container flex flex--col">
+        <div class="value">
+          <span style$="{{_getValueStyle(value, min, max, _scaleFactor, uom, _refreshStyle, hideValue, hideScale)}}">{{value}}{{uom}}</span>
+        </div>
+        <div class="marker">
+          <px-icon class="caret" style$="{{_getMarkerStyle(value, min, max, _scaleFactor, hideScale)}}" icon="px-utl:caret-down"></px-icon>
+        </div>
+      </div>
+      <div class="container flex flex--top">
+        <div class="marker-line" style$="{{_getMarkerLineStyle(value, min, max, _scaleFactor, hideScale)}}"></div>
+        <template is="dom-repeat" items="{{config}}" as="tConfig">
+          <template is="dom-if" if="{{!index}}">
+            <div class="flex flex--col flex--end" style="margin-right: -1px;">
+              <div class="threshold-bar"></div>
+              <div class="scale__tick scale__value"></div>
+              <div class="scale__value--first scale__value">{{tConfig.min}}{{uom}}</div>
+            </div>
+          </template>
+          <div class="flex flex--col flex--end">
+            <div class="threshold-bar" style$="{{_getStyles(tConfig, _scaleFactor)}}"></div>
+            <div class="scale__tick scale__value"></div>
+            <div class="scale__value">{{tConfig.max}}{{uom}}</div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-threshold-bar",properties:{min:{type:Number,value:0},max:{type:Number,value:100},hideValue:{type:Boolean,value:!1},hideScale:{type:Boolean,value:!1,reflectToAttribute:!0},config:{type:Array,value:function value(){return[]}},value:{type:Number,value:null},uom:{type:String,value:""},_scaleFactor:{type:Number,value:null}},observers:["_configDataChanged(config)","_scaleDataChanged(min,max)"],ready:function ready(){this._refreshStyle=!1},_getStyles:function _getStyles(config){var width=(config.max-config.min)*this._scaleFactor;return"width: "+width+"px; "+"background-color: "+config.color+";"},_scaleDataChanged:function _scaleDataChanged(){var thresholdEl=Polymer.dom(this.root).querySelector(".container");if(this._checkValuesSet(!1)){if(thresholdEl&&thresholdEl.clientWidth&&thresholdEl.clientHeight){var factor=thresholdEl.clientWidth/(this.max-this.min);this.set("_scaleFactor",factor)}else{setTimeout(function(){this._scaleDataChanged()}.bind(this))}}},_configDataChanged:function _configDataChanged(config){if(config&&config.length){var configLen=config.length;config.sort(function(a,b){return a.min-b.min})}},_calculatePaddingWidth:function _calculatePaddingWidth(){var scaleValueEl=Polymer.dom(this.root).querySelector(".scale__value--first");if(scaleValueEl){var padding=window.getComputedStyle(scaleValueEl,!1).width;return+padding.substr(0,padding.length-2)}return 0},_calculateLeftOffset:function _calculateLeftOffset(){var position=(Math.min(this.max,Math.max(this.min,this.value))-this.min)*this._scaleFactor;return this.hideScale?position:position+this._calculatePaddingWidth()},_getMarkerLineStyle:function _getMarkerLineStyle(){if(this._checkValuesSet(!0)&&this._scaleFactor){return"left: "+(this._calculateLeftOffset()+"")+"px;"}return"display: none;"},_getMarkerStyle:function _getMarkerStyle(){if(this._checkValuesSet(!0)&&this._scaleFactor){return"left: "+(this._calculateLeftOffset()-4+"")+"px;"}return"display: none;"},_getValueStyle:function _getValueStyle(){var spanEl=Polymer.dom(this.root).querySelector(".value > span");spanEl.style.display=this.hideValue?"none":"block";if(this._checkValuesSet(!0)&&this._scaleFactor){var spanSize=spanEl.offsetWidth;if(spanSize){return"left: "+(this._calculateLeftOffset()-spanSize/2+"")+"px;"}else{setTimeout(function(){this._refreshStyle=!this._refreshStyle}.bind(this),100)}}return"display: none;"},_checkValuesSet:function _checkValuesSet(includeValue){var min=null!==this.min&&this.min!==void 0&&!isNaN(parseFloat(this.min)),max=null!==this.max&&this.max!==void 0&&!isNaN(parseFloat(this.max)),value=null!==this.value&&this.value!==void 0&&!isNaN(parseFloat(this.value));return includeValue?min&&max&&value:min&&max}});</script>&gt;
+</body></html>

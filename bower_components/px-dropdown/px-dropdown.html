@@ -1,0 +1,126 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-dropdown-styles.html">
+
+<link rel="import" href="px-dropdown-trigger.html">
+<link rel="import" href="px-dropdown-content.html">
+<link rel="import" href="../px-overlay/px-overlay-content.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+
+<!--
+A dropdown from which users can select one or more values. Acts like a native
+browser "select" element with more fine-tuned interaction behaviors and a
+configurable UI.
+
+Dropdown can be used in conjunction with px-validation to apply validation states.
+Add the `validation-error`, `validation-warning`, or `validation-success` classes
+to alter the border color of the component.
+
+### Usage
+
+#### Simple
+
+```
+<px-dropdown items='["One","Two"]'></px-dropdown>
+<px-dropdown items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}]'></px-dropdown>
+```
+
+#### Complex
+
+```
+<px-dropdown
+    items='[{"key":"one", "val": "One", "selected": "true"}]'
+    display-value="Click me"
+    prevent-close-on-outside-click="true"
+    allow-outside-scroll="true"
+    multi="true"
+    select-by="key"
+    selected-values='["1","3"]'
+    bound-target=".parentDiv"
+    search-mode="true"
+    sort-mode="val">
+</px-dropdown>
+```
+
+#### Custom trigger
+
+By default, the `displayValue` or `icon` properties can be used to customize
+the information shown in the dropdown trigger button. Additional properties
+are available to further customize the trigger. To create a custom trigger which
+does not match any of the available configurations, pass an element into the
+`trigger` slot. This element can be anything — a button, a div, some text, etc. The
+dropdown will attach a tap event listener to the element to listen for user
+interactions which should open the dropdown. You should also give the element a
+`tabindex=0` and `id=trigger` to maintain keyboard accessibility.
+
+```
+<px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'>
+  <button slot="trigger" id="trigger" tabindex="0">Unstyled dropdown trigger</button>
+</px-dropdown>
+```
+
+### Styling
+
+The following custom properties are available for styling of the dropdown content.
+See the documentation for px-buttons-design for variables related to the styling of the invoking button.
+
+Custom property | Description
+:----------------|:-------------
+`--px-dropdown-min-height` | Min height for the dropdown menu container
+`--px-dropdown-min-width` | Min width for the dropdown menu container
+`--px-dropdown-max-height` | Max height for the dropdown menu container
+`--px-dropdown-max-width` | Max width for the dropdown menu container
+`--px-dropdown-border-color` | Border color for the dropdown menu container
+`--px-dropdown-bg-color` | Background color for the dropdown menu container
+`--px-dropdown-bg-color--hover` | Background color of a hovered menu item
+`--px-dropdown-bg-color--selected` | Background color of a selected menu item
+`--px-dropdown-text-color` | Text color of a regular dropdown menu item
+`--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item
+`--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item
+`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger
+`--px-dropdown-font-weight` | Font weight for the dropdown trigger button
+`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item
+`--px-dropdown-item-padding` | Padding of each dropdown item
+`--px-dropdown-item-height` | Height of each dropdown item
+`--px-dropdown-content-font-size` | Font size in the dropdown menu container
+`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left
+`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right
+
+@element px-dropdown
+@blurb Element providing a dropdown solution.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-dropdown">
+  <template>
+    <style include="px-dropdown-styles"></style>
+    <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
+    <div id="target">
+      <slot name="trigger" id="triggerSlot">
+        <px-dropdown-trigger id="trigger" opened="[[opened]]" language="[[language]]" resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" disabled="[[disabled]]" hide-chevron="[[hideChevron]]" display-value="[[displayValue]]" disable-clear="[[disableClear]]" selected="[[selected]]" selected-values="[[selectedValues]]" button-style="[[buttonStyle]]" icon="[[icon]]" display-value-selected="[[_displayValueSelected]]">
+        </px-dropdown-trigger>
+      </slot>
+    </div>
+    <px-overlay-content hoist="[[hoist]]" container-type="[[containerType]]" event-names="[&quot;px-dropdown-click&quot;,&quot;px-dropdown-selection-changed&quot;]">
+      <px-dropdown-content id="content" items="[[items]]" multi="[[multi]]" opened="{{opened}}" key-bindings-target="[[_keyBindingsTarget]]" display-value="[[displayValue]]" language="[[language]]" resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" disabled="[[disabled]]" bound-target="[[boundTarget]]" prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]" disable-select="[[disableSelect]]" select-by="[[selectBy]]" selected="{{selected}}" selected-values="{{selectedValues}}" selected-items="{{selectedItems}}" trigger-height="[[triggerHeight]]" show-caret="[[showCaret]]" disable-dynamic-align="[[disableDynamicAlign]]" vertical-align="[[verticalAlign]]" horizontal-align="[[horizontalAlign]]" mobile="{{mobile}}" mobile-at="[[mobileAt]]" hide-mobile-buttons="[[hideMobileButtons]]" search-mode="[[searchMode]]" search-term="[[searchTerm]]" sort-mode="[[sortMode]]" hide-selected="[[hideSelected]]" allow-outside-scroll="[[allowOutsideScroll]]" display-value-selected="{{_displayValueSelected}}" disable-truncate="[[disableTruncate]]">
+      </px-dropdown-content>
+    </px-overlay-content>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-dropdown",behaviors:[PxOverlayBehavior.sharedProperties,Polymer.IronResizableBehavior],listeners:{"iron-resize":"_resetMinWidth"},properties:{opened:{type:Boolean,notify:!0,value:!1},hideChevron:{type:Boolean,value:!1},boundTarget:{type:String},preventCloseOnOutsideClick:{type:Boolean,value:!1},displayValue:{type:String,notify:!0,value:"Select",observer:"_resetMinWidth"},disableClear:{type:Boolean,value:!1},disableSelect:{type:Boolean,value:!1},disableTruncate:{type:Boolean,value:!1},_displayValueSelected:{type:String},items:{type:Array,notify:!0,value:function value(){return[]}},multi:{type:Boolean,value:!1},selectBy:{type:String,value:"key"},selected:{type:String,value:null,notify:!0},selectedValues:{type:Array,notify:!0},selectedItems:{type:Array,value:function value(){return[]},readOnly:!0},allowOutsideScroll:{type:Boolean,value:!1},buttonStyle:{type:String,value:"default"},disabled:{type:Boolean,value:!1},searchMode:{type:Boolean,value:!1},searchTerm:{type:String,value:""},sortMode:{type:String},hideSelected:{type:Boolean,value:!1},icon:{type:String,value:""},clearSelectionsOnChange:{type:Boolean,value:!1},triggerHeight:{type:Number,value:30},showCaret:{type:Boolean,value:!1},disableDynamicAlign:{type:Boolean,value:!1},verticalAlign:{type:String,value:"top"},horizontalAlign:{type:String,value:"left"},mobile:{type:Boolean,reflectToAttribute:!0},mobileAt:{type:Number,value:400},hideMobileButtons:{type:Boolean,value:!1},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{selected:"selected",Clear:"Clear",Apply:"Apply"}}}},_keyBindingsTarget:{type:HTMLElement,value:function value(){return this}},_focusedOption:{type:HTMLElement},_keyboardBeingUsed:{type:Boolean,value:!1},hoist:{type:Boolean,value:!1}},created:function created(){this._initOpenTrigger=function(){var trigger=this._getSlottedOpenTrigger();if(trigger){this.$.content.openTrigger=trigger}}.bind(this)},attached:function attached(){this.$.triggerSlot.addEventListener("slotchange",this._initOpenTrigger,!1);this._initOpenTrigger();Polymer.RenderStatus.afterNextRender(this,function(){this.$.content.style.minWidth=window.getComputedStyle(this.$.trigger).width}.bind(this))},detached:function detached(){this.$.triggerSlot.removeEventListener("slotchange",this._initOpenTrigger)},_resetMinWidth:function _resetMinWidth(){this.$.content.style.minWidth=window.getComputedStyle(this.$.trigger).width},toggle:function toggle(){this.$.content.toggle();Polymer.RenderStatus.afterNextRender(this,function(){this.$.content.style.minWidth=window.getComputedStyle(this.$.trigger).width}.bind(this))},_getSlottedOpenTrigger:function _getSlottedOpenTrigger(){var elems;if(Polymer.Element){var nodes=Polymer.FlattenedNodesObserver.getFlattenedNodes(this.$.triggerSlot);elems=nodes.filter(function(n){return n.nodeType===Node.ELEMENT_NODE})}else{elems=this.getContentChildren("#triggerSlot")}if(1<elems.length){console.warn("Only expected 1 element as a child of the \"trigger\" slot.")}var _elems=elems,_elems2=babelHelpers.slicedToArray(_elems,1),trigger=_elems2[0];return babelHelpers.instanceof(trigger,HTMLElement)?trigger:null},_notifyResize:function _notifyResize(){this.debounce("on-notify-resize",function(){this.$.content._notifyResize()},1)}});</script>
+</body></html>

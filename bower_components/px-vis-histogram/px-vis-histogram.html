@@ -1,0 +1,100 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/lib/utils/async.html">
+
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+
+<link rel="import" href="../px-vis-bar-chart/px-vis-bar-chart.html">
+
+<link rel="import" href="css/px-vis-histogram-styles.html">
+
+<!--
+Creates an interactive bar chart, column chart, stacked bar, stacked column, grouped bar, grouped column, deviation bar, and deviation column
+
+### Usage
+
+    <px-vis-bar-chart
+      width="1200"
+      height="500"
+      scale-padding="0.1"
+      margin='{
+        "left": 130,
+        "right": 130,
+        "top": 10,
+        "bottom": 50
+      }'
+      chart-data="[[chartData]]"
+      series-config="[[seriesConfig]]">
+    </px-vis-bar-chart>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  |
+  |
+  |
+  `--px-vis-gridlines-color` | The color for the gridlines
+  |
+  |
+  |
+  `--px-vis-threshold-color` | The default color for a threshold
+  |
+  |
+  |
+  `--px-vis-reference-curve-default-color` | default color for the reference curve
+  |
+  |
+  |
+  `--px-vis-register-series-name` | The color of the data series name
+  `--px-vis-register-data-value` | The color of the data series value
+  `--px-vis-register-box` | The color of the box around the register when a scrollbar is present
+  |
+  |
+  |
+  `--px-vis-series-color-0` | These are the colors used to represent the data series on the charts. Used in numerical order by default. Colors MUST start at 0 and cannot contain gaps between numbers.
+  `--px-vis-series-color-1` |
+  `--px-vis-series-color-2` |
+  `--px-vis-series-color-n` |
+  |
+  |
+  |
+  `--px-tooltip-background-color` | The color of the tooltip
+  `--px-tooltip-text-color` | The color of the tooltip text
+  `--px-tooltip-light-background-color` | The color of the light version tooltip
+  `--px-tooltip-light-text-color` | The color of the light version tooltip text
+  `--px-tooltip-light-border-color`| The color of the light version tooltip border
+  |
+  |
+  |
+  `--px-vis-font-family` | The font family for all labels and text
+
+@element px-vis-bar-chart
+@blurb Creates an interactive bar chart
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-vis-histogram">
+  <script>function _templateObject3_f73d1960fc0611e8a9421f0e98e87389(){var data=babelHelpers.taggedTemplateLiteral(["\n          <template is=\"dom-if\" if=\"[[overlapingHistograms]]\" restamp>\n            <template is=\"dom-repeat\" items=\"[[_seriesKeys]]\">\n              <px-vis-bar-svg\n                class=\"overlaping\"\n                svg=\"[[layer.2]]\"\n                complete-series-config=\"[[completeSeriesConfig]]\"\n                chart-data=\"[[_returnData(item, _overlapData)]]\"\n                series-key=\"[[_returnSeriesKey(item, completeSeriesConfig)]]\"\n                x=\"[[x]]\"\n                y=\"[[y]]\"\n                type=\"[[chartType]]\"\n                domain-changed=\"[[domainChanged]]\"\n                clip-path=\"[[seriesClipPath]]\"\n                bar-opacity=\"0.8\"\n                highlight-bar=\"[[_getOrdSet(tooltipData.*)]]\">\n              </px-vis-bar-svg>\n            </template>\n          </template>\n        "]);_templateObject3_f73d1960fc0611e8a9421f0e98e87389=function _templateObject3_f73d1960fc0611e8a9421f0e98e87389(){return data};return data}function _templateObject2_f73d1960fc0611e8a9421f0e98e87389(){var data=babelHelpers.taggedTemplateLiteral(["\n          <template is=\"dom-if\" if=\"[[!overlapingHistograms]]\" restamp>\n            <template is=\"dom-repeat\" items=\"[[_stackedChartData]]\">\n              <px-vis-bar-svg\n                class=\"bars\"\n                svg=\"[[layer.2]]\"\n                complete-series-config=\"[[completeSeriesConfig]]\"\n                chart-data=\"[[item]]\"\n                series-key=\"[[item.key]]\"\n                x=\"[[x]]\"\n                y=\"[[y]]\"\n                type=\"[[chartType]]\"\n                domain-changed=\"[[domainChanged]]\"\n                clip-path=\"[[seriesClipPath]]\"\n                highlight-bar=\"[[_getOrdSet(tooltipData.*)]]\">\n              </px-vis-bar-svg>\n            </template>\n          </template>\n        "]);_templateObject2_f73d1960fc0611e8a9421f0e98e87389=function _templateObject2_f73d1960fc0611e8a9421f0e98e87389(){return data};return data}function _templateObject_f73d1960fc0611e8a9421f0e98e87389(){var data=babelHelpers.taggedTemplateLiteral(["\n          <style include=\"px-vis-histogram-styles\"></style>\n\n          <div id=\"wrapper\" class$=\"{{_chartWrapperClass}}\" >\n            <!--chart + register-->\n            <div class$=\"{{_registerWrapperClass}} safari-flex-fix\">\n              <template is=\"dom-if\" if=\"[[!hideRegister]]\">\n                <px-vis-register\n                  id=\"register\"\n                  dynamic-menu-config=\"[[dynamicMenuConfig]]\"\n                  chart-width=\"[[width]]\"\n                  height=\"[[_registerHeight]]\"\n                  margin=\"[[margin]]\"\n                  class$=\"{{_getHideClass(hideRegister)}}\"\n                  units=\"[[units]]\"\n                  tooltip-data=\"[[tooltipData]]\"\n                  chart-data=\"[[chartData]]\"\n                  complete-series-config=\"[[completeSeriesConfig]]\"\n                  type=\"{{_registerType}}\"\n                  x-axis-type=\"[[xAxisType]]\"\n                  y-axis-type=\"[[yAxisType]]\"\n                  inert-register=\"[[hideRegister]]\"\n                  current-page=\"[[_registerCurrentPage]]\"\n                  total-pages=\"[[_registerTotalPages]]\"\n                  display-page-arrows=\"[[_registerDisplayPageArrows]]\"\n                  display-x-values-only=\"[[_getRegisterDisplay(yAxisType)]]\"\n                  display-y-values-only=\"[[_getRegisterDisplay(xAxisType)]]\"\n                  display-ordinal-value\n                  disable-click\n                  icon-color=\"[[_registerIconColor]]\">\n                </px-vis-register>\n              </template>\n\n              <!-- chart -->\n              <div id=\"drawingWrapper\" class=\"flex--col flex__item--no-grow inline--flex\">\n                <px-vis-toolbar\n                  id=\"toolbar\"\n                  current-sub-config='[[toolbarSubConfig]]'\n                  action-config='{{actionConfig}}'\n                  within-chart\n                  chart-margin=\"[[margin]]\"\n                  config='{\"tooltip\": true}'>\n                </px-vis-toolbar>\n                <px-vis-svg\n                  id=\"svg\"\n                  class=\"flex__item--no-grow\"\n                  width=\"[[width]]\"\n                  height=\"[[height]]\"\n                  margin=\"[[margin]]\"\n                  svg=\"{{svg}}\"\n                  px-svg-elem=\"{{pxSvgElem}}\">\n                    <px-vis-annotations\n                      slot=\"4\"\n                      svg=\"[[svg]]\"\n                      x=\"[[x]]\"\n                      y=\"[[y]]\"\n                      margin=\"[[margin]]\"\n                      domain-changed=\"[[domainChanged]]\"\n                      complete-series-config=\"[[completeSeriesConfig]]\"\n                      annotation-data=\"[[annotationData]]\"\n                      show-strong-icon=\"[[showStrongIcon]]\">\n                    </px-vis-annotations>\n                </px-vis-svg>\n              </div>\n            </div>\n          </div>\n\n          <px-vis-clip-path\n            svg=\"[[layer.2]]\"\n            width=\"[[width]]\"\n            height=\"[[height]]\"\n            margin=\"[[margin]]\"\n            clip-path=\"{{clipPath}}\"\n            series-clip-path=\"{{seriesClipPath}}\">\n          </px-vis-clip-path>\n\n          <px-vis-axis\n            id=\"xAxis\"\n            svg=\"[[layer.1]]\"\n            rebuild-on-draw\n            domain-changed=\"[[domainChanged]]\"\n            axis=\"[[x]]\"\n            axis-type=\"[[xAxisType]]\"\n            margin=\"[[margin]]\"\n            width=\"[[width]]\"\n            height=\"[[height]]\"\n            orientation=\"[[xAxisLocation]]\"\n            label-position=\"after\"\n            complete-series-config=\"[[completeSeriesConfig]]\"\n            prevent-series-bar>\n          </px-vis-axis>\n          <px-vis-axis\n            id=\"yAxis\"\n            svg=\"[[layer.1]]\"\n            rebuild-on-draw\n            domain-changed=\"[[domainChanged]]\"\n            axis=\"[[y]]\"\n            axis-type=\"[[yAxisType]]\"\n            margin=\"[[margin]]\"\n            width=\"[[width]]\"\n            height=\"[[height]]\"\n            orientation=\"[[yAxisLocation]]\"\n            complete-series-config=\"[[completeSeriesConfig]]\"\n            prevent-series-bar>\n          </px-vis-axis>\n\n          <template is=\"dom-if\" if=\"[[_showGridlines(hideGridlines, chartType, 'bar')]]\" restamp>\n            <px-vis-gridlines\n              svg=\"[[layer.0]]\"\n              axis=\"[[x]]\"\n              margin=\"[[margin]]\"\n              length=\"[[height]]\"\n              orientation=\"bottom\"\n              domain-changed=\"[[domainChanged]]\">\n            </px-vis-gridlines>\n          </template>\n          <template is=\"dom-if\" if=\"[[_showGridlines(hideGridlines, chartType, 'column')]]\" restamp>\n            <px-vis-gridlines\n              svg=\"[[layer.0]]\"\n              axis=\"[[y]]\"\n              margin=\"[[margin]]\"\n              length=\"[[width]]\"\n              orientation=\"left\"\n              domain-changed=\"[[domainChanged]]\">\n            </px-vis-gridlines>\n          </template>\n\n          <px-vis-interaction-space\n            id=\"interactionSpace\"\n            svg=\"[[layer.4]]\"\n            width=\"[[width]]\"\n            height=\"[[height]]\"\n            margin=\"[[margin]]\"\n            x-axis-type=\"[[xAxisType]]\"\n            y-axis-type=\"[[yAxisType]]\"\n            series-keys=\"[[_seriesKeys]]\"\n            complete-series-config=\"[[completeSeriesConfig]]\"\n            chart-data=\"[[chartData]]\"\n            chart-id=\"[[chartId]]\"\n            x=\"[[x]]\"\n            y=\"[[y]]\"\n            domain-changed=\"[[domainChanged]]\"\n            mouse-rect=\"{{mouseRect}}\"\n            tooltip-data=\"{{tooltipData}}\"\n            crosshair-data=\"{{crosshairData}}\"\n            default-empty-data=\"[[defaultEmptyData]]\"\n            generating-crosshair-data=\"{{generatingCrosshairData}}\"\n            interaction-svg=\"{{interactionSvg}}\"\n            extents-data=\"{{extentsData}}\"\n            action-config=\"[[actionConfig]]\"\n            selection-type=\"[[selectionType]]\"\n            extents-action=\"{{extentsAction}}\"\n            muted-series=\"[[mutedSeries]]\"\n            hard-mute=\"[[hardMute]]\"\n            is-bar\n            prevent-web-worker-synchronization=\"[[preventWebWorkerSynchronization]]\"\n            ww-data-sync-counter=\"[[wwDataSyncCounter]]\">\n          </px-vis-interaction-space>\n\n          <px-tooltip\n            id=\"centralTooltip\"\n            smart-orientation\n            ignore-target-events\n            orientation=\"[[tooltipOrientation]]\">\n            <px-vis-central-tooltip-content\n              resources=\"[[resources]]\"\n              use-key-if-missing=\"[[useKeyIfMissing]]\"\n              language=\"[[language]]\"\n              first-date-time-format=\"[[firstDateTimeFormat]]\"\n              second-date-time-format=\"[[secondDateTimeFormat]]\"\n              separator=\"[[separator]]\"\n              timezone=\"[[timezone]]\">\n            </px-vis-central-tooltip-content>\n          </px-tooltip>\n\n          ","\n\n          ","\n\n          ","\n\n          ","\n\n          ","\n\n          ",""]);_templateObject_f73d1960fc0611e8a9421f0e98e87389=function _templateObject_f73d1960fc0611e8a9421f0e98e87389(){return data};return data}(function(){var PxVisHistogram=function(_PxVisBarChart){babelHelpers.inherits(PxVisHistogram,_PxVisBarChart);babelHelpers.createClass(PxVisHistogram,null,[{key:"is",get:function get(){return"px-vis-histogram"}},{key:"template",get:function get(){return Polymer.html(_templateObject_f73d1960fc0611e8a9421f0e98e87389(),this.stackedBarTemplate,this.groupedBarTemplate,this.lineTemplate,this.thresholdsTemplate,this.referenceCurveTemplate,this.tooltipTemplate)}},{key:"stackedBarTemplate",get:function get(){return Polymer.html(_templateObject2_f73d1960fc0611e8a9421f0e98e87389())}},{key:"groupedBarTemplate",get:function get(){return Polymer.html(_templateObject3_f73d1960fc0611e8a9421f0e98e87389())}},{key:"properties",get:function get(){return{scalePadding:{type:Number,value:.05},overlapingHistograms:{type:Boolean,value:!1},_overlapData:Object}}},{key:"observers",get:function get(){return["_buildOverlapData(overlapingHistograms, completeSeriesConfig.*)"]}}]);function PxVisHistogram(){babelHelpers.classCallCheck(this,PxVisHistogram);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(PxVisHistogram).call(this))}babelHelpers.createClass(PxVisHistogram,[{key:"_buildOverlapData",value:function _buildOverlapData(){var _this=this;if(!this.overlapingHistograms||!this.completeSeriesConfig){return}this.set("_supressStacked",this.overlapingHistograms);var data={},axis="scaleBand"===this.xAxisType?"y":"x";Object.entries(this.completeSeriesConfig).forEach(function(_ref){var _ref2=babelHelpers.slicedToArray(_ref,2),key=_ref2[0],val=_ref2[1],stack=Px.d3.stack();stack.keys([val[axis]]);data[key]=stack(_this.chartData.filter(function(d){return _this._isValidData(d[val[axis]])}))});this.set("_overlapData",data)}},{key:"_returnData",value:function _returnData(key){return this._overlapData[key][0]}},{key:"_returnSeriesKey",value:function _returnSeriesKey(key){var axis="scaleBand"===this.xAxisType?"y":"x";return this.completeSeriesConfig[key][axis]}}]);return PxVisHistogram}(PxVisBarChart);window.customElements.define(PxVisHistogram.is,PxVisHistogram)})();</script>
+</dom-module>
+</body></html>

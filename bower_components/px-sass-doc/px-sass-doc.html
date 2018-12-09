@@ -1,0 +1,76 @@
+<html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../px-clipboard/px-clipboard.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="px-sass-doc-header.html">
+<link rel="import" href="px-sass-doc-demo.html">
+<link rel="import" href="px-sass-doc-viewer.html">
+<link rel="import" href="px-sass-doc-footer.html">
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Element providing documentation for a requested Predix UI CSS module.
+
+Pass additional content into its light DOM to pass down to its children.
+
+##### Usage
+
+      <px-sass-doc
+        module-name="px-buttons-design"
+        description="Element providing styles for buttons."
+        layer="objects"
+        dependencies='[
+          "https://github.com/PredixDev/px-colors-design",
+          "https://github.com/PredixDev/px-defaults-design",
+          "https://github.com/PredixDev/px-helpers-design"
+        ]'
+        selected-options="{{selectedOptions}}">
+      </px-sass-doc>
+
+@element px-sass-doc
+@blurb Element providing documentation for a requested Predix UI CSS module.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-sass-doc">
+  <template>
+  <style include="px-demo-styles"></style>
+
+  <!-- Header -->
+  <px-sass-doc-header module-name="[[moduleName]]" module-description="[[description]]">
+  </px-sass-doc-header>
+
+  <template is="dom-if" if="[[!hideDemoContainer]]">
+    <!-- Demo -->
+    <px-sass-doc-demo selected-options="{{selectedOptions}}" selected-tab="{{selectedTab}}" tabs="[[tabs]]">
+      <!-- Previously: <content select="px-sass-doc-option" ...> -->
+      <slot name="options" slot="options"></slot>
+      <!-- Previously: <content select="[data-slot=demoHTML]" ...> -->
+      <slot name="demo-html" slot="demo-html"></slot>
+      <!-- Previously: <content select="[data-slot=import]" ...> -->
+      <slot name="import" slot="import"></slot>
+    </px-sass-doc-demo>
+  </template>
+  <template is="dom-if" if="[[hideDemoContainer]]">
+    <hr class="demo-hr u-m0">
+  </template>
+
+  <!-- Viewer -->
+  <px-sass-doc-viewer library-name="[[moduleName]]" base-name="[[baseName]]" layer="[[layer]]" inuit-flags="[[inuitFlags]]" dependencies="[[dependencies]]" hide-import-sass="[[hideImportSass]]" sassdoc-path="[[sassdocPath]]">
+    <slot name="intro-raw" slot="intro-raw"></slot>
+    <!-- Previously: <content select="[data-slot=intro]" ...> -->
+    <slot name="intro" slot="intro"></slot>
+    <!-- Previously: <content select="[data-slot=usage]" ...> -->
+    <slot name="usage" slot="usage"></slot>
+  </px-sass-doc-viewer>
+
+  <!-- Footer -->
+  <px-sass-doc-footer></px-sass-doc-footer>
+
+  </template>
+</dom-module>
+
+<script>var PxSassDoc=function(_Polymer$Element){babelHelpers.inherits(PxSassDoc,_Polymer$Element);function PxSassDoc(){babelHelpers.classCallCheck(this,PxSassDoc);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(PxSassDoc).apply(this,arguments))}babelHelpers.createClass(PxSassDoc,[{key:"_computeBaseName",value:function _computeBaseName(moduleName){if(!moduleName)return;return moduleName.replace("px-","").replace("-design","")}}],[{key:"is",get:function get(){return"px-sass-doc"}},{key:"properties",get:function get(){return{moduleName:{type:String},description:{type:String},layer:{type:String},dependencies:{type:Array,value:function value(){return[]}},sassdocPath:{type:String},inuitFlags:{type:Array,value:function value(){return[]}},baseName:{type:String,computed:"_computeBaseName(moduleName)"},tabs:{type:Array,value:function value(){return[]}},hideDemoContainer:{type:Boolean,value:!1},hideImportSass:{type:Boolean,value:!1},selectedOptions:{type:Object,notify:!0,value:function value(){return[]}},selectedTab:{type:String,notify:!0,value:""}}}}]);return PxSassDoc}(Polymer.Element);customElements.define("px-sass-doc",PxSassDoc);</script>
+</body></html>

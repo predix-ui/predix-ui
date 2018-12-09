@@ -1,0 +1,59 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="css/px-datetime-picker-content-styles.html">
+<link rel="import" href="../px-datetime-field/px-datetime-field.html">
+<link rel="import" href="../px-calendar-picker/px-calendar-picker.html">
+<link rel="import" href="../px-datetime-common/px-datetime-shared-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-buttons.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+
+
+</head><body><dom-module id="px-datetime-picker-content">
+  <template>
+    <style include="px-datetime-picker-content-styles"></style>
+
+    <iron-dropdown id="dropdown" class="dt-iron-dropdown" opened="{{opened}}" vertical-align="auto" horizontal-align="left" no-overlap="[[!fillContainer]]" dynamic-align="[[!fillContainer]]" vertical-offset="[[_getVerticalOffset(fillContainer)]]" position-target="[[_getPositionTarget(fillContainer, fitIntoElement)]]" fit-into="[[fitIntoElement]]">
+      <div slot="dropdown-content" class="dt-container__box shadow-temporary">
+        <template is="dom-if" if="[[fillContainer]]">
+          <div class="dt-p__header shadow-navigation">
+            <p class="dt-p__selected-date">[[selectedDate]]</p>
+          </div>
+        </template>
+        <template id="timeTemplate" is="dom-if" if="[[_handleField(hideTime, fillContainer)]]">
+          <div>
+            <px-datetime-field id="time" class="dt-p-time" moment-obj="{{tempMomentObj}}" time-format="[[timeFormat]]" hide-icon="" hide-date="" time-zone="[[timeZone]]" is-valid="{{fieldIsValid}}" min-date="[[minDate]]" max-date="[[maxDate]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+            </px-datetime-field>
+          </div>
+        </template>
+        <div class="dt-p-calendar__wrapper">
+          <px-calendar-picker id="calendar" class="dt-p-calendar" from-moment="{{tempMomentObj}}" base-date="[[tempMomentObj]]" day-week-start-index="[[dayWeekStartIndex]]" time-zone="[[timeZone]]" block-future-dates="[[blockFutureDates]]" block-past-dates="[[blockPastDates]]" prevent-range-selection="" min-date="[[minDate]]" max-date="[[maxDate]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+          </px-calendar-picker>
+          <button class="actionable caps dt-p-today" on-tap="_todayClicked">[[localize('Today')]]</button>
+        </div>
+        <div class="dt-p-time-buttons--wrapper">
+          <template is="dom-if" if="[[_handleShowButtons(showButtons, fillContainer)]]">
+            <px-datetime-buttons class="dt-p-buttons" is-submit-button-valid="" space-between="[[fillContainer]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+            </px-datetime-buttons>
+          </template>
+        </div>
+      </div>
+    </iron-dropdown>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-picker-content",behaviors:[PxDatetimeBehavior.Shared,PxDatetimeBehavior.Buttons],properties:{hideTime:{type:Boolean},timeFormat:{type:String},opened:{type:Boolean,reflectToAttribute:!0,notify:!0},fieldIsValid:{type:Boolean},fillContainer:{type:Boolean,reflectToAttribute:!0},fitIntoElement:{type:Object},selectedDate:{type:String,value:"Select Date"},resources:{type:Object},language:{type:String},useKeyIfMissing:{type:Boolean,value:!0},tempMomentObj:{type:Object,notify:!0,observer:"_updateSelectedDate"},fieldElem:HTMLElement},_todayClicked:function _todayClicked(evt){var today=this._preserveTime(this.tempMomentObj,Px.moment.tz(Px.moment(),this.timeZone));this.set("tempMomentObj",today)},_open:function _open(){this.$.dropdown.open()},_close:function _close(){this.$.dropdown.close()},_updateSelectedDate:function _updateSelectedDate(moment){if(this.fillContainer){null===moment?this.selectedDate="Select Date":this.selectedDate=moment.format("YYYY/MM/DD")}},_handleField:function _handleField(hideTime,fillContainer){return!hideTime&&fillContainer},_handleShowButtons:function _handleShowButtons(showButtons,fillContainer){return fillContainer?!0:showButtons},_getVerticalOffset:function _getVerticalOffset(fillContainer){return!fillContainer?20:0},_getPositionTarget:function _getPositionTarget(fillContainer,fitIntoElement){return fillContainer?fitIntoElement:this.fieldElem}});</script>
+</body></html>

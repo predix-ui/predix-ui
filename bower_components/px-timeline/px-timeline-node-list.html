@@ -1,0 +1,18 @@
+<!-- import polymer library --><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-timeline-styles.html">
+
+<!-- declare DOM module -->
+</head><body><dom-module id="px-timeline-node-list">
+  <template>
+    <style include="px-timeline-styles"></style>
+    <template is="dom-repeat" items="[[contentBodyList]]">
+      <div class="list">
+        <span> {{item.key}} | {{item.value}} </span>
+      </div>
+      <hr class="node__header__content__line">
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-timeline-node-list",properties:{}});</script>
+</body></html>

@@ -1,0 +1,54 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-clipboard-styles.html">
+
+<!-- this is an html page that imports the clipboard.js library in a way that allows reuse of the library. -->
+<link rel="import" href="clipboard.js.html">
+
+<!--
+
+### Usage
+
+    <px-clipboard copy-from="#copyMe"><input type="text" value="copy me" id="copyMe"/></px-clipboard>
+
+Or, to cut:
+
+    <px-clipboard data-clipboard-action="cut" copy-from="#cutMe"><input type="text" value="Cut me" id="cutMe"/></px-clipboard>
+
+Or, with no input/textarea:
+
+    <px-clipboard data-clipboard-text="This text will be copied."></px-clipboard>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-clipboard-icon-color` | The color of the copy icon | $gray8
+`--px-clipboard-icon-color--hover` | The color of the copy icon when hovered | $primary-blue
+`--px-clipboard-icon-color--pressed`  | The color of the copy icon when pressed | $primary-blue-pressed
+`--px-clipboard-icon-color--copied` | The color of the copy icon when pressed and copy is complete | $dv-basic-green
+
+@element px-clipboard
+@blurb Element allowing copy/cut to clipboard.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-clipboard">
+  <template>
+    <style include="px-clipboard-styles"></style>
+
+    <div class="flex flex--left">
+      <div class="flex__item flex__item--msfix">
+        <slot></slot>
+      </div>
+      <div class="iron">
+        <px-icon title="copy" icon="px-utl:copy" id="copy"></px-icon>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-clipboard",properties:{dataClipboardAction:{type:String,value:""},copyFrom:{type:String,value:""},_copyFromElem:{type:Object,observer:"_initializeClipboard"},dataClipboardText:{type:String,value:"",observer:"_updateText"},_clipboard:{type:Object},_showCopiedText:{type:Boolean,value:!1}},attached:function attached(){var slot=this.$$("slot"),copy=this.$$("#copy");if(this.copyFrom){Polymer.dom(slot).observeNodes(this._setCopyFrom.bind(this))}if(this.dataClipboardText){this._clipboard=this._initializeTextOnly(copy);this._setEventFire()}},detached:function detached(){this._destroy()},_destroy:function _destroy(){if(this._clipboard){this._clipboard.destroy()}},_updateText:function _updateText(){var copy=this.$$("#copy");if(this.dataClipboardText){this._destroy();this._clipboard=this._initializeTextOnly(copy);this._setEventFire()}},_initializeClipboard:function _initializeClipboard(){var copy=this.$$("#copy");if(!this.dataClipboardText){this._clipboard=this._initializeCopy(copy);if(this.dataClipboardAction){this._clipboard.action=function(trigger){return this.dataClipboardAction}.bind(this)}this._setEventFire()}},_setEventFire:function _setEventFire(){this._clipboard.on("success",function(e){this._success(e);this.set("_showCopiedText",!0);this._changeIcon()}.bind(this)).on("error",function(e){this._error(e)}.bind(this))},_changeIcon:function _changeIcon(){var ironIcon=Polymer.dom(this.root).querySelector("px-icon"),copiedIcon=Polymer.dom(this.root).querySelector(".iron");ironIcon.icon="px-utl:confirmed";copiedIcon.classList.add("copiedIconGreen","fadeOutCopied");if(this._showCopiedText){copiedIcon.classList.remove("fadeIn");this.distributeContent()}setTimeout(function(){ironIcon.icon="px-utl:copy";copiedIcon.classList.remove("copiedIconGreen","fadeOutCopied");copiedIcon.classList.add("fadeIn");this.distributeContent()}.bind(this),2e3)},_setCopyFrom:function _setCopyFrom(){var copyFrom=Polymer.dom(this).querySelector(this.copyFrom);this.set("_copyFromElem",copyFrom)},_initializeCopy:function _initializeCopy(copy){if(this.copyFrom){this._setCopyFrom();return new Clipboard(copy,{target:function(trigger){return this._copyFromElem}.bind(this)})}else{throw"You must specify where you'd like the value copied/cut from using the copy-from attribute"}},_initializeTextOnly:function _initializeTextOnly(copy){return new Clipboard(copy,{text:function(trigger){return this.dataClipboardText}.bind(this)})},_success:function _success(e){this.fire("pxClipboardSuccess",e)},_error:function _error(e){this.fire("pxClipboardError",e)}});</script>
+</body></html>

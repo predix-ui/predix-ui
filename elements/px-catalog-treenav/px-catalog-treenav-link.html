@@ -1,0 +1,42 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../css/px-catalog-theme-styles.html">
+<link rel="import" href="../../css/px-catalog-treenav-link-styles.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+
+</head><body><dom-module id="px-catalog-treenav-link">
+  <template>
+    <style include="px-catalog-theme-styles"></style>
+    <style include="px-catalog-treenav-link-styles"></style>
+
+    <div class="link">
+      <div class="link__container">
+        <div class$="[[_getArrowClasses(parent, opened)]]" on-tap="_handleArrowTapped"></div>
+        <a href$="/#[[route]]" class="link__a" on-tap="_handleLinkTapped">[[label]]</a>
+        <template is="dom-if" if="[[badgeText]]">
+          <span class="link__badge">[[badgeText]]</span>
+        </template>
+      </div>
+      <template is="dom-if" if="[[parent]]">
+        <iron-collapse opened="[[_isOpened(opened, searching, inSearchedRoutes)]]">
+          <ul class="sublinks">
+          <template is="dom-repeat" items="[[subpages]]" as="subitem">
+            <template is="dom-if" if="[[subitem.subtitle]]">
+              <div class="link link--subtitle">
+                <div class="link__container">
+                  [[subitem.label]]
+                </div>
+              </div>
+            </template>
+            <template is="dom-if" if="[[!subitem.subtitle]]">
+              <px-catalog-treenav-link label="[[subitem.label]]" route="[[subitem._route]]" subpages="[[subitem.pages]]" selected-route="[[selectedRoute]]" searching="[[searching]]" searched-routes="[[searchedRoutes]]" badge-text="[[subitem.badgeText]]" disabled="[[subitem.disabled]]">
+              </px-catalog-treenav-link>
+            </template>
+          </template>
+          </ul>
+        </iron-collapse>
+      </template>
+    </div>
+  </template>
+  <script>Polymer({is:"px-catalog-treenav-link",properties:{label:String,route:String,subpages:Array,selectedRoute:String,searching:Boolean,searchedRoutes:Array,badgeText:String,disabled:{type:Boolean,reflectToAttribute:!0},opened:{type:Boolean,value:!1,notify:!0,reflectToAttribute:!0},selected:{type:Boolean,value:!1,readOnly:!0,reflectToAttribute:!0,computed:"_isSelected(route, selectedRoute)"},inSelectedRoute:{type:Boolean,value:!1,readOnly:!0,computed:"_isInSelectedRoute(route, selectedRoute)",observer:"_openIfInSelectedRoute"},inSearchedRoutes:{type:Boolean,value:null,readOnly:!0,computed:"_isInSearchedRoutes(searching, route, searchedRoutes)"},hidden:{type:Boolean,value:!1,reflectToAttribute:!0,readOnly:!0,computed:"_isHidden(searching, inSearchedRoutes)"},item:{type:Object},parent:{type:Boolean,value:!1,reflectToAttribute:!0,computed:"_computeHasSubpages(subpages)"},path:{type:String},searchedPaths:{type:Array,observer:"_handlePathSearched"}},_isSelected:function _isSelected(route,selectedRoute){return route===selectedRoute},_isHidden:function _isHidden(searching,inSearchedRoutes){if(searching&&!inSearchedRoutes){return!0}return!1},_isOpened:function _isOpened(opened,searching,inSearchedRoutes){if(!searching){return opened}if(searching){return inSearchedRoutes}},_isInSelectedRoute:function _isInSelectedRoute(route,selectedRoute){if(selectedRoute&&route!==selectedRoute&&route.length<=selectedRoute.length&&selectedRoute.slice(0,route.length)===route){return!0}return!1},_openIfInSelectedRoute:function _openIfInSelectedRoute(inSelectedRoute){if(inSelectedRoute){this.opened=!0}},_isInSearchedRoutes:function _isInSearchedRoutes(searching,route,searchedRoutes){if(!searching||!searchedRoutes){return null}for(var found=!1,len=route.length,i=0;i<searchedRoutes.length;i++){if(searchedRoutes[i]===route){found=!0;break}if(len<=searchedRoutes[i].length&&searchedRoutes[i].slice(0,len)===route){found=!0;break}}return found},_computeHasSubpages:function _computeHasSubpages(subpages){return Array.isArray(subpages)&&0<subpages.length},_handleLinkTapped:function _handleLinkTapped(evt){if(evt.detail&&evt.detail.sourceEvent&&(evt.detail.sourceEvent.metaKey||evt.detail.sourceEvent.shiftKey||evt.detail.sourceEvent.ctrlKey)){return}evt.preventDefault();if(this.disabled){return}if(this.parent){this.opened=!this.opened}else{window.history.pushState({},null,"/#"+this.route);window.dispatchEvent(new CustomEvent("location-changed"))}},_handleArrowTapped:function _handleArrowTapped(evt){this.opened=!this.opened},_getArrowClasses:function _getArrowClasses(isParent,isOpened){var classNames="link__container__arrow";if(isParent){classNames+=" link__container__arrow--visible"}if(isOpened){classNames+=" link__container__arrow--opened"}return classNames},_handlePathSearched:function _handlePathSearched(paths){if(Array.isArray(paths)&&0<paths.length){for(var len=this.path.length,i=0;i<paths.length;i++){if("about"===this.path){console.log(paths[i].slice(0,len))}if(len<=paths[i].length&&paths[i].slice(0,len)===this.path){this.searched=!0;this.opened=!0;return}}}this.searched=!1;this.opened=!1}});</script>
+</dom-module>
+</body></html>

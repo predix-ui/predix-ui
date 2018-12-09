@@ -1,0 +1,80 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="css/px-popover-styles.html">
+
+<!--
+Simply place the the px-popover next to the element that you want it to attach to.
+Set the `for` attribute to the `id` of the element that it's associated with. Then set
+the `popover-title` and `popover-body` properties, or pass HTML
+content as a child of the px-popover. The popover will automatically grow
+to encapsulate the contents that you have established, but you are responsible for styling
+of the content inside of a rich popover.
+
+### Usage
+
+    <button id="someElement">Some element</button>
+    <px-popover for="someElement"
+                orientation="bottom"
+                popover-title="Bottom Popover"
+                popover-body="Lorem ipsum">
+    </px-popover>
+
+Passing rich HTML content:
+
+    <button id="someElement">Some element</button>
+    <px-popover for="someElement" orientation="bottom">
+      <form><label>This is a form<input class='text-input' type='text' value='Input'/></label></form>
+    </px-popover>
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-popover-background-color` | Background color for the popover
+`--px-popover-border-color` | Border color for the popover
+`--px-popover-text-color` | Color for the text
+`--px-popover-max-width` | Maximum width of the popover
+
+@element px-popover
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-popover">
+    <template>
+      <style include="px-popover-styles"></style>
+
+      <iron-dropdown id="dropdown" opened="{{_isShowing}}" with-backdrop="[[showOverlay]]" scroll-action="[[scrollAction]]" position-target="[[_target]]" sizing-target="[[_popover]]" dynamic-align="[[_isAuto(orientation)]]">
+        <div id="popover" class$="{{orientation}}" slot="dropdown-content">
+          <template is="dom-if" if="{{popoverTitle}}">
+            <h5 class="epsilon">{{popoverTitle}}</h5>
+          </template>
+          <template is="dom-if" if="{{popoverBody}}">
+            <p>{{popoverBody}}</p>
+          </template>
+          <template is="dom-if" if="{{enhanced}}">
+            <slot></slot>
+          </template>
+        </div>
+      </iron-dropdown>
+
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-popover",observers:["_setPosition(orientation, _target)"],properties:{for:{type:String,reflect:!0,observer:"_forChanged"},orientation:{type:String,reflect:!0,value:"right"},popoverTitle:{type:String,reflect:!0,value:""},popoverBody:{type:String,reflect:!0,value:""},position:{type:String,value:""},showOverlay:{type:Boolean,value:!1},enhanced:{type:Boolean,value:!1},scrollAction:{type:String,value:"lock"},_isShowing:{type:Boolean,value:!1},_target:{type:HTMLElement}},_getTarget:function _getTarget(){var ownerRoot=Polymer.dom(this).getOwnerRoot(),parentNode=Polymer.dom(this).parentNode,target;if(this.for&&"string"===typeof this.for){target=Polymer.dom(parentNode).querySelector("#"+this.for)}else if(this.for&&"object"===babelHelpers.typeof(this.for)){target=this.for}else if(11===parentNode.nodeType){target=ownerRoot?ownerRoot.host:null}else{target=parentNode}return target},_forChanged:function _forChanged(){if(this._target){this.unlisten(this._target,"tap","_toggle")}this._target=this._getTarget();if(this._target){this.listen(this._target,"tap","_toggle")}},attached:function attached(){this._forChanged()},_isDescendant:function _isDescendant(parent,child){var node=child.parentNode;while(null!=node){if(node===parent){return!0}node=node.parentNode}return!1},_toggle:function _toggle(event){if(this._isShowing){this.hide()}else{this.show()}},show:function show(){this.$.dropdown.open();this.fire("px-popover-show",{target:this})},hide:function hide(){this.$.dropdown.close();this.fire("px-popover-hide",{target:this})},_setPosition:function _setPosition(orientation,target){if(orientation===void 0||target==void 0)return;window.setTimeout(function(){if("right"===orientation){this.$.dropdown.verticalAlign="middle";this.$.dropdown.verticalOffset=0;this.$.dropdown.horizontalAlign="left";this.$.dropdown.horizontalOffset=parseFloat(window.getComputedStyle(target).width)+10}else if("left"===orientation){this.$.dropdown.verticalAlign="middle";this.$.dropdown.verticalOffset=0;this.$.dropdown.horizontalAlign="right";this.$.dropdown.horizontalOffset=parseFloat(window.getComputedStyle(target).width)+10}else if("top"===orientation){this.$.dropdown.verticalAlign="bottom";this.$.dropdown.verticalOffset=parseFloat(window.getComputedStyle(target).height)+10;this.$.dropdown.horizontalAlign="center";this.$.dropdown.horizontalOffset=0}else if("bottom"===orientation){this.$.dropdown.verticalAlign="top";this.$.dropdown.verticalOffset=parseFloat(window.getComputedStyle(target).height)+10;this.$.dropdown.horizontalAlign="center";this.$.dropdown.horizontalOffset=0}}.bind(this),5)},_isAuto:function _isAuto(orientation){return"auto"===orientation}});</script>
+</body></html>

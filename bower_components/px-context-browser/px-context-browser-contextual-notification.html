@@ -1,0 +1,10 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-notification/px-notification.html">
+
+</head><body><dom-module id="px-context-browser-contextual-notification">
+  <template>
+    <px-notification type="info" content="[[text]]" action-icon="px-nav:reload" opened="[[opened]]"></px-notification>
+  </template>
+  <script>Polymer({is:"px-context-browser-contextual-notification",properties:{text:{type:String,value:"Your favorites list failed to sync."},opened:{type:Boolean,value:!1}},listeners:{"px-notification-action-tapped":"syncFavorites"},syncFavorites:function syncFavorites(){this.fire("px-app-asset-favorited-sync-requested")}});</script>
+</dom-module>
+</body></html>

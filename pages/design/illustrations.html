@@ -1,0 +1,118 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-illustrations">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#colors', activeAnchor)]]" href="#" anchor="#colors" on-tap="_handleAnchorTapped">Colors</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#lines-and-fills', activeAnchor)]]" href="#" anchor="#lines-and-fills" on-tap="_handleAnchorTapped">Lines and Fills</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-text', activeAnchor)]]" href="#" anchor="#using-text" on-tap="_handleAnchorTapped">Using Text</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#tips-for-creating-illustrations', activeAnchor)]]" href="#" anchor="#tips-for-creating-illustrations" on-tap="_handleAnchorTapped">Tips for Creating illustrations</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Illustrations</h2>
+          
+          
+<p>Illustrations help teach users about complex functionality in an application by reinforcing written explanations with images. An illustration can appear in a <a href="#/elements/px-popover">popover</a>, <a href="#/elements/px-modal">modal</a>, or within the content area of a page.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/illustrations/illustration-hero" img-alt="Illustrated popover" caption="An example of an illustrated popover that explains a complex concept."></catalog-picture></p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Less is more</h4>
+<p>Ask yourself if the illustration is really needed, or if text is enough to convey the idea clearly. If you do add an illustration, make sure supplementary text is not redundant. Omit words when possible to avoid creating multiple illustrations for different languages.</p>
+<h4>Consider the context of use</h4>
+<p>Ensure your illustration fits appropriately the area where it is used (popovers, modals, etc). Maintain scale and color themes in the area of use.</p>
+<h4>Start small and work your way out</h4>
+<p>Illustrations should only be as big as needed to convey a concept legibly, but still respect the area in which they are viewed. Ask yourself what is the core of the idea that is being communicated, and remove any items that do not reinforce this idea.</p>
+<h4>Use consistent illustrations</h4>
+<p>Keep illustration styles consistent with the design system language and brand. Your illustrations should look like they are coming from the same source.</p>
+<h3 id="colors">Colors</h3>
+<p>The color scheme for illustrations is monochromatic, using only the Aqua <a href="#/css/visual/px-colors-design">color set</a> from the Predix Design System. Illustrations can be on light or dark backgrounds. Depending on what color theme the illustration is being placed in, you can choose the right color combinations.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/illustrations/illustrations-colors" img-alt="Illustrations colors by theme" caption="Colors line and fill on an illustration are the same across theme. Text color in illustrations vary depending on theme."></catalog-picture></p>
+<p>The aqua theme ensures illustrations look consistent regardless of the theme.
+<catalog-picture img-src="../../img/guidelines/design/illustrations/diagram-themes" img-alt="Light and dark themed popover components." caption="Light and dark themed popover components. "></catalog-picture></p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/illustration-color-do" img-alt="Illustrations colors correct" title="Do" caption="Use color intentionally to highlight concepts.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/illustration-color-dont" img-alt="Illustrations colors incorrect" title="Don't" caption="Do not abuse color as it creates confusion.">
+  </catalog-picture>
+</div>
+<h3 id="lines-and-fills">Lines and Fills</h3>
+<p>Illustrations are line art. Lines are 1 pixel thick and fills should be used sparingly. Lines can be solid, dotted or dashed; whatever makes the most sense for the story you are reinforcing. Corner radius can be whatever is most useful. Embrace simplicity by avoiding fills, textures and patterns inside your shapes.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/illustrations/basic-shapes" img-alt="Line and fill colors example" caption="Use the same color for line and fill in both light and dark backgrounds."></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/illustrations/basic-lines" img-alt="Basic shapes in illustraions" caption="Use lines to create basic shapes."></catalog-picture></p>
+<p>Simple shapes and lines are always best.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/fill-do" img-alt="Shapes and lines correct" title="Do" caption="Use solid fills with 30% opacity if needed.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/fill-dont" img-alt="Shapes and lines incorrect" title="Don't" caption="Don't use lines as a fill or a series of lines to represent a shape when a simple shape works better.">
+  </catalog-picture>
+</div>
+<h4>Specification</h4>
+<p>Basic shapes using a 1-pixel border, solid and dashed (dash 5, gap 2) and shapes with fills.
+<catalog-picture img-src="../../img/guidelines/design/illustrations/diagram-specs" img-alt="Illustration specs" caption="A light vs dark comparison of a simple shape rendered with different border styles, fills and text."></catalog-picture></p>
+<h3 id="using-text">Using Text</h3>
+<p>Text should only be incorporated into an illustration when necessary. Omit words when possible to avoid creating multiple illustrations for different languages.
+Leverage the container where the illustration will be placed if additional text is needed. Avoid adding text for things that are obvious in the illustration.</p>
+<p>Text in illustrations is always 12 pixels, GE Inspira Sans, with normal weight.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/text-do" img-alt="Text in illustration correct size" title="Do" caption="Use a 12px font size, with normal weight to maintain consistency.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/text-dont" img-alt="Text in illustrations incorrect size and style" title="Don't" caption="Do not add unnecessary text stylings (colors, caps, bold, or italics)">
+  </catalog-picture>
+</div>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/text-do-2" img-alt="Text in illustration correct" title="Do" caption="Leverage the container where the illustration will appear to add any claryfying text.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/illustrations/text-dont-2" img-alt="Text in illustrations incorrect" title="Don't" caption="Do not include lots of text in an illustration, as it reduces the impact of the illustration.">
+  </catalog-picture>
+</div>
+<h3 id="tips-for-creating-illustrations">Tips for Creating illustrations</h3>
+<ul>
+<li>Export as PNG</li>
+<li>Use our Sketch library; take advantage of our pre-made color palettes, icons and typography rules</li>
+<li>Create illustrations with design tools other than Sketch. Adobe Illustrator and InVision Freehand are great, but Sketch will do a better job of making sure your illustrations look and feel consistent.</li>
+</ul>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-illustrations",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

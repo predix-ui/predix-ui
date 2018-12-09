@@ -1,0 +1,40 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon-set-navigation.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+<link rel="import" href="../../css/px-catalog-treenav-styles.html">
+<link rel="import" href="px-catalog-treenav-link.html">
+
+</head><body><dom-module id="px-catalog-treenav">
+  <template>
+  <style include="px-catalog-treenav-styles"></style>
+  <style>.easter-egg-build-info{color:white;}.easter-egg-build-info p{margin-top:0;margin-bottom:.5rem;}</style>
+
+    <div class="search">
+      <div class="input">
+        <label for="searchInput" class="visuallyhidden">Navigation Search Input</label>
+        <input id="searchInput" class="text-input" type="text" value="{{searchKeyword::input}}" placeholder="Type in a search term...">
+      </div>
+      <template is="dom-if" if="[[searching]]">
+        <div class="icon"><px-icon icon="px-nav:close" on-click="_resetSearch" id="searchIcon"></px-icon></div>
+      </template>
+    </div>
+    <div class="tree">
+      <template is="dom-if" if="[[_showBuildInfo(searchKeyword)]]">
+        <div class="easter-egg-build-info">
+          <iron-ajax auto="" url="/pages/build-data.json" last-response="{{buildData}}">
+          </iron-ajax>
+          <p><strong>Build info</strong></p>
+          <p>Commit: <a href="[[buildData.commitUrl]]" target="_blank" rel="noopener">[[buildData.shortCommit]]</a></p>
+          <p>Time: [[buildData.time]]</p>
+        </div>
+      </template>
+      <template is="dom-repeat" items="[[pages]]" as="item">
+        <px-catalog-treenav-link top-level-link="" label="[[item.label]]" route="[[item._route]]" subpages="[[item.pages]]" selected-route="[[selectedRoute]]" searching="[[searching]]" searched-routes="[[searchedRoutes]]">
+        </px-catalog-treenav-link>
+      </template>
+    </div>
+  </template>
+  <script>(function(){Polymer({is:"px-catalog-treenav",properties:{pages:{type:Array},routes:{type:Object},selectedRoute:{type:Object,notify:!0,value:!1},searchKeyword:{type:String,value:"",notify:!0},searching:{type:Boolean,value:!1,notify:!0,readOnly:!0,computed:"_isSearching(searchKeyword)"},routeList:{type:Array,value:null,readOnly:!0,computed:"_toRouteList(routes)"},searchedRoutes:{type:Array,value:null,readOnly:!0,computed:"_findSearchedRoutes(searching, searchKeyword, routeList)"}},observers:["_sendSearchEvent(searchedRoutes)"],_sendSearchEvent:function _sendSearchEvent(){var debouncerName="send-search-event";if(this.isDebouncerActive(debouncerName)){this.cancelDebouncer(debouncerName)}this.debounce(debouncerName,function(){if(Array.isArray(this.searchedRoutes)){window.TrackEvent("search",{term:this.searchKeyword,results:this.searchedRoutes})}},750)},_toRouteList:function _toRouteList(routes){if("object"!==babelHelpers.typeof(routes)){return null}for(var routeList=[],keys=Object.keys(routes),i=0;i<keys.length;i++){routeList.push({route:keys[i],keywords:routes[keys[i]]._keywords?routes[keys[i]]._keywords.toLowerCase():null,label:routes[keys[i]].label.toLowerCase()})}return routeList},_findSearchedRoutes:function _findSearchedRoutes(searching,keyword,routeList){if(!searching||!routeList){return null}for(var term=keyword.toLowerCase(),searchedRoutes=[],i=0;i<routeList.length;i++){if(-1<routeList[i].label.indexOf(term)||routeList[i].keywords&&-1<routeList[i].keywords.indexOf(term)){searchedRoutes.push(routeList[i].route)}}return searchedRoutes},_isSearching:function _isSearching(keyword){return"string"===typeof keyword&&""!==keyword},_searchIsActive:function _searchIsActive(keyword){return"string"===typeof keyword&&""!==keyword},_resetSearch:function _resetSearch(){this.searchKeyword=""},_showBuildInfo:function _showBuildInfo(keyword){return keyword&&"build"===keyword}})})();</script>
+</dom-module>
+</body></html>

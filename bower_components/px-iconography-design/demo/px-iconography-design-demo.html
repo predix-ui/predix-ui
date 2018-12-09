@@ -1,0 +1,50 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-iconography-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-iconography-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-iconography-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-iconography-design" description="The Predix UI Iconography module defines styles for icon sets like FontAwesome." layer="base" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;http://fontawesome.io&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<px-sass-doc-option slot="options" option-name="Icons" choose-with="dropdown" choices="[
+    &quot;Hand-peace-o&quot;,
+    &quot;Hand-o-right&quot;
+  ]" default-choice="Hand-peace-o">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<i class$="{{iconClass}}"></i>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+
+<section slot="usage">
+```
+<i class="fa fa-briefcase"></i>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-iconography-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.iconClass=this._iconClass();this.importCode=this._importCode();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_iconClass:function _iconClass(){var opts=this.selectedOptions||{},strings=[];if("Hand-peace-o"===opts.Icons)strings.push("fa-hand-peace-o");if("Hand-o-right"===opts.Icons)strings.push("fa-hand-o-right");return("fa "+strings.join(" ")).trim()},_importCode:function _importCode(){return"@import \"px-iconography-design/_base.iconography.scss\";"}});</script>
+</body></html>

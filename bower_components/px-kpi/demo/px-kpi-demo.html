@@ -1,0 +1,67 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-kpi.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-kpi-demo">
+  <template>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-kpi" description="The px-kpi element is for displaying KPIs in a dashboard layout as a tile with one large number value." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-kpi label="{{props.label.value}}" value="{{props.value.value}}" uom="{{props.uom.value}}" status-icon="{{props.statusIcon.value}}" status-label="{{props.statusLabel.value}}" status-color="{{props.statusColor.value}}" spark-type="{{props.sparkType.value}}" spark-data="{{props.sparkData.value}}">
+        </px-kpi>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-kpi" links-includes="[[linksIncludes]]" scripts-includes="[[scriptsIncludes]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-kpi"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-kpi-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},linksIncludes:{type:Array,value:["px-vis/px-polygit-imports-vis.html","px-datetime-common/px-polygit-imports-datetime.html"]},scriptsIncludes:{type:Array,value:["https://d3js.org/d3.v3.min.js"]},configs:{type:Array,value:function value(){return[{configName:"Line",configReset:!0,sparkData:[{x:139710246e4,y:.56},{x:139713966e4,y:.4},{x:13971774e5,y:.43},{x:139722804e4,y:.33},{x:139724826e4,y:.47},{x:139729128e4,y:.41},{x:13973181e5,y:.26},{x:13973421e5,y:.42},{x:139739082e4,y:.27},{x:13974081e5,y:.38},{x:13974588e5,y:.36},{x:139752294e4,y:.32}]},{configName:"Bar",configReset:!0,label:"Inventory",value:"10.4",uom:"TARGET",statusIcon:"px-utl:add",statusColor:"green",statusLabel:"1.12",sparkType:"bar",sparkData:[112,57,53,122,128,120]},{configName:"Win/Loss",configReset:!0,label:"Uptime",value:"16.5",uom:"HOURS",statusIcon:"px-utl:confirmed",statusColor:"green",statusLabel:"RUNNING",sparkType:"winLoss",sparkData:[5,-4,3,-6,1,3,-4,3]}]}}},demoProps:{sparkType:{type:String,inputType:"text",defaultValue:"line",inputDisabled:!0},label:{type:String,inputType:"text",defaultValue:"Orders"},value:{type:String,inputType:"text",defaultValue:"30M"},uom:{type:String,inputType:"text",defaultValue:"USD",inputLabel:"Unit of Measure"},statusIcon:{type:String,inputType:"text",inputPlaceholder:"px icon",defaultValue:"px-nav:up"},statusColor:{type:String,inputType:"text",defaultValue:"green"},statusLabel:{type:String,inputType:"text",defaultValue:"12%"},sparkData:{type:Array,defaultValue:[{x:139710246e4,y:.56},{x:139713966e4,y:.4},{x:13971774e5,y:.43},{x:139722804e4,y:.33},{x:139724826e4,y:.47},{x:139729128e4,y:.41},{x:13973181e5,y:.26},{x:13973421e5,y:.42},{x:139739082e4,y:.27},{x:13974081e5,y:.38},{x:13974588e5,y:.36},{x:139752294e4,y:.32}]}}});</script>
+</body></html>

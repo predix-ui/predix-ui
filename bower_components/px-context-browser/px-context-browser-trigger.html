@@ -1,0 +1,23 @@
+<html><head><link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-context-browser-trigger-styles.html">
+
+<!--
+### Usage
+
+    <px-context-browser-trigger trigger={{openTrigger}}></px-context-browser-trigger>
+    <px-context-browser open-trigger="[[openTrigger]]" items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts"},{"label":"Assets","id":"assets"}]'></px-context-browser>
+
+
+@element px-context-browser-trigger
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-context-browser-trigger">
+  <template>
+    <style include="px-context-browser-trigger-styles"></style>
+    <px-icon icon="[[_getIcon(favorited)]]"></px-icon>
+  </template>
+  <script>Polymer({is:"px-context-browser-trigger",properties:{trigger:{type:HTMLElement,readOnly:!0,notify:!0,value:null},favorited:{type:Boolean,value:!1}},attached:function attached(){this._setTrigger(this)},detached:function detached(){this._setTrigger(null)},listeners:{tap:"_handleTapped"},_handleTapped:function _handleTapped(evt){evt.preventDefault();this.fire("trigger-tapped")},_getIcon:function _getIcon(favorites){if(!0===favorites){return"px-nav:favorite"}return"px-nav:hierarchy"}});</script>
+</dom-module>
+</body></html>

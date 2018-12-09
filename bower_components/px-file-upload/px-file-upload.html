@@ -1,0 +1,78 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-file-upload-styles.html">
+
+<!--
+File upload component. Allows user to select one or more files from the file system by invoking the standard dialog, or by dragging and dropping files onto the target area, if supported by their browser.
+
+### Usage
+
+    <px-file-upload multiple disabled accept=".txt,text/html"></px-file-upload>
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-file-upload-file-list-color` | Text color for the same of the selected file or 'No file selected' message
+`--px-file-upload-validation-color` | Text color for invalid file error message
+`--px-file-upload-dropzone-background-color` | Background color for the dropzone
+
+@element px-file-upload
+@blurb Drag-and-drop file upload component.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-file-upload">
+  <template>
+    <style include="px-file-upload-styles"></style>
+    <div id="file-upload-dropZone" class="file-upload-dropZone fieldset u-p-">
+      <div id="dndInstructions" class$="{{_showHideDragAndDrop(_isAdvancedUpload, disabled)}} u-pb+"><px-icon class="file-upload-icon u-mr--" icon="px-utl:upload"></px-icon>[[localize(message)]]</div>
+      <template is="dom-if" if="{{multiple}}">
+        <div class="hidden file-upload-fileTable" id="fileTable">
+          <div class="file-upload-tr label">
+            <div class="file-upload-th">{{localize('Name')}}</div>
+            <div class="file-upload-th">{{localize('Size')}}</div>
+            <div class="file-upload-th">{{localize('Type')}}</div>
+            <div class="file-upload-th"></div>
+          </div>
+          <template is="dom-repeat" items="{{files}}">
+            <div class="file-upload-tr">
+              <div class="file-upload-td">{{item.name}}</div>
+              <div class="file-upload-td">{{_readableFileSize(item.size)}}</div>
+              <div class="file-upload-td">{{item.type}}</div>
+              <div class="file-upload-td"><px-icon id$="icon{{index}}" icon="px-nav:close" class="file-upload-icon actionable actionable--secondary" on-tap="_removeFile"></px-icon></div>
+            </div>
+          </template>
+        </div>
+      </template>
+      <label id="fileButton" class$="{{_disableUploadButton(disabled)}} btn u-mr--">{{localize('Choose File')}}
+        <input id="fileInput" name="{{name}}" disabled$="{{disabled}}" type="file" on-change="_fileChange" multiple="{{multiple}}" accept="{{accept}}" hidden="">
+      </label>
+      <span id="fileList" class="file-upload-fileList">{{localize('No file selected')}}</span>
+      <px-icon id="fileClear" icon="px-nav:close" class="hidden file-upload-icon actionable actionable--secondary" on-tap="clear"></px-icon>
+      <span id="validation" class="file-upload-validation hidden"></span>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-file-upload",behaviors:[Polymer.AppLocalizeBehavior],properties:{message:{type:String,value:"Drag and drop files here, or click the button below."},accept:{type:String,value:""},name:{type:String,value:""},multiple:{type:Boolean,value:!1},files:{type:Array,value:function value(){return[]},notify:!0},disabled:{type:Boolean,value:!1,observer:"_disable"},_isAdvancedUpload:{type:Boolean,value:function value(){var div=document.createElement("div");return("draggable"in div||"ondragstart"in div&&"ondrop"in div)&&"FormData"in window&&"FileReader"in window}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{"Drag and drop files here, or click the button below.":"Drag and drop files here, or click the button below.","Only one file is allowed.":"Only one file is allowed.","Invalid file type.":"Invalid file type.","No file selected":"No file selected","Choose File":"Choose File",Name:"Name",Size:"Size",Type:"Type"}}}}},ready:function ready(){if(this._isAdvancedUpload&&!this.disabled){var dropZone=this.$.dropZone;this.ondragover=function(e){e.preventDefault();e.stopPropagation();this.toggleClass("hover",!0,dropZone)};this.ondragleave=function(e){e.preventDefault();e.stopPropagation();this.toggleClass("hover",!1,dropZone)};this.ondrop=function(e){e.preventDefault();e.stopPropagation();this.toggleClass("hover",!1,dropZone);this.$.fileInput.files=e.dataTransfer.files;this._fileChange({target:this.$.fileInput})}}},_toArray:function _toArray(obj){return Object.keys(obj).reduce(function(accum,key){if(!isNaN(key)){accum.push(obj[key])}return accum},[])},_fileChange:function _fileChange(e){this.debounce("px-file-upload-file-changed-debounce",function(){this.set("files",this._toArray(e.target.files));if(!this.multiple){if(1<e.target.files.length){this.$$("#validation").innerHTML=this.localize("Only one file is allowed.");this.toggleClass("hidden",!1,this.$$("#validation"));this.toggleClass("hidden",!0,this.$$("#fileList"));this.$.fileInput.value="";this.set("files",[]);this._notifyFilesChanged();return}if(""!==this.accept){if(!this._isValid(e.target.files[0])){this.$$("#validation").innerHTML=this.localize("Invalid file type.");this.toggleClass("hidden",!1,this.$$("#validation"));this.toggleClass("hidden",!0,this.$$("#fileList"));this.$.fileInput.value="";this.set("files",[]);this._notifyFilesChanged();return}}}else{if(""!==this.accept){for(i=0;i<e.target.files.length;i++){var file=e.target.files[i];if(!this._isValid(file)){this.$$("#validation").innerHTML=this.localize("Invalid file type.");this.toggleClass("hidden",!1,this.$$("#validation"));this.toggleClass("hidden",!0,this.$$("#fileList"));this.toggleClass("hidden",!0,this.$$("#fileTable"));this.$.fileInput.value="";this.set("files",[]);this._notifyFilesChanged();return}}}}this.$$("#validation").innerHTML="";this.toggleClass("hidden",!0,this.$$("#validation"));if(0===this.files.length){this.$$("#fileList").innerHTML=this.localize("No file selected");if(this.multiple){this.toggleClass("hidden",!0,this.$$("#fileTable"))}this.toggleClass("hidden",!1,this.$$("#fileList"))}else{if(!this.multiple){var filesize=this._readableFileSize(this.files[0].size);this.$$("#fileList").innerHTML=this.files[0].name+" ("+filesize+")";this.toggleClass("hidden",!1,this.$$("#fileList"));this.toggleClass("hidden",!1,this.$$("#fileClear"))}else{this.toggleClass("hidden",!1,this.$$("#fileTable"));this.toggleClass("hidden",!0,this.$$("#fileList"));this.toggleClass("hidden",!0,this.$$("#fileClear"))}}this.toggleClass("hidden",!0,this.$$("#validation"));this._notifyFilesChanged()},0)},_removeFile:function _removeFile(e){var target=Polymer.dom(e).localTarget.id.substring(4);if(!this.disabled){this.splice("files",target,1);if(this.multiple&&0===this.files.length){this.toggleClass("hidden",!0,this.$$("#fileTable"));this.toggleClass("hidden",!1,this.$$("#fileList"))}this.$.fileInput.value="";this._notifyFilesChanged()}},clear:function clear(){this.set("files",[]);this.$.fileInput.value="";this.$$("#fileList").innerHTML=this.localize("No file selected");this.toggleClass("hidden",!0,this.$$("#fileClear"));if(this.multiple){this.toggleClass("hidden",!0,this.$$("#fileTable"));this.toggleClass("hidden",!1,this.$$("#fileList"))}this._notifyFilesChanged()},_disable:function _disable(){if(this.disabled!==void 0&&this.multiple){for(i=0;i<this.files.length;i++){this.toggleClass("hidden",this.disabled,this.$$("#icon"+i))}}},_disableUploadButton:function _disableUploadButton(disabled){if(!disabled)return"";return"btn--disabled"},_disableFileUpload:function _disableFileUpload(disabled){if(!disabled)return"";return"disabled"},_showHideDragAndDrop:function _showHideDragAndDrop(_isAdvancedUpload,disabled){if(_isAdvancedUpload&&!disabled)return"";return"hidden"},_isValid:function _isValid(file){var accept=this.accept;if(file.type&&-1<this.accept.indexOf(file.type)){return!0}else if(-1<this.accept.indexOf(file.name.match(/\.[^\.]*$/)[0])){return!0}else{return!1}},_readableFileSize:function _readableFileSize(bytes){var i=-1,units=[" KB"," MB"," GB"];do{bytes=bytes/1024;i++}while(1024<bytes);return Math.max(bytes,.1).toFixed(1)+units[i]},_notifyFilesChanged:function _notifyFilesChanged(){this.fire("px-file-upload-files-changed",this.files)}});</script>
+</body></html>

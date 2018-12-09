@@ -1,0 +1,67 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/css/px-demo-content-helper-styles.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-validation.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-validation-demo">
+  <template>
+    <style include="px-demo-content-helper-styles"></style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-validation" description="Px-validation is a component that provides one or more built-in or developer-supplied validation methods for form elements, data table entries, etc. This component only handles the validation logic and return success/error object - see px-forms-design or px-data-table to see how this logic is then handled by the UI of the individual components.
+        Be sure to click the link below to view the API documentation for the child component, px-validator." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+
+        <px-validation id="validationEl">
+          <px-validator validation-method="{{props.validationMethod.value}}" import$="[[importPath]]../px-example-validator.html" arguments="[1,5]">
+          </px-validator>
+        </px-validation>
+
+        <label id="label" for="example">Validation Method: <strong>{{props.validationMethod.value}}</strong></label>
+        <input id="example" class="text-input input--regular" type="text" placeholder="" on-input="isValid">
+        <br>
+        <small id="validationWarning" class="caps form-field__help validation-error">{{errorMessage}}</small>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-validator" codepen-link="http://codepen.io/randyaskin/pen/dNyzzg/?editors=1001">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-validation"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-validation-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0}]}},errorMessage:{type:String,value:""}},demoProps:{validationMethod:{type:String,defaultValue:"isNumber",inputType:"dropdown",inputChoices:["isNumber","alwaysFails","isBetween"]},parentComponent:{type:Array,defaultValue:["<px-validation>","</px-validation>"]}},isValid:function isValid(){var validator=Polymer.dom(this.root).querySelector("#validationEl"),inputValue=Polymer.dom(this.root).querySelector("#example").value,error=validator.validate(inputValue);if(inputValue&&!error.passedValidation){Polymer.dom(this.root).querySelector("#validationWarning").classList.remove("hidden");Polymer.dom(this.root).querySelector("#example").classList.add("validation-error");this.set("errorMessage",error.failedValidationErrorMessage)}else{Polymer.dom(this.root).querySelector("#validationWarning").classList.add("hidden");Polymer.dom(this.root).querySelector("#example").classList.remove("validation-error");this.set("errorMessage","")}}});</script>
+</body></html>

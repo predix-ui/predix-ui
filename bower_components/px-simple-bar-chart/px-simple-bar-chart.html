@@ -1,0 +1,81 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-simple-chart-common-behavior/px-simple-chart-common-behavior.html">
+<link rel="import" href="../px-simple-chart-common-behavior/px-simple-chart-common-behavior-colors.html">
+<link rel="import" href="css/px-simple-bar-chart-styles.html">
+
+<!--
+
+### Usage
+
+    <px-simple-bar-chart chart-data="[ [1,2,3] ]">
+    </px-simple-bar-chart>
+
+    <px-simple-bar-chart chart-data="[ [1,2,3], [1,2,3], [1,2,3] ]">
+    </px-simple-bar-chart>
+
+### Styling
+
+The following custom properties are available for styling.
+
+Custom property | Description
+:----------------|:-------------
+`--px-simple-bar-chart-text-color` | The text color of the legend text
+`--px-simple-bar-chart-background-color` | The background color of the chart
+`--px-vis-series-color-[n]` | A series of color values to loop through when coloring the chart (see below)
+
+### Styling series colors
+
+If you want to set custom chart colors, it's recommended to use CSS custom properties. You can set as many colors as you want using the `--px-vis-series-color-[n]` variable pattern, where `n` starts at 0 and increases by 1 with each new color. For example:
+
+    <style>
+      :root {
+        --px-vis-series-color-0: #aaa;
+        --px-vis-series-color-1: #bbb;
+        --px-vis-series-color-2: #ccc;
+        --px-vis-series-color-3: #ddd;
+        ...
+      };
+    </style>
+    <px-simple-bar-chart chart-data="[ [1,2,3], [1,2,3], [1,2,3] ]" ...>
+    </px-simple-bar-chart>
+
+A few things to note:
+
+<ul>
+  <li>If you provide more data series than available series colors, the element will loop through available colors starting at the beginning.</li>
+  <li>If you do not specify any style variables, a default series of data visualization colors will be applied.</li>
+  <li>If you set the `colors` attribute, your style variables will be overridden and ignored.</li>
+  <li>There cannot be gaps in the sequential numbers you provide. Evaluation of the colors will end at the last sequential number. (See example below.)</li>
+</ul>
+
+The following theme would be incorrect because it has a gap. All series in your chart would be colored red:
+
+    <style>
+      :root {
+        --px-vis-series-color-0: red;
+        /* skips --px-vis-series-color-1 */
+        --px-vis-series-color-2: blue;
+        --px-vis-series-color-3: orange;
+        ...
+      };
+    </style>
+    <px-simple-bar-chart chart-data="[ [1,2,3], [1,2,3], [1,2,3] ]" ...>
+    </px-simple-bar-chart>
+
+@element px-simple-bar-chart
+@blurb Predix UI Simple Bar Chart
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-simple-bar-chart">
+    <script type="text/javascript" src="../es6-promise/es6-promise.min.js"></script>
+    <script type="text/javascript" src="../d3/d3.js"></script>
+    <template>
+      <style include="px-simple-bar-chart-styles"></style>
+
+      <svg class="px-simple-bar-chart-svg"></svg>
+    </template>
+</dom-module>
+
+<script>var defaultChartData=[[1,2,3,4,5,6,7],[2,6,5,4,3,2,7],[2,4,6,7,5,3,6],[3,3,3,3,3,3,4],[5,5,5,5,5,5,5]];Polymer({is:"px-simple-bar-chart",behaviors:[PxSimpleChartCommonBehavior.common,PxSimpleChartCommonBehavior.colors],properties:{chartData:{type:Array,observer:"_drawChart",value:function value(){return defaultChartData}},legendLabels:{type:Array,observer:"_drawChart",value:function value(){return[]}},colors:{type:Array,observer:"_drawChart",value:function value(){return[]}},legendOrder:{type:String,observer:"_drawChart",value:"reverse"}},observers:["_drawChart(seriesColorList.*, seriesConfig.*)"],_getColor:function _getColor(index){if(this.colors.length){return this._getLocalColor(index)}else{return this._getDataVisColor(index)}},_getLocalColor:function _getLocalColor(index){if(0<=index&&index<this.colors.length){return this.colors[index]}else{return this._getColor(Math.abs(this.colors.length-index))}},_drawChartDebounced:function _drawChartDebounced(){var that=this;if(this.chartData&&0<this.chartData.length){this._clearSVG(this.svg);this._setDimensions();var setSizesPromise=this._getSetSizesPromise();setSizesPromise.then(function(){that._setScales();that._drawBars();that._addStyleScope(that.svg)})}else{var timeout=setTimeout(function(){that._drawChartDebounced()},100)}},_getSetSizesPromise:function _getSetSizesPromise(){var that=this;return new Promise(function(resolve,reject){that.gridColumns=2*that._getLongestSeries(that.chartData).length-1;that.gridWidth=Math.round(that.widthValue/that.gridColumns);that.chartWidth=that.gridWidth*that.gridColumns;that.widthRemainder=that.widthValue%that.gridWidth;if(that._requireLegend()){var legendHeightPromise=that._getLegendHeightPromise();legendHeightPromise.then(function(cumulative){that.legendHeight=cumulative.y+25;that.chartHeight=that.heightValue-that.legendHeight;that.svg.attr("width",that.chartWidth).attr("height",that.heightValue);resolve(!0)})}else{that.legendHeight=0;that.chartHeight=that.heightValue;that.svg.attr("width",that.chartWidth).attr("height",that.heightValue);resolve(!0)}})},_requireLegend:function _requireLegend(){return 0<this.legendLabels.length},_getMax:function _getMax(){var arr=[];this.chartData.forEach(function(series,i){series.forEach(function(value,j){var valueType=babelHelpers.typeof(arr[j]);if("undefined"===valueType.toString()){arr[j]=value}else{arr[j]+=value}})});return d3.max(arr)},_setScales:function _setScales(){this.yScale=d3.scale.linear().domain([0,this._getMax()]).range([0,this.chartHeight])},_getLegendHeightPromise:function _getLegendHeightPromise(){return this._drawLegend(!0)},_drawLegendItem:function _drawLegendItem(i,cumulative){var that=this;return new Promise(function(resolve,reject){var series=that.chartData[i],squareHeight=10,squareWidth=3,margin=5,seriesTotal=that._getSeriesTotal(series),labelText;if(that.legendLabels.length>i){labelText=that.legendLabels[i]}else{labelText=seriesTotal}var textWidthPromise=that._calculateTextWidth(labelText,"legend-text");textWidthPromise.then(function(textWidth){var fullWidth=squareWidth+margin+textWidth,endPosition=fullWidth+cumulative.x,color=that._getColor(i);if(endPosition>=that.chartWidth){cumulative.y+=20;cumulative.x=0}var rectNode=that.svg.append("rect").attr("class","legend-box").attr("x",cumulative.x).attr("y",cumulative.y).attr("width",squareWidth).attr("height",squareHeight).attr("fill",color);cumulative.x+=squareWidth+margin;var textNode=that.svg.append("text").attr("class","legend-text").attr("x",cumulative.x).attr("y",cumulative.y+9).text(labelText);cumulative.x+=Math.round(textWidth+3*margin);resolve({x:cumulative.x,y:cumulative.y})})})},_drawLegend:function _drawLegend(dryRun){var dryRun=dryRun||!1,dataLength=this.chartData.length,i,cumulative={x:0,y:5},cumulativePromise;if("reverse"===this.legendOrder){for(i=dataLength-1;0<=i;i--){cumulativePromise=this._drawLegendItem(i,cumulative)}}else if("sequential"===this.legendOrder){for(i=0;i<dataLength;i++){cumulativePromise=this._drawLegendItem(i,cumulative)}}return dryRun?cumulativePromise:""},_drawBars:function _drawBars(){var offsets=[],that=this;this.chartData.forEach(function(series,i){var color=that._getColor(i);series.forEach(function(value,j){var barHeight=Math.floor(that.yScale(value)),typeofElement=babelHelpers.typeof(offsets[j]),isFirst="undefined"===typeofElement.toString();offsets[j]=isFirst?barHeight:offsets[j]+barHeight;var y=that.heightValue-offsets[j]-1,x=2*that.gridWidth*j;that._drawBar(x,y,that.gridWidth,barHeight,i,color)})});this.svg.append("line").attr("class","px-simple-bar-chart bar-chart-bottom-line").attr("x1",0).attr("y1",this.heightValue).attr("x2",this.chartWidth).attr("y2",this.heightValue)},_drawBar:function _drawBar(x,y,width,height,i,color){this.svg.append("rect").attr("class","bar").attr("x",x).attr("y",y).attr("width",width).attr("height",height).attr("fill",color)}});</script>
+</body></html>

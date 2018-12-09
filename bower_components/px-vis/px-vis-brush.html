@@ -1,0 +1,83 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-brush
+      svg="[[svg]]"
+      axis="[[x]]"
+      height="[[height]]"
+      width="[[width]]"
+      margin="[[margin]]"
+      domain-changed="[[domainChanged]]">
+    </px-vis-brush>
+    <px-vis-svg
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      svg="{{svg}}">
+    </px-vis-svg>
+    <px-vis-scale
+      x-axis-type="time"
+      y-axis-type="linear"
+      complete-series-config="[[seriesConfig]]"
+      data-extents="[[dataExtents]]"
+      width="[[width]]"
+      height="[[height]]"
+      margin="[[margin]]"
+      chart-data="[[chartData]]"
+      x="{{x}}"
+      y="{{y}}"
+      domain-changed="{{domainChanged}}">
+    </px-vis-scale>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-nav-brush-outline-color` | The stroke (border) color for the brushed box
+  `--px-vis-nav-brush-fill-color` | The fill (background) color for the brushed box
+  `--px-vis-nav-brush-opacity` | The opacity of the brushed box
+  `--px-vis-nav-brush-gradient-fill-color` | The fill (background) color for the brushed box when gradientColors is not defined
+  `--px-vis-nav-brush-handle-fill-color` | The fill (background) color for the handles on the brushed box
+  `--px-vis-nav-brush-handle-lines-color` | The stroke (border) color for the handles on the brushed box
+  `--px-vis-nav-brush-handle-fill-color-hover` | The hover state fill (background) color for the handles on the brushed box
+  `--px-vis-nav-brush-handle-lines-color-hover` | The hover state stroke (border) color for the handles on the brushed box
+  `--px-vis-nav-brush-handle-fill-color-press` | The pressed/mousedown state fill (background) color for the handles on the brushed box
+  `--px-vis-nav-brush-handle-lines-color-press` | The pressed/mousedown state stroke (border) color for the handles on the brushed box
+
+@element px-vis-brush
+@blurb Element providing user interaction on the navigator.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-brush">
+    <template>
+      <style include="px-vis-styles"></style>
+
+
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-brush",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.sizing,PxVisBehaviorD3.svg,PxVisBehaviorD3.axis,PxVisBehaviorD3.selectedDomain,PxVisBehavior.commonMethods,PxVisBehaviorD3.domainUpdate,PxVisBehavior.updateStylesOverride,PxVisBehavior.gradientColorsFunction,PxVisBehavior.gradientColorsProperty],properties:{_brush:{type:Object,value:function value(){return{}}},_brushGroup:{type:Object,value:function value(){return{}}},_handleGroup:{type:Object,value:function value(){return{}}},_center:{type:Object,value:function value(){return{}}},_centering:{type:Boolean,value:!1},_brushing:{type:Boolean,value:!1},chartDomain:{type:Object,notify:!0},_preventDomainChange:{type:Boolean,value:!1},_animationFrameDone:{type:Boolean,value:!1},_clipPathId:{type:String},_gradientFunction:{type:Function}},observers:["drawElement(domainChanged, svg, axis, height, selectedDomain, _animationFrameDone, _stylesUpdated)","_styleGradient(_gradientFunction)","_zoomBrush(chartDomain.*)","_chartDomainChanged(chartDomain)","_computeGradientFunctions(gradientColors)"],detached:function detached(){this.unlisten(window,"mouseup","_brushMouseUp")},ready:function ready(){window.requestAnimationFrame(function(){this.set("_animationFrameDone",!0)}.bind(this));this.set("_clipPathId",this.generateRandomID("navClipPath"))},drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}if(this._animationFrameDone&&this.domainChanged&&this.height){var heightOffset=5,h=Math.max(this.height-this.margin.bottom-heightOffset,1),axisRange=this.axis.range(),range;if(axisRange[0]>axisRange[1]){axisRange[0]=this.axis.range()[1];axisRange[1]=this.axis.range()[0]}else if(axisRange[0]===axisRange[1]){axisRange[1]+=1}range=[[axisRange[0],0],[axisRange[1],h]];if(this._isObjEmpty(this._brush)){this._createClipPath([0,h]);this._brush=Px.d3.brushX().extent(range).handleSize(6).on("start",this._brushstart.bind(this)).on("brush",this._brushmove.bind(this)).on("end",this._brushend.bind(this));this._preventDomainChange=!0;this._brushGroup=this.svg.append("g").attr("class","brush").call(this._brush).call(this._brush.move,axisRange);this._brushGroup.select("rect.selection").attr("y",0).attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-outline-color","rgb(0,0,0)")).attr("stroke-width",1).attr("shape-rendering","crispEdges").attr("clip-path","url(#"+this._clipPathId+"0)");this._styleGradient();this._drawHandles(heightOffset);this._brushGroup.select("rect.overlay").on("mousedown.brush",this._brushcenter.bind(this)).on("touchstart.brush",this._brushcenter.bind(this))}else{this._drawClipPath([0,h]);this._brush=this._brush.extent(range);this._brushGroup=this.svg.select("g.brush").call(this._brush);if(this.selectedDomain&&0<this.selectedDomain.x.length){this._brushGroup.call(this._brush.move,[this.axis(this.selectedDomain.x[0]),this.axis(this.selectedDomain.x[1])])}else{this._brushGroup.call(this._brush.move,axisRange)}}}},_styleGradient:function _styleGradient(){if(!this._isD3Empty(this._brushGroup)){var overlay=this._brushGroup.select("rect.selection"),currentOverlayIndex=0;if(this._gradientFunction){for(var steps=100,interval=100/steps,gradient=this.svg.append("defs").append("linearGradient").attr("id","overlayGradient"),i=0;i<=steps;i++){gradient.append("stop").attr("offset",i*interval+"%").attr("stop-color",this._gradientFunction(i*interval/100))}overlay.attr("fill","url(#overlayGradient)").attr("fill-opacity",this._checkThemeVariable("--px-vis-nav-brush-opacity",.3))}else{overlay.attr("fill",this._checkThemeVariable("--px-vis-nav-brush-fill-color","rgb(0,0,0)")).attr("fill-opacity",this._checkThemeVariable("--px-vis-nav-brush-opacity",.3))}}},_createClipPath:function _createClipPath(vR){this._clipPathObj=this.svg.append("clipPath").attr("id",this._clipPathId);this._clipPathObj.append("path");this._drawClipPath(vR)},_drawClipPath:function _drawClipPath(vR){var hR=this.axis.range(),domain=this.axis.domain(),clipLeft=this.selectedDomain.x[0]<domain[0],clipRight=this.selectedDomain.x[1]>domain[1],d="";vR[0]-=5;vR[1]+=5;hR[0]-=5;hR[1]+=5;var halfV=(vR[1]+vR[0])/2,n=10,n2=5;d="M"+hR[0]+","+vR[0]+"L"+hR[1]+","+vR[0];if(clipRight){d+="L"+hR[1]+","+(halfV-n)+"L"+(hR[1]-10)+","+(halfV-n2)+"L"+(hR[1]+10)+","+(halfV+n2)+"L"+hR[1]+","+(halfV+n)}d+="L"+hR[1]+","+vR[1]+"L"+hR[0]+","+vR[1];if(clipLeft){d+="L"+hR[0]+","+(halfV+n)+"L"+(hR[0]+10)+","+(halfV+n2)+"L"+(hR[0]-10)+","+(halfV-n2)+"L"+hR[0]+","+(halfV-n)}d+="Z";this._clipPathObj.select("path").attr("d",d)},_brushstart:function _brushstart(){this.set("_brushing",!0);this.svg.classed("selecting",!0)},_brushend:function _brushend(){this.set("_brushing",!1);if(this._doesObjHaveValues(this._handleGroup)){this._handleGroup.dispatch("brushmouseup")}this.svg.classed("selecting",!1)},_brushmove:function _brushmove(range){this.debounce("brushed",function(){var brushExt=Px.d3.brushSelection(this._brushGroup.node());if(brushExt){if(1>Math.abs(brushExt[0]-brushExt[1])){brushExt[0]=0===brushExt[0]?0:brushExt[1]-1;brushExt[1]=0===brushExt[1]?brushExt[0]+1:brushExt[1];this._brushGroup.call(this._brush.move,brushExt)}else{if(!this._preventDomainChange){var newDomain=brushExt.map(this.axis.invert,this.axis),changed=2>this.selectedDomain.x.length||newDomain[0].toString()!==this.selectedDomain.x[0].toString()||newDomain[1].toString()!==this.selectedDomain.x[1].toString();if(changed){this.set("selectedDomain",{x:newDomain,y:[]});this.fire("px-vis-selected-domain-updated",{data:{x:newDomain,y:[]},method:"set",dataVar:"selectedDomain"})}}else{this._preventDomainChange=!1}}}},10)},_brushcenter:function _brushcenter(){var win=Px.d3.select(window),target=Px.d3.event.target,extent=Px.d3.brushSelection(this._brushGroup.node()),size=extent[1]-extent[0],range=this.axis.range(),x0=range[0]+size/2,x1=range[1]-size/2;this._recenter(!0);this._brushcentermove(target,x0,x1);if(Px.d3.event.changedTouches){win.on("touchmove.brush",this._brushcentermove.bind(this,target,x0,x1)).on("touchend.brush",this._brushcenterend.bind(this))}else{win.on("mousemove.brush",this._brushcentermove.bind(this,target,x0,x1)).on("mouseup.brush",this._brushcenterend.bind(this))}},_brushcentermove:function _brushcentermove(target,x0,x1){Px.d3.event.stopPropagation();this._center=Math.max(x0,Math.min(x1,Px.d3.mouse(target)[0]));this._recenter(!1)},_brushcenterend:function _brushcenterend(){this._brushmove();Px.d3.select(window).on(".brush",null)},_recenter:function _recenter(smooth){var _this=this;if(this._centering){return}if(!smooth){return void _this.tween(1)}this._centering=!0;var timer=Px.d3.timer(function(){_this.tween(.2);if(!_this._centering){timer.stop()}})},tween:function tween(alpha){var extent=Px.d3.brushSelection(this._brushGroup.node()),size=extent[1]-extent[0],center1=this._center*alpha+(extent[0]+extent[1])/2*(1-alpha);this._brushGroup.call(this._brush.move,[center1-size/2,center1+size/2]);this._centering=Math.abs(center1-this._center)>.01*size},_drawHandles:function _drawHandles(heightOffset){this._handleGroup=this._brushGroup.selectAll(".handle").on("brushmouseup",this._handleGroupMouseUp.bind(this)).on("mousedown.handle",this._handleGroupMouseDown.bind(this)).on("mouseenter.handle",this._handleGroupMouseEnter.bind(this)).on("mouseleave.handle",this._handleGroupMouseLeave.bind(this));this._handleGroup.attr("clip-path","url(#"+this._clipPathId+")").attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color","rgb(0,0,0)")).attr("fill",this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color","rgb(255,255,255)")).attr("shape-rendering","crispEdges")},_handleGroupMouseDown:function _handleGroupMouseDown(d,i){var elem=Px.d3.select(this._handleGroup.nodes()[i]);elem.on("mouseleave.handle",null);elem.attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color-press","rgb(0,0,0)")).attr("fill",this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-press","rgb(50,50,50)"))},_handleGroupMouseUp:function _handleGroupMouseUp(d,i){var elem=Px.d3.select(this._handleGroup.nodes()[i]);elem.on("mouseleave.handle",this._handleGroupMouseLeave.bind(this,d,i));elem.attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color","rgb(0,0,0)")).attr("fill",this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color","rgb(255,255,255)"))},_handleGroupMouseLeave:function _handleGroupMouseLeave(d,i){var elem=Px.d3.select(this._handleGroup.nodes()[i]);elem.attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color","rgb(0,0,0)")).attr("fill",this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color","rgb(255,255,255)"))},_handleGroupMouseEnter:function _handleGroupMouseEnter(d,i){var elem=Px.d3.select(this._handleGroup.nodes()[i]);elem.attr("stroke",this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color-hover","rgb(0,0,0)")).attr("fill",this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-hover","rgb(150,150,150)"))},_zoomBrush:function _zoomBrush(chartDomain){if(this.hasUndefinedArguments(arguments)){return}if(!this._brushing&&!this._centering&&0<this.chartDomain.length&&this._doesObjHaveValues(this._brush)&&this._doesObjHaveValues(this._brushGroup)&&this._doesObjHaveValues(this.axis)&&Px.d3.brushSelection(this._brushGroup.node())){var extent=Px.d3.brushSelection(this._brushGroup.node()),range=[this.axis(this.chartDomain[0]),this.axis(this.chartDomain[1])];if(!(extent[0]===range[0]&&extent[1]===range[1])){this._preventDomainChange=!0;this._brushGroup.call(this._brush.move,range)}}},_chartDomainChanged:function _chartDomainChanged(){this.gradientColorsMin=this.chartDomain[0];this.gradientColorsMax=this.chartDomain[1]},_computeGradientFunctions:function _computeGradientFunctions(){if(this.gradientColors){this.set("_gradientFunction",this.createGradientFunction(this.gradientColors))}}});</script>
+</body></html>

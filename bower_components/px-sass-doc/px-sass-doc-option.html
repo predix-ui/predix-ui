@@ -1,0 +1,57 @@
+<html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="css/px-sass-doc-viewer-styles.html">
+<link rel="import" href="css/px-demo-styles.html">
+<link rel="import" href="../px-toggle/px-toggle.html">
+
+<!--
+Element that provides a dropdown or toggle and notifies on change.
+
+### Usage
+
+      <px-sass-doc-option
+        option-name="Type"
+        choose-with="dropdown"
+        choices='[
+          "primary",
+          "secondary (default)",
+          "tertiary"
+        ]'
+        default-choice="secondary (default)">
+      </px-sass-doc-option>
+
+@element px-sass-doc-option
+@blurb Element that provides a dropdown or toggle and notifies on change.
+-->
+
+</head><body><dom-module id="px-sass-doc-option">
+  <template>
+    <style include="px-sass-doc-viewer-styles"></style>
+    <style include="px-demo-styles"></style>
+
+    <template is="dom-if" if="[[_chooseWithIs(chooseWith, 'dropdown')]]">
+      <label>{{optionName}}</label>
+      <div class="u-mt-- u-mb">
+        <!-- px-dropdown-selection-changed -->
+        <px-dropdown items="[[choices]]" selected="[[selectedChoice]]" select-by="val" on-selected-changed="_handleDropdown" disable-clear=""></px-dropdown>
+      </div>
+    </template>
+    <template is="dom-if" if="[[_chooseWithIs(chooseWith, 'boolean')]]">
+      <div class="flex flex--justify flex--middle u-mb-">
+        <div class="label u-ml--">{{optionName}}</div>
+        <px-toggle id="{{optionName}}" size="small" checked$="[[selectedChoice]]" on-checked-changed="_handleToggle"></px-toggle>
+      </div>
+    </template>
+    <template is="dom-if" if="[[_chooseWithIs(chooseWith, 'input')]]">
+      <label>{{optionName}}</label>
+      <div class="u-mt-- u-mb">
+        <input id="{{optionName}}" placeholder="Type something..." class="text-input" type="text" value="[[selectedChoice]]" on-change="_handleInput">
+      </div>
+    </template>
+  </template>
+
+  
+</dom-module>
+
+<script>var PxSassDocOption=function(_Polymer$Element){babelHelpers.inherits(PxSassDocOption,_Polymer$Element);function PxSassDocOption(){babelHelpers.classCallCheck(this,PxSassDocOption);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(PxSassDocOption).apply(this,arguments))}babelHelpers.createClass(PxSassDocOption,[{key:"connectedCallback",value:function connectedCallback(){var _this=this;babelHelpers.get(babelHelpers.getPrototypeOf(PxSassDocOption.prototype),"connectedCallback",this).call(this);Polymer.RenderStatus.afterNextRender(this,function(){_this._selectedChoiceChanged(_this.optionName,_this.selectedChoice)})}},{key:"disconnectedCallback",value:function disconnectedCallback(){babelHelpers.get(babelHelpers.getPrototypeOf(PxSassDocOption.prototype),"disconnectedCallback",this).call(this)}},{key:"_useDefaultChoice",value:function _useDefaultChoice(defaultChoice,chooseWith){if(!this._defaultChoiceUsed&&"undefined"!==typeof defaultChoice&&"string"===typeof chooseWith){if("boolean"===chooseWith){this.selectedChoice=!0==chooseWith?!0:!1}else{this.selectedChoice=defaultChoice}this._defaultChoiceUsed=!0}}},{key:"_chooseWithIs",value:function _chooseWithIs(chooseWith,inputType){return"string"===typeof chooseWith&&chooseWith===inputType}},{key:"_handleDropdown",value:function _handleDropdown(evt){this.selectedChoice=evt.detail.value}},{key:"_handleToggle",value:function _handleToggle(evt){this.selectedChoice=evt.detail.value}},{key:"_handleInput",value:function _handleInput(evt){this.selectedChoice=evt.target.value}},{key:"_selectedChoiceChanged",value:function _selectedChoiceChanged(optionName,selectedChoice){if("string"===typeof optionName&&"undefined"!==typeof selectedChoice){var detail={option:optionName,selected:selectedChoice};this.dispatchEvent(new CustomEvent("px-sass-doc-option-selected",{detail:detail,bubbles:!0,composed:!0}))}}}],[{key:"is",get:function get(){return"px-sass-doc-option"}},{key:"properties",get:function get(){return{optionName:{type:String},chooseWith:{type:String},choices:{type:Array,value:function value(){return[]}},defaultChoice:{type:String,value:"",observer:"_useDefaultChoice"},selectedChoice:{type:String,notify:!0}}}},{key:"observers",get:function get(){return["_selectedChoiceChanged(optionName, selectedChoice)","_useDefaultChoice(defaultChoice, chooseWith)"]}}]);return PxSassDocOption}(Polymer.Element);customElements.define("px-sass-doc-option",PxSassDocOption);</script>
+</body></html>

@@ -1,0 +1,93 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-data-converter.html">
+
+<!--
+Converts data from Array form to Object form.
+
+px-vis charts expect data in the following array of objects format:
+
+```
+[
+    {
+        x: 10,
+        y: 50
+    },{
+        x: 20,
+        y: 40
+    }
+]
+```
+
+Keys are flexible - multiple keys can be added to the same object:
+
+```
+[
+    {
+        timestamp: 1413930600000,
+        tag1: 15,
+        tag2: 16,
+        tag3: 11
+    },{
+        timestamp: 1414080000000,
+        tag1: 14,
+        tag2: 17,
+        tag3: 13
+    }
+]
+```
+
+This component accepts data in the following format:
+
+```
+[{
+    "id":"myTagID",
+    "name":"My Favorite Tag",
+    "minValue":0,
+    "maxValue":293,
+    "data":[
+        [1464562720308,41],
+        [1464571360308,170]
+    ]
+}]
+```
+
+It will reformat the data into the object format and create a seriesConfig file.
+
+### Usage
+
+    <px-vis-data-converter
+        data-key="[[dataKey]]"
+        id-key="[[idKey]]"
+        original-data="[[originalData]]"
+        chart-data="{{chartData}}"
+        series-config="{{seriesConfig}}">
+    </px-vis-data-converter>
+
+@element px-vis-data-converter
+@blurb Converts data from array form to object form.
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-vis-data-converter">
+    <template>
+
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-data-converter",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.commonMethods,PxVisBehavior.dataConverterMethods],properties:{dataKey:{type:String,value:"data"},idKey:{type:String,value:"id"},nameKey:{type:String,value:"name"},dataIds:{type:Array,value:function value(){return[]}},dataNames:{type:Array,value:function value(){return[]}},newXKey:{type:String,value:"x"},xUnitKey:{type:String,value:"xAxisUnit"},yUnitKey:{type:String,value:"units"},originalData:{type:Array,notify:!0},seriesConfig:{type:Object,notify:!0,readOnly:!0,computed:"_computeSeriesConfig(originalData.*)"},chartData:{type:Array,notify:!0,readOnly:!0,computed:"_computeChartData(originalData.*)"},emptySets:{type:Object,notify:!0,readOnly:!0,value:function value(){return{}}}},attached:function attached(){if(this._doesObjHaveValues(this.seriesConfig)){this.fire("px-vis-series-config",{dataVar:"seriesConfig",data:this.seriesConfig,method:"set"})}if(this._doesObjHaveValues(this.chartData)){this.fire("px-vis-chart-data",{dataVar:"chartData",data:this.chartData,method:"set"})}},_computeChartData:function _computeChartData(){if(this.hasUndefinedArguments(arguments)){return}return this.computeChartData(this.originalData,this,this.emptySets)},_computeSeriesConfig:function _computeSeriesConfig(){if(this.hasUndefinedArguments(arguments)){return}return this.computeSeriesConfig(this.originalData,this)}});</script>
+</body></html>

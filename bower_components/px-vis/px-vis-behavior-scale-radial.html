@@ -1,0 +1,20 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+
+<script>var PxVisBehaviorScale=window.PxVisBehaviorScale=window.PxVisBehaviorScale||{};PxVisBehaviorScale.radial=[{properties:{_calculatedExtents:{type:Object,notify:!0}},listeners:{"px-vis-request-pixel-for-data":"_pixelRequest"},_setYScale:function _setYScale(radius,centerOffset){var range=[centerOffset,radius],y=Px.d3.scaleLinear().nice().range(range);y._scaleType="linear";this.set("y",y)},_recreateScales:function _recreateScales(){if(this.y){this._setYScale(this._radius,this.centerOffset)}},_generateChartExtents:function _generateChartExtents(){var _Mathabs=Math.abs;if(this.chartData&&0<this.chartData.length&&this._amplitudeKey&&0<this._amplitudeKey.length){var ext=null,min=1/0,max=-Infinity,doMin=!0,doMax=!0;if(this.amplitudeExtents&&2===this.amplitudeExtents.length){min="dynamic"===this.amplitudeExtents[0]?1/0:this.amplitudeExtents[0];max="dynamic"===this.amplitudeExtents[1]?-Infinity:this.amplitudeExtents[1];doMin=min===1/0?!0:!1;doMax=max===-Infinity?!0:!1}if(doMin||doMax){for(var i=0;i<this._amplitudeKey.length;i++){for(var j=0;j<this.chartData.length;j++){if(this._isValidData(this.chartData[j][this._amplitudeKey[i]])&&(!this.hardMute||!this.mutedSeries[this._amplitudeKey[i]])){min=doMin?Math.min(min,this.chartData[j][this._amplitudeKey[i]]):min;max=doMax?Math.max(max,this.chartData[j][this._amplitudeKey[i]]):max}}}}if(min===max){max+=1}if(_Mathabs(min)>max){max=_Mathabs(min)}if(!this.allowNegativeValues){min=0>min?0:min}ext=[min,max];this.set("_calculatedExtents",ext)}},_setDomain:function _setDomain(){this.debounce("_setDomain",function(){if(this._doesObjHaveValues(this.y)&&this._doesObjHaveValues(this._calculatedExtents)){var exts=this._calculatedExtents;this.y.domain(exts);var domain=this.useDegrees?[0,360]:[0,2*Math.PI];this.x=Px.d3.scaleLinear().range([0,1]).domain(domain);this.set("domainChanged",this.domainChanged+1)}}.bind(this),10)},getPixelFromData:function getPixelFromData(data,relativeToCenter){var domain=this.y.domain(),range=this.y.range(),domainTot=domain[1]-domain[0],result,oob=!1;result=this._getPixelCoordForRadialData(data[0],data[1],range[1]-range[0],domain,domainTot);if(!relativeToCenter){result[0]+=this._center[0];result[1]+=this._center[1]}if(0>result[0]||result[0]>this._smallerSide||0>result[1]||result[1]>this._smallerSide){oob=!0}return{pixel:result,outOfBounds:oob}},getDataFromPixel:function getDataFromPixel(pixelVal){var _MathPI=Math.PI,x,y;y=this.y.invert(Math.sqrt(pixelVal[0]*pixelVal[0]+pixelVal[1]*pixelVal[1]));x=Math.atan2(pixelVal[1],pixelVal[0])+_MathPI/2;if(this.counterClockwise){x*=-1}if(0>x){x+=2*_MathPI}if(this.useDegrees){x=360*x/(2*_MathPI)}return[x,y]},_pixelRequest:function _pixelRequest(evt){var res=this.getPixelFromData(evt.detail.data,evt.detail.relativeToCenter);evt.detail.callback(res)}},PxVisBehaviorD3.axes,PxVisBehavior.sizing,PxVisBehavior.dataset,PxVisBehavior.commonMethods,PxVisBehavior.axisTypes,PxVisBehavior.amplitudeExtents,PxVisBehaviorD3.radialAxisConfig,PxVisBehaviorD3.domainUpdate,PxVisBehavior.polarData,PxVisBehavior.mutedSeries];</script>
+</head><body></body></html>

@@ -1,0 +1,66 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+Bits of this are inspired & pseudo copied from https://github.com/PolymerLabs/iron-overlay
+
+Their license:
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-overlay-behavior.html">
+
+<!--
+A container to which content from px-overlay-content is hoisted. This is done to escape out of stacking contexts so overlays / modals / floating content can be shown over other content.
+
+### Usage
+
+#### Generic
+```
+    <px-overlay-container></px-overlay-container>
+```
+
+#### For content with matching type
+```
+    <px-overlay-container container-type="foo"></px-overlay-container>
+```
+
+### Styling
+
+The following custom properties are available for styling of the overlay container.
+
+Custom property | Description
+:----------------|:-------------
+`--px-overlay-container-z-index` | The z-index of the container
+
+@element px-overlay-container
+@blurb A container to which content from px-overlay-content is hoisted.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-overlay-container">
+  <template>
+    <style>#overlayHost{position:relative;z-index:var(--px-overlay-container-z-index, 1250);}</style>
+    <div id="overlayHost">
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-overlay-container",behaviors:[PxOverlayBehavior.sharedProperties],properties:{_overlayHost:HTMLElement,_parent:HTMLElement,_attachedOverlays:Map},created:function created(){this._attachmentRequestBound=this._attachmentRequest.bind(this);this._attachedOverlays=new Map},ready:function ready(){this._overlayHost=this.shadowRoot?this.shadowRoot.querySelector("#overlayHost"):this.querySelector("#overlayHost")},attached:function attached(){this._parent=this._getHostRoot();this._parent.addEventListener("px-overlay-attachment-request",this._attachmentRequestBound)},detached:function detached(){this._parent.removeEventListener("px-overlay-attachment-request",this._attachmentRequestBound);this._parent=null;this._attachedOverlays.forEach(function(val,key,map){val.content.forEach(function(child){val.localContainer.removeChild(child)});key.eventNames.forEach(function(eventName){val.localContainer.removeEventListener(eventName,val.fn)});key._container=void 0;key.hoistOverlay()});this._attachedOverlays.clear()},_attachmentRequest:function _attachmentRequest(evt){var ne=Polymer.dom(evt),target=ne.rootTarget;if(target.containerType!==this.containerType){return}var elem=document.createElement("div"),refireCB=this._refireEvent.bind(this,target);target.eventNames.forEach(function(name){elem.addEventListener(name,refireCB)});var targetData={content:[],localContainer:elem,fn:refireCB};this._attachedOverlays.set(target,targetData);target._content.forEach(function(child){this._attachedOverlays.get(target).content.push(child);elem.appendChild(child)}.bind(this));target._container=this;this._overlayHost.appendChild(elem);evt.preventDefault();evt.stopPropagation()},appendNewContent:function appendNewContent(target,content){if(!this._attachedOverlays.has(target)){console.warn("Overlay container and container have become desynced. Cant add new content.");return}var data=this._attachedOverlays.get(target);content.forEach(function(child){data.content.push(child);data.localContainer.appendChild(child)})},detachContent:function detachContent(target){if(!this._attachedOverlays.has(target)){console.warn("something has gone terribly wrong... overlay and container have become desynced.");return}var info=this._attachedOverlays.get(target);info.content.forEach(function(child){info.localContainer.removeChild(child)});target.eventNames.forEach(function(eventName){info.localContainer.removeEventListener(eventName,info.fn)});this._overlayHost.removeChild(info.localContainer);this._attachedOverlays.delete(target)},_getHostRoot:function _getHostRoot(){var n=this;while(n){if(n.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&n.host){return n}n=n.parentNode}return document},_refireEvent:function _refireEvent(target,evt){evt.preventDefault();evt.stopPropagation();var newEvent=new CustomEvent(evt.type,evt);newEvent.sourceEvent=evt;target.dispatchEvent(newEvent)},removeElem:function removeElem(overlay,elem){var content=this._attachedOverlays.get(overlay),i=content.content.indexOf(elem);if(-1===i){console.warn("Container could not locate content to remove...");return}content.content.splice(i,1);content.localContainer.removeChild(elem)}});</script>
+</body></html>

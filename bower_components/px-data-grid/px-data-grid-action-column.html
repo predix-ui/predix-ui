@@ -1,0 +1,49 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+</head><body><dom-module id="px-data-grid-action-column">
+  <template>
+    <template class="header" id="defaultHeaderTemplate">
+    </template>
+
+    <template id="defaultBodyTemplate">
+
+      <!-- vaadin-grid needs button at start to handle keyboard navigation, this hidden element will
+           catch the keyboard events and re-direct those correctly -->
+      <button class="hidden-keyboard-focus-handler" on-click="_figureOutWhichOneToClick" style="display: none;">
+      </button>
+
+      <template is="dom-if" if="[[_showSaveButton(item, editMode, edittedItem)]]" restamp="">
+        <button class="btn btn--bare btn--icon item-edit-save-button action-column-button" on-click="_handleSave" data-item="[[item]]">
+          <px-icon icon="px-utl:check" class="rounded">Save</px-icon>
+        </button>
+      </template>
+      <template is="dom-if" if="[[_showActionDropdown(item, editMode, edittedItem)]]" restamp="">
+        <px-dropdown allow-outside-scroll="" button-style="icon" icon="px-nav:menu" items="[[_convertActions(itemActions)]]" disable-clear="" data-item="[[item]]" class="item-action-dropdown" tabindex="0" on-px-dropdown-click="_dropdownItemClick" on-click="_dropdownClick" on-tap="_dropdownClick" hoist="">
+          <px-icon slot="trigger" icon="px-nav:menu"></px-icon>
+        </px-dropdown>
+      </template>
+    </template>
+  </template>
+
+  <script>{var DataGridActionColumnElement=function(_Polymer$GestureEvent){babelHelpers.inherits(DataGridActionColumnElement,_Polymer$GestureEvent);function DataGridActionColumnElement(){babelHelpers.classCallCheck(this,DataGridActionColumnElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridActionColumnElement).apply(this,arguments))}babelHelpers.createClass(DataGridActionColumnElement,[{key:"_toggleEditClassName",value:function _toggleEditClassName(edittedItem){if(this._cells){this._cells.forEach(function(cell){if(edittedItem){cell.removeAttribute("hidden-unless-hover")}else{cell.setAttribute("hidden-unless-hover","1")}})}}},{key:"_prepareHeaderTemplate",value:function _prepareHeaderTemplate(){var headerTemplate=this._prepareTemplatizer(this._findTemplate("template.header")||this.$.defaultHeaderTemplate);headerTemplate.templatizer.dataHost=headerTemplate===this.$.defaultHeaderTemplate?this:this.dataHost;return headerTemplate}},{key:"_prepareBodyTemplate",value:function _prepareBodyTemplate(){var template=this._prepareTemplatizer(this._findTemplate("template:not(.header):not(.footer)")||this.$.defaultBodyTemplate);template.templatizer.dataHost=template===this.$.defaultBodyTemplate?this:this.dataHost;return template}},{key:"_stampBodyTemplate",value:function _stampBodyTemplate(template,cells){var _this=this;if(!template||!this._cells){return}this._cells.forEach(function(cell){if(cell._template!==template){cell._template=template;cell._content.innerHTML="";var inst=template.templatizer.createInstance();cell._content.appendChild(inst.root);cell._instance=inst;if(!_this.edittedItem){cell.setAttribute("hidden-unless-hover","1")}inst.index=cell.parentElement.index;inst.item=cell.parentElement._item}})}},{key:"_handleSave",value:function _handleSave(e){e.stopPropagation();this.save(e);this._gridValue.dispatchEvent(new CustomEvent("item-save",{bubbles:!0,composed:!0,detail:e.model.item}))}},{key:"_figureOutWhichOneToClick",value:function _figureOutWhichOneToClick(e){var item=e.model.item;if(this.edittedItem==item){this._handleSave(e)}else{var dropdown=e.target.parentElement.querySelector("px-dropdown");if(dropdown){dropdown.toggle()}else{return}}e.preventDefault();e.stopPropagation()}},{key:"_showSaveButton",value:function _showSaveButton(item,editMode,edittedItem){return editMode&&item&&item===edittedItem}},{key:"_showActionDropdown",value:function _showActionDropdown(item,editMode,edittedItem){return!this._showSaveButton(item,editMode,edittedItem)&&item&&item._groupId===void 0&&this.itemActions&&0<this.itemActions.length}},{key:"_convertActions",value:function _convertActions(actions){var dropdownItems=[];if(actions){for(var i=0,input;i<actions.length;++i){input=actions[i];dropdownItems.push({key:"-action-"+input.id,val:input.name,icon:input.icon,selected:!1,disableSelect:!0})}}return dropdownItems}},{key:"_dropdownItemClick",value:function _dropdownItemClick(e){var actionItem=e.target.dataItem;if(actionItem===void 0){console.warn("No item mapping for actions");return}var clickedItem=e.detail.detail.item;if(clickedItem&&clickedItem.key&&"string"==typeof clickedItem.key){if(0===clickedItem.key.indexOf("-action-")){var actionId=clickedItem.key.substr("-action-".length);this._gridValue.dispatchEvent(new CustomEvent("item-action",{bubbles:!0,composed:!0,detail:{item:actionItem,action:actionId}}))}else{console.warn("Unknown action: "+clickedItem.key)}}else{console.warn("Unknown action")}}},{key:"_dropdownClick",value:function _dropdownClick(e){e.stopPropagation();e.preventDefault()}}],[{key:"is",get:function get(){return"px-data-grid-action-column"}},{key:"properties",get:function get(){return{save:Function,isDataColumn:{type:Boolean,value:!1,readOnly:!0},width:{type:String,value:"30px"},edittedItem:{type:Object},editMode:{type:Boolean,value:!1},flexGrow:{type:Number,value:0},itemActions:{type:Array,value:[]}}}},{key:"observers",get:function get(){return["_toggleEditClassName(edittedItem)"]}}]);return DataGridActionColumnElement}(Polymer.GestureEventListeners(Vaadin.GridColumnElement));window.customElements.define(DataGridActionColumnElement.is,DataGridActionColumnElement);window.Predix=window.Predix||{};Predix.DataGridEActionColumnElement=DataGridActionColumnElement}</script>
+
+
+</dom-module>
+</body></html>

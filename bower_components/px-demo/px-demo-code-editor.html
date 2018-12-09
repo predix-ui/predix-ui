@@ -1,0 +1,33 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-code-editor/px-code-editor.html">
+<link rel="import" href="../px-modal/px-modal.html">
+<link rel="import" href="beautify-import.html">
+
+<!--
+Wraps around `px-code-editor` to provide a code editor instance that can be
+used to edit complex props.
+
+##### Usage
+
+    <px-demo-code-editor></px-demo-code-editor>
+
+@element px-demo-code-editor
+@blurb Provides a code editor instance to edit complex props.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-code-editor">
+  <template>
+    <style>.code-editor{width:800px;min-height:150px;height:500px;max-height:calc(100vh - 300px);}.code-editor-container{padding-bottom:1rem;}</style>
+
+    <px-modal header-text="[[title]]" accept-text="Save" reject-text="Cancel" opened="{{enabled}}" on-px-modal-accepted="_handleEditorSaved" on-px-modal-rejected="_handleEditorCanceled" on-px-modal-dismissed="_handleEditorCanceled">
+      <div slot="body" class="code-editor-container">
+        <px-code-editor id="editor" class="code-editor" mode="javascript" value="[[_code]]"></px-code-editor>
+      </div>
+    </px-modal>
+  </template>
+</dom-module>
+
+<script>(function(){Polymer({is:"px-demo-code-editor",properties:{enabled:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0},title:{type:String,value:""},target:{type:HTMLElement,observer:"_bindTargetListener"}},created:function created(){this._handleEditRequest=this._handleEditRequest.bind(this)},attached:function attached(){if(!this.target){this.target=this.parentNode}},detached:function detached(){this.target=null},_bindTargetListener:function _bindTargetListener(target,oldTarget){if(oldTarget){oldTarget.removeEventListener("px-demo-props-code-edit-request",this._handleEditRequest)}if(target){target.addEventListener("px-demo-props-code-edit-request",this._handleEditRequest)}},_handleEditRequest:function _handleEditRequest(evt){var _evt$detail=evt.detail,value=_evt$detail.value,mode=_evt$detail.mode,title=_evt$detail.title,save=_evt$detail.save,code="";if("code:JSON"===mode){try{code=beautifyJavaScript(JSON.stringify(value))}catch(e){}}if("code:EvaluatedJavaScript"===mode){code=stringifyJavaScript(value)}this._code=code;this._codeType=mode;this._editorSaveCallback=save;this.title=title;this.enabled=!0},_handleEditorSaved:function _handleEditorSaved(evt){if(this._editorSaveCallback&&this._codeType){var parsedCode="";if("code:JSON"===this._codeType){parsedCode=parseStringToJSON(this.$.editor.value)}if("code:EvaluatedJavaScript"===this._codeType){parsedCode=dangerousEvalToJavaScript(this.$.editor.value)}this._editorSaveCallback(parsedCode);this._code=null;this._codeType=null;this._editorSaveCallback=null;this.enabled=!1}},_handleEditorCanceled:function _handleEditorCanceled(evt){this._code=null;this._codeType=null;this._editorSaveCallback=null;this.enabled=!1}});function parseStringToJSON(str){var parsed;try{parsed=JSON.parse(str)}catch(err){parsed=eval(str)}return parsed||""};function beautifyJavaScript(str){return js_beautify(str)};function stringifyJavaScriptArray(arr){if(Array.isArray(arr)){if(0===arr.length)return"[]";var parsedEntries=arr.map(function(a){if(Array.isArray(a)){return stringifyJavaScriptArray(a)}return stringifyJavaScriptObject(a)}).join(",");return"[".concat(parsedEntries,"]")}};function stringifyJavaScriptObject(obj){var keys=Object.keys(obj),str="";str+="{";for(var i=0;i<keys.length;i++){var key=keys[i],val=obj[key];str+=key+":";if("function"===typeof val){str+=val.toString()}else if(Array.isArray(val)){str+=stringifyJavaScriptArray(val)}else if("object"===babelHelpers.typeof(val)){str+=stringifyJavaScriptObject(val)}else{str+=JSON.stringify(val)}if(i!==keys.length-1)str+=","}str+="}";return str};function stringifyJavaScript(o){if(Array.isArray(o)){return stringifyJavaScriptArray(o)}if(o&&"object"===babelHelpers.typeof(o)){return stringifyJavaScriptObject(o)}return o+""};function dangerousEvalToJavaScript(str){return eval("(function() { return "+str+" })()")};})();</script>
+</body></html>

@@ -1,0 +1,42 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="px-tree-behavior.html">
+<link rel="import" href="css/px-tree-styles.html">
+
+</head><body><dom-module id="px-tree-node">
+  <template>
+    <style include="px-tree-styles"></style>
+
+      <template is="dom-if" if="[[canOpen]]">
+        <li class$="tree__branch [[_getClass(isActive, isSelected, item, assetGraph)]]">
+          <px-icon class="chevron" icon="[[_getIcon(isActive)]]"></px-icon>
+          <template is="dom-if" if="[[icon]]">
+            <px-icon class="icon" icon="[[icon]]"></px-icon>
+          </template>
+          <span>[[label]]</span>
+        </li>
+        <iron-collapse id="collapse" opened$="[[isActive]]">
+          <div class="collapse-content">
+            <template is="dom-repeat" items="[[items]]" as="subitem">
+              <px-tree-node label="[[_getItemProp(subitem, keys.label)]]" items="[[_getChildren(subitem, assetGraph, childrenUpdated)]]" item="[[subitem]]" keys="[[keys]]" active="[[active]]" active-meta="[[activeMeta]]" selected="[[selected]]" is-active="[[_isItemActive(active, activeMeta, subitem, multiActivate, active.*)]]" is-selected="[[_isItemSelected(selected, subitem, multiSelect, selected.*)]]" can-open="[[_hasChildren(subitem, assetGraph, childrenUpdated)]]" disable-branch-select="[[disableBranchSelect]]" multi-select="[[multiSelect]]" multi-activate="[[multiActivate]]" icon="[[_getItemProp(subitem, keys.icon)]]" asset-graph="[[assetGraph]]" children-updated="[[childrenUpdated]]">
+              </px-tree-node>
+            </template>
+          </div>
+        </iron-collapse>
+      </template>
+      <template is="dom-if" if="[[!canOpen]]">
+        <li class$="tree__leaf [[_getClass(isActive, isSelected, item, assetGraph)]]">
+          <template is="dom-if" if="[[icon]]">
+            <px-icon class="icon" icon="[[icon]]"></px-icon>
+          </template>
+          <span>[[label]]</span>
+        </li>
+      </template>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-tree-node",behaviors:[PxTreeBehavior],listeners:{tap:"_handleTap"},properties:{label:{type:String,value:""},canOpen:{type:Boolean,value:!1},item:{type:Object,value:function value(){return{}}},items:{type:Array,value:function value(){return[]}},isActive:{type:Boolean,value:!1},isSelected:{type:Boolean,value:!1},keys:{type:Object,value:function value(){return{}}},multiSelect:{type:Boolean,value:!1},multiActivate:{type:Boolean,value:!1},icon:{type:String,value:""},childrenUpdated:{type:Boolean,value:null}},_getIcon:function _getIcon(isActive){return isActive?"px-utl:chevron":"px-utl:chevron-right"},_getClass:function _getClass(isActive,isSelected,item,assetGraph){if(!(isActive===void 0||isSelected===void 0||item===void 0||assetGraph===void 0)){var classList=[];if(isActive){classList.push("active")}if(isSelected){classList.push("selected")}if(!assetGraph.isSelectable(item)){classList.push("disabled")}return classList.join(" ")}},_handleTap:function _handleTap(evt){evt.stopPropagation();var path=Polymer.dom(evt).path,shift=Polymer.dom(evt).event.detail.sourceEvent.shiftKey,ctrl=Polymer.dom(evt).event.detail.sourceEvent.ctrlKey||Polymer.dom(evt).event.detail.sourceEvent.metaKey,isIcon="PX-ICON"===path[0].nodeName;this.fire("px-tree-node-tapped",{shift:shift,ctrl:ctrl,item:this.item,isBranch:this.canOpen,isActive:this.isActive,isSelected:this.isSelected,isIcon:isIcon},{cancelable:!0})}});</script>
+</body></html>

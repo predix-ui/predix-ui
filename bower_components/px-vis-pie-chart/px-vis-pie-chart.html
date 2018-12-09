@@ -1,0 +1,91 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+<link rel="import" href="../px-vis/px-vis-pie.html">
+<link rel="import" href="../px-vis/px-vis-axis.html">
+<link rel="import" href="../px-vis/px-vis-tooltip.html">
+<link rel="import" href="../px-vis/px-vis-interaction-space.html">
+<link rel="import" href="../px-vis/px-vis-register.html">
+<link rel="import" href="../px-vis/px-vis-cursor.html">
+<link rel="import" href="../px-vis/px-vis-clip-path.html">
+<link rel="import" href="../px-vis/px-vis-central-tooltip-content.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="css/px-vis-pie-chart-styles.html">
+
+<!--
+Element that allows the user to draw a pie or donut chart for some data.
+
+### Usage
+
+    <px-vis-pie-chart></px-vis-pie-chart>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-pie-empty-color` | The color for an empty pie chart
+  `--px-vis-pie-title-color` | The color for the title name
+  `--px-vis-pie-title-font-size` | The size for the title name
+  `--px-vis-pie-title-value-color` | The color for the title data value
+  `--px-vis-pie-title-value-font-size` | The size for the title data value
+  |
+  |
+  |
+  `--px-vis-series-color-0` | These are the colors used to represent the data series on the charts. Used in numerical order by default. Colors MUST start at 0 and cannot contain gaps between numbers.
+  `--px-vis-series-color-1` |
+  `--px-vis-series-color-2` |
+  `--px-vis-series-color-n` |
+
+
+@element px-vis-pie-chart
+@blurb Element providing solution to no problem in particular.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-pie-chart">
+  <template>
+    <style include="px-vis-pie-chart-styles"></style>
+    <div id="wrapper" class$="[[_chartWrapperClass]]">
+      <!-- empty div for tooltip, do not remove !-->
+      <div class="flex">
+        <div class$="[[_registerWrapperClass]] [[_getAlignment(chartHorizontalAlignment, chartVerticalAlignment, _registerType)]] safari-flex-fix">
+          <!-- Legend -->
+          <px-tooltip id="tooltip" for="popAnchor" orientation="top" delay="10" follow-mouse="">
+            <div style="display:flex; flex-direction:column; align-items:center">
+              <span>{{_ttTitle}}</span>
+              <span>{{_ttMessage}}</span>
+            </div>
+          </px-tooltip>
+          <px-vis-register id="register" class$="[[_getHideClass(hideRegister)]] u-ml-" type="{{_registerType}}" chart-data="[[_internalRegisterData]]" chart-width="[[width]]" dynamic-menu-config="[[dynamicMenuConfig]]" complete-series-config="[[completeSeriesConfig]]" x-axis-type="pie" y-axis-type="pie" use-percentage="[[usePercentage]]">
+          </px-vis-register>
+          <!-- popover + svg -->
+          <div>
+            <div style$="position:relative;width:[[_smallerSide]]px;height:0px;">
+              <px-popover id="popover" style="position:relative" position="relative" popover-title="" orientation="top" hide-overlay="" for="popAnchor">
+              </px-popover>
+              <div id="popAnchor"></div>
+            </div>
+            <!-- Core -->
+            <px-vis-svg id="svg" width="[[_smallerSide]]" height="[[_smallerSide]]" offset="[[_center]]" svg="{{svg}}" px-svg-elem="{{pxSvgElem}}">
+            </px-vis-svg>
+          </div>
+        </div>
+        <!-- pie series -->
+        <px-vis-pie id="pie" svg="[[svg]]" class="absolute" series-color-list="[[seriesColorList]]" width="[[width]]" height="[[height]]" margin="[[margin]]" radius="[[_radius]]" preserve-data-order="[[preserveDataOrder]]" chart-data="[[_internalChartData]]" muted-series="[[mutedSeries]]" clip-path="[[clipPath]]" complete-series-config="[[completeSeriesConfig]]" inner-radius="[[innerRadius]]" donut="[[donut]]" px-svg-elem="[[pxSvgElem]]" use-percentage="[[usePercentage]]" show-title="[[showTitle]]" total="[[_total]]" empty="[[_empty]]">
+        </px-vis-pie>
+      </div>
+    </div>
+    <px-tooltip id="centralTooltip" smart-orientation="" ignore-target-events="" orientation="[[tooltipOrientation]]">
+      <px-vis-central-tooltip-content resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" language="[[language]]" first-date-time-format="[[firstDateTimeFormat]]" second-date-time-format="[[secondDateTimeFormat]]" separator="[[separator]]" timezone="[[timezone]]">
+      </px-vis-central-tooltip-content>
+    </px-tooltip>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-pie-chart",behaviors:[PxVisBehaviorD3.svg,PxVisBehavior.dataset,PxVisBehavior.sizing,PxVisBehavior.completeSeriesConfig,PxVisBehaviorChart.chartCommon,PxVisBehaviorChart.saveImage,PxVisBehaviorChart.chartAutoResize,PxVisBehaviorChart.registerPositioning,PxVisBehaviorChart.circleChart,PxColorsBehavior.getSeriesColors,PxColorsBehavior.dataVisColorTheming,PxVisBehavior.dynamicMenuConfig,PxVisBehaviorChart.actionRequest,PxVisBehavior.updateStylesOverride,PxVisBehaviorChart.centralTooltip],properties:{registerConfig:{type:Object,observer:"_registerConfigChanged"},showTitle:{type:Boolean,value:!1},_internalChartData:{type:Array,computed:"_getInternalData(chartData.*, completeSeriesConfig.*, _forceColorsUpdate)"},_internalRegisterData:{type:Array,computed:"_getInternalRegisterData(_internalChartData, maxRegisters, completeSeriesConfig, aggregateOtherRegister, _forceColorsUpdate)"},_total:{type:Number,value:0},donut:{type:Boolean,value:!1},innerRadius:{type:Number,value:0},usePercentage:{type:Boolean,value:!1},_empty:{type:Boolean,value:!1},maxRegisters:{type:Number,value:0},preventResize:{type:Boolean,value:!1},decimalPercentage:{type:Number,value:0},aggregateOtherRegister:{type:Boolean,value:!1},preserveDataOrder:{type:Boolean,value:!1},_colorIndexMapping:{type:Object,value:function value(){return{}}},preventColorReuse:{type:Boolean,value:!1},_ttMessage:{type:String,value:""},_ttTitle:{type:String,value:""},title:{type:String,value:"Total"},titleSpacing:{type:Number,value:5},_internalUnits:{type:String,computed:"_computeInternalUnits(_currentConfig, usePercentage)"},_currentConfig:{type:String,computed:"_computeSeriesId(completeSeriesConfig.*)"},_forceColorsUpdate:{type:Number,value:1}},observers:["_xAxisConfigChanged(xAxisConfig.*)","_yAxisConfigChanged(yAxisConfig.*)","_positionChanged(_center, _radius)","_drawTitle(svg, showTitle, title, _total, _internalUnits, titleSpacing, _stylesUpdated)","_resetColors(seriesColorList.*)"],listeners:{"iron-resize":"_onIronResize","px-vis-pie-centered-on-slice":"_showPopover","px-vis-pie-mouse-enter-slice":"_showTooltip","px-vis-pie-slice-clicked":"_hideTooltip","px-vis-pie-mouse-leave-slice":"_hideTooltip"},ready:function ready(){this.xAxisType="pie";this.yAxisType="pie";this.includeAllSeries=!0;window.requestAnimationFrame(function(){this.updateStyles()}.bind(this))},attached:function attached(){this._onIronResize();setTimeout(function(){if(!this.chartData||0===this.chartData.length){this.set("_empty",!0)}}.bind(this),500)},_tooltipConfigChanged:function _tooltipConfigChanged(conf){if(this._doesObjHaveValues(conf)){this._applyConfigToElement(this.tooltipConfig,this.$.tooltip)}},_registerConfigChanged:function _registerConfigChanged(conf){if(this._doesObjHaveValues(conf)){this._applyConfigToElement(this.registerConfig,this.$.register)}},_drawTitle:function _drawTitle(){if(this.hasUndefinedArguments(arguments)){return}if(this.showTitle){if(!this._titleGroup){this._titleGroup=this.svg.append("g").attr("class","title-group");this._titleGroup.append("text").attr("class","title").attr("fill",this._checkThemeVariable("--px-vis-pie-title-color","rgb(0,0,0)")).attr("font-size",this._checkThemeVariable("--px-vis-pie-title-font-size","45px")).style("font-family",this._checkThemeVariable("--px-vis-font-family","")).attr("font-style",this._checkThemeVariable("--px-vis-font-family","")).text(this.title).attr("text-anchor","middle").attr("transform","translate(0,"+"-"+this.titleSpacing+")");this._titleGroup.append("text").attr("class","value").attr("fill",this._checkThemeVariable("--px-vis-pie-title-value-color","rgb(0,0,0)")).attr("font-size",this._checkThemeVariable("--px-vis-pie-title-value-font-size","45px")).style("font-family",this._checkThemeVariable("--px-vis-font-family","")).attr("font-style",this._checkThemeVariable("--px-vis-font-family","")).text(this._total+" "+this._currentConfig.xAxisUnit).attr("text-anchor","middle").attr("alignment-baseline","hanging").attr("transform","translate(0,"+this.titleSpacing+")")}else{this._titleGroup.select("text.title").attr("fill",this._checkThemeVariable("--px-vis-pie-title-color","rgb(0,0,0)")).attr("font-size",this._checkThemeVariable("--px-vis-pie-title-font-size","45px")).style("font-family",this._checkThemeVariable("--px-vis-font-family","")).attr("font-style",this._checkThemeVariable("--px-vis-font-family","")).text(this.title).attr("transform","translate(0,"+"-"+this.titleSpacing+")");this._titleGroup.select("text.value").attr("fill",this._checkThemeVariable("--px-vis-pie-title-value-color","rgb(0,0,0)")).attr("font-size",this._checkThemeVariable("--px-vis-pie-title-value-font-size","45px")).style("font-family",this._checkThemeVariable("--px-vis-font-family","")).attr("font-style",this._checkThemeVariable("--px-vis-font-family","")).text(this._total+" "+this._currentConfig.xAxisUnit).attr("transform","translate(0,"+this.titleSpacing+")")}}else if(this._titleGroup){this._titleGroup.remove();this._titleGroup=null}},_getInternalData:function _getInternalData(chartData,completeSeriesConfig){if(this._isObjEmpty(this.completeSeriesConfig)){return}var total=0,id=this._returnKeys(this.completeSeriesConfig)[0],xKey=this.completeSeriesConfig[id].x,yKey=this.completeSeriesConfig[id].y,result=[];if(!this.chartData||0===this.chartData.length){this.set("_total",0);this.set("_empty",!0);this._colorIndexMapping={}}else{this.set("_empty",!1);for(var usedColors=[],i=0,colorIndex;i<this.chartData.length;i++){colorIndex=this._colorIndexMapping[this.chartData[i][yKey]];total+=this.chartData[i][xKey];result.push(JSON.parse(JSON.stringify(this.chartData[i])));if(colorIndex&&!this.preventColorReuse){usedColors.push(colorIndex);result[i].colorIndex=colorIndex}}this._colorIndexMapping={};for(var freeIndex=0,maxColors=this.seriesColorList.length,i=0;i<result.length;i++){if(!result[i].colorIndex){if(usedColors.length===maxColors||usedColors.length>maxColors){freeIndex+=1;freeIndex=freeIndex%maxColors}else{while(-1!==usedColors.indexOf(freeIndex)){freeIndex+=1}}result[i].colorIndex=freeIndex;usedColors.push(freeIndex)}this._colorIndexMapping[result[i][yKey]]=result[i].colorIndex}this.set("_total",total.toFixed(this.decimalPercentage));for(var i=0;i<result.length;i++){result[i].percentage=(100*(result[i][xKey]/total)).toFixed(this.decimalPercentage)}}return result},_getInternalRegisterData:function _getInternalRegisterData(_internalChartData,maxRegisters,completeSeriesConfig,aggregateOtherRegister){if(this.hasUndefinedArguments(arguments)){return}var result=[];if(!maxRegisters||1>maxRegisters){result=_internalChartData.slice(0).sort(function(a,b){return b.percentage-a.percentage});for(var i=0;i<result.length;i++){result[i].backgroundColor=this._getColor(result[i].colorIndex)}}else{var id=this._returnKeys(completeSeriesConfig)[0],xKey=this.completeSeriesConfig[id].x,yKey=this.completeSeriesConfig[id].y,mapped=_internalChartData.map(function(el,i){return{index:i,value:el[xKey]}}),count=0,effectiveMaxRegisters=maxRegisters,lastSlice={percentage:0,backgroundColor:this.colors.white};lastSlice[xKey]=0;lastSlice[yKey]="Other";if(0<maxRegisters&&aggregateOtherRegister){effectiveMaxRegisters-=1}mapped.sort(function(a,b){return b.value-a.value});mapped.map(function(el){if(count<effectiveMaxRegisters){var slice={};slice=_internalChartData[el.index];slice.backgroundColor=this._getColor(_internalChartData[el.index].colorIndex);result.push(slice)}else if(aggregateOtherRegister){lastSlice[xKey]+=+_internalChartData[el.index][xKey];lastSlice.percentage+=+_internalChartData[el.index].percentage}count++}.bind(this));if(aggregateOtherRegister){result.push(lastSlice)}}return result},_applyConfigToElement:function _applyConfigToElement(config,element){if("object"!==babelHelpers.typeof(config)){console.error("Configuration object must be valid JSON: "+config);return}if(!element){console.error("Cannot apply config to undefined element");return}for(var keys=Object.keys(config),i=0,key;i<keys.length;i++){key=keys[i];element.set(key,config[key])}},_onIronResize:function _onIronResize(){if(this.preventResize){return}this.debounce("ironresize",function(){var _Mathmax=Math.max,wrapperRect=this.$.wrapper.getBoundingClientRect(),registerRect=this.$.register.getBoundingClientRect();if("horizontal"===this.$.register.type){this.set("width",_Mathmax(wrapperRect.width,0));this.set("height",_Mathmax(wrapperRect.height-registerRect.height,0))}else{this.set("width",_Mathmax(wrapperRect.width-registerRect.width,0));this.set("height",_Mathmax(wrapperRect.height,0))}},this.debounceResizeTiming)},_repositionTitle:function _repositionTitle(){this.$.pie._repositionTitle()},_getAlignment:function _getAlignment(hor,vert,type){if(this.hasUndefinedArguments(arguments)){return}var base="";if("horizontal"===type){if("center"===hor){base+="flex--middle "}else if("right"===hor){base+="flex--bottom "}else{base+="flex--top "}if("center"===vert){base+="flex--center"}else if("bottom"===vert){base+="flex--right"}else{base+="flex--left"}}else{base+="flex--top"}return base},_showPopover:function _showPopover(evt){this.$.popover.popoverTitle=evt.detail.datum.data[this._currentConfig.y];this.$.popover.popoverBody=this._getSliceValue(evt.detail.datum);this.$.popover.show()},_showTooltip:function _showTooltip(evt){if(this._empty){this.set("_ttTitle","Empty");this.set("_ttMessage","")}else{this.set("_ttTitle",evt.detail.datum.data[this._currentConfig.y]);this.set("_ttMessage",this._getSliceValue(evt.detail.datum))}var center=Px.d3.arc().centroid(evt.detail.rotatedDatum),rect=this.pxSvgElem.getBoundingClientRect();this.$.tooltip.mouseCoords=[center[0]+rect.left+this._center[0]+window.window.pageXOffset,center[1]+rect.top+this._center[1]+window.window.pageYOffset];this.$.tooltip._show()},_hideTooltip:function _hideTooltip(evt){this.$.tooltip._hide()},_positionChanged:function _positionChanged(){if(this.isVarNumber(this._center)&&this.isVarNumber(thie._radius)){this.$.popover.style.top=this._center[1]-this._radius}},_computeInternalUnits:function _computeInternalUnits(){if(this.hasUndefinedArguments(arguments)){return}return this.usePercentage?"%":this._currentConfig.xAxisUnit},_getSliceValue:function _getSliceValue(datum){if(this.usePercentage){return datum.data.percentage+this._internalUnits}else{return datum.data[this._currentConfig.x]+" "+this._internalUnits}},_computeSeriesId:function _computeSeriesId(completeSeriesConfig){if(this._doesObjHaveValues(completeSeriesConfig)){return this.completeSeriesConfig[Object.keys(this.completeSeriesConfig)[0]]}},_resetColors:function _resetColors(){if(this._forceColorsUpdate){this._colorIndexMapping={};this.set("_forceColorsUpdate",this._forceColorsUpdate+1)}}});</script>
+</body></html>

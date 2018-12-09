@@ -1,0 +1,81 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+<link rel="import" href="../../px-demo/css/px-demo-styles.html">
+<link rel="import" href="../../px-theme/px-theme-styles.html">
+</head><body><custom-style>
+  <style include="px-theme-styles" is="custom-style"></style>
+</custom-style>
+
+<!-- Imports for this component -->
+<link rel="import" href="../px-vis-heatmap.html">
+<!-- Demo DOM module -->
+<dom-module id="px-vis-heatmap-demo">
+  <template>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-heatmap" description="The px-vis-heatmap component" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}" config="[[chosenConfig]]"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" class="flex__item flex" style="width: 100%">
+        <div class="flex--column flex__item" style="width:100%; height:500px">
+          <div style="height:90%">
+            <px-vis-heatmap prevent-resize="{{props.preventResize.value}}" debounce-resize-timing="{{props.debounceResizeTiming.value}}" width="{{props.width.value}}" height="{{props.height.value}}" margin="{{props.margin.value}}" chart-data="{{props.chartData.value}}" chart-extents="{{props.chartExtents.value}}" show-custom-column="{{props.showCustomColumn.value}}" custom-column-config="{{props.customColumnConfig.value}}" square-mode="{{props.squareMode.value}}" series-config="{{props.seriesConfig.value}}" scale-padding="{{props.scalePadding.value}}" padding-outer="{{props.paddingOuter.value}}" show-cell-value="{{props.showCellValue.value}}" x-axis-config="{{props.xAxisConfig.value}}" y-axis-config="{{props.yAxisConfig.value}}" tooltip-delay="{{props.tooltipDelay.value}}" show-legend="{{props.showLegend.value}}" legend-config="{{props.legendConfig.value}}" collapse-at="{{props.collapseAt.value}}" on-collapsed-changed="_collapsedChanged" on-cell-click="_handleCellClick" on-cell-mouseover="_handleCellMouseover" on-cell-mouseout="_handleCellMouseout">
+            </px-vis-heatmap>
+          </div>
+        </div>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-vis-heatmap" codepen-link="https://glitch.com/edit/#!/px-vis-heatmap-demo">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-vis-heatmap" api-source-file-path="px-vis-heatmap-api.json">
+    </px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-heatmap-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){var showDataAsGradient=!1;return[{configName:"Default",configReset:!0,chartData:this._generateData(10,10,showDataAsGradient,-100,100),chartExtents:this._generateChartExtents(10,10,-100,100),showCustomColumn:!1},{configName:"Correlation Plot",configReset:!0,chartData:this._generateCorrelationChartData(10,10,showDataAsGradient,!1,-1,1),chartExtents:this._generateChartExtents(10,10,-1,1),showCustomColumn:!1,customColumnConfig:void 0,seriesConfig:this._generateSeriesConfig(["#d1c701","#7bbc00","#4782a8"])},{configName:"Half Correlation Plot",configReset:!0,chartData:this._generateCorrelationChartData(10,10,showDataAsGradient,!0,-1,1),chartExtents:this._generateChartExtents(10,10,-1,1),showCustomColumn:!1,customColumnConfig:void 0,seriesConfig:this._generateSeriesConfig(["#d1c701","#7bbc00","#4782a8"])},{configName:"Confusion Matrix",configReset:!0,width:600,chartData:this._generateCorrelationChartData(10,10,showDataAsGradient,!1,0,100),chartExtents:this._generateChartExtents(10,10,0,100),showCustomColumn:!0,customColumnConfig:this._generateCustomColumnConfig(10),seriesConfig:this._generateSeriesConfig(["#fff","#4881a9"])}]}},eventMessage:{type:String}},ready:function ready(){var configEl=this.shadowRoot?this.shadowRoot.querySelector("px-demo-configs"):Polymer.dom(this.root).querySelector("px-demo-configs");configEl.chosenConfig=this.configs[0]},demoProps:{preventResize:{type:Boolean,defaultValue:!1,inputType:"toggle",inputLabel:"Prevent Resize [demo max 500px height]"},debounceResizeTiming:{type:Number,defaultValue:250,inputType:"text"},squareMode:{type:Boolean,inputType:"toggle",defaultValue:!0},showCellValue:{type:Boolean,inputType:"toggle",defaultValue:!1},width:{type:Number,inputType:"text",defaultValue:500,inputDisabled:!1},height:{type:Number,inputType:"text",defaultValue:400,inputDisabled:!1},margin:{type:Object,inputType:"code:JSON",defaultValue:{top:10,right:120,bottom:70,left:70}},chartData:{type:Array,inputType:"code:JSON",defaultValue:[{time:"1:00",asset:"Asset 1",temp:0},{time:"1:00",asset:"Asset 2",temp:10},{time:"1:00",asset:"Asset 3",temp:20},{time:"2:00",asset:"Asset 1",temp:30},{time:"2:00",asset:"Asset 2",temp:40},{time:"2:00",asset:"Asset 3",temp:50},{time:"3:00",asset:"Asset 1",temp:65},{time:"3:00",asset:"Asset 2",temp:75},{time:"3:00",asset:"Asset 3",temp:100}]},chartExtents:{type:Object,inputType:"code:JSON",defaultValue:{time:["1:00","2:00","3:00"],asset:["Asset 1","Asset 2","Asset 3"],temp:[0,100]}},seriesConfig:{type:Object,inputType:"code:JSON",defaultValue:{series1:{name:"Series 1",x:"time",y:"asset",value:"temp"}}},showCustomColumn:{type:Boolean,inputType:"toggle",defaultValue:!1},customColumnConfig:{type:Object,inputType:"code:JSON",defaultValue:{}},scalePadding:{type:Number,inputType:"number",defaultValue:0},paddingOuter:{type:Number,inputType:"number",defaultValue:0},collapseAt:{type:Number,inputType:"number",defaultValue:720},showLegend:{type:Boolean,inputType:"toggle",defaultValue:!0},legendConfig:{type:Object,inputType:"code:JSON",defaultValue:{orientation:"right",yAxisConfig:{tickSizeInner:1}}},tooltipDelay:{type:Number,inputType:"number",defaultValue:0},xAxisConfig:{type:Object,inputType:"code:JSON",defaultValue:{title:"Time",orientation:"bottom",labelPosition:"center",tickSizeInner:7}},yAxisConfig:{type:Object,inputType:"code:JSON",defaultValue:{title:"Asset",orientation:"left",labelPosition:"center",tickSizeInner:7}}},observers:["_preventResizeChanged(props.preventResize.value)"],_preventResizeChanged:function _preventResizeChanged(){this.set("props.width.inputDisabled",!this.props.preventResize.value);this.set("props.height.inputDisabled",!this.props.preventResize.value)},_getChart:function _getChart(){var chart;if(this.shadowRoot){chart=this.shadowRoot.querySelector("px-vis-heatmap")}else{chart=Polymer.dom(this.root).querySelector("px-vis-heatmap")}return chart},_generateGradientData:function _generateGradientData(){var _NumberisInteger=Number.isInteger,_NumberparseInt=Number.parseInt,chart=this._getChart(),xSize=_NumberparseInt(this.$.xSize.value),ySize=_NumberparseInt(this.$.ySize.value);if(_NumberisInteger(xSize)&&_NumberisInteger(ySize)){chart.set("chartExtents",this._generateChartExtents(xSize,ySize));chart.set("chartData",this._generateData(xSize,ySize,!0,0,100))}},_generateRandomData:function _generateRandomData(){var _NumberisInteger2=Number.isInteger,_NumberparseInt2=Number.parseInt,chart=this._getChart(),xSize=_NumberparseInt2(this.$.xSize.value),ySize=_NumberparseInt2(this.$.ySize.value);if(_NumberisInteger2(xSize)&&_NumberisInteger2(ySize)){chart.set("chartExtents",this._generateChartExtents(xSize,ySize));chart.set("chartData",this._generateData(xSize,ySize,!1,0,100))}},_showCorrelationPlot:function _showCorrelationPlot(){var chart=this._getChart(),xSize=10,ySize=10;if(!0){chart.set("chartExtents",this._generateChartExtents(xSize,ySize));chart.set("chartData",this._generateCorrelationChartData(xSize,ySize))}},_showHalfCorrelationPlot:function _showHalfCorrelationPlot(){var chart=this._getChart(),xSize=10,ySize=10;if(!0){chart.set("chartExtents",this._generateChartExtents(xSize,ySize));chart.set("chartData",this._generateCorrelationChartData(xSize,ySize,!0,!0))}},_generateData:function _generateData(xNum,yNum,isGradient,minVal,maxVal){minVal=minVal!==void 0?minVal:0;maxVal=maxVal!==void 0?maxVal:100;for(var data=[],x=0;x<xNum;x++){for(var y=0,power;y<yNum;y++){power=isGradient?(x+y)/(xNum+yNum-2):Math.random();data.push({time:x+":00",asset:"Asset "+y,temp:Math.round(minVal+(maxVal-minVal)*power)})}}return data},_generateCorrelationChartData:function _generateCorrelationChartData(xSize,ySize,isGradient,isHalfCorrelation,minVal,maxVal){minVal=minVal!==void 0?minVal:0;maxVal=maxVal!==void 0?maxVal:100;for(var useRounding=5<maxVal-minVal?!0:!1,powerMax=.75,data=[],x=0;x<xSize;x++){for(var y=0;y<ySize;y++){if(isHalfCorrelation&&y>x){continue}var power=void 0;if(x===y){power=1}else if(isGradient){power=(x+y)/(xSize+ySize-2)}else{power=Math.random();power=Math.min(powerMax,power)}var tempValue=minVal+(maxVal-minVal)*power;data.push({time:x+":00",asset:"Asset "+y,temp:useRounding?Math.round(tempValue):tempValue})}}return data},_generateCustomColumnConfig:function _generateCustomColumnConfig(ySize){for(var config={columnLabel:"Accuracy",columnWidth:75,columnData:[]},i=0;i<ySize;i++){config.columnData.push({y:"Asset "+i,value:10*i})}return config},_generateChartExtents:function _generateChartExtents(xNum,yNum,minVal,maxVal){minVal=minVal!==void 0?minVal:0;maxVal=maxVal!==void 0?maxVal:100;for(var exts={time:[],asset:[],temp:[minVal,maxVal]},i=0;i<xNum;i++){exts.time.push(i+":00")}for(var _i=0;_i<yNum;_i++){exts.asset.push("Asset "+_i)}return exts},_generateSeriesConfig:function _generateSeriesConfig(colors){var config={series1:{name:"Series 1",x:"time",y:"asset",value:"temp"}};if(colors){config.series1.colors=colors}return config},_collapsedChanged:function _collapsedChanged(e,details){var chart=this._getChart();if(details.value){chart.set("margin",{top:chart.margin.top,right:10,bottom:170,left:chart.margin.left})}else{chart.set("margin",{top:chart.margin.top,right:120,bottom:70,left:chart.margin.left})}},_handleCellClick:function _handleCellClick(e,details){this.set("eventMessage","Cell clicked ("+details.cell.time+", "+details.cell.asset+") ["+details.cell.temp+"]")},_handleCellMouseover:function _handleCellMouseover(e,details){this.set("eventMessage","Cell mouseover ("+details.cell.time+", "+details.cell.asset+") ["+details.cell.temp+"]")},_handleCellMouseout:function _handleCellMouseout(e,details){this.set("eventMessage","Cell mouseout ("+details.cell.time+", "+details.cell.asset+") ["+details.cell.temp+"]")},_export:function _export(){var _this=this,chart=this._getChart(),modal;if(this.shadowRoot){modal=this.shadowRoot.querySelector("px-modal")}else{modal=Polymer.dom(this.root).querySelector("px-modal")}chart.getImage(function(data){if(_this._img){_this.$.exportedImageContainer.removeChild(_this._img)}_this._img=document.createElement("img");_this._img.src=data.image;_this.$.exportedImageContainer.appendChild(_this._img);modal.opened=!0})}});</script>
+</body></html>

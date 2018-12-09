@@ -1,0 +1,85 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-box-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-box-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-box-design-demo-styles" is="custom-style"></style>
+
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-box-design" description="The Box module simply boxes off content, with a variety of padding options." layer="objects" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-clearfix-design&quot;,
+    &quot;https://github.com/PredixDev/px-defaults-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+
+<!-- 2: Set Options -->
+<px-sass-doc-option slot="options" option-name="Padding" choose-with="dropdown" choices="[
+    &quot;flush&quot;,
+    &quot;tiny&quot;,
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<div class$="{{boxClasses}}">
+  Lorem Ipsum Dolor Sit Amet
+</div>
+<br>
+<strong>Note:</strong> a border has been added to the demo above for
+illustration purposes - by default, px-box-design does not include a
+border around box elements.
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="intro">
+</section>
+
+<section slot="usage">
+```
+<!-- Default -->
+<div class="box">...</div>
+
+
+<!-- Box Flush -->
+<div class="box box--flush">...</div>
+
+
+<!-- Box Tiny -->
+<div class="box box--tiny">...</div>
+
+
+<!-- Box Small -->
+<div class="box box--small">...</div>
+
+
+<!-- Box Large -->
+<div class="box box--large">...</div>
+
+
+<!-- Box Huge -->
+<div class="box box--huge">...</div>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-box-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.boxClasses=this._boxClasses();this.importCode=this._importCode();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_boxClasses:function _boxClasses(){var opts=this.selectedOptions||{},strings=[];if("flush"===opts.Padding)strings.push("box--flush");if("tiny"===opts.Padding)strings.push("box--tiny");if("small"===opts.Padding)strings.push("box--small");if("large"===opts.Padding)strings.push("box--large");if("huge"===opts.Padding)strings.push("box--huge");return("box "+strings.join(" ")).trim()},_importCode:function _importCode(){var opts=this.selectedOptions||{},strings=[];if("flush"===opts.Padding)strings.push("$inuit-enable-box--flush : true;");if("tiny"===opts.Padding)strings.push("$inuit-enable-box--tiny : true;");if("small"===opts.Padding)strings.push("$inuit-enable-box--small : true;");if("large"===opts.Padding)strings.push("$inuit-enable-box--large : true;");if("huge"===opts.Padding)strings.push("$inuit-enable-box--huge : true;");return(strings.join("\n")+"\n@import 'px-box-design/_objects.box.scss';").trim()}});</script>
+</body></html>

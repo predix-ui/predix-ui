@@ -1,0 +1,29 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+</head><body><dom-module id="px-icon">
+  <template>
+    <style>:host{--px-icon-default-width:22px;--px-icon-default-height:22px;--px-icon-stroke-width:1;--iron-icon-width:var(--px-icon-default-width);--iron-icon-height:var(--px-icon-default-height);color:var(--iron-icon-stroke-color, inherit);fill:var(--iron-icon-fill-color, none);stroke:var(--iron-icon-stroke-color, currentColor);@apply --layout-inline;@apply --layout-center-center;position:relative;vertical-align:middle;width:var(--iron-icon-width);height:var(--iron-icon-height);stroke-width:var(--px-icon-stroke-width);@apply --iron-icon;}:host([hidden]){display:none;}:host([icon^='px-utl']),
+      :host([icon^='px-doc']){--px-icon-default-width:16px;--px-icon-default-height:16px;}:host([icon^='px-obj']),
+      :host([icon^='px-fea']),
+      :host([icon^='px-com']){--px-icon-default-width:32px;--px-icon-default-height:32px;}iron-icon{color:inherit;fill:inherit;stroke:inherit;}</style>
+    <iron-icon icon="[[icon]]"></iron-icon>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-icon",properties:{icon:{type:String,reflectToAttribute:!0,observer:"_updateStylesIndirect"}},_updateStylesIndirect:function _updateStylesIndirect(){this.updateStyles()}});</script>
+</body></html>

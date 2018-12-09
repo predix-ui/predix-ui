@@ -1,0 +1,53 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/px-product-switcher-styles.html">
+
+<!--
+Px-product-switcher is a navigation component for switching between products or applications, a level above the standard px-app-nav for navigation within an application.
+
+### Usage
+
+    <px-product-switcher
+      items='[{"key":"1","val":"Application 1","icon":"px-nav:favorite"}]'
+      horizontal-align="left"
+      vertical-align="bottom">
+      <div slot="header"> Content for the top of the list </div>
+      <div slot="footer"> Content for the bottom of the list </div>
+    </px-product-switcher>
+
+@element px-product-switcher
+@blurb Px-product-switcher is a navigation component for switching between products or applications.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-product-switcher">
+  <template>
+    <style include="px-product-switcher-styles"></style>
+
+    <px-dropdown id="switcher" class="dropdown" horizontal-align="[[horizontalAlign]]" vertical-align="[[verticalAlign]]" items="[[items]]" opened="{{opened}}" mobile="{{mobile}}" mobile-at="[[mobileAt]]" selected="{{selected}}" disable-dynamic-align="" show-caret="" hide-mobile-buttons="">
+      <px-icon class="trigger" icon="[[icon]]" slot="trigger" tabindex="0"></px-icon>
+      <slot name="header" slot="header"></slot>
+      <slot name="footer" slot="footer"></slot>
+
+    </px-dropdown>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-product-switcher",listeners:{"iron-select":"_handleSelection"},properties:{items:{type:Array,notify:!0,value:function value(){return[]}},opened:{type:Boolean,notify:!0,value:!1},horizontalAlign:{type:String,value:"left"},verticalAlign:{type:String,value:"top"},mobile:{type:Boolean,value:!1,reflectToAttribute:!0},mobileAt:{type:Number,value:400},icon:{type:String,value:"px-nav:list-view"},selected:{type:String,value:"",notify:!0}},toggle:function toggle(){this.$.switcher.toggle()},_getClass:function _getClass(opened){return this.$.switcher.verticalAlign+" "+this.$.switcher.horizontalAlign},_handleSelection:function _handleSelection(evt){this.$.switcher.opened=!1;this.fire("px-product-switcher-changed",{key:evt.detail.item.key,val:evt.detail.item.val})}});</script>
+</body></html>

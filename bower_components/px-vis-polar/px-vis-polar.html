@@ -1,0 +1,174 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-behavior-renderer.html">
+<link rel="import" href="../px-vis/px-vis-behavior-scale-radial.html">
+<link rel="import" href="../px-vis/px-vis-svg-canvas.html">
+<link rel="import" href="../px-vis/px-vis-scatter.html">
+<link rel="import" href="../px-vis/px-vis-line-svg.html">
+<link rel="import" href="../px-vis/px-vis-scatter-canvas.html">
+<link rel="import" href="../px-vis/px-vis-line-canvas.html">
+<link rel="import" href="../px-vis/px-vis-interaction-space.html">
+<link rel="import" href="../px-vis/px-vis-axis.html">
+<link rel="import" href="../px-vis/px-vis-tooltip.html">
+<link rel="import" href="../px-vis/px-vis-register.html">
+<link rel="import" href="../px-vis/px-vis-clip-path.html">
+<link rel="import" href="../px-vis/px-vis-radial-gridlines.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../px-vis/px-vis-toolbar.html">
+<link rel="import" href="../px-vis/px-vis-cursor.html">
+<link rel="import" href="../px-vis/px-vis-highlight-point.html">
+<link rel="import" href="../px-vis/px-vis-highlight-point-canvas.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-vis/px-vis-annotations.html">
+<link rel="import" href="../px-vis/px-vis-central-tooltip-content.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+
+<link rel="import" href="css/px-vis-polar-styles.html">
+<!--
+The	px-vis-polar component allows the user to draw a phase and amplitude on a polar plot. Initial height and width can be set but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is expecting the phase in radians but can use degrees by using the useDegrees property.
+
+### Usage
+
+```
+    <px-vis-polar
+        id="chart"
+        chart-data="{{data}}"
+        margin='{ "top": "0", "bottom": "40", "left": "50", "right": "10" }'
+        register-config='{
+            "type": "vertical"}'
+        series-config='{
+            "firstSerie": {
+            "name": "Data",
+            "yAxisUnit": "m/s",
+            "y": "amplitudeId",
+            "x":"phaseId"
+            }
+        }'
+        show-tooltip
+        time-data="x"
+        time-domain="[[selectedDomain]]">
+    </px-vis-polar>
+```
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  `--px-vis-axis-inline-title-color` | The color for the axis title
+  `--px-vis-axis-inline-type-color` | The color for the axis lines, axis ticks, and axis tick labels when using 'inline' labelPosition
+  `--px-vis-axis-inline-box-color` | The color for the tick boxes when using 'inline' labelPosition
+  |
+  |
+  |
+  `--px-vis-gridlines-color` | The color for the gridlines
+  |
+  |
+  |
+  `--px-vis-register-series-name` | The color of the data series name
+  `--px-vis-register-data-value` | The color of the data series value
+  `--px-vis-register-box` | The color of the box around the register when a scrollbar is present
+  |
+  |
+  |
+  `--px-vis-series-color-0` | These are the colors used to represent the data series on the charts. Used in numerical order by default. Colors MUST start at 0 and cannot contain gaps between numbers.
+  `--px-vis-series-color-1` |
+  `--px-vis-series-color-2` |
+  `--px-vis-series-color-n` |
+  |
+  |
+  |
+  `--px-tooltip-background-color` | The color of the tooltip
+  `--px-tooltip-text-color` | The color of the tooltip text
+  `--px-tooltip-light-background-color` | The color of the light version tooltip
+  `--px-tooltip-light-text-color` | The color of the light version tooltip text
+  `--px-tooltip-light-border-color`| The color of the light version tooltip border
+  |
+  |
+  |
+  `--px-vis-font-family` | The font family for all labels and text
+
+
+@element px-vis-polar
+@blurb The	px-vis-polar component allows to draw a phase and amplitude on a polar plot. Initial height and width can be set but the component will try to fill its parent container on resize. It can be manually notified to recalculate its size by using notifyResize(). The chart is expecting the phase in radians but can use degrees by using the useDegrees property.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-vis-polar">
+  <template>
+    <style include="px-vis-polar-styles"></style>
+
+    <div id="wrapper" class$="{{_chartWrapperClass}}">
+      <!-- Legend -->
+      <div id="svgWrapper">
+        <!-- Core -->
+        <div class$="{{_registerWrapperClass}}">
+          <px-vis-register id="register" chart-width="[[width]]" class$="{{_getHideClass(hideRegister)}}" dynamic-menu-config="[[dynamicMenuConfig]]" tooltip-data="[[_registerTooltipData]]" chart-data="[[_filteredData]]" complete-series-config="[[completeSeriesConfig]]" muted-series="{{mutedSeries}}" type="{{_registerType}}" x-axis-type="linear" y-axis-type="linear" current-page="[[_registerCurrentPage]]" total-pages="[[_registerTotalPages]]" display-page-arrows="[[_registerDisplayPageArrows]]">
+          </px-vis-register>
+          <div class="flex flex--col safari-flex-fix">
+            <px-vis-toolbar id="toolbar" current-sub-config="[[toolbarSubConfig]]" action-config="{{actionConfig}}" within-chart="" chart-margin="[[margin]]" show-tooltip="{{_internalShowTooltip}}" config="{&quot;zoom&quot;: true, &quot;pan&quot;: true, &quot;tooltip&quot;: true}">
+            </px-vis-toolbar>
+            <px-vis-svg-canvas class="inline--flex" id="svg" width="[[_smallerSide]]" height="[[_smallerSide]]" canvas-context="{{canvasContext}}" canvas-layers="{{canvasLayers}}" canvas-layers-config="[[canvasLayersConfig]]" svg="{{svg}}" px-svg-elem="{{pxSvgElem}}" svg-lower="{{svgLower}}" px-svg-elem-lower="{{pxSvgElemLower}}" offset="[[_center]]">
+                <px-vis-annotations slot="4" svg="[[svg]]" x="[[x]]" y="[[y]]" margin="[[_internalMargin]]" domain-changed="[[domainChanged]]" complete-series-config="[[completeSeriesConfig]]" annotation-data="[[annotationData]]" show-strong-icon="[[showStrongIcon]]" offset="[[_center]]" radial="">
+              </px-vis-annotations>
+            </px-vis-svg-canvas>
+          </div>
+
+          <px-vis-interaction-space id="interactionSpace" chart-id="[[chartId]]" svg="[[layer.6]]" width="[[_radius]]" height="[[_radius]]" radial="" use-degrees="[[useDegrees]]" counter-clockwise="[[counterClockwise]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" use-quadtree="" series-keys="[[_seriesKeys]]" chart-data="[[_filteredData]]" default-empty-data="[[defaultEmptyData]]" tooltip-data="{{tooltipData}}" crosshair-data="{{crosshairData}}" generating-crosshair-data="{{generatingCrosshairData}}" x-axis-type="linear" y-axis-type="linear" complete-series-config="[[completeSeriesConfig]]" mouse-rect="{{mouseRect}}" time-data="[[timeData]]" action-config="[[actionConfig]]" show-tooltip="{{_computedShowTooltip}}" prevent-web-worker-synchronization="[[preventWebWorkerSynchronization]]" ww-data-sync-counter="[[wwDataSyncCounter]]" extents-data="{{extentsData}}" extents-action="{{extentsAction}}" muted-series="[[mutedSeries]]" hard-mute="[[hardMute]]">
+          </px-vis-interaction-space>
+
+          <!-- scatter series -->
+          <template is="dom-repeat" items="[[_seriesKeys]]">
+            <template is="dom-if" if="[[renderToCanvas]]" restamp="">
+              <px-vis-scatter-canvas canvas-context="[[canvasContext]]" series-id="[[item]]" chart-data="[[_filteredData]]" complete-series-config="[[completeSeriesConfig]]" radial="" renderer-type="filteredChartData" width="[[_diameter]]" height="[[_diameter]]" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" muted-series="[[mutedSeries]]" serie-to-redraw-on-top="[[serieToRedrawOnTop]]" show-arrows="[[showArrows]]" arrow-config="[[arrowConfig]]">
+              </px-vis-scatter-canvas>
+              <px-vis-line-canvas id="lineCanvas" canvas-context="[[canvasContext]]" series-id="[[item]]" chart-data="[[_filteredData]]" complete-series-config="[[completeSeriesConfig]]" radial-line="" renderer-type="filteredChartData" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" muted-series="[[mutedSeries]]" serie-to-redraw-on-top="[[serieToRedrawOnTop]]">
+              </px-vis-line-canvas>
+            </template>
+            <template is="dom-if" if="[[!renderToCanvas]]" restamp="">
+              <px-vis-scatter svg="[[layer.3]]" series-id="[[item]]" chart-data="[[_filteredData]]" radial="" width="[[_diameter]]" height="[[_diameter]]" clip-path="" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" muted-series="[[mutedSeries]]" complete-series-config="[[completeSeriesConfig]]" time-data="{{timeData}}" show-arrows="[[showArrows]]" arrow-config="[[arrowConfig]]">
+              </px-vis-scatter>
+              <px-vis-line-svg svg="[[layer.2]]" radial-line="" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" series-id="[[item]]" chart-data="[[_filteredData]]" muted-series="[[mutedSeries]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" complete-series-config="[[completeSeriesConfig]]">
+              </px-vis-line-svg>
+            </template>
+          </template>
+        </div>
+      </div>
+      <px-vis-cursor horizontal-line="full" vertical-line="full" circle-point="yes" radial="" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" svg="[[layer.5]]" width="[[_radius]]" height="[[_radius]]" margin="[[_internalCircleMargins]]" chart-data="[[_filteredData]]" tooltip-data="[[_registerTooltipData]]" complete-series-config="[[completeSeriesConfig]]" muted-series="[[mutedSeries]]" hard-mute="[[hardMute]]" offset="[[offset]]" series-keys="[[_seriesKey]]" allow-negative-values="[[allowNegativeValues]]">
+      </px-vis-cursor>
+      <!-- the 4 axis -->
+      <template is="dom-repeat" items="[[_axisConfigArray]]">
+        <px-vis-axis svg="[[layer.4]]" axis="[[y]]" height="[[item.height]]" width="[[item.width]]" title="[[item.title]]" title-location="[[item.titleLocation]]" rotation="[[item.rotation]]" orientation="[[item.orientation]]" label-rotation="[[item.labelRotation]]" label-translation="[[item.labelTranslation]]" label-type-size="[[item.labelTypeSize]]" title-type-size="[[item.titleTypeSize]]" ticks="[[_getNumberOfTick(_radius)]]" margin="[[margin]]" complete-series-config="[[completeSeriesConfig]]" prevent-series-bar="" domain-changed="[[domainChanged]]" label-position="inline" drawn-tick-values="{{_drawnTickValues}}">
+        </px-vis-axis>
+      </template>
+      <px-vis-radial-gridlines id="gridlines" svg="[[svgLower]]" axis="[[y]]" domain-changed="[[domainChanged]]" margin="[[margin]]" tick-values="[[_drawnTickValues]]">
+      </px-vis-radial-gridlines>
+      <px-vis-tooltip id="tooltip" tooltip-data="[[tooltipData]]" chart-data="[[_filteredData]]" muted-series="[[mutedSeries]]" hard-mute="[[hardMute]]" x-axis-type="linear" y-axis-type="linear" complete-series-config="[[completeSeriesConfig]]" hover-target="[[mouseRect]]" mouse-position="[[mousePosition]]" tooltip-style="light" hide="[[!_computedShowTooltip]]" series-keys="[[_seriesKey]]">
+      </px-vis-tooltip>
+
+      <template id="highlighterDomIf" is="dom-if" if="[[renderToCanvas]]" restamp="" on-dom-change="_highlighterConfigChanged">
+        <px-vis-highlight-point-canvas id="highlighterCanvas" radial="" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" width="[[_diameter]]" height="[[_diameter]]" canvas-context="[[canvasLayers.highlighter]]" canvas-layers-config="{{canvasLayersConfig}}" layers-to-mask="[[canvasContext]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" time-data="[[timeData]]" complete-series-config="[[completeSeriesConfig]]" series-keys="[[_seriesKeys]]" chart-data="[[chartData]]" generating-crosshair-data="[[generatingCrosshairData]]" default-empty-data="{{defaultEmptyData}}" tooltip-data="{{tooltipData}}" crosshair-data="[[crosshairData]]" hard-mute="[[hardMute]]" muted-series="[[mutedSeries]]">
+        </px-vis-highlight-point-canvas>
+      </template>
+      <template is="dom-if" if="[[!renderToCanvas]]" restamp="" on-dom-change="_highlighterConfigChanged">
+        <px-vis-highlight-point id="highlighter" radial="" counter-clockwise="[[counterClockwise]]" use-degrees="[[useDegrees]]" svg="[[layer.5]]" layers-to-mask="[[getSvgLayersToMask(layer)]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" time-data="[[timeData]]" complete-series-config="[[completeSeriesConfig]]" chart-data="[[chartData]]" generating-crosshair-data="[[generatingCrosshairData]]" default-empty-data="{{defaultEmptyData}}" tooltip-data="{{tooltipData}}" crosshair-data="[[crosshairData]]" hard-mute="[[hardMute]]" muted-series="[[mutedSeries]]" series-keys="[[_seriesKey]]">
+        </px-vis-highlight-point>
+      </template>
+
+    </div>
+
+    <px-tooltip id="centralTooltip" smart-orientation="" ignore-target-events="" orientation="[[tooltipOrientation]]">
+      <px-vis-central-tooltip-content resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" language="[[language]]" first-date-time-format="[[firstDateTimeFormat]]" second-date-time-format="[[secondDateTimeFormat]]" separator="[[separator]]" timezone="[[timezone]]">
+      </px-vis-central-tooltip-content>
+    </px-tooltip>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-polar",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.svg,PxVisBehaviorD3.axes,PxVisBehaviorD3.selectedDomain,PxVisBehaviorD3.clipPath,PxVisBehavior.dataset,PxVisBehavior.mutedSeries,PxVisBehaviorChart.circleChart,PxVisBehavior.tooltipData,PxVisBehavior.extentsData,PxVisBehavior.axisTypes,PxVisBehavior.completeSeriesConfig,PxVisBehaviorScale.radial,PxVisBehaviorChart.chartCommon,PxVisBehaviorChart.saveImage,PxVisBehaviorChart.subConfiguration,PxVisBehaviorD3.domainUpdate,PxVisBehavior.polarData,PxVisBehaviorChart.timeFiltering,PxVisBehaviorChart.chartAutoResize,PxVisBehaviorChart.registerPositioning,PxVisBehaviorChart.layers,PxColorsBehavior.dataVisColorTheming,PxVisBehavior.dynamicMenuConfig,PxVisBehaviorChart.actionRequest,PxVisBehaviorChart.registerConfigs,PxVisBehaviorChart.showTooltip,PxVisBehaviorChart.toolbarSubConfig,PxVisBehaviorChart.chartToolbarConfig,PxVisBehavior.actionConfig,PxVisBehaviorD3.canvasContext,PxVisBehaviorD3.renderToCanvas,PxVisBehaviorChart.tooltipFollowMouseCalculation,PxVisBehaviorChart.highlighterConfigs,PxVisBehavior.crosshairData,PxVisBehaviorChart.webWorkerSynchronization,Polymer.AppLocalizeBehavior,PxVisBehaviorRenderer.base,PxVisBehavior.updateStylesOverride,PxVisBehavior.amplitudeExtents,PxVisBehaviorChart.zoomGeneric,PxVisBehaviorD3.scatterArrow,PxVisBehavior.annotationData,PxVisBehaviorChart.cursorConfig,PxVisBehaviorChart.registerPagnation,PxVisBehaviorChart.sizeVerticalRegister,PxVisBehaviorChart.centralTooltip],properties:{_axisConfigArray:{type:Array,computed:"_computeAxisConfig(_diameter, counterClockwise, y, axisLabels)"},counterClockwise:{type:Boolean,value:!1},_amplitudeKey:{type:String,computed:"_computeAmplitudeKey(completeSeriesConfig)"},_drawnTickValues:{type:Array,notify:!0},axisLabels:{type:Array,value:function value(){return["0\xB0","90\xB0","180\xB0","270\xB0"]}},unitLabelFontSize:{type:Number,value:15},clockwiseLabelFontSize:{type:Number,value:15},_clockwiseLabelGroup:{type:Object},_unitLabelGroup:{type:Object},mouseRect:{type:Object},resources:{type:Object,value:function value(){return{en:{clockwise:"clockwise","counter clockwise":"counter clockwise"}}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},_lastScale:{type:Array,value:function value(){return[1]}},allowNegativeValues:{type:Boolean,value:!1}},polar:!0,listeners:{"px-vis-toolbar-reset-zoom":"resetZoom","px-vis-toolbar-zoom-in":"zoomIn","px-vis-toolbar-zoom-out":"zoomOut","px-vis-toolbar-undo-zoom":"undoZoom","px-vis-interaction-space-start-panning":"addToZoomStack"},observers:["_drawUnitLabel(svg, completeSeriesConfig.*, _radius, unitLabelFontSize)","_drawClockwiseLabel(svg, _radius, counterClockwise, clockwiseLabelFontSize, localize)","_createLayersOnce(svg, numberOfLayers)","_keepDataInSync(_filteredData.*, chartId)","_seriesKeysChanged(_seriesKeys.*)","_setYScale(_radius,centerOffset)","_generateChartExtents(chartData.*, _amplitudeKey)","_generateChartExtents(amplitudeExtents)","_setDomain(y, _calculatedExtents)","_tooltipConfigChanged(tooltipConfig.*)","_registerConfigChanged(registerConfig.*)","_highlighterConfigChanged(highlighterConfig.*)","_toolbarConfigChanged(toolbarConfig)","_interactionSpaceConfigChanged(interactionSpaceConfig.*)","_langChanged(language)","_mutedChanged(mutedSeries.*, hardMute)","_tooltipDataUpdated(tooltipData.*)","_renderFilteredChartData(domainChanged, canvasContext, _filteredData.*, mutedSeries.*, completeSeriesConfig.*, preventInitialDrawing, counterClockwise, renderToCanvas)","_renderHighlight(domainChanged, canvasLayers.highlighter, completeSeriesConfig.*, preventInitialDrawing, counterClockwise, renderToCanvas)","_renderSeriesOnTop(serieToRedrawOnTop)"],created:function created(){this._tooltipCalcHoverTargetId="wrapper"},ready:function ready(){this.set("_verticalRegisterDrawingCanvasId","svg");this.set("_verticalRegisterHeightDeductions",["toolbar"]);this._wwSyncDataPropName="_filteredData";if(!this.defaultSeriesConfig.markerFillOpacity){this.defaultSeriesConfig.markerFillOpacity="0.5"}if(!this.defaultSeriesConfig.markerStrokeOpacity){this.defaultSeriesConfig.markerStrokeOpacity="0"}if(!this.defaultSeriesConfig.xAxisUnit){this.defaultSeriesConfig.xAxisUnit="\xB0"}this.set("numberOfLayers",7);this.set("_internalCircleMargins",{top:30,right:0,bottom:60,left:10});this._setCompleteSeriesConfig();this._extentsDataRoutes.zoom="_zooooooooom";this._extentsDataRoutes.pan="_paaaaaaaaan"},_tooltipConfigChanged:function _tooltipConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.tooltipConfig,this.$.tooltip)},_registerConfigChanged:function _registerConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.registerConfig,this.$.register)},_toolbarConfigChanged:function _toolbarConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.toolbarConfig,this.$.toolbar)},_interactionSpaceConfigChanged:function _interactionSpaceConfigChanged(interactionSpaceConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.interactionSpaceConfig,this.$.interactionSpace)},_highlighterConfigChanged:function _highlighterConfigChanged(conf){var elem=this.renderToCanvas?this.$$("#highlighterCanvas"):this.$$("#highlighter");if(elem&&this._doesObjHaveValues(this.highlighterConfig)){this._applyConfigToElement(this.highlighterConfig,elem)}},_seriesKeysChanged:function _seriesKeysChanged(){if(this.hasUndefinedArguments(arguments)){return}if(this.renderToCanvas&&this.canvasContext&&this.canvasContext.pxClearCanvas){this.canvasContext.pxClearCanvas()}},_resizeCalculations:function _resizeCalculations(){var _Mathmax=Math.max,wrapperRect=this.$.wrapper.getBoundingClientRect(),toolbarRect=this.$.toolbar.getBoundingClientRect(),registerRect=this.$.register.getBoundingClientRect(),widthDeduct=0,heightDeduct=0;heightDeduct+=toolbarRect.height;if("horizontal"===this.$.register.type){heightDeduct+=registerRect.height}else{widthDeduct+=registerRect.width}this.set("width",_Mathmax(wrapperRect.width-widthDeduct,0));this.set("height",_Mathmax(wrapperRect.height-heightDeduct,0));this._computeVerticalRegisterHeight([toolbarRect.height])},_adjustArrayForCounterclockwise:function _adjustArrayForCounterclockwise(arr){var result=[arr[0],arr[3],arr[2],arr[1]];return result},_computeAxisConfig:function _computeAxisConfig(diameter,counterClockwise,y,axisLabels){var _MathPI=Math.PI;if(this.hasUndefinedArguments(arguments)){return}var angles=[0,90,180,270],anchors=["middle","start","middle","end"],result=[],axisLength=y.range()[1]-y.range()[0],labelToGrid=10,halfLabelHeight=5,tickRectHalfWidth=6,labels=axisLabels,fontSize=15;if(this.counterClockwise){angles=this._adjustArrayForCounterclockwise(angles);labels=this._adjustArrayForCounterclockwise(labels)}for(var i=0;4>i;i++){var config={},titleLoc={};config.title=labels[i];config.width=axisLength;config.rotation=-angles[i]+180;config.orientation="custom";config.labelTypeSize=12;config.titleTypeSize=fontSize;config.height=axisLength;config.labelRotation=!this.counterClockwise?180+90*i%360:180-90*i;config.labelTranslation=[0,4];titleLoc.x=+(Math.cos((i-1)*_MathPI/2)*(axisLength+labelToGrid+tickRectHalfWidth));titleLoc.y=halfLabelHeight+ +(Math.sin((i-1)*_MathPI/2)*(axisLength+labelToGrid+halfLabelHeight+tickRectHalfWidth));titleLoc.r=0;titleLoc.anchor=anchors[i];config.titleLocation=titleLoc;result.push(config)}return result},_computeAmplitudeKey:function _computeAmplitudeKey(completeSeriesConfig){if(this.hasUndefinedArguments(arguments)){return}return Object.keys(completeSeriesConfig).map(function(serie){return completeSeriesConfig[serie].y})},_drawUnitLabel:function _drawUnitLabel(svg,completeSeriesConfig,_radius,unitLabelFontSize){if(this.hasUndefinedArguments(arguments)){return}var seriesId=Object.keys(this.completeSeriesConfig),unit,angle=Math.PI/4,length=this._radius+10;if(!this._unitLabelGroup){this.set("_unitLabelGroup",this.svg.append("g").attr("class","unit-group"));this._unitLabelGroup.append("text")}for(var i=0;i<seriesId.length;i++){if(!unit){unit=this.completeSeriesConfig[seriesId[i]].yAxisUnit}else{break}}this._unitLabelGroup.selectAll("text").text(unit).attr("font-size",unitLabelFontSize+"px").style("font-family",this._checkThemeVariable("--px-vis-font-family","")).attr("fill",this._checkThemeVariable("--px-vis-axis-inline-title-color","rgb(0,0,0)"));this._unitLabelGroup.attr("transform","translate("+Math.cos(angle)*length+","+-Math.sin(angle)*length+")")},_drawClockwiseLabel:function _drawClockwiseLabel(svg,_radius,counterClockwise,fontSize){if(this.hasUndefinedArguments(arguments)){return}var angle=-Math.PI/2,length=this._radius+55;if(!this._clockwiseLabelGroup){this.set("_clockwiseLabelGroup",this.svg.append("g").attr("class","clockwise-group"));this._clockwiseLabelGroup.append("text")}this._clockwiseLabelGroup.selectAll("text").text(!counterClockwise?this.localize("clockwise"):this.localize("counter clockwise")).attr("font-size",fontSize+"px").style("font-family",this._checkThemeVariable("--px-font-family","")).attr("fill",this._checkThemeVariable("--px-vis-axis-inline-title-color","rgb(0,0,0)")).attr("text-anchor","middle");this._clockwiseLabelGroup.attr("transform","translate("+Math.cos(angle)*length+","+-Math.sin(angle)*length+")")},_getNumberOfTick:function _getNumberOfTick(_radius){if(this.hasUndefinedArguments(arguments)){return}return Math.min(Math.max(_radius/70,2),7)},_langChanged:function _langChanged(){if(this.hasUndefinedArguments(arguments)){return}this._recreateScales()},getSvgLayersToMask:function getSvgLayersToMask(){if(this.hasUndefinedArguments(arguments)){return}return[this.layer[2],this.layer[3]]},_zooooooooom:function _zooooooooom(){this.zoomStack.push({radius:this._radius,center:this._center});var lastScale=this._getLastScale(),maxSize=Math.max(this.extentsData.w,this.extentsData.h),unscaledMaxSize=maxSize/lastScale,newScale=2*this.zoomStack[0].radius/unscaledMaxSize,newRadius=newScale*this.zoomStack[0].radius,centerX=(this.extentsData.x2-this.extentsData.x1)/2+this.extentsData.x1,centerY=(this.extentsData.y2-this.extentsData.y1)/2+this.extentsData.y1,unscaledX=centerX/lastScale,unscaledY=centerY/lastScale,offsetX=this.zoomStack[0].center[0]-unscaledX*newScale,offsetY=this.zoomStack[0].center[1]-unscaledY*newScale,newCenter=[offsetX,offsetY];this._lastScale.push(newScale);this.zoomTo(newRadius,newCenter)},_getLastScale:function _getLastScale(){var i=this._lastScale.length-1;return this._lastScale[i]},zoomTo:function zoomTo(radius,center){this.set("_center",center);this.set("_radius",radius);this.set("domainChanged",this.domainChanged+1)},undoZoom:function undoZoom(){if(!this.zoomStack.length){return}var settings=this.zoomStack.pop();this._lastScale.pop();this.zoomTo(settings.radius,settings.center)},resetZoom:function resetZoom(){if(!this.zoomStack.length){return}var settings=this.zoomStack[0];this.zoomStack=[];this._lastScale=[1];this.zoomTo(settings.radius,settings.center)},_autoZoom:function _autoZoom(isZoomIn){this.zoomStack.push({radius:this._radius,center:this._center});var factor=isZoomIn?1+this.zoomInPercentage:1-this.zoomOutPercentage,oldScale=this._getLastScale(),newScale=oldScale*factor,newRadius=newScale*this.zoomStack[0].radius,xOffset=this._smallerSide/2-this._center[0],yOffset=this._smallerSide/2-this._center[1],centerX=this._smallerSide/2-xOffset*factor,centerY=this._smallerSide/2-yOffset*factor,newCenter=[centerX,centerY];this._lastScale.push(newScale);this.zoomTo(newRadius,newCenter)},_paaaaaaaaan:function _paaaaaaaaan(){var centerX=this._center[0]+(this.extentsData.x2-this.extentsData.x1),centerY=this._center[1]+(this.extentsData.y2-this.extentsData.y1),newCenter=[centerX,centerY];this.zoomTo(this._radius,newCenter)},addToZoomStack:function addToZoomStack(){this.zoomStack.push({radius:this._radius,center:this._center})},_mutedChanged:function _mutedChanged(){if(this.hasUndefinedArguments(arguments)){return}if(!0===this.hardMute){this._generateChartExtents()}}});</script>
+</body></html>

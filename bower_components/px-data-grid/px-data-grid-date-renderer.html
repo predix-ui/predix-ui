@@ -1,0 +1,61 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="../px-datetime-picker/px-datetime-picker.html">
+<link rel="import" href="px-data-grid-renderer-mixin.html">
+<link rel="import" href="px-data-grid-theme.html">
+<link rel="import" href="css/px-data-grid-date-renderer-styles.html">
+
+<!--
+
+### Styling
+The following custom properties are available for styling of the date-renderer content.
+
+Custom property | Description
+'--px-data-grid-cell-date-column-overflow' | controls the overflow behavior, visible, hidden
+'--px-data-grid-cell-date-column-white-space' | controls how white-spaces are handled, normal, nowrap
+'--px-data-grid-cell-date-column-word-wrap' | controls how word-wrapping is handled normal, break-word
+'--px-data-grid-cell-date-column-text-overflow' | controls how text-overflow is handled, clip, ellipsis
+'--px-data-grid-cell-date-column-editor-align-items | control editor alignment when in edit mode, center, flex-end, flex-start'
+
+Examples:
+Make date-renderer columns wrap the content:
+--px-data-grid-cell-date-column-overflow: hidden;
+--px-data-grid-cell-date-column-word-wrap: break-word;
+
+Make date-renderer columns use ellipsis overflow:
+--px-data-grid-cell-date-column-text-overflow: ellipsis;
+--px-data-grid-cell-date-column-white-space: nowrap;
+--px-data-grid-cell-date-column-overflow: hidden;
+
+-->
+
+</head><body><dom-module id="px-data-grid-date-renderer">
+  <template>
+    <style include="px-data-grid-date-renderer-styles"></style>
+    <template is="dom-if" if="[[!_editing]]">[[_getFormattedDate(value, displayFormat)]]</template>
+    <template is="dom-if" if="[[_editing]]" restamp="">
+      <div class="input-container">
+        <px-datetime-picker id="editingTemplateInput" moment-obj="[[_generateMomentObj(value)]]" hide-time="[[hideTime]]" hide-date="[[hideDate]]" time-zone="[[displayTimezone]]" show-time-zone="abbreviatedText" date-format="[[datePickerDateFormat]]" time-format="[[datePickerTimeFormat]]" hoist="">
+        </px-datetime-picker>
+        <px-tooltip for="editingTemplateInput" orientation="top" tooltip-message="[[validationResult.message]]" opened="[[_showValidationError]]" ignore-target-events="">
+        </px-tooltip>
+      </div>
+    </template>
+  </template>
+  <script>{var DataGridDateRenderer=function(_Predix$DataGridRende){babelHelpers.inherits(DataGridDateRenderer,_Predix$DataGridRende);function DataGridDateRenderer(){babelHelpers.classCallCheck(this,DataGridDateRenderer);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridDateRenderer).apply(this,arguments))}babelHelpers.createClass(DataGridDateRenderer,[{key:"_getFormattedDate",value:function _getFormattedDate(value){var result;if(value){var momentValue;if("ISO"===this.dateFormat){momentValue=window.Px.moment(value)}else{momentValue=window.Px.moment.tz(value,this.dateFormat,this.timezone)}if(momentValue){if("ISO"===this.displayFormat){result=momentValue.toISOString()}else{result=momentValue.tz(this.displayTimezone).format(this.displayFormat)}}else{console.warn("Unknown date value: \""+value+"\"");result=""}}else{result=""}return result}},{key:"validate",value:function validate(){var field=this.shadowRoot.querySelector("px-datetime-picker");if(field){this.value=this._convertToValue(field.momentObj)}return{valid:!this.column.required&&this.value||!this.value||window.Px.moment(this.value,this.dataFormat).isValid(),message:this.localize("Date is invalid")}}},{key:"_valueObserver",value:function _valueObserver(value){if(!this._initialType){this._initialType=babelHelpers.typeof(value)}}},{key:"_convertToValue",value:function _convertToValue(momentObj){if(!momentObj){return}if("number"===this._initialType&&("X"===this.dataFormat||"x"===this.dataFormat)){return+momentObj.tz(this.timezone).format(this.dataFormat)}else if("ISO"===this.dataFormat){return momentObj.toISOString()}else{return momentObj.tz(this.timezone).format(this.dateFormat)}}},{key:"_dateFormatConfigChanged",value:function _dateFormatConfigChanged(dateFormat){if(dateFormat&&dateFormat.value&&dateFormat.value.hasOwnProperty("format")){this.dateFormat=dateFormat.value.format}else{this.dateFormat="YYYY-MM-DD"}if(dateFormat&&dateFormat.value&&dateFormat.value.hasOwnProperty("timezone")){this.timezone=dateFormat.value.timezone}else{this.timezone="UTC"}}},{key:"_generateMomentObj",value:function _generateMomentObj(value){var newMomentObj;if(value||0===value){if("ISO"===this.dataFormat){newMomentObj=window.Px.moment(value)}else{newMomentObj=window.Px.moment.tz(value,this.dateFormat,!0,this.timezone)}}else{newMomentObj=void 0}if(newMomentObj&&newMomentObj.isValid()){return newMomentObj}else{return}}},{key:"_rendererConfigChanged",value:function _rendererConfigChanged(rendererConfig){if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("hideDate")){this.hideDate=rendererConfig.value.hideDate}else{this.hideDate=!1}if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("hideTime")){this.hideTime=rendererConfig.value.hideTime}else{this.hideTime=!0}if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("displayFormat")){this.displayFormat=rendererConfig.value.displayFormat}else{this.displayFormat="YYYY-MM-DD z"}if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("timezone")){this.displayTimezone=rendererConfig.value.timezone}else{this.displayTimezone="UTC"}if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("datePickerDateFormat")){this.datePickerDateFormat=rendererConfig.value.datePickerDateFormat}else{this.datePickerDateFormat="YYYY-MM-DD"}if(rendererConfig&&rendererConfig.value&&rendererConfig.value.hasOwnProperty("datePickerTimeFormat")){this.datePickerTimeFormat=rendererConfig.value.datePickerTimeFormat}else{this.datePickerTimeFormat="HH:MM:SS"}}}],[{key:"is",get:function get(){return"px-data-grid-date-renderer"}},{key:"properties",get:function get(){return{displayFormat:{type:String,value:"YYYY-MM-DD"},timezone:{type:String,value:"UTC"},datePickerDateFormat:{type:String,value:"YYYY-MM-DD"},datePickerTimeFormat:{type:String,value:"HH:MM:SS"},hideDate:{type:Boolean,value:!1},hideTime:{type:Boolean,value:!0},_initialType:{type:String}}}},{key:"observers",get:function get(){return["_valueObserver(value)","_rendererConfigChanged(column.rendererConfig.*)","_dateFormatConfigChanged(column.dateFormat.*)"]}}]);return DataGridDateRenderer}(Predix.DataGridRendererMixin(Polymer.Element));customElements.define(DataGridDateRenderer.is,DataGridDateRenderer);window.Predix=window.Predix||{};Predix.DataGridDateRenderer=DataGridDateRenderer}</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,92 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-iconography">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#style', activeAnchor)]]" href="#" anchor="#style" on-tap="_handleAnchorTapped">Style</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#classes-sizes', activeAnchor)]]" href="#" anchor="#classes-sizes" on-tap="_handleAnchorTapped">Classes &amp; Sizes</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#color', activeAnchor)]]" href="#" anchor="#color" on-tap="_handleAnchorTapped">Color</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#icon-design-guidelines', activeAnchor)]]" href="#" anchor="#icon-design-guidelines" on-tap="_handleAnchorTapped">Icon Design Guidelines</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Iconography</h2>
+          
+          
+<p>The Predix Icon suite is built with a balanced combination of crisp, geometric line work, and subtle rounded corners to soften the forms and make them feel humanistic. The full set can be viewed as part of the <a href="#/components/px-icon-set">px-icon-set</a> component.</p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Make the icons meaningful</h4>
+<p>Avoid using icons solely for visual interest. Make sure they'll be meaningful to the end user and have a purpose in the UI.</p>
+<h4>Minimal color usage</h4>
+<p>The icons come with standard color treatments. Should you choose to override the colors, select a single color for each state and use it uniformly throughout your app.</p>
+<h4>Use the proper icon class</h4>
+<p>Icons are categorized into classes based on their intended use. Do not use an icon from the utility set where a feature icon should be used. Extending the set with new icons is preferred over scaling existing icons to fit.</p>
+<h4>Follow the guidelines when extending</h4>
+<p>It's important for the iconography to feel like a family that belongs together in an application. If you choose to extend the set, follow the guidelines.</p>
+<h3 id="style">Style</h3>
+<p>The Icons are built with a clean, 1px stroke weight with .5px rounded corners to give them a slight softening of the edges. The icons have squared off end caps, to give the a sense of rigidity and crispness with 90 degree angles.
+<catalog-picture img-src="../../img/guidelines/design/iconography/icon_style" img-alt="icon style"></catalog-picture></p>
+<h3 id="classes-sizes">Classes &amp; Sizes</h3>
+<p>The Predix Icon suite is structured into different category types; Feature, Object, Navigation, and Utility icons. The typical icon size used with most of the icons is 32px, but the icons used for secondary, smaller elements within the UI are set
+to 22px. The smallest used size for utility purposes is 16px. All icons still maintain the 1px line weight to keep with consistency at their @1x size</p>
+<h4>Utility: 16x16</h4>
+<p>Used to indicate an interaction inside a component such as a drop down menu or a date picker.
+<catalog-picture img-src="../../img/guidelines/design/iconography/utility_icons" img-alt="icon style"></catalog-picture></p>
+<h4>Navigation: 22x22</h4>
+<p>Way-finding iconography used to navigate UI elements such as wizards, dialog boxes or open/close panels. They can also be used as secondary navigation elements inside AppNav, such as to access a user profile or notifications.
+<catalog-picture img-src="../../img/guidelines/design/iconography/navigation_icons" img-alt="icon style"></catalog-picture></p>
+<h4>Feature &amp; Object: 32x32</h4>
+<p>For use in AppNav or as visual anchors on cards. They are the largest icons in the system and intended to be used to indicate top level features.
+<catalog-picture img-src="../../img/guidelines/design/iconography/feature_icons" img-alt="icon style"></catalog-picture></p>
+<h3 id="color">Color</h3>
+<p>The icons are based upon a mono-tone color system. The custom color palette is used for selected states and areas for added emphasis/interest. Icons are typically grey when not highlighted or selected. The signature Predix blue is the main color used,
+but when needing to add different colors for categories, the other colors in the system may be used.
+<catalog-picture img-src="../../img/guidelines/design/iconography/icon_color" img-alt="icon style"></catalog-picture></p>
+<h3 id="icon-design-guidelines">Icon Design Guidelines</h3>
+<p>The icon set is intended to be extended as needed for specialized applications. Follow the Predix Icon Guidelines to ensure additional icons match the core set.</p>
+<p><a target="_blank" rel="noopener" href="../../pages/design/Predix_Iconography_Guidelines.pdf"><button class="btn btn--primary">Download Icon Guidelines</button></a></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-iconography",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

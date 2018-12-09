@@ -1,0 +1,62 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+ 
+
+<!-- Imports for this component -->
+<link rel="import" href="../px-vis-spark.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-vis-spark-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-vis-spark" description="The px-vis-spark is a visualization element usually referred to as a sparkline - a small line or bar chart without axes or measures that provides a user a glimpse of a trend." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+
+        <div style="width:100%; height: 100%;">
+          <px-vis-spark type="{{props.type.value}}" width="{{props.width.value}}" height="{{props.height.value}}" data="{{props.data.value}}" prevent-resize="{{props.preventResize.value}}" disable-gradient="{{props.disableGradient.value}}">
+          </px-vis-spark>
+        </div>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-vis-spark" codepen-link="https://glitch.com/edit/#!/px-vis-spark" suppress-property-values="[[suppressPropertyValues]]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-vis-spark">
+    </px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-vis-spark-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Line",configReset:!0},{configName:"Bar",data:[112,57,53,122,128,120],type:"bar"},{configName:"Win Loss",data:[5,-4,3,-6,1,3,-4,3],type:"winLoss"}]}},suppressPropertyValues:{type:Array,value:function value(){return["chartData"]}}},demoProps:{preventResize:{type:Boolean,defaultValue:!0,inputType:"toggle"},disableGradient:{type:Boolean,defaultValue:!1,inputType:"toggle"},width:{type:Number,defaultValue:300,inputType:"text"},height:{type:Number,defaultValue:100,inputType:"text"},data:{type:Array,defaultValue:[{x:139710246e4,y:.56},{x:139713966e4,y:.4},{x:13971774e5,y:.43},{x:139722804e4,y:.33},{x:139724826e4,y:.47},{x:139729128e4,y:.41},{x:13973181e5,y:.26},{x:13973421e5,y:.42},{x:139739082e4,y:.27},{x:13974081e5,y:.38},{x:13974588e5,y:.36},{x:139752294e4,y:.32}],inputType:"code:JSON"},type:{type:String,defaultValue:"line"}},listeners:{"px-demo-component-light-dom-loaded":"_handleDemoLoaded"},_handleDemoLoaded:function _handleDemoLoaded(){var chart=this.$$("px-vis-spark");if(chart&&"function"===typeof chart.notifyResize){this.async(function(){chart.notifyResize()},1e3)}}});</script>
+</body></html>

@@ -1,0 +1,78 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-data-converter.html" defer="">
+<link rel="import" href="../px-vis-timeseries/px-vis-timeseries.html" defer="">
+<link rel="import" href="../iron-ajax/iron-ajax.html" defer="">
+
+</head><body><dom-module id="px-vis-demos-striping-module">
+  <template>
+    <style>.wrapper{display:flex;flex-wrap:wrap;}.minHeight{width:45vw;height:300px;}</style>
+    <div>
+      <button id="btnGen" class="btn btn--primary u-mt-">Generate Random Stripe Data</button>
+    </div>
+    <div class="wrapper">
+      <div class="minHeight">
+        <px-vis-timeseries id="timeseries0" toolbar-config="[[toolbarConfig]]" stripe-config="[[stripeConfig]]" disable-navigator="" series-config="{
+            &quot;y0&quot;:{&quot;y&quot;:&quot;y0&quot;}
+          }" default-series-config="{
+            &quot;type&quot;: &quot;line&quot;,
+            &quot;x&quot;: &quot;timeStamp&quot;
+          }" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" chart-data="[[chartData]]" render-to-canvas="" stripe-data="{{stripeData}}">
+        </px-vis-timeseries>
+      </div>
+      <div class="minHeight">
+        <px-vis-timeseries id="timeseries1" toolbar-config="[[toolbarConfig]]" stripe-config="[[stripeConfig]]" disable-navigator="" series-config="{
+            &quot;y1&quot;:{&quot;y&quot;:&quot;y1&quot;}
+          }" default-series-config="{
+            &quot;type&quot;: &quot;line&quot;,
+            &quot;x&quot;: &quot;timeStamp&quot;
+          }" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" chart-data="[[chartData]]" render-to-canvas="" stripe-data="{{stripeData}}">
+        </px-vis-timeseries>
+      </div>
+      <div class="minHeight">
+        <px-vis-timeseries id="timeseries2" toolbar-config="[[toolbarConfig]]" stripe-config="[[stripeConfig]]" disable-navigator="" series-config="{
+            &quot;y2&quot;:{&quot;y&quot;:&quot;y2&quot;}
+          }" default-series-config="{
+            &quot;type&quot;: &quot;line&quot;,
+            &quot;x&quot;: &quot;timeStamp&quot;
+          }" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" chart-data="[[chartData]]" render-to-canvas="" stripe-data="{{stripeData}}">
+        </px-vis-timeseries>
+      </div>
+      <div class="minHeight">
+        <px-vis-timeseries id="timeseries3" toolbar-config="[[toolbarConfig]]" stripe-config="[[stripeConfig]]" disable-navigator="" series-config="{
+            &quot;y3&quot;:{&quot;y&quot;:&quot;y3&quot;}
+          }" default-series-config="{
+            &quot;type&quot;: &quot;line&quot;,
+            &quot;x&quot;: &quot;timeStamp&quot;
+          }" cursor-config="{
+            &quot;horizontalLine&quot;: &quot;none&quot;
+          }" chart-data="[[chartData]]" render-to-canvas="" stripe-data="{{stripeData}}">
+        </px-vis-timeseries>
+      </div>
+    </div>
+
+    <iron-ajax id="randomData" url="[[importPath]]../px-demo-data/demo-data/random/d4x1000.json" handle-as="json" last-response="{{chartData}}" auto="">
+    </iron-ajax>
+  </template>
+  <script>Polymer({is:"px-vis-demos-striping-module",properties:{toolbarConfig:{type:Object,value:function value(){return{config:{advancedZoom:!0,pan:!0,tooltip:!0,customStripe:{tooltipLabel:"Draw Stripe",icon:"px-vis:draw-stripe",cursorIcon:"px-vis:draw-stripe",buttonGroup:1,selectable:!0,onClick:function onClick(){this.set("_internalShowTooltip",!1)},subConfig:{customA:{title:"Custom A",cursorIcon:"px-vis:draw-stripe",buttonGroup:1,tooltipLabel:"Draw/edit Custom A type stripes",selectable:!0,selected:!0,onClick:function onClick(){this.set("interactionSpaceConfig.selectionType","xAxis");this.set("stripeType","customA")}},customB:{title:"Custom B",cursorIcon:"px-vis:draw-stripe",buttonGroup:1,tooltipLabel:"Draw/edit Custom B type stripes",selectable:!0,onClick:function onClick(){this.set("interactionSpaceConfig.selectionType","xAxis");this.set("stripeType","customB")}},algorithmic:{title:"algorithmic",cursorIcon:"px-vis:draw-stripe",buttonGroup:1,tooltipLabel:"Draw/edit algorithmic type stripes",selectable:!0,onClick:function onClick(){this.set("interactionSpaceConfig.selectionType","xAxis");this.set("stripeType","algorithmic")}},add:{icon:"px-vis:draw-stripe",cursorIcon:"px-vis:draw-stripe",tooltipLabel:"Add stripe",buttonGroup:2,selected:!0,selectable:!0,actionConfig:{mousedown:"startStriping",mouseup:"stopStriping",mouseout:"resetTooltip",mousemove:"calcTooltipData",click:null}},edit:{icon:"px-vis:remove-stripe",cursorIcon:"px-vis:remove-stripe",buttonGroup:2,selectable:!0,tooltipLabel:"Edit/remove stripe",actionConfig:{mousedown:null,mouseup:null,mouseout:null,mousemove:"reportMouseCoords",click:null}}}}}}}},stripeConfig:{type:Object,value:function value(){return{customA:{fillColor:"rgb(117,216,53)",fillOpacity:"0.5"},customB:{fillColor:"rgb(255,92,92)",fillOpacity:"0.5"},algorithmic:{fillColor:"rgb(255,187,102)",fillOpacity:"0.5"}}}}},attached:function attached(){this.$.btnGen.addEventListener("click",this.genRandomData.bind(this))},genRandomData:function genRandomData(){var _Mathfloor=Math.floor,chart=this.$.timeseries0,data=chart.chartData,length=data.length;if(!chart.stripeData.algorithmic){chart.stripeData.algorithmic=[]}for(var i=0;10>i;i++){var dataIndex=_Mathfloor(Math.random()*length),len=chart.stripeData.algorithmic.length,ts1=data[dataIndex].timeStamp,ts2=dataIndex+5<length?data[dataIndex+5].timeStamp:data[length-1].timeStamp;chart.splice("stripeData.algorithmic",len,0,[ts1,ts2])}var dataIndex=_Mathfloor(Math.random()*length),len=chart.stripeData.algorithmic.length,ts1=data[dataIndex].timeStamp;chart.splice("stripeData.algorithmic",len,0,[ts1])}});</script>
+</dom-module>
+</body></html>

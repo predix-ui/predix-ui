@@ -1,0 +1,60 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/css/px-demo-content-helper-styles.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-modal.html">
+<link rel="import" href="../px-modal-trigger.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-modal-demo">
+  <template>
+    <style include="px-demo-content-helper-styles"></style>
+    <!-- Header -->
+    <px-demo-header module-name="px-modal" description="Modals are useful when a user needs to leave the normal application flow to focus on a specific message or workflow. Avoid using modals frequently or stacking modals." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <div id="demoContainer">
+          <px-modal id="demoModal" header-text="{{props.headerText.value}}" body-text="{{props.bodyText.value}}" accept-text="{{props.acceptText.value}}" reject-text="{{props.rejectText.value}}" open-trigger="[[openTrigger]]" fill-container="{{props.fillContainer.value}}">
+          </px-modal>
+          <px-modal-trigger trigger="{{openTrigger}}">
+            <button class="btn btn--tertiary">Open Modal</button>
+          </px-modal-trigger>
+        </div>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" links-includes="[&quot;px-modal/px-modal-trigger.html&quot;]" element-name="px-modal">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-modal"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-modal-demo",observers:["updateFitInto(props.fillContainer.value)"],properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default"}]}}},demoProps:{headerText:{type:String,defaultValue:"Confirm delete",inputType:"text"},bodyText:{type:String,defaultValue:"Do you want to delete this record? The record will be deleted permanently.",inputType:"text"},acceptText:{type:String,defaultValue:"Permanently Delete Record",inputType:"text"},rejectText:{type:String,defaultValue:"Cancel",inputType:"text"},fillContainer:{type:Boolean,defaultValue:!1,inputType:"toggle"},openTrigger:{type:String,value:"[[trigger]]"},siblingElement:{type:String,defaultValue:"<px-modal-trigger trigger=\"{{trigger}}\"><button class=\"btn btn--tertiary\">Open Modal</button></px-modal-trigger>"}},updateFitInto:function updateFitInto(fillContainer){var modal=this.$.demoModal;if(!0===fillContainer){var demoInteractive=this.$$("px-demo-interactive"),container=Polymer.dom(demoInteractive.root).querySelector(".demo-component-container");modal.set("fitInto",container);modal.refit()}else{modal.set("fitInto",window);modal.refit()}}});</script>
+</body></html>

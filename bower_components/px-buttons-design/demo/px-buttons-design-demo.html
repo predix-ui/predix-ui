@@ -1,0 +1,148 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-buttons-design-demo-styles.html">
+  <link rel="import" href="../../px-icon-set/px-icon-set.html">
+  <link rel="import" href="../../px-icon-set/px-icon.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-buttons-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-buttons-design-demo-styles" is="custom-style"></style>
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-buttons-design" description="The Predix UI Buttons module is a simple, robust, extensible baseline for building entire suites of buttons on." layer="objects" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-colors-design&quot;,
+    &quot;https://github.com/PredixDev/px-defaults-design&quot;
+  ]" selected-options="{{selectedOptions}}" tabs="[&quot;Text&quot;,&quot;Text &amp; icon&quot;,&quot;Icon&quot;]" selected-tab="{{selectedTab}}">
+
+
+<!-- 3: Make HTML Demo -->
+<template is="dom-if" if="{{_tabIs('Text',selectedTab)}}" restamp="">
+<px-sass-doc-option slot="options" option-name="Size" choose-with="dropdown" choices="[
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;,
+    &quot;full (mobile)&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Type" choose-with="dropdown" choices="[
+    &quot;primary&quot;,
+    &quot;secondary (default)&quot;,
+    &quot;tertiary&quot;,
+    &quot;call to action&quot;,
+    &quot;bare&quot;,
+    &quot;bare primary&quot;
+  ]" default-choice="secondary (default)">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Disabled" choose-with="boolean" default-choice="false">
+</px-sass-doc-option>
+<section slot="demo-html">
+<button class$="{{buttonClasses}}">Label</button>
+</section>
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+</template>
+
+<template is="dom-if" if="{{_tabIs('Text &amp; icon',selectedTab)}}" restamp="">
+<px-sass-doc-option slot="options" option-name="Size" choose-with="dropdown" choices="[
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;,
+    &quot;full (mobile)&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Type" choose-with="dropdown" choices="[
+    &quot;primary&quot;,
+    &quot;secondary (default)&quot;,
+    &quot;tertiary&quot;,
+    &quot;call to action&quot;,
+    &quot;bare&quot;,
+    &quot;bare primary&quot;
+  ]" default-choice="secondary (default)">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Disabled" choose-with="boolean" default-choice="false">
+</px-sass-doc-option>
+<section slot="demo-html">
+<button class$="{{buttonClasses}}">
+  <px-icon style="--iron-icon-height:16px;margin-right:5px;" icon="px-utl:app-settings"></px-icon>Label
+</button>
+</section>
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+</template>
+
+<template is="dom-if" if="{{_tabIs('Icon',selectedTab)}}" restamp="">
+<px-sass-doc-option slot="options" option-name="Size" choose-with="dropdown" choices="[
+    &quot;small&quot;,
+    &quot;regular (default)&quot;,
+    &quot;large&quot;,
+    &quot;huge&quot;,
+    &quot;full (mobile)&quot;
+  ]" default-choice="regular (default)">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Icon Type" choose-with="dropdown" choices="[
+    &quot;bare&quot;,
+    &quot;bare primary&quot;
+  ]" default-choice="bare">
+</px-sass-doc-option>
+<px-sass-doc-option slot="options" option-name="Disabled" choose-with="boolean" default-choice="false">
+</px-sass-doc-option>
+<section slot="demo-html">
+<button class$="{{iconClasses}}">
+  <px-icon style="--iron-icon-height:16px" icon="px-utl:app-settings"></px-icon>
+</button>
+</section>
+<section slot="import">
+{{importIconCode}}
+</section>
+</template>
+
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+```
+<!-- Default Button: -->
+<button class="btn">Button</button>
+
+
+<!-- Sizes of Buttons: -->
+<button class="btn btn--small">Small</button>
+<button class="btn btn--large">Large</button>
+<button class="btn btn--huge">Huge</button>
+<button class="btn btn--full">Full</button>
+
+Note: the "Full" size button has a width that is 100% of its parent container.
+It is ideal for use on mobile devices, in modals, or any other use case where
+the button should appear as wide as possible.
+
+
+<!-- Types of Buttons: -->
+<button class="btn btn--primary">Primary</button>
+<button class="btn btn--call-to-action">Call To Action</button>
+<button class="btn btn--call-to-action btn--disabled">Call To Action (disabled)</button>
+<button class="btn btn--tertiary">Tertiary</button>
+<button class="btn btn--disabled">Disabled</button>
+<button class="btn btn--bare">Bare</button>
+<button class="btn btn--bare--primary">Bare Primary</button>
+
+
+<!-- Iconic Buttons: -->
+<button class="btn btn--icon">Icon</button>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<script>Polymer({is:"px-buttons-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.importCode=this._importCode();this.importIconCode=this._importIconCode();this.buttonClasses=this._buttonClasses();this.iconClasses=this._iconClasses();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_buttonClasses:function _buttonClasses(){var opts=this.selectedOptions||{},strings=[];if("small"===opts.Size)strings.push("btn--small");if("large"===opts.Size)strings.push("btn--large");if("huge"===opts.Size)strings.push("btn--huge");if("full (mobile)"===opts.Size)strings.push("btn--full");if("primary"===opts.Type)strings.push("btn--primary");if("call to action"===opts.Type)strings.push("btn--call-to-action");if("tertiary"===opts.Type)strings.push("btn--tertiary");if("bare"===opts.Type)strings.push("btn--bare");if("bare primary"===opts.Type)strings.push("btn--bare--primary");if(!0===opts.Icon)strings.push("btn--icon");if(!0===opts.Disabled)strings.push("btn--disabled");return("btn "+strings.join(" ")).trim()},_iconClasses:function _iconClasses(){var opts=this.selectedOptions||{},strings=[];if("small"===opts.Size)strings.push("btn--small");if("large"===opts.Size)strings.push("btn--large");if("huge"===opts.Size)strings.push("btn--huge");if("full (mobile)"===opts.Size)strings.push("btn--full");if("disabled"===opts["Icon Type"])strings.push("btn--disabled");if("bare"===opts["Icon Type"])strings.push("btn--bare");if("bare primary"===opts["Icon Type"])strings.push("btn--bare--primary");if(!0===opts.Icon)strings.push("btn--icon");if(!0===opts.Disabled)strings.push("btn--disabled");return("btn "+strings.join(" ")).trim()},_importCode:function _importCode(){var opts=this.selectedOptions||{},strings=[];if("small"===opts.Size)strings.push("$inuit-enable-btn--small : true;");if("large"===opts.Size)strings.push("$inuit-enable-btn--large : true;");if("huge"===opts.Size)strings.push("$inuit-enable-btn--huge : true;");if("full (mobile)"===opts.Size)strings.push("$inuit-enable-btn--full : true;");if("primary"===opts.Type)strings.push("$inuit-enable-btn--primary : true;");if("call to action"===opts.Type)strings.push("$inuit-enable-btn--call-to-action : true;");if("tertiary"===opts.Type)strings.push("$inuit-enable-btn--tertiary : true;");if("bare"===opts.Type)strings.push("$inuit-enable-btn--bare : true;");if("bare primary"===opts.Type)strings.push("$inuit-enable-btn--bare--primary : true;");if(!0===opts.Icon)strings.push("$inuit-enable-btn--icon : true;");if(!0===opts.Disabled)strings.push("$inuit-enable-btn--disabled : true;");return(strings.join("\n")+"\n@import 'px-buttons-design/_objects.buttons.scss';").trim()},_importIconCode:function _importIconCode(){var opts=this.selectedOptions||{},strings=[];if("small"===opts.Size)strings.push("$inuit-enable-btn--small : true;");if("large"===opts.Size)strings.push("$inuit-enable-btn--large : true;");if("huge"===opts.Size)strings.push("$inuit-enable-btn--huge : true;");if("full (mobile)"===opts.Size)strings.push("$inuit-enable-btn--full : true;");if("bare"===opts["Icon Type"])strings.push("$inuit-enable-btn--bare : true;");if("bare primary"===opts["Icon Type"])strings.push("$inuit-enable-btn--bare--primary : true;");if(!0===opts.Icon)strings.push("$inuit-enable-btn--icon : true;");if(!0===opts.Disabled)strings.push("$inuit-enable-btn--disabled : true;");return(strings.join("\n")+"\n@import 'px-buttons-design/_objects.buttons.scss';").trim()},_tabIs:function _tabIs(tabName){var selected=this.selectedTab||"";this.selectedOptions.Icon="Icon"===this.selectedTab;this.fire("px-sass-doc-options-updated",{});return selected===tabName}});</script>
+</body></html>

@@ -1,0 +1,168 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-localize-strings">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#datetime-components', activeAnchor)]]" href="#" anchor="#datetime-components" on-tap="_handleAnchorTapped">Datetime components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#vis-components', activeAnchor)]]" href="#" anchor="#vis-components" on-tap="_handleAnchorTapped">Vis components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#others', activeAnchor)]]" href="#" anchor="#others" on-tap="_handleAnchorTapped">Others</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Localizable Strings</h2>
+          
+          
+<p>This temporary list indicates all of the strings that can currently be localized in the Predix Design System.</p>
+<p>Please note that letter case matters.</p>
+<h3 id="datetime-components">Datetime components</h3>
+<h4>validation</h4>
+<ul>
+<li><code class="code code--inline">'Future dates are not allowed'</code></li>
+<li><code class="code code--inline">'Past dates are not allowed'</code></li>
+<li><code class="code code--inline">'Year'</code></li>
+<li><code class="code code--inline">'Month'</code></li>
+<li><code class="code code--inline">'Day'</code></li>
+<li><code class="code code--inline">'Hour'</code></li>
+<li><code class="code code--inline">'Minute'</code></li>
+<li><code class="code code--inline">'Second'</code></li>
+<li><code class="code code--inline">'Millisecond'</code></li>
+<li><code class="code code--inline">'is not valid'</code></li>
+<li><code class="code code--inline">'This hour is not within a 12 hour clock'</code></li>
+</ul>
+<h4>px-datetime-buttons</h4>
+<ul>
+<li><code class="code code--inline">'Cancel'</code></li>
+<li><code class="code code--inline">'Apply'</code></li>
+</ul>
+<h4>px-datetime-presets</h4>
+<ul>
+<li><code class="code code--inline">'Presets'</code></li>
+</ul>
+<h4>px-datetime-range-field</h4>
+<ul>
+<li><code class="code code--inline">'from cannot be later than to date'</code></li>
+<li><code class="code code--inline">'from'</code></li>
+<li><code class="code code--inline">'TO'</code></li>
+<li>Also uses strings from px-datetime-buttons and validatation</li>
+</ul>
+<h4>px-datetime-field</h4>
+<ul>
+<li><code class="code code--inline">'From Date'</code></li>
+<li><code class="code code--inline">'To Date'</code></li>
+<li>Also uses strings from validation</li>
+</ul>
+<h4>px-datetime-picker</h4>
+<ul>
+<li><code class="code code--inline">'Today'</code></li>
+<li>Also uses strings from px-datetime-buttons and validation</li>
+</ul>
+<h4>px-datetime-range-panel</h4>
+<ul>
+<li>Uses strings from validation, px-datetime-buttons, and px-datetime-presets</li>
+</ul>
+<h4>px-rangepicker</h4>
+<ul>
+<li>Uses strings from px-datetime-range-panel and px-datetime-range-field</li>
+</ul>
+<h3 id="vis-components">Vis components</h3>
+<h4>px-vis-events</h4>
+<ul>
+<li><code class="code code--inline">'Event'</code></li>
+<li><code class="code code--inline">'ID'</code></li>
+<li><code class="code code--inline">'Timestamp'</code></li>
+<li><code class="code code--inline">'X'</code></li>
+</ul>
+<h4>px-vis-xy-chart</h4>
+<ul>
+<li>Uses strings from px-vis-events</li>
+</ul>
+<h4>px-vis-timeseries</h4>
+<ul>
+<li>Uses strings from px-vis-events</li>
+</ul>
+<h4>px-vis-polar</h4>
+<ul>
+<li><code class="code code--inline">'clockwise'</code></li>
+<li><code class="code code--inline">'counter clockwise'</code></li>
+</ul>
+<h3 id="others">Others</h3>
+<h4>px-alert-message</h4>
+<ul>
+<li><code class="code code--inline">'Show More'</code></li>
+<li><code class="code code--inline">'OK'</code></li>
+<li><code class="code code--inline">'Open'</code></li>
+</ul>
+<h4>px-context-browser</h4>
+<ul>
+<li><code class="code code--inline">'You don't have any favorites yet.'</code></li>
+<li><code class="code code--inline">'To favorite a context\, click on the star while viewing a context in the context browser.'</code></li>
+<li><code class="code code--inline">'Filter'</code></li>
+</ul>
+<h4>px-data-table</h4>
+<ul>
+<li><code class="code code--inline">'of'</code></li>
+<li><code class="code code--inline">'Rows per page'</code></li>
+<li><code class="code code--inline">'Show/Hide Column'</code></li>
+<li><code class="code code--inline">'Filter'</code></li>
+<li><code class="code code--inline">'Selected'</code></li>
+<li><code class="code code--inline">'No Results'</code></li>
+</ul>
+<h4>px-inbox</h4>
+<ul>
+<li><code class="code code--inline">'Back'</code></li>
+<li><code class="code code--inline">'Sort by'</code></li>
+<li><code class="code code--inline">'Search'</code></li>
+<li><code class="code code--inline">'Title'</code></li>
+<li><code class="code code--inline">'Subtitle'</code></li>
+<li><code class="code code--inline">'Severity'</code></li>
+<li><code class="code code--inline">'Date'</code></li>
+</ul>
+<h4>px-login</h4>
+<ul>
+<li><code class="code code--inline">'Sign In'</code></li>
+<li><code class="code code--inline">'Sign Out'</code></li>
+</ul>
+<h4>px-timeline</h4>
+<ul>
+<li><code class="code code--inline">'TODAY'</code></li>
+<li><code class="code code--inline">'THIS WEEK'</code></li>
+<li><code class="code code--inline">'THIS MONTH'</code></li>
+<li><code class="code code--inline">'THIS YEAR'</code></li>
+<li><code class="code code--inline">'LAST YEAR'</code></li>
+</ul>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-localize-strings",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

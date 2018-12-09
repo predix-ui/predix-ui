@@ -1,0 +1,194 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-renderer.html">
+<link rel="import" href="../px-vis/px-vis-svg-canvas.html">
+<link rel="import" href="../px-vis/px-vis-line-svg.html">
+<link rel="import" href="../px-vis/px-vis-line-canvas.html">
+<link rel="import" href="../px-vis/px-vis-clip-path.html">
+<link rel="import" href="../px-vis/px-vis-multi-axis.html">
+<link rel="import" href="../px-vis/px-vis-behavior-scale-multi-axis.html">
+<link rel="import" href="../px-vis/px-vis-gridlines.html">
+<link rel="import" href="../px-vis/px-vis-tooltip.html">
+<link rel="import" href="../px-vis/px-vis-toolbar.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-vis/px-vis-cursor-line.html">
+<link rel="import" href="../px-vis/px-vis-highlight-line.html">
+<link rel="import" href="../px-vis/px-vis-highlight-line-canvas.html">
+<link rel="import" href="../px-vis/px-vis-central-tooltip-content.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+
+<link rel="import" href="css/px-vis-parallel-coordinates-styles.html">
+
+<!--
+PX Vis component that creates a parallel coordinates (aka parallel axes) chart.
+
+### Usage - Specifying your axes manually
+
+    <px-vis-parallel-coordinates
+        width="1300"
+        height="500"
+        chart-data="[[chartData]]"
+        axes='["Axes_1","Axes_2","Axes_n"]'
+        series-key="TimeStamp"
+        match-ticks
+        series-config='{
+            "TTXD1_1":{
+              "yAxisUnit": "Hz",
+              "title": "name1"
+            },
+            "TTXD1_12":{
+              "yAxisUnit": "F",
+              "title": "stout"
+            }
+          }'
+    ></px-vis-parallel-coordinates>
+
+### Usage - Auto-generating your axes from data
+
+    <px-vis-parallel-coordinates
+        width="1300"
+        height="500"
+        chart-data="[[chartData]]"
+        skip-keys='{"UnitNumber":true,"DLN_MODE":true}'
+        series-key="TimeStamp"
+        generate-axes-from-data
+        match-ticks
+    ></px-vis-parallel-coordinates>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+  `--px-vis-axis-brush-outline-color` | The stroke (border) color for the brushed box on an axis
+  `--px-vis-axis-brush-fill-color` | The fill (background) color for the brushed box on an axis
+  `--px-vis-axis-brush-fill-opacity` | The opacity of the brushed box on an axis
+  |
+  |
+  |
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  `--px-vis-axis-inline-title-color` | The color for the axis title
+  `--px-vis-axis-inline-type-color` | The color for the axis lines, axis ticks, and axis tick labels when using 'inline' labelPosition
+  `--px-vis-axis-inline-box-color` | The color for the tick boxes when using 'inline' labelPosition
+  |
+  |
+  |
+  `--px-vis-gridlines-color` | The color for the gridlines
+  |
+  |
+  |
+  `--px-vis-register-series-name` | The color of the data series name
+  `--px-vis-register-data-value` | The color of the data series value
+  `--px-vis-register-box` | The color of the box around the register when a scrollbar is present
+  |
+  |
+  |
+  `--px-vis-series-color-0` | These are the colors used to represent the data series on the charts. Used in numerical order by default. Colors MUST start at 0 and cannot contain gaps between numbers.
+  `--px-vis-series-color-1` |
+  `--px-vis-series-color-2` |
+  `--px-vis-series-color-n` |
+  |
+  |
+  |
+  `--px-tooltip-background-color` | The color of the tooltip
+  `--px-tooltip-text-color` | The color of the tooltip text
+  `--px-tooltip-light-background-color` | The color of the light version tooltip
+  `--px-tooltip-light-text-color` | The color of the light version tooltip text
+  `--px-tooltip-light-border-color`| The color of the light version tooltip border
+  |
+  |
+  |
+  `--px-vis-font-family` | The font family for all labels and text
+
+
+@element px-vis-parallel-coordinates
+@blurb PX Vis component that creates a parallel coordinates (aka parallel axes) chart.
+@homepage index.html
+@demo demo.html
+-->
+
+
+</head><body><dom-module id="px-vis-parallel-coordinates">
+  <template>
+    <style include="px-vis-parallel-coordinates-styles" is="custom-style"></style>
+
+    <div id="wrapper" class$="{{_chartWrapperClass}}">
+      <div class="flex flex--col safari-flex-fix">
+        <px-vis-register id="categoryRegister" x-axis-type="linear" y-axis-type="linear" class$="{{_getHideClass(_hideCategoryRegister)}}" tooltip-data="[[_categoryRegisterTooltipData]]" complete-series-config="[[_categoryRegisterConfig]]" muted-series="{{mutedSeriesCategories}}" hide-pagination-controls="" type="horizontal">
+        </px-vis-register>
+        <div class="flex flex--row--rev">
+          <px-vis-register id="axisRegister" x-axis-type="linear" y-axis-type="linear" class$="{{_getHideClass(hideAxisRegister)}}" dynamic-menu-config="[[dynamicMenuConfig]]" tooltip-data="[[_axisRegisterTooltipData]]" complete-series-config="[[_axisRegisterConfig]]" muted-series="[[mutedAxes]]" type="vertical" height="[[_registerHeight]]" display-y-values-only="" icon-color="[[_axisRegisterIconColor]]" current-page="[[_registerCurrentPage]]" total-pages="[[_registerTotalPages]]" display-page-arrows="[[_registerDisplayPageArrows]]">
+          </px-vis-register>
+          <div class="flex flex--col">
+            <px-vis-toolbar id="toolbar" current-sub-config="[[toolbarSubConfig]]" action-config="{{actionConfig}}" within-chart="" chart-margin="[[margin]]" show-tooltip="{{_internalShowTooltip}}" config="{&quot;axisMuteSeries&quot;: true, &quot;axisDrag&quot;: true, &quot;bareZoom&quot;: true, &quot;pan&quot;: true, &quot;tooltip&quot;: true }">
+            </px-vis-toolbar>
+            <px-vis-svg-canvas id="svgCanvas" canvas-context="{{canvasContext}}" canvas-layers="{{canvasLayers}}" canvas-layers-config="[[canvasLayersConfig]]" svg="{{svg}}" px-svg-elem="{{pxSvgElem}}" svg-lower="{{svgLower}}" px-svg-elem-lower="{{pxSvgElemLower}}" width="[[width]]" height="[[height]]" margin="[[margin]]">
+                <px-vis-annotations id="annotations" slot="4" svg="[[svg]]" x="[[x]]" y="[[y]]" margin="[[margin]]" domain-changed="[[domainChanged]]" complete-series-config="[[completeSeriesConfig]]" annotation-data="[[annotationData]]" show-strong-icon="[[showStrongIcon]]">
+                </px-vis-annotations>
+            </px-vis-svg-canvas>
+          </div>
+          <template is="dom-if" if="[[!renderToSvg]]" restamp="">
+            <px-vis-line-canvas id="lineCanvas" gradient-line="" canvas-context="[[canvasContext]]" clip-path="" width="[[width]]" height="[[height]]" margin="[[margin]]" parallel-coordinates="" multi-path="" muted-opacity="0" series-id="[[seriesKey]]" category-key="[[categoryKey]]" categories="[[categories]]" chart-data="[[chartData]]" complete-series-config="[[completeSeriesConfig]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" time-domain="[[timeDomain]]" muted-series="[[_combinedMutedSeries]]" prevent-initial-drawing="[[_preventInitialDrawing]]">
+            </px-vis-line-canvas>
+          </template>
+          <template is="dom-if" if="[[renderToSvg]]" restamp="">
+            <px-vis-line-svg id="lineSVG" gradient-line="" svg="[[layer.0]]" parallel-coordinates="" multi-path="" muted-opacity="0" series-id="[[seriesKey]]" category-key="[[categoryKey]]" categories="[[categories]]" chart-data="[[chartData]]" complete-series-config="[[completeSeriesConfig]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" time-domain="[[timeDomain]]" muted-series="[[_combinedMutedSeries]]" prevent-initial-drawing="[[_preventInitialDrawing]]" clip-path="[[seriesClipPath]]">
+            </px-vis-line-svg>
+          </template>
+          <px-vis-clip-path svg="[[layer.0]]" x="[[x]]" y="[[y]]" width="[[width]]" height="[[height]]" margin="[[margin]]" series-clip-path="{{seriesClipPath}}">
+          </px-vis-clip-path>
+          <px-vis-multi-axis id="multiAxis" svg="[[layer.2]]" width="[[width]]" height="[[height]]" margin="[[margin]]" title-location="[[titleLocation]]" x="[[x]]" y="[[y]]" prevent-series-bar="" combined-muted-series="[[_combinedMutedSeries]]" hard-mute="[[hardMute]]" complete-series-config="{{completeSeriesConfig}}" series-key="[[seriesKey]]" chart-data="[[chartData]]" dimensions="[[dimensions]]" axes="[[axes]]" redraw-series="true" stroke-width="2" match-ticks="[[matchTicks]]" grid-ticks="{{gridTicks}}" grid-axis="{{gridAxis}}" common-axis="[[commonAxis]]" outer-tick-size="6" label-type-size="10" title-type-size="12" truncation-length="[[truncationLength]]" tick-values="[[tickVals]]" displayed-values="{{displayedValues}}" append-unit-in-title="" domain-changed="[[domainChanged]]" axis-groups="{{axisGroups}}" brush-domains="[[brushDomains]]" brush-to-remove="[[brushToRemove]]" category-key="[[categoryKey]]" prevent-initial-drawing="[[preventInitialDrawing]]" action-config="[[actionConfig]]" interaction-space-config="[[interactionSpaceConfig]]" time-domain="[[timeDomain]]">
+          </px-vis-multi-axis>
+          <template is="dom-if" if="[[matchTicks]]">
+            <px-vis-gridlines svg="[[_calcGridSvg(domainChanged, svgLower)]]" tick-values="[[gridTicks]]" axis="[[gridAxis]]" margin="[[margin]]" length="[[_calcGridWidth(domainChanged)]]" orientation="left" domain-changed="[[domainChanged]]">
+            </px-vis-gridlines>
+          </template>
+          <template is="dom-if" if="[[_showFakeGrid]]" restamp="">
+            <px-vis-gridlines svg="[[svgLower]]" axis="[[_fakeGrids(height, margin)]]" margin="[[margin]]" length="[[width]]" orientation="left" domain-changed="true">
+            </px-vis-gridlines>
+          </template>
+          <px-vis-tooltip id="tooltip" x-axis-type="linear" y-axis-type="linear" mouse-position="[[mousePosition]]" chart-data="[[chartData]]" tooltip-data="[[tooltipData]]" complete-series-config="[[_tooltipSeriesConfig]]" display-y-values-only="">
+          </px-vis-tooltip>
+
+          <template id="highlighterDomIf" is="dom-if" if="[[!renderToSvg]]" restamp="" on-dom-change="_highlighterConfigChanged">
+            <px-vis-highlight-line-canvas id="highlighterCanvas" width="[[width]]" height="[[height]]" margin="[[margin]]" canvas-context="[[canvasLayers.highlighter]]" canvas-layers-config="{{canvasLayersConfig}}" layers-to-mask="[[canvasContext]]" x="[[x]]" y="[[y]]" clip-path="" parallel-coordinates="" dimensions="[[dimensions]]" domain-changed="[[domainChanged]]" time-data="[[seriesKey]]" complete-series-config="[[completeSeriesConfig]]" series-id="[[seriesKey]]" category-key="[[categoryKey]]" categories="[[categories]]" chart-data="[[chartData]]" generating-crosshair-data="[[generatingCrosshairData]]" crosshair-data="[[crosshairData]]" default-empty-data="{{defaultEmptyData}}" muted-series="[[_combinedMutedSeries]]" hard-mute="[[hardMute]]">
+            </px-vis-highlight-line-canvas>
+          </template>
+          <template is="dom-if" if="[[renderToSvg]]" restamp="" on-dom-change="_highlighterConfigChanged">
+            <px-vis-highlight-line id="highlighter" margin="[[margin]]" svg="[[layer.1]]" layers-to-mask="[[layer.0]]" x="[[x]]" y="[[y]]" parallel-coordinates="" dimensions="[[dimensions]]" domain-changed="[[domainChanged]]" time-data="[[seriesKey]]" complete-series-config="[[completeSeriesConfig]]" series-id="[[seriesKey]]" category-key="[[categoryKey]]" categories="[[categories]]" chart-data="[[chartData]]" generating-crosshair-data="[[generatingCrosshairData]]" crosshair-data="[[crosshairData]]" default-empty-data="{{defaultEmptyData}}" clip-path="[[seriesClipPath]]" muted-series="[[_combinedMutedSeries]]" hard-mute="[[hardMute]]">
+            </px-vis-highlight-line>
+          </template>
+
+          <px-vis-cursor-line id="lineCursor" svg="[[layer.2]]" svg-data-layer="[[layer.0]]" svg-overlay-layer="[[layer.1]]" canvas-data-layer="[[canvasContext]]" canvas-overlay-layer="[[canvasLayers.highlighter]]" x="[[x]]" y="[[y]]" parallel-coordinates="" dimensions="[[dimensions]]" domain-changed="[[domainChanged]]" series-id="[[seriesKey]]" time-domain="[[timeDomain]]" complete-series-config="[[completeSeriesConfig]]" category-key="[[categoryKey]]" categories="[[categories]]" tooltip-data="[[_axisRegisterTooltipData.dataset]]" clip-path="[[seriesClipPath]]" muted-series="[[_combinedMutedSeries]]">
+          </px-vis-cursor-line>
+        </div>
+      </div>
+    </div>
+
+    <px-tooltip id="centralTooltip" smart-orientation="" ignore-target-events="" orientation="[[tooltipOrientation]]">
+      <px-vis-central-tooltip-content resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" language="[[language]]" first-date-time-format="[[firstDateTimeFormat]]" second-date-time-format="[[secondDateTimeFormat]]" separator="[[separator]]" timezone="[[timezone]]">
+      </px-vis-central-tooltip-content>
+    </px-tooltip>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-parallel-coordinates",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.sizing,PxVisBehaviorD3.svg,PxVisBehaviorD3.svgLower,PxVisBehaviorD3.canvas,PxVisBehaviorD3.axes,PxVisBehavior.dataset,PxVisBehavior.dimensions,PxVisBehavior.commonMethods,PxVisBehaviorScale.scaleMultiAxis,PxVisBehavior.chartExtents,PxVisBehavior.dataExtents,PxVisBehavior.completeSeriesConfig,PxVisBehaviorD3.labelTypeSize,PxVisBehavior.mutedSeries,PxVisBehaviorD3.dynamicRedraw,Polymer.IronResizableBehavior,PxVisBehavior.categories,PxVisBehavior.commonAxis,PxVisBehaviorD3.selectedTimeDomain,PxVisBehaviorChart.saveImage,PxVisBehaviorChart.chartAutoResize,PxVisBehavior.truncating,PxVisBehaviorD3.domainUpdate,PxVisBehavior.tooltipData,PxVisBehaviorD3.selectedDomain,PxVisBehaviorChart.waitForAttach,PxVisBehaviorChart.subConfiguration,PxVisBehaviorChart.chartCommonMethods,PxVisBehaviorChart.layers,PxColorsBehavior.dataVisColorTheming,PxColorsBehavior.getSeriesColors,PxVisBehaviorChart.axisRegister,PxVisBehaviorChart.categoryRegister,PxVisBehaviorChart.categoryAndAxisRegisterConfigs,PxVisBehavior.dynamicMenuConfig,PxVisBehaviorChart.actionRequest,PxVisBehaviorChart.toolbarSubConfig,PxVisBehaviorChart.chartToolbarConfig,PxVisBehaviorChart.highlighterConfigs,PxVisBehavior.crosshairData,Polymer.AppLocalizeBehavior,PxVisBehavior.interactionSpaceConfigGeneric,PxVisBehaviorRenderer.base,PxVisBehaviorChart.combineMutes,PxVisBehavior.updateStylesOverride,PxVisBehavior.timeDomain,PxVisBehavior.axesDomain,PxVisBehaviorChart.multiAxisMuting,PxVisBehaviorChart.multiAxisZoom,PxVisBehavior.brushDomains,PxVisBehaviorChart.useCategoryInTooltip,PxVisBehaviorChart.tooltipSizing,PxVisBehavior.annotationData,PxVisBehaviorChart.interactionSpaceConfig,PxVisBehaviorChart.multiAxisLasso,PxVisBehaviorChart.sizeVerticalRegister,PxVisBehaviorChart.registerPagnationMultiAxis,PxVisBehaviorChart.centralTooltip],properties:{skipKeys:{type:Object,notify:!0,value:function value(){return{}}},seriesKey:{type:String,notify:!0},matchTicks:{type:Boolean,value:!1},generateAxesFromData:{type:Boolean,value:!1},seriesConfig:{type:Object,notify:!0,value:function value(){return{}}},displayedValues:{type:Object},_currentLabelRotation:{type:String,value:""},_haveChartData:{type:Boolean,computed:"_doWeHaveChartData(chartData)"},_showFakeGrid:{type:Boolean,value:!0,computed:"_calcShowFakeGrid(_haveChartData, y, domainChanged)"},_tooltipSeriesConfig:{type:Object,value:function value(){return{}}},tooltipConfig:{type:Object},margin:{type:Object,notify:!0,value:function value(){return{left:15,right:15,top:10,bottom:0}}},startColorIndex:{type:Number,value:0},resources:{type:Object,value:function value(){return{}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},preventInitialDrawing:{type:Boolean,value:!0},tickVals:{type:Object,value:function value(){return{}}},_tickStack:{type:Object,value:function value(){return{}}},_axisRegisterIconColor:{type:String,value:"transparent"}},observers:["_generateSeriesConfig(dimensions, seriesConfig, categories.*, seriesKey, _haveChartData, seriesColorList.*)","_computeAxes(chartData.*,skipKeys.*)","_computeDimensions(axes.*, mutedAxes.*)","_setMutedSeriesDomain(timeDomain.x)","_calcTitleLocation(svg, height, width, displayedValues.*)","_tooltipConfigChanged(tooltipConfig)","_toolbarConfigChanged(toolbarConfig)","_highlighterConfigChanged(highlighterConfig.*)","_langChanged(language)","_setXScale(width,margin)","_setYScale(height,margin,axes)","_generateDataExtents(dimensions, commonAxis, _haveChartData)","_generateDataExtents(dimensions, commonAxis, _haveChartData, chartExtents)","_setDomain(x, y, dataExtents)","_updateDomain(axesDomain.*)","_calcTickVals(domainChanged)","_updateTicks(axesDomain.*)","_mutedCategoriesChanged(mutedSeriesCategories.*, hardMute)","_renderChartData(domainChanged, canvasContext, chartData.*, mutedSeries.*, completeSeriesConfig.*, preventInitialDrawing, renderToSvg, _combinedMutedSeries)","_renderHighlight(domainChanged, canvasLayers.highlighter, completeSeriesConfig.*, preventInitialDrawing)","_setTimeDomain(selectedDomain.*)","_setTimeKey(seriesKey)"],listeners:{"px-vis-axis-interaction-space-tooltip-data":"_calcTooltip","px-vis-axis-interaction-space-reset-tooltip":"_hideTooltip","px-vis-axis-interaction-space-crosshair-data":"_calcCrosshair","px-vis-axis-interaction-space-reset-crosshair":"_hideCrosshair","px-vis-muted-series-updated":"_muteUnmute","px-data-vis-colors-applied":"_generateSeriesConfig","px-vis-axis-interaction-space-extents-data":"_setExtentsData","px-vis-drag-dimension-swapped":"_axisDragged"},detached:function detached(){this.set("preventInitialDrawing",!0)},attached:function attached(){if(this.displayedValues){window.requestAnimationFrame(function(){this._calcTitleLocation()}.bind(this))}},ready:function ready(){this.set("numberOfLayers",3);this.set("_verticalRegisterDrawingCanvasId","svgCanvas");this.set("_verticalRegisterHeightDeductions",["toolbar"])},_doWeHaveChartData:function _doWeHaveChartData(cD){if(this.hasUndefinedArguments(arguments)){return}if(this.chartData&&0<this.chartData.length){return!0}},_tooltipConfigChanged:function _tooltipConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.tooltipConfig,this.$.tooltip)},_toolbarConfigChanged:function _toolbarConfigChanged(conf){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(this.toolbarConfig,this.$.toolbar)},_highlighterConfigChanged:function _highlighterConfigChanged(conf){var elem=this.renderToSvg?this.$$("#highlighter"):this.$$("#highlighterCanvas");if(elem&&this._doesObjHaveValues(this.highlighterConfig)){this._applyConfigToElement(this.highlighterConfig,elem)}},_calcTitleLocation:function _calcTitleLocation(svg,height,width,displayedValues){if(this.hasUndefinedArguments(arguments)){return}this.debounce("calcTitleLocation",function(){for(var textWidth=0,_this=this,keys=Object.keys(this.displayedValues),values=[],i=0;i<keys.length;i++){values.push(this.displayedValues[keys[i]])}var labels=this.svg.selectAll(".dummyText").data(values);labels.enter().append("text").attr("class","dummyText").attr("font-size",this.labelTypeSize+"px").attr("font-style","GE Inspira Sans").text(function(d){return d}).each(function(d,i){var w=this.getComputedTextLength();textWidth=Math.max(w,textWidth);this.remove()});textWidth+=10;var isVertical=this.width/values.length<textWidth,newRotation=isVertical?"vertical":"horizontal",newBottomMargin=isVertical?textWidth:this.labelTypeSize+10,rotation=isVertical?"-90":"0",yPos=isVertical?this.height-newBottomMargin:this.height+10-newBottomMargin,anchor=isVertical?"end":"middle";if(this.margin.bottom!==newBottomMargin){var m=this.margin;this.set("margin",{top:m.top,right:m.right,left:m.left,bottom:newBottomMargin})}if(newRotation!==this._currentLabelRotation||yPos!==this.titleLocation.y){this.set("titleLocation",{x:"3",y:yPos,r:rotation,anchor:anchor})}this.set("preventInitialDrawing",!1)}.bind(this),5)},_computeAxes:function _computeAxes(cD,sK){if(this.hasUndefinedArguments(arguments)){return}if(this._doesObjHaveValues(this.chartData)){var axes;this.skipKeys[this.seriesKey]=!0;if(this.categoryKey){this.skipKeys[this.categoryKey]=!0}if(this.generateAxesFromData){if("undefined"===typeof this.axes){axes=Object.keys(this.chartData[0]).filter(function(d){return!this.skipKeys[d]}.bind(this))}else{var newAxes=Object.keys(this.chartData[0]).filter(function(d){return!this.skipKeys[d]&&-1===this.axes.indexOf(d)}.bind(this)),oldAxes=this.axes.filter(function(d){return-1!==Object.keys(this.chartData[0]).indexOf(d)&&!this.skipKeys[d]}.bind(this));axes=oldAxes.concat(newAxes)}this.set("axes",axes)}}},_computeDimensions:function _computeDimensions(axes,muted){if(this.hasUndefinedArguments(arguments)){return}if(this._doesObjHaveValues(this.axes)){if(this._doesObjHaveValues(this.mutedAxes)){var dims=this.axes.filter(function(d){return!this.mutedAxes[d]}.bind(this));this.set("dimensions",dims)}else{this.set("dimensions",this.axes)}}else if(this.dimensions&&0<this.dimensions.length){this.set("dimensions",[])}},_generateSeriesConfig:function _generateSeriesConfig(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("_generateSeriesConfig",function(){if(this.seriesColorList.length&&this._haveChartData&&this._doesObjHaveValues(this.dimensions)){var config=this.seriesConfig?this.clone(this.seriesConfig):{};if(!config[this.seriesKey]){config[this.seriesKey]={}}if(!config[this.seriesKey].name){config[this.seriesKey].name=this.seriesKey}if(!config[this.seriesKey].x){config[this.seriesKey].x=this.dimensions}if(!config[this.seriesKey].y){config[this.seriesKey].y=this.dimensions}if(!config[this.seriesKey].color){config[this.seriesKey].color=this._getColor(this.startColorIndex)}if("undefined"!==typeof this.categoryKey){for(var i=0;i<this.categories.length;i++){if(!config[this.categories[i]]){config[this.categories[i]]={color:this._getColor(this.startColorIndex+i),name:this.categories[i],x:this.dimensions,y:this.dimensions}}else{config[this.categories[i]].color=config[this.categories[i]].color?config[this.categories[i]].color:this._getColor(this.startColorIndex+i);config[this.categories[i]].name=config[this.categories[i]].name?config[this.categories[i]].name:this.categories[i];config[this.categories[i]].x=config[this.categories[i]].x?config[this.categories[i]].x:this.dimensions;config[this.categories[i]].y=config[this.categories[i]].y?config[this.categories[i]].y:this.dimensions}}}this.set("completeSeriesConfig",config)}}.bind(this),20)},_setMutedSeriesDomain:function _setMutedSeriesDomain(sd){if(this.hasUndefinedArguments(arguments)){return}this.debounce("muted_series_domain",function(){if(!sd||!sd.length){return}if(this.chartData&&0<this.chartData.length){for(var muted={},i=0;i<this.chartData.length;i++){if(this.chartData[i][this.seriesKey]<sd[0]||this.chartData[i][this.seriesKey]>sd[1]){muted[this.chartData[i][this.seriesKey]]=!0}}this.set("mutedSeriesDomain",muted)}},200)},resizeChart:function resizeChart(){this._onIronResize()},_resizeCalculations:function _resizeCalculations(){var _Mathmax=Math.max,wrapperRect=this.$.wrapper.getBoundingClientRect(),axisRegisterWidth=this.hideAxisRegister?0:this.$.axisRegister.getBoundingClientRect().width,categoryRegisterHeight=this._hideCategoryRegister?0:this.$.categoryRegister.getBoundingClientRect().height,toolbarRect=this.$.toolbar.getBoundingClientRect(),widthDeduct=0,heightDeduct=0,w,h;heightDeduct+=categoryRegisterHeight;heightDeduct+=toolbarRect.height;widthDeduct+=axisRegisterWidth;w=_Mathmax(wrapperRect.width-widthDeduct,0);h=_Mathmax(wrapperRect.height-heightDeduct,0);if(this.width!==w){this.set("preventInitialDrawing",!0);this.set("width",w)}if(this.height!==h){this.set("preventInitialDrawing",!0);this.set("height",h);this._computeVerticalRegisterHeight([toolbarRect.height])}},_calcGridWidth:function _calcGridWidth(){if(this.domainChanged){return this.width-2*this.x(this.dimensions[0])}},_calcGridSvg:function _calcGridSvg(){if(this.domainChanged&&this.svgLower){var currentG=this.svgLower.select(".gridGroup");if(!currentG.node()){return this.svgLower.append("g").attr("class","gridGroup").attr("transform","translate("+this.x(this.dimensions[0])+",0)")}else{return currentG.attr("transform","translate("+this.x(this.dimensions[0])+",0)")}}},addToMutedAxes:function addToMutedAxes(a){this._changeMutedAxes(a,!0)},removeFromMutedAxes:function removeFromMutedAxes(a){this._changeMutedAxes(a,!1)},_changeMutedAxes:function _changeMutedAxes(a,bool){for(var mA={},keys=Object.keys(this.mutedAxes),i=0;i<keys.length;i++){mA[keys[i]]=this.mutedAxes[keys[i]]}if("string"===typeof a){mA[a]=bool;this.set("mutedAxes",mA)}else if(Array.isArray(a)){for(var i=0;i<a.length;i++){mA[a[i]]=bool}this.set("mutedAxes",mA)}else{console.error("Cannot add/remove axis. Improper axis type")}},_calcTooltip:function _calcTooltip(evt){var d=evt.detail;this._buildAxisTooltipData(d.dataset,d.time);this.set("_axisRegisterIconColor",d.color);if(this.showTooltip&&d.tooltipConfig){this._doTooltipCalcs(d)}this.set("tooltipData",d);this._resetPages()},_hideTooltip:function _hideTooltip(evt){if(this.defaultEmptyData&&this.defaultEmptyData.dataset){this._calcTooltip({detail:this.defaultEmptyData});return}this.set("tooltipData",evt.detail);this.set("mousePosition",[-1e3,-1e3]);this._buildAxisTooltipData();this.set("_axisRegisterIconColor","transparent");this._resetPages()},_doTooltipCalcs:function _doTooltipCalcs(d){if(this.useCategoryInTooltip){var key=Object.keys(d.tooltipConfig)[0],cat=d.dataset[this.categoryKey],title;if(cat){if(this.completeSeriesConfig[cat]&&this.completeSeriesConfig[cat].name.toString()!==cat){title=this.completeSeriesConfig[cat].name}else{title=this.categoryKey+" - "+cat}d.tooltipConfig[key].name=title}}if(!this._svgClientRect||!this._canvasClientRect){this._getImmediateSizing()}var screenX=this.x(d.axis)+this._svgClientRect.left+this._winX+15,screenY=this.y[d.axis](d.yVal)+this.margin.top+this._svgClientRect.top+this._winY;this.set("mousePosition",[screenX,screenY]);this.set("_tooltipSeriesConfig",d.tooltipConfig)},_calcCrosshair:function _calcCrosshair(evt){this.generatingCrosshairData=!0;this.set("crosshairData",evt.detail)},_hideCrosshair:function _hideCrosshair(evt){this.generatingCrosshairData=!1;this.set("crosshairData",evt.detail)},_fakeGrids:function _fakeGrids(height,margin){var h=height-margin.top-margin.bottom;return Px.d3.scaleLinear().nice().range([h,0])},_calcShowFakeGrid:function _calcShowFakeGrid(){if(this.hasUndefinedArguments(arguments)){return}var draw=!1;if(this._haveChartData&&0<Object.keys(this.y).length){var k=Object.keys(this.y)[0];draw=0<this.y[k].domain().length?!1:!0}return draw},deleteAllBrushes:function deleteAllBrushes(){this.$.multiAxis.deleteAllBrushes()},_muteUnmute:function _muteUnmute(evt){if(evt.detail.fromRegister&&-1!==this.axes.indexOf(evt.detail.name)){if(evt.detail.value){this.addToMutedAxes(evt.detail.name)}else{this.removeFromMutedAxes(evt.detail.name)}}},_langChanged:function _langChanged(){if(this.hasUndefinedArguments(arguments)){return}this._recreateScales()},_setTimeDomain:function _setTimeDomain(){if(this.selectedDomain&&this.selectedDomain.x&&this.selectedDomain.x.length){this.set("timeDomain",this.selectedDomain)}},_setTimeKey:function _setTimeKey(){if(this.seriesKey){this.set("timeKey",this.seriesKey)}},_setExtentsData:function _setExtentsData(e){if(!e.detail.extents){return}this.extentsAction=e.detail.action;var extentsData={dimension:e.detail.dimension,extents:e.detail.extents};this.set("extentsData",extentsData)},_calcTickVals:function _calcTickVals(){if(this.hasUndefinedArguments(arguments)){return}if(this._isObjEmpty(this.y)||this._doesObjHaveValues(this.axesDomain)){return}if(this.commonAxis){var key=Object.keys(this.y)[0];this.set("gridAxis",this.y[key]);this.set("tickVals",null);this.set("gridTicks",null);return}var tickVals={};if(this.matchTicks&&!this.singleDomain){for(var keys=Object.keys(this.y),vals=[],d,min,max,diff,key,i=0;i<keys.length;i++){key=keys[i];d=this.y[key].domain();min=10*Math.floor(d[0]/10);max=10*Math.ceil(d[1]/10);diff=(max-min)/10;vals=[];for(var j=0;11>j;j++){vals.push(min+diff*j)}tickVals[key]=vals}this.set("gridTicks",tickVals[keys[0]]);this.set("gridAxis",this.y[keys[0]])}this.set("tickVals",tickVals)},_updateTicks:function _updateTicks(axesDomain){if(this.hasUndefinedArguments(arguments)){return}if(!this.matchTicks||this.commonAxis){return}var dims=Object.keys(axesDomain.value);if(1===dims.length&&!this._tickStack[dims[0]]){this._saveTicks(dims[0])}else{for(var i=0;i<dims.length;i++){this._checkIfTickVals(dims[i])}}},_saveTicks:function _saveTicks(dim){this._tickStack[dim]=this.tickVals[dim];this.set("tickVals."+dim,null)},_checkIfTickVals:function _checkIfTickVals(dim){if(this._tickStack[dim]){var d=this.y[dim].domain(),l=this._tickStack[dim].length-1;if(this._tickStack[dim][0]===d[0]&&this._tickStack[dim][l]===d[1]){this.set("tickVals."+dim,this._tickStack[dim]);delete this._tickStack[dim]}}},_mutedCategoriesChanged:function _mutedCategoriesChanged(){if(this.hasUndefinedArguments(arguments)){return}if(!0===this.hardMute){this._generateDataExtents()}},_axisDragged:function _axisDragged(){this.$.annotations.set("forceRecalc",!this.$.annotations.forceRecalc)}});</script>
+</body></html>

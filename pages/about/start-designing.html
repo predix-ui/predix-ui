@@ -1,0 +1,116 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-about-start-designing">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#how-to-use-the-starter-kit', activeAnchor)]]" href="#" anchor="#how-to-use-the-starter-kit" on-tap="_handleAnchorTapped">How to use the Starter Kit</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#adding-sketch-libraries', activeAnchor)]]" href="#" anchor="#adding-sketch-libraries" on-tap="_handleAnchorTapped">Adding Sketch Libraries</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#updating-and-syncing-libraries', activeAnchor)]]" href="#" anchor="#updating-and-syncing-libraries" on-tap="_handleAnchorTapped">Updating and Syncing Libraries</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#using-the-starter-kit', activeAnchor)]]" href="#" anchor="#using-the-starter-kit" on-tap="_handleAnchorTapped">Using the Starter Kit</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#integrating-the-predix-components-master-library', activeAnchor)]]" href="#" anchor="#integrating-the-predix-components-master-library" on-tap="_handleAnchorTapped">Integrating the Predix Components Master Library</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#adding-the-predix-color-swatches-to-sketch', activeAnchor)]]" href="#" anchor="#adding-the-predix-color-swatches-to-sketch" on-tap="_handleAnchorTapped">Adding the Predix Color Swatches to Sketch</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#additional-third-party-resources', activeAnchor)]]" href="#" anchor="#additional-third-party-resources" on-tap="_handleAnchorTapped">Additional Third-party Resources</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Design Starter Kit</h2>
+          
+          
+<p>The Starter Kit Sketch stencil contains the most common components and pre-configured page layouts in both light and dark themes used in Predix applications. It relies on the use of symbols and symbol overrides to allow for quick assembly of components in supported configurations.</p>
+<p><a href="https://github.com/predixdesignsystem/predix-design-stencil"><button class="btn btn--primary">Download the Starter Kit</button></a></p>
+<h3 id="how-to-use-the-starter-kit">How to use the Starter Kit</h3>
+<h4 id="adding-sketch-libraries">Adding Sketch Libraries</h4>
+<p><em>Note: Sketch Libraries are only available with Sketch 47 and above.</em></p>
+<p>To start using the Predix Components Master Library, you will need to clone this repository to your local environment and link the library to your file. You can follow <a href="https://help.github.com/articles/cloning-a-repository/">these instructions</a> to clone this repository in your local environment.</p>
+<p><strong>Do not edit the local copy of the Predix Components Master file.</strong> If you are creating symbols, be sure to create symbols from a separate file that links to the library. Any changes to the local copy of the Predix Components Master will need to be discarded when fetching any updates.</p>
+<p>To add Predix Components Master as a Library, first open your preference window and go to the Libraries tab. Click on the “Add Library…” button that appears on the bottom right of the preference window, and choose the document from the cloned repository. Once you've added Predix Components Master as a Library, you will now be able to insert its Symbols into any of your documents.</p>
+<p><catalog-picture img-src="../../img/guidelines/sketch-preference" img-alt="Sketch preferences"></catalog-picture></p>
+<p>Once you've added Predix Components Master to your Libraries, you can use the symbols to build symbols for your own Libraries or for your local documents. The Predix Components will appear in its own menu item within the symbols option.</p>
+<p><catalog-picture img-src="../../img/guidelines/insert-symbol" img-alt="Insert symbol"></catalog-picture></p>
+<p>If you are looking for more information about how Libraries work, you can find documentation <a href="https://sketchapp.com/docs/libraries/">here</a></p>
+<h4 id="updating-and-syncing-libraries">Updating and Syncing Libraries</h4>
+<p>We will announce any updates to the Predix Components Master. In order for you to gain access to the updates, you will need to fetch the latest file via Github. Open the Github desktop client and fetch the latest version by clicking on "Fetch origin" in the upper right. Fetching the origin will update your local copy to the latest version.</p>
+<p><catalog-picture img-src="../../img/guidelines/fetch-origin" img-alt="Fetch origin"></catalog-picture></p>
+<h4 id="using-the-starter-kit">Using the Starter Kit</h4>
+<p>The Starter Kit will have the components from the Predix Components Master, components that have not been converted to symbols, and sample layouts. Use the Starter Kit to create symbols or pages for your product and applications. Create or save a copy of the Starter Kit. Be sure to create or save a copy outside of the local Github repo.</p>
+<h4 id="integrating-the-predix-components-master-library">Integrating the Predix Components Master Library</h4>
+<p>If you've used previous versions of the Starter Kit to build your screens, you will need to replace your symbols with those that are in the Libraries file. <a href="https://github.com/sonburn/symbol-swapper">Symbol Swapper</a> is a plug-in that will help to streamline this process. Symbol Swapper provides you with a way to select a symbol and replace it with a symbol with the same name.
+<catalog-picture img-src="../../img/guidelines/symbol-swapper" img-alt="Symbol swapper"></catalog-picture></p>
+<h4 id="adding-the-predix-color-swatches-to-sketch">Adding the Predix Color Swatches to Sketch</h4>
+<p>The design starter kit includes the <em>Predix Design System Swatches v2.clr file</em>. You can setup Sketch to use the Predix color palette as part of the Colors panel.</p>
+<ol>
+<li>In sketch, open the colors panel by going to View &gt; Show Colors
+<catalog-picture img-src="../../img/guidelines/open-colors-panel" img-alt="Opening the colors panel"></catalog-picture></li>
+</ol>
+<p>The panel will show some pre-set colors from Sketch and others you might have in your system.</p>
+<ol start="2">
+<li>Add the swatches file to your library by clicking on the gear icon &gt; and then Open.
+<catalog-picture img-src="../../img/guidelines/open-clr-file" img-alt="Open clr file"></catalog-picture></li>
+</ol>
+<p>Select the <em>Predix Design System Swatches v2.clr file</em> file and click open.
+<catalog-picture img-src="../../img/guidelines/select-clr-file" img-alt="Select clr file"></catalog-picture></p>
+<ol start="3">
+<li>You will now have the swatches available in your library for use whenever the colors panel is open.
+<catalog-picture img-src="../../img/guidelines/swatches-visible-in-panel" img-alt="Clr file visible in panel"></catalog-picture></li>
+</ol>
+<p>You can switch between the swatches in your system by clicking the swatches name dropdown and selecting an option.
+<catalog-picture img-src="../../img/guidelines/switching-between-swatches" img-alt="Switch between swatches"></catalog-picture></p>
+<h3 id="additional-third-party-resources">Additional Third-party Resources</h3>
+<ul>
+<li><a href="https://www.sketchapp.com/">Sketch App</a></li>
+<li><a href="https://medium.com/sketch-app-sources/sketch-symbols-b36f7355414a">Unleashing The Full Potential Of Symbols In Sketch</a></li>
+<li><a href="http://contrast-grid.eightshapes.com/">Eight Shapes Contrast Grid</a></li>
+<li><a href="http://sketchrunner.com/">Sketch Runner Plug In</a></li>
+</ul>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-about-start-designing",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

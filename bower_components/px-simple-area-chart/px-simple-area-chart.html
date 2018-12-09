@@ -1,0 +1,102 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="css/px-simple-area-chart-styles.html">
+
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+<link rel="import" href="../px-vis/px-vis-register.html">
+<link rel="import" href="../px-vis/px-vis-interaction-space.html">
+<link rel="import" href="../px-vis/px-vis-cursor.html">
+<link rel="import" href="../px-vis/px-vis-area-svg.html">
+
+
+<!--
+Creates a simple stacked area chart.
+
+### Usage
+
+    <px-simple-area-chart
+        chart-data="[[chartData]]">
+    </px-simple-area-chart>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-axis-color` | The color for the axis lines, axis ticks, and axis tick labels
+  `--px-vis-axis-title-color` | The color for the axis title
+  `--px-vis-axis-inline-title-color` | The color for the axis title
+  `--px-vis-axis-inline-type-color` | The color for the axis lines, axis ticks, and axis tick labels when using 'inline' labelPosition
+  `--px-vis-axis-inline-box-color` | The color for the tick boxes when using 'inline' labelPosition
+  |
+  |
+  |
+  `--px-vis-cursor-line-color` | The color for the lines which track the cursor/data
+  |
+  |
+  |
+  `--px-vis-register-series-name` | The color of the data series name
+  `--px-vis-register-data-value` | The color of the data series value
+  `--px-vis-register-box` | The color of the box around the register when a scrollbar is present
+  |
+  |
+  |
+  `--px-vis-series-color-0` | These are the colors used to represent the data series on the charts. Used in numerical order by default. Colors MUST start at 0 and cannot contain gaps between numbers.
+  `--px-vis-series-color-1` |
+  `--px-vis-series-color-2` |
+  `--px-vis-series-color-n` |
+
+
+
+@element px-simple-area-chart
+@blurb Creates a simple stacked area chart
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-simple-area-chart">
+  <template>
+    <style include="px-simple-area-chart-styles"></style>
+    <div id="wrapper" class="flex wrapper flex--left safari-flex-fix">
+      <div class="flex flex--col">
+        <px-vis-register id="register" height="50" chart-width="[[width]]" margin="[[margin]]" units="[[units]]" tooltip-data="[[tooltipData]]" chart-data="[[chartData]]" complete-series-config="[[completeSeriesConfig]]" type="horizontal" x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" disable-click="">
+        </px-vis-register>
+        <px-vis-svg width="[[width]]" height="[[height]]" margin="[[margin]]" svg="{{svg}}">
+        </px-vis-svg>
+        <px-vis-scale x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" complete-series-config="[[completeSeriesConfig]]" data-extents="[[_dataExtents]]" width="[[width]]" height="[[height]]" margin="[[margin]]" chart-data="{{chartData}}" x="{{x}}" y="{{y}}" domain-changed="{{domainChanged}}">
+        </px-vis-scale>
+        <px-vis-area-svg svg="[[layer.0]]" complete-series-config="[[completeSeriesConfig]]" chart-data="[[_stackedChartData]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]">
+        </px-vis-area-svg>
+        <px-vis-interaction-space svg="[[layer.2]]" width="[[width]]" height="[[height]]" margin="[[_internalMargin]]" x-axis-type="[[xAxisType]]" series-keys="[[_seriesKeys]]" complete-series-config="[[completeSeriesConfig]]" chart-data="[[chartData]]" x="[[x]]" y="[[y]]" domain-changed="[[domainChanged]]" selection-type="{{selectionType}}" mouse-rect="{{mouseRect}}" tooltip-data="{{tooltipData}}" interaction-svg="{{interactionSvg}}" extents-data="{{extentsData}}" action-config="[[actionConfig]]" show-tooltip="{{_computedShowTooltip}}">
+        </px-vis-interaction-space>
+        <px-vis-cursor id="cursor" svg="[[layer.1]]" width="[[width]]" height="[[height]]" margin="[[margin]]" horizontal-line="none" circle-point="no" complete-series-config="[[completeSeriesConfig]]" chart-data="[[chartData]]" tooltip-data="[[tooltipData]]">
+        </px-vis-cursor>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-simple-area-chart",behaviors:[PxVisBehavior.baseSize,PxVisBehavior.margins,PxVisBehavior.dataset,PxVisBehavior.axisTypes,PxVisBehaviorD3.axes,PxVisBehaviorD3.domainUpdate,PxVisBehavior.chartExtents,PxVisBehavior.dataExtents,PxVisBehaviorD3.svg,PxVisBehavior.commonMethods,PxVisBehavior.tooltipData,PxVisBehaviorChart.registerConfigs,PxVisBehaviorChart.registerPositioning,PxVisBehaviorChart.chartAutoResize,PxColorsBehavior.dataVisColorTheming,PxVisBehaviorChart.layers,PxVisBehaviorChart.chartCommon,PxVisBehaviorChart.subConfiguration],properties:{_stackedChartData:{type:Array,computed:"_computeStack(chartData.*, completeSeriesConfig.*)"},_dataExtents:{type:Object,computed:"_computeDataExt(dataExtents, completeSeriesConfig.*)"}},listeners:{"iron-resize":"_onIronResize"},observers:["_registerConfigChanged(registerConfig.*)"],ready:function ready(){this.set("numberOfLayers",3);this.includeAllSeries=!0},_onIronResize:function _onIronResize(){var _Mathmax=Math.max;if(this.preventResize){return}this.debounce("ironresize",function(){var wrapperRect=this.$.wrapper.getBoundingClientRect(),registerRect=this.$.register.getBoundingClientRect(),widthDeduct=0,heightDeduct=0;heightDeduct+=registerRect.height;this.set("width",_Mathmax(wrapperRect.width-widthDeduct,0));this.set("height",_Mathmax(wrapperRect.height-heightDeduct,0))},50)},_registerConfigChanged:function _registerConfigChanged(conf){if(conf){this._applyConfigToElement(this.registerConfig,this.$.register)}},_computeStack:function _computeStack(){if(this._doesObjHaveValues(this.completeSeriesConfig)&&this._doesObjHaveValues(this.chartData)){for(var stack=Px.d3.stack(),seriesKeys=Object.keys(this.completeSeriesConfig),seriesYs=[],i=0,k;i<seriesKeys.length;i++){k=seriesKeys[i];seriesYs.push(this.completeSeriesConfig[k].y)}stack.keys(seriesYs);return stack(this.chartData)}},_computeDataExt:function _computeDataExt(dataExtents){if(this.completeSeriesConfig&&this._doesObjHaveValues(this.dataExtents)){var max=1;keys=Object.keys(this.completeSeriesConfig);for(var i=0,groupMax;i<this.chartData.length;i++){groupMax=0;for(var j=0;j<keys.length;j++){var k=keys[j],y=this.completeSeriesConfig[k].y,val=this.chartData[i][y]?this.chartData[i][y]:0;groupMax+=val}max=Math.max(groupMax,max)}return{x:[this.dataExtents.x[0],this.dataExtents.x[1]],y:[0,max]}}}});</script>
+</body></html>

@@ -1,0 +1,64 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+<link rel="import" href="../px-number-formatter/px-number-formatter-no-display.html">
+<link rel="import" href="px-data-grid-renderer-mixin.html">
+<link rel="import" href="px-data-grid-theme.html">
+<link rel="import" href="css/px-data-grid-number-renderer-styles.html">
+
+<!--
+
+### Styling
+The following custom properties are available for styling of the number-renderer content.
+
+Custom property | Description
+'--px-data-grid-cell-number-column-overflow' | controls the overflow behavior, visible, hidden
+'--px-data-grid-cell-number-column-white-space' | controls how white-spaces are handled, normal, nowrap
+'--px-data-grid-cell-number-column-word-wrap' | controls how word-wrapping is handled normal, break-word
+'--px-data-grid-cell-number-column-text-overflow' | controls how text-overflow is handled, clip, ellipsis
+'--px-data-grid-cell-number-column-editor-align-items | control editor alignment when in edit mode, center, flex-end, flex-start'
+
+Examples:
+Make number-renderer columns wrap the content:
+--px-data-grid-cell-number-column-overflow: hidden;
+--px-data-grid-cell-number-column-word-wrap: break-word;
+
+Make number-renderer columns use ellipsis overflow:
+--px-data-grid-cell-number-column-text-overflow: ellipsis;
+--px-data-grid-cell-number-column-white-space: nowrap;
+--px-data-grid-cell-number-column-overflow: hidden;
+
+-->
+
+</head><body><dom-module id="px-data-grid-number-renderer">
+  <template>
+    <style include="px-data-grid-number-renderer-styles"></style>
+    <px-number-formatter-no-display value="[[value]]" format="[[_getDisplayFormat(displayFormat)]]" currency="[[displayIsCurrency]]" culture="[[displayCulture]]" zero-format="[[displayZeroFormat]]" formatted-value="{{_formattedValue}}">
+    </px-number-formatter-no-display>
+    <template is="dom-if" if="[[!_editing]]">[[_formattedValue]]</template>
+    <template is="dom-if" if="[[_editing]]" restamp="">
+      <div id="editingTemplate" class="input-container">
+
+        <!-- In IE11 input[type=number] does not work properly. -->
+        <input id="editingTemplateInput" class$="{{getClasses(validationResult)}}" type$="[[_getInputFieldType(_ie)]]" value="[[value]]" on-input="_onInputChange">
+
+        <px-tooltip for="editingTemplateInput" orientation="top" tooltip-message="[[validationResult.message]]" opened="[[_showValidationError]]" ignore-target-events="">
+      </px-tooltip></div>
+    </template>
+  </template>
+  <script>{var DataGridNumberRenderer=function(_Predix$DataGridRende){babelHelpers.inherits(DataGridNumberRenderer,_Predix$DataGridRende);function DataGridNumberRenderer(){babelHelpers.classCallCheck(this,DataGridNumberRenderer);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridNumberRenderer).apply(this,arguments))}babelHelpers.createClass(DataGridNumberRenderer,[{key:"validate",value:function validate(){var isValid=!0,message="";if(this.column.required&&0==this.value.toString().length){isValid=!1;message=this.localize("Value is required")}else if(this.value&&isNaN(+this.value)){isValid=!1;message=this.localize("Invalid number")}return{valid:isValid,message:message}}},{key:"_getInputFieldType",value:function _getInputFieldType(ie){if(ie){return"text"}else{return"number"}}},{key:"_valueObserver",value:function _valueObserver(value){if(isNaN(+value)){console.error("\n[px-data-grid-number-renderer]\nExpected a value that could be parsed to a number, but received a value that cannot be parsed.\nColumn path: ".concat(this.column.path,"\nUnexpected value: ").concat(value,"\n            ").trim());return}if("string"===typeof value&&0<value.length){this.value=+value}}},{key:"_onInputChange",value:function _onInputChange(e){this.value=e.target.value}},{key:"_rendererConfigChanged",value:function _rendererConfigChanged(rendererConfig){if(rendererConfig){var updates={};if(rendererConfig.hasOwnProperty("displayFormat")&&this.displayFormat!==rendererConfig.displayFormat){updates.displayFormat=rendererConfig.displayFormat}if(rendererConfig.hasOwnProperty("displayCurrency")&&this.displayCurrency!==rendererConfig.displayCurrency){updates.displayCurrency=rendererConfig.displayCurrency}if(rendererConfig.hasOwnProperty("displayCulture")&&this.displayCulture!==rendererConfig.displayCulture){updates.displayCulture=rendererConfig.displayCulture}if(rendererConfig.hasOwnProperty("displayZeroFormat")&&this.displayZeroFormat!==rendererConfig.displayZeroFormat){updates.displayZeroFormat=rendererConfig.displayZeroFormat}if(Object.keys(updates).length){this.setProperties(updates)}}}},{key:"_getDisplayFormat",value:function _getDisplayFormat(format){return null===format?"NONE":format}},{key:"getClasses",value:function getClasses(result){return!result||result.valid?"text-input":"text-input validation-error"}}],[{key:"is",get:function get(){return"px-data-grid-number-renderer"}},{key:"properties",get:function get(){return{displayFormat:{type:String,value:null},displayCulture:{type:String},displayIsCurrency:{type:String},displayZeroFormat:{type:String},_formattedValue:String,value:{type:Number},initialValue:{type:Number},_ie:{type:Boolean,value:!!(navigator.userAgent.match(/Trident/)&&!navigator.userAgent.match(/MSIE/))}}}},{key:"observers",get:function get(){return["_valueObserver(value)","_rendererConfigChanged(column.rendererConfig, column.rendererConfig.*)"]}}]);return DataGridNumberRenderer}(Predix.DataGridRendererMixin(Polymer.Element));customElements.define(DataGridNumberRenderer.is,DataGridNumberRenderer);window.Predix=window.Predix||{};Predix.DataGridNumberRenderer=DataGridNumberRenderer}</script>
+</dom-module>
+</body></html>

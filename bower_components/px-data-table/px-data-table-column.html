@@ -1,0 +1,56 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+This element defines column settings for a column within a `px-data-table`. If no `px-data-table-column` sub-components are passed in,
+by default the table will display all columns that are found in the `table-data` array objects. If one or more column definitions are
+included, the table will only display those columns. If the `include-all-columns` property is set to true on the `px-data-table`,
+the table will first gather all of the columns from the `table-data` array, then override the settings for individual columns using
+the `px-data-table-column` definitions provided.
+
+### Usage
+
+    <px-data-table-column name="first"></px-data-table-column>
+
+The px-data-table-column component accepts both px-validation and px-data-table-highlight sub-components. For example:
+
+    <px-data-table table-data="{{...}}">
+      <px-data-table-column name="first" label="First Name" filterable sortable editable>
+        <px-validation>
+          <px-validator validation-method="isNumber" import="../px-validation/px-example-validator.html"></px-validator>
+        </px-validation>
+      </px-data-table-column>
+    </px-data-table>
+
+    <px-data-table table-data="{{...}}">
+      <px-data-table-column name="first" label="First Name" filterable sortable editable>
+        <px-data-table-highlight highlight-method="wordBeginsWithLetterJ" import="px-example-highlight.html">
+        </px-data-table-highlight>
+      </px-data-table-column>
+    </px-data-table>
+
+Use the dropdown at the top of this screen to see the API for `px-data-table` or `px-data-table-highlight`.
+Click [here](https://www.predix-ui.com/#/components/px-validation/) for more information on `px-validation`.
+
+@element px-data-table-column
+@homepage index.html
+@demo index.html
+--><html><head></head><body><dom-module id="px-data-table-column">
+  <template>
+    <content id="contentNode"></content>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-data-table-column",properties:{name:{type:String,value:""},label:{type:String,value:""},type:{type:String,value:"string"},sortable:{type:Boolean,value:!1},editable:{type:Boolean,value:!1},filterable:{type:Boolean,value:!1,notify:!0},disableSelect:{type:Boolean,value:!1},sortFunctionName:{type:String,value:""},filterFunctionName:{type:String,value:""},maxColumnCharacterWidth:{type:Number,value:0},ellipsisClipPosition:{type:String,value:"right"},dropdownItems:{type:Array,value:function value(){return[]},notify:!0},hide:{type:Boolean,value:!1},disableHide:{type:Boolean,value:!1},placeholder:{type:String,value:""},_highLightElLoadedCount:{type:Number,value:0}},validate:function validate(value){var validationEl=Polymer.dom(this).querySelector("px-validation");if(validationEl){return validationEl.validate(value)}else{return{passedValidation:!0}}}});</script>
+</body></html>

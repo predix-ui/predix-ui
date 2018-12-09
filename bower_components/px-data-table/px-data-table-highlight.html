@@ -1,0 +1,55 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-data-table-highlight-styles.html">
+
+<!--
+
+Element to define and configure highlighting behavior for a given column (and hence cell or row).
+
+### Usage
+
+    <px-data-table-highlight
+      highlight-type="row"
+      highlight-method="isLongString"
+      import="px-example-highlight.html">
+    </px-data-table-highlight>
+
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-data-table-highlight--high` | A high highlight | `rgba($alert-red, 0.25)`
+`--px-data-table-highlight--medium` | A medium highlight | `rgba($alert-yellow, 0.25)`
+`--px-data-table-highlight--low` | A low highlight | `rgba($alert-blue, 0.25)`
+
+@element px-data-table-highlight
+@blurb Element to define and configure highlighting behaviour for a given column (and hence cell or row).
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-data-table-highlight">
+  <template>
+    <style include="px-data-table-highlight-styles"></style>
+
+    <span></span>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-data-table-highlight",properties:{import:{type:String,value:""},highlight:{type:Object,value:function value(){return new Function}},highlightMethod:{type:String,value:""},highlightType:{type:String,value:"cell"},highlightValue:{type:String,value:"low"}},attached:function attached(){this.importHref(this.import,function(e){if(this.highlightMethod&&window.PxHighlight[this.highlightMethod]){this.highlight=window.PxHighlight[this.highlightMethod];this.fire("px-data-table-highlight-loaded")}},function(e){},!1)}});</script>
+</body></html>

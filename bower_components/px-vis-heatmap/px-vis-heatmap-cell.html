@@ -1,0 +1,27 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg.html">
+
+<link rel="import" href="../px-vis/css/px-vis-styles.html">
+
+
+</head><body><dom-module id="px-vis-heatmap-cell">
+  <script>Polymer({is:"px-vis-heatmap-cell",behaviors:[PxVisBehavior.commonMethods,PxVisBehavior.completeSeriesConfig,PxVisBehavior.svgDefinition,PxVisBehaviorD3.axes,PxVisBehaviorD3.canvasContext,PxVisBehaviorD3.domainUpdate],properties:{data:{type:Object,value:{}},seriesKey:{type:String},showCellValue:{type:Boolean,value:!1},colorScale:{type:Function},fillColor:{type:String},strokeColor:{type:String},textAlign:{type:String,value:"middle"},textColor:{type:String,value:"#000"},fontSize:{type:String},fontFamily:{type:String},drawDebounceTime:{type:Number,value:50},_svgGroup:{type:Object,value:{}}},observers:["_draw(data, showCellValue, x, y, domainChanged, completeSeriesConfig, seriesKey, colorScale)","_updateColors(fillColor, strokeColor)"],detached:function detached(){if(!this._isObjEmpty(this._svgGroup)){this._svgGroup.remove()}},getSvgElement:function getSvgElement(){if(this._svgGroup&&this._svgGroup._groups&&this._svgGroup._groups[0]){return this._svgGroup._groups[0][0]}return},getSvgTextElement:function getSvgTextElement(){var text;if(this._svgGroup){var textD3=this._svgGroup.select("text");if(textD3&&textD3._groups&&textD3._groups[0]){text=textD3._groups[0][0]}}return text},_draw:function _draw(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("drawDebounce",function(){if(this.svg){this._drawDebounced()}else if(this.canvasContext){this._drawDebouncedCanvas()}},this.drawDebounceTime)},_drawDebouncedCanvas:function _drawDebouncedCanvas(){var fillColor=this.fillColor||this._calcCellColor(this._getValue("value"));this.canvasContext.beginPath();this.canvasContext.rect(this.x(this._getValue("x")),this.y(this._getValue("y")),this.x.bandwidth(),this.y.bandwidth());this.canvasContext.fillStyle=fillColor;this.canvasContext.fill();this.canvasContext.closePath()},_drawDebounced:function _drawDebounced(){if(!this._isObjEmpty(this._svgGroup)){this._svgGroup.remove()}if(!this.data){console.warn("Cannot draw without data");return}if(!this.x||!this.y){console.warn("Cannot draw without valid x and y functions");return}this._svgGroup=this.svg.append("g").attr("class","hoverTransition");var svgData={x:this.x(this._getValue("x")),y:this.y(this._getValue("y")),width:this.x.bandwidth(),height:this.y.bandwidth()};if(!this._isValidSvgPoints(svgData)){console.warn("Skipping draw, invalid svg points");return}var fillColor=this.fillColor||this._calcCellColor(this._getValue("value"));this._appendRectangle(this._svgGroup,svgData.x,svgData.y,svgData.width,svgData.height,this.strokeColor,fillColor);if(this.showCellValue){var textPos={x:svgData.x+svgData.width/2,y:svgData.y+svgData.height/2};this._appendText(this._svgGroup,textPos.x,textPos.y,this._getValue("value"),this.textColor,this.textAlign,this.fontFamily,this.fontSize)}this._svgGroup.on("mouseover",this._handleMouseOver.bind(this));this._svgGroup.on("mouseout",this._handleMouseOut.bind(this));this._svgGroup.on("click",this._handleClick.bind(this))},_getValue:function _getValue(key){return this.data[this.completeSeriesConfig[this.seriesKey][key]]},_isValidSvgPoints:function _isValidSvgPoints(obj){for(var i in obj){if(isNaN(obj[i])||0>obj[i]){return!1}}return!0},_updateColors:function _updateColors(){this._draw()},_appendRectangle:function _appendRectangle(svg,x,y,width,height,strokeColor,fillColor){svg.append("rect").attr("x",x).attr("y",y).attr("width",width).attr("height",height).attr("stroke",strokeColor).attr("fill",fillColor)},_appendText:function _appendText(svg,x,y,text,color,textAnchor,fontFamily,fontSize){var textEl=svg.append("text").text(text).attr("x",x).attr("y",y);if(color){textEl.attr("fill",color)}if(textAnchor){textEl.attr("text-anchor",textAnchor)}if(fontFamily){textEl.attr("font-family",fontFamily)}if(fontSize){textEl.attr("font-size",fontSize)}},_calcCellColor:function _calcCellColor(value){if(!this.colorScale){return}return this.colorScale(value)},_handleMouseOver:function _handleMouseOver(d,i,svgEl){this._fireEvent("mouseover",svgEl[0])},_handleMouseOut:function _handleMouseOut(d,i,svgEl){this._fireEvent("mouseout",svgEl[0])},_handleClick:function _handleClick(d,i,svgEl){this._fireEvent("click",svgEl[0])},_fireEvent:function _fireEvent(eventName,svgEl){this.fire(eventName,{cell:this,x:this._getValue("x"),y:this._getValue("y"),value:this._getValue("value"),svgEl:svgEl})}});</script>
+</dom-module>
+</body></html>

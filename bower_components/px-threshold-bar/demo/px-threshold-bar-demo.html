@@ -1,0 +1,70 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+<!-- Imports for this component -->
+<link rel="import" href="../px-threshold-bar.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-threshold-bar-demo">
+  <template>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-threshold-bar" description="The px-threshold-bar is a linear multi-threshold simple bar chart, similar to px-gauge but more compact." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-threshold-bar min="{{props.min.value}}" max="{{props.max.value}}" config="{{props.config.value}}" value="{{props.value.value}}" hide-value="{{props.hideValue.value}}" hide-scale="{{props.hideScale.value}}" uom="{{props.uom.value}}">
+        </px-threshold-bar>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-threshold-bar">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-threshold-bar"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-threshold-bar-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Simple",configReset:!0},{configName:"Negative values",min:-50,max:50,value:0,uom:"\xB0",config:[{min:-50,max:-25,color:"#F34336"},{min:-25,max:-10,color:"#FF8B3A"},{min:-10,max:10,color:"#7FAE1B"},{min:10,max:25,color:"#FF8B3A"},{min:25,max:50,color:"#F34336"}]}]}}},demoProps:{min:{type:Number,defaultValue:0,inputType:"text"},max:{type:Number,defaultValue:100,inputType:"text"},value:{type:Number,defaultValue:70,inputType:"text"},uom:{type:String,defaultValue:"%",inputType:"text"},config:{type:Array,defaultValue:[{min:0,max:40,color:"#F34336"},{min:40,max:80,color:"#FF8B3A"},{min:80,max:100,color:"#7FAE1B"}],inputType:"code:JSON"},hideValue:{type:Boolean,defaultValue:!1,inputType:"toggle"},hideScale:{type:Boolean,defaultValue:!1,inputType:"toggle"}}});</script>
+</body></html>

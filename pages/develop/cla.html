@@ -1,0 +1,135 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link defer="" rel="import" href="../../bower_components/polymer/lib/utils/gestures.html">
+<link defer="" rel="import" href="../../bower_components/polymer/lib/utils/render-status.html">
+<link async="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+<link async="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+<link async="" rel="import" href="../../css/px-catalog-page-styles.html">
+<link async="" rel="import" href="../../css/px-catalog-theme-styles.html">
+<link async="" rel="import" href="../../css/px-cla-styles.html">
+<link defer="" rel="import" href="../../bower_components/px-moment-imports/px-moment-imports.html">
+<link async="" rel="import" href="../../bower_components/px-datetime-field/px-datetime-field.html">
+<link async="" rel="import" href="../../bower_components/px-typeahead/px-typeahead.html">
+<link async="" rel="import" href="../../bower_components/px-notification/px-notification.html">
+
+<script defer="" src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+
+</head><body><dom-module id="dev-cla">
+  <template>
+    <style include="px-cla-styles"></style>
+    <style include="px-catalog-theme-styles px-catalog-page-styles"></style>
+
+    <px-notification id="form-feedback-notification" class="cla__notification">
+    </px-notification>
+
+    <div class="page">
+      <div class="page-anchors" id="toc">
+        <ul class="toc">
+          <li class="toc__item">
+            <a class$="toc__item__link [[_getTocLinkClassName('#license-words', activeAnchor)]]" href="#" anchor="#license-words" on-tap="_handleAnchorTapped">License</a>
+          </li>
+          <li class="toc__item">
+            <a class$="toc__item__link [[_getTocLinkClassName('#license-form', activeAnchor)]]" href="#" anchor="#license-form" on-tap="_handleAnchorTapped">Agreement</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="page-content">
+        <h2 id="license-words" class="page-title">General Electric Contributor License Agreement</h2>
+
+        <p>Want to <a href="https://www.predix-ui.com/#/develop/contribution">contribute your suggestions</a> to the Predix Design System? Before we can accept your pull request, you must provide the information requested below in an accurate and complete manner and agree to the terms of this General Electric Contributor License Agreement (“Agreement”) to clarify the intellectual property license granted to General Electric.  This is a legally binding document.  Please read this Agreement carefully before signing.</p>
+        <p>This Agreement is between You and General Electric Company, having a principal place of business at 33-41 Farnsworth Street, Boston, MA 02210 (“GE”).  Your acceptance of this Agreement indicates Your acknowledgement and acceptance of the terms below.</p>
+        <p>To avoid any confusion, except for the licenses granted by You pursuant to this Agreement, You reserve all ownership rights, title, and interest in and to Your Contributions.</p>
+        <p>You accept and agree to the following terms and conditions for Your Contributions to GE.</p>
+        <p> 1.       Definitions</p>
+        <p>“You” or “Your” means the individual or legal entity that is entering into this Agreement.</p>
+        <p>“Contribution” means any past, present, or future original work of authorship that You submit to GE through any form of communication for inclusion in any Work, including but not limited to source code, object code, machine code, updates, patches, samples, tools, documentation, manuals, graphics, pictures, specifications, or standards.</p>
+        <p>“Work” means any work of authorship or product that GE owns, manages, or makes available to third parties.</p>
+        <p>2.       Copyright License:  You hereby grant to GE, to the fullest extent permitted by law, a perpetual, worldwide, non-exclusive, no-charge, royalty-free, transferrable, irrevocable copyright license to use, copy, modify, merge, prepare derivative works of, publicly display, publicly perform, sublicense (through multiple tiers of sublicensees), publish, sell, and/or distribute Your Contributions and such derivative works.</p>
+        <p>3.       Patent License:  You hereby grant to GE, and agree to grant to GE, to the fullest extent permitted by law, a perpetual, worldwide, transferrable, non-exclusive, royalty-free, irrevocable patent license to any patent claims that are now, or become, licensable by You to make, have made, use, offer to sell, sell, import, and otherwise transfer the Contribution and the Contribution in combination with any Work, including the right to sublicense these same rights to third parties through multiple tiers of sublicensees.</p>
+        <p>4.       Moral Rights:  If applicable, You hereby agree, to the fullest extent permitted by law, to waive and not to assert moral rights associated with Your Contribution against GE or any of GE’s direct and indirect licensees.</p>
+        <p>5.       You further agree that:</p>
+        <p class="u-ml">a.       You have the full power and authority to grant the rights granted pursuant to this Agreement without the consent of any third party and Your grant of rights pursuant to this Agreement does not contradict or violate any grant of rights You have made to third parties, including but not limited to (if applicable) Your employer.</p>
+        <p class="u-ml">b.       If You are entering this Agreement as a legal entity, each of Your employees listed on Schedule 1 to this Agreement is authorized to submit Contributions on Your behalf.</p>
+        <p class="u-ml">c.        You own the copyright and patent claims covering Your Contribution that are required to grant the rights granted pursuant to this Agreement.</p>
+        <p class="u-ml">d.       To the best of Your Knowledge, Your Contribution does not violate the intellectual property rights of any third party.</p>
+        <p class="u-ml">e.        You are in compliance with applicable export control laws.</p>
+        <p class="u-ml">f.         If You are entering into this Agreement as an individual, You are over eighteen years old.  (if You are under eighteen years old, You must have a parent or guardian sign this Agreement)</p>
+        <p class="u-ml">g.       GE may publicly display the “Contributor User Name” that You provide in this Agreement as well as the fact that You have entered into this Agreement.</p>
+        <p class="u-ml">h.       You will promptly notify GE of any facts or circumstances that you become aware of that would make any representations made by You in this Agreement inaccurate.</p>
+        <p>6.       This Agreement shall be governed by and interpreted in accordance with the laws of the State of New York, U.S.A. and applicable U.S. Federal law, excluding choice or conflicts of law provisions.</p>
+        <p>7.       Failure by either You or GE at any time to exercise a right under, or require performance of, any provision of this Agreement shall not affect the right to subsequently exercise that right or require full performance thereof (as the case may be) at any time thereafter.  The waiver by You or GE of a breach of any provision of this Agreement shall not be taken or held to be a waiver of any subsequent breach or as nullifying the effectiveness of such provision.</p>
+        <p>8.       If any part, term or provision of this Agreement is held by any court of competent jurisdiction to be unenforceable or prohibited by any law applicable to this Agreement, the rights and obligations herein shall be construed and enforced with that part, term or provision limited so as to make it enforceable to the greatest extent allowed by law, or, if it is totally unenforceable, as if this Agreement did not contain that particular part, term or provision.</p>
+        <p>9.       This Agreement constitutes the entire Agreement between You and GE with regard to Your Contributions to GE and shall supersede all other agreements, negotiations, offers, exceptions, and understandings.</p>
+        <legend id="license-form">You will submit contributions on behalf of:</legend>
+        <div class="u-mt">
+          <input id="individual" name="radio-group" type="radio" checked="{{_isIndividual}}" on-input="_contributorTypeClicked">
+          <label for="individual" class="label--inline u-mb">Individual</label>
+          <br>
+          <input id="employer" name="radio-group" type="radio" checked="{{!_isIndividual}}" on-input="_contributorTypeClicked">
+          <label for="employer" class="label--inline">Employer</label>
+        </div>
+        <form id="cla-form">
+          <fieldset class="u-mt u-mb form-field" style="max-width:400px;">
+              <ol class="list-bare">
+                <template is="dom-if" if="{{!_isIndividual}}" restamp="true">
+                  <span class="heading--section">Company Information</span>
+                  <li class="u-mt form-field">
+                    <label for="contributor-company">Company’s Legal Name</label>
+                    <input class="text-input" name="contributor-company" id="contributor-company" type="text" on-input="_checkFormIsValid" required="">
+                  </li>
+                </template>
+                <template is="dom-if" if="{{!_hasFetchedGithubData}}" restamp="true">
+                  <p>Please sign in via GitHub below so we can retrieve your details</p>
+                  <button on-tap="_signin" class="u-mb btn btn--primary">Sign in with GitHub</button>
+                </template>
+                <template is="dom-if" if="{{_hasFetchedGithubData}}" restamp="true">
+                  <span class="u-mt heading--section">GitHub Information</span>
+                  <li class="u-mt form-field">
+                    <label for="contributor-name">Your full legal name</label>
+                    <input class="text-input" name="contributor-name" id="contributor-name" type="text" required="" on-input="_checkFormIsValid" pattern="^[a-zA-Z . ']+$">
+                  </li>
+                  <template is="dom-if" if="{{!_isIndividual}}">
+                    <li class="form-field">
+                      <label for="contributor-title">Your Title</label>
+                      <input class="text-input" name="contributor-title" id="contributor-title" type="text" on-input="_checkFormIsValid" required="">
+                    </li>
+                  </template>
+                  <li class="form-field">
+                    <label for="contributor-github">Your GitHub User Name</label>
+                    <input class$="text-input {{_getValidationClass(_hasFetchedGithubData)}}" name="contributor-github" id="contributor-github" type="text" required="" readonly="" value="[[_github]]">
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-email">Email address</label>
+                    <input class$="text-input {{_getValidationClass(_hasFetchedGithubData)}}" name="contributor-email" id="contributor-email" type="email" required="" readonly="" value="[[_email]]">
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-address">Physical Mailing Address</label>
+                    <textarea name="contributor-address" id="contributor-address" on-input="_checkFormIsValid" required=""></textarea>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-country">Country</label>
+                    <px-typeahead id="contributor-country" placeholder="Enter your search query" local-candidates="[[_countries]]" required="" value="{{_selectedCountry}}" pattern="^[a-zA-Z . ']+$">
+                    </px-typeahead>
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-phone">Telephone number</label>
+                    <input class="text-input" name="contributor-phone" id="contributor-phone" type="tel" on-input="_checkFormIsValid" pattern="^[+(0-9) ]+$" required="">
+                  </li>
+                  <li class="form-field">
+                    <label for="contributor-date">Date</label>
+                    <px-datetime-field name="contributor-date" tabindex="-1" style="pointer-events: none;" hide-time="" value="{{_signingDateString(_signingDate)}}" moment-obj="[[_signingDate]]">
+                    </px-datetime-field>
+                  </li>
+                  <button disabled$="{{!_enableSubmitButton(_hasFetchedGithubData, _formIsValid, _selectedCountry)}}" class="btn btn--primary" on-tap="_submitData">I Accept</button>
+                </template>
+              </ol>
+            <!-- </template> -->
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <px-demo-footer></px-demo-footer>
+  </template>
+  <script>var DevCla=function(_Polymer$mixinBehavio){babelHelpers.inherits(DevCla,_Polymer$mixinBehavio);babelHelpers.createClass(DevCla,null,[{key:"is",get:function get(){return"dev-cla"}},{key:"properties",get:function get(){return{_email:{type:String,value:""},_github:{type:String,value:""},_hasFetchedGithubData:{type:Boolean,value:!1},_firebaseApp:{type:Object,value:function value(){return{}}},_signingDate:{type:Object,value:function value(){return window.Px.moment()}},_isIndividual:{type:Boolean,value:!0},_countries:{type:Array,value:function value(){return["Afghanistan","\xC5land Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia, Plurinational State of","Bonaire, Sint Eustatius and Saba","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo, the Democratic Republic of the","Cook Islands","Costa Rica","C\xF4te d'Ivoire","Croatia","Cuba","Cura\xE7ao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and McDonald Islands","Holy See (Vatican City State)","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Korea, Democratic People's Republic of","Korea, Republic of","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia, the Former Yugoslav Republic of","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Moldova, Republic of","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine, State of","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","R\xE9union","Romania","Russian Federation","Rwanda","Saint Barth\xE9lemy","Saint Helena, Ascension and Tristan da Cunha","Saint Kitts and Nevis","Saint Lucia","Saint Martin (French part)","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten (Dutch part)","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Swaziland","Sweden","Switzerland","Syrian Arab Republic","Taiwan, Province of China","Tajikistan","Tanzania, United Republic of","Thailand","Timor-Leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela, Bolivarian Republic of","Viet Nam","Virgin Islands, British","Virgin Islands, U.S.","Wallis and Futuna","Western Sahara","Yemen","Yorkshire","Zambia","Zimbabwe"]}},_country:{type:String,value:""},_formIsValid:{type:Boolean,value:!1}}}}]);function DevCla(){var _this;babelHelpers.classCallCheck(this,DevCla);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DevCla).call(this));_this.is="dev-cla";Polymer.RenderStatus.afterNextRender(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this)),function(){var config={apiKey:"AIzaSyDsENz1M-2W9zOEYuTIZUyL1GARGhT9afQ",authDomain:"px-cla.firebaseapp.com",databaseURL:"https://px-cla.firebaseio.com",projectId:"px-cla",storageBucket:"px-cla.appspot.com",messagingSenderId:"400881384782"};_this._firebaseApp=firebase.initializeApp(config)});return _this}babelHelpers.createClass(DevCla,[{key:"_signin",value:function _signin(evt){var _this2=this;evt.preventDefault();var provider=new firebase.auth.GithubAuthProvider;this._firebaseApp.auth().signInWithPopup(provider).then(function(result){var user=result.user;_this2._hasFetchedGithubData=!0;_this2._email=user.email;_this2._github=result.additionalUserInfo.username;_this2.shadowRoot.querySelector("#contributor-address").focus()}).catch(function(error){var errorCode=error.code,errorMessage=error.message})}},{key:"_enableSubmitButton",value:function _enableSubmitButton(hasGithubData,formIsValid){var countryTypeAheadEL=this.shadowRoot.querySelector("#contributor-country"),countryValid=!!countryTypeAheadEL&&0<countryTypeAheadEL.value.length;return formIsValid&&countryValid}},{key:"_submitData",value:function _submitData(evt){var _this3=this;evt.preventDefault();var formData={};this.shadowRoot.querySelector("#cla-form").querySelectorAll("[name]").forEach(function(inputEl){var attrName=inputEl.attributes.name.value,key=attrName.substr(attrName.indexOf("-")+1,attrName.length);formData[key]=inputEl.value});this._firebaseApp.database().ref("users/".concat(this._firebaseApp.auth().currentUser.uid)).set(formData).then(function(result){return _this3._claSubmitSuccessHandler()}).catch(function(error){return _this3._claSubmitErrorHandler()})}},{key:"_claSubmitSuccessHandler",value:function _claSubmitSuccessHandler(){var notificationEl=this.shadowRoot.querySelector("#form-feedback-notification");notificationEl.type="healthy";notificationEl.statusIcon="px-utl:confirmed";notificationEl.content="Contributor License signed successfully";notificationEl.opened=!0;setTimeout(function(){notificationEl.opened=!1},2500);this._hasFetchedGithubData=!1;this.shadowRoot.querySelector("#cla-form").reset()}},{key:"_claSubmitErrorHandler",value:function _claSubmitErrorHandler(){var notificationEl=this.shadowRoot.querySelector("#form-feedback-notification");notificationEl.type="error";notificationEl.statusIcon="px-utl:information";notificationEl.content="Error submitting the form, please email cla@ge.com for assistance";notificationEl.opened=!0;setTimeout(function(){notificationEl.opened=!1},5e3)}},{key:"_contributorTypeClicked",value:function _contributorTypeClicked(evt){evt=Polymer.dom(evt);this._isIndividual="individual"===evt.localTarget.id}},{key:"_formLabel",value:function _formLabel(){return this._isIndividual?"Individual":"Company"}},{key:"_signingDateString",value:function _signingDateString(momentObj){return momentObj.toString()}},{key:"_getValidationClass",value:function _getValidationClass(hasData){return hasData?"":"validation-error"}},{key:"_checkFormIsValid",value:function _checkFormIsValid(){this._formIsValid=this.shadowRoot.querySelector("#cla-form").checkValidity()}}]);return DevCla}(Polymer.mixinBehaviors([PxCatalogBehavior.Page],Polymer.GestureEventListeners(Polymer.Element)));customElements.define(DevCla.is,DevCla);</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,63 @@
+<html><head><link defer="" rel="import" href="../polymer/polymer.html">
+
+<link async="" rel="import" href="px-ge-svg-logo.html">
+<link defer="" rel="import" href="predix-logo.html">
+<link defer="" rel="import" href="css/px-branding-bar-styles.html">
+
+<!--
+### Usage
+To use the default icon (the GE Monogram):
+
+    <px-branding-bar application-title="Predix UI"></px-branding-bar>
+
+For a more custom version, use the `logo` and `title` content slots:
+
+    <px-branding-bar>
+      <px-icon slot="logo" icon="px-utl:alert"></px-icon>
+      <span slot="title">Hello Predix</span>
+    </px-branding-bar>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-branding-bar-height` | Height of the branding bar
+`--px-branding-bar-background-color` | Background color for the branding bar
+`--px-branding-bar-font-size` | Font size for text displayed in the branding bar
+`--px-branding-bar-logo-and-title-text-color` | Text color of the logo and title area of the branding bar
+
+@element px-branding-bar
+@blurb A component providing a header area to contain title, logo and branding content.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-branding-bar">
+  <template>
+    <style include="px-branding-bar-styles"></style>
+
+    <div class="u-ml flex flex--middle">
+      <div class="u-ml-- flex flex--middle">
+        <slot name="logo">
+          <px-ge-svg-logo class="flex flex--middle"></px-ge-svg-logo>
+        </slot>
+      </div>
+      <div class="u-ml-- flex flex--middle">
+        <slot name="title">
+          <label>{{applicationTitle}}</label>
+        </slot>
+      </div>
+    </div>
+
+    <div class="flex flex--middle">
+      <slot name="attribution">
+        <span class="u-mr-- px-branding-bar__powered-by-text">Powered by</span>
+        <predix-logo class="u-mr"></predix-logo>
+      </slot>
+    </div>
+
+  </template>
+</dom-module>
+<script src="dist/px-branding-bar.js"></script>
+</body></html>

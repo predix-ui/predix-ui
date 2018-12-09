@@ -1,0 +1,30 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-key-value-pair-styles.html">
+
+<!--
+
+### Usage
+
+    <px-key-value-pair label="Outages" value="14" uom="total" size="alpha"> </px-key-value-pair>
+
+@element px-key-value-pair
+@blurb The px-key-value-pair component allows you to prominently display information in a dashboard.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-key-value-pair">
+  <template>
+    <style include="px-key-value-pair-styles"></style>
+
+    <div class="label">[[label]]</div>
+    <div class$="[[size]] kvp-value--[[size]]">
+      <span>[[value]]</span>
+      <template is="dom-if" if="[[uom]]">
+        <span class$="[[_getAdjustedSize(size)]] kvp-uom--[[size]]">[[uom]]</span>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-key-value-pair",properties:{label:{type:String},value:{type:String},uom:{type:String},size:{type:String}},_getAdjustedSize:function _getAdjustedSize(size){return"alpha"===size?"delta":"beta"===size?"epsilon":"gamma"===size?"value":"delta"===size?"value":"zeta"}});</script>
+</body></html>

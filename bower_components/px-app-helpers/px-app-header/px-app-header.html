@@ -1,0 +1,56 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link defer="" rel="import" href="../../polymer/polymer.html">
+
+<link defer="" rel="import" href="../../px-branding-bar/px-branding-bar.html">
+<link defer="" rel="import" href="css/px-app-header-styles.html">
+
+<link defer="" rel="import" href="../../app-layout/app-header/app-header.html">
+<link defer="" rel="import" href="../../app-layout/app-toolbar/app-toolbar.html">
+<link defer="" rel="import" href="../../app-layout/app-header-layout/app-header-layout.html">
+<link async="" rel="import" href="px-app-header-scroll-effect.html">
+
+
+<!--
+### Usage
+
+    <px-app-header>
+      <px-app-nav slot="app-nav" items="..."></px-app-nav>
+    </px-app-header>
+
+The default configuration will contain a px-branding-bar that will inherit the `title` attribute from your application.
+To override the title, use the branding-bar slot instead:
+
+    <px-app-header>
+      <px-branding-bar slot="branding-bar" application-title="..."></px-branding-bar>
+      <px-app-nav slot="app-nav" items="..."></px-app-nav>
+    </px-app-header>
+
+@element px-app-header
+@blurb A component combining a branding bar element and nav element header with scroll region & effect.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-app-header">
+  <template>
+    <style include="px-app-header-styles"></style>
+    <app-header-layout fullbleed="">
+      <app-header slot="header" fixed="" condenses="[[_condenses]]" effects="[[_scrollEffect]]">
+        <div header-container="" sticky="">
+          <slot name="branding-bar">
+            <px-branding-bar></px-branding-bar>
+          </slot>
+        </div>
+        <div nav-container="">
+          <slot name="app-nav"></slot>
+        </div>
+      </app-header>
+      <slot></slot>
+    </app-header-layout>
+  </template>
+</dom-module>
+<script src="px-app-header.es6.js"></script>
+</body></html>

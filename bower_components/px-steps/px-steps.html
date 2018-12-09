@@ -1,0 +1,65 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-steps-styles.html">
+
+<!--
+
+### Usage
+
+    <px-steps items='[{ id: "1", label: "Select Services"},{ id: "2", label: "Billing"}]'></px-steps>
+
+### Styling
+
+The following custom properties are available for styling (shown with their corresponding default values):
+
+Custom property | Description
+:----------------|:-------------
+`--px-steps-connector-color` | Color for the connecting lines / bubbles
+`--px-steps-text-color` | Default text color for uncompleted and inactive steps
+`--px-steps-text-color--hover` | Text color for steps when hovered
+`--px-steps-text-color--pressed` | Text color for steps when pressed
+`--px-steps-text-color--current` | Text color for the current highlighted step
+`--px-steps-text-color--completed` | Text color for the completed steps
+`--px-steps-text-color--errored` | Text color for the errored steps
+`--px-steps-min-width` | Minimum width of each step in the stepper
+
+-->
+
+</head><body><dom-module id="px-steps">
+  <template>
+    <style include="px-steps-styles"></style>
+
+    <div class="container flex flex--top">
+      <template id="steps" is="dom-repeat" items="[[items]]">
+        <div class$="[[_getStepState(item,index,currentStep,completed,errored,completed.*,errored.*)]]">
+          <div class="step-connector"></div>
+          <div id="[[item.id]]" class="step-item" on-tap="_handleTap">
+            <div class="step-icon">
+              <px-icon icon="px-nav:[[_getIcon(item,completed,errored,completed.*,errored.*)]]"></px-icon>
+            </div>
+            <div class="step-label">[[item.label]]</div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+  <script>Polymer({is:"px-steps",properties:{items:{type:Array,value:function value(){return[]}},completed:{type:Array,value:function value(){return[]}},errored:{type:Array,value:function value(){return[]}},currentStep:{type:Number,value:0}},complete:function complete(){if(!this.items||0>=this.items.length){console.warn("Can't complete step: the steps array is empty or undefined.");return}var id=this.items[this.currentStep].id;if(-1===this.completed.indexOf(id)){this.push("completed",id)}var erroredIndex=this.errored.indexOf(id);if(-1<erroredIndex){this.splice("errored",erroredIndex,1)}if(this.currentStep<this.items.length){this.next()}},error:function error(index){if(!this.items||0>=this.items.length){console.warn("Can't complete step: the steps array is empty or undefined.");return}var id=this.items[index].id;if(-1===this.errored.indexOf(id)){this.push("errored",id)}var completedIndex=this.completed.indexOf(id);if(-1<completedIndex){this.splice("completed",completedIndex,1)}},next:function next(){if(!this.items||0===this.items.length){console.warn("Can't select next step: the steps array is empty or undefined.");return}if(this.currentStep===this.items.length-1){console.warn("Can't select next step: you are already at the last step.");return}this.currentStep++},previous:function previous(){if(!this.items||0===this.items.length){console.warn("Can't select previous step: the steps array is empty or undefined.");return}if(0===this.currentStep){console.warn("Can't select previous step: you are already at the first step.");return}this.currentStep--},jumpToStep:function jumpToStep(index){if(!this.items||!this.items[index]){console.warn("Can't jump to step at index '"+index+"'; that step doesn't exist.");return}this.currentStep=index},_getIcon:function _getIcon(item,completed,errored){if(-1<this.errored.indexOf(item.id)){return"close"}else if(-1<this.completed.indexOf(item.id)){return"confirmed"}return"unconfirmed"},_getStepState:function _getStepState(item,index,currentStep,completed,errored){var classes=["step-wrapper"];if(index===currentStep){classes.push("current")}if(-1<errored.indexOf(item.id)){classes.push("error")}else if(-1<completed.indexOf(item.id)){classes.push("complete")}return classes.join(" ")},_handleTap:function _handleTap(event){var id=event.currentTarget.id;this.fire("px-steps-tapped",{id:id})}});</script>
+</dom-module>
+</body></html>

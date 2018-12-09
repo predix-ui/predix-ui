@@ -1,0 +1,31 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-data-grid-header-cell-styles.html">
+
+</head><body><dom-module id="px-data-grid-header-cell">
+  <template>
+    <style include="px-data-grid-header-cell-styles"></style>
+    <px-dropdown allow-outside-scroll="" button-style="icon" icon="px-nav:menu" items="{{_dropdownItems}}" opened="{{dropdownOpened}}" hidden$="[[_dropdownHidden]]" on-px-dropdown-click="_dropdownItemClick" on-click="_dropdownClick" on-tap="_dropdownClick" hoist="">
+      <px-icon slot="trigger" icon="px-nav:menu"></px-icon>
+    </px-dropdown>
+    <slot></slot>
+  </template>
+  <script>{var DataGridHeaderCellElement=function(_Polymer$GestureEvent){babelHelpers.inherits(DataGridHeaderCellElement,_Polymer$GestureEvent);function DataGridHeaderCellElement(){babelHelpers.classCallCheck(this,DataGridHeaderCellElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridHeaderCellElement).apply(this,arguments))}babelHelpers.createClass(DataGridHeaderCellElement,[{key:"ready",value:function ready(){var _this=this;babelHelpers.get(babelHelpers.getPrototypeOf(DataGridHeaderCellElement.prototype),"ready",this).call(this);this.addEventListener("mouseenter",function(){_this._dropdownHidden=!1;_this._mouseover=!0});this.addEventListener("mouseleave",function(){_this._mouseover=!1;if(!_this.dropdownOpened){_this._dropdownHidden=!0}});this.addEventListener("click",function(e){_this.querySelector("px-data-grid-sorter").click()})}},{key:"_freezeColumn",value:function _freezeColumn(){this._column.frozen=!0;this.dispatchEvent(new CustomEvent("column-froze",{bubbles:!0,composed:!0,detail:{column:this._column}}))}},{key:"_unfreezeColumn",value:function _unfreezeColumn(){this._column.frozen=!1;this.dispatchEvent(new CustomEvent("column-unfroze",{bubbles:!0,composed:!0,detail:{column:this._column}}))}},{key:"_hideColumn",value:function _hideColumn(){this._column.hidden=!0}},{key:"_groupByColumn",value:function _groupByColumn(){this._column.grouped=!0;this.dispatchEvent(new CustomEvent("group-by-column",{bubbles:!0,composed:!0,detail:{column:this._column}}))}},{key:"_ungroup",value:function _ungroup(){this._column.grouped=!1;this.dispatchEvent(new CustomEvent("ungroup",{bubbles:!0,composed:!0,detail:{column:this._column}}))}},{key:"_setDropdownItems",value:function _setDropdownItems(){var _this2=this;if(this._column){var newItems=[];if(this._column.frozen){newItems.push({key:{action:function action(){return _this2._unfreezeColumn()}},val:this.localize("Unfreeze column"),disableSelect:!0})}else{newItems.push({key:{action:function action(){return _this2._freezeColumn()}},val:this.localize("Freeze column"),disableSelect:!0})}if(this._canBeHidden()){newItems.push({key:{action:function action(){return _this2._hideColumn()}},val:this.localize("Hide column"),disableSelect:!0})}if(this.groupByColumnAllowed){if(this._column.grouped){newItems.push({key:{action:function action(){return _this2._ungroup()}},val:this.localize("Ungroup"),disableSelect:!0})}else{newItems.push({key:{action:function action(){return _this2._groupByColumn()}},val:this.localize("Group by column"),disableSelect:!0})}}this._dropdownItems=newItems}}},{key:"_dropdownOpenedChanged",value:function _dropdownOpenedChanged(dropdownOpened){if(!dropdownOpened&&!this._mouseover){this._dropdownHidden=!0}var rowStyle=this.parentElement.assignedSlot.parentElement.style;if(dropdownOpened){rowStyle.zIndex="3"}else{rowStyle.zIndex=""}if(dropdownOpened){this._setDropdownItems()}}},{key:"_dropdownItemClick",value:function _dropdownItemClick(e){var item=e.detail.detail.item;if(item&&item.key){item.key.action()}}},{key:"_dropdownClick",value:function _dropdownClick(e){e.stopPropagation();e.preventDefault()}},{key:"_canBeHidden",value:function _canBeHidden(){if(this._column&&this._column._grid&&this._column._grid._pxDataGrid){var pxDataGrid=this._column._grid._pxDataGrid,groupedByThis=pxDataGrid._groupByColumn==this._column;return!groupedByThis&&1<pxDataGrid.getVisibleColumns().length}else{console.warn("Failed to resolve if column can be hidden");return!0}}}],[{key:"is",get:function get(){return"px-data-grid-header-cell"}},{key:"properties",get:function get(){return{dropdownOpened:{type:Boolean,observer:"_dropdownOpenedChanged"},groupByColumnAllowed:{type:Boolean,value:!0},_dropdownHidden:{type:Boolean,value:!0},_mouseover:{type:Boolean,value:!1},_column:{type:Object},_dropdownItems:{type:Array},localize:Function}}},{key:"observers",get:function get(){return["_setDropdownItems(localize, _column.*, groupByColumnAllowed)"]}}]);return DataGridHeaderCellElement}(Polymer.GestureEventListeners(Polymer.Element));customElements.define(DataGridHeaderCellElement.is,DataGridHeaderCellElement);window.Predix=window.Predix||{};Predix.DataGridHeaderCellElement=DataGridHeaderCellElement}</script>
+</dom-module>
+</body></html>

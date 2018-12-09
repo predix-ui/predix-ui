@@ -1,0 +1,20 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../px-moment-imports/px-moment-imports.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+
+<script>(function(){var PxDatetimeBehavior=window.PxDatetimeBehavior=window.PxDatetimeBehavior||{};PxDatetimeBehavior.BlockDates={properties:{blockFutureDates:{type:Boolean,value:!1},blockPastDates:{type:Boolean,value:!1}}};PxDatetimeBehavior.Shared=[{properties:{timeZone:{type:String,notify:!0,value:function value(){return Px.moment.tz.guess()}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},minDate:{type:Object,observer:"_minDateChanged"},maxDate:{type:Object,observer:"_maxDateChanged"}},observers:["_updateMinMaxTz(timeZone)"],_updateMinMaxTz:function _updateMinMaxTz(){if(this.timeZone!==void 0){if(this.minDate&&this.minDate.tz){this.minDate.tz(this.timeZone)}if(this.maxDate&&this.maxDate.tz){this.maxDate.tz(this.timeZone)}}},_minDateChanged:function _minDateChanged(){if("string"===typeof this.minDate){if(this.timeZone){this.minDate=Px.moment.tz(this.minDate,this.timeZone)}else{this.minDate=Px.moment(this.minDate)}}},_maxDateChanged:function _maxDateChanged(){if("string"===typeof this.maxDate){if(this.timeZone){this.maxDate=Px.moment.tz(this.maxDate,this.timeZone)}else{this.maxDate=Px.moment(this.maxDate)}}},_preserveTime:function _preserveTime(toPreserve,dest){if(toPreserve&&dest){dest.hours(toPreserve.hours());dest.minutes(toPreserve.minutes());dest.seconds(toPreserve.seconds());dest.milliseconds(toPreserve.milliseconds())}return dest}},Polymer.IronA11yKeysBehavior,PxDatetimeBehavior.BlockDates,Polymer.AppLocalizeBehavior]})();</script>
+</head><body></body></html>

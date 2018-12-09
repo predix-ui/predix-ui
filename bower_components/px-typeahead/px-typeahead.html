@@ -1,0 +1,79 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="css/px-typeahead-styles.html">
+
+<!--
+### Usage
+
+    <px-typeahead max-suggestions="10" local-candidates='["array","of","options"]' placeholder="your-placeholder">
+    </px-typeahead>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-typeahead-background-color` | Background color for the typeahead input
+`--px-typeahead-background-color--selected` | Background color for selected typeahead result
+`--px-typeahead-border-color` | Border color for the typeahead input
+`--px-typeahead-text-color` | Fill color for text in the input field and unselected results
+`--px-typeahead-text-color--selected` | Fill color for text of a selected result
+
+@element px-typeahead
+@blurb showing Px-typeahead is a Predix UI component similar to a dropdown which shows possible autocompletion options for a given search term based on a list of possible values.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-typeahead">
+  <template>
+    <style include="px-typeahead-styles"></style>
+    <template is="dom-if" if="{{prefetchUrl}}">
+      <iron-ajax auto="" url="{{prefetchUrl}}" handle-as="json" last-response="{{_prefetchedCandidates}}">
+      </iron-ajax>
+    </template>
+
+    <div class="search__form">
+      <input class="text-input search__box" disabled$="[[disabled]]" placeholder="{{placeholder}}" value="{{inputValue::input}}" on-keydown="_keydown" on-focus="_onfocus" on-blur="_onblur" on-input="_onSearchInputChange" autocomplete="off" required="[[required]]">
+      
+      <template is="dom-if" if="{{!inputValue}}">
+        <px-icon id="search__icon" class$="typeahead__icon [[_disabledClass(disabled)]]" icon="px-utl:search"></px-icon>
+      </template>
+      <template is="dom-if" if="{{inputValue}}">
+        <px-icon id="clear__icon" class="typeahead__icon" icon="px-nav:close" on-tap="_clear"></px-icon>
+      </template>
+    </div>
+
+    <template is="dom-if" if="{{_isSuggestionsEmpty(_suggestions)}}">
+      <div class="dropdown__container">
+
+        <ul id="searchResults" class="list-bare">
+          <template is="dom-repeat" items="[[_boldResults(_suggestions.*, inputValue)]]">
+            <li on-tap="_select" on-mouseover="_onhover" on-keydown="_keydown" class="result">[[item.prefix]]<span class="bold">[[item.highlight]]</span>[[item.suffix]]</li>
+          </template>
+        </ul>
+      </div>
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-typeahead",properties:{disabled:{type:Boolean,value:!1},placeholder:{type:String,value:"Enter Your Search Query"},localCandidates:{type:Array,value:function value(){return[]}},prefetchUrl:{type:String,value:""},_prefetchedCandidates:{type:Array,value:function value(){return[]}},_suggestions:{type:Array,value:function value(){return[]},notify:!0},maxSuggestions:{type:Number,value:5,notify:!0},remoteUrl:{type:String,value:""},remoteUrlSearching:{type:Boolean,value:!1,notify:!0},value:{type:String,value:"",notify:!0},inputValue:{type:String,value:"",notify:!0,observer:"_search"},_isFocused:{type:Boolean,value:!1},required:{type:Boolean,value:!1,observer:"_requiredChanged"}},behaviors:[Polymer.IronResizableBehavior],listeners:{"iron-resize":"_setSearchResultSize"},ready:function ready(){document.addEventListener("click",function(){for(var ptinputs=document.querySelectorAll("px-typeahead"),i=0,len=ptinputs.length;i<len;i++){ptinputs[i]._suggestions=[]}})},_setSearchResultSize:function _setSearchResultSize(){if(this.$$("#searchResults")){var searchInputRect=this.$$(".search__box").getBoundingClientRect();this.$$("#searchResults").style.width=searchInputRect.width+"px"}},_isSuggestionsEmpty:function _isSuggestionsEmpty(){return this._suggestions.length},_keydown:function _keydown(e){if(40===e.which){e.preventDefault();this._downArrowPress(e)}else if(38===e.which){e.preventDefault();this._upArrowPress(e)}else if(13===e.which){this._enterPress(e)}else if(8===e.which){this._backspacePress(e)}else if(27===e.which){this._clear()}else{this._checkIfSingleResult(e)}},_onhover:function _onhover(e){var alreadySelected=Polymer.dom(this.root).querySelector(".item-selected");if(alreadySelected){alreadySelected.classList.remove("item-selected")}e.currentTarget.classList.add("item-selected")},_onfocus:function _onfocus(e){this.set("_isFocused",!0)},_onblur:function _onblur(e){this.set("_isFocused",!1);this.toggleClass("validation-error",this.required&&!this.value,this.$$(".search__box"))},_onSearchInputChange:function _onSearchInputChange(e){this.fire("px-typeahead-search-input-change",e)},_select:function _select(e){var selectedItem=e.currentTarget,text=selectedItem.textContent.trim();this.$$(".search__box").focus();this.set("inputValue",text);this.set("value",text);this.async(function(){this.set("_suggestions",[])},100);this.toggleClass("validation-error",this.required&&!this.value,this.$$(".search__box"));this.fire("px-typeahead-item-selected",this.value);e.stopPropagation()},_downArrowPress:function _downArrowPress(e){var alreadySelected=Polymer.dom(this.root).querySelector(".item-selected"),suggestionsMenu=Polymer.dom(this.root).querySelector("ul"),selectedItem,children;if(alreadySelected){selectedItem=alreadySelected.nextElementSibling;if(selectedItem&&"LI"===selectedItem.tagName){alreadySelected.classList.remove("item-selected");selectedItem.classList.add("item-selected");suggestionsMenu.scrollTop=selectedItem.offsetTop}else{return}}else{if(suggestionsMenu){children=suggestionsMenu.getElementsByTagName("li");selectedItem=children[0];if(selectedItem){selectedItem.classList.add("item-selected")}}}},_upArrowPress:function _upArrowPress(e){var alreadySelected=Polymer.dom(this.root).querySelector(".item-selected"),suggestionsMenu=Polymer.dom(this.root).querySelector("ul"),selectedItem,children;if(alreadySelected){selectedItem=alreadySelected.previousElementSibling;if(selectedItem&&"LI"===selectedItem.tagName){alreadySelected.classList.remove("item-selected");selectedItem.classList.add("item-selected");suggestionsMenu.scrollTop=selectedItem.offsetTop}else{return}}else{if(suggestionsMenu){children=suggestionsMenu.getElementsByTagName("li");selectedItem=children[0];if(selectedItem){selectedItem.classList.add("item-selected")}}}},_enterPress:function _enterPress(e){var alreadySelected,selectedItem,suggestionsMenu,children,results;alreadySelected=Polymer.dom(this.root).querySelector(".item-selected");results=Polymer.dom(this.root).querySelectorAll(".result");if(1===results.length){selectedItem=results[0]}else if(1<results.length){if(alreadySelected){selectedItem=alreadySelected;selectedItem.classList.remove("item-selected")}else{return!1}}else{return!1}this.set("value",selectedItem.textContent.trim());this.set("inputValue",selectedItem.textContent.trim());this.async(function(){this.set("_suggestions",[])},100);this.toggleClass("validation-error",!1,this.$$(".search__box"));this.fire("px-typeahead-item-selected",this.value);Polymer.dom(this.root).querySelector("input").focus()},_backspacePress:function _backspacePress(e){this.value="";this.fire("px-typeahead-item-deselected");var val=e.target.value;this._search(val)},_checkIfSingleResult:function _checkIfSingleResult(e){var results=Polymer.dom(this.root).querySelectorAll(".result");if(1===this._suggestions.length){this.toggleClass("item-selected",!0,results[0])}},_localCandidatesSearch:function _localCandidatesSearch(term){var matched=[];matched=this.localCandidates.filter(function(candidate){return-1<candidate.trim().toLowerCase().indexOf(term.trim().toLowerCase())});return matched},_prefetchedCandidatesSearch:function _prefetchedCandidatesSearch(term){var matched=[];matched=this._prefetchedCandidates.filter(function(candidate){return-1<candidate.trim().toLowerCase().indexOf(term.trim().toLowerCase())});return matched},_remoteUrlSearch:function _remoteUrlSearch(term){var matched=[],pt_element=this,ironAjaxEl=document.createElement("iron-ajax"),ptinput=pt_element,url=pt_element.remoteUrl.replace("%QUERY",term);ironAjaxEl.handleAs="json";ironAjaxEl.url=url;ironAjaxEl.addEventListener("response",function(evt){if(evt.detail.response){var resp=evt.detail.response,remoteMatched=JSON.parse(resp),cuttedMatched=remoteMatched.slice(0,parseInt(ptinput.maxSuggestions)),matched=matched.concat(cuttedMatched);ptinput._suggestions=matched;pt_element.set("remoteUrlSearching",!1);pt_element.fire("px-typeahead-remote-searching-end",pt_element)}else{return}});this.debounce("remoteUrlSearch",function(){ironAjaxEl.generateRequest();pt_element.fire("px-typeahead-remote-searching-start",pt_element);pt_element.set("remoteUrlSearching",!0)},this.remoteUrlWaitMs);return matched},_boldResults:function _boldResults(items,term){var resultsList=items.base.map(function(fullString){var termLocation=fullString.trim().toLowerCase().indexOf(term.trim().toLowerCase());if(-1<termLocation){return{prefix:fullString.trim().substr(0,termLocation),highlight:fullString.trim().substr(termLocation,term.length),suffix:fullString.trim().substr(termLocation+term.length)}}});resultsList=resultsList.filter(function(result){return"undefined"!==result});return resultsList},_search:function _search(term){if(this._isFocused){this.debounce("search",function(){var matched=[],resultListUl,searchResultsLi,fullString,termLocation,newString;if(!term){this.set("_suggestions",[]);return}if(this.localCandidates&&this.localCandidates.length){matched=this._localCandidatesSearch(term)}if(this._prefetchedCandidates&&this._prefetchedCandidates.length){matched=this._prefetchedCandidatesSearch(term)}if(this.remoteUrl){matched=this._remoteUrlSearch(term)}this.set("_suggestions",matched);this.async(function(){this._setSearchResultSize()},5)},100)}},_clear:function _clear(){this.set("inputValue","");this.set("value","");this.set("_suggestions",[]);Polymer.dom(this.root).querySelector("input").focus();this.fire("px-typeahead-item-deselected")},_disabledClass:function _disabledClass(disabled){return disabled?"disableIcon":""},_requiredChanged:function _requiredChanged(newValue){if(!1===newValue){this.toggleClass("validation-error",!1,this.$$(".search__box"))}}});</script>
+</body></html>

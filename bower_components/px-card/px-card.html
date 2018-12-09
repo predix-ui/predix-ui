@@ -1,0 +1,69 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-card-styles.html">
+
+<!--
+### Usage
+
+The px-card component shows content formatted as a card. Cards consist of header,
+actions, and content areas. Place content directly inside the <px-card> tag to
+display it in the card content area.
+
+Add the attribute `slot="actions"` to content to render the content in the actions
+slot at the top right corner of the card header. <px-icon> tags placed in the
+actions slot will be automatically styled to the correct size/spacing/location.
+
+```
+<px-card header-text="Card" icon="analysis">
+  <px-icon slot="actions" icon="pxm:new-window"></px-icon>
+  <px-icon slot="actions" icon="pxs:help"></px-icon>
+  <px-icon slot="actions" icon="pxs:app-settings"></px-icon>
+  <p>This is the main content area of a Predix card.</p>
+</px-card>
+```
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-card-background-color` | Background color of the card
+`--px-card-border-color` | Border color for the top of the card
+`--px-card-header-color` | Color of the header text
+`--px-card-icon-color` | Color of the card's main icon'
+`--px-card-action-icon-color` | Color of icons in actions slot
+`--px-card-action-icon-color--hover` | Color of icons in actions slot when hovered
+`--px-card-action-icon-color--pressed` | Color of icons in actions slot when pressed
+`--px-card-header-padding` | Bottom padding of the card header (space between header and content)
+
+@element px-card
+@blurb Shows content in a card
+@demo demo.html
+@homepage index.html
+-->
+</head><body><dom-module id="px-card">
+  <template>
+    <style include="px-card-styles"></style>
+
+    <template is="dom-if" if="[[!hideHeader]]">
+      <header class="flex flex--middle flex--justify">
+        <div class="epsilon caps" id="headerText">
+          <template is="dom-if" if="[[icon]]">
+            <px-icon id="headericon" icon="[[icon]]"></px-icon>
+          </template>
+          [[headerText]]
+        </div>
+        <div id="actions">
+          <slot name="actions"></slot>
+        </div>
+      </header>
+    </template>
+    <div class="contents">
+      <slot></slot>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-card",properties:{headerText:{type:String},icon:{type:String},fullBleed:{type:Boolean,value:!1,reflectToAttribute:!0},hideHeader:{type:Boolean,value:!1}}});</script>
+</body></html>

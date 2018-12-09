@@ -1,0 +1,67 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon.html">
+<link rel="import" href="../../px-icon-set/px-icon-set-navigation.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+
+<!-- Imports for this component -->
+<link rel="import" href="../../px-deck-selector/px-deck-selector.html">
+<link rel="import" href="../px-view-header.html">
+
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-view-header-demo">
+  <template>
+    <!-- Header -->
+    <px-demo-header module-name="px-view-header" description="The view header is located at the top of the page/view, as an alternative to px-context-browser. The view header provides the user an overview of the content they are viewing and interacting with." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" style="width:100%">
+        <px-view-header use-deck-selector="{{props.useDeckSelector.value}}" title="{{props.title.value}}" subtitle="{{props.subtitle.value}}">
+          <template is="dom-if" if="{{!props.useDeckSelector.value}}">
+            <div slot="left" class="actionable">
+              <px-icon icon="px-nav:back"></px-icon>&nbsp;&nbsp;Back
+            </div>
+            <div slot="right" class="actionable">
+              Next&nbsp;&nbsp;<px-icon icon="px-nav:next"></px-icon>
+            </div>
+          </template>
+          <template is="dom-if" if="{{props.useDeckSelector.value}}">
+            <px-deck-selector slot="center" decks="[{&quot;id&quot;:&quot;1&quot;,&quot;name&quot;:&quot;Overview&quot;,&quot;url&quot;:&quot;/overview&quot;}, {&quot;id&quot;:&quot;2&quot;,&quot;name&quot;:&quot;Something else&quot;,&quot;url&quot;:&quot;/something&quot;}, {&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;A third option&quot;,&quot;url&quot;:&quot;third&quot;}]"></px-deck-selector>
+          </template>
+        </px-view-header>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-view-header" links-includes="[&quot;px-deck-selector/px-deck-selector.html&quot;]">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-view-header"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-view-header-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Mobile-style header",configReset:!0,lightDomContent:"<div id=\"left\" class=\"actionable\">Back</div><div id=\"right\" class=\"actionable\">Next</div>"},{configName:"With deck selector",useDeckSelector:!0,title:"",subtitle:"",lightDomContent:"<px-deck-selector decks='[{\"id\":\"1\",\"name\":\"Overview\",\"url\":\"/overview\"}, {\"id\":\"2\",\"name\":\"Something else\",\"url\":\"/something\"}, {\"id\":\"3\",\"name\":\"A third option\",\"url\":\"/third\"}]'></px-deck-selector>"}]}}},demoProps:{useDeckSelector:{type:Boolean,defaultValue:!1,inputType:"toggle"},title:{type:String,defaultValue:"Current View Title",inputType:"text"},subtitle:{type:String,defaultValue:"A subtitle describing the view.",inputType:"text"},lightDomContent:{type:String,defaultValue:"<div id=\"left\" class=\"actionable\"><px-icon icon=\"px-nav:back\"></px-icon>Back</div><div id=\"right\" class=\"actionable\">Next<px-icon icon=\"px-nav:next\"></px-icon></div>"}},ready:function ready(){window.addEventListener("iron-change",function(){if(this.props.useDeckSelector.value){this.set("props.lightDomContent.value","<px-deck-selector decks='[{\"id\":\"1\",\"name\":\"Overview\",\"url\":\"/overview\"}, {\"id\":\"2\",\"name\":\"Something else\",\"url\":\"/something\"}, {\"id\":\"3\",\"name\":\"A third option\",\"url\":\"/third\"}]'></px-deck-selector>")}else{this.set("props.lightDomContent.value","<div id=\"left\" class=\"actionable\">Back</div><div id=\"right\" class=\"actionable\">Next</div>")}}.bind(this))}});</script>
+</body></html>

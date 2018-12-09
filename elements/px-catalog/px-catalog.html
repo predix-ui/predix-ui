@@ -1,0 +1,82 @@
+<!-- Import Polymer --><html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Import style module -->
+<link async="" rel="import" href="../../css/px-catalog-theme-styles.html">
+<link async="" rel="import" href="../../css/px-catalog-styles.html">
+
+<!-- Import external dependencies -->
+<link async="" rel="import" href="../../bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link async="" rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link async="" rel="import" href="../../bower_components/app-route/app-location.html">
+<link defer="" rel="import" href="../../bower_components/px-toggle/px-toggle.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon-set-navigation.html">
+<link async="" rel="import" href="../../bower_components/px-icon-set/px-icon.html">
+<link async="" rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link async="" rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<!-- Import local dependencies -->
+<link async="" rel="import" href="px-catalog-page-viewer.html">
+<link async="" rel="import" href="../px-catalog-treenav/px-catalog-treenav.html">
+
+</head><body><dom-module id="px-catalog">
+  <template>
+    <style include="px-catalog-theme-styles px-catalog-styles">.dark-theme{background:#23343F;}.alert-message-container{position:fixed;top:15px;right:15px;z-index:1020;height:auto;overflow-y:hidden;overflow-x:hidden;}</style>
+
+    <!-- Bind alert messages -->
+    <div class="alert-message-container">
+    </div>
+
+    <!-- Load the navigation JSON file -->
+    <iron-ajax auto="" url="../../pages/app-data.json" last-response="{{appData}}">
+    </iron-ajax>
+
+    <!-- Media query to update the nav width on landscape-size screens. The
+         Shady DOM shim won't re-evaluate the --app-nav-width style variable
+         in a media query in our CSS; this query helps force an update. -->
+    <iron-media-query query="(min-width: 450px)" query-matches="{{isLandscapeUp}}"></iron-media-query>
+    <!-- Media query to fix nav open on desktop-up screens -->
+    <iron-media-query query="(min-width: 1024px)" query-matches="{{isDesktopUp}}"></iron-media-query>
+
+    <!-- Catch the route and send it to `app-route` to munge the path -->
+    <app-location route="{{route}}" path="{{path}}" query-params="{{query}}" use-hash-as-path="">
+    </app-location>
+
+      <!-- CATALOG HEADER -->
+      <div class="catalog-header">
+        <!-- Menu button -->
+        <div class="menu-button" on-tap="toggleMenu">
+          <px-icon icon="[[_getMenuIcon(menuOpened)]]"></px-icon>
+        </div>
+        <!-- Logo -->
+        <a class="logo" href="/">
+          <picture class="logo__picture">
+            <template is="dom-if" if="{{isDesktopUp}}">
+              <source srcset="[[importPath]]../../img/px-dev-logo.webp" class="logo__image" type="image/webp">
+              <source srcset="[[importPath]]../../img/px-dev-logo.png" class="logo__image" type="image/png">
+              <img src="[[importPath]]../../img/px-dev-logo.png" class="logo__image" alt="Predix Developer Network">
+            </template>
+            <span class="logo__text">Predix Design System</span>
+          </picture>
+        </a>
+        <!-- Theme toggle -->
+        <div class="theme-toggle">
+          <span class="theme-toggle__text">Dark Theme</span>
+          <px-toggle size="small" checked="{{darkTheme}}" role="button" aria-pressed="false"></px-toggle>
+        </div>
+      </div>
+
+      <!-- CATALOG PAGE -->
+      <px-catalog-page-viewer class="catalog-page" active-module="[[activeModule]]" active-anchor="[[_anchorPath]]" dark-theme="[[darkTheme]]" spinner-active="[[spinnerActive]]">
+      </px-catalog-page-viewer>
+
+      <!-- CATALOG NAV -->
+      <app-drawer class="catalog-nav" align="left" disable-swipe="" opened="{{menuOpened}}" persistent="[[isDesktopUp]]">
+        <div class="catalog-nav__tree">
+          <px-catalog-treenav pages="[[appData.pages]]" routes="[[appData.routes]]" selected-route="[[path]]"></px-catalog-treenav>
+        </div>
+      </app-drawer>
+
+  </template>
+  <script>Polymer({is:"px-catalog",properties:{spinnerActive:{type:Boolean,value:!0},activeName:{type:String,observer:"_updateTitle"},darkTheme:{type:Boolean,value:!1,reflectToAttribute:!0},menuOpened:{type:Boolean,value:!1},isDesktopUp:{type:Boolean,observer:"_desktopBreakpointHit"},isLandscapeUp:{type:Boolean,observer:"_landscapeBreakpointHit"},activeModule:{type:String,observer:"_handleNewModuleSelected"},appData:{type:Object,function:function _function(){return{}}},path:{type:String},_pagePath:{type:String,computed:"_getPagePath(path)"},_anchorPath:{type:String,computed:"_getAnchorPath(path)"},_404path:{type:String,value:null,observer:"_handle404PathChange"}},observers:["_routeChanged(_pagePath, appData)","_sendViewEvent(activeName)"],_sendViewEvent:function _sendViewEvent(name){if("string"===typeof name){this.async(function(){window.TrackEvent("view",{name:name,path:"/"+window.location.hash})})}},created:function created(){this._loadedRoutes=[]},attached:function attached(){this._swUpdatedHandler=this._swUpdated.bind(this);window.addEventListener("service-worker-changes-available",this._swUpdatedHandler,!1);if(""===window.location.hash){this.path="/home"}},detached:function detached(){window.removeEventListener("service-worker-changes-available",this._swUpdatedHandler,!1)},_swUpdated:function _swUpdated(){var _this=this;this.importHref(this.resolveUrl("../px-site-notifications/px-sw-notification.html"),function(){var el=Polymer.Base.create("px-sw-notification");Polymer.dom(_this.root).querySelector(".alert-message-container").appendChild(el)},null,!1)},_getPagePath:function _getPagePath(path){if(-1<path.indexOf(":")){return path.split(":")[0].trim()}return path},_getAnchorPath:function _getAnchorPath(path){if(-1<path.indexOf(":")){return path.split(":")[1].trim()}return null},_routeChanged:function _routeChanged(route,appData){var _this2=this;if("string"!==typeof route||"object"!==babelHelpers.typeof(appData)){return}var routeWithoutSlash="/"===route[route.length-1]?route.slice(0,route.length-1):route,redirectTo=appData.redirects[routeWithoutSlash];if(redirectTo){this.path=redirectTo;return}var pageInfo=appData.routes[routeWithoutSlash];if(!pageInfo){this._404path=route;this.path="/home";return}if(this._404path&&"/home"!==route&&"/home/"!==route){this._404path=null}var spinnerAsyncHandle=this.async(function(){_this2.spinnerActive=!0},500);if(-1===this._loadedRoutes.indexOf(pageInfo.entrypoint)){var url="".concat(this.resolveUrl(pageInfo.entrypoint).slice(1));this.importHref(url,function(){this.cancelAsync(spinnerAsyncHandle);this.spinnerActive=!1;this._loadedRoutes.push(pageInfo.entrypoint);window.dispatchEvent(new CustomEvent("page-loaded"))}.bind(this),null,!1)}else{this.cancelAsync(spinnerAsyncHandle);this.spinnerActive=!1}this.activeName=pageInfo.label;this.activeModule=pageInfo.module},_updateTitle:function _updateTitle(){this.debounce("update-title",function(){if(this.activeName){document.title="Predix Design System | "+this.activeName}else{document.title="Predix Design System"}},100)},_handleNewModuleSelected:function _handleNewModuleSelected(){if(!this.isDesktopUp&&this.menuOpened){this.menuOpened=!1}},_desktopBreakpointHit:function _desktopBreakpointHit(isDesktopUp){if(isDesktopUp&&!this.menuOpened){this.menuOpened=!0}else if(!isDesktopUp&&this.menuOpened){this.menuOpened=!1}},_landscapeBreakpointHit:function _landscapeBreakpointHit(newVal,oldVal){if("boolean"===typeof newVal&&"boolean"===typeof oldVal){var drawer=Polymer.dom(this.root).querySelector("app-drawer");if(null!==drawer&&drawer.updateStyles){drawer.updateStyles()}}},_getMenuIcon:function _getMenuIcon(menuOpened){if(menuOpened){return"px-nav:close"}else{return"px-nav:hamburger"}},toggleMenu:function toggleMenu(){this.menuOpened=!this.menuOpened},_get404Message:function _get404Message(path){return"The page at https://www.predix-ui.com/#"+path+" could not be found. Try searching in the sidebar."},_handle404PathChange:function _handle404PathChange(path404){var _this3=this;if(path404){this.importHref("../../bower_components/px-alert-message/px-alert-message.html",function(){var el=Polymer.Base.create("px-alert-message",{messageTitle:"Page not found",message:_this3._get404Message(path404),autoDismiss:!0,hideBadge:!0,type:"error",action:"acknowledge"});el.addEventListener("px-alert-message-hidden",function(evt){_this3._404path=null});Polymer.dom(_this3.root).querySelector(".alert-message-container").appendChild(el)},null,!1)}}});(function(){function postJSONToServer(url,body){return new Promise(function(resolve,reject){var xhr=new XMLHttpRequest;xhr.onreadystatechange=function(){if(xhr.readyState===XMLHttpRequest.DONE){if(200===xhr.status){resolve()}else{reject()}}};xhr.open("POST",url,!0);xhr.setRequestHeader("Content-Type","application/json");xhr.send(JSON.stringify(body))})};function getGoogleAnalyticsId(){if(window.___GAID___){return window.___GAID___}var GAID_REGEX=/\_ga\=([A-Z0-9\.]+)\;/,match=document.cookie.match(GAID_REGEX);if(match){window.___GAID___=match[1];return match[1]}};function isDevEnvironment(){return"localhost"===window.location.hostname||"127.0.0.1"===window.location.hostname};function isStaff(){return"true"===localStorage.getItem("pds_staff")};var failedEvents=0;window.TrackEvent=function(eventName,details){if(2<=failedEvents){return}if(isDevEnvironment()||isStaff()){return}var eventUrl="https://us-central1-pds-search-api.cloudfunctions.net/events/"+eventName,eventPayload=Object.assign({},details,{_ga:getGoogleAnalyticsId()||""});postJSONToServer(eventUrl,eventPayload).then(function(){failedEvents=0}).catch(function(){failedEvents=failedEvents+1})}})();</script>
+</dom-module>
+</body></html>

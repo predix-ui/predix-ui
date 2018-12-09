@@ -1,0 +1,35 @@
+<html><head><link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+<!-- Action: Select -->
+</head><body><dom-module id="px-context-browser-action-select">
+  <template>
+    <style>:host{display:block;}px-icon{--iron-icon-height:1.3333rem;--iron-icon-width:1.3333rem;}:host(:hover) px-icon,
+      :host([active]) px-icon{stroke:var(--px-context-browser-icon-select-stroke, darkolivegreen);fill:var(--px-context-browser-icon-select-fill, yellowgreen);}</style>
+
+    <px-icon icon="px-nav:open-context"></px-icon>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-context-browser-action-select"});</script>
+
+<!-- Action: Favorite -->
+<dom-module id="px-context-browser-action-favorite">
+  <template>
+    <style>:host{display:block;}px-icon{--iron-icon-height:1.3333rem;--iron-icon-width:1.3333rem;}:host(:hover) px-icon,
+      :host([active]) px-icon{stroke:var(--px-context-browser-icon-favorite-stroke, darkgoldenrod);fill:var(--px-context-browser-icon-favorite-fill, yellow);}</style>
+
+    <px-icon icon="px-nav:favorite"></px-icon>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-context-browser-action-favorite"});</script>
+
+<!-- Action: Open -->
+<dom-module id="px-context-browser-action-open">
+  <template>
+    <style>:host{display:block;}px-icon{--iron-icon-height:1.3333rem;--iron-icon-width:1.3333rem;}</style>
+
+    <px-icon icon="px-nav:next"></px-icon>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-context-browser-action-open"});</script>
+</body></html>

@@ -1,0 +1,176 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-empty-states">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#usage', activeAnchor)]]" href="#" anchor="#usage" on-tap="_handleAnchorTapped">Usage</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#anatomy', activeAnchor)]]" href="#" anchor="#anatomy" on-tap="_handleAnchorTapped">Anatomy</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#empty-page', activeAnchor)]]" href="#" anchor="#empty-page" on-tap="_handleAnchorTapped">Empty Page</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#color-and-sizing', activeAnchor)]]" href="#" anchor="#color-and-sizing" on-tap="_handleAnchorTapped">Color and sizing</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#in-line-empty-states', activeAnchor)]]" href="#" anchor="#in-line-empty-states" on-tap="_handleAnchorTapped">In-line Empty States</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#color-and-sizing-2', activeAnchor)]]" href="#" anchor="#color-and-sizing-2" on-tap="_handleAnchorTapped">Color and sizing</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#other-components', activeAnchor)]]" href="#" anchor="#other-components" on-tap="_handleAnchorTapped">Other components</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#tables', activeAnchor)]]" href="#" anchor="#tables" on-tap="_handleAnchorTapped">Tables</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#widgets', activeAnchor)]]" href="#" anchor="#widgets" on-tap="_handleAnchorTapped">Widgets</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#dropdowns', activeAnchor)]]" href="#" anchor="#dropdowns" on-tap="_handleAnchorTapped">Dropdowns</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#panels-inbox', activeAnchor)]]" href="#" anchor="#panels-inbox" on-tap="_handleAnchorTapped">Panels &amp; Inbox</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Empty States</h2>
+          
+          
+<p>Empty states occur when there are no items to display in a content area (page, section, widget, card, list, etc).
+Having an empty state provides users with feedback on the state of the system and help prevent confusion.</p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Be helpful and informative</h4>
+<p>Use easy to understand language that clearly indicates the state of the data or page.&nbsp; An empty state should be one to two short sentences that can be quickly read.</p>
+<h4>Provide a resolution (if possible)</h4>
+<p>Whenever possible, provide clear calls to action complementing the helper text. This will allow the user to move forward or resolve a potential issue.</p>
+<h4>Provide feedback</h4>
+<p>Do not leave the user guessing as to the status of the system. Use empty states to provide feedback and prevent confusion.</p>
+<h3 id="usage">Usage</h3>
+<p>Empty states should provide contextualized information to the user, based on the type of data that is expected. Empty states can also guide the user towards an action.</p>
+<p>Common situations when an empty state is appropriate:</p>
+<ul>
+<li>No object or data exists</li>
+<li>User has no permissions to view a page</li>
+<li>When a user action is required to display content</li>
+<li>After a user deleted all the data within a section or widget</li>
+<li>A search or filter that returned no results</li>
+<li>Data failed to load in a page or specific sections/components</li>
+</ul>
+<h4 id="anatomy">Anatomy</h4>
+<p>Empty states are composed of:</p>
+<ul>
+<li>Helper text (Required)</li>
+<li>An icon (Optional) that gives an idea of the type of data or object that will be visible in this page. Make sure you use the <a href="#/elements/px-icon-set">Predix icons</a> or follow the <a href="#/design/foundation/iconography">iconography guidelines</a> when creating new icons. If you cannot find an icon that communicates the idea clearly, do not include one.</li>
+<li>An action (Optional) that will provide a resolution or change to the state of data. Some example actions are creating a record, adding an item to a table, etc. Make sure the action complements the ways in which users will add data to a page or section once it is in a non-empty state.</li>
+</ul>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-states-anatomy" img-alt="Empty States Anatomy" caption="Empty states anatomy (icon and action are optional)"></catalog-picture></p>
+<h3 id="empty-page">Empty Page</h3>
+<p>Empty pages can occur in situations where there is no data in the system yet to create a view. In these cases, provide the user with clear information on the current state, and provide a call to action that will start populating this page.</p>
+<p>Consider the context of use and what information is relevant to the user and potential edge cases based on permissions. For example, for users with no edit or create permissions, the CTA button would not be visible, but the empty state will still be relevant.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-do" img-alt="Empty page with CTA" caption="Empty page with call to action"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/no-permissions-empty" img-alt="No permissions page" caption="An Empty State page for users who don't have access to a page/feature"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-selection" img-alt="Empty body until user action" caption="Empty states can help inform users on the action that needs to be taken to display content on the page"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-action-needed" img-alt="Search to show content" caption="Help inform users that a search query will display content on the page"></catalog-picture></p>
+<h4 id="color-and-sizing">Color and sizing</h4>
+<p>Full page empty states are always centered in the content area they are located in.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-spacing" img-alt="Empty state page spacing" caption="Spacing for empty state in full page or large body area"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-spec" img-alt="Empty state page spec light theme" caption="Empty state page spec light theme"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-spec-dk" img-alt="Empty state page spec dark theme" caption="Empty state page spec dark theme"></catalog-picture></p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/empty-state-page-dont-2" img-alt="Empty page incorrect" title="Don't" caption="Do not leave entire pages blank if there is no data available. Use empty states to inform the user if there are issues with the system or no available data.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/empty-state-page-dont" img-alt="Empty state on full page with icon incorrect" title="Don't" caption="Do not fill out the entire page with an empty state icon. If you use an icon, stick to max 60x60 px for a full page empty state.">
+  </catalog-picture>
+</div>
+<h3 id="in-line-empty-states">In-line Empty States</h3>
+<p>In-line empty states occur within the content of a page, when there are no items to display in a content area (section, widget, card, list, etc).
+In these situations, display a message to the users to indicate if an action is required to add data, or that the current state is valid (i.e, there was no error loading the data). This message should be contextualized to the type of data that is expected.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-sections" img-alt="In-line empty state" caption="Empty page section"></catalog-picture></p>
+<h4 id="color-and-sizing-2">Color and sizing</h4>
+<p>In-line empty states are always centered in the content area they are located in.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/in-line-empty-spacing" img-alt="In-line empty state spacing" caption="Spacing for in-line empty state"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-spec" img-alt="In-line empty state spec light theme" caption="In-line empty state spec light theme"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-page-spec-dk" img-alt="In-line empty state spec dark theme" caption="In-line empty state spec dark theme"></catalog-picture></p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/in-line-empty-do" img-alt="In-line empty state correct" title="Do" caption="Provide feedback on the state of a section">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/in-line-empty-dont" img-alt="In-line empty state incorrect" title="Don't" caption="Leave a section empty with no indication of the state of the data">
+  </catalog-picture>
+</div>
+<h3 id="other-components">Other components</h3>
+<p>The guidelines for in-line empty states are applicable to some components.</p>
+<h4 id="tables">Tables</h4>
+<p>Industrial applications rely heavily on displaying data in tables. As such, it is essential to provide users with feedback if for some reason data is not displaying in tables.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/empty-table-do" img-alt="Empty state table correct" title="Do" caption="Provide a helper text message that indicates the reason for not seeing data in the table">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/empty-states/empty-table-dont" img-alt="Empty state table incorrect" title="Don't" caption="Do not leave widgets and other components empty with no indication of why the user is not seeing data">
+  </catalog-picture>
+</div>
+<h4 id="widgets">Widgets</h4>
+<p>Data visualizations such as widgets in a dashboard may sometimes fail to load data or time out. Make sure you are communicating to the user what is the state of data in the widget, and if there is a way to resolve this issue, provide an action for the user.</p>
+<p>You can complement the empty states with a notification strip to indicate the page is experiencing issues. See the <a href="#/design/communication/notifications">notifications guidelines</a> for more details.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/widgets-empty-states" img-alt="Widget empty states" caption="Showing empty states on widgets"></catalog-picture></p>
+<h4 id="dropdowns">Dropdowns</h4>
+<p>Depending on how you are loading data in your application, you may run into situations where data in dropdowns does not load correctly, or loads only when the user interacts with the dropdown. Consider disabling the dropdown until data has loaded, and if no data is available preventing the user from clicking. Alternatively, an empty state in the dropdown can help provide feedback that the data did not load.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-state-components" img-alt="Empty states in dropdown" caption="Empty states in dropdowns"></catalog-picture></p>
+<h4 id="panels-inbox">Panels &amp; Inbox</h4>
+<p>Other components that can show empty states include inboxes and panels. The layout and rules for in-line empty states are applicable to these components.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/empty-states/empty-post-search" img-alt="No results inbox" caption="Empty state in Inbox"></catalog-picture></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-empty-states",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

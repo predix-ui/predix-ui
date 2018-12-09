@@ -1,0 +1,40 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-demos-dynamic-add.html" defer="">
+<link rel="import" href="../iron-ajax/iron-ajax.html" defer="">
+
+</head><body><dom-module id="px-vis-demos-dynamic-add-module">
+  <template>
+    <h1>Add charts dynamically</h1>
+    <p>This page aims at helping benchmarking dynamically adding charts as well as making sure we don't introduce performance breaking changes. Look in the console for timing results for each batch of charts you've added <button id="btnPerf" style="background-color: salmon" class="btn">Click me for vis performance tips!</button></p>
+    <ul id="tipsList" hidden="">
+      <li><strong>progressive rendering</strong> now can be customized through progressiveRenderingPointsPerFrame (16000 by default for lines, 2000 byy default for scatter) and progressiveRenderingMinimumFrames. Increase progressiveRenderingPointsPerFrame for better performance and decrease for smoother drawing. When at the right value no performance cost incurs and drawing is smooth but if value is too small can incur a performance cost (i.e the drawing will take longer but will still start at the same time, also the UI won't be frozen)</li>
+      <li>progressive rendering is great for big dataset, it can incur a very small performance costs for smaller one. This is usually offseted by the fact that the UI doesn't freeze</li>
+      <li>scatter exacerbate perfomance issue, i.e big dataset on svg scatter can be very slow. This is <strong>always</strong> true on IE. Always use <strong>canvas</strong> rendering on IE for scatter. Preferably with progressive rendering</li>
+      <li><strong>using the navigator doesn't come free</strong> since this is almost a chart itself. It can double the number of points to draw. If performance is an issue consider: not displaying the navigator/using canvas rendering on the navigator/not displaying all series on the navigator by changing the navigator series config</li>
+      <li><strong>reusing charts</strong> previously created rather than dynamically creating one every time can help significantly. If using this strategy one thing to keep in mind is making sure the chart is re-appended in the dom *before* changing its properties to their new values. In most cases it would work even if appending it after, but some edge cases scenarios might fail to clean some visual artifact (for example switching from canvas to svg while deleting a few series at the same time). This demo presents a crude example of reusing charts types that have been removed previously</li>
+      <li>Having the devtools open has an impact on performance (up to 100%). If you want to measure real timing then close the devtools when creating the charts and reopen afterward to see how long it took. IE devtools don't log messages when they're closed but the last measure will be available in window.performance.getEntriesByName('lastMeasure')[0]</li>
+      <li>Before benchmarking it's usually a good idea to force a garbage collection if possible (bin icon on the 'timeline' tab on chrome)</li>
+      <li>Scrolling while creating the charts can have a negative impact on performance.</li>
+      <li>First chart creation is always a bit slower due to Polymer lazy loading the element definitions.</li>
+      <li><strong>Include chart extents</strong> when you have them and the chart supports it (all but parallel coordinates and polar). This will avoid the chart parsing all the data to find the min and max in order to create the scales.</li>
+      <li><strong>Disable web worker synchronization</strong> if you don't need it. Having it enabled means the chart will synchronize its data with the webworker, which will force the main thread to copy the data over which can be very slow for large dataset. More info: https://www.predix-ui.com/#/develop/vis/web-workers</li>
+    </ul>
+    <px-vis-demos-dynamic-add></px-vis-demos-dynamic-add>
+  </template>
+  <script>Polymer({is:"px-vis-demos-dynamic-add-module",attached:function attached(){var tipsList=this.$.tipsList,btnPerf=this.$.btnPerf;btnPerf.addEventListener("click",function(){tipsList.hidden=!tipsList.hidden})}});</script>
+</dom-module>
+</body></html>

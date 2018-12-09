@@ -1,0 +1,36 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-card/px-card.html">
+<link rel="import" href="px-widget-cards-behavior.html">
+
+<link rel="import" href="css/px-widget-cards-styles.html">
+
+</head><body><dom-module id="px-sixup">
+  <template>
+    <style include="px-widget-cards-styles"></style>
+
+    <px-card header-text="{{widgetHeader}}" icon="{{widgetIcon}}" full-bleed="">
+      <div class="layout layout--flush layout--widget">
+        <div class="layout__item">
+          <slot name="widget-1"></slot>
+        </div>
+        <div class="layout__item">
+          <slot name="widget-2"></slot>
+        </div>
+        <div class="layout__item">
+          <slot name="widget-3"></slot>
+        </div>
+        <div class="layout__item">
+          <slot name="widget-4"></slot>
+        </div>
+        <div class="layout__item">
+          <slot name="widget-5"></slot>
+        </div>
+        <div class="layout__item">
+          <slot name="widget-6"></slot>
+        </div>
+      </div>
+    </px-card>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-sixup",behaviors:[PxWidgetCardsBehavior]});</script>
+</body></html>

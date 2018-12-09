@@ -1,0 +1,28 @@
+<!-- import polymer library --><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-timeline-node-comment-svg.html">
+<link rel="import" href="css/px-timeline-styles.html">
+
+<!-- declare DOM module -->
+</head><body><dom-module id="px-timeline-node-img">
+  <template>
+    <style include="px-timeline-styles"></style>
+    <div class="text__box flex">
+      <template is="dom-if" if="{{comment}}">
+        <px-timeline-node-comment-svg> </px-timeline-node-comment-svg>
+        <div class="text--spacer flex">
+        </div>
+      </template>
+      <div class="text">
+        <span>[[contentBodyImg.text]]</span>
+      </div>
+    </div>
+    <template is="dom-if" if="{{hasImage}}>">
+      <div class="content__media__img flex flex--start">
+        <img srcset="[[contentBodyImg.img]], https://www.predix.com/sites/all/themes/ge_progressive/predix/images/why-predix/ge-predix-network.jpg" class="img" alt="there was a problem loading the image">
+      </div>
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-timeline-node-img",properties:{hasImage:{type:Boolean,value:!1}},ready:function ready(){if(this.contentBodyImg.isComment){this.comment=!0}if(this.contentBodyImg.img){this.hasImage=!0}}});</script>
+</body></html>

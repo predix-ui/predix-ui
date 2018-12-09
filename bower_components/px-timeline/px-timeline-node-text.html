@@ -1,0 +1,23 @@
+<!-- import polymer library --><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-timeline-node-comment-svg.html">
+<link rel="import" href="css/px-timeline-styles.html">
+
+<!-- declare DOM module -->
+</head><body><dom-module id="px-timeline-node-text">
+  <template>
+    <style include="px-timeline-styles"></style>
+    <div class="text__box flex">
+      <template is="dom-if" if="{{comment}}">
+        <px-timeline-node-comment-svg> </px-timeline-node-comment-svg>
+        <div class="text--spacer flex">
+        </div>
+      </template>
+      <div class="text">
+        <span> {{contentBodyText.text}} </span>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-timeline-node-text",properties:{},ready:function ready(){if(this.contentBodyText.isComment){this.comment=!0}}});</script>
+</body></html>

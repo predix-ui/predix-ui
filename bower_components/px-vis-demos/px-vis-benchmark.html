@@ -1,0 +1,94 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-chart-generator.html" defer="">
+<link rel="import" href="../px-vis-timeseries/px-vis-timeseries.html" defer="">
+<link rel="import" href="../px-vis-xy-chart/px-vis-xy-chart.html" defer="">
+<link rel="import" href="../px-vis-polar/px-vis-polar.html" defer="">
+<link rel="import" href="../px-vis-radar/px-vis-radar.html" defer="">
+<link rel="import" href="../px-vis-parallel-coordinates/px-vis-parallel-coordinates.html" defer="">
+<link rel="import" href="../iron-ajax/iron-ajax.html" defer="">
+
+<link rel="import" href="css/px-vis-benchmark-styles.html" defer="">
+
+<!--
+benchmarking chart drawings
+
+### Usage
+
+    <px-vis-demos-dynamic-add></px-vis-demos-dynamic-add>
+
+@element px-vis-demos-dynamic-add
+@blurb demonstrating dynamically adding/removing charts
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-vis-benchmark">
+  <template>
+    <style include="px-vis-benchmark-styles"></style>
+
+    <template is="dom-if" if="[[!hideUi]]">
+      <template is="dom-if" if="[[!isRunning]]">
+        <span class="inline--flex flex--col flex--middle">TS - all data
+          <button on-click="_startFullTS" class$="[[_buttonClass(_dataReady)]]">[[_buttonText(_dataReady)]]</button>
+        </span>
+        <span class="inline--flex flex--col flex--middle">All charts - medium data
+          <button on-click="_startAllCharts" class$="[[_buttonClass(_dataReady)]]">[[_buttonText(_dataReady)]]</button>
+        </span>
+        <div id="warmupDiv">
+          <input id="warmup" type="checkbox" checked="{{_buildWarmup::change}}">
+          <label for="warmup" class="label--inline">Include benchmark warmup</label>
+          <px-tooltip for="warmupDiv" delay="50" tooltip-message="If checked the benchmark will run a first loop with one chart of each type to 'warmup' the polymer stamping of those elements" orientation="auto"></px-tooltip>
+        </div>
+      </template>
+    </template>
+    <template is="dom-if" if="[[isRunning]]">
+      <span>[[_status]]</span>
+    </template>
+    <iron-ajax url="[[importPath]][[dataRootPath]]4x1k.json" handle-as="json" auto="" last-response="{{data4x1k}}">
+    </iron-ajax>
+    <iron-ajax url="[[importPath]][[dataRootPath]]4x10k.json" handle-as="json" auto="" last-response="{{data4x10k}}">
+    </iron-ajax>
+    <iron-ajax url="[[importPath]][[dataRootPath]]40x1k.json" handle-as="json" auto="" last-response="{{data40x1k}}">
+    </iron-ajax>
+    <iron-ajax url="[[importPath]][[dataRootPath]]40x10k.json" handle-as="json" auto="" last-response="{{data40x10k}}">
+    </iron-ajax>
+    <div id="chartHolder"></div>
+
+    <template is="dom-if" if="[[hasResults]]">
+      <template is="dom-repeat" items="[[reportData]]">
+      <span class="heading--page">[[item.title]]</span><br>
+      <span class="heading--section">Total time: [[item.total]]ms</span><br>
+      <span class="heading--section">Average per chart: [[item.average]]ms</span><br>
+      <span class="value">[[item.description]]</span><br>
+
+        <template is="dom-if" if="[[_isPolymer1]]" restamp="">
+          <px-data-table table-data="[[item.tableData]]"></px-data-table>
+        </template>
+
+        <template is="dom-if" if="[[!_isPolymer1]]" restamp="">
+          <px-data-grid table-data="[[item.tableData]]"></px-data-grid>
+        </template>
+      </template>
+      <br><br>
+    </template>
+
+
+  </template>
+
+<script src="dist/px-vis-benchmark.js"></script>
+</dom-module>
+</body></html>

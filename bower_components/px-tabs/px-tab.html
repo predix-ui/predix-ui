@@ -1,0 +1,36 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-tab-styles.html">
+
+<!--
+The px-tabs and px-tab components together provide the tabbed interface. The tabbed content is expected
+to be contained in a separate component (iron-pages).
+
+Note: There is no limit on number of tabs in the set, but there is no scrolling support.
+
+### Usage
+
+The px-tabs and px-tab components are typically used together like this:
+```
+<px-tabs selected="{{selected}}">
+    <px-tab>Tab 1</px-tab>
+    <px-tab>Tab 2</px-tab>
+    <px-tab>Tab 3</px-tab>
+</px-tabs>
+```
+
+@element px-tab
+@blurb Element provides a single tab.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-tab">
+  <template>
+    <style include="px-tab-styles"></style>
+    <div class="tab-title">
+      <slot></slot>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-tab",attached:function attached(){this.setAttribute("role","tab")}});</script>
+</body></html>

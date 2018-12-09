@@ -1,0 +1,82 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="px-vis-behavior-datetime.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+
+<!--
+
+### Usage
+
+    <px-vis-event
+        svg="[[svg]]"
+        x-axis-type="[[xAxisType]]"
+        clip-path="[[clipPath]]"
+        event-id="[[item.id]]"
+        chart-data="[[item]]"
+        x="[[x]]"
+        y="[[y]]"
+        event-config="[[eventConfig]]">
+    </px-vis-event>
+
+The configuration object allows developers to set the icon used for each event type.
+
+It should follow this form:
+
+    eventConfig = {
+      "Event Name 1":{
+        "color": "blue",
+        "icon": "px-fea:deployments",
+        "type": "px",
+        "offset":[0,0]
+      },
+      "Event Name 2":{
+        "color": "green",
+        "icon": "px-nav:favorite",
+        "type": "px",
+        "offset":[0,0],
+        "lineWeight": 0
+      },
+      "Event Name 3":{
+        "icon": "Dancing_banana.gif",
+        "type": "image",
+        "offset":[-2,-20],
+        "size":"25"
+      }
+    }
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-event-line-color` | The default color for the vertical lines below the icon
+  `--px-vis-event-icon-color` | The default color for the event icon markers
+
+@element px-vis-event
+@blurb d3 element which draws a line and icon on the chart representing an event.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-event">
+  <template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-event",behaviors:[PxVisBehavior.observerCheck,PxVisBehaviorD3.svg,PxVisBehaviorD3.axes,PxVisBehavior.sizing,PxVisBehavior.axisTypes,PxVisBehaviorD3.clipPath,PxVisBehavior.commonMethods,PxVisBehavior.events,PxVisBehaviorD3.domainUpdate,PxVisBehaviorD3.icons,PxVisBehavior.updateStylesOverride,PxVisBehavior.scaleTypeCheck],properties:{eventGroup:{type:Object,value:function value(){return{}}},_eventConfigChanged:{type:Boolean,value:!1},_eventDrawn:{type:Boolean,value:!1},_defaultDefaultEventConfig:{type:Object,value:function value(){return{color:"rgb(0,0,0)",icon:"px-utl:information",type:"px",offset:[0,0],size:16,lineColor:"rgb(0,0,0)",lineWeight:1,enableTooltip:!0,firstDateTimeFormat:"HH:mm:ss ZZ",secondDateTimeFormat:"DD MMM YYYY",separator:"|",timezone:"utc",tooltipOrientation:"left",dataKey:"time"}}},_iconInfo:{type:Object,value:function value(){return{}}}},observers:["drawElement(svg, eventData.*, height, _stylesUpdated, domainChanged)","_eventConfigUpdated(eventConfig.*)","_eventConfigUpdated(defaultEventConfig.*)","_addClipPath(clipPath)"],detached:function detached(){this._eventDrawn=!1;if(this.eventGroup&&this._doesD3HaveValues(this.eventGroup)){this.eventGroup.remove();this.eventGroup=null}},ready:function ready(){window.requestAnimationFrame(function(){this.updateStyles()}.bind(this));this._iconCallbackQueue=[this._forceIconRedraw]},_getConfigValue:function _getConfigValue(key,eventType,theme){if(this.eventConfig&&this.eventConfig[eventType]&&this.eventConfig[eventType][key]){return this.eventConfig[eventType][key]}if(theme){return this._getDefaultValueOrTheme(key,theme)}return this._getDefaultValue(key)},_getDefaultValue:function _getDefaultValue(key){return this.defaultEventConfig&&this.defaultEventConfig[key]?this.defaultEventConfig[key]:this._defaultDefaultEventConfig[key]},_getDefaultValueOrTheme:function _getDefaultValueOrTheme(key,theme){return this.defaultEventConfig&&this.defaultEventConfig[key]?this.defaultEventConfig[key]:this._checkThemeVariable(theme,this._defaultDefaultEventConfig[key])},_eventConfigUpdated:function _eventConfigUpdated(){if(this.hasUndefinedArguments(arguments)){return}if(!this._eventDrawn){return}this._forceIconRedraw()},_forceIconRedraw:function _forceIconRedraw(){this._eventConfigChanged=!0;this.drawElement()},drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}if(0<this.drawDebounceTime){this.debounce("_drawEvents",function(){this._drawElementDebounced()},this.drawDebounceTime)}else{this._drawElementDebounced()}},_drawElementDebounced:function _drawElementDebounced(){if(!this.svg||!this.domainChanged){return}var _this=this;if(this._isD3Empty(this.eventGroup)){this.eventGroup=this.svg.append("g").attr("class","events").attr("pointer-events","all");this._addClipPath()}this._eventBuilder=this.eventGroup.selectAll("g.event").data(this.eventData,function(d){return d.id});this._eventBuilder.exit().remove();this._eventBuilder.enter().append("g").attr("class","event").attr("event-id",function(d){return d.id}).each(function(d,i){_this._enterLine(d,i,this);_this._enterIcon(d,i,this)}).merge(this._eventBuilder).each(function(d,i){if(_this._eventConfigChanged){Px.d3.select(this).select(".event-icon").remove();_this._enterIcon(d,i,this)}_this._mergeLine(d,i,this);_this._mergeIcon(d,i,this)});this._eventConfigChanged=!1;this._eventDrawn=!0;this.dispatchEvent(new CustomEvent("px-vis-event-rendering-ended",{bubbles:!0,composed:!0}))},_enterLine:function _enterLine(d,i,elem){Px.d3.select(elem).append("line").attr("class","event-line")},_enterIcon:function _enterIcon(d,i,elem){var iconType=this._getConfigValue("type",d.label,!1),iconSvg;if("image"===iconType){iconSvg=Px.d3.select(elem).append("image").attr("class","event-icon").attr("xlink:href",this._getConfigValue("icon",d.label,!1)).attr("width",this._getConfigValue("size",d.label,!1)+"px").attr("height",this._getConfigValue("size",d.label,!1)+"px").style("cursor","pointer")}else{iconSvg=Px.d3.select(elem).append("g").attr("class","event-icon").style("cursor","pointer");var iconName=this._getConfigValue("icon",d.label,!1),size=this._getConfigValue("size",d.label,!1);if(!this._iconInfo[iconName]){this._iconInfo[iconName]=this._getPxIcon(iconName,size,"px-utl","information");if(!this._iconInfo[iconName]){return}}var icon=iconSvg.node().appendChild(this._iconInfo[iconName].icon.cloneNode(!0));Px.d3.select(icon).attr("fill","transparent").attr("stroke",this._getConfigValue("color",d.label,"--px-vis-event-icon-color")).style("cursor","pointer")}iconSvg.on("mouseenter",this._requestTooltip.bind(this,d,i,iconSvg.node())).on("mouseleave",this._clearTooltipRequest.bind(this,d,i))},_mergeLine:function _mergeLine(d,i,elem){var key=this._getConfigValue("dataKey",d.label,!1);if(!d[key]){return}Px.d3.select(elem).select("line.event-line").attr("stroke",this._getConfigValue("lineColor",d.label,"--px-vis-event-line-color")).attr("stroke-width",this._getConfigValue("lineWeight",d.label,!1)).attr("x1",this.x(d[key])).attr("x2",this.x(d[key])).attr("y1",Math.max(this.height-this.margin.top,0)).attr("y2",0)},_mergeIcon:function _mergeIcon(d,i,elem){var key=this._getConfigValue("dataKey",d.label,!1);if(!d[key]){return}var size=+this._getConfigValue("size",d.label,!1),offset=this._getConfigValue("offset",d.label,!1),type=this._getConfigValue("type",d.label,!1),iconName=this._getConfigValue("icon",d.label,!1),x=this.x(d[key])-size/2+offset[0],y0=offset[1]-5,y="image"===type?y0:y0-size,translate="translate(".concat(x,",").concat(y,")"),scale="image"===type?"":"scale(".concat(this._iconInfo[iconName].scale,")");Px.d3.select(elem).select(".event-icon").attr("transform","".concat(translate," ").concat(scale))},_addClipPath:function _addClipPath(){if(this.hasUndefinedArguments(arguments)){return}this.addClipPath(this.eventGroup)},_requestTooltip:function _requestTooltip(d,i,elem){if(!this._getConfigValue("enableTooltip",d.label,!1)){return}var detail={element:elem,delay:10,tooltipType:this.is,origin:this,orientation:this._getConfigValue("tooltipOrientation",d.label,!1),data:[{title:d.label,data:this._getAllKeys(d)}]};if(this._isTimeType(this.xAxisType)){detail.data[0].time=d[this._getConfigValue("dataKey",d.label,!1)]}else{detail.data[0].data.push({title:this._getConfigValue("dataKey",d.label,!1),value:d[this._getConfigValue("dataKey",d.label,!1)],type:"number"})}this.dispatchEvent(new CustomEvent("central-tooltip-display-request",{bubbles:!0,composed:!0,detail:detail}))},_getAllKeys:function _getAllKeys(d){var _this2=this,arr=[];Object.entries(d).forEach(function(_ref){var _ref2=babelHelpers.slicedToArray(_ref,2),key=_ref2[0],val=_ref2[1];if(key!==_this2._getConfigValue("dataKey",d.label,!1)&&"label"!==key){arr.push({title:key,value:val})}});return arr},_clearTooltipRequest:function _clearTooltipRequest(d,i){if(!this._getConfigValue("enableTooltip",d.label,!1)){return}this.dispatchEvent(new CustomEvent("central-tooltip-cancel-request",{bubbles:!0,composed:!0,detail:{origin:this}}))},_formatDatetime:function _formatDatetime(time,format){return this.formatTimestamp(time,this.timezone,format)},_getValueTitle:function _getValueTitle(){return this._isTimeType(this.xAxisType)?"Timestamp":"X"},_getValue:function _getValue(xAxisType){if("time"===this.xAxisType||"timeLocal"===this.xAxisType){return": "+this._formatDatetime(this.eventData[this.xKey],this.firstDateTimeFormat)+" "+this.separator+" "+this._formatDatetime(this.eventData[this.xKey],this.secondDateTimeFormat)}else{return": "+this.eventData[this.xKey]}}});</script>
+</body></html>

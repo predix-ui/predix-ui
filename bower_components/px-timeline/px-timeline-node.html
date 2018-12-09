@@ -1,0 +1,195 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-moment-imports/px-moment-imports.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="px-timeline-node-list.html">
+<link rel="import" href="px-timeline-node-text.html">
+<link rel="import" href="px-timeline-node-img.html">
+<link rel="import" href="px-timeline-node-video.html">
+<link rel="import" href="px-timeline-node-audio.html">
+<link rel="import" href="px-timeline-node-table.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-timeline-styles.html">
+
+<!-- declare DOM module -->
+</head><body><dom-module id="px-timeline-node">
+  <template>
+    <style include="px-timeline-styles"></style>
+    <div id="node-box" class="node flex flex--col">
+
+      <!-- TIME GROUP -->
+      <template is="dom-if" if="{{_and(showTimeGroups,showDates)}}">
+        <div class="node__head flex">
+          <div class$="icon flex flex--col flex--middle {{_getEnhancedClass(enhanced)}}">
+            <div class="timegroup flex">
+              <span>[[_dateTitle]]</span>
+            </div>
+            <div class="timegroup__line">
+            </div>
+          </div>
+          <div class="title flex flex--col flex--justify">
+          </div>
+        </div>
+      </template>
+
+      <div class="node__head flex">
+        <template is="dom-if" if="{{enhanced}}">
+          <div class="chevron flex flex--middle">
+            <template is="dom-if" if="{{timelineContent.body.length}}">
+              <template is="dom-if" if="{{!showContent}}">
+                <px-icon class="caret pointer" icon="px-utl:chevron-right" aria-hidden="true" on-tap="openContent"></px-icon>
+              </template>
+              <template is="dom-if" if="{{showContent}}">
+                <px-icon class="caret pointer" icon="px-utl:chevron" aria-hidden="true" on-tap="closeContent"></px-icon>
+              </template>
+            </template>
+          </div>
+        </template>
+
+        <div class="icon flex flex--col flex--middle">
+          <template is="dom-if" if="{{enhanced}}">
+            <template is="dom-if" if="{{timelineContent.body.length}}">
+              <div id="open-icon" class="icon__circle icon__circle--enhanced flex flex--center flex--middle">
+                <template is="dom-if" if="{{timelineMetadata.customIcon}}">
+                  <px-icon class="icon--enhanced" icon="{{timelineMetadata.customIcon}}" aria-hidden="true"></px-icon>
+                </template>
+                <template is="dom-if" if="{{!timelineMetadata.customIcon}}">
+                  <px-icon class="icon--enhanced" icon="[[_getIcon(timelineContent)]]" aria-hidden="true"></px-icon>
+                </template>
+              </div>
+            </template>
+
+            <template is="dom-if" if="{{!timelineContent.body.length}}">
+              <div class="icon__circle icon__circle--simple icon__circle--both flex">
+              </div>
+            </template>
+
+            <template is="dom-if" if="{{_showLine}}">
+              <template is="dom-if" if="{{timelineContent.body.length}}">
+                <div class="icon__line icon__line--enhanced">
+                </div>
+              </template>
+              <template is="dom-if" if="{{!timelineContent.body.length}}">
+                <div class="icon__line icon__line--simple">
+                </div>
+              </template>
+            </template>
+
+          </template>
+
+          <template is="dom-if" if="{{!enhanced}}">
+            <div class="icon__circle icon__circle--simple flex">
+            </div>
+            <template is="dom-if" if="{{_showLine}}">
+              <div class="icon__line">
+              </div>
+            </template>
+          </template>
+        </div>
+
+        <div class$="title flex flex--col flex--justify {{_getEnhancedClass(enhanced)}}">
+          <div class="flex__item">
+            <div class$="title__text [[_getEditClass(editable)]]" on-tap="_timelineEdit">
+              <span> [[timelineContent.title]] </span>
+                <template is="dom-if" if="{{editable}}">
+                  <span class="node__header__edit-icon">
+                    <px-icon aria-label="Click to edit timeline node" class="actionable" icon="px-utl:edit" aria-hidden="true"></px-icon>
+                  </span>
+                </template>
+              </div>
+          </div>
+          <div class="title__date">
+            <span> [[_formattedEditedDate]] </span>
+            <span> [[_compactEditorString]] </span>
+          </div>
+        </div>
+      </div>
+
+      <template is="dom-if" if="{{!enhanced}}">
+        <div class="node__body flex simple">
+          <div class="node__body__space flex flex--col flex--middle">
+            <template is="dom-if" if="{{_showLine}}">
+              <div class="node__body__line">
+              </div>
+            </template>
+          </div>
+          <div class="content--basic flex">
+            <div class="content--basic__text">
+              <span> [[timelineContent.body.0.text]] </span>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template is="dom-if" if="{{enhanced}}">
+        <template is="dom-if" if="{{showContent}}">
+          <div class="node__body flex enhanced">
+            <div class="node__body__space flex flex--col flex--middle">
+              <template is="dom-if" if="{{_showLine}}">
+                <div class="node__body__line">
+                </div>
+              </template>
+            </div>
+
+              <div class="content flex flex--col">
+                <div class="editor flex flex--row flex--middle">
+                  <template is="dom-if" if="{{!compactEditorInfo}}">
+                    <template is="dom-if" if="{{timelineMetadata.editorImg}}">
+                      <div class="editor__img flex flex--center flex--middle">
+                        <img class="editor__img__img" src="[[timelineMetadata.editorImg]]">
+                      </div>
+                    </template>
+                    <template is="dom-if" if="{{!timelineMetadata.editorImg}}">
+                      <div class="editor__icon flex flex--center flex--middle">
+                        <px-icon icon="px-nav:generic-user" aria-hidden="true"></px-icon>
+                      </div>
+                    </template>
+                  </template>
+                  <div class="editor__details flex flex--col">
+                    <template is="dom-if" if="{{!compactEditorInfo}}">
+                      <div class="editor__details__name">
+                        <span class=""> [[timelineMetadata.editedBy]] </span>
+                      </div>
+                      <div class="editor__details__role">
+                        <span class=""> [[timelineMetadata.editorTitle]] </span>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+                <template is="dom-if" if="{{timelineMetadata.percent}}">
+                  <div class="editor__details__percent">
+                    <span class="editor__details__percent__value">
+                      [[timelineMetadata.percent]]%
+                    </span>
+                  </div>
+                </template>
+              <div class="content__media flex flex--col">
+                <template is="dom-if" if="{{_isType('LIST')}}">
+                  <px-timeline-node-list content-body-list="[[timelineContent.body]]"></px-timeline-node-list>
+                </template>
+                <template is="dom-if" if="{{_isType('TEXT')}}">
+                  <px-timeline-node-text content-body-text="[[timelineContent.body.0]]"></px-timeline-node-text>
+                </template>
+                <template is="dom-if" if="{{_isType('IMG')}}">
+                  <px-timeline-node-img content-body-img="[[timelineContent.body.0]"></px-timeline-node-img>
+                </template>
+                <template is="dom-if" if="{{_isType('VIDEO')}}">
+                  <px-timeline-node-video content-body-video="[[timelineContent.body.0]]" node-content="[[timelineContent]]"></px-timeline-node-video>
+                </template>
+                <template is="dom-if" if="{{_isType('AUDIO')}}">
+                  <px-timeline-node-audio content-body-audio="[[timelineContent.body.0]]"></px-timeline-node-audio>
+                </template>
+                <template is="dom-if" if="{{_isType('TABLE')}}">
+                  <px-timeline-node-table content-body-table="[[timelineContent.body]]"></px-timeline-node-table>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+
+    </div>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-timeline-node",behaviors:[Polymer.AppLocalizeBehavior],properties:{timelineMetadata:{type:Object,value:function value(){return{}}},timelineContent:{type:Object,value:function value(){return{}}},timelineIndex:{type:Number,value:null},showNodeContent:{type:Boolean,value:!1,observer:"showAllChanged"},showTimeGroups:{type:Boolean,value:!1},nodeCount:{type:Number,value:null},dateFormat:{type:String,value:""},enhanced:{type:Boolean,value:!1},editable:{type:Boolean,value:!1},compactEditorInfo:{type:Boolean,value:!1},timeGroupsUsed:{type:Object,value:function value(){return{}}},timeZone:{type:String,value:""},resources:{type:Object,value:function value(){return{en:{TODAY:"TODAY","THIS WEEK":"THIS WEEK","THIS MONTH":"THIS MONTH","THIS YEAR":"THIS YEAR","LAST YEAR":"LAST YEAR"}}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},_compactEditorString:{type:String,computed:"_computeCompactEditorString(compactEditorInfo, enhanced, timelineMetadata.*)"},_showLine:{type:Boolean,value:!1,computed:"_computeShowLine(timelineIndex, nodeCount)"},_dateTitle:{type:String},_formattedEditedDate:{type:String,value:"",computed:"_formatDate(dateFormat, timelineMetadata, timeZone)"}},observers:["_getDateTitle(timelineMetadata, localize, timeZone, showTimeGroups)"],_formatDate:function _formatDate(){return Px.moment.tz(this.timelineMetadata.editedDate,this.timeZone).format(this.dateFormat).toUpperCase()},_computeShowLine:function _computeShowLine(index,count){return index!==count-1},_getDateTitle:function _getDateTitle(timelineMetadata,localize,timeZone,showTimeGroups){if(timelineMetadata&&localize&&timeZone&&showTimeGroups){var date=Px.moment.tz(this.timelineMetadata.editedDate,this.timeZone),now=Px.moment.tz(this.timeZone),set=!1;if(now.isSame(date,"day")){if(!this.timeGroupsUsed.today){this.set("_dateTitle",this.localize("TODAY"));this.fire("px-timeline-timegroup-used-update",{key:"today"});set=!0}}else if(now.isSame(date,"week")){if(!this.timeGroupsUsed.thisWeek){this.set("_dateTitle",this.localize("THIS WEEK"));this.fire("px-timeline-timegroup-used-update",{key:"thisWeek"});set=!0}}else if(now.isSame(date,"month")){if(!this.timeGroupsUsed.thisMonth){this.set("_dateTitle",this.localize("THIS MONTH"));this.fire("px-timeline-timegroup-used-update",{key:"thisMonth"});set=!0}}else if(now.isSame(date,"year")){if(!this.timeGroupsUsed.thisYear){this.set("_dateTitle",this.localize("THIS YEAR"));this.fire("px-timeline-timegroup-used-update",{key:"thisYear"});set=!0}}else{if(!this.timeGroupsUsed.lastYear){this.set("_dateTitle",this.localize("LAST YEAR"));this.fire("px-timeline-timegroup-used-update",{key:"lastYear"});set=!0}}this.set("showDates",set)}},_getIcon:function _getIcon(timelineContent){var type=timelineContent.bodyType.toUpperCase();if("VIDEO"===type)return"px-utl:camera";if("IMG"===type)return"px-doc:image";if("AUDIO"===type)return"px-nav:play";if("LIST"===type)return"px-nav:list-view";if("TEXT"===type)return"px-doc:note";if("TABLE"===type)return"px-nav:list-view"},_isType:function _isType(type){return this.timelineContent.bodyType.toUpperCase()===type},_getEnhancedClass:function _getEnhancedClass(){return this.enhanced?"enhanced":"simple"},_getEditClass:function _getEditClass(editable){return editable?"actionable":""},_and:function _and(a,b){return a&&b},showAllChanged:function showAllChanged(newValue,oldValue){this.showContent=newValue},openContent:function openContent(event,detail,sender){this.showContent=!0},closeContent:function closeContent(event,detail,sender){this.showContent=!1},_computeCompactEditorString:function _computeCompactEditorString(){if(this.enhanced&&this.compactEditorInfo){var string=" - ",hasEditedBy=!1;if("undefined"!==typeof this.timelineMetadata.editedBy){string+=this.timelineMetadata.editedBy;hasEditedBy=!0}if("undefined"!==typeof this.timelineMetadata.editorTitle){if(hasEditedBy){string+=", "}string+=this.timelineMetadata.editorTitle}return string}else{return""}},_timelineEdit:function _timelineEdit(evt){this.fire("px-timeline-edit",this.timelineIndex)}});</script>
+</body></html>

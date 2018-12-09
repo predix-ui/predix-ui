@@ -1,0 +1,57 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../vaadin-checkbox/vaadin-checkbox.html">
+<link rel="import" href="../vaadin-radio-button/vaadin-radio-button.html">
+<link rel="import" href="px-data-grid-select-all.html">
+<link rel="import" href="css/px-data-grid-selection-column-styles.html">
+
+</head><body><dom-module id="vaadin-checkbox-styles" theme-for="vaadin-checkbox">
+  <template>
+    <style include="px-data-grid-selection-column-styles"></style>
+  </template>
+</dom-module>
+
+<dom-module id="vaadin-radio-button-styles" theme-for="vaadin-radio-button">
+  <template>
+    <style include="px-data-grid-selection-column-styles"></style>
+  </template>
+</dom-module>
+
+<dom-module id="px-data-grid-selection-column">
+  <template>
+    <template class="header" id="defaultHeaderTemplate">
+      <template is="dom-if" if="[[multiSelect]]">
+        <px-data-grid-select-all hidden$="[[_selectAllHidden]]" on-select-all-checked="_onSelectAllCheckedChanged" checked="[[_isChecked(selectAll, _indeterminate)]]" indeterminate="[[_indeterminate]]" count="[[_selectionCount]]" allow-sort-by-selection="[[allowSortBySelection]]" check-listener="[[_boundedSelectAllCheckListener]]"></px-data-grid-select-all>
+      </template>
+    </template>
+    <template id="defaultBodyTemplate">
+      <template is="dom-if" if="[[!_isGroupItem(item)]]">
+        <template is="dom-if" if="[[multiSelect]]">
+          <vaadin-checkbox aria-label="Select Row" checked="{{selected}}">
+          </vaadin-checkbox>
+        </template>
+        <template is="dom-if" if="[[!multiSelect]]">
+          <vaadin-radio-button aria-label="Select Row" checked="{{selected}}">
+          </vaadin-radio-button>
+        </template>
+      </template>
+    </template>
+  </template>
+
+  <script>{var DataGridSelectionColumnElement=function(_Vaadin$GridColumnEle){babelHelpers.inherits(DataGridSelectionColumnElement,_Vaadin$GridColumnEle);babelHelpers.createClass(DataGridSelectionColumnElement,[{key:"ready",value:function ready(){babelHelpers.get(babelHelpers.getPrototypeOf(DataGridSelectionColumnElement.prototype),"ready",this).call(this);this._boundedSelectAllCheckListener=this._onSelectAllCheckedChanged.bind(this)}},{key:"_prepareHeaderTemplate",value:function _prepareHeaderTemplate(){var headerTemplate=this._prepareTemplatizer(this._findTemplate("template.header")||this.$.defaultHeaderTemplate);headerTemplate.templatizer.dataHost=headerTemplate===this.$.defaultHeaderTemplate?this:this.dataHost;return headerTemplate}},{key:"_prepareBodyTemplate",value:function _prepareBodyTemplate(){var template=this._prepareTemplatizer(this._findTemplate("template:not(.header):not(.footer)")||this.$.defaultBodyTemplate);template.templatizer.dataHost=template===this.$.defaultBodyTemplate?this:this.dataHost;return template}}],[{key:"is",get:function get(){return"px-data-grid-selection-column"}},{key:"properties",get:function get(){return{width:{type:String,value:"56px"},flexGrow:{type:Number,value:0},selectAll:{type:Boolean,value:!1,notify:!0},autoSelect:{type:Boolean,value:!1},multiSelect:{type:Boolean,value:!0},treeGrid:{type:Boolean},allowSortBySelection:{type:Boolean,value:!1},headerTemplate:Object,template:Object,_indeterminate:{type:Boolean,value:!1},_previousActiveItem:Object,_selectAllHidden:{type:Boolean,value:!0},isDataColumn:{type:Boolean,value:!1,readOnly:!0},_selectionCount:{type:Number,value:0}}}},{key:"observers",get:function get(){return["_onSelectAllChanged(selectAll)","_onMultiSelectOrAllowSortBySelectionChanged(multiSelect,allowSortBySelection)"]}}]);function DataGridSelectionColumnElement(){var _this;babelHelpers.classCallCheck(this,DataGridSelectionColumnElement);_this=babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridSelectionColumnElement).call(this));_this._boundOnActiveItemChanged=_this._onActiveItemChanged.bind(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this)));_this._boundOnDataProviderChanged=_this._onDataProviderChanged.bind(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this)));_this._boundOnSelectedItemsChanged=_this._onSelectedItemsChanged.bind(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this)));return _this}babelHelpers.createClass(DataGridSelectionColumnElement,[{key:"disconnectedCallback",value:function disconnectedCallback(){if(this._grid){this._grid.removeEventListener("active-item-changed",this._boundOnActiveItemChanged);this._grid.removeEventListener("data-provider-changed",this._boundOnDataProviderChanged);this._grid.removeEventListener("filter-changed",this._boundOnSelectedItemsChanged);this._grid._pxDataGrid.removeEventListener("selected-items-changed",this._boundOnSelectedItemsChanged);var isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);if(isSafari&&window.ShadyDOM&&this.parentElement){var parent=this.parentElement,nextSibling=this.nextElementSibling;parent.removeChild(this);if(nextSibling){parent.insertBefore(this,nextSibling)}else{parent.appendChild(this)}}}babelHelpers.get(babelHelpers.getPrototypeOf(DataGridSelectionColumnElement.prototype),"disconnectedCallback",this).call(this)}},{key:"connectedCallback",value:function connectedCallback(){var _this2=this;babelHelpers.get(babelHelpers.getPrototypeOf(DataGridSelectionColumnElement.prototype),"connectedCallback",this).call(this);if(this._grid){var _grid=this._grid;_grid.addEventListener("active-item-changed",this._boundOnActiveItemChanged);_grid.addEventListener("data-provider-changed",this._boundOnDataProviderChanged);_grid.addEventListener("filter-changed",this._boundOnSelectedItemsChanged);Polymer.RenderStatus.afterNextRender(_grid,function(){_grid._pxDataGrid.addEventListener("selected-items-changed",_this2._boundOnSelectedItemsChanged);_this2._selectAllHidden=!_grid._pxDataGrid._hasLocalDataProvider})}}},{key:"_isGroupItem",value:function _isGroupItem(item){return this.treeGrid&&item.hasChildren}},{key:"_onSelectAllChanged",value:function _onSelectAllChanged(selectAll){if(selectAll===void 0||!this._grid){return}if(this._selectAllChangeLock){return}if(selectAll&&this._grid._pxDataGrid){this._grid.selectedItems=this._grid._pxDataGrid._getAllLocalItems()}else{this._grid.selectedItems=[]}}},{key:"_arrayContains",value:function _arrayContains(a,b){for(var i=0;a&&b&&b[i]&&0<=a.indexOf(b[i]);i++){;}return i==b.length}},{key:"_onSelectAllCheckedChanged",value:function _onSelectAllCheckedChanged(e){this.selectAll=this._indeterminate||e.target.checked;if(e.target.checked!==this.selectAll){e.target.checked=this.selectAll}}},{key:"_isChecked",value:function _isChecked(selectAll,indeterminate){return indeterminate||selectAll}},{key:"_onActiveItemChanged",value:function _onActiveItemChanged(e){var activeItem=e.detail.value;if(this.autoSelect){var item=activeItem||this._previousActiveItem;if(item&&!item.hasChildren){this._grid._toggleItem(item)}}this._previousActiveItem=activeItem}},{key:"_onSelectedItemsChanged",value:function _onSelectedItemsChanged(e){this._selectAllChangeLock=!0;var allItems=this._grid._pxDataGrid._getAllLocalItems();if(Array.isArray(allItems)){if(!this._grid.selectedItems.length){this.selectAll=!1;this._indeterminate=!1}else if(this._arrayContains(this._grid.selectedItems,allItems)){this.selectAll=!0;this._indeterminate=!1}else{this.selectAll=!1;this._indeterminate=!0}}this._selectAllChangeLock=!1;this._selectionCount=this._grid.selectedItems.length}},{key:"_onDataProviderChanged",value:function _onDataProviderChanged(e){this._selectAllHidden=!this._grid._pxDataGrid._hasLocalDataProvider}},{key:"_onMultiSelectOrAllowSortBySelectionChanged",value:function _onMultiSelectOrAllowSortBySelectionChanged(multiSelect,allowSortBySelection){if(!multiSelect){this.width="40px"}else if(!allowSortBySelection){this.width="55px"}else{this.width="90px"}}}]);return DataGridSelectionColumnElement}(Vaadin.GridColumnElement);customElements.define(DataGridSelectionColumnElement.is,DataGridSelectionColumnElement);window.Predix=window.Predix||{};Predix.DataGridSelectionColumnElement=DataGridSelectionColumnElement}</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,121 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="../px-typeahead/px-typeahead.html">
+<link rel="import" href="../px-toggle/px-toggle.html">
+<link rel="import" href="../px-app-helpers/object-assign-polyfill/object-assign-polyfill.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!-- Common demo behaviors -->
+<link rel="import" href="px-demo-behaviors.html">
+
+<!--
+Creates inputs for configuration props.
+
+##### Usage
+
+        <px-demo-props></px-demo-props>
+
+@element px-demo-props
+@blurb Creates inputs for configuration props.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-props">
+  <template>
+    <style include="px-demo-styles">:host{width:100%;}</style>
+      <template is="dom-if" if="{{_fields.length}}">
+        <p class="epsilon u-mb+">Properties</p>
+
+        <template is="dom-repeat" items="{{_fields}}" filter="_propIsVisible" observe="_visibleForConfig">
+
+          <!-- INPUT: 'toggle'  -->
+          <template is="dom-if" if="{{_itIs(item.inputType, 'toggle')}}">
+            <div class="flex flex--justify u-mb-">
+              <div class="label" aria-hidden="true">{{_getFieldLabel(item)}}</div>
+              <div class="u-ml-">
+                <px-toggle id="toggle-{{item.prop}}" size="small" checked$="{{item.value::change}}" prop="{{item.prop}}" disabled$="{{_itIsTrue(item.inputDisabled)}}" data-debounce="{{item.inputDebounce}}" on-checked-changed="_handleToggleInput"></px-toggle>
+              </div>
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+          <!-- INPUT: 'text'  -->
+          <template is="dom-if" if="{{_itIs(item.inputType, 'text')}}">
+            <div class="u-mb-">
+              <label for$="text-{{item.prop}}">{{_getFieldLabel(item)}}</label>
+              <input id="text-{{item.prop}}" class="text-input u-mb--" type="text" placeholder="{{_getFieldPlaceholder(item)}}" disabled$="{{_itIsTrue(item.inputDisabled)}}" value="{{item.value}}" prop="{{item.prop}}" data-debounce="{{item.inputDebounce}}" on-input="_handleTextInput">
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+          <!-- INPUT: 'number'  -->
+          <template is="dom-if" if="{{_itIs(item.inputType, 'number')}}">
+            <div class="u-mb-">
+              <label for$="text-{{item.prop}}">{{_getFieldLabel(item)}}</label>
+              <input id="text-{{item.prop}}" class="text-input u-mb--" type="number" placeholder="{{_getFieldPlaceholder(item)}}" disabled$="{{_itIsTrue(item.inputDisabled)}}" value="{{item.value}}" prop="{{item.prop}}" data-debounce="{{item.inputDebounce}}" on-input="_handleNumberInput">
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+          <!-- INPUT: 'dropdown'  -->
+          <template is="dom-if" if="{{_itIs(item.inputType, 'dropdown')}}">
+            <div class="u-mb-">
+              <label for$="dropdown-{{item.prop}}">{{_getFieldLabel(item)}}</label>
+              <div class="u-mb--">
+                <px-dropdown style="width: 100%;" id="dropdown-{{item.prop}}" prop="{{item.prop}}" data-debounce="{{item.inputDebounce}}" items="{{item.inputChoices}}" select-by="val" selected="{{item.value}}" on-px-dropdown-selection-changed="_handleDropdownInput" disable-clear="">
+                </px-dropdown>
+              </div>
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text--dropdown">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+          <!-- INPUT: 'typeahead'  -->
+          <template is="dom-if" if="{{_itIs(item.inputType, 'typeahead')}}">
+            <div class="u-mb-">
+              <label for$="typeahead-{{item.prop}}">{{_getFieldLabel(item)}}</label>
+              <div style="width: 100%;" class="u-mb--">
+                <px-typeahead id="typeahead-{{item.prop}}" local-candidates="{{item.inputLocalCandidates}}" prefetch-url="{{item.inputPrefetchUrl}}" placeholder="[[item.inputPlaceholder]]" input-value="{{item.value}}" prop="{{item.prop}}" data-debounce="{{item.inputDebounce}}" on-px-typeahead-item-selected="_handleTypeaheadItemSelected">
+                </px-typeahead>
+              </div>
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text--dropdown">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+          <!-- INPUT: 'javascriptCode'  -->
+          <template is="dom-if" if="{{_itIsOneOf(item.inputType, 'code:EvaluatedJavaScript', 'code:JSON')}}">
+            <div class="u-mb-">
+              <label for$="text-{{item.prop}}">{{_getFieldLabel(item)}}</label>
+              <div class="flex flex--row">
+                <input id="text-{{item.prop}}" class="text-input flex__item u-mb--" type="text" placeholder="{{item.inputPlaceholder}}" value="{...}" prop="{{item.prop}}" on-input="_editComplexJSON" disabled="">
+                <button class="btn u-ml-" type="button" prop="{{item.prop}}" input-type="{{item.inputType}}" data-debounce="{{item.inputDebounce}}" on-tap="_handleCodeEditButton">Edit</button>
+              </div>
+            </div>
+            <template is="dom-if" if="{{item.inputHelpText}}">
+              <p class="zeta demo-props__helper-text">{{item.inputHelpText}}</p>
+            </template>
+          </template>
+
+      </template>
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-props",behaviors:[PxDemoBehaviors.manageProps],properties:{props:{type:Object,notify:!0,value:function value(){return{}}},config:{type:Object,value:function value(){return{}},observer:"_handleConfigUpdate"},propsVisible:{type:Boolean,value:!0,notify:!0,readOnly:!0,observer:"_handlePropsVisibleChange"},_fields:{type:Array,value:function value(){return[]}},_fieldsIndex:{type:Object,value:function value(){return{}}}},observers:["_computeFields(props)","_syncToField(props.*)"],ready:function ready(){this.applyPropDefaults()},_computeFields:function _computeFields(){this.debounce("prepare-fields",function(){if(this.props!==void 0){var props=this.props,propKeys=Object.keys(props);if(propKeys.length){for(var i=0;i<propKeys.length;i++){this.push("_fields",Object.assign({},{prop:propKeys[i],_visibleForConfig:!0},props[propKeys[i]]));this.set("_fieldsIndex."+propKeys[i],i)}}}},200)},_itIs:function _itIs(it1,it2){return it1===it2},_itIsOneOf:function _itIsOneOf(it){for(var shouldBeOneOf=Array.prototype.slice.call(arguments,1),itIsInArray=!1,len=shouldBeOneOf&&Array.isArray(shouldBeOneOf)?shouldBeOneOf.length:0,i=0;i<len;i++){if(shouldBeOneOf[i]===it)itIsInArray=!0}return itIsInArray},_itIsTrue:function _itIsTrue(it){if("boolean"===typeof it)return!0===it;if("true"===it)return!0;if("false"===it)return!1;return},_itIsDisabled:function _itIsDisabled(it){if("boolean"===typeof it)return!0===it?"toggle--disabled":"";if("true"===it)return"toggle--disabled";if("false"===it)return"";return},_getFieldLabel:function _getFieldLabel(field){if(field.inputLabel)return field.inputLabel;return this._formatInputLabel(field.prop)},_getFieldPlaceholder:function _getFieldPlaceholder(field){return field.inputPlaceholder||""},_formatInputLabel:function _formatInputLabel(camelString){var camelToWords=camelString.replace(/([A-Z]+)/g," $1").replace(/([A-Z][a-z])/g," $1");return camelToWords.charAt(0).toUpperCase()+camelToWords.slice(1)},_getDropdownDisplayValue:function _getDropdownDisplayValue(dropdownVal){if(!dropdownVal||!dropdownVal.length)return"Select";return dropdownVal},_handleTextInput:function _handleTextInput(evt){this._syncToProp(evt.target.prop,evt.target.value,evt.target.dataDebounce)},_handleNumberInput:function _handleNumberInput(evt){this._syncToProp(evt.target.prop,+evt.target.value,evt.target.dataDebounce)},_handleToggleInput:function _handleToggleInput(evt){this._syncToProp(evt.target.prop,evt.detail.value,evt.target.dataDebounce)},_handleDropdownInput:function _handleDropdownInput(evt){this._syncToProp(evt.target.prop,evt.detail.val,evt.target.dataDebounce)},_handleTypeaheadItemSelected:function _handleTypeaheadItemSelected(evt){this._syncToProp(evt.target.prop,evt.detail,evt.target.dataDebounce)},_handleCodeEditButton:function _handleCodeEditButton(evt){var _this=this,_evt$model$item=evt.model.item,prop=_evt$model$item.prop,type=_evt$model$item.type,value=_evt$model$item.value,inputType=_evt$model$item.inputType,inputLabel=_evt$model$item.inputLabel,label=this._formatInputLabel(inputLabel||prop);this.fire("px-demo-props-code-edit-request",{value:value,mode:inputType,title:"Property Editor: ".concat(label),save:function save(newValue){_this._syncToProp(prop,newValue)}})},_syncToProp:function _syncToProp(propName,newVal,debounceValue){if(debounceValue){this.debounce("sync-props",function(){this.set("props."+propName+".value",newVal)},debounceValue)}else{this.set("props."+propName+".value",newVal)}},_syncToField:function _syncToField(propChangeInfo){if(propChangeInfo&&"object"===babelHelpers.typeof(propChangeInfo)&&propChangeInfo.path){for(var toSync=["value","inputDisabled"],i=0;i<toSync.length;i++){if(-1!==propChangeInfo.path.indexOf("."+toSync[i])){this.debounce("sync-to-field"+propChangeInfo.path,function(){var prop=propChangeInfo.path.replace("props.","").replace("."+toSync[i],""),indexOfField=this.get("_fieldsIndex."+prop),fieldValPath="_fields."+indexOfField+"."+toSync[i],fieldVal=this.get(fieldValPath);if("undefined"!==typeof fieldVal&&fieldVal!==propChangeInfo.value){this.set(fieldValPath,propChangeInfo.value)}},50);break}}}},_propIsVisible:function _propIsVisible(field){return!0===field._visibleForConfig},_handleConfigUpdate:function _handleConfigUpdate(newConfig){if(newConfig&&Object.keys(newConfig).length){if(newConfig.configShowProps&&Array.isArray(newConfig.configShowProps)){this._setEachPropVisibility("showOnly",newConfig.configShowProps)}else if(newConfig.configHideProps&&Array.isArray(newConfig.configHideProps)&&newConfig.configHideProps.length){this._setEachPropVisibility("hideOnly",newConfig.configHideProps)}else{this._setEachPropVisibility("showAll")}}},_setEachPropVisibility:function _setEachPropVisibility(behavior,propList){var fields=this.get("_fields"),numberOfVisibleProps=0;if(fields&&fields.length){for(var i=0,len=fields.length;i<len;i++){var propName=fields[i].prop,shouldShowProp;if("showOnly"===behavior)shouldShowProp=-1!==propList.indexOf(propName);if("hideOnly"===behavior)shouldShowProp=-1===propList.indexOf(propName);if("showAll"===behavior)shouldShowProp=!0;if(!0===shouldShowProp){this.set("_fields."+i+"._visibleForConfig",!0);numberOfVisibleProps++}else{this.set("_fields."+i+"._visibleForConfig",!1)}}var areAnyPropsVisible=0<numberOfVisibleProps;this._setPropsVisible(areAnyPropsVisible)}},_handlePropsVisibleChange:function _handlePropsVisibleChange(newVal,oldVal){if("boolean"===typeof newVal){if(!0===newVal&&newVal!==oldVal){this.fire("px-demo-props-some-visible")}if(!1===newVal&&newVal!==oldVal){this.fire("px-demo-props-none-visible")}}}});</script>
+</body></html>

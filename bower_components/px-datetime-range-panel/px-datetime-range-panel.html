@@ -1,0 +1,83 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-datetime-common/px-datetime-presets.html">
+<link rel="import" href="../px-datetime-common/px-datetime-buttons.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html">
+<link rel="import" href="../px-datetime-field/px-datetime-field.html">
+<link rel="import" href="../px-calendar-picker/px-calendar-picker.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-datetime-range-panel-styles.html">
+
+<!--
+The datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+### Usage
+
+    <px-datetime-range-panel
+      from-moment={{...}}
+      to-moment={{...}}>
+    </px-datetime-range-panel>
+
+
+### Styling
+
+The following custom properties are available for styling. Please also refer to px-forms-design, px-calendar-picker, px-datetime-field, and px-datetime-common for additional style variables used by this component.
+
+Custom property | Description
+:----------------|:-------------
+`--px-range-panel-border-color` | Border color used within the datetime range panel
+`--px-range-panel-background-color` | Background color for the datetime range panel
+`--px-range-panel-z-index` | The z-index for the datetime range panel
+
+@element px-datetime-range-panel
+@blurb Element providing solution to date time range panel.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-range-panel">
+  <template>
+    <style include="px-datetime-range-panel-styles"></style>
+
+    <div id="rangepickerModal" class="rangepicker__box shadow-temporary">
+      <div class="flex">
+        <div>
+          <div class="flex">
+            <div class="u-mr+">
+              <px-calendar-picker id="fromCalendar" hide-next-button="{{_areConsecutiveMonth(fromBaseDate, toBaseDate)}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" base-date="{{fromBaseDate}}" time-zone="[[timeZone]]" day-week-start-index="[[dayWeekStartIndex]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+              </px-calendar-picker>
+              <template is="dom-if" if="{{!hideTime}}">
+                <div class="flex flex--center u-mt--">
+                  <px-datetime-field id="time" class="box__time" moment-obj="{{fromMoment}}" hide-icon="" hide-date="" is-valid="{{_fromTimeIsValid}}" time-format="{{timeFormat}}" time-zone="[[timeZone]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+                  </px-datetime-field>
+                </div>
+              </template>
+            </div>
+            <div>
+              <px-calendar-picker id="toCalendar" hide-previous-button="{{_areConsecutiveMonth(fromBaseDate, toBaseDate)}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" base-date="{{toBaseDate}}" time-zone="[[timeZone]]" day-week-start-index="[[dayWeekStartIndex]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+              </px-calendar-picker>
+              <template is="dom-if" if="{{!hideTime}}">
+                <div class$="flex flex--center u-mt-- {{_getFieldClass(showButtons)}}">
+                  <px-datetime-field id="time" class="box__time" moment-obj="{{toMoment}}" hide-icon="" hide-date="" is-valid="{{_toTimeIsValid}}" time-format="{{timeFormat}}" time-zone="[[timeZone]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]" min-date="[[minDate]]" max-date="[[maxDate]]">
+                  </px-datetime-field>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+        <template is="dom-if" if="{{!hidePresets}}">
+          <px-datetime-presets id="presets" class="flex flex--col u-ml+ u-mr-" preset-ranges="{{presetRanges}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+          </px-datetime-presets>
+        </template>
+      </div>
+      <template is="dom-if" if="{{showButtons}}">
+        <div class="flex flex--row--rev u-mt+">
+          <px-datetime-buttons is-submit-button-valid="[[_canApply]]" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+          </px-datetime-buttons>
+        </div>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-range-panel",behaviors:[PxDatetimeBehavior.Range,PxDatetimeBehavior.Buttons],properties:{fromBaseDate:{type:Object,notify:!0,observer:"_fromBaseDateChanged"},toBaseDate:{type:Object,notify:!0,observer:"_toBaseDateChanged"},hidden:{type:Boolean},hidePresets:{type:Boolean,value:!1},presetRanges:{type:Object,value:function value(){var now=Px.moment.tz(this.timeZone);return[{displayText:"Last 7 Days",startDateTime:now.clone().subtract(7,"days").startOf("day"),endDateTime:now.clone().endOf("day")},{displayText:"This Month",startDateTime:now.clone().startOf("month"),endDateTime:now.clone().endOf("month")},{displayText:"Last Month",startDateTime:now.clone().subtract(1,"months").startOf("month"),endDateTime:now.clone().subtract(1,"months").endOf("month")}]}},hideTime:{type:Boolean,value:!1},timeFormat:{type:String,value:"HH:mm:ss A"},_internalSet:{type:Boolean,value:!1},_fromTimeIsValid:{type:Boolean,value:!0},_toTimeIsValid:{type:Boolean,value:!0},timeIsValid:{type:Boolean,notify:!0,computed:"_getTimeIsValid(_fromTimeIsValid, _toTimeIsValid, hideTime)"},_canApply:{type:Boolean,computed:"_canApplyComputed(timeIsValid, fromMoment, toMoment, allowApply)"},allowApply:{type:Boolean}},observers:["_updateFromCalendar(fromMoment)","_updateToCalendar(toMoment)"],listeners:{"px-datetime-button-clicked":"_handleButtonClick"},ready:function ready(){var fromHandler=this._fromPicked.bind(this),toHandler=this._toPicked.bind(this),presetHandler=this._presetSelected.bind(this);this.$.fromCalendar.addEventListener("px-date-selected",fromHandler);this.$.toCalendar.addEventListener("px-date-selected",toHandler);this.addEventListener("px-preset-selected",presetHandler)},_presetSelected:function _presetSelected(e){var start={},end={};if("function"===typeof e.detail.startDateTime){start=Px.moment.tz(e.detail.startDateTime(),this.timeZone)}else{start=Px.moment.tz(e.detail.startDateTime,this.timeZone)}if("function"===typeof e.detail.endDateTime){end=Px.moment.tz(e.detail.endDateTime(),this.timeZone)}else{end=Px.moment.tz(e.detail.endDateTime,this.timeZone)}this._internalSet=!0;if(end.isAfter(start.clone().add(1,"months"),"month")){this.set("toBaseDate",end.clone())}else{this.set("toBaseDate",start.clone().add(1,"months"))}this.set("fromBaseDate",start.clone());var validity=this._validatePresetDates(start,end);if(validity){this.$.fromCalendar.fromMoment=validity.start.clone();this.$.toCalendar.fromMoment=validity.start.clone();this.set("fromMoment",validity.preserveStartTime?this._preserveTime(this.fromMoment,validity.start.clone()):validity.start.clone());this.$.fromCalendar.toMoment=validity.end.clone();this.$.toCalendar.toMoment=validity.end.clone();this.set("toMoment",validity.preserveEndTime?this._preserveTime(this.toMoment,validity.end.clone()):validity.end.clone())}this._internalSet=!1},_validatePresetDates:function _validatePresetDates(start,end){var today=Px.moment.tz(Px.moment(),this.timeZone),result={start:null,end:null,preserveStartTime:!1,preserveEndTime:!1},startValid=this._validateDateBlock(start,today),endValid=this._validateDateBlock(end,today);if(!startValid.blockFutureValid||!startValid.blockMaxValid||!endValid.blockMinValid||!endValid.blockPastValid){return null}if(!startValid.blockPastValid&&!startValid.blockMinValid){result.start=today.isAfter(this.minDate)?today:this.minDate}else if(!startValid.blockPastValid){result.start=today;result.preserveStartTime=!0}else if(!startValid.blockMinValid){result.start=this.minDate}else{result.start=start}if(!endValid.blockFutureValid&&!endValid.blockMaxValid){result.end=today.isBefore(this.maxDate)?today:this.maxDate}else if(!endValid.blockFutureValid){result.end=today;result.preserveEndTime=!0}else if(!endValid.blockMaxValid){result.end=this.maxDate}else{result.end=end}return result},_validateDateBlock:function _validateDateBlock(date,today){return{blockFutureValid:!this.blockFutureDates||date.isSameOrBefore(today,"day"),blockPastValid:!this.blockPastDates||date.isSameOrAfter(today,"day"),blockMinValid:!this.minDate||date.isAfter(this.minDate),blockMaxValid:!this.maxDate||date.isBefore(this.maxDate)}},_resetRange:function _resetRange(rangeObject){rangeObject.toMoment=null;rangeObject.fromMoment=null},_rangeIsSelected:function _rangeIsSelected(){return null!==this.$.fromCalendar.fromMoment&&null!==this.$.toCalendar.toMoment||null!==this.$.fromCalendar.fromMoment&&null!==this.$.fromCalendar.toMoment||null!==this.$.toCalendar.fromMoment&&null!==this.$.toCalendar.toMoment},_fromPicked:function _fromPicked(event){this._internalSet=!0;if(this._rangeIsSelected()){this._resetRange(this.$.toCalendar)}if(!this.hidePresets){this.$$("px-datetime-presets").selectedItem=null}if(null===this.$.fromCalendar.toMoment&&null===this.$.toCalendar.toMoment&&null===this.$.toCalendar.fromMoment){this.set("fromMoment",this._preserveTime(this.fromMoment,event.detail))}else{if(this.$.fromCalendar.toMoment){if(event.detail.isBefore(this.fromMoment)){this.set("toMoment",this._preserveTime(this.toMoment,this.fromMoment.clone()));this.set("fromMoment",this._preserveTime(this.fromMoment,event.detail))}else{this.set("toMoment",this._preserveTime(this.toMoment,event.detail))}this.$.toCalendar.fromMoment=this.fromMoment;this.$.toCalendar.toMoment=this.toMoment}else{this.$.toCalendar.toMoment=this.toMoment;this.$.toCalendar.fromMoment=event.detail;this.$.fromCalendar.toMoment=this.toMoment;this.set("fromMoment",this._preserveTime(this.fromMoment,event.detail))}}this._internalSet=!1},_toPicked:function _toPicked(event){this._internalSet=!0;if(this._rangeIsSelected()){this._resetRange(this.$.fromCalendar)}if(!this.hidePresets){this.$$("px-datetime-presets").selectedItem=null}if(!this.$.fromCalendar.toMoment&&!this.$.toCalendar.toMoment&&!this.$.fromCalendar.fromMoment){this.set("toMoment",this._preserveTime(this.toMoment,event.detail))}else{if(this.$.toCalendar.toMoment){if(event.detail.isAfter(this.toMoment)){this.set("fromMoment",this._preserveTime(this.fromMoment,this.toMoment.clone()));this.set("toMoment",this._preserveTime(this.toMoment,event.detail))}else{this.set("fromMoment",this._preserveTime(this.fromMoment,event.detail))}this.$.toCalendar.toMoment=this.toMoment;this.$.toCalendar.fromMoment=this.fromMoment;this.$.fromCalendar.fromMoment=this.fromMoment;this.$.fromCalendar.toMoment=this.toMoment}else{this.$.fromCalendar.toMoment=event.detail;this.$.toCalendar.fromMoment=this.$.fromCalendar.fromMoment;this.$.toCalendar.toMoment=event.detail;this.set("toMoment",this._preserveTime(this.toMoment,event.detail))}}this._internalSet=!1},_areConsecutiveMonth:function _areConsecutiveMonth(fromBaseDate,toBaseDate){if(fromBaseDate&&toBaseDate){return fromBaseDate.isSame(toBaseDate.clone().subtract(1,"months"),"month")}else{return!1}},_fromBaseDateChanged:function _fromBaseDateChanged(){if(null===this.fromBaseDate){return}if(!this._internalSet&&this.fromBaseDate&&this.toBaseDate&&this.fromBaseDate.isSameOrAfter(this.toBaseDate,"month")){this.set("fromBaseDate",Px.moment.tz(this.toBaseDate,this.timeZone).subtract(1,"month"))}if(this.$.fromCalendar.isAtSelectionLevel){this.$.toCalendar.blockDatesBefore=Px.moment.tz(this.fromBaseDate,this.timeZone).add(1,"month").startOf("month")}},_toBaseDateChanged:function _toBaseDateChanged(){if(null===this.toBaseDate){return}if(!this._internalSet&&this.fromBaseDate&&this.toBaseDate&&this.toBaseDate.isSameOrBefore(this.fromBaseDate,"month")){this.set("toBaseDate",Px.moment.tz(this.fromBaseDate,this.timeZone).add(1,"month"))}if(this.$.toCalendar.isAtSelectionLevel){this.$.fromCalendar.blockDatesAfter=Px.moment.tz(this.toBaseDate,this.timeZone).subtract(1,"month").endOf("month")}},_updateFromCalendar:function _updateFromCalendar(){if(!this._internalSet){this.$.fromCalendar.fromMoment=this.fromMoment;this.$.toCalendar.fromMoment=this.fromMoment;if(this.fromMoment&&null!==this.fromMoment){this.set("fromBaseDate",this.fromMoment)}}},_updateToCalendar:function _updateToCalendar(){if(!this._internalSet){this.$.fromCalendar.toMoment=this.toMoment;this.$.toCalendar.toMoment=this.toMoment;if(this.toMoment&&null!==this.toMoment){this.set("toBaseDate",this.toMoment)}}},_canApplyComputed:function _canApplyComputed(timeIsValid,fromMoment,toMoment,allowApply){return this._validateRangeOrder(fromMoment,toMoment)&&timeIsValid&&allowApply},_getTimeIsValid:function _getTimeIsValid(_fromTimeIsValid,_toTimeIsValid,hideTime){return hideTime||_fromTimeIsValid&&_toTimeIsValid},_getFieldClass:function _getFieldClass(showButtons){if(!showButtons){return"u-mb+"}},_handleButtonClick:function _handleButtonClick(evt){if(!1===this.hidePresets&&!1===evt.detail.action){var presets=Polymer.dom(this.root).querySelector("px-datetime-presets");presets.selectedItem={}}}});</script>
+</body></html>

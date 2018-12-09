@@ -1,0 +1,116 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-datetime-picker/px-datetime-picker.html">
+<link rel="import" href="../px-slider/px-slider.html">
+<link rel="import" href="../px-rangepicker/px-rangepicker.html">
+<link rel="import" href="css/px-data-grid-filter-entity-styles.html">
+
+</head><body><dom-module id="px-data-grid-filter-entity">
+  <template>
+    <style include="px-data-grid-filter-entity-styles"></style>
+
+    <div class="labeled-text">
+      <label for="column-dropdown" hidden="[[compactMode]]">
+        [[localize('Attribute')]]
+      </label>
+      <px-dropdown id="column-dropdown" allow-outside-scroll="" items="[[_mappedColumns]]" disable-clear="" selected="{{entity.columnId}}" hoist="">
+      </px-dropdown>
+    </div>
+
+    <template is="dom-if" if="{{_columnTypeIsString(entity.columnId)}}" restamp="">
+      <div class="labeled-text">
+        <label for="condition-dropdown" hidden="[[compactMode]]">
+          [[localize('Condition')]]
+        </label>
+        <px-dropdown id="condition-dropdown" allow-outside-scroll="" items="[[_resolveRegexPatterns(stringComparators, _regexPatterns)]]" disable-clear="" selected="{{entity.pattern}}" hoist="">
+        </px-dropdown>
+      </div>
+
+      <div class="labeled-text">
+        <label for="value-input" hidden="[[compactMode]]">
+          [[localize('Value')]]
+        </label>
+        <input id="value-input" type="text" class="text-input" value="{{entity.query::input}}">
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{_columnTypeIsDateAndRangesNotAvailable(entity.columnId, _dateRanges)}}" restamp="">
+        <div class="labeled-text" extended="">
+          <px-rangepicker id="date-rangepicker" hide-time="[[_hideTime]]" hide-presets="" date-format="[[_datePickerDateFormat]]" time-format="[[_datePickerTimeFormat]]" time-zone="[[_displayTimezone]]" show-time-zone="abbreviatedText" show-field-titles="" from-moment="{{_dateFrom}}" to-moment="{{_dateTo}}" full-width="" hoist="">
+          </px-rangepicker>
+        </div>
+      </template>
+
+    <template is="dom-if" if="{{_columnTypeIsDateAndRangesAvailable(entity.columnId, _dateRanges)}}" restamp="">
+      <div class="labeled-text">
+        <label for="date-range-dropdown" hidden="[[compactMode]]">
+          [[localize('Time range')]]
+        </label>
+        <px-dropdown id="date-range-dropdown" items="[[_dateRanges]]" disable-clear="" selected="{{entity.selectedDateRangeName}}" hoist="">
+        </px-dropdown>
+      </div>
+
+      <!-- Disabled in px-data-grid/pull/696 -->
+      <!-- <template is="dom-if" if="{{_showRangePicker(entity, entity.selectedDateRangeName, entity.columnId)}}">
+        <div class="labeled-text own-row" extended>
+          <px-rangepicker
+            id="date-rangepicker"
+            hide-time="[[_hideTime]]"
+            hide-presets
+            date-format="[[_displayDateFormat]]"
+            time-format="[[_displayTimeFormat]]"
+            time-zone="[[_displayTimezone]]"
+            show-time-zone="abbreviatedText"
+            show-field-titles
+            from-moment="{{_dateFrom}}"
+            to-moment="{{_dateTo}}">
+          </px-rangepicker>
+        </div>
+      </template> -->
+    </template>
+
+    <template is="dom-if" if="{{_columnTypeIsNumber(entity.columnId)}}" restamp="">
+      <template is="dom-if" if="{{!_showSlider(_minNumberBound, _maxNumberBound, columns.*)}}" restamp="">
+        <div class="labeled-text">
+          <label for="range-input" hidden="[[compactMode]]">
+            [[localize('Condition')]]
+          </label>
+          <px-dropdown id="number-condition-dropdown" allow-outside-scroll="" items="[[_resolveNumberConditions(numberComparators, _numberConditions)]]" disable-clear="" selected="{{entity.condition}}" hoist="">
+          </px-dropdown>
+        </div>
+
+        <div class="labeled-text">
+          <label for="number-value-input" hidden="[[compactMode]]">
+            [[localize('Value')]]
+          </label>
+          <input id="number-value-input" type="text" class="text-input" value="{{entity.value::input}}">
+        </div>
+      </template>
+
+      <template is="dom-if" if="{{_showSlider(_minNumberBound, _maxNumberBound, columns.*)}}" restamp="">
+        <div class="labeled-text" extended="">
+          <label for="range-input" hidden="[[compactMode]]">
+            [[localize('Range')]]
+          </label>
+          <px-slider id="range-input" min="[[_minNumberBound]]" max="[[_maxNumberBound]]" value="{{entity.leftBound}}" end-value="{{entity.rightBound}}" step="1" is-range="">
+          </px-slider>
+        </div>
+      </template>
+    </template>
+  </template>
+  <script>{var DataGridFilterEntityElement=function(_Polymer$Element){babelHelpers.inherits(DataGridFilterEntityElement,_Polymer$Element);function DataGridFilterEntityElement(){babelHelpers.classCallCheck(this,DataGridFilterEntityElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridFilterEntityElement).apply(this,arguments))}babelHelpers.createClass(DataGridFilterEntityElement,[{key:"_localizeChanged",value:function _localizeChanged(localize){var _this=this;if(!localize){return}this._regexPatterns.forEach(function(pattern,index){_this.set("_regexPatterns.".concat(index,".val"),localize(pattern.val))});this._numberConditions.forEach(function(condition,index){_this.set("_numberConditions.".concat(index,".val"),localize(condition.val))})}},{key:"_setDateRanges",value:function _setDateRanges(entity,columns){var _this2=this,selectedColumn=this._getColumnById(entity.columnId);if(!selectedColumn||"date"!==selectedColumn.type){return}var dateRanges=[];if(selectedColumn.dateRanges){selectedColumn.dateRanges.forEach(function(dateRange){dateRanges.push({key:dateRange.name,val:_this2.localize(dateRange.name)})})}if(0<dateRanges.length){this.set("_dateRanges",dateRanges);if(!entity.selectedDateRangeName){this.set("entity.selectedDateRangeName",dateRanges[0].key)}}else{this.set("_dateRanges",void 0);this.set("entity.selectedDateRangeName",void 0)}if(selectedColumn.filterByTime){this.set("_hideTime",!1)}else{this.set("_hideTime",!0)}if(selectedColumn.dateFormat){this.set("_sourceDateFormat",selectedColumn.dateFormat.format||"YYYY/MM/DDD HH:mm:ss");this.set("_sourceTimezone",selectedColumn.dateFormat.timezone||"UTC")}if(selectedColumn.rendererConfig){this.set("_displayDateFormat",selectedColumn.rendererConfig.datePickerDateFormat||"YYYY/MM/DD");this.set("_displayTimeFormat",selectedColumn.rendererConfig.datePickerTimeFormat||"HH:mm");this.set("_displayTimezone",selectedColumn.rendererConfig.timezone||"UTC");this.set("_datePickerDateFormat",selectedColumn.rendererConfig.datePickerDateFormat||"YYYY/MM/DD");this.set("_datePickerTimeFormat",selectedColumn.rendererConfig.datePickerTimeFormat||"HH:mm")}}},{key:"_getRangeByName",value:function _getRangeByName(columnId,name){var selectedColumn=this._getColumnById(columnId);if(selectedColumn.dateRanges){return selectedColumn.dateRanges.filter(function(dateRange){return dateRange.name===name})[0]}}},{key:"_selectedDateRangeObserver",value:function _selectedDateRangeObserver(entity){if(!entity.selectedDateRangeName){return}var rangeObject=this._getRangeByName(this.entity.columnId,entity.selectedDateRangeName);if(rangeObject&&("object"===babelHelpers.typeof(rangeObject.range)||"function"==typeof rangeObject.getRange)){var dateRange=rangeObject.range?rangeObject.range:rangeObject.getRange();this.set("entity.dateFrom",dateRange.dateFrom);this.set("entity.dateTo",dateRange.dateTo)}else{this.set("entity.dateFrom",void 0);this.set("entity.dateTo",void 0)}}},{key:"_columnNumberBoundsObserver",value:function _columnNumberBoundsObserver(entity){var column=this._getColumnById(entity.columnId);if(!this._columnTypeIsNumber(entity.columnId)){return}if(this.entity.leftBound===void 0){this.set("entity.leftBound",column.minBound)}if(this.entity.rightBound===void 0){this.set("entity.rightBound",column.maxBound)}this._minNumberBound=column.minBound;this._maxNumberBound=column.maxBound}},{key:"_entityObserver",value:function _entityObserver(entity){if(!entity.columnId){this.set("entity.columnId","-any-")}if(this._columnTypeIsString(this.entity.columnId)&&this.entity.pattern===void 0){this.set("entity.pattern",this._resolveRegexPatterns(this.stringComparators,this._regexPatterns)[0].key)}else if(this._columnTypeIsNumber(this.entity.columnId)&&this.entity.condition===void 0){this.set("entity.condition",this._resolveNumberConditions(this.numberComparators,this._numberConditions)[0].key)}}},{key:"_resolveColumnName",value:function _resolveColumnName(column){return column.header?column.header:column.name?column.name:column.path}},{key:"_setMappedColumns",value:function _setMappedColumns(columns,columnsSplices){var _this3=this;if(!columns&&!columnsSplices){return}var optionList=[{key:"-any-",val:"Any column"}];columns.forEach(function(col){optionList.push({key:col.id,val:_this3._resolveColumnName(col)})});this.set("_mappedColumns",optionList)}},{key:"_columnTypeIsString",value:function _columnTypeIsString(columnId){var column=this._getColumnById(columnId);return column&&-1===["date","number"].indexOf(column.type)}},{key:"_columnTypeIsDate",value:function _columnTypeIsDate(columnId){var column=this._getColumnById(columnId);return column&&"date"===column.type}},{key:"_columnTypeIsDateAndRangesAvailable",value:function _columnTypeIsDateAndRangesAvailable(columnId,ranges){if(this._columnTypeIsDate(columnId)){return ranges!==void 0&&0<ranges.length}return!1}},{key:"_columnTypeIsDateAndRangesNotAvailable",value:function _columnTypeIsDateAndRangesNotAvailable(columnId,ranges){if(this._columnTypeIsDate(columnId)){return ranges===void 0||1>ranges.length}return!1}},{key:"_columnTypeIsNumber",value:function _columnTypeIsNumber(columnId){var column=this._getColumnById(columnId);return column&&"number"===column.type}},{key:"_getColumnById",value:function _getColumnById(columnId){if(!this.columns){return}if("-any-"===columnId){return{id:"-any-",type:"string"}}return this.columns.filter(function(column){return column.id===columnId})[0]}},{key:"_filterActiveObservable",value:function _filterActiveObservable(entity){if(entity.columnId!==void 0){if(this._columnTypeIsString(entity.columnId)){this.set("entity.active",entity.pattern!==void 0&&!!entity.query)}else if(this._columnTypeIsDate(entity.columnId)){this.set("entity.active",entity.dateFrom!==void 0||entity.dateTo!==void 0)}else if(this._columnTypeIsNumber(entity.columnId)){this.set("entity.active",entity.leftBound!==void 0||entity.rightBound!==void 0||entity.condition!==void 0&&entity.value!==void 0)}}}},{key:"_momentDatesObserver",value:function _momentDatesObserver(dateFrom,dateTo){if(dateFrom&&window.Px.moment(this.entity.dateFrom).format()!==dateFrom.format()){this.set("entity.dateFrom",dateFrom.tz(this._sourceTimezone).format(this._sourceDateFormat))}if(dateTo&&window.Px.moment(this.entity.dateTo).format()!==dateTo.format()){this.set("entity.dateTo",dateTo.tz(this._sourceTimezone).format(this._sourceDateFormat))}}},{key:"_showSlider",value:function _showSlider(minBound,maxBound){return minBound!==void 0&&maxBound!==void 0}},{key:"_arrayHas",value:function _arrayHas(array,value){return array.filter(function(v){return v===value})}},{key:"_resolveRegexPatterns",value:function _resolveRegexPatterns(stringComparators,regexPatterns){var _this4=this;if(stringComparators===void 0||0===stringComparators.length){return regexPatterns}else{return regexPatterns.filter(function(p){return 0<_this4._arrayHas(stringComparators,p.key).length})}}},{key:"_resolveNumberConditions",value:function _resolveNumberConditions(numberComparators,numberConditions){var _this5=this;if(numberComparators===void 0||0===numberComparators.length){return numberConditions}else{return numberConditions.filter(function(c){return 0<_this5._arrayHas(numberComparators,c.key).length})}}}],[{key:"is",get:function get(){return"px-data-grid-filter-entity"}},{key:"properties",get:function get(){return{columns:Array,tableData:Array,entity:{type:Object},compactMode:{type:Boolean,value:!1},stringComparators:{type:Array},numberComparators:{type:Array},_mappedColumns:Array,_regexPatterns:{type:Array,value:[{key:"equals",val:"Equals"},{key:"contains",val:"Contains"},{key:"starts_with",val:"Starts with"},{key:"ends_with",val:"Ends with"},{key:"wildcard",val:"Wildcard"}]},_numberConditions:{type:Array,value:[{key:"equals",val:"Equals"},{key:"not_equal",val:"Not equal"},{key:"equal_or_greater_than",val:"Equal or greater than"},{key:"equal_or_less_than",val:"Equal or less than"},{key:"greater_than",val:"Greater than"},{key:"less_than",val:"Less than"}]},_minNumberBound:Number,_maxNumberBound:Number,_dateRanges:{type:Array,value:[]},_hideTime:{type:Boolean,value:!0},_dateFrom:{type:Object},_dateTo:{type:Object},_sourceDateFormat:{type:String},_sourceTimezone:{type:String},_displayDateFormat:{type:String},_displayTimezone:{type:String},_datePickerDateFormat:{type:String},_datePickerTimeFormat:{type:String},localize:Function}}},{key:"observers",get:function get(){return["_setMappedColumns(columns, columns.*)","_filterActiveObservable(entity, entity.*)","_momentDatesObserver(_dateFrom, _dateTo, _dateFrom.*, _dateTo.*)","_localizeChanged(localize)","_entityObserver(entity, entity.*)","_columnNumberBoundsObserver(entity, entity.columnId, columns.*)","_setDateRanges(entity, columns, entity.columnId, columns.*)","_selectedDateRangeObserver(entity, entity.selectedDateRangeName, entity.columnId)"]}}]);return DataGridFilterEntityElement}(Polymer.Element);customElements.define(DataGridFilterEntityElement.is,DataGridFilterEntityElement);window.Predix=window.Predix||{};Predix.DataGridFilterEntityElement=DataGridFilterEntityElement}</script>
+</dom-module>
+</body></html>

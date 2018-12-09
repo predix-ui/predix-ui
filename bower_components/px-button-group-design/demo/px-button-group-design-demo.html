@@ -1,0 +1,84 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-button-group-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-button-group-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-button-group-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-button-group-design" description="The Predix UI Button Group module is an implementation of button groups, either multiple or unique select." layer="objects" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-buttons-design&quot;,
+    &quot;https://github.com/PredixDev/px-helpers-design&quot;
+  ]" selected-options="{{selectedOptions}}" tabs="[&quot;Default&quot;]">
+
+<!-- 2: Set Options -->
+
+<px-sass-doc-option slot="options" option-name="Type" choose-with="dropdown" choices="[
+    &quot;single select&quot;,
+    &quot;multi select&quot;
+  ]" default-choice="single select">
+</px-sass-doc-option>
+
+<px-sass-doc-option slot="options" option-name="Disabled" choose-with="boolean" default-choice="false">
+</px-sass-doc-option>
+
+<!-- 3: Make HTML Demo -->
+
+<section slot="demo-html">
+<div class="btn-group">
+  <input id="id1" name="btn-group" type="{{buttonGroupType}}">
+  <label for="id1" class$="{{buttonClass}}">Label 1</label>
+  <input id="id2" name="btn-group" type="{{buttonGroupType}}">
+  <label for="id2" class$="{{buttonClass}}">Label 2</label>
+</div>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+{{importCode}}
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+```
+<!-- Single Select -->
+<div class="btn-group">
+  <input id="id1" name="btn-group" type="radio">
+  <label for="id1" class="btn">Label1</label>
+  <input id="id2" name="btn-group" type="radio">
+  <label for="id2" class="btn">Label2</label>
+</div>
+
+
+<!-- Multi Select -->
+<div class="btn-group">
+  <input id="id1" type="checkbox">
+  <label for="id1" class="btn">Label1</label>
+  <input id="id2" type="checkbox">
+  <label for="id2" class="btn">Label2</label>
+</div>
+
+
+<!-- Disabled (can be combined with either single or multi-select) -->
+<div class="btn-group">
+  <input id="id1" type="checkbox disabled">
+  <label for="id1" class="btn btn--disabled">Label1</label>
+  <input id="id2" type="checkbox disabled">
+  <label for="id2" class="btn btn--disabled">Label2</label>
+</div>
+```
+</section>
+
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<!-- 6: Handle selectedOptions, update demo -->
+<script>Polymer({is:"px-button-group-design-demo",attached:function attached(){var boundHandler=this._handleOptionsUpdated.bind(this);this.addEventListener("px-sass-doc-options-updated",boundHandler)},detached:function detached(){this.removeEventListener("px-sass-doc-options-updated",boundHandler)},_handleOptionsUpdated:function _handleOptionsUpdated(evt){this.importCode=this._importCode();this.buttonGroupType=this._buttonGroupType();this.buttonClass=this._buttonClass();this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)},_buttonGroupType:function _buttonGroupType(){var opts=this.selectedOptions||{},strings=[];if("single select"===opts.Type)strings.push("radio");if("multi select"===opts.Type)strings.push("checkbox");return strings.join(" ").trim()},_buttonClass:function _buttonClass(){var opts=this.selectedOptions||{},strings=[];if(!0===opts.Disabled)strings.push("btn--disabled");return("btn "+strings.join(" ")).trim()},_importCode:function _importCode(){return"@import \"px-button-group-design/_objects.button-group.scss\";"}});</script>
+</body></html>

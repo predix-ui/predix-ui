@@ -1,0 +1,69 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-mobile">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#navigation', activeAnchor)]]" href="#" anchor="#navigation" on-tap="_handleAnchorTapped">Navigation</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#page-layout', activeAnchor)]]" href="#" anchor="#page-layout" on-tap="_handleAnchorTapped">Page Layout</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Mobile</h2>
+          
+          
+<p>The Predix Design System contains multiple CSS modules to facilitate page layout. When building mobile applications, consider using <a href="#/css/px-widths-responsive-design">px-widths-responsive-design</a> to add mobile breakpoints to your app. Most Predix UI components are flexible and support multiple screen sizes and when combined with px-responsive-design, you'll be able to tailor your app for desktop, tablet or mobile experiences.</p>
+<h3 id="navigation">Navigation</h3>
+<p>The <a href="#/components/px-app-nav/">px-appnav</a> and <a href="#/components/px-context-browser/">px-context-browser</a> components was built with mobile breakpoints in mind so it will adapt gracefully from desktop
+to mobile. It is recommended to use either the drop down or vertical configurations for mobile devices and phones.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/mobile/mobile_nav_dropdown" img-alt="mobile nav dropdown">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/mobile/mobile_nav_hamburger" img-alt="mobile nav hamburger">
+  </catalog-picture>
+</div>
+<h3 id="page-layout">Page Layout</h3>
+<p>Generally speaking, most desktop layouts will translate relatively well to tablets. On a phone or a small handheld device there's much less screen real estate. In that case, Predix mobile applications should utilize a single column card layout with
+stacked cards.</p>
+<p>To minimize page length and scrolling consider a left to right horizontal gesture to switch between cards. This interaction is especially valuable for dashboards where on the desktop there's typically two or three charts per card.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/mobile/mobile_card" img-alt="mobile card">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/mobile/mobile_swiping" img-alt="mobile swiping">
+  </catalog-picture>
+</div>
+<!-- # Data Tables
+While many desktop apps rely on data tables to display grids of information, data tables don't translate very well to mobile phones. Instead, consider using [px-table-view](#/components/px-table-view/) which provides a more mobile-friendly way of viewing data.
+
+<catalog-picture img-src="../../img/guidelines/design/mobile/mobile_data_table" img-alt="mobile data table"></catalog-picture> -->
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-mobile",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

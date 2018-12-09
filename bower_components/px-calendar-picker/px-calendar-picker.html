@@ -1,0 +1,95 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-calendar-cell.html">
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-behavior.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-calendar-picker-styles.html">
+
+<!--
+All datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+This element renders a calendar for a given decade, year, or month, based on `display-mode` and `base-date`.
+A user can either select a range of dates or a single date, based on the `prevent-range-selection` property.
+User-selected values can be read out from the `range` or `single-selected-date` properties accordingly.
+A single date or range can be pre-set by manually setting either `from-moment` (single date) or `from-moment` and `to-moment` (range) using valid Moment.js objects.
+
+### Usage
+
+    <px-calendar-picker
+      from-moment={...}
+      prevent-range-selection
+      single-selected-date={...}>
+    </px-calendar-picker>
+
+    <px-calendar-picker
+      from-moment={...}
+      to-moment={...}
+      range={...}>
+    </px-calendar-picker>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-calendar-text-color` | Default text color for dates on the calendar
+`--px-calendar-text-color--hover` | Text color for dates when hovered
+`--px-calendar-text-color--selected` | Text color for dates when selected
+`--px-calendar-title-color` | Color for the title and arrows
+`--px-calendar-sub-labels--text-color` | Text color for days of the week
+`--px-calendar-today-border` | Border color for today's date
+`--px-calendar-background-color--hover` | Background color for dates when hovered
+`--px-calendar-background-color--pressed` | Background color for dates when pressed
+`--px-calendar-background-color--selected` | Background color for dates when selected
+`--px-calendar-alt-background-color` | Background color for the range between start and end dates
+
+@element px-calendar-picker
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-calendar-picker">
+  <template>
+    <style include="px-calendar-picker-styles"></style>
+
+    <div class$="{{_getTableClass(shrink)}}" id="calendar">
+      <!-- Caption: month+year and previous/next arrows  -->
+      <div class="caption">
+        <button type="button" on-tap="_onPrevious" class="actionable actionable--action title-color nextLastBtn">
+          <template is="dom-if" if="{{!hidePreviousButton}}">
+            <px-icon icon="px-nav:back" class="arrow"></px-icon>
+          </template>
+        </button>
+        <button on-tap="_onNextDisplayMode" class="actionable actionable--action title-color">[[_title]]</button>
+        <button id="btnNextMonth" type="button" on-tap="_onNext" class="actionable actionable--action title-color nextLastBtn">
+          <template is="dom-if" if="{{!hideNextButton}}">
+            <px-icon icon="px-nav:next" class="arrow"></px-icon>
+          </template>
+        </button>
+      </div>
+      <!-- Actual Calendar -->
+
+      <template is="dom-if" if="{{_isDayMode(_currentDisplayMode)}}">
+        <div class="tr">
+          <!-- Sunday -> Saturday -->
+          <template is="dom-repeat" items="{{daysOfTheWeek}}" as="dayOfTheWeek">
+            <div class="th caps">[[dayOfTheWeek]]</div>
+          </template>
+        </div>
+      </template>
+      <template is="dom-repeat" items="{{_valuesDisplayed}}" as="week" strip-whitespace="">
+        <div class="tr">
+          <template is="dom-repeat" items="{{week}}" as="date" strip-whitespace="">
+            <div class="td">
+              <px-calendar-cell display-date="{{date}}" from-moment="[[fromMoment]]" to-moment="[[toMoment]]" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" display-mode="{{_currentDisplayMode}}" block-dates-after="[[maxDate]]" block-dates-before="[[minDate]]">
+              </px-calendar-cell>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-calendar-picker",behaviors:[PxDatetimeBehavior.Range],properties:{baseDate:{type:Object,notify:!0,value:function value(){return Px.moment.tz(Px.moment(),this.timeZone)},observer:"_baseDateChanged"},_oldBaseDate:{type:Object},displayMode:{type:String,value:"day",observer:"_displayModeChanged"},_currentDisplayMode:{type:String,observer:"_currentDisplayModeChanged",value:"day"},preventRangeSelection:{type:Boolean,value:!1},hidePreviousButton:{type:Boolean,value:!1},hideNextButton:{type:Boolean,value:!1},shrink:{type:Boolean,value:!1},isAtSelectionLevel:{type:Boolean,computed:"_isAtSelectionLevel(_currentDisplayMode, displayMode)"},_valuesDisplayed:{type:Array,value:function value(){return[]}},waitToFire:{type:Boolean,value:!1},_title:{type:String}},observers:["_renderCurrent(_currentDisplayMode)","_localeChanged(language)","_getCurrentTitle(_currentDisplayMode, baseDate)","_timeZoneChanged(timeZone)"],ready:function ready(){this.daysOfTheWeek=this._getDaysOfTheWeek();var handler=this._cellClicked.bind(this);this.addEventListener("px-cell-date-selected",handler);this.toMoment=null;this.fromMoment=null},_localeChanged:function _localeChanged(){if(Px.moment&&this.baseDate&&this._currentDisplayMode){this.daysOfTheWeek=this._getDaysOfTheWeek();this.set("baseDate",this.baseDate.locale(Px.moment.locale()));this._getCurrentTitle(this._currentDisplayMode,this.baseDate);this._renderCurrent()}},_timeZoneChanged:function _timeZoneChanged(){if(this.baseDate){this.set("baseDate",Px.moment.tz(this.baseDate,this.timeZone))}},_getTableClass:function _getTableClass(shrink){var base="table table--no-cells text--center ";if(!shrink){base+="constantSize "}return base},_cellClicked:function _cellClicked(e){var momentDate=e.detail,copy=e.detail.clone();if("year"===this._currentDisplayMode){if("year"===this.displayMode){this._selectDate(momentDate);this.fire("px-date-selected",copy)}else{this.set("baseDate",momentDate);this.set("_currentDisplayMode","month");e.stopPropagation()}}else if("month"===this._currentDisplayMode){if("month"===this.displayMode){this._selectDate(momentDate);this.fire("px-date-selected",copy)}else{this.set("baseDate",momentDate);this.set("_currentDisplayMode","day");e.stopPropagation()}}else{this._selectDate(momentDate);this.fire("px-date-selected",copy)}},_displayModeChanged:function _displayModeChanged(){if(this.displayMode!==void 0){this.set("_currentDisplayMode",this.displayMode)}},_currentDisplayModeChanged:function _currentDisplayModeChanged(){if("year"===this._currentDisplayMode){for(var year=this.baseDate.year(),i=0;10>i;i++){if(1===(year-i)%10){break}}this.set("baseDate",this.baseDate.clone().subtract(i,"years"))}else{this._renderCurrent()}},_isDayMode:function _isDayMode(_currentDisplayMode){return"day"===_currentDisplayMode},_onNextDisplayMode:function _onNextDisplayMode(){if("day"===this._currentDisplayMode){this.set("_currentDisplayMode","month")}else if("month"===this._currentDisplayMode){this.set("_currentDisplayMode","year")}},_getCurrentTitle:function _getCurrentTitle(_currentDisplayMode,baseDate){if(_currentDisplayMode===void 0||baseDate===void 0||null===baseDate){return}else if("day"===_currentDisplayMode){this.set("_title",baseDate.format("MMMM")+" "+baseDate.format("YYYY"))}else if("month"===_currentDisplayMode){this.set("_title",baseDate.format("YYYY"))}else{this.set("_title",baseDate.format("YYYY")+" - "+baseDate.clone().add(9,"years").format("YYYY"))}},_getDaysOfTheWeek:function _getDaysOfTheWeek(){for(var day=Px.moment().startOf("week"),daysOfWeek=[],i=0;7>i;i++){daysOfWeek.push(day.format("dd"));day.add(1,"days")}return daysOfWeek},_renderCurrent:function _renderCurrent(_currentDisplayMode){var newValues;if("day"===this._currentDisplayMode){newValues=this._constructMonth()}else if("month"===this._currentDisplayMode){newValues=this._constructYear()}else{newValues=this._constructYearRange()}this.set("_valuesDisplayed",newValues)},_selectDate:function _selectDate(newSelectedDate){if(!this.preventRangeSelection&&this.fromMoment&&!this.toMoment){if(newSelectedDate.isBefore(this.fromMoment)){this.set("toMoment",this.fromMoment);this.set("fromMoment",this._preserveTime(this.fromMoment,newSelectedDate))}else{this.set("toMoment",this._preserveTime(this.toMoment,newSelectedDate))}this.fire("px-calendar-range-selected",{momentObjs:{from:this.fromMoment,to:this.toMoment}})}else{this.set("toMoment",null);this.set("fromMoment",this._preserveTime(this.fromMoment,newSelectedDate));if(this.preventRangeSelection){this.fire("px-calendar-selected",{momentObj:this.fromMoment})}}},_constructYear:function _constructYear(){for(var current=this.baseDate.clone().month(0),months=[],i=0;3>i;i++){months[i]=[];for(var j=0;4>j;j++){months[i].push(current);current=current.clone().add(1,"months")}}return months},_constructYearRange:function _constructYearRange(){for(var current=this.baseDate.clone(),years=[],i=0;2>i;i++){years[i]=[];for(var j=0;5>j;j++){years[i].push(current);current=current.clone().add(1,"years")}}return years},_constructMonth:function _constructMonth(){if(this.baseDate){var numberOfDaysInMonth=this.baseDate.daysInMonth(),dayBeginningOfMonth=this.baseDate.clone().startOf("month").day(),numberOfWeeks=6,daysBeforeMonthStartsCount=Px.moment.localeData().firstDayOfWeek(),emptyCellsCount=dayBeginningOfMonth-daysBeforeMonthStartsCount,date=1,month=[];if(0>emptyCellsCount){emptyCellsCount+=7}for(var week=[],j=0;j<emptyCellsCount;j++){week.push(Px.moment(null))}for(var weekCount=0;weekCount<numberOfWeeks;weekCount++){while(7>week.length){if(date<=numberOfDaysInMonth){week.push(this.baseDate.clone().date(date));date++}else{week.push(Px.moment(null))}}month.push(week);week=[]}return month}},_onNext:function _onNext(){var newMoment;if("day"===this._currentDisplayMode){newMoment=Px.moment.tz(this.baseDate,this.timeZone).add(1,"months")}else if("month"===this._currentDisplayMode){newMoment=Px.moment.tz(this.baseDate,this.timeZone).add(1,"years")}else{newMoment=Px.moment.tz(this.baseDate,this.timeZone).add(10,"years")}this.set("baseDate",newMoment);this._renderCurrent()},_onPrevious:function _onPrevious(){var newMoment;if("day"===this._currentDisplayMode){newMoment=Px.moment.tz(this.baseDate,this.timeZone).subtract(1,"months")}else if("month"===this._currentDisplayMode){newMoment=Px.moment.tz(this.baseDate,this.timeZone).subtract(1,"years")}else{newMoment=Px.moment.tz(this.baseDate,this.timeZone).subtract(10,"years")}this.set("baseDate",newMoment);this._renderCurrent()},_isAtSelectionLevel:function _isAtSelectionLevel(currentDisplayMode,displayMode){return currentDisplayMode===displayMode},_baseDateChanged:function _baseDateChanged(newDate){if(newDate===void 0||null===newDate){if(this._oldBaseDate){this.baseDate=this._oldBaseDate}return}else if(!this._oldBaseDate){this._renderCurrent()}else if("day"===this._currentDisplayMode&&(newDate.isAfter(this._oldBaseDate,"month")||newDate.isBefore(this._oldBaseDate,"month"))){this._renderCurrent()}else if(newDate.isAfter(this._oldBaseDate,"year")||newDate.isBefore(this._oldBaseDate,"year")){this._renderCurrent()}else if(this._oldBaseDate&&newDate&&newDate.tz()!==this._oldBaseDate.tz()){this._renderCurrent()}this._oldBaseDate=this.baseDate}});</script>
+</body></html>

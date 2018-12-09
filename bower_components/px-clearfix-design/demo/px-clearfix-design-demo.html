@@ -1,0 +1,37 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+  <!-- Common demo imports -->
+  <link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+  <link rel="import" href="../css/px-clearfix-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-clearfix-design-demo">
+  <template>
+  <!-- 0: Import the styles-->
+  <style include="px-clearfix-design-demo-styles" is="custom-style"></style>
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-clearfix-design" description="The clearfix module provides a minimal clearfix helper class to help clear floats." layer="trumps" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-functions-design&quot;
+  ]" hide-demo-container="" selected-options="{{selectedOptions}}">
+
+<!-- 2: Describe Usage -->
+<section slot="usage">
+You'll use this module to add the `clearfix` rules to other classes in your Sass.
+
+Avoid using the `.clearfix` class directly in your markup. Instead, try to `@extend` the clearfix module inside the parent class that will wrap around floated elements. For example:
+
+```css
+.row {
+  @extend %clearfix;
+  ...
+}
+```
+</section>
+</px-sass-doc>
+</template>
+
+</dom-module>
+
+<script>Polymer({is:"px-clearfix-design-demo"});</script>
+</body></html>

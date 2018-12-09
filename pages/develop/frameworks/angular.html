@@ -1,0 +1,245 @@
+<html><head><link defer="" rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-frameworks-angular">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#overview', activeAnchor)]]" href="#" anchor="#overview" on-tap="_handleAnchorTapped">Overview</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#use-our-web-components-in-any-framework', activeAnchor)]]" href="#" anchor="#use-our-web-components-in-any-framework" on-tap="_handleAnchorTapped">Use our web components in any framework</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#polymer-is-a-wrapper-not-a-library', activeAnchor)]]" href="#" anchor="#polymer-is-a-wrapper-not-a-library" on-tap="_handleAnchorTapped">Polymer is a wrapper, not a library</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#use-our-components-in-angular', activeAnchor)]]" href="#" anchor="#use-our-components-in-angular" on-tap="_handleAnchorTapped">Use our components in Angular</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#install-components', activeAnchor)]]" href="#" anchor="#install-components" on-tap="_handleAnchorTapped">Install components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#importload-components', activeAnchor)]]" href="#" anchor="#importload-components" on-tap="_handleAnchorTapped">Import/load components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#add-custom-elements-schema', activeAnchor)]]" href="#" anchor="#add-custom-elements-schema" on-tap="_handleAnchorTapped">Add custom elements schema</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#add-polyfill-optional', activeAnchor)]]" href="#" anchor="#add-polyfill-optional" on-tap="_handleAnchorTapped">Add polyfill (optional)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#send-data-into-components', activeAnchor)]]" href="#" anchor="#send-data-into-components" on-tap="_handleAnchorTapped">Send data into components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#respond-to-component-events', activeAnchor)]]" href="#" anchor="#respond-to-component-events" on-tap="_handleAnchorTapped">Respond to component events</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#style-components', activeAnchor)]]" href="#" anchor="#style-components" on-tap="_handleAnchorTapped">Style components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#additional-resources', activeAnchor)]]" href="#" anchor="#additional-resources" on-tap="_handleAnchorTapped">Additional resources</a>
+    
+  </li>
+</ul>
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Use components with Angular</h2>
+          
+          
+<p><em>This guide is under development and subject to change. The information may change. Check back for updates.</em></p>
+<h3 id="overview">Overview</h3>
+<h4 id="use-our-web-components-in-any-framework">Use our web components in any framework</h4>
+<p>Our components are built to work inside all modern JavaScript frameworks, or to work on their own with no framework at all. Each one is a web component — a self-contained bundle of HTML, JavaScript, and CSS that looks and works just like a standard HTML tag.</p>
+<p>Our components are built to use standard web platform features that are framework agnostic and work with app developers’ codebases rather than limiting technical choices.</p>
+<p>Development teams across GE are successfully using our components inside products built with Angular 2/4, React, Vue,  Angular 1, Polymer, and a variety of other frameworks.</p>
+<p>Read more in our blog post: <a href="https://medium.com/ge-design/predix-design-system-components-that-work-everywhere-97b774028b37">Components that work in your framework and everywhere else too</a></p>
+<h4 id="polymer-is-a-wrapper-not-a-library">Polymer is a wrapper, not a library</h4>
+<p>You’ve probably heard that our components are built with Polymer, Google’s library that helps make it easy to create web components and wire up styling, data-binding, and other convenient features. That’s true, and we’re big fans of using Polymer to build components. But if you’re developing an app using our components, you don’t need to worry very much about Polymer or learn how to build with it.</p>
+<p>Polymer can be used as a framework, like Vue or Angular, but that’s optional. You can use our components as interactive HTML tags configured via attributes and properties that fire off rich events when they’re interacted with by users. You don’t have to build your app using Polymer as a framework. You can make the technical decisions that are right for your team and product.</p>
+<h3 id="use-our-components-in-angular">Use our components in Angular</h3>
+<p>Note: many of the specific instructions and examples below are specific to Angular2/4 and the Angular CLI, as our team has spent the most time working with that version of Angular. However, most of the concepts (data binding, event handling, etc) should be transferrable to AngularJS, with the caveat that the specific syntax changed drastically between AngularJS and Angular2/4. If you are a developer that specializes in AngularJS and you can help us create a copy of this guide specific to that version of Angular, please let us know!</p>
+<p>Predix Design System components work inside Angular apps. You can select from more than 100 components that solve simple and complex interaction problems for your application and use them alongside Angular components and views.</p>
+<p>Predix Design System SCSS modules can be imported into app SCSS files and used to generate styles for application views or Angular components.</p>
+<p>The following information covers many of the questions development teams have when they start using PDS components in Angular:</p>
+<h4 id="install-components">Install components</h4>
+<p>Predix Design System components are installed using bower, a front-end package manager. Bower and npm/yarn can be used side-by-side for package management without any issues. Many teams across GE, including the design system team, use this approach.</p>
+<p>To install components:</p>
+<ol>
+<li>Install the bower CLI tool via npm in your shell of choice: <code class="code code--inline">$ npm install -g bower</code></li>
+<li>Open your app directory in your shell. Run <code class="code code--inline">$ bower init</code> to create a <code class="code code--inline">bower.json</code> file that lists your dependencies</li>
+<li>Add <code class="code code--inline">bower_components</code> to your <code class="code code--inline">.gitignore</code> file. Its recommended that you do not check in your bower components, and instead install them locally during development and add installation as a step in your CI/CD process for test, QA, and production environment. This helps ensure your dependencies stay up-to-date as new patches and updates are made available.</li>
+<li>By default, the <code class="code code--inline">bower_components/</code> directory will be located in the root folder of your app. Add a <code class="code code--inline">.bowerrc</code> file to the root of your app with the following JSON to install components in the assets directory instead, so that they will be served as static files by <code class="code code--inline">ng serve</code>:</li>
+</ol>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "directory" : "src/assets/bower_components"
+}
+
+      </script>
+    </px-catalog-code-snippet><ol start="5">
+<li>Run <code class="code code--inline">$ bower install --save px-[compononent-name]</code> to install individual components in your app, or <code class="code code--inline">$ bower install --save-dev px-[css-name]-design</code> to install SCSS modules in your app.</li>
+</ol>
+<h4 id="importload-components">Import/load components</h4>
+<p>Many Angular apps, especially those created with the Angular CLI, use Webpack to handle TypeScript &amp; JavaScript module importing, bundling, style processing, serving files during development, and more.</p>
+<p>Webpack generally assumes scripts being imported are formatted as CommonJS module (e.g. they have a <code class="code code--inline">module.exports = …</code> declaration) or as ESM modules (e.g. they have a <code class="code code--inline">export default …</code> or similar declaration). Webpack also assumes imported scripts use the Node module resolution system to locate imported sub-dependencies (e.g. all installed modules are in <code class="code code--inline">node_modules</code> and may or may not be nested, all local modules are resolved using <code class="code code--inline">path.resolve</code> semantics). Webpack resolves all imports at build time and bundles scripts into a single file or sharded files for the browser, removing these import semantics from the client code.</p>
+<p>Predix Design System web components use HTML imports out of the box to import dependencies. Import paths are resolved using the browser’s semantics for relative or absolute paths. Web components assume they are are stored in a single, flat directory beside all their peer dependencies, reflected in the structure of <code class="code code--inline">bower_components/</code>.</p>
+<p>Angular apps have two choices for importing PDS components:</p>
+<ol>
+<li>Components can be imported inside <code class="code code--inline">.ts</code> files compiled by Webpack, and a Webpack plugin can be added to resolve the imports at build time and bundle them. The <a href="https://github.com/webpack-contrib/polymer-webpack-loader">polymer-webpack-loader</a> project support this path; read the docs for that plugin for more information on how to configure and import components.</li>
+<li>Components can be imported using traditional HTML imports syntax inside the app’s <code class="code code--inline">index.html</code> file. Follow the <a href="https://www.predix-ui.com/#/about/start-developing">Walkthrough: Using components</a> section of the PDS Getting Started Guide for the basics on import syntax.</li>
+</ol>
+<h4 id="add-custom-elements-schema">Add custom elements schema</h4>
+<p>The Angular custom elements schema is required in your application in order to support Polymer web components and their properties that contain dashes in their names. In your application's main <code class="code code--inline">app.module.ts</code> file, add the following line in the imports area near the top:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+      </script>
+    </px-catalog-code-snippet><p>Further down, inside of your <code class="code code--inline">@ngModule</code> definition, include the following:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+
+      </script>
+    </px-catalog-code-snippet><h4 id="add-polyfill-optional">Add polyfill (optional)</h4>
+<p>Predix Design System components are built to use native web platform features defined in the web components specifications: Custom Element, Shadow DOM, Templates, and HTML Imports. All browser vendors have committed to supporting these specifications (except HTML imports, which is being replaced). But not all browsers have these features shipped. The past few major releases of Chrome support all web components specs out of the box, and the newest Safari, Firefox, and Edge releases provide support for nearly all spec features, with the rest coming soon.</p>
+<p>If your app’s users access it with older browsers or browsers other than newer Chrome releases, you’ll need to load the <a href="https://github.com/webcomponents/webcomponentsjs">webcomponentsjs</a> polyfill. See the documentation in the webcomponentsjs repo for more information on installing and loading the required scripts. Note that the polyfill can be conditionally loaded after feature detection determines the users’ browser needs the polyfills, ensuring that users on new browsers don’t pay a performance penalty to load polyfills for features they already have.</p>
+<h4 id="send-data-into-components">Send data into components</h4>
+<p>Predix Design System components expose extensive APIs that allow developers to configure them to meet technical and UX needs. Each component’s API is documented on the design system website. See the <a href="https://www.predix-ui.com/#/elements/px-alert-message">alert message API docs for an example</a>.</p>
+<p>Angular developers should already be very familiar with the concepts of <a href="https://angular.io/guide/template-syntax">data-binding and template expressions</a>, which allow you to pass data to an HTML element, Angular component, or directive.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<!-- Standard HTML element binding -->
+<span [hidden]="isHidden"></span>
+
+<!-- Angular component binding -->
+<some-ng-component [property]="value"></some-ng-component>
+
+      </script>
+    </px-catalog-code-snippet><p>The same binding syntax as above can be used to pass data to a Predix Design System web component. The only change to be aware of is that the component's API documentation or sample code may list a multi-word property name that is separated by dashes, whereas your Angular code should use the camel case equivalent, e.g.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<!-- Regular HTML syntax -->
+<px-data-table table-data="data"></px-data-table>
+
+<!-- Angular data binding syntax -->
+<px-data-table [tableData]="data"></px-data-table>
+
+      </script>
+    </px-catalog-code-snippet><p><em>Note:</em> you may notice in the Predix code or documentation that the <a href="https://www.polymer-project.org/1.0/docs/devguide/data-binding">Polymer syntax for property binding</a> is similar to the Angular syntax for interpolation. Be sure to use the correct Angular syntax for property binding as illustrated above.</p>
+<h4 id="respond-to-component-events">Respond to component events</h4>
+<p>Predix Design System components fire events when users interact with them or when their internal data changes in ways the app developer may want to intercept.</p>
+<p><em>Properties:</em> Each component’s API documentation page includes a properties section that lists properties that can be set by the developer. Any properties marked as <code class="code code--inline">notify</code> in the properties section send events when they’re changed.</p>
+<p>For example, in <a href="https://www.predix-ui.com/#/elements/px-alert-message">px-alert-message</a>, the <code class="code code--inline">visible</code> property is a boolean that shows or hides the alert message. If the user taps a button to hide the alert message, visible will be set to <code class="code code--inline">false</code>. The component will fire a <code class="code code--inline">visible-changed</code> event, and the event’s <code class="code code--inline">event.detail.value</code> property will be false.</p>
+<p>The change event names for all notifying properties are the property converted from camelCase to dash-case with <code class="code code--inline">-changed</code> added to the end. The new value is always in <code class="code code--inline">event.detail.value</code>.</p>
+<p><em>Rich events:</em> Components may also expose additional rich events when users interact with them in a way that does not trigger any notifying property changes. These events are documented in the Events section on each component’s API page. The payload for these events may be slightly different: the data they send will be in <code class="code code--inline">event.detail</code> but may take different shapes. Read the documentation for each event to determine what data is sent.</p>
+<p><em>Angular syntax:</em> Web components fire native DOM events. The syntax to bind to these events in an Angular template is the same as the syntax to bind to any standard HTML events or Angular component events. Unlike the property data-binding syntax above, the dash-separated property names are used for event binding:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<!-- Angular event binding -->
+<button (click)="handleClick()"></button>
+
+<!-- Angular event binding to a Predix component property change -->
+<px-data-table (selected-rows-changed)="handleSelection()"></px-data-table>
+
+<!-- Angular event binding to a Predix component custom event -->
+<px-data-table (px-row-click)="handleClick()"></px-data-table>
+</template>
+
+      </script>
+    </px-catalog-code-snippet><p>The <code class="code code--inline">handleChanged</code> or <code class="code code--inline">handleClick</code> methods above will be called as a result of the three events listed. In the handler method, you can check <code class="code code--inline">event.detail.value</code> (if it is a change event) or <code class="code code--inline">event.detail</code> (if it is a rich event) and use the results accordingly. Alternatively, Angular2 provides a shorthand way of accessing the event object directly, which is useful for 2-way data binding between a Predix component and a local variable in your Angular application, e.g.</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<px-progress-bar [value]="myValue" (value-changed)="myValue = $event.detail.value"></px-progress-bar>
+
+      </script>
+    </px-catalog-code-snippet><p>The property binding allows you to pass data from Angular to a Predix component whereas the event binding allows you to pass data from the Predix component back to Angular.</p>
+<p><em>Advanced</em>: In order to use the actual Angular 2-way binding shorthand (e.g. <code class="code code--inline">[(value)]="myValue"</code>), you need something that translates <code class="code code--inline">value-changed</code> into <code class="code code--inline">valueChanged</code>, the expected syntax for Angular. Similarly, in order to be compatible with <code class="code code--inline">ngModel</code>, you need to provide a ControlValueAccessor for each custom element. There's a library available called <a href="https://github.com/platosha/angular-polymer">angular-polymer</a> which provides both of these, and attempts to make it easier to use Angular and Polymer together.</p>
+<h4 id="style-components">Style components</h4>
+<p>Predix Design System components can be themed using CSS custom properties, a new web platform specification that allows native CSS code to consume and set variables.</p>
+<p>Each component’s API documentation page includes a list of CSS properties that can be themed to change the look and feel of the component.</p>
+<p>Theming still relies on some Polymer-specific shims as the final mechanics of CSS properties are hammered out by the browsers. When CSS custom properties ship, the Polymer shims will be removed and the code will run natively in the browser.</p>
+<p>To theme components, its recommended to create a single theme at the app level that makes any desired changes once for all instances of Predix Design System components used in the app. The easiest way to create an app-level theme is to add a style tag like this to the <code class="code code--inline">index.html</code> of the app:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<custom-style> <!-- wrapper needed for Polymer 2 -->
+  <style is="custom-style">
+  	html {
+	    --px-component-css-property-name: blue;
+	  }
+  </style>
+</custom-style>
+
+      </script>
+    </px-catalog-code-snippet><p>The design system provides two themes that can be installed via bower and loaded to style all of your Predix components at once, the <a href="http://github.com/predixdev/px-theme">light theme</a> and <a href="https://github.com/predixdev/px-dark-theme">dark theme</a>. To use these them, install the theme with bower, import the theme on the page, and add a custom style tag to the <code class="code code--inline">index.html</code> of your app:</p>
+<px-catalog-code-snippet language="html">
+      <script type="text/code">
+<!-- Use this for light theme -->
+<custom-style>
+  <style is="custom-style" include="px-theme-styles"></style>
+</custom-style>
+
+<!-- Use this for dark theme -->
+<custom-style>
+  <style is="custom-style" include="px-dark-theme-styles"></style>
+</custom-style>
+
+      </script>
+    </px-catalog-code-snippet><p>You can fork either of these themes and use it to create your own theme, or load either of these themes and override individual CSS variables for a specific component.</p>
+<h4 id="additional-resources">Additional resources</h4>
+<ul>
+<li><a href="https://github.com/predixdesignsystem/px-sample-app-angular">Angular sample application</a></li>
+<li><a href="https://angular.io/">Angular documentation</a></li>
+<li><a href="https://www.polymer-project.org/">Polymer documentation</a></li>
+<li><a href="https://github.com/platosha/angular-polymer">Angular-Polymer library</a></li>
+<li><a href="#/develop/migrate/theme">Theming</a></li>
+<li><a href="https://docs.predix.io/en-US/content/platform/web_application_development/predix_ui/theming-web-applications">More on theming</a></li>
+</ul>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-frameworks-angular",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

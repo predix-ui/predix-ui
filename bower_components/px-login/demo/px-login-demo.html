@@ -1,0 +1,62 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../px-icon-set/px-icon-set.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+<!-- Imports for this component -->
+ 
+<link rel="import" href="../px-login.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-login-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-login" description="The px-login element provides a login/logout button that integrates nicely with Cloud Foundry's UAA.  (Note that Sign In does not work in this demo page.  You can set the User name property to simulate sign in here.)" mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-login id="comp" user-name="{{props.userName.value}}" user-name-key="display_name" popover-location="{{props.popoverLocation.value}}" menu-items="{{props.menuItems.value}}" user-info-url$="[[importPath]]../user-info-sample.json" custom-user-icon="{{props.customUserIcon.value}}">
+          <template is="dom-if" if="{{props.customUserIcon.value}}">
+            <img slot="custom-icon" src$="[[importPath]]Edison.png">
+          </template>
+        </px-login>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-login">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-login"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-login-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0}]}}},demoProps:{userName:{type:String,defaultValue:"Sample User",inputType:"text"},popoverLocation:{type:String,defaultValue:"bottom",inputType:"dropdown",inputChoices:["top","bottom","left","right"]},menuItems:{type:Array,defaultValue:[{url:"",label:"Settings"},{url:"",label:"My Account"}],inputType:"code:JSON"},customUserIcon:{type:Boolean,defaultValue:!1,inputType:"toggle"}},attached:function attached(){this.$.comp.$.loginButton.removeEventListener("click",this.$.comp.loginClicked);this.$.comp.$.logoutButton.removeEventListener("click",this.$.comp.logoutClicked)}});</script>
+</body></html>

@@ -1,0 +1,46 @@
+<html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-sass-doc-viewer-styles.html">
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Element providing the introductory header information for Sass modules. Is used inside px-sass-doc container element.
+
+##### Usage
+
+      <px-sass-doc-header
+        module-name="px-toggle-design"
+        module-description="Module providing design for toggles."
+      </px-sass-doc-header>
+
+@element px-sass-doc-header
+@blurb Element providing the introductory header information for px-sass-doc elements.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-sass-doc-header">
+  <template>
+    <style include="px-sass-doc-viewer-styles"></style>
+    <style include="px-demo-styles"></style>
+
+    <section class="demo-background--base">
+      <div class="demo-layout--center demo-u-pb+++ u-pt++ text--shadow">
+        <a class="actionable flex flex--right flex--middle" href="https://github.com/PredixDev/[[moduleName]]" target="_new">
+          <px-icon class="menu__open u-mr--" icon="px-nav:new-window"></px-icon>View on Github
+        </a>
+        <h1 class="delta">[[moduleName]]</h1>
+        <p class="demo-text-width--max">
+          [[moduleDescription]]
+        </p>
+        <div class="flex">
+          <img class="u-mr--" src$="https://img.shields.io/github/tag/predixdev/[[moduleName]].svg?style=flat-square&amp;label=bower" alt="Bower" onerror="this.style.display='none'">
+          <img class="u-mr--" src$="https://img.shields.io/github/issues-raw/PredixDev/[[moduleName]].svg?style=flat-square" alt="Issues" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </section>
+  </template>
+</dom-module>
+<script>var PxSassDocHeader=function(_Polymer$Element){babelHelpers.inherits(PxSassDocHeader,_Polymer$Element);function PxSassDocHeader(){babelHelpers.classCallCheck(this,PxSassDocHeader);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(PxSassDocHeader).apply(this,arguments))}babelHelpers.createClass(PxSassDocHeader,null,[{key:"is",get:function get(){return"px-sass-doc-header"}},{key:"properties",get:function get(){return{moduleName:String,moduleDescription:String}}}]);return PxSassDocHeader}(Polymer.Element);customElements.define("px-sass-doc-header",PxSassDocHeader);</script>
+</body></html>

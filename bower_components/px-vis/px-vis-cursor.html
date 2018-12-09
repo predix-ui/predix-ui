@@ -1,0 +1,94 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-d3.html">
+<link rel="import" href="css/px-vis-styles.html">
+
+<!--
+
+### Usage
+
+  <px-vis-svg
+    width="[[width]]"
+    height="[[height]]"
+    margin="[[margin]]"
+    svg="{{svg}}">
+  </px-vis-svg>
+  <px-vis-scale
+    x-axis-type="time"
+    y-axis-type="linear"
+    complete-series-config="[[seriesConfig]]"
+    data-extents="[[dataExtents]]"
+    width="[[width]]"
+    height="[[height]]"
+    margin="[[margin]]"
+    chart-data={{chartData}}
+    x="{{x}}"
+    y="{{y}}"
+    domain-changed="{{domainChanged}}"
+    selected-domain="[[selectedDomain]]">
+  </px-vis-scale>
+  <px-vis-interaction-space
+    x-axis-type="time"
+    svg="[[svg]]"
+    width="[[width]]"
+    height="[[height]]"
+    margin="[[margin]]"
+    complete-series-config="[[seriesConfig]]"
+    chart-data="[[chartData]]"
+    tooltip-data={{tooltipData}}
+    series-keys="[[seriesKeys]]"
+    extents-data={{extentsData}}
+    x="[[x]]"
+    y="[[y]]"
+    domain-changed="[[domainChanged]]">
+  </px-vis-interaction-space>
+  <px-vis-cursor
+    svg="[[svg]]"
+    width="[[width]]"
+    height="[[height]]"
+    margin="[[margin]]"
+    complete-series-config="[[seriesConfig]]"
+    chart-data="[[chartData]]"
+    tooltip-data="[[tooltipData]]"
+    selection-type=[[selectionType]]>
+  </px-vis-cursor>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-vis-cursor-line-color` | The color for the lines which track the cursor/data
+
+
+@element px-vis-cursor
+@blurb Element which draws crosshairs around mouse pointer / data points and highlight adjacent datapoints.
+@homepage index.html
+@demo demo/index.html
+
+//TODO implement a dev setting to choose between only showing data at that x, snapping to nearest data, or interpolating value at x
+
+-->
+
+</head><body><dom-module id="px-vis-cursor">
+    <template>
+      <style include="px-vis-styles"></style>
+    </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-cursor",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.sizing,PxVisBehaviorD3.svg,PxVisBehaviorD3.axes,PxVisBehavior.dataset,PxVisBehavior.commonMethods,PxVisBehavior.tooltipData,PxVisBehaviorD3.clipPath,PxVisBehavior.mutedCompleteSeriesConfig,PxVisBehavior.dynamicConfigProperties,PxVisBehavior.polarData,PxVisBehavior.updateStylesOverride],properties:{_cursor:{type:Object},_vLines:{type:Object},_hLines:{type:Object},_circles:{type:Object},_hLinesBuilder:{type:Object},_vLinesBuilder:{type:Object},horizontalLine:{type:String,value:"full"},verticalLine:{type:String,value:"full"},circlePoint:{type:String,value:"yes"},mutedOpacity:{type:Number},radial:{type:Boolean,value:!1},_radiusCursor:{type:Object},radialAreaCursor:{type:Boolean,value:!1}},observers:["drawElement(svg,chartData.*,_mutedCompleteSeriesConfig, width, height)","_cursorChange(tooltipData.*, _cursor)","_addClipPath(clipPath)","_processOpacity(mutedSeries.*, completeSeriesConfig)","_updateColors(_stylesUpdated)"],ready:function ready(){this._watchConfigProperty("mutedOpacity",.3)},drawElement:function drawElement(){if(this.hasUndefinedArguments(arguments)){return}if(!this._cursor){this._cursor=this.svg.append("g").attr("display","none")}if("none"!==this.horizontalLine){this._drawHorizontalLines()}if("none"!==this.verticalLine){this._drawVerticalLines()}if(this.radialAreaCursor){this._drawRadiusCursor()}if("yes"===this.circlePoint){this._drawPointCircles()}this._addClipPath();this._processOpacity()},_drawHorizontalLines:function _drawHorizontalLines(){this._hLinesBuilder=this._cursor.selectAll(".xline").data(Object.keys(this._mutedCompleteSeriesConfig));this._hLinesBuilder.exit().remove();if(!this.radial){this._hLines=this._hLinesBuilder.enter().append("line").attr("class","xline").attr("stroke",this._checkThemeVariable("--px-vis-cursor-line-color","rgb(0,0,0)")).attr("opacity",1).attr("x1",0).merge(this._hLinesBuilder).attr("x2",this.width)}else{this._hLines=this._hLinesBuilder.enter().append("circle").attr("class","xline").attr("stroke",this._checkThemeVariable("--px-vis-cursor-line-color","rgb(0,0,0)")).attr("fill","none").attr("opacity",1).attr("cx",0).attr("cy",0).merge(this._hLinesBuilder).attr("r",0)}},_drawVerticalLines:function _drawVerticalLines(){this._vLinesBuilder=this._cursor.selectAll("line.yline").data(Object.keys(this._mutedCompleteSeriesConfig));this._vLinesBuilder.exit().remove();this._vLines=this._vLinesBuilder.enter().append("line").attr("class","yline").attr("stroke",this._checkThemeVariable("--px-vis-cursor-line-color","rgb(0,0,0)")).attr("opacity",1).attr("x1",0).attr("x2",0).attr("y1",0).merge(this._vLinesBuilder).attr("y2",this.radial?this.height+20:this.height)},_drawPointCircles:function _drawPointCircles(){this._circles=this._cursor.selectAll("circle.tooltipPoint").data(Object.keys(this._mutedCompleteSeriesConfig));this._circles.exit().remove();this._circles.enter().append("circle").attr("class","tooltipPoint").attr("r",3).attr("stroke-width",12).attr("stroke-opacity",.3).merge(this._circles).attr("fill",function(d){return this._mutedCompleteSeriesConfig[d].color}.bind(this)).attr("stroke",function(d){return this._mutedCompleteSeriesConfig[d].color}.bind(this));this._circles=this._cursor.selectAll("circle.tooltipPoint")},_cursorChange:function _cursorChange(){if(this.hasUndefinedArguments(arguments)){return}if(!this._isD3Empty(this._cursor)){if(null===this.tooltipData.mouse||0===this.tooltipData.series.length){this._hideCursor()}else{if(this._circles&&this._nonMutedSeriesKeys.length!==this._circles.nodes().length){this.drawElement()}this._showCursor();this._moveCursor()}}},_showCursor:function _showCursor(){this._cursor.attr("display",null)},_hideCursor:function _hideCursor(){this._cursor.attr("display","none")},_moveCursor:function _moveCursor(){this._moveCircles();this._moveHorizontalLines();this._moveVerticalLines()},_setVisibility:function _setVisibility(d,i){if(this.tooltipData.seriesObj[d]&&this.tooltipData.seriesObj[d].coord&&this._isValidData(this.tooltipData.seriesObj[d].coord[0])&&this._isValidData(this.tooltipData.seriesObj[d].coord[1])){return"visible"}return"hidden"},_setXCoord:function _setXCoord(d,i){if(this.tooltipData.seriesObj[d]&&this.tooltipData.seriesObj[d].coord&&this._isValidData(this.tooltipData.seriesObj[d].coord[0])){return this.tooltipData.seriesObj[d].coord[0]}return null},_setYCoord:function _setYCoord(d,i){if(this._hasYCoord(d)){return this.tooltipData.seriesObj[d].coord[1]}return null},_setDisplayYCoord:function _setDisplayYCoord(d,i){return this._hasYCoord(d)?null:"none"},_hasYCoord:function _hasYCoord(d){if(this.tooltipData.seriesObj[d]&&this.tooltipData.seriesObj[d].coord&&this._isValidData(this.tooltipData.seriesObj[d].coord[1])){return!0}return!1},_moveCircles:function _moveCircles(){if("yes"===this.circlePoint&&this._circles){this._circles.style("visibility",this._setVisibility.bind(this)).attr("cx",this._setXCoord.bind(this)).attr("cy",this._setYCoord.bind(this))}},_moveHorizontalLines:function _moveHorizontalLines(){if(this.radial){this._moveHorizontalLinesRadial()}else{this._moveHorizontalLinesCartesian()}},_moveHorizontalLinesRadial:function _moveHorizontalLinesRadial(){if("none"!==this.horizontalLine&&this._hLines){this._hLines.style("visibility",this._setVisibility.bind(this)).attr("r",function(d,i){if(this.tooltipData.seriesObj[d]&&this.tooltipData.seriesObj[d].coord){var x=this.tooltipData.seriesObj[d].coord[0],y=this.tooltipData.seriesObj[d].coord[1];if(this._isValidData(x)&&this._isValidData(y)){return Math.sqrt(x*x+y*y)}}return null}.bind(this))}},_moveHorizontalLinesCartesian:function _moveHorizontalLinesCartesian(){if(!this._hLines){return}if("none"!==this.horizontalLine){this._hLines.attr("y1",this._setYCoord.bind(this)).attr("y2",this._setYCoord.bind(this)).attr("display",this._setDisplayYCoord.bind(this))}if("left"===this.horizontalLine){this._hLines.attr("x2",this._setXCoord.bind(this))}else if("right"===this.horizontalLine){this._hLines.attr("x1",this._setXCoord.bind(this))}},_moveVerticalLines:function _moveVerticalLines(){if(this.radial){this._moveVerticalLinesRadial()}else{this._moveVerticalLinesCartesian()}},_moveVerticalLinesRadial:function _moveVerticalLinesRadial(){if("none"!==this.verticalLine&&this._vLines){this._vLines.style("visibility",this._setVisibility.bind(this)).attr("transform",function(d,i){if(this.tooltipData.seriesObj[d]&&this.tooltipData.seriesObj[d].value){var xKey=this._mutedCompleteSeriesConfig[d].x,yKey=this._mutedCompleteSeriesConfig[d].y,angle=this.tooltipData.seriesObj[d].value[xKey];if(this._isValidData(angle)){if(0>this.tooltipData.seriesObj[d].value[yKey]&&!this.allowNegativeValues){angle=this.useDegrees?angle-180:angle-Math.PI}angle=this._adjustAngleForPolarChart(angle,this.useDegrees)}else{angle=0}return"rotate("+angle+")"}else{return null}}.bind(this))}},_moveVerticalLinesCartesian:function _moveVerticalLinesCartesian(){if(!this._vLines){return}if("none"!==this.verticalLine){this._vLines.attr("x1",this._setXCoord.bind(this)).attr("x2",this._setXCoord.bind(this))}if("bottom"===this.verticalLine){this._vLines.attr("y1",Math.max.apply(null,this.tooltipData.yArr))}else if("top"===this.verticalLine){this._vLines.attr("y1",Math.min.apply(null,this.tooltipData.yArr)).attr("y2",-this.height)}},_addClipPath:function _addClipPath(){if(this.hasUndefinedArguments(arguments)){return}if(this.clipPath){if("none"!==this.verticalLine&&this._vLines){this.addClipPath(this._vLines)}if("none"!==this.horizontalLine&&this._hLines){for(var hl=this._hLines.nodes(),i=0;i<hl.length;i++){this.addClipPath(Px.d3.select(hl[i]))}}if("no"!==this.circlePoint&&this._circles){this.addClipPath(this._circles)}if(this.radialAreaCursor&&this._radiusCursor){this.addClipPath(this._radiusCursor)}}},_processOpacity:function _processOpacity(){if(this.hasUndefinedArguments(arguments)){return}for(var allMuted=!0,keys=Object.keys(this._mutedCompleteSeriesConfig),vLineOpacity,_this=this,isMultiSerie=1<keys.length,i=0;i<keys.length;i++){if(!this.mutedSeries[keys[i]]){allMuted=!1;break}}if(this._vLines){this._vLines.attr("opacity",allMuted?this._defaultmutedOpacity:1)}if(this._hLines){this._hLines.each(function(d){var muted=_this.mutedSeries&&!0===_this.mutedSeries[d],opacity;if(muted){opacity=_this._mutedCompleteSeriesConfig[d]&&_this._mutedCompleteSeriesConfig[d].mutedOpacity?_this._mutedCompleteSeriesConfig[d].mutedOpacity:_this._defaultmutedOpacity}else{opacity=1}this.setAttribute("opacity",opacity)})}if(this._circles){this._circles.each(function(d){var muted=_this.mutedSeries&&!0===_this.mutedSeries[d],mutedOpacity,opacity,strokeOpacity;if(muted){mutedOpacity=_this._mutedCompleteSeriesConfig[d]&&_this._mutedCompleteSeriesConfig[d].mutedOpacity?_this._mutedCompleteSeriesConfig[d].mutedOpacity:_this._defaultmutedOpacity}else{mutedOpacity=1}opacity=muted?1*mutedOpacity:1,strokeOpacity=muted?.3*mutedOpacity:.3;this.setAttribute("opacity",opacity);this.setAttribute("stroke-opacity",strokeOpacity)})}},_updateColors:function _updateColors(){if(this.hasUndefinedArguments(arguments)){return}if(this._doesD3HaveValues(this._hLines)){this._hLines.attr("stroke",this._checkThemeVariable("--px-vis-cursor-line-color","rgb(0,0,0)"))}if(this._doesD3HaveValues(this._vLines)){this._vLines.attr("stroke",this._checkThemeVariable("--px-vis-cursor-line-color","rgb(0,0,0)"))}}});</script>
+</body></html>

@@ -1,0 +1,215 @@
+<html><head><link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="px-app-route-helpers.html">
+
+<!--
+
+The px-app-route component relies on the Polymer team's [app-location](https://www.webcomponents.org/element/PolymerElements/app-route)
+element to manage the window location and history state. The element will consume
+the `route` provided by app-location and send updates to other components
+on the page when the URL changes. Interaction with other components on the page
+will be propagated up to the URL using the same bindings.
+
+### Installing and including in an app
+
+The px-app-route element is included as part of the [px-app-helpers](https://github.com/PredixDev/px-app-helpers) package.
+To install the element using bower, use the following command:
+
+    bower install --save px-app-helpers
+
+After installing, import the code using HTML imports into the app file that
+implements px-app-helpers. You'll also need to import app-location from the
+Polymer team's app-route package.
+
+    <link rel="import" href="/bower_components/app-route/app-location.html"/>
+    <link rel="import" href="/bower_components/px-app-helpers/px-app-route/px-app-route.html"/>
+
+The app-route package will be installed automatically when px-app-helpers
+is included in your bower file.
+
+### Using px-app-route
+
+The following simplified example shows how px-app-route can be used to send
+updates to the [px-app-nav](https://www.predix-ui.com/#/components/px-app-nav/)
+element when the URL changes, and update the URL when the navigation is
+interacted with:
+
+    <app-location route="{{route}}" use-hash-as-path></app-location>
+    <px-app-route
+        route="{{route}}"
+        use-hash-as-path
+        update-nav-route
+        nav-route="{{navRoute}}">
+    </px-app-route>
+    <px-app-nav
+        items="{{navItems}}"
+        selected-route="{{navRoute}}">
+    </px-app-nav>
+
+If the following `navItems` are defined:
+
+    [
+      {
+        "id" : "home",
+        "label" : "Home"
+      },
+      {
+        "id" : "dashboards",
+        "label" : "Dashboards",
+        "children" : [
+          {
+            "id" : "a1",
+            "label" : "Alerts"
+          }
+        ]
+      }
+    ]
+
+Then tapping on the 'Alerts' navigation button will change the URL to
+"example.com/#/dashboards/alerts". Bookmarking that URL and loading
+it again later will automatically select the 'Alerts' navigation item
+on page load.
+
+### Complex routing: navigation and assets
+
+Many complex applications require the user the navigate to a view (like the
+'Alerts' dashboard view in the example above) and provide some additional
+information about the kind of asset or context they would like to view.
+The [px-context-browser](https://www.predix-ui.com/#/components/px-context-browser/)
+and [px-breadcrumbs](https://www.predix-ui.com/#/components/px-breadcrumbs/)
+elements both help the user select the specific asset they would like to view.
+
+The px-app-route element supports binding to the navigation to allow users to
+navigate to purpose-driven views, and binding to multiple asset browsing elements
+to update whats visible within the view.
+
+The following example shows all of these elements working together:
+
+    <app-location route="{{route}}" use-hash-as-path></app-location>
+    <px-app-route
+        route="{{route}}"
+        use-hash-as-path
+        update-nav-route
+        nav-route="{{navRoute}}">
+    </px-app-route>
+    <px-app-nav
+        items="{{navItems}}"
+        selected-route="{{navRoute}}">
+    </px-app-nav>
+    <px-context-browser
+        items="{{assetItems}}"
+        selected-route="{{assetRoute}}">
+    </px-context-browser>
+    <px-breadcrumbs
+        items="{{assetItems}}"
+        selected-route="{{assetRoute}}">
+    </px-breadcrumbs>
+
+If the following `navItems` are defined:
+
+    [
+      {
+        "id" : "home",
+        "label" : "Home"
+      },
+      {
+        "id" : "dashboards",
+        "label" : "Dashboards",
+        "children" : [
+          {
+            "id" : "a1",
+            "label" : "Alerts"
+          }
+        ]
+      }
+    ]
+
+And the following `assetItems` are defined:
+
+    [
+      {
+        "id" : "us",
+        "label" : "United States",
+        "children" : [
+          {
+            "id" : "calif",
+            "label" : "California",
+            "children" : [
+              {
+                "id" : "bay-area",
+                "label" : "San Francisco Bay Area"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+If the user selects the "Alerts" view and uses the context browser to choose
+"San Francisco Bay Area" as a filter for the visible alerts, the URL will
+be changed to the following: "example.com/#/dashboards/alerts~/us/calif/bay-area"
+
+### Changing the way URLs are built
+
+The URL path produced by px-app-route can be bound to two models: the navigation
+model (through `navRoute`) and the asset model (through `assetRoute`). Depending
+on the needs of the web app, one or both models can be bound to.
+
+The selected item in each model can be represented as:
+
+  - a **route**, an array of unique ID strings that start at the root of the model
+  graph and terminate at the selected item (e.g. `["us", "calif", "bay-area"]`).
+  - a **path**, a stringified representation of the route that can be used to
+  set the URL path (e.g. "us/calif/bay-area")
+
+By default, the route segments are joined together with the '/' character, but
+that can be changed:
+
+    <app-location route="{{route}}" use-hash-as-path></app-location>
+    <px-app-route
+        route="{{route}}"
+        use-hash-as-path
+        update-nav-route
+        nav-route="{{navRoute}}"
+        segment-paths-with=".">
+    </px-app-route>
+
+In the above example, the navigation model route `["us", "calif", "bay-area"]`
+would be transformed into the path string "us.calif.bay-area".
+
+Choose a safe, unreserved URI character to ensure there are no issues setting
+URL path or loading it later. See [RFC 3986](http://www.ietf.org/rfc/rfc3986.txt)
+for a list of unsafe and reserved characters. In general, use one of: `-`, `.`,
+`_`, or `~`. The chosen character should not appear in any of the unique ID
+strings in the model route.
+
+When two models are used, the models must be joined together with a character
+to divide the two paths. By default, the models are joined with the '~'
+character. Set the `segment-models-with` attribute on the px-app-route element
+to a safe, unreserved URI character to change this.
+
+### Routing with hash
+
+When the backend application server is not setup to manage routes and send frontend
+routes to a single-page web app index file the hash portion of the URL can be
+used to do routing. To enable hash-based URLs, enable the `use-hash-as-path`
+attribute on both the px-app-route element and the app-location element that
+produces the route.
+
+### Integrating px-app-route with other routers
+
+The `encodeAllPaths`, `encodePath`, and `decodePath` methods available on all
+px-app-route instances can also be called directly without stamping a
+px-app-route element in your app.
+
+Those methods are available at `window.PxApp.RouteHelpers.[METHOD_NAME]`.
+Calling these methods directly on the window is a useful way to encode and
+decode model routes on your page and send the result to a third-party router
+(e.g. any Angular or React router).
+
+See the API documentation for this component for more information on how
+to use the static methods to encode and decode model routes/paths.
+
+@element px-app-route
+-->
+<script>(function(){Polymer({is:"px-app-route",properties:{segmentPathsWith:{type:String,value:"/"},segmentModelsWith:{type:String,value:"~"},route:{type:Object,notify:!0,observer:"_handleRouteChanged"},useHashAsPath:{type:Boolean,value:!1},updateNavRoute:{type:Boolean,value:!1},navRoute:{type:Array,notify:!0},navPathString:{type:String,readOnly:!0,value:"",computed:"_computeAppNavPathString(updateNavRoute, navRoute, segmentPathsWith)"},updateAssetRoute:{type:Boolean,value:!1},assetRoute:{type:Array,notify:!0},assetPathString:{type:String,readOnly:!0,value:"",computed:"_computeAppAssetPathString(updateAssetRoute, assetRoute, segmentPathsWith)"},path:{type:String,readOnly:!0,computed:"_computePath(updateNavRoute, navPathString, updateAssetRoute, assetPathString, segmentPathsWith, segmentModelsWith, useHashAsPath)",observer:"_handlePathChanged"},_isReady:Boolean},observers:["_windowPathChanged(route.path)"],ready:function ready(){this._isReady=!0},_computeAppNavPathString:function _computeAppNavPathString(updateNavRoute,navRoute,segmentPathsWith){if("undefined"===typeof updateNavRoute||"undefined"===typeof navRoute||"undefined"===typeof segmentPathsWith||!updateNavRoute||null===navRoute||Array.isArray(navRoute)&&0===navRoute.length){return""}if(Array.isArray(navRoute)&&0<navRoute.length){return navRoute.join(segmentPathsWith)}return""},_computeAppAssetPathString:function _computeAppAssetPathString(updateAssetRoute,assetRoute,segmentPathsWith){if("undefined"===typeof updateAssetRoute||"undefined"===typeof assetRoute||"undefined"===typeof segmentPathsWith||!updateAssetRoute||null===assetRoute||Array.isArray(assetRoute)&&0===assetRoute.length){return""}if(Array.isArray(assetRoute)&&0<assetRoute.length){return assetRoute.join(segmentPathsWith)}return""},_computePath:function _computePath(updateNavRoute,navPath,updateAssetRoute,assetPath,pathSegment,modelSegment,useHash){if("undefined"===typeof updateNavRoute||"undefined"===typeof navPath||"undefined"===typeof updateAssetRoute||"undefined"===typeof assetPath||"undefined"===typeof pathSegment||"undefined"===typeof modelSegment||"undefined"===typeof useHash||!updateNavRoute&&!updateAssetRoute||""===navPath&&""===assetPath){return}var path=useHash?pathSegment:"";if(updateNavRoute){path+=navPath}if(updateAssetRoute&&0<assetPath.length){path+=modelSegment+pathSegment+assetPath}return path},_handlePathChanged:function _handlePathChanged(newPath,oldPath){if(!this._isReady||!this.route||"object"!==babelHelpers.typeof(this.route))return;this.set("route.path",newPath)},_handleRouteChanged:function _handleRouteChanged(newRoute,oldRoute){if("object"===babelHelpers.typeof(newRoute)&&"undefined"===typeof oldRoute&&"string"===typeof this.path){this.async(this._handlePathChanged.bind(this,this.path),10)}},_windowPathChanged:function _windowPathChanged(newPath){if(!this._isReady||"string"!==typeof newPath||!newPath.length||this.path===newPath)return;var decoded=PxApp.RouteHelpers._decodePath(newPath,this.updateNavRoute,this.updateAssetRoute,!0,this.segmentPathsWith,this.segmentModelsWith);if(decoded.navRoute&&!this.isDeepEqual(this.navRoute,decoded.navRoute)){this.set("navRoute",decoded.navRoute)}if(decoded.assetRoute&&!this.isDeepEqual(this.assetRoute,decoded.assetRoute)){this.set("assetRoute",decoded.assetRoute)}},encodeAllPaths:function encodeAllPaths(routes,options){return PxApp.RouteHelpers.encodeAllPaths(routes,options)},encodePath:function encodePath(route,segmentWith,prefixFirstPath){return PxApp.RouteHelpers.encodePath(route,segmentWith,prefixFirstPath)},decodePath:function decodePath(path,options){return PxApp.RouteHelpers.decodePath(path,options)},isDeepEqual:function isDeepEqual(a1,a2){return PxApp.RouteHelpers.isDeepEqual(a1,a2)}})})();</script>
+</head><body></body></html>

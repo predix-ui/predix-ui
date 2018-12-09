@@ -1,0 +1,142 @@
+[
+    {
+        "description": "Default button group\n",
+        "commentRange": {
+            "start": 37,
+            "end": 37
+        },
+        "context": {
+            "type": "css",
+            "name": ".#{$inuit-btn-group-namespace}btn-group,\n%#{$inuit-btn-group-namespace}btn-group",
+            "value": "display: flex;\n  input {\n    @include accessibility;\n  }\n  .#{$inuit-btn-namespace}btn,\n  %#{$inuit-btn-namespace}btn {\n    border-radius: 0;\n    -webkit-appearance: inherit;\n    border-radius: 0;\n    ~ .#{$inuit-btn-namespace}btn {\n      margin-left: 1px;\n    }\n  }\n  :checked + {\n    .#{$inuit-btn-namespace}btn,\n    %#{$inuit-btn-namespace}btn {\n      border-color: $inuit-btn-group-border-color;\n      box-shadow: $inuit-btn-shadow--light;\n      color: $inuit-btn-group-color;\n      background: $inuit-btn-group-background;\n    }\n    .btn--disabled {\n      border-color: $inuit-btn-disabled-border-color;\n      border: $inuit-btn-disabled-border;\n    }\n  }",
+            "line": {
+                "start": 39,
+                "end": 67
+            }
+        },
+        "group": [
+            "px-button-group-design"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.button-group.scss",
+            "name": "_objects.button-group.scss"
+        }
+    },
+    {
+        "description": "Prepend value for all generated classes\n",
+        "commentRange": {
+            "start": 13,
+            "end": 16
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-btn-group-namespace",
+            "value": "$inuit-namespace",
+            "scope": "default",
+            "line": {
+                "start": 17,
+                "end": 17
+            }
+        },
+        "group": [
+            "px-button-group-design:variables:style"
+        ],
+        "type": "String [default]",
+        "todo": [
+            "N/A"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.button-group.scss",
+            "name": "_objects.button-group.scss"
+        }
+    },
+    {
+        "description": "Font color\n",
+        "commentRange": {
+            "start": 19,
+            "end": 22
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-btn-group-color",
+            "value": "var(--px-btn-group-text-color, $white)",
+            "scope": "default",
+            "line": {
+                "start": 23,
+                "end": 23
+            }
+        },
+        "group": [
+            "px-button-group-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-btn-group-text-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.button-group.scss",
+            "name": "_objects.button-group.scss"
+        }
+    },
+    {
+        "description": "Selected background color\n",
+        "commentRange": {
+            "start": 25,
+            "end": 28
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-btn-group-background",
+            "value": "var(--px-btn-group-background-color, $select-default)",
+            "scope": "default",
+            "line": {
+                "start": 29,
+                "end": 29
+            }
+        },
+        "group": [
+            "px-button-group-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-btn-group-background-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.button-group.scss",
+            "name": "_objects.button-group.scss"
+        }
+    },
+    {
+        "description": "Border color\n",
+        "commentRange": {
+            "start": 31,
+            "end": 34
+        },
+        "context": {
+            "type": "variable",
+            "name": "inuit-btn-group-border-color",
+            "value": "var(--px-btn-group-border-color, transparent)",
+            "scope": "default",
+            "line": {
+                "start": 35,
+                "end": 35
+            }
+        },
+        "group": [
+            "px-button-group-design:variables:style"
+        ],
+        "type": "Color [default]",
+        "todo": [
+            "--px-btn-group-border-color"
+        ],
+        "access": "public",
+        "file": {
+            "path": "_objects.button-group.scss",
+            "name": "_objects.button-group.scss"
+        }
+    }
+]

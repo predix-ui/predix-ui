@@ -1,0 +1,119 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-vis/px-vis-canvas.html">
+<link rel="import" href="../px-vis/px-vis-scale.html">
+<link rel="import" href="../px-vis/px-vis-svg-canvas.html">
+<link rel="import" href="../px-vis/px-vis-axis.html">
+<link rel="import" href="../px-tooltip/px-tooltip.html">
+
+<link rel="import" href="../px-vis/px-vis-behavior-colors.html">
+<link rel="import" href="../px-vis/px-vis-behavior-common.html">
+<link rel="import" href="../px-vis/px-vis-behavior-chart.html">
+<link rel="import" href="../px-vis/px-vis-behavior-d3.html">
+
+<link rel="import" href="px-heatmap-behavior.html">
+
+<link rel="import" href="px-vis-heatmap-cell.html">
+<link rel="import" href="px-vis-heatmap-legend.html">
+<link rel="import" href="px-vis-heatmap-custom-column.html">
+
+<!-- <link rel="import" href="../px-vis/css/px-vis-styles.html"> -->
+<link rel="import" href="css/px-vis-heatmap-styles.html">
+
+
+</head><body><dom-module id="px-vis-heatmap">
+  <template>
+    <style include="px-vis-heatmap-styles">:host{position:relative;}.canvas{position:absolute;left:0;top:0;}#tooltipDiv{position:absolute;top:-1px;left:-1px;background:transparent;width:1px;height:1px;}</style>
+
+    <!-- Media query to determine if context browser should collapse -->
+    <template is="dom-if" if="[[_collapseQueryIsValid(collapseAt)]]">
+      <iron-media-query query$="(max-width: {{_getCollapseQuery(collapseAt)}})" query-matches="{{collapsed}}"></iron-media-query>
+    </template>
+
+    <!-- transparent div for placing the tooltip on canvas -->
+    <div id="tooltipDiv"></div>
+
+    <!--
+      TODO: use _chartWrapperClass
+
+      Using _chartWrapperClass is causing weird positioning when preventResize
+      is set to false. It could have something to do with the demo page.
+
+      <div id="wrapper" class$="{{_chartWrapperClass}}">
+    -->
+    <div id="wrapper" class="flex wrapper">
+
+      <!-- main svg and canvas -->
+      <px-vis-svg-canvas class="canvas" width="[[_internalWidth]]" height="[[_internalHeight]]" margin="[[_internalMargin]]" svg="{{svg}}" canvas-context="{{canvasContext}}" px-svg-elem="{{pxSvgElem}}">
+      </px-vis-svg-canvas>
+      <!-- top layer canvas used for hover effects -->
+      <px-vis-canvas class="canvas" width="[[_internalWidth]]" height="[[_internalHeight]]" margin="[[_internalMargin]]" canvas-context="{{overlayCanvasContext}}">
+      </px-vis-canvas>
+      <!-- scale -->
+      <px-vis-scale id="scale" x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" complete-series-config="[[completeSeriesConfig]]" chart-extents="[[chartExtents]]" data-extents="[[dataExtents]]" width="[[_internalWidth]]" height="[[_internalHeight]]" margin="[[_internalMargin]]" chart-data="[[chartData]]" x="{{x}}" y="{{y}}" scale-padding="[[scalePadding]]" domain-changed="{{domainChanged}}">
+      </px-vis-scale>
+      <!-- y axis -->
+      <px-vis-axis id="yAxis" svg="[[layer.1]]" axis="[[y]]" axis-type="[[yAxisType]]" margin="[[_internalMargin]]" width="[[_internalWidth]]" height="[[_internalHeight]]" orientation="left" label-position="center" axis-tick-color="transparent" axis-line-color="transparent" prevent-series-bar="" complete-series-config="[[completeSeriesConfig]]" muted-series="[[mutedSeries]]" domain-changed="[[domainChanged]]">
+      </px-vis-axis>
+      <!-- x axis -->
+      <px-vis-axis id="xAxis" svg="[[layer.1]]" axis="[[x]]" axis-type="[[xAxisType]]" margin="[[_internalMargin]]" width="[[_internalWidth]]" height="[[_internalHeight]]" orientation="bottom" label-position="center" axis-tick-color="transparent" axis-line-color="transparent" prevent-series-bar="" complete-series-config="[[completeSeriesConfig]]" muted-series="[[mutedSeries]]" domain-changed="[[domainChanged]]">
+      </px-vis-axis>
+      <!-- heatmap cells -->
+      <!-- to use svg, remove canvas-context and add svg="[[svg]]" -->
+      <!-- <template is="dom-repeat" items="[[chartData]]">
+        <px-vis-heatmap-cell restamp
+          data="[[item]]"
+          show-cell-value="[[showCellValue]]"
+          color-scale="[[_colorScale]]"
+          canvas-context="[[canvasContext]]"
+          x="[[x]]"
+          y="[[y]]"
+          margin="[[margin]]"
+          width="[[width]]"
+          height="[[height]]"
+          color-scale="[[_colorScale]]"
+          chart-extents="[[chartExtents]]"
+          data-extents="[[dataExtents]]"
+          orientation="[[_legendOrientation]]"
+          complete-series-config="[[completeSeriesConfig]]"
+          domain-changed="[[domainChanged]]"
+          on-mouseover="_handleCellMouseover"
+          on-mouseout="_handleCellMouseout"
+          on-click="_handleCellClick">
+        </px-vis-heatmap-cell>
+      </template> -->
+
+      <template is="dom-if" if="[[showCustomColumn]]" restamp="">
+        <px-vis-heatmap-custom-column border-color="[[cellBorderColor]]" border-width="[[cellBorderWidth]]" text-size="[[cellTextSize]]" text-color="[[cellTextColor]]" svg="[[svg]]" x="[[x]]" y="[[y]]" margin="[[_internalMargin]]" width="[[_internalWidth]]" height="[[_internalHeight]]" chart-extents="[[chartExtents]]" data-extents="[[dataExtents]]" complete-series-config="[[completeSeriesConfig]]" series-key="[[seriesKey]]" domain-changed="[[domainChanged]]">
+        </px-vis-heatmap-custom-column>
+      </template>
+
+      <template is="dom-if" if="[[showLegend]]" restamp="">
+        <px-vis-heatmap-legend id="legend" svg="[[svg]]" x="[[x]]" y="[[y]]" margin="[[_internalMargin]]" width="[[_internalWidth]]" height="[[_internalHeight]]" color-scale="[[_colorScale]]" chart-extents="[[chartExtents]]" data-extents="[[dataExtents]]" orientation="[[_legendOrientation]]" gap-size="[[_legendGapSize]]" complete-series-config="[[completeSeriesConfig]]" series-key="[[seriesKey]]" domain-changed="[[domainChanged]]">
+        </px-vis-heatmap-legend>
+      </template>
+
+    </div><!-- /wrapper -->
+
+    <!-- tooltip -->
+    <px-tooltip id="tooltip" for="tooltipDiv" orientation="top" delay="[[tooltipDelay]]" ignore-target-events="">
+      <!-- setting margin to -3px in order to get a rough 20px padding -->
+      <div id="tooltipContent" style="margin:-3px;"></div>
+    </px-tooltip>
+  </template>
+  <script>Polymer({is:"px-vis-heatmap",behaviors:[PxColorsBehavior.dataVisColors,PxColorsBehavior.dataVisColorTheming,PxColorsBehavior.getSeriesColors,PxVisBehavior.axisTypes,PxVisBehavior.baseSize,PxVisBehavior.chartExtents,PxVisBehavior.completeSeriesConfig,PxVisBehavior.dataset,PxVisBehavior.dataExtents,PxVisBehavior.margins,PxVisBehavior.observerCheck,PxVisBehavior.updateStylesOverride,PxVisBehaviorD3.canvasContext,PxVisBehaviorD3.domainUpdate,PxVisBehaviorChart.axisConfigs,PxVisBehaviorChart.chartAutoResize,PxVisBehaviorChart.layers,PxVisBehaviorChart.saveImage,PxVisBehaviorChart.subConfiguration,PxVisBehaviorD3.canvasContext,PxVisBehaviorD3.svgLower,PxBehaviorHeatmap.normalizeObjects],properties:{chartData:{type:Array},seriesKey:{type:String},width:{type:Number,value:500,notify:!0},height:{type:Number,value:500,notify:!0},margin:{type:Object,value:function value(){return{top:10,right:100,bottom:50,left:50}}},showCustomColumn:{type:Boolean,value:!1},customColumnConfig:{type:Object,value:{}},squareMode:{type:Boolean,value:!1},showLegend:{type:Boolean,value:!0},scalePadding:{type:Number,value:0},paddingOuter:{type:Number,value:0},showCellValue:{type:Boolean,value:!1},colors:{type:Array},legendConfig:{type:Object},tooltipDelay:{type:Number,value:0},drawDebounceTime:{type:Number,value:100},collapseAt:{type:Number},collapsed:{type:Boolean,observer:"_collapsedChanged",reflectToAttribute:!0,notify:!0},cellBorderColor:{type:String},cellBorderWidth:{type:String},cellTextColor:{type:String},selectedCell:{type:Object,observer:"_selectedCellChanged"},cellTextSize:{type:String},_cellData:{type:Array},_colorsAreSet:{type:Boolean,value:!1},_internalColors:{type:Array},_colorScale:{type:Function},_legendOrientation:{type:String},_internalWidth:{type:Number,value:500},_internalHeight:{type:Number,value:500},_internalMargin:{type:Object,value:{}},_stylesResolved:{type:Boolean,value:!1},_legendGapSize:{type:Number,value:10}},observers:["_drawCells(_internalMargin.*, chartData.*, showCellValue, x, y, domainChanged, completeSeriesConfig, seriesKey, _colorScale, _stylesResolved)","_updateDataExtents(chartData, chartData.*, paddingOuter, completeSeriesConfig, seriesKey)","_updateSeriesConfig(seriesConfig)","_updateSeriesConfig(_colorsAreSet)","_updateColorScale(chartData.*, colors.*, domainChanged, completeSeriesConfig, seriesKey)","_updateInternalSize(chartData, chartData.*, squareMode, width, height, _internalMargin, _internalMargin.*, completeSeriesConfig, seriesKey)","_updateInternalMargin(showCustomColumn, customColumnConfig, margin.*)","_updateLegendGapSize(showCustomColumn, customColumnConfig.*, _legendOrientation)","_xAxisConfigChanged(xAxisConfig)","_yAxisConfigChanged(yAxisConfig)","_legendConfigChanged(showLegend, legendConfig)","_customColumnConfigChanged(showCustomColumn, customColumnConfig)","_resolveCssVars(_stylesUpdated, completeSeriesConfig)"],listeners:{"px-data-vis-colors-applied":"_colorsSet","iron-resize":"_onIronResize"},ready:function ready(){this.set("numberOfLayers",5);this.xAxisType="scaleBand";this.yAxisType="scaleBand";this.tooltipContent=this.$.tooltip.querySelector("#tooltipContent")},getImage:function getImage(callback,renderLegend){var originalHeight=this.height,originalWidth=this.width;this.set("width",this._internalWidth);this.set("height",this._internalHeight);var getImageFunc=PxVisBehaviorChart.saveImage[0].getImage||PxVisBehaviorChart.saveImage[1].getImage;getImageFunc.call(this,function(canvas,image){this.set("width",originalWidth);this.set("height",originalHeight);if(callback){return callback(canvas,image)}}.bind(this),renderLegend)},_drawCells:function _drawCells(){var _this=this;if(this.hasUndefinedArguments(arguments)){return}this.debounce("chart-drawn-debounce",function(){_this.canvasContext.pxClearCanvas();_this.chartData.forEach(function(d){_this._drawCell(_this.canvasContext,d)});_this.overlayCanvasContext.canvas.onmousemove=_this._handleMouseMove.bind(_this);_this.overlayCanvasContext.canvas.onmouseout=_this._handleMouseMove.bind(_this);_this.overlayCanvasContext.canvas.onclick=_this._handleClick.bind(_this);_this.fire("chart-drawn",{heatmap:_this})},this.drawDebounceTime)},_drawCell:function _drawCell(canvasContext,cellData){var data=this._normalizeChartDataItem(cellData),borderWidth=parseFloat(this.cellBorderWidth.replace("px",""));canvasContext.beginPath();canvasContext.rect(this.x(data.x),this.y(data.y),this.x.bandwidth(),this.y.bandwidth());canvasContext.fillStyle=this._colorScale(data.value);canvasContext.fill();if(!isNaN(borderWidth)&&0<borderWidth){canvasContext.strokeStyle=this.cellBorderColor;canvasContext.lineWidth=this.cellBorderWidth.replace("px","");canvasContext.stroke()}if(this.showCellValue){var xPos=this.x(data.x)+this.x.bandwidth()/2,yPos=this.y(data.y)+this.y.bandwidth()/2;canvasContext.beginPath();canvasContext.font=this.cellTextSize+" Arial";canvasContext.fillStyle=this.cellTextColor;canvasContext.textAlign="center";canvasContext.textBaseline="middle";canvasContext.fillText(data.value,xPos,yPos,this.x.bandwidth())}},_collapseQueryIsValid:function _collapseQueryIsValid(query){if("number"===typeof query){return!0}if("string"===typeof query&&"px"===query.slice(-2)&&!isNaN(parseInt(query))){return!0}return!1},_getCollapseQuery:function _getCollapseQuery(collapseAt){if("number"===typeof collapseAt){return collapseAt+"px"}if("string"===typeof collapseAt&&"px"===collapseAt.slice(-2)||!isNaN(parseInt(collapseAt))){return collapseAt}},_collapsedChanged:function _collapsedChanged(){this.set("_legendOrientation",this.collapsed?"bottom":"right")},_onIronResize:function _onIronResize(){this.debounce("ironresize",function(){if(this.preventResize){return}var wrapperRect=this.$.wrapper.getBoundingClientRect();this.set("width",wrapperRect.width);this.set("height",wrapperRect.height)},this.debounceResizeTiming)},_updateDataExtents:function _updateDataExtents(){if(!this.chartData||!this.x||!this.y||!this.completeSeriesConfig||!this.seriesKey){return}this.debounce("update-data-extents",function(){this.dataExtents=this._calcExtents(this.chartData);if(this.x&&this.y){this.x.paddingOuter(this.paddingOuter);this.y.paddingOuter(this.paddingOuter)}}.bind(this),10)},_calcExtents:function _calcExtents(chartData){var _this2=this,exts={};exts[this.completeSeriesConfig[this.seriesKey].x]=[];exts[this.completeSeriesConfig[this.seriesKey].y]=[];exts[this.completeSeriesConfig[this.seriesKey].value]=[1/0,-Infinity];chartData.forEach(function(cellData){var data=_this2._normalizeChartDataItem(cellData);if(0>exts[_this2.completeSeriesConfig[_this2.seriesKey].x].indexOf(data.x)){exts[_this2.completeSeriesConfig[_this2.seriesKey].x].push(data.x)}if(0>exts[_this2.completeSeriesConfig[_this2.seriesKey].y].indexOf(data.y)){exts[_this2.completeSeriesConfig[_this2.seriesKey].y].push(data.y)}exts[_this2.completeSeriesConfig[_this2.seriesKey].value][0]=Math.min(exts[_this2.completeSeriesConfig[_this2.seriesKey].value][0],data.value);exts[_this2.completeSeriesConfig[_this2.seriesKey].value][1]=Math.max(exts[_this2.completeSeriesConfig[_this2.seriesKey].value][1],data.value)});return exts},_isExtEqual:function _isExtEqual(extA,extB){if(!extA&&extB||extA&&!extB){return!1}if(!extA&&!extB){return!0}return extA.x[0]===extB.x[0]&&extA.x[1]===extB.x[1]&&extA.y[0]===extB.y[0]&&extA.y[1]===extB.y[1]},_updateSeriesConfig:function _updateSeriesConfig(){this.debounce("_updateSeriesConfig",function(){var seriesConfig=this.seriesConfig||{series1:{name:"Series 1",x:"x",y:"y",value:"value"}};this.set("seriesKey",Object.keys(seriesConfig)[0]);this.set("completeSeriesConfig",seriesConfig)},10)},_updateColorScale:function _updateColorScale(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("update-color-scale",function(){var exts=this.chartExtents||this.dataExtents;exts=this._normalizeExtentsObj(exts);for(var valueThresholds=[],rangePerColor=(exts.value[1]-exts.value[0])/(this.colors.length-1),i=0;i<this.colors.length;i++){valueThresholds.push(exts.value[0]+rangePerColor*i)}valueThresholds[valueThresholds.length-1]=exts.value[1];this.set("_colorScale",Px.d3.scaleLinear().domain(valueThresholds).range(this.colors))}.bind(this),10)},_updateInternalSize:function _updateInternalSize(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("update-internal-size",function(){var width=this.width,height=this.height,exts=this.chartExtents||this.dataExtents;exts=this._normalizeExtentsObj(exts);if(this.squareMode){var widthPadding=this.margin.left+this.margin.right;if(this.showCustomColumn){widthPadding+=this._getCustomColumn().columnWidth}var heightPadding=this.margin.top+this.margin.bottom,cellHeight=(this.height-heightPadding)/exts.y.length,cellWidth=(this.width-widthPadding)/exts.x.length,minLength=Math.min(cellHeight,cellWidth);width=minLength*exts.x.length+widthPadding;height=minLength*exts.y.length+heightPadding}this.set("_internalWidth",width);this.set("_internalHeight",height)}.bind(this),10)},_updateInternalMargin:function _updateInternalMargin(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("update-internal-margin",function(){var margin={top:this.margin.top,bottom:this.margin.bottom,left:this.margin.left,right:this.margin.right};if(this.showCustomColumn){var customColumn=this._getCustomColumn();if(customColumn&&customColumn.columnWidth){margin.right+=customColumn.columnWidth}}this.set("_internalMargin",margin)}.bind(this),10)},_selectedCellChanged:function _selectedCellChanged(selectedCell,prevSelectedCell){this.overlayCanvasContext.pxClearCanvas();if(selectedCell){this.canvasContext.canvas.classList.add("primaryDataMask");this._drawCell(this.overlayCanvasContext,selectedCell);this._closeTooltip();this._showTooltip(selectedCell,this._createTooltipMessage(selectedCell))}else{this.canvasContext.canvas.classList.remove("primaryDataMask");this._closeTooltip()}if(prevSelectedCell){this.fire("cell-mouseout",{cell:prevSelectedCell})}if(selectedCell){this.fire("cell-mouseover",{cell:selectedCell})}},_updateLegendGapSize:function _updateLegendGapSize(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("update-legend-gap-size",function(){var legendConfig=this.legendConfig||{},gapSize=legendConfig.gapSize!==void 0?legendConfig.gapSize:15;if(this.showCustomColumn&&"bottom"!==this._legendOrientation){var customColumn=this._getCustomColumn();if(customColumn){gapSize+=customColumn.columnWidth}}this.set("_legendGapSize",gapSize)}.bind(this),10)},_xAxisConfigChanged:function _xAxisConfigChanged(xAxisConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(xAxisConfig,this.$.xAxis)},_yAxisConfigChanged:function _yAxisConfigChanged(yAxisConfig){if(this.hasUndefinedArguments(arguments)){return}this._applyConfigToElement(yAxisConfig,this.$.yAxis)},_legendConfigChanged:function _legendConfigChanged(showLegend,legendConfig){if(this.hasUndefinedArguments(arguments)){return}this.debounce("legend-config-changed",function(){var legend=this._getLegend();if(legend){this._applyConfigToElement(legendConfig,legend)}}.bind(this),10)},_customColumnConfigChanged:function _customColumnConfigChanged(showCustomColumn,customColumnConfig){if(this.hasUndefinedArguments(arguments)){return}this.debounce("custom-column-config-changed",function(){var customColumn=this._getCustomColumn();if(customColumn){this._applyConfigToElement(customColumnConfig,customColumn)}}.bind(this),10)},_getLegend:function _getLegend(){if(this.shadowRoot){return this.shadowRoot.querySelector("px-vis-heatmap-legend")}else{return Polymer.dom(this.root).querySelector("px-vis-heatmap-legend")}},_getCustomColumn:function _getCustomColumn(){if(this.shadowRoot){return this.shadowRoot.querySelector("px-vis-heatmap-custom-column")}else{return Polymer.dom(this.root).querySelector("px-vis-heatmap-custom-column")}},_handleMouseMove:function _handleMouseMove(e){this.selectedCell=this._getCellFromMouseEvent(e)},_handleClick:function _handleClick(e){var cell=this._getCellFromMouseEvent(e);if(cell){this.fire("cell-click",{cell:cell})}},_getCellFromMouseEvent:function _getCellFromMouseEvent(e){var cell,canvasRect=this.canvasContext.canvas.getBoundingClientRect(),mouseX=e.clientX-canvasRect.left-this.margin.left,mouseY=e.clientY-canvasRect.top-this.margin.top,bounds={top:0,bottom:canvasRect.bottom-canvasRect.top-(this.margin.top+this.margin.bottom),left:0,right:canvasRect.right-canvasRect.left-(this.margin.right+this.margin.left)};if(mouseX<bounds.left||mouseX>bounds.right||mouseY<bounds.top||mouseY>bounds.bottom){}else{var x=this.x.invert(mouseX),y=this.y.invert(mouseY);cell=this._getCellByPosition(x,y)}return cell},_getCellByPosition:function _getCellByPosition(xPos,yPos){var _this3=this,cell;this.chartData.forEach(function(cellData){var data=_this3._normalizeChartDataItem(cellData);if(data.x===xPos&&data.y===yPos){cell=cellData}});return cell},_handleCellMouseover:function _handleCellMouseover(e,details){var el=details.cell.getSvgTextElement()||details.cell.getSvgElement();this._setHoveredCell(details.cell,1,.3,this.tooltipDelay);this._showTooltip(el,this._createTooltipMessage(details.cell))},_handleCellMouseout:function _handleCellMouseout(e,details){this._setHoveredCell(null,1,1,0);this._closeTooltip()},_showTooltip:function _showTooltip(cellData,msg){var tooltipMarginBottom=-20,data=this._normalizeChartDataItem(cellData),x=this.x(data.x)+this.margin.left+this.x.bandwidth()/2,y=this.y(data.y)-tooltipMarginBottom;this.$.tooltipDiv.style.left=x+"px";this.$.tooltipDiv.style.top=y+"px";this.tooltipContent.innerHTML=msg;this.$.tooltip.opened=!0},_closeTooltip:function _closeTooltip(){this.$.tooltip.opened=!1},_createTooltipMessage:function _createTooltipMessage(cellData){var data=this._normalizeChartDataItem(cellData),msg="<h1 style=\"text-weight:bold;font-size:12px;margin:0;\">";msg+=data.y+", "+data.x;msg+="</h1>";msg+="<span style=\"font-size:12px;\">"+data.value+"</span>";return msg},_resolveCssVars:function _resolveCssVars(){this.debounce("resolve-css-vars",function(){var seriesConfig=this.completeSeriesConfig||{},config=seriesConfig[this.seriesKey]||{};this.set("cellBorderColor",config.cellBorderColor||this._checkThemeVariable("--px-vis-heatmap-cell-border-color","#FFF"));this.set("cellBorderWidth",config.cellBorderWidth||this._checkThemeVariable("--px-vis-heatmap-cell-border-width","0"));this.set("cellTextColor",config.cellTextColor||this._checkThemeVariable("--px-vis-heatmap-cell-text-color","#000"));this.set("cellTextSize",config.cellTextSize||this._checkThemeVariable("--px-vis-heatmap-cell-text-size","12px"));this.set("colors",config.colors||this._checkThemeColors("--px-vis-heatmap-colors-",["lightblue","blue"]));this.$.xAxis.updateStyles();this.$.yAxis.updateStyles();var legend=this._getLegend();if(legend){legend.updateStyles()}var customColumn=this._getCustomColumn();if(customColumn){customColumn.updateStyles()}this.set("_stylesResolved",!this._stylesResolved)}.bind(this),10)},_checkThemeColors:function _checkThemeColors(rulePrefix,defaultColors){var colors=[],color="none",i=0;while(color!==void 0){color=this._checkThemeVariable(rulePrefix+i);if(color!==void 0){colors.push(color)}i++}if(!colors||1>colors.length){colors=defaultColors}return colors},_colorsSet:function _colorsSet(){this.set("_colorsAreSet",!0)}});</script>
+</dom-module>
+</body></html>

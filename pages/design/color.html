@@ -1,0 +1,178 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-color">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#best-practices', activeAnchor)]]" href="#" anchor="#best-practices" on-tap="_handleAnchorTapped">Best Practices</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#backgrounds', activeAnchor)]]" href="#" anchor="#backgrounds" on-tap="_handleAnchorTapped">Backgrounds</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#text', activeAnchor)]]" href="#" anchor="#text" on-tap="_handleAnchorTapped">Text</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#action-component-colors', activeAnchor)]]" href="#" anchor="#action-component-colors" on-tap="_handleAnchorTapped">Action Component Colors</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#primary-action-component-colors', activeAnchor)]]" href="#" anchor="#primary-action-component-colors" on-tap="_handleAnchorTapped">Primary Action Component Colors</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#select-action-component-colors', activeAnchor)]]" href="#" anchor="#select-action-component-colors" on-tap="_handleAnchorTapped">Select Action Component Colors</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#disabled-action-component-colors', activeAnchor)]]" href="#" anchor="#disabled-action-component-colors" on-tap="_handleAnchorTapped">Disabled Action Component Colors</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#alerts', activeAnchor)]]" href="#" anchor="#alerts" on-tap="_handleAnchorTapped">Alerts</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#data-visualizations', activeAnchor)]]" href="#" anchor="#data-visualizations" on-tap="_handleAnchorTapped">Data Visualizations</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#accessibility', activeAnchor)]]" href="#" anchor="#accessibility" on-tap="_handleAnchorTapped">Accessibility</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Color</h2>
+          
+          
+<p>The Predix Design System <a href="#/css/visual/px-colors-design">color palette</a> is designed to adapt to a variety of IIoT experiences and to support user’s needs.</p>
+<h3 id="best-practices">Best Practices</h3>
+<h4>Consider the application's environment</h4>
+<p>The Predix Design System offers flexibility to allow you to design an application to best suit your use case. For low or no-light environments, consider a completely dark theme on one page to combat eye fatigue.</p>
+<h4>Be consistent across pages in your app</h4>
+<p>Pick a theme and stick with it. Audit your pages and workflows to make sure the layout and color usage will remain expected and consistent.</p>
+<h4>Use color with purpose</h4>
+<p>Highlight important data visualizations and high impact information and do it consistently across your app. Cascade backgrounds from dark to light to reinforce information hierarchy.</p>
+<h3 id="backgrounds">Backgrounds</h3>
+<p>The Predix Design System uses slightly-saturated <a href="#/css/visual/px-colors-design">grays</a> for backgrounds and text. Bold hues and highlight colors are intended to be used in <a href="#/css/visual/px-colors-design">data visualizations</a>, call-to-actions, and alerts.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_2-1_usage_do" img-alt="Background color correct" title="Do" caption="Use the identified grays from the Predix palette for material breaks.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_2-2_usage_dont" img-alt="Background color incorrect" title="Don't" caption="Don't use data visualization or alert colors as backgrounds.">
+  </catalog-picture>
+</div>
+<h4>Hierarchy</h4>
+<p>Hierarchy can help to organize content according to relative importance. Leverage color to reinforce the emphasis of some content relative to other content.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_3-1_cascade_do" img-alt="Hierarchy correct" title="Do" caption="Cascade color to indicate an information hierarchy, use minimal dramatic breaks.">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_3-2_cascade_dont" img-alt="Hierarchy incorrect" title="Don't" caption="Avoid using excessive color banding to separate information.">
+  </catalog-picture>
+</div>
+<h4>Recommended Combinations</h4>
+<p>Applications can be created with a light theme, a mixed theme and a dark theme. Themes use three different grays each for the background containers. When applying background breaks, use colors within the same range of grays. $white is the default background for the light theme and $gray16 is the default background color for the light theme. Avoid using $black in the dark theme as a background color as it creates too high of a contrast.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_4_pages_schematic" img-alt="Color page schematic" caption="Recommended combinations for the light theme, mixed theme, and dark theme."></catalog-picture></p>
+<h3 id="text">Text</h3>
+<p>The Predix Design System uses a primary and secondary gray for each theme. The light theme primary gray is $gray15 and secondary gray is $gray10. The dark theme primary gray is $gray5 and secondary gray is $gray10. When combining themes, use the text color associated with the background color below to ensure proper contrast. Note that light and dark themes use a different primary gray to allow for contrast.</p>
+<p><catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_5-1_text_primary_light" img-alt="Text light color palette" caption="Light theme primary and secondary grays">
+</catalog-picture></p>
+<p><catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_5-2_text_primary_dark" img-alt="Text dark color palette" caption="Dark theme primary and secondary grays">
+</catalog-picture></p>
+<h3 id="action-component-colors">Action Component Colors</h3>
+<p>Actionable components are categorized into two groups, primary actions and select actions. Primary actions are indicated by with $primary-default (blue), and select actions are indicated by $select-default (green). An exception is made for actionable text on dark backgrounds which uses $d-actionable-default (light blue).</p>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_6-1_action_components" img-alt="Action component colors"></catalog-picture></p>
+<h3 id="primary-action-component-colors">Primary Action Component Colors</h3>
+<p>Primary action colors indicate to the user that she can interact with a component. They are the same for dark and light themes with one exception. The exception is the use of the color $d-actionable-default on the dark theme for actionable text and icons.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_7-1_primary_light" img-alt="Light theme primary action colors" title="Light theme primary action colors">
+  </catalog-picture>
+</div>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_7-2_primary_dark" img-alt="Dark theme primary action colors" title="Dark theme primary action colors">
+  </catalog-picture>
+</div>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_7-5_actionable_dark" img-alt="Dark theme primary action colors for actionable text" title="EXCEPTION: Dark theme primary action colors for actionable text">
+  </catalog-picture>
+</div>
+<h4>Primary Action Component Examples</h4>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_10-1_components_primary_default" img-alt="Primary actionable components" caption="Primary action buttons, toggles, sliders, range sliders, progress bars, spinners, and forms"></catalog-picture></p>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_10-2_components_primary_actionable" img-alt="Primary actionable components" caption="EXCEPTION: For dark backgrounds use $d-actionable-default for actionable text, actionable icons, tertiary buttons, and bare dropdowns"></catalog-picture></p>
+<h3 id="select-action-component-colors">Select Action Component Colors</h3>
+<p>Select action colors indicate to the user that she can choose options from that component. They are the same for dark and light themes.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_7-3_select_light" img-alt="Light theme select action colors" title="Light theme select action colors">
+  </catalog-picture>
+  </div>
+  <div class="layout">
+    <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_7-4_select_dark" img-alt="Dark theme select action colors" title="Dark theme select action colors">
+  </catalog-picture>
+</div>
+<h4>Select Action Component Examples</h4>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_10-3_components_select_default" img-alt="Selectable action components" caption="Select components: Breadcrumb dropdowns, dropdowns, date pickers, navigation, and tabs"></catalog-picture></p>
+<h3 id="disabled-action-component-colors">Disabled Action Component Colors</h3>
+<p>Disabled colors indicate to the user that the component is not active. The states use the color $gray8 for the light theme and the color $gray10 for the dark theme to achieve the intended contrast on both light and dark themes. Note that the opacity was adjusted for button text and button outlines, and actionable text below in the graphic.</p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_8-2_disabled_gray_light" img-alt="Light theme disabled colors" title="Light theme disabled colors">
+  </catalog-picture>
+</div>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_8-3_disabled_gray_dark" img-alt="Dark theme disabled colors" title="Dark theme disabled colors">
+  </catalog-picture>
+</div>
+<h4>Disabled Button Examples</h4>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_8-4_disabled_examples" img-alt="Disabled examples" caption="Example disabled button on light and dark themes"></catalog-picture></p>
+<h3 id="alerts">Alerts</h3>
+<p>The Predix Design System also uses <a href="#/css/visual/px-colors-design">color</a> to communicate meaning. Red is used as the most critical alert, while a neutral grey is the least crucial. To ensure accessibility, different shapes are used to communicate the levels of severity. Consider cultural associations when making color selections. Note that for Alert 4, blue was selected rather than green for accessibility reasons (red vs green color blindness).</p>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_12_alert_symbols" img-alt="Color alert symbols" caption="Alerts have five stages of severity that are designated by both color and shape."></catalog-picture></p>
+<h3 id="data-visualizations">Data Visualizations</h3>
+<p>Data visualizations use different color hues and intensity to distinguish information and to guide the attention of the user. Because large, complex data groupings are extremely common in the Industrial space, the Predix Design System provides a diverse range of <a href="#/css/visual/px-colors-design">colors</a> to construct visually impactful charts.</p>
+<p>The naming convention for colors indicates their use for light or dark themes. Light theme colors end in 4, 5 or 6. Dark theme colors end in 2, 3 or 4.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/color/color_11_dataviz_highlight" img-alt="Color data visualizations" caption="Use color with purpose to highlight the focal point of the data visualization."></catalog-picture></p>
+<h3 id="accessibility">Accessibility</h3>
+<p>In their default states, the Predix Design System components pass the accessibility contrast test with an AAA or AA18 rating. The color palette allows for expanded choices should you have more stringent requirements or an extreme environment that calls for a unique design. For more information on accessibility visit https://developers.google.com/web/fundamentals/accessibility/</p>
+<p>Check your contrast ratios to ensure they fall within accessibility standards with EightShapes' Contrast Grid. For example: <a href="http://contrast-grid.eightshapes.com/?background-colors=FFFFFF%2C%20%24white%0D%0A%23EBEFF2%2C%20gray1%0D%0A%23E2E8ED%2C%20gray2&amp;foreground-colors=%23677E8C%2C%20%24gray10%0D%0A%232C404C%2C%20%24gray15&amp;es-color-form__tile-size=compact">Light Theme</a>, <a href="http://contrast-grid.eightshapes.com/?background-colors=%2323343F%2C%20gray16%0D%0A%231B2A33%2C%20gray17%0D%0A%23121F26%2C%20gray18&amp;foreground-colors=%23B6C3CC%2C%20gray5%0D%0A%23677E8C%2C%20gray10&amp;es-color-form__tile-size=compact">Dark Theme</a></p>
+<div class="layout">
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_13-1_text_contrast_do" img-alt="Sufficient contrast" title="Do" caption="Sufficient contrast">
+  </catalog-picture>
+  <catalog-picture class="layout__item picture-side-by-side" img-src="../../img/guidelines/design/color/color_13-2_text_contrast_dont" img-alt="Insufficient contrast" title="Don't" caption="Insufficient contrast">
+  </catalog-picture>
+</div>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-color",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

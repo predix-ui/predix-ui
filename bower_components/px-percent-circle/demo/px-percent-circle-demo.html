@@ -1,0 +1,54 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-percent-circle.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-percent-circle-demo">
+  <template>
+    <!-- Header -->
+    <px-demo-header module-name="px-percent-circle" description="The px-percent-circle is the simplest possible donut chart - a single ring that fills clockwise based on a percentage. Perfect for dashboards where many percent circles may appear in a row or column." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-config" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <div style="width:250px">
+          <px-percent-circle val="{{props.val.value}}" max="{{props.max.value}}" thickness="{{props.thickness.value}}">
+          </px-percent-circle>
+        </div>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-percent-circle">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-percent-circle"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-percent-circle-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0},{configName:"Thin Border",val:5,max:80,thickness:10}]}}},demoProps:{val:{type:String,defaultValue:"33",inputType:"text"},max:{type:String,defaultValue:"100",inputType:"text"},thickness:{type:String,defaultValue:"30",inputType:"text"},parentComponent:{type:Array,value:["<div style=\"width:300px\">","</div>"]}}});</script>
+</body></html>

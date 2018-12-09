@@ -1,0 +1,80 @@
+[
+  {
+    "weight": "<500",
+    "northeast": 819,
+    "midwest": 1269,
+    "south": 2780,
+    "west": 995,
+    "usa": 5863
+  },{
+    "weight": "500-999",
+    "northeast": 3190,
+    "midwest": 4200,
+    "south": 9478,
+    "west": 3821,
+    "usa": 20689
+  },{
+    "weight": "1000-1499",
+    "northeast": 4530,
+    "midwest": 6099,
+    "south": 12483,
+    "west": 5928,
+    "usa": 29040
+  },{
+    "weight": "1500-1999",
+    "northeast": 9818,
+    "midwest": 13027,
+    "south": 26921,
+    "west": 13096,
+    "usa": 62862
+  },{
+    "weight": "2000-2499",
+    "northeast": 31042,
+    "midwest": 40912,
+    "south": 85721,
+    "west": 44740,
+    "usa": 202415
+  },{
+    "weight": "2500-2999",
+    "northeast": 112108,
+    "midwest": 143916,
+    "south": 299481,
+    "west": 174168,
+    "usa": 729673
+  },{
+    "weight": "3000-3499",
+    "northeast": 242019,
+    "midwest": 314160,
+    "south": 604559,
+    "west": 383286,
+    "usa": 1544024
+  },{
+    "weight": "3500-3999",
+    "northeast": 172035,
+    "midwest": 235451,
+    "south": 394018,
+    "west": 260952,
+    "usa": 1062456
+  },{
+    "weight": "4000-4499",
+    "northeast": 46358,
+    "midwest": 65268,
+    "south": 96698,
+    "west": 66080,
+    "usa": 274404
+  },{
+    "weight": "4500-4999",
+    "northeast": 6396,
+    "midwest": 9592,
+    "south": 13417,
+    "west": 9391,
+    "usa": 38796
+  },{
+    "weight": "5000-8165",
+    "northeast": 706,
+    "midwest": 1121,
+    "south": 1664,
+    "west": 1163,
+    "usa": 4654
+  }
+]

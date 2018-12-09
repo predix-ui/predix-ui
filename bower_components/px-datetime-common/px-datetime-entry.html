@@ -1,0 +1,89 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="px-datetime-validate.html">
+<link rel="import" href="px-datetime-behavior.html">
+<link rel="import" href="px-datetime-entry-cell.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/px-datetime-entry-styles.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+
+
+<!--
+Range field component which displays a time or date and font awesome icon.
+
+### Usage
+
+    <px-datetime-entry
+      moment="{{...}}"
+      date-or-time="Date"
+      moment-format="MM/DD/YYYY">
+    </px-datetime-entry>
+
+#### Styling
+The following custom property is available for styling. Please also refer to px-forms-design for additional variables that can be used to customize the field's appearance.
+
+Custom property | Description
+:----------------|:-------------
+`--px-datetime-read-only-text-color` | Text color for the text timezones
+`--px-datetime-entry-selected` | Text highlight color when a cell is selected
+`--px-datetime-icon-color` | Color of the icons
+`--px-validation-error-text-color` | Color of invalid text
+
+@element px-datetime-entry
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-entry">
+  <template>
+    <style include="px-datetime-entry-styles"></style>
+
+    <div id="wrapper" class="flex flex--middle">
+      <div class="flex flex--middle dt-flex--no-shrink">
+          <button class$="{{_getIconClass(hideIcon)}} btn btn--bare dt-icon-button" on-tap="_iconClicked">
+              <span class="a11y">{{dateOrTime}}</span>
+              <template is="dom-if" if="{{!hideIcon}}">
+                <px-icon id="icon" class="dt-icon" icon="[[_setIcon(dateOrTime)]]">
+                </px-icon>
+              </template>
+          </button>
+          <template is="dom-repeat" items="{{_cellFormatArray}}">
+            <px-datetime-entry-cell id="cell{{index}}" class="cell" order="{{index}}" moment-obj="[[momentObj]]" moment-format="[[item]]" symbol="[[_returnSymbol(index,_symbolCharArray)]]" time-zone="[[timeZone]]" is-selected="{{isSelected}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+            </px-datetime-entry-cell>
+            <template is="dom-if" if="{{_isSymbol(index,_symbolCharArray)}}">
+              <div class="dt-entry-symbol">
+                {{_returnSymbol(index,_symbolCharArray)}}
+              </div>
+            </template>
+          </template>
+      </div>
+      <div class$="{{_getTimeZoneTextClass(showTimeZone, isValid)}}">
+        <template is="dom-if" if="{{_showTimeZoneDropdown(showTimeZone)}}">
+          <px-dropdown id="dropdown" class="dropdown" display-value="[[timeZone]]" button-style="bare" search-mode="" disable-clear="" items="[[_getTimeZoneList(showTimeZone)]]" on-focus="_handleDropdownFocus" on-blur="_handleDropdownBlur" hoist="[[hoist]]" container-type="[[containerType]]">
+          </px-dropdown>
+        </template>
+        <template is="dom-if" if="{{_showTimeZoneText(showTimeZone)}}">
+          <span id="timeZoneText" class="dt-text-input--non-editable">{{_getTimeZoneText(timeZone, showTimeZone)}}</span>
+        </template>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-entry",behaviors:[PxDatetimeBehavior.SingleMoment,PxDatetimeBehavior.Validate,PxOverlayBehavior.sharedProperties],properties:{dateOrTime:{type:String,value:"Date"},momentFormat:{type:String,value:"YYYY/MM/DD",observer:"_formatChanged"},hideIcon:{type:Boolean,value:!1},_cellFormatArray:{type:Array,notify:!0},_symbolCharArray:{type:Array,notify:!0,value:function value(){return[]}},showTimeZone:{type:String,value:""},isSelected:{type:Boolean,notify:!0},hoist:{type:Boolean,value:!1}},listeners:{"px-entry-cell-move":"_entryCellMove","px-cell-blurred":"_handleBlur","px-request-datetime-entry-copy":"_handleCopy","px-request-datetime-entry-paste":"_handlePaste","px-dropdown-selection-changed":"_updateTimeZone"},attached:function attached(){if("string"===typeof this.momentFormat){this._formatChanged(this.momentFormat)}},clear:function clear(){var cells=Polymer.dom(this.root).querySelectorAll(".cell");cells.forEach(function(cell){cell.clear()})},setValueFromMoment:function setValueFromMoment(){var cells=Polymer.dom(this.root).querySelectorAll(".cell");cells.forEach(function(cell){cell.setValueFromMoment()})},_formatChanged:function _formatChanged(newMomentFormat){if(newMomentFormat!==void 0){var format=this._splitFormat(newMomentFormat);if(format._cellFormatArray!==this._cellFormatArray||format._symbolCharArray!==this._symbolCharArray){this._cellFormatArray=format._cellFormatArray;this._symbolCharArray=format._symbolCharArray;this.notifyPath("_cellFormatArray",this._cellFormatArray);this.notifyPath("_symbolCharArray",this._symbolCharArray);this._sizeSymbols()}}},_sizeSymbols:function _sizeSymbols(){var style=window.getComputedStyle(this,null),fontSize=style.getPropertyValue("font-size"),fontFamily=style.getPropertyValue("font-family"),c=document.createElement("canvas"),ctx=c.getContext("2d"),symbols=Polymer.dom(this.root).querySelectorAll(".dt-entry-symbol"),length;ctx.font=fontSize+" "+fontFamily;symbols.forEach(function(symbol,index){length=ctx.measureText(symbol.innerHTML.trim().replace("&nbsp;"," ")).width;symbol.style.width=length+"px"})},_splitFormat:function _splitFormat(momentFormat){var re=/[MDYAaHhkmsSZXx]+/g,reSymbol=/\W+/g;return{_cellFormatArray:momentFormat.match(re),_symbolCharArray:momentFormat.match(reSymbol)}},_isSymbol:function _isSymbol(i,_symbolCharArray){if(null===_symbolCharArray||"undefined"===typeof _symbolCharArray[i]){return!1}return!0},_returnSymbol:function _returnSymbol(i,_symbolCharArray){if(null===_symbolCharArray||"undefined"===typeof _symbolCharArray[i]){return""}return _symbolCharArray[i].split(" ").join("\xA0")},_setIcon:function _setIcon(){if("date"===this.dateOrTime.toLowerCase()){return"px-utl:calendar"}else{return"px-utl:clock"}},_entryCellMove:function _entryCellMove(evt){var ne=Polymer.dom(evt),entryCellOrder=ne.rootTarget.order;if(entryCellOrder===this._cellFormatArray.length-1&&1===evt.detail.dir){this.fire("px-next-field",{dateOrTime:this.dateOrTime})}else if(0===entryCellOrder&&-1===evt.detail.dir){this.fire("px-previous-field",{dateOrTime:this.dateOrTime})}else{this._focusCell(parseInt(entryCellOrder)+evt.detail.dir)}},_focusCell:function _focusCell(cellNumber){var elem=this.$$("#cell"+cellNumber);elem.$$(".datetime-entry-input").focus()},_focusLastCell:function _focusLastCell(){this._focusCell(this._cellFormatArray.length-1)},_handleBlur:function _handleBlur(){this._validateInput(this.momentFormat,this.timeZone)},_handleDropdownFocus:function _handleDropdownFocus(){this.fire("px-dropdown-focused",{},{cancelable:!0})},_handleDropdownBlur:function _handleDropdownBlur(){this.fire("px-dropdown-blurred",{},{cancelable:!0})},_showTimeZoneText:function _showTimeZoneText(showTimeZone){return"text"===showTimeZone||"abbreviatedText"===showTimeZone},_showTimeZoneDropdown:function _showTimeZoneDropdown(showTimeZone){return"dropdown"===showTimeZone||"extendedDropdown"===showTimeZone},_getTimeZoneList:function _getTimeZoneList(showTimeZone){if("extendedDropdown"===showTimeZone){return Px.moment.tz.names()}else if("dropdown"===showTimeZone){return["Etc/GMT-14","Etc/GMT-13","Etc/GMT-12","Etc/GMT-11","Etc/GMT-10","Etc/GMT-9","Etc/GMT-8","Etc/GMT-7","Etc/GMT-6","Etc/GMT-5","Etc/GMT-4","Etc/GMT-3","Etc/GMT-2","Etc/GMT-1","Etc/GMT-0","Etc/GMT","Etc/GMT0","Etc/GMT+0","Etc/GMT+1","Etc/GMT+2","Etc/GMT+3","Etc/GMT+4","Etc/GMT+5","Etc/GMT+6","Etc/GMT+7","Etc/GMT+8","Etc/GMT+9","Etc/GMT+10","Etc/GMT+11","Etc/GMT+12","UCT","UTC"]}return[]},_updateTimeZone:function _updateTimeZone(e){this.set("timeZone",e.detail.val)},_handleCopy:function _handleCopy(e){e.detail.setData("Text",Px.moment.tz(this.momentObj,this.timeZone).format(this.momentFormat));e.stopPropagation()},_handlePaste:function _handlePaste(e){var data=e.detail.getData("Text"),newDate=Px.moment(data,this.momentFormat);if(newDate.isValid()){this.momentObj=newDate}else{console.log("tried to paste non valid date format: "+data+". Expecting: "+this.momentFormat)}e.stopPropagation()},_getIconClass:function _getIconClass(hideIcon){return!hideIcon?"u-mr--":""},_getTimeZoneText:function _getTimeZoneText(timeZone,showTimeZone){if(timeZone!==void 0&&"abbreviatedText"===showTimeZone){tempMomentObj=this.momentObj?this.momentObj:Px.moment();return Px.moment.tz.zone(timeZone).abbr(tempMomentObj)}else if("text"===showTimeZone){return timeZone}},_getTimeZoneTextClass:function _getTimeZoneTextClass(showTimeZone,isValid){var classList="dt-flex--no-shrink ";if("text"===showTimeZone||"abbreviatedText"===showTimeZone){classList+="u-ml- "}else if("dropdown"===showTimeZone||"extendedDropdown"===showTimeZone){classList+="u-ml-- "}return classList},_iconClicked:function _iconClicked(evt){this.fire("px-datetime-entry-icon-clicked",{dateOrTime:this.dateOrTime})}});</script>
+</body></html>

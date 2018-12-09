@@ -1,0 +1,73 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="px-vis-behavior-datetime.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="css/px-vis-central-tooltip-content-styles.html">
+
+<!--
+
+### Usage
+
+
+
+
+@element px-vis-central-tooltip-content
+@blurb Element which draws content for a central tooltip
+@homepage index.html
+@demo demo/index.html
+
+-->
+
+</head><body><dom-module id="px-vis-central-tooltip-content">
+  <template>
+    <style include="px-vis-central-tooltip-content-styles"></style>
+
+      <div class$="flex flex--middle u-mb- u-mt-- [[_buttonsShown(_multipleTooltips)]]">
+        <template is="dom-if" if="[[_multipleTooltips]]">
+          <button class$="btn btn--bare button--nav-left no-min-width [[_leftDisabled(_currentTooltipIndex)]]" on-click="_previousTooltip">
+            <px-icon icon="px-utl:chevron-left"></px-icon>
+          </button>
+        </template>
+        <div>
+          <h1 class="epsilon u-mb- u-mt--">[[_currentData.title]]</h1>
+
+          <template is="dom-if" if="[[_currentData.time]]">
+            <div class="u-mt- u-mb-">[[_formatData(_currentData.time, 'time')]]</div>
+          </template>
+
+          <template id="infoTemplate" is="dom-repeat" items="[[_currentData.data]]" as="info">
+            <div class="flex flex--justify u-mt--">
+              <span class="u-mr"><b>[[localize(info.title)]]</b>:</span> <span>[[_formatInfo(info)]]</span>
+            </div>
+          </template>
+
+          <template is="dom-if" if="[[_currentData.text]]">
+            <div class="u-mt- u-mb-">[[_currentData.text]]</div>
+          </template>
+        </div>
+        <template is="dom-if" if="[[_multipleTooltips]]">
+          <button class$="btn btn--bare button--nav-right no-min-width [[_rightDisabled(_currentTooltipIndex)]]" on-click="_nextTooltip">
+            <px-icon icon="px-utl:chevron-right"></px-icon>
+          </button>
+        </template>
+      </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-central-tooltip-content",behaviors:[PxVisBehavior.observerCheck,Polymer.AppLocalizeBehavior,PxVisBehaviorTime.datetime],properties:{_currentData:Array,tooltipDataResult:Array,tooltipTitle:{type:String,value:""},timestamp:{type:Number},_multipleTooltips:{type:Boolean,computed:"_computeMultipleTooltips(tooltipDataResult)"},_currentTooltipIndex:Number,resources:{type:Object,value:function value(){return{en:{Event:"Event",ID:"ID",Timestamp:"Timestamp",X:"X"}}}},useKeyIfMissing:{type:Boolean,value:!0},language:{type:String,value:"en"}},observers:["_dataChanged(tooltipDataResult.*)"],_dataChanged:function _dataChanged(){if(this.hasUndefinedArguments(arguments)){return}this._currentTooltipIndex=0;this._updateTooltipInfo(this.tooltipDataResult[this._currentTooltipIndex])},_computeMultipleTooltips:function _computeMultipleTooltips(){if(this.hasUndefinedArguments(arguments)){return}return 1<this.tooltipDataResult.length},_updateTooltipInfo:function _updateTooltipInfo(){this.debounce("updateInfo",function(){this.set("_currentData",this.tooltipDataResult[this._currentTooltipIndex])}.bind(this),5)},_previousTooltip:function _previousTooltip(){this._updateTooltipInfo(this.tooltipDataResult[this._currentTooltipIndex--])},_nextTooltip:function _nextTooltip(){this._updateTooltipInfo(this.tooltipDataResult[this._currentTooltipIndex++])},_formatData:function _formatData(data,type){if("time"===type){return this._formatWholeTimestamp(data)}else if("number"===type){return data}else if("localizable"===type){return localize(data)}return data},_formatInfo:function _formatInfo(info){return this._formatData(info.value,info.type||"")},_formatWholeTimestamp:function _formatWholeTimestamp(time){return"".concat(this.formatTimestamp(time,this.timezone,this.firstDateTimeFormat)," ").concat(this.separator," ").concat(this.formatTimestamp(time,this.timezone,this.secondDateTimeFormat))},_leftDisabled:function _leftDisabled(){return 0===this._currentTooltipIndex?"btn--disabled":""},_rightDisabled:function _rightDisabled(){return this._currentTooltipIndex===this.tooltipDataResult.length-1?"btn--disabled":""},_buttonsShown:function _buttonsShown(buttonsShown){return buttonsShown?"":" u-ml- u-mr-"}});</script>
+</body></html>

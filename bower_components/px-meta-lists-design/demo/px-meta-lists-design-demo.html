@@ -1,0 +1,63 @@
+<!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-sass-doc/px-sass-doc.html">
+<link rel="import" href="../css/px-meta-lists-design-demo-styles.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-meta-lists-design-demo">
+  <template>
+    <!-- 0: Import the styles-->
+    <style include="px-meta-lists-design-demo-styles" is="custom-style"></style>
+
+
+<!-- 1: Describe Module -->
+<px-sass-doc module-name="px-meta-lists-design" description="The Meta Lists module is a shortcut collection of all Predix UI list related modules - that is, it automatically imports the three dependent libraries (list-bare, list-inline, and list-ui)." layer="meta" sassdoc-path="sassdoc.json" dependencies="[
+    &quot;https://github.com/PredixDev/px-list-bare-design&quot;,
+    &quot;https://github.com/PredixDev/px-list-inline-design&quot;,
+    &quot;https://github.com/PredixDev/px-list-ui-design&quot;
+  ]" selected-options="{{selectedOptions}}">
+  <!--hide-demo-container="true">-->
+
+<!-- 2: Set Options -->
+<!-- N/A -->
+
+<!-- 3: Make HTML Demo -->
+<section slot="demo-html">
+<ul class="list-inline">
+  <li>List Item</li><li>List Item</li><li>List Item</li>
+</ul>
+
+<br><br>
+
+<ul class="list-bare">
+  <li>List Item</li>
+  <li>List Item</li>
+  <li>List Item</li>
+</ul>
+
+<br><br>
+
+<ul class="list-ui">
+  <li class="list-ui__item">List Item</li>
+  <li class="list-ui__item">List Item</li>
+  <li class="list-ui__item">List Item</li>
+</ul>
+</section>
+
+<!-- 4: Set Import Slot -->
+<section slot="import">
+@import "px-meta-lists-design/_meta.lists.scss";
+</section>
+
+<!-- 5: Set Usage HTML -->
+<section slot="usage">
+<strong>Note:</strong> refer to the dependent libraries below for details on the enable flags, style variables, and actual usage for list components.
+</section>
+
+</px-sass-doc>
+</template>
+</dom-module>
+
+<script>Polymer({is:"px-meta-lists-design-demo",attached:function attached(){this.async(function(){this.fire("px-sass-doc-demo-updated",{})},10)}});</script>
+</body></html>

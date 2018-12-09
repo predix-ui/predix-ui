@@ -1,0 +1,7 @@
+<!--
+  This must be in a separate file from the Px/d3 declaration to ensure that the script is loaded.
+  <scripts> are loaded async, so if they were in the same file, we might run into race conditions
+--><html><head><script>if("undefined"===typeof window.Px){window.Px={}}if("undefined"!==typeof window.d3&&!window.Px.d3){window.Px.oldD3=window.d3;window.d3={}}</script>
+
+<script type="text/javascript" src="../pxd3/d3.min.js"></script>
+</head><body></body></html>

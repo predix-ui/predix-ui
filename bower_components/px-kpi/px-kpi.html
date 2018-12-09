@@ -1,0 +1,71 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-kpi-styles.html">
+<link rel="import" href="../px-vis-spark/px-vis-spark.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+
+
+<!--
+
+### Associated components
+[px-vis-spark](https://www.predix-ui.com/#/components/px-vis-spark/)
+
+### Usage
+
+    <px-kpi label="Availability" value="100" uom="%" status-icon="px-nav:up" status-color="green" spark-data="..."></px-kpi>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-kpi-text-color` | Primary text color for the KPI
+`--px-kpi-secondary-text-color` | Secondary text color for the KPI
+
+@element px-kpi
+@blurb Element for displaying KPIs in a dashboard layout as a tile with one large number value.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-kpi">
+  <template>
+    <style include="px-kpi-styles"></style>
+
+    <span class="caps secondary epsilon u-mt0 u-mb">{{label}}</span>
+    <div class="flex u-mb u--mt-">
+      <span class="alpha float--left u-mv0 u-mr">{{value}}</span>
+      <div class="flex flex--col u-pt u-pb-">
+        <div class="flex__item">
+          <px-icon id="statusIcon" icon$="{{statusIcon}}" class="u-mb-- flex__item" style$="color:{{statusColor}};"></px-icon>
+          <span class="epsilon">{{statusLabel}}</span>
+        </div>
+        <span class="flex--bottom secondary epsilon">{{uom}}</span>
+      </div>
+    </div>
+    <template is="dom-if" if="{{sparkData}}">
+      <px-vis-spark type="{{sparkType}}" width="300" height="50" prevent-resize="true" data="{{sparkData}}"></px-vis-spark>
+    </template>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-kpi",properties:{label:{type:String},value:{type:String},uom:{type:String},statusColor:{type:String},statusIcon:{type:String},statusLabel:{type:String},sparkType:{type:String},sparkData:{type:Array}}});</script>
+</body></html>

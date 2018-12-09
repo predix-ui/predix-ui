@@ -1,0 +1,45 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Creates a footer for Predix UI demo pages.
+
+##### Usage
+
+    <px-demo-footer></px-demo-footer>
+
+@element px-demo-footer
+@blurb Creates a footer for Predix UI demo pages.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-footer">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <footer class="demo-background--footer flex flex--center">
+      <div class="demo-footer__container u-pv">
+        <div>
+          <a href="https://www.ge.com/digital"><img src="[[importPath]]monogram-wdmk.png" alt="GE Monogram" class=""></a>
+        </div>
+        <div class="demo-footer__list">
+          <ul class="list-inline list-inline--delimited">
+            <li><a href="https://predix.io/legal" class="actionable actionable--secondary" target="_blank">Legal</a></li>
+            <li><a href="https://www.predix.io/support/article/KB0012081" class="actionable actionable--secondary" target="_blank">Contact Us</a></li>
+            <li>Copyright © General Electric Company. All rights reserved.</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-footer"});</script>
+</body></html>

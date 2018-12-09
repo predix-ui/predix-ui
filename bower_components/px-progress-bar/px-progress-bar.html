@@ -1,0 +1,40 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-progress-bar-styles.html">
+
+<!--
+The basic progress bar indicates the progress of an activity with explicit start and end times, or known duration. The filled portion of the bar grows from left to right to indicate the percentage of progress.
+
+The infinite progress bar indicates an ongoing activity with an indefinite end, such as loading data. The animation hints at forward progress, but since an end time cannot be calculated, does not explicitly display the amount of progress.
+
+### Usage
+
+    <px-progress-bar value="50"></px-progress-bar>
+
+### Styling
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-progress-bar-height` | Height of the progress bar element | `5px`
+`--px-progress-bar-fill-color` | Color of the filled portion of the bar | black
+`--px-progress-bar-background-color` | Color of the unfilled portion of the bar | lightgray
+
+@element px-progress-bar
+@blurb Element providing a progress bar.
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-progress-bar">
+  <template>
+    <style include="px-progress-bar-styles"></style>
+
+    <div id="background" class="background">
+      <div id="fill" class="fill">
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-progress-bar",properties:{value:{type:Number,value:0},infinite:{type:Boolean,value:!1,reflectToAttribute:!0},min:{type:Number,value:0,observer:"_setMinAriaLabel"},max:{type:Number,value:100,observer:"_setMaxAriaLabel"},_ratio:{type:Number,computed:"_computeRatio(value, min, max)",observer:"_updateProgress"}},attached:function attached(){this.setAttribute("role","progressbar")},_updateProgress:function _updateProgress(newRatio,oldRatio){if("undefined"!==typeof newRatio&&newRatio!==oldRatio){var fillEl=Polymer.dom(this.root).querySelector("#fill");;fillEl.setAttribute("style","transform:scaleX("+newRatio+")");this.setAttribute("aria-valuenow",this.value)}},_computeRatio:function _computeRatio(value,min,max){if("undefined"===typeof value||"undefined"===typeof min||"undefined"===typeof max)return;if(isNaN(value)||isNaN(min)||isNaN(max)||value<min){return 0}if(value>max){return 1}return(value-min)/(max-min)},_setMinAriaLabel:function _setMinAriaLabel(newMin,oldMin){if("undefined"!==typeof newMin&&newMin!==oldMin){this.setAttribute("aria-valuemin",newMin)}},_setMaxAriaLabel:function _setMaxAriaLabel(newMax,oldMax){if("undefined"!==typeof newMin&&newMax!==oldMax){this.setAttribute("aria-valuemax",newMax)}}});</script>
+</body></html>

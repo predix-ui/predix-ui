@@ -1,0 +1,169 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-timeline-node.html">
+<link rel="import" href="css/px-timeline-styles.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+
+<!--
+The px-timeline is a flexible interactive timeline component for visualizing a time based series of events and documenting details relevant to each event respectively.
+
+The timeline can be implemented either as simple or enhanced. A simple timeline supports limited node content that includes a title, date and text description. An enhanced timeline supports detailed and rich node content that includes title, date, author name, author title, percent completion, headline, text and media. Media can be either video (local source or embedded), audio (local source or embedded) or image. The nodes of enhanced timelines can be opened and closed. When closed the node content displayed includes the title and date. Enhanced timelines can be set up to have nodes open or closed by default.
+
+For both simple and enhanced timelines, the timeline can be set up to have nodes organized by generic time groupings that include Today, This Week, This Month, This Year and Last Year.
+
+The `timelineData` property should be an array of timeline node definition objects. Here is an example of a simple timeline node configuration:
+
+```
+{
+  "metaData": {
+    "editedDate": "Fri Nov 4 2016 18:28:10 GMT-0700 (PDT)"
+  },
+  "content": {
+    "title": "Building the industrial internet",
+    "body": [
+      {
+        "text": "On Tuesday, GE CEO Jeff Immelt and Intel CEO Brian Krzanich spoke at the Intel Developer Forum in San Francisco about the partnership and the future of the Industrial Internet. They noted this is a significant step in the two companies’ plan to eventually offer GE’s Industrial Internet software on Intel-powered devices."
+      }
+    ]
+  }
+}
+```
+
+An `enhanced` timeline supports more complex node configurations:
+
+```
+{
+  "metaData": {
+    "editedBy": "Google Chrome Developers",
+    "editedDate": "Tue Sep 20 2016 16:28:10 GMT-0700 (PDT)",
+    "editorImg": "img/immelt.jpg",
+    "editorTitle": "Chief Field Scientist",
+    "percent": "80",
+    "customIcon": "px-obj:wind-turbine" // the custom icon property allows the developer to override the default 'media type' icons of the enhanced timeline. if a timeline node has a customIcon defined it will take priority over the media type icons. the customIcon must be a px-icon.
+  },
+  "content": {
+    "title": "Lazy loading data with app-route",
+    "bodyType": "Video", // This is required  and needs to be set as VIDEO, AUDIO, IMAGE, TEXT, LIST or TABLE
+    "body": [
+      {
+        "video": "video/sample-video.mp4",
+        "headline": "This is the content headline",
+        "text": "Thanks to Rob Dobson",
+        "host": "local", // This is required for VIDEO and AUDIO body types. Its values can be set as LOCAL or REMOTE.
+        "isComment": true // If set to true, stylized quotation marks will precede the content body text.
+      }
+    ]
+  }
+}
+```
+
+Please see below examples of `content.body` schemas for each enhanced node type.
+
+bodyType = LIST
+```
+[{
+  "key": 'Topic 1', // String, isRequired
+  "value": 'Data Binding' // String, isRequired
+},
+{
+  "key": "Topic 2",
+  "value": "Data Flow"
+}]
+```
+
+bodyType = TEXT
+```
+
+[{
+  "text": "On Tuesday, GE CEO Jeff Immelt and Intel CEO Brian Krzanich spoke at the Intel Developer Forum in San Francisco about the partnership and the future of the Industrial Internet. They noted this is a significant step in the two companies’ plan to eventually offer GE’s Industrial Internet software on Intel-powered devices.",
+  "headline": "This is the content headline",
+  "isComment": true
+}]
+```
+
+bodyType = AUDIO
+```
+[{
+  "audio": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/267404963&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true",
+  "headline": "This is the content headline",
+  "text": "Polymer, Polymer Polymer",
+  "host": "remote",
+  "isComment": false
+}]
+```
+
+bodyType = VIDEO
+```
+[{
+  "video": "video/sample-video.mp4",
+  "headline": "This is the content headline",
+  "text": "Thanks to Rob Dobson",
+  "host": "local",
+  "isComment": true
+}]
+```
+
+bodyType = IMG
+```
+[{
+  "img": "https://s-media-cache-ak0.pinimg.com/564x/00/42/f1/0042f16c3b768f6c85899e0da8b5f6c6.jpg",
+  "headline": "This is the content headline",
+  "text": "This is a brand new polymer component",
+  "isComment": true
+}]
+```
+
+bodyType = TABLE
+```
+[{
+  "first": "Valentine",
+  "last": "Meyer",
+  "email": "valentinemeyer@scentric.com"
+ },
+  {
+  "first": "Silva",
+  "last": "Alexander",
+  "email": "silvaalexander@gmail.com"
+ },
+ {
+  "first": "Hopkins",
+  "last": "Wong",
+  "email": "hopkinswong@hotmail.com"
+}]
+```
+
+## Usage
+
+    <px-timeline
+      time-groups="true"
+      show-node-content="true"
+      enhanced="true"
+      timeline-data="{{data}}">
+    </px-timeline>
+
+## Styling
+The following variables are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-timeline-border-color` | Color for most of the lines and icons
+`--px-timeline-text-color` | Primary text color for headings and titles
+`--px-timeline-alt-text-color` | Secondary text color for dates and other supporting info
+
+@element px-timeline
+@blurb A flexible interactive timeline component
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-timeline">
+  <template>
+    <style include="px-timeline-styles"></style>
+    <div class="main-box flex--center flex--col">
+      <template is="dom-repeat" items="[[timelineData]]">
+        <px-timeline-node id="node" timeline-metadata="[[item.metaData]]" timeline-content="[[item.content]]" timeline-index="[[index]]" show-node-content="{{showNodeContent}}" show-time-groups="{{showTimeGroups}}" node-count="{{_nodeCount}}" date-format="{{dateFormat}}" enhanced="{{enhanced}}" editable="[[editable]]" compact-editor-info="[[compactEditorInfo]]" time-groups-used="[[_timeGroupsUsed]]" time-zone="[[timeZone]]" resources="[[resources]]" language="[[language]]" use-key-if-missing="[[useKeyIfMissing]]" formats="[[formats]]">
+        </px-timeline-node>
+      </template>
+    </div>
+  </template>
+</dom-module>
+<script>Polymer({is:"px-timeline",behaviors:[Polymer.AppLocalizeBehavior],properties:{timelineData:{type:Array,observer:"_timelineDataChanged"},showTimeGroups:{type:Boolean},enhanced:{type:Boolean},showNodeContent:{type:Boolean},_nodeCount:{type:Number},dateFormat:{type:String},compactEditorInfo:{type:Boolean,value:!1},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{TODAY:"TODAY","THIS WEEK":"THIS WEEK","THIS MONTH":"THIS MONTH","THIS YEAR":"THIS YEAR","LAST YEAR":"LAST YEAR"}}}},timeZone:{type:String,value:function value(){return Px.moment.tz.guess()}},editable:{type:Boolean,value:!1},_timeGroupsUsed:{type:Object,value:function value(){return{today:!1,thisWeek:!1,thisMonth:!1,thisYear:!1,lastYear:!1}}}},observers:["_showTimeGroupsChanged(showTimeGroups, localize)"],listeners:{"px-timeline-timegroup-used-update":"_updateTimegroupUsed"},_showTimeGroupsChanged:function _showTimeGroupsChanged(){this._timeGroupsUsed={today:!1,thisWeek:!1,thisMonth:!1,thisYear:!1,lastYear:!1}},_updateTimegroupUsed:function _updateTimegroupUsed(e){this._timeGroupsUsed[e.detail.key]=!0},_timelineDataChanged:function _timelineDataChanged(newValue,oldValue){if(newValue&&newValue.length){this._nodeCount=newValue.length}return this.timelineData=newValue}});</script>
+</body></html>

@@ -1,0 +1,56 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/px-data-grid-filter-section-styles.html">
+<link rel="import" href="px-data-grid-filter-entity.html">
+
+</head><body><dom-module id="px-data-grid-filter-section">
+  <template>
+    <style include="px-data-grid-filter-section-styles"></style>
+
+    <template is="dom-if" if="[[_hasAnyEntity(section, section.*)]]">
+      <div class="action-select">
+        <px-dropdown allow-outside-scroll="" items="[[_actions]]" button-style="bare--primary" disable-clear="" selected="{{section.action}}" hoist="">
+        </px-dropdown>
+        <span>[[localize('items that match')]]</span>
+        <px-dropdown allow-outside-scroll="" items="[[_operationTypes]]" button-style="bare--primary" disable-clear="" selected="{{section.operationType}}" hoist="">
+        </px-dropdown>
+      </div>
+    </template>
+    <template is="dom-if" if="[[!_hasAnyEntity(section, section.*)]]">
+      <div class="no-filters">[[localize('You have no filters')]].</div>
+    </template>
+
+    <template is="dom-repeat" items="{{section.entities}}" as="entity">
+      <div class="filter-entity">
+        <px-data-grid-filter-entity entity="{{entity}}" columns="[[columns]]" compact-mode="[[_isEntityCompact(_compactModeEnabled, index)]]" string-comparators="[[stringComparators]]" number-comparators="[[numberComparators]]" localize="[[localize]]">
+        </px-data-grid-filter-entity>
+        <button class="actionable" on-click="_removeEntity">
+          <px-icon icon="px-nav:close"></px-icon>
+        </button>
+      </div>
+    </template>
+
+    <button class="btn btn--bare--primary add-filter" on-click="_addEntity">
+      <px-icon icon="px-utl:add"></px-icon> [[localize('Add filter')]]
+    </button>
+  </template>
+
+  <script>{var DataGridFilterSectionElement=function(_Polymer$Element){babelHelpers.inherits(DataGridFilterSectionElement,_Polymer$Element);function DataGridFilterSectionElement(){babelHelpers.classCallCheck(this,DataGridFilterSectionElement);return babelHelpers.possibleConstructorReturn(this,babelHelpers.getPrototypeOf(DataGridFilterSectionElement).apply(this,arguments))}babelHelpers.createClass(DataGridFilterSectionElement,[{key:"ready",value:function ready(){babelHelpers.get(babelHelpers.getPrototypeOf(DataGridFilterSectionElement.prototype),"ready",this).call(this);this._boundedRemoveEntity=this._removeEntity.bind(this)}},{key:"_localizeChanged",value:function _localizeChanged(localize){var _this=this;if(!localize){return}this._actions.forEach(function(action,index){_this.set("_actions.".concat(index,".val"),localize(action.val))});this._operationTypes.forEach(function(type,index){_this.set("_operationTypes.".concat(index,".val"),localize(type.val))})}},{key:"_addEntity",value:function _addEntity(){var _this2=this;this.push("section.entities",{});Polymer.RenderStatus.afterNextRender(this,function(){_this2.dispatchEvent(new CustomEvent("update-modal-focusable-elements",{bubbles:!0,composed:!0}))})}},{key:"_removeEntity",value:function _removeEntity(event){this.splice("section.entities",this.section.entities.indexOf(event.model.entity),1)}},{key:"_hasAnyEntity",value:function _hasAnyEntity(section){return 0<section.entities.length}},{key:"_hasEntityWithCustomPresentation",value:function _hasEntityWithCustomPresentation(entity){if(!entity||!entity.columnId||"-any-"===entity.columnId){return!1}else{var column=this.columns.filter(function(column){return column.id===entity.columnId})[0];if(!column){return!0}else{return"date"===column.type||"number"===column.type&&column.minBound!==void 0&&column.maxBound!==void 0}}}},{key:"_isEntityCompact",value:function _isEntityCompact(compactModeEnabled,index){return compactModeEnabled&&0<index}},{key:"_checkCompactMode",value:function _checkCompactMode(compactMode){var _this3=this;if(!this.compactMode){this._compactModeEnabled=!1;return}this._compactModeEnabled=this.section&&this.section.entities&&0==this.section.entities.filter(function(e){return _this3._hasEntityWithCustomPresentation(e)}).length}}],[{key:"is",get:function get(){return"px-data-grid-filter-section"}},{key:"properties",get:function get(){return{section:{type:Object},_actions:{type:Array,value:[{key:"show",val:"Show"},{key:"hide",val:"Hide"},{key:"highlight",val:"Highlight"}]},_operationTypes:{type:Array,value:[{key:"all",val:"all"},{key:"any",val:"any"}]},columns:{type:Array},compactMode:{type:Boolean,value:!1},stringComparators:{type:Array},numberComparators:{type:Array},_compactModeEnabled:{type:Boolean,value:!1,reflectToAttribute:!0},localize:Function}}},{key:"observers",get:function get(){return["_localizeChanged(localize)","_checkCompactMode(compactMode, section, section.entities, section.entities.*)"]}}]);return DataGridFilterSectionElement}(Polymer.Element);customElements.define(DataGridFilterSectionElement.is,DataGridFilterSectionElement);window.Predix=window.Predix||{};Predix.DataGridFilterSectionElement=DataGridFilterSectionElement}</script>
+
+</dom-module>
+</body></html>

@@ -1,0 +1,34 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Wraps around `px-demo-snippet` to show code sample.
+
+##### Usage
+
+    <px-demo-component-snippet></px-demo-component-snippet>
+
+@element px-demo-component-snippet
+@blurb Wraps around `px-demo-snippet` to show code sample.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-component-snippet">
+  <template>
+    <style include="px-demo-styles"></style>
+
+    <px-demo-snippet element-properties="{{_shallowProps}}" element-name="{{elementName}}" links-includes="[[linksIncludes]]" scripts-includes="[[scriptsIncludes]]" polygit-includes="[[polygitIncludes]]" code-link="[[codepenLink]]" suppress-property-values="[[suppressPropertyValues]]" no-indentation="[[noIndentation]]" hide-codepen="[[hideCodepen]]">
+    </px-demo-snippet>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-component-snippet",properties:{elementName:{type:String,value:""},elementProperties:{type:Object,value:function value(){return{}}},linksIncludes:{type:Array,value:function value(){return{}}},scriptsIncludes:{type:Array,value:function value(){return{}}},polygitIncludes:{type:Array,value:function value(){return{}}},codepenLink:{type:String},_shallowProps:{type:Object,value:function value(){return{}}},suppressPropertyValues:{type:Array,value:function value(){return[]}},noIndentation:{type:Boolean,value:!1},hideCodepen:{type:Boolean,value:!1}},observers:["_assignShallowProps(elementProperties, elementProperties.*)"],_assignShallowProps:function _assignShallowProps(props){if(props&&"object"===babelHelpers.typeof(props)&&Object.keys(props).length){for(var propKeys=Object.keys(props),shallow={},i=0,val;i<propKeys.length;i++){val=props[propKeys[i]].hasOwnProperty("value")?props[propKeys[i]].value:"";if("string"===typeof val){val=val.replace(/([a-zA-Z]+=)"([^"]*)"/g,function(fullMatch,attrName,attrVal){return attrName+"'"+attrVal.replace(/\'/g,"\"")+"'"})}shallow[propKeys[i]]=val}this.set("_shallowProps",{});this.set("_shallowProps",shallow)}}});</script>
+</body></html>

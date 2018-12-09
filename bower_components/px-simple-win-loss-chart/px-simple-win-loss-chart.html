@@ -1,0 +1,37 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-simple-chart-common-behavior/px-simple-chart-common-behavior.html">
+<link rel="import" href="css/px-simple-win-loss-chart-styles.html">
+
+<!--
+
+### Usage
+
+  <px-simple-win-loss-chart chart-data="[1,-2,3]"></px-simple-win-loss-chart>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-win-loss-border-color` | Border color for the chart
+`--px-win-loss-background-color` | Background color for the chart
+`--px-win-loss-positive-fill-color` | Fill color for positive bars
+`--px-win-loss-negative-fill-color` | Fill color for negative bars
+
+@element px-simple-win-loss-chart
+@blurb A simple win-loss chart for displaying in KPI dashboards
+@homepage index.html
+@demo demo.html
+-->
+</head><body><dom-module id="px-simple-win-loss-chart">
+  <script type="text/javascript" src="../es6-promise/es6-promise.min.js"></script>
+  <script type="text/javascript" src="../d3/d3.js"></script>
+
+  <template>
+    <style include="px-simple-win-loss-chart-styles"></style>
+    <svg class="px-simple-win-loss-chart-svg"></svg>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-simple-win-loss-chart",behaviors:[PxSimpleChartCommonBehavior.common],properties:{width:{type:String,value:"300"},height:{type:String,value:"50"},chartData:{type:Array,observer:"_drawChart",value:function value(){return[2,6,-5,4,-3,2,7]}}},_drawChartDebounced:function _drawChartDebounced(){var that=this;if(this.chartData&&0<this.chartData.length){this._clearSVG(this.svg);this._setDimensions();var setSizesPromise=this._getSetSizesPromise();setSizesPromise.then(function(){that._setScales();that._drawBars();that._addStyleScope(that.svg)})}else{var timeout=setTimeout(function(){that._drawChartDebounced()},100)}},_getSetSizesPromise:function _getSetSizesPromise(){var that=this;return new Promise(function(resolve,reject){that.gridColumns=2*that.chartData.length-1;that.gridWidth=Math.round(that.widthValue/that.gridColumns);that.chartWidth=that.gridWidth*that.gridColumns;that.widthRemainder=that.widthValue%that.gridWidth;that.chartHeight=that.heightValue;that.svg.attr("width",that.chartWidth).attr("height",that.heightValue);resolve(!0)})},_setScales:function _setScales(){this.yScale=d3.scale.linear().domain([0<d3.min(this.chartData)?0:d3.min(this.chartData),d3.max(this.chartData)]).range([this.chartHeight,0])},_drawBars:function _drawBars(){var that=this;this.chartData.forEach(function(value,i){var x=2*that.gridWidth*i,y=0>value?that.yScale(0):that.yScale(value),barHeight=Math.abs(that.yScale(value)-that.yScale(0)),colorClass=0>value?"px-negative-fill":"px-positive-fill";that._drawBar(x,y,that.gridWidth,barHeight,colorClass)});this.svg.append("line").attr("class","px-simple-win-loss-chart bar-chart-bottom-line").attr("x1",0).attr("y1",this.yScale(0)).attr("x2",this.chartWidth).attr("y2",this.yScale(0))},_drawBar:function _drawBar(x,y,width,height,colorClass){this.svg.append("rect").attr("class","bar "+colorClass).attr("x",x).attr("y",y).attr("width",width).attr("height",height)}});</script>
+</body></html>

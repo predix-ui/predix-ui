@@ -1,0 +1,47 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-app-helpers/px-app-asset/px-app-asset-behavior-graph.html">
+<link rel="import" href="../px-app-helpers/px-app-asset/px-app-asset-behavior-selectable.html">
+<link rel="import" href="../px-app-helpers/px-app-asset/px-app-asset-behavior-activatable.html">
+<link rel="import" href="css/px-tree-styles.html">
+<link rel="import" href="px-tree-node.html">
+<link rel="import" href="px-tree-behavior.html">
+
+<!--
+### Usage
+```
+  <px-tree items='[{"label":"Label","id":"label001","icon":"px-utl:confirmed","children":[{"label":"Child","id":"child001"}]}]'></px-tree>
+```
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-tree-text-color--hover` | Text color for hovered tree nodes
+`--px-tree-background-color--hover` | Background color for hovered tree nodes
+`--px-tree-text-color--selected` | Text color for selected tree nodes
+`--px-tree-background-color--selected` | Background color for selected tree nodes
+`--px-tree-text-color--disabled` | Text color for non-selectable / disabled nodes
+
+@element px-tree
+@blurb Generic tree component
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-tree">
+  <template>
+    <style include="px-tree-styles"></style>
+
+    <ul>
+      <template is="dom-repeat" items="[[__rootItems]]">
+        <px-tree-node label="[[_getItemProp(item, keys.label)]]" items="[[_getChildren(item, _assetGraph, _childrenUpdated)]]" item="[[item]]" keys="[[keys]]" is-active="[[_isItemActive(active, activeMeta, item, multiActivate, active.*)]]" is-selected="[[_isItemSelected(selected, item, multiSelect, selected.*)]]" active="[[active]]" active-meta="[[activeMeta]]" selected="[[selected]]" can-open="[[_hasChildren(item, _assetGraph, _childrenUpdated)]]" disable-branch-select="[[disableBranchSelect]]" multi-select="[[multiSelect]]" multi-activate="[[multiActivate]]" icon="[[_getItemProp(item, keys.icon)]]" children-updated="[[_childrenUpdated]]" asset-graph="[[_assetGraph]]">
+        </px-tree-node>
+      </template>
+    </ul>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-tree",behaviors:[PxAppBehavior.AssetGraph,PxAppBehavior.AssetSelectable,PxAppBehavior.AssetActivatable,PxTreeBehavior],listeners:{"px-tree-node-tapped":"_handleNodeTapped","px-app-asset-children-updated":"_handleChildrenUpdated"},properties:{multiSelect:{type:Boolean,value:!1,observer:"_toggleMultiSelect"},multiActivate:{type:Boolean,value:!1,observer:"_toggleMultiActivate"},disableBranchSelect:{type:Boolean,value:!1},_childrenUpdated:{type:Boolean,value:null}},_handleChildrenUpdated:function _handleChildrenUpdated(e){this._childrenUpdated=!0;this._childrenUpdated=!1},_handleNodeTapped:function _handleNodeTapped(e){var _e$detail=e.detail,shift=_e$detail.shift,ctrl=_e$detail.ctrl,item=_e$detail.item,isBranch=_e$detail.isBranch,isActive=_e$detail.isActive,isSelected=_e$detail.isSelected,isIcon=_e$detail.isIcon;if(isBranch&&!isActive){this.activate(item)}if(isBranch&&isActive){if(!this.multiActivate){this.activate(this._assetGraph.getInfo(item).parent)}else{this.deactivate(item)}}if(isBranch&&this.disableBranchSelect||isIcon||!this._assetGraph.isSelectable(item))return;if(isSelected&&(ctrl||shift)){this.deselect(item);return}if(!ctrl&&!shift){this.select(null)}if(this.multiSelect&&shift){var index1=this._assetGraph.getInfo(item).siblings.indexOf(item),index2=this._assetGraph.getInfo(item).siblings.indexOf(this._lastSelection.item);if(-1<index2&&index2<index1){this._assetGraph.getInfo(item).siblings.slice(index2+1,index1+1).forEach(function(item){this.select(item)}.bind(this))}else if(-1<index2){this._assetGraph.getInfo(item).siblings.slice(index1,index2).forEach(function(item){this.select(item)}.bind(this))}}else{this.select(item)}}});</script>
+</body></html>

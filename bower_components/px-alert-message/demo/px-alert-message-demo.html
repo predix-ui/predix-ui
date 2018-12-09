@@ -1,0 +1,77 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-alert-message.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-alert-message-demo">
+  <template>
+ 
+
+    <!-- Header -->
+    <px-demo-header module-name="px-alert-message" description="Alert Messages appear in a queue within the message container. Each message consists of an icon, title,
+          body, and action. See Alert Icons for more on the default icons available –- a custom icon can also be defined.
+          The title appears in bold, whereas the message body text does not. The action on the right will appear
+          as an “X” for dismissing the alert, an “OK” button for acknowledging it, or an “Open” button if a URL is specified.
+          If Auto Dismiss is enabled, the alert will disappear on its own after a configurable delay period. The
+          text on the alert messages should be kept short, ideally around three lines." tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+
+          <px-alert-message visible="{{props.visible.value}}" type="{{props.type.value}}" message-title="{{props.messageTitle.value}}" message="{{props.message.value}}" auto-dismiss="{{props.autoDismiss.value}}" action="{{props.action.value}}" hide-severity="{{props.hideSeverity.value}}" hide-badge="{{props.hideBadge.value}}">
+          </px-alert-message>
+
+          <br><br><a href$="[[importPath]]demo.html" target="_blank">Full-screen demo with several px-alert-messages in a queue.</a>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-alert-message">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-alert-message" hide="{{hideLocalize}}"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-alert-message-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Basic",configReset:!0},{configName:"Long message",visible:!0,type:"error",messageTitle:"This message title is too long. The user will need to expand it by clicking 'Show More'.",message:"We understand that sometimes long messages are needed but it is not a best practice to have more than three lines of text in the alert message.",autoDismiss:"0",action:"dismiss",language:"en"},{configName:"Action",visible:!0,type:"important",messageTitle:"Oh snap!",message:"Change a few things up.",autoDismiss:"0",action:"https://www.predix.io/",language:"en"},{configName:"More messages",visible:!0,type:"more",messageTitle:"",message:"15",autoDismiss:"0",action:"dismiss",language:"en"}]}},hideLocalize:{type:Array,value:function value(){return["localize","resources","useKeyIfMissing","formats","pathToResources","loadResources","app-localize-resources-error","app-localize-resources-loaded"]}}},demoProps:{visible:{type:Boolean,defaultValue:!0,inputType:"toggle"},type:{type:String,defaultValue:"information",inputType:"dropdown",inputChoices:["important","warning","error","information","unknown","custom","more"]},action:{type:String,defaultValue:"dismiss",inputType:"dropdown",inputChoices:["dismiss","acknowledge","https://www.predix.io/","https://www.google.com/"]},messageTitle:{type:String,defaultValue:"Well done!",inputType:"text",inputPlaceholder:"Well done!"},message:{type:String,defaultValue:"You successfully completed a difficult task.",inputType:"text",inputPlaceholder:"You successfully completed a difficult task."},autoDismiss:{type:Number,defaultValue:"0",inputType:"text",inputPlaceholder:"0"},hideSeverity:{type:Boolean,defaultValue:!1,inputType:"toggle"},hideBadge:{type:Boolean,defaultValue:!1,inputType:"toggle"}}});</script>
+</body></html>

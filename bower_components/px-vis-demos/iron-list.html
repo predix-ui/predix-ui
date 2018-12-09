@@ -1,0 +1,38 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!DOCTYPE html><html><head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Using iron-list for lot of charts</title>
+        <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+        <!--<script src="../webcomponentsjs/webcomponents-lite.js"></script>-->
+        <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+        <script type="text/javascript">(function(){"use strict";window.WebComponents=window.WebComponents||{};var onload=function onload(){var fire=function fire(){requestAnimationFrame(function(){window.WebComponents.ready=!0;document.dispatchEvent(new CustomEvent("WebComponentsReady",{bubbles:!0}))})};if("loading"!==document.readyState){fire()}else{document.addEventListener("readystatechange",function wait(){fire();document.removeEventListener("readystatechange",wait)})}},webComponentsSupported="registerElement"in document&&"import"in document.createElement("link")&&"content"in document.createElement("template");if(!webComponentsSupported){var script=document.createElement("script");script.async=!0;script.src="../webcomponentsjs/webcomponents-lite.js";script.onload=onload;document.head.appendChild(script)}else{onload()}})();</script>
+        <link rel="import" href="../px-theme/px-theme-styles.html">
+        <!-- <link rel="import" href="../px-dark-theme/px-dark-theme-styles.html"> -->
+        </head><body><custom-style>
+          <style include="px-theme-styles" is="custom-style"></style>
+        </custom-style>
+
+        <link rel="import" href="px-vis-demos-iron-list-module.html">
+
+    
+
+    
+      <px-vis-demos-iron-list-module></px-vis-demos-iron-list-module>
+  
+
+
+</body></html>

@@ -1,0 +1,20 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+
+<!--
+
+### Usage
+
+    <px-validator validation-method="isNumber" import="px-example-validator.html"></px-validator>
+
+@element px-validator
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-validator">
+  <template>
+    <slot></slot>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-validator",properties:{import:{type:String,value:""},validators:{type:Array,value:function value(){return[]}},multiStepValidation:{type:Array,value:function value(){return[]}},validationMethod:{type:String,value:""},arguments:{type:Array,value:function value(){return[]}}},observers:["_validationMethodChanged(multiStepValidation,validationMethod)"],_validationMethodChanged:function _validationMethodChanged(){if(this.validationMethod===void 0||this.multiStepValidation===void 0)return;this._importHref()},_importHref:function _importHref(){this.validators=[];this.importHref(this.import,function(e){if(this.validationMethod&&window.PxValidators[this.validationMethod]){this.validators[0]=window.PxValidators[this.validationMethod]}else if(this.multiStepValidation){this.multiStepValidation.forEach(function(method){this.validators.push(window.PxValidators[method])}.bind(this))}this.fire("px-validator-loaded")},function(e){console.error("Error, could not load "+this.import)})}});</script>
+</body></html>

@@ -1,0 +1,50 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-view-header/px-view-header.html">
+<link rel="import" href="../px-deck-selector/px-deck-selector.html">
+
+<!-- Import style module -->
+<link rel="import" href="css/px-demo-styles.html">
+
+<!--
+Creates a container for a collection of demos.
+
+### Usage
+
+    <px-demo-collection></px-demo-collection>
+
+@element px-demo-collection
+@blurb Creates a container for a collection of demos.
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-demo-collection">
+  <template>
+    <style include="px-demo-styles"></style>
+    <section class="demo-collection__header">
+      <px-view-header use-deck-selector="true">
+        <!-- CAN BE USED TO SHOW A "BACK TO PARENT COMPONENT" IF WANTED -->
+        <!--
+        <template is="dom-if" if="{{!_isInitialDeck(_selectedDeck)}}">
+          <a id="left" class="actionable caps" on-tap="_handleBackToInitial">&lt; back to {{demos.0.name}}</a>
+        </template>
+        -->
+        <div id="left" slot="left" class="flex flex--row">
+          <p class="demo-collection__header__text">View Children:</p>
+          <px-deck-selector class="demo-collection__header__selector" decks="{{_decks}}" selected-deck="{{_selectedDeck}}"></px-deck-selector>
+        </div>
+
+      </px-view-header>
+    </section>
+
+    <section class="demo-collection__body" id="demoCollection">
+    </section>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-demo-collection",properties:{demos:{type:Array},chosenDemoName:{type:String,notify:!0,observer:"_handleChosenDemoNameChange"},_decks:{type:Array,computed:"_computeDecks(demos)"},_selectedDeck:{type:Object,observer:"_handleSelectedDeckChange"}},observers:["_setInitialDemo(demos)"],_setInitialDemo:function _setInitialDemo(demos){var currentDemoName=this.get("currentDemoName");if(!currentDemoName&&demos&&Array.isArray(demos)&&demos.length){this.set("chosenDemoName",this.get("demos.0.name"))}},_handleChosenDemoNameChange:function _handleChosenDemoNameChange(chosenDemoName){if("string"===typeof chosenDemoName&&chosenDemoName.length){var chosenDemo=this.$$("px-demo-goes-here[name=\""+chosenDemoName+"\"]");if(!chosenDemo){var demoDetails=this._findDemoByName(chosenDemoName),newDemo=this._createDemoNode(demoDetails.name,demoDetails.tagName);this.$.demoCollection.appendChild(newDemo)}this._showDemo(chosenDemoName);this._syncChosenDemoContext(chosenDemoName)}},_findDemoByName:function _findDemoByName(demoName){for(var demos=this.get("demos")||[],demoObj,i=0,len=demos.length;i<len;i++){if(demos[i].name===demoName){demoObj=demos[i];break};}return demoObj||void 0},_findDeckByName:function _findDeckByName(deckName){for(var decks=this.get("_decks")||[],deckObj,i=0,len=decks.length;i<len;i++){if(decks[i].name===deckName){deckObj=decks[i];break};}return deckObj||void 0},_createDemoNode:function _createDemoNode(name,tagName){var wrapperEl=document.createElement("px-demo-goes-here");wrapperEl.setAttribute("name",name);wrapperEl.setAttribute("visible",!1);var el=document.createElement(tagName);wrapperEl.appendChild(el);return wrapperEl},_showDemo:function _showDemo(chosenDemoName){for(var demos=Polymer.dom(this.root).querySelectorAll("px-demo-goes-here"),i=0,len=demos.length,shouldBeVisible;i<len;i++){shouldBeVisible=demos[i].getAttribute("name")===chosenDemoName;if(shouldBeVisible){demos[i].removeAttribute("style");continue}demos[i].setAttribute("style","display:none;")}},_computeDecks:function _computeDecks(demos){if(demos&&Array.isArray(demos)&&demos.length){for(var decks=[],i=0,len=demos.length;i<len;i++){decks.push({id:i,name:demos[i].name,tagName:demos[i].tagName})}return decks}},_handleSelectedDeckChange:function _handleSelectedDeckChange(selectedDeck){var chosenDemoName=this.get("chosenDemoName");if(chosenDemoName&&selectedDeck.name&&chosenDemoName!==selectedDeck.name){this.set("chosenDemoName",selectedDeck.name)}},_isInitialDeck:function _isInitialDeck(selectedDeck){return selectedDeck&&"object"===babelHelpers.typeof(selectedDeck)&&0===selectedDeck.id},_handleBackToInitial:function _handleBackToInitial(){this.set("chosenDemoName",this.get("demos.0.name"))},_syncChosenDemoContext:function _syncChosenDemoContext(chosenDemoName){var selectedDeck=this.get("_selectedDeck");if(!selectedDeck||!selectedDeck.name||selectedDeck.name!==chosenDemoName){var newDeck=this._findDeckByName(chosenDemoName);this.set("_selectedDeck",newDeck)}}});</script>
+</body></html>

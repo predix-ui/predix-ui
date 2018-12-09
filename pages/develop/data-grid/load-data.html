@@ -1,0 +1,129 @@
+<html><head><link defer="" rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-data-grid-load-data">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#structure-data', activeAnchor)]]" href="#" anchor="#structure-data" on-tap="_handleAnchorTapped">Structure data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#load-local-data', activeAnchor)]]" href="#" anchor="#load-local-data" on-tap="_handleAnchorTapped">Load local data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#update-add-replace-local-data', activeAnchor)]]" href="#" anchor="#update-add-replace-local-data" on-tap="_handleAnchorTapped">Update, add, replace local data</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#load-remote-data', activeAnchor)]]" href="#" anchor="#load-remote-data" on-tap="_handleAnchorTapped">Load remote data</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Data Grid: Load Data</h2>
+          
+          
+<p>The data grid renders an array of objects in rows. Apps can decide when and how to load that data using the <code class="code code--inline">tableData</code> and <code class="code code--inline">remoteDataProvider</code> APIs.</p>
+<h3 id="structure-data">Structure data</h3>
+<p>Each row in the grid should be represented as a JavaScript object. The object’s keys will become the grid columns. The object’s values will be rendered as grid cells.</p>
+<p>The structure of each object can be flexible depending on the use case. Objects can contain extra data that will not be rendered by the grid. See the “Define custom columns” section below for information on showing and hiding columns.</p>
+<h4>Example: Inspection audit app</h4>
+<p>Plant operators can load a list of the turbines in their facility and review the last inspection date for each turbine. Turbine records are stored in table in the app’s NoSQL-style database. The following JSON is a single record stored in the database:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+{
+  "id": "1A344",
+  "type": "turbine",
+  "floor": "1",
+  "section": "A",
+  "lastInspection": "2018-01-13 08:21:00"
+}
+
+      </script>
+    </px-catalog-code-snippet><p>The app backend exposes an API endpoint that returns a list of turbines as JSON:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+[
+  { "id" : "1A344", ... },
+  { "id" : "1A345", ... },
+  { "id" : "1A346", ... }
+]
+
+      </script>
+    </px-catalog-code-snippet><p>The turbine list is fetched from the API and passed to the data grid. The grid will display 3 rows (one for each turbine) and 5 columns (one for each key in the turbine record):</p>
+<p><catalog-picture img-src="../../img/developer-guides/data-grid/load-data-inspection-audit" img-alt="Data grid displaying 3 rows, one for each turbine, and 5 columns, one for each key in the turbine record">
+</catalog-picture></p>
+<h3 id="load-local-data">Load local data</h3>
+<p>Load data in your app, format it as an array of objects, and set it to the data grid’s <code class="code code--inline">tableData</code> property to render it.</p>
+<p>This approach is known as a “local” data source. Local refers to your app loading and updating the data from a data source, like a backend API or static files hosted on a CDN. Your app will likely use AJAX to make calls to a REST API for some data in JSON format, parse the data, and give it to the grid. This is the simplest way to start displaying data and covers most use cases. See the “Advanced: Remote data provider” section below for a different approach.</p>
+<h4>Example: User management app</h4>
+<p>An administrator needs to load a list of users to verify their names and email addresses are correct. The app backend exposes an API endpoint that returns the list of users as JSON:</p>
+<px-catalog-code-snippet language="json">
+      <script type="text/code">
+[
+  { "name": "Ada Lovelace", "email": "ada@example.com" },
+  { "name": "Grace Hopper", "email": "grace@example.com" },
+  { "name": "Mae Jemison", "email": "mae@example.com" },
+  { "name": "Sally Ride", "email": "sally@example.com" }
+]
+
+      </script>
+    </px-catalog-code-snippet><p>The app frontend fetches the user list and sets the data grid <code class="code code--inline">tableData</code> property:</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+// `fetchUserData()` returns a promise that resolves with
+// the user list JSON data parsed into an array of objects
+fetchUserData().then(data => {
+  const grid = document.querySelector('px-data-grid');
+  grid.tableData = data;
+});
+
+      </script>
+    </px-catalog-code-snippet><p>The grid will display 4 rows, one for each user:</p>
+<p><catalog-picture img-src="../../img/developer-guides/data-grid/load-data-user-management" img-alt="Data grid displaying 4 rows, one for each user">
+</catalog-picture></p>
+<h3 id="update-add-replace-local-data">Update, add, replace local data</h3>
+<p>Apps using the local data source approach can update the <code class="code code--inline">tableData</code> property at any time to add new records, update existing records, or replace the data completely with a new set of data. Its recommended that <code class="code code--inline">tableData</code> is copied to a new array reference after it is updated to ensure the grid refreshes its data.</p>
+<px-catalog-code-snippet language="javascript">
+      <script type="text/code">
+function addRowToGrid() {
+  const grid = this.querySelector('px-data-grid');
+  /* The ES6 spread operator `...` creates a new array reference */
+  grid.tableData = [...grid.tableData, { /* new row data here */ }];
+};
+
+      </script>
+    </px-catalog-code-snippet><h3 id="load-remote-data">Load remote data</h3>
+<p>The data grid can load data on demand from a “remote” data source like a backend API using the <code class="code code--inline">remoteDataProvider</code> property. The grid loads data lazily, requesting new records when the user scrolls past all the loaded data and hits the end of the table. This is a powerful feature that can be used to load large amounts of data from a remote source on demand, increasing performance on the front-end and reducing stress on backend services.</p>
+<p>See the <a href="https://github.com/predixdesignsystem/px-data-grid/blob/9c4819aab9416ebd6f64b3864ee52c43ccf61696/demo/px-data-grid-remote-data-provider-demo.html#L151-L189">remote data provider</a> demo page source code for an example of how to use this feature.</p>
+<p><strong>Note:</strong> The local and remote data source APIs cannot be used together. Your app should use the <code class="code code--inline">tableData</code> API for local data or <code class="code code--inline">remoteDataProvider</code> API for remote data, but not both.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-data-grid-load-data",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

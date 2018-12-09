@@ -1,0 +1,79 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/px-demo-code-editor.html">
+
+<!-- Imports for this component -->
+
+<link rel="import" href="../px-accordion.html">
+<link rel="import" href="../px-accordion-group.html">
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-accordion-demo">
+  <template>
+
+
+    <!-- Header -->
+    <px-demo-header module-name="px-accordion" description="The px-accordion component provides expandable and collapsible subsection headers for a page. An optional &quot;action&quot; icon on the right side will fire an event when pressed." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}" config="[[chosenConfig]]"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component" style="width:100%;">
+        <px-accordion-group>
+        <px-accordion header-value="{{props.headerValue.value}}" show-action="{{props.showAction.value}}" status="{{props.status.value}}" icons="{{props.icons.value}}" disabled="{{props.disabled.value}}">
+          Accordion content goes here.
+        </px-accordion>
+        <px-accordion header-value="{{props.headerValue.value}}" show-action="{{props.showAction.value}}" status="{{props.status.value}}" icons="{{props.icons.value}}" disabled="{{props.disabled.value}}">
+          Accordion content goes here.
+        </px-accordion>
+        </px-accordion-group>
+
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-accordion">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-accordion"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-accordion-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"Default",configReset:!0}]}}},demoProps:{icons:{type:Object,defaultValue:{more:"px-utl:chevron-right",less:"px-utl:chevron",action:[{icon:"px-utl:edit"},{icon:"px-utl:delete"}]},inputType:"code:JSON"},headerValue:{type:String,defaultValue:"Header Caption",inputType:"text"},status:{type:String,defaultValue:"Last Updated: 3 Days Ago",inputType:"text"},disabled:{type:Boolean,defaultValue:!1,inputType:"toggle"},showAction:{type:Boolean,defaultValue:!1,inputType:"toggle"},parentComponent:{type:String,defaultValue:["<px-accordion-group>","</px-accordion-group>"]}},ready:function ready(){window.addEventListener("px-accordion-action-clicked",function(e){e.target.status="Action icon clicked!"})}});</script>
+</body></html>

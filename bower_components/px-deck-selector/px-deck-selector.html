@@ -1,0 +1,56 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-utility.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-deck-selector-styles.html">
+
+<!--
+
+### Usage
+
+    <px-deck-selector decks="[{...}]" selected-deck="{...}"></px-deck-selector>
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description
+----------------|-------------
+`--px-deck-selector-border-color` | Border color for the dropdown
+`--px-deck-selector-shadow-color` | Shadow color for the dropdown
+`--px-deck-selector-background-color` | Background color for the dropdown
+`--px-deck-selector-text-color` | Text color for the dropdown items
+`--px-deck-selector-background-color--hover` | Background color for the dropdown items when hovered
+`--px-deck-selector-text-color--hover` | Text color for the dropdown items when hovered
+`--px-deck-selector-background-color--selected` | Background color for the dropdown item that is selected
+`--px-deck-selector-text-color--selected` | Text color for the dropdown item that is selected
+`--px-deck-selector-li-border` | Border color for the separator between decks and actions
+
+@element px-deck-selector
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-deck-selector">
+  <template>
+    <style include="px-deck-selector-styles"></style>
+
+    <div id="trigger" class$="dropdown-text actionable actionable--action [[_hideChevronIfNoDecks(decks)]]" on-tap="_handleTriggerTapped">
+      <span class="truncate" title="{{selectedDeck.name}}">{{selectedDeck.name}}</span>
+      <px-icon icon="px-utl:chevron"></px-icon>
+    </div>
+    <ul id="dropdown" class$="dropdown-menu list-bare [[_getDropdownClassName(_isDropdownOpen)]]">
+      <template is="dom-repeat" items="{{decks}}" as="deck">
+        <li on-tap="_handleDeckTapped" class$="dropdown-menu__item [[_isDeckSelected(deck,selectedDeck)]]">
+          <span class="truncate" title="{{deck.name}}">{{deck.name}}</span>
+        </li>
+      </template>
+      <template is="dom-if" if="{{configOptions.edit}}">
+        <li on-tap="_handleDeckEventTapped" class="dropdown-menu__item dropdown-menu__item--deck-editor">
+          <span class="truncate" title="{{configOptions.actionType}}">{{configOptions.actionType}}</span>
+        </li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-deck-selector",properties:{decks:{type:Array,value:function value(){return[]},observer:"_selectFirstDeck"},selectedDeck:{type:Object,value:function value(){return{}},notify:!0},_isDropdownOpen:{type:Boolean,value:!1,observer:"_handleDropdownOpenedChanged"},configOptions:{type:Object,value:function value(){return{}},notify:!0}},created:function created(){this._handleDocumentTapped=this._handleDocumentTapped.bind(this)},_selectFirstDeck:function _selectFirstDeck(decks){if(Array.isArray(decks)&&0<decks.length){this.selectedDeck=decks[0]}},_handleDropdownOpenedChanged:function _handleDropdownOpenedChanged(opened){if(opened){document.addEventListener("click",this._handleDocumentClicked,!1)}else{document.removeEventListener("click",this._handleDocumentClicked)}},_handleDocumentTapped:function _handleDocumentTapped(e){var path=Polymer.dom(e).path,trigger=this.$.trigger,isTriggerInPath=0<path.filter(function(el){return el===trigger}).length;if(!isTriggerInPath){this._isDropdownOpen=!1}},_handleTriggerTapped:function _handleTriggerTapped(e){this._isDropdownOpen=!this._isDropdownOpen},_handleDeckTapped:function _handleDeckTapped(e){this.set("selectedDeck",e.model.deck);this._isDropdownOpen=!1},_handleDeckEventTapped:function _handleDeckEventTapped(e){this.fire("deckEvent",e.model.configOptions.eventType);this._isDropdownOpen=!1},_hideChevronIfNoDecks:function _hideChevronIfNoDecks(decks){if(!Array.isArray(decks)||0===decks.length){return"visuallyhidden"}},_isDeckSelected:function _isDeckSelected(deck,selectedDeck){return deck.name===selectedDeck.name?"selected":""},_getDropdownClassName:function _getDropdownClassName(opened){return opened?"":"visuallyhidden"}});</script>
+</body></html>

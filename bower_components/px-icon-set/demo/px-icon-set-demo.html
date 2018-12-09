@@ -1,0 +1,143 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!-- Common imports --><html><head><link rel="import" href="../../polymer/polymer.html">
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html">
+<link rel="import" href="../../px-demo/px-demo-footer.html">
+<link rel="import" href="../../px-demo/px-demo-configs.html">
+<link rel="import" href="../../px-demo/px-demo-props.html">
+<link rel="import" href="../../px-demo/px-demo-interactive.html">
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html">
+<link rel="import" href="../../px-demo/css/px-demo-content-helper-styles.html">
+
+<!-- Imports for this component -->
+<link rel="import" href="../../px-code-design/css/px-code-design-demo-styles.html">
+
+<link rel="import" href="../px-icon-set.html">
+
+<!-- Demo DOM module -->
+</head><body><dom-module id="px-icon-set-demo">
+  <template>
+    <style include="px-demo-content-helper-styles">px-icon{margin:5px;}.epsilon{margin-bottom:10px;margin-top:10px;}.column{width:25%;}@media (max-width: 800px){.column{width:100%;}}.cheatsheet{display:flex;margin-bottom:10px;margin-right:10px;align-items:center;}.cheatsheet px-icon{margin-right:10px;}</style>
+
+    <!-- Header -->
+    <px-demo-header module-name="px-icon-set" description="Wrapper for the Predix icon set which leverages px-icon. Please refer to the px-icon API and the full list of Predix icons below the demo." mobile="" tablet="" desktop="">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component slot="px-demo-component">
+        <px-icon id="demoIcon" icon="[[props.icon.value]]"></px-icon>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{_propsSubset(props.*)}}" element-name="px-icon" parent-name="px-icon-set" links-includes="[&quot;px-icon-set/px-icon-set.html&quot;,&quot;px-icon-set/px-icon.html&quot;]" no-indentation="">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <div class="demo-layout--center demo-u-pb+++ u-pt++">
+      <h3 class="beta">Cheatsheet</h3>
+
+      <template is="dom-repeat" items="[[iconSets]]" as="s">
+        <h3 class="delta">[[_returnTitle(s)]]</h3>
+        <div style="display:flex;flex-direction:row;flex-wrap:wrap;">
+          <template is="dom-repeat" items="[[iconCols]]" as="i">
+            <div class="column">
+              <template is="dom-repeat" items="[[_getItems(iconsGrouped.*, i, s)]]">
+                <span class="cheatsheet"><px-icon class="icon" icon="[[item]]"></px-icon>[[item]]</span>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+
+    <div class="demo-layout--center demo-u-pb+++ u-pt++">
+      <h4 class="gamma">How to use</h4>
+
+      <p>Please refer to the <a href="https://www.predix-ui.com/#/design/iconography">design guidelines</a> for more information on the proper use of iconography.</p>
+
+      <h5 class="epsilon">Step One</h5>
+      <p>Import px-icon-set.html, which imports both px-icon.html and ALL of the icon sets (Document, Utility, etc):</p>
+
+      <figure class="code">
+        <code>
+          &lt;link rel="import" href="../px-icon-set.html" /&gt;
+        </code>
+      </figure>
+
+      <p>Alternatively, you can import px-icon.html and a specific icon set individually:</p>
+
+      <figure class="code">
+        <code>
+          &lt;link rel="import" href="../px-icon.html" /&gt;<br>
+          &lt;link rel="import" href="../px-icon-set-utility.html" /&gt;
+        </code>
+      </figure>
+
+      <br>
+      <h5 class="epsilon">Step Two</h5>
+      <p>Use px-icon on your page with the icon attribute set to your icon. Unlike iron-icon, each icon will auto size to its default optimized size listed in the cheatsheet above. If you need to change the size, proceed to Step Three.</p>
+      <figure class="code">
+        <code>
+          &lt;px-icon icon="px-nav:favorite"&gt;&lt;/px-icon&gt;
+        </code>
+      </figure>
+
+      <px-icon icon="px-nav:favorite"></px-icon>
+
+      <br>
+      <h5 class="epsilon">Optional: Step Three</h5>
+      <p>You can customize the icon size and color with CSS variables. If you scale up the icon size, you may need to reduce the stroke width to compensate, and vice versa. Some of the fully enclosed px-icons can also be used with fill to indicate a toggled state, for instance.</p>
+      <figure class="code">
+        <code>
+          &lt;style&gt;
+          <br>
+            &nbsp;&nbsp;.custom-icon {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;--iron-icon-width: 50px;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;--iron-icon-height: 50px;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;stroke-width: 0.75;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;stroke: orange;       /* or "color: orange;" also works */ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;fill: yellow;<br>
+            &nbsp;&nbsp;}
+          <br>
+          &lt;/style&gt;
+          <br>
+          <br>
+          &lt;px-icon class="custom-icon" icon="px-nav:favorite"&gt;&lt;/px-icon&gt;
+        </code>
+      </figure>
+
+      <style>.custom-icon{--iron-icon-width:50px;--iron-icon-height:50px;stroke-width:0.75;stroke:orange;fill:yellow;}</style>
+      <px-icon class="custom-icon" icon="px-nav:favorite"></px-icon>
+
+    </div>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>Polymer({is:"px-icon-set-demo",properties:{props:{type:Object,value:function value(){return this.demoProps}},configs:{type:Array,value:function value(){return[{configName:"All icons",configShowProps:[]}]},iconCols:{type:Array},iconSets:{type:Array},iconsGrouped:{type:Object}}},demoProps:{icon:{type:String,defaultValue:"px-fea:analysis",inputType:"text"},useCustomSize:{type:Boolean,defaultValue:!1,inputType:"toggle",inputHelpText:"DEMO ONLY; activates the size field"},customSize:{type:String,defaultValue:"32px",inputType:"text",inputHelpText:"DEMO ONLY; in production, apply custom size via CSS --iron-icon variables"}},observers:["triggerSizeChange(props.customSize.value)"],ready:function ready(){this.dynamicLoadIcons()},dynamicLoadIcons:function dynamicLoadIcons(){var iconCol=[0,1,2,3],iconSets=["px-com","px-doc","px-fea","px-nav","px-obj","px-utl","px-vis"],meta=Polymer.Base.create("iron-meta",{type:"iconset"}),sets={};iconSets.forEach(function(set){var iconSet=meta.byKey(set),iconNames=iconSet.getIconNames(),numOfGroups=iconCol.length,iconsPerGroup=Math.ceil(iconNames.length/numOfGroups);grouped=[];for(var i=0,j=iconNames.length;i<j;i+=iconsPerGroup){grouped.push(iconNames.slice(i,i+iconsPerGroup))}sets[set]=grouped});this.set("iconsGrouped",sets);this.set("iconCols",iconCol);this.set("iconSets",iconSets)},_returnTitle:function _returnTitle(s){var t;switch(s){case"px-doc":t="Document: Small - 16px";break;case"px-utl":t="Utility: Small - 16px";break;case"px-nav":t="Navigation: Medium - 22px";break;case"px-com":t="Communication: Large - 32px";break;case"px-fea":t="Feature: Large - 32px";break;case"px-obj":t="Object: Large - 32px";break;case"px-vis":t="Visualization: Medium - 22px";break;}return t},_getItems:function _getItems(groups,i,s){if(groups.value&&groups.value[s]&&groups.value[s][i]){return groups.value[s][i]}},triggerSizeChange:function triggerSizeChange(value){if(this.props.useCustomSize.value){this.$.demoIcon.updateStyles({"--px-icon-default-width":value,"--px-icon-default-height":value})}},_propsSubset:function _propsSubset(){var o={icon:this.props.icon};return o}});</script>
+</body></html>

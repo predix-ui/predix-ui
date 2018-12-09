@@ -1,0 +1,60 @@
+<html><head><link defer="" rel="import" href="../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-design-input-fields">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#states', activeAnchor)]]" href="#" anchor="#states" on-tap="_handleAnchorTapped">States</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#validation', activeAnchor)]]" href="#" anchor="#validation" on-tap="_handleAnchorTapped">Validation</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#required', activeAnchor)]]" href="#" anchor="#required" on-tap="_handleAnchorTapped">Required</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Input Fields</h2>
+          
+          
+<p>Input Fields allow users to enter data into the application in different formats.</p>
+<h3 id="states">States</h3>
+<p>Input text form fields have multiple states: default, hover, pressed, and disabled. Different states help the user to navigate through the fields and know what information is still needed.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/forms/form_states" img-alt="Form field states" caption="Form field states"></catalog-picture></p>
+<h3 id="validation">Validation</h3>
+<p>Form validation is used to confirm that the user provides accurate and properly formatted information. It gives the user immediate and in-context feedback. While error messages are the most common, success messages are also used occasionally. Success, warning and error messages are are available to use.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/forms/form_validation" img-alt="Form field validation states" caption="Form field validation states"></catalog-picture></p>
+<h3 id="required">Required</h3>
+<p>Indicate required fields with an asterisk to the right of the field label.</p>
+<p><catalog-picture img-src="../../img/guidelines/design/forms/form_required" img-alt="Form field required fields" caption="Form field required fields"></catalog-picture></p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-design-input-fields",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

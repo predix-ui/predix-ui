@@ -1,0 +1,63 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-datetime-common/px-datetime-entry.html">
+<link rel="import" href="../px-datetime-common/px-datetime-behavior.html">
+<link rel="import" href="../px-datetime-common/px-datetime-validate.html">
+<link rel="import" href="../px-datetime-common/px-datetime-buttons.html">
+<link rel="import" href="../px-datetime-common/px-datetime-button-behavior.html">
+<link rel="import" href="../px-overlay/px-overlay-behavior.html">
+<link rel="import" href="css/px-datetime-field-styles.html">
+
+<!--
+The datetime components rely on [Moment.js](https://momentjs.com/) and [Moment Timezone](https://momentjs.com/timezone/).
+
+### Usage
+
+    <px-datetime-field></px-datetime-field>
+
+
+### Styling
+The following custom property is available for styling. Please also refer to px-forms-design for additional variables that can be used to customize the field's appearance.
+
+Custom property | Description
+:----------------|:-------------
+`--px-datetime-field-background-color` | Background color for field and validation
+`--px-datetime-field-height`  | Sets the height of the input field
+`px-input` css variables | Impacts the input text, border, and background colors
+`px-validation-error` css variables | Impacts validation error text and background color
+
+
+@element px-datetime-field
+@blurb Element providing solution to no problem in particular.
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-field">
+  <template>
+    <style include="px-datetime-field-styles"></style>
+
+    <div class$="{{_getWrapClass(allowWrap)}} flex">
+      <div class$="{{_getButtonMarginClass(showButtons, allowWrap)}}">
+        <div id="fieldWrapper" class$="{{_getWrapperClass(isValid, _forcedFailedClass, isSelected, _dropdownActive, _dropdownHoverFix)}}">
+          <template is="dom-if" if="[[!hideDate]]">
+            <px-datetime-entry id="date" class$="{{_getEntryDateClass(hideDate, hideTime, hideIcon)}}" date-or-time="Date" moment-format="{{dateFormat}}" moment-obj="{{momentObj}}" is-selected="{{isSelected}}" hide-icon="{{hideIcon}}" time-zone="{{timeZone}}" show-time-zone="{{_showTimeZoneInDate(hideTime, showTimeZone)}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" min-date="{{minDate}}" max-date="{{maxDate}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]" hoist="[[hoist]]" container-type="[[containerType]]">
+            </px-datetime-entry>
+          </template>
+          <template is="dom-if" if="[[!hideTime]]">
+            <px-datetime-entry id="time" date-or-time="Time" moment-format="{{timeFormat}}" show-time-zone="{{showTimeZone}}" moment-obj="{{momentObj}}" hide-icon="{{hideIcon}}" time-zone="{{timeZone}}" is-selected="{{isSelected}}" block-future-dates="{{blockFutureDates}}" block-past-dates="{{blockPastDates}}" min-date="{{minDate}}" max-date="{{maxDate}}" resources="[[resources]]" language="[[language]]" formats="[[formats]]" hoist="[[hoist]]" container-type="[[containerType]]">
+            </px-datetime-entry>
+          </template>
+        </div>
+        <template is="dom-if" if="[[_showValidation(isValid, hideValidationMessage)]]">
+          <div class="form-field__help validation-error dt-validation-text">{{_validationErrorMessage}}</div>
+        </template>
+      </div>
+      <template is="dom-if" if="{{showButtons}}">
+        <px-datetime-buttons resources="[[resources]]" language="[[language]]" formats="[[formats]]">
+        </px-datetime-buttons>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-field",behaviors:[PxDatetimeBehavior.SingleMoment,PxDatetimeBehavior.Buttons,PxDatetimeBehavior.Validate,PxOverlayBehavior.sharedProperties],properties:{dateFormat:{type:String,value:"YYYY-MM-DD"},timeFormat:{type:String,value:"HH:mm:ss"},showTimeZone:{type:String,value:""},hideTime:{type:Boolean,value:!1},hideDate:{type:Boolean,value:!1},hideIcon:{type:Boolean,value:!1},allowWrap:{type:Boolean,value:!1},required:{type:Boolean,value:!1},dateIsValid:{type:Boolean,value:!0},timeIsValid:{type:Boolean,value:!0,notify:!0},fieldIsValid:{type:Boolean,value:!0},isValid:{type:Boolean,computed:"_getIsValid(fieldIsValid, dateIsValid, timeIsValid)"},hideValidationMessage:{type:Boolean,value:!1},_validationErrorMessage:{type:String,value:""},_forcedFailedClass:{type:Boolean,value:!1},isSelected:{type:Boolean,value:!1,notify:!0},preventApply:{type:Boolean,value:!1},_dropdownActive:{type:Boolean,value:!1},_dropdownHoverFix:{type:Boolean,value:!1},preventCellFocus:{type:Boolean,value:!1},hoist:{type:Boolean,value:!1}},listeners:{"px-datetime-entry-icon-clicked":"_iconClicked","px-next-field":"_nextFieldRequired","px-previous-field":"_previousFieldRequired","px-datetime-button-clicked":"_dateTimeButtons","px-validation-message":"_handleValidationMessage","px-dropdown-focused":"_handleDropdownFocus","px-dropdown-blurred":"_handleDropdownBlur","px-moment-valid":"_handleValidMoment","px-moment-invalid":"_handleInvalidMoment",blur:"_applyChanges"},observers:["_validateSetMomentObj(momentObj)"],_showTimeZoneInDate:function _showTimeZoneInDate(hideTime,showTimeZone){if(hideTime||!0===hideTime){return showTimeZone}else{return""}},keyBindings:{esc:"_onEsc",enter:"_onEnter"},_nextFieldRequired:function _nextFieldRequired(evt){var date=this.$$("#date");if(date&&"Date"===evt.detail.dateOrTime){if(!this.hideTime){this.$$("#time")._focusCell(0);evt.stopPropagation();evt.stopImmediatePropagation()}}},_previousFieldRequired:function _previousFieldRequired(evt){var time=this.$$("#time");if(time&&"Time"===evt.detail.dateOrTime){if(!this.hideDate){this.$$("#date")._focusLastCell();evt.stopPropagation();evt.stopImmediatePropagation()}}},focus:function focus(){this._focusFirstEntry()},_focusFirstEntry:function _focusFirstEntry(forceTimeFocus){if(!this.hideDate&&!forceTimeFocus){this.$$("#date")._focusCell(0)}else{this.$$("#time")._focusCell(0)}},_focusLastEntry:function _focusLastEntry(){if(!this.hideTime){this.$$("#time")._focusLastCell()}else{this.$$("#date")._focusLastCell()}},_getWrapClass:function _getWrapClass(allowWrap){if(allowWrap){return"flex--wrap"}},_getButtonMarginClass:function _getButtonMarginClass(showButtons,allowWrap){var classList="dt-field-validation-wrapper ";if(showButtons){classList+="u-mr- ";if(allowWrap){classList+="u-pb+"}}return classList},_handleDropdownFocus:function _handleDropdownFocus(e){e.stopPropagation();this.set("_dropdownActive",!0)},_handleDropdownBlur:function _handleDropdownBlur(e){e.stopPropagation();this.set("_dropdownActive",!1);this._handleHoverFix()},detached:function detached(){this._dropdownFocused=!1},_handleHoverFix:function _handleHoverFix(){this.set("_dropdownHoverFix",!0);this.async(function(){this.set("_dropdownHoverFix",!1)},1e3)},_getWrapperClass:function _getWrapperClass(isValid,_forcedFailedClass,isSelected,_dropdownActive,_dropdownHoverFix){var classList="flex flex--middle dt-text-field ";if(!1===isValid||!0===_forcedFailedClass){classList+="validation-error validation-failed "}else if(isSelected){classList+="dt-is-selected "}else if(_dropdownActive){classList+="dt-dropdown-is-active "}else if(_dropdownHoverFix){classList+="dt-text-field--hover-fix "}return classList},_getEntryDateClass:function _getEntryDateClass(hideDate,hideTime,hideIcon){var classList="";if(!1===hideDate&&!1===hideTime&&!0===hideIcon){classList+="u-mr+ "}else if(!1===hideDate&&!1===hideTime){classList+="u-mr- "}return classList},_validateSetMomentObj:function _validateSetMomentObj(momentObj){if(momentObj===void 0){return}this._validateMomentObj(momentObj)},_getIsValid:function _getIsValid(fieldIsValid,dateIsValid,timeIsValid){return fieldIsValid&&dateIsValid&&timeIsValid},_handleValidationMessage:function _handleValidationMessage(e){this.set("_validationErrorMessage",e.detail.validationErrorMessage)},_showValidation:function _showValidation(isValid,hideValidationMessage){var showValidation=!isValid;if(hideValidationMessage){showValidation=!1};return showValidation},_handleValidMoment:function _handleValidMoment(evt){if(evt.detail&&evt.detail.element&&"date"===evt.detail.element.id){this.dateIsValid=!0}if(evt.detail&&evt.detail.element&&"time"===evt.detail.element.id){this.timeIsValid=!0}if(evt.detail&&evt.detail.element&&"PX-DATETIME-FIELD"===evt.detail.element.nodeName){this.dateIsValid=!0;this.timeIsValid=!0}if(!this.showButtons&&"PX-DATETIME-FIELD"!==evt.detail.element.nodeName){var origin="_momentChanged";this._applyChanges(origin)}},_handleInvalidMoment:function _handleInvalidMoment(evt){this.IsValid=!1;if(evt.detail&&evt.detail.element&&"date"===evt.detail.element.id){this.dateIsValid=!1}if(evt.detail&&evt.detail.element&&"time"===evt.detail.element.id){this.timeIsValid=!1}},_iconClicked:function _iconClicked(evt){if("Date"===evt.detail.dateOrTime&&!this.preventCellFocus){this.$$("#date")._focusCell(0)}else if("Time"===evt.detail.dateOrTime){this.$$("#time")._focusCell(0)}},_dateTimeButtons:function _dateTimeButtons(evt){if(evt.detail.action){this._applyChanges()}else{this._cancelChanges()}},_onEsc:function _onEsc(){this._cancelChanges()},_onEnter:function _onEnter(evt){this._applyChanges();this.blur()},_applyChanges:function _applyChanges(origin){var dateEntry=Polymer.dom(this.root).querySelector("#date"),timeEntry=Polymer.dom(this.root).querySelector("#time");if(this.momentObj===void 0||null===dateEntry&&!this.hideDate||null===timeEntry&&!this.hideTime){return}var newMomentObj=this._validateField(origin);if(this.preventApply&&newMomentObj&&"FieldSame"!==newMomentObj){this.fire("px-field-valid",{momentObj:newMomentObj})}else{if("FieldBlank"===newMomentObj){this._validField();this.set("momentObj",null);this.fire("px-moment-changed")}else if(newMomentObj&&"FieldSame"!==newMomentObj){this.set("momentObj",newMomentObj);this.fire("px-moment-changed")}}},_cancelChanges:function _cancelChanges(){var entries=Polymer.dom(this.root).querySelectorAll("px-datetime-entry");if(null===this.momentObj){entries.forEach(function(entry){entry.clear()})}else{entries.forEach(function(entry){entry.setValueFromMoment()})}this._validateField();this.blur()}});</script>
+</body></html>

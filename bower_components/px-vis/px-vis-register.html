@@ -1,0 +1,219 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="px-vis-behavior-common.html">
+<link rel="import" href="px-vis-behavior-register.html">
+<link rel="import" href="px-vis-behavior-datetime.html">
+<link rel="import" href="px-vis-register-item.html">
+<link rel="import" href="px-vis-register-item-pie.html">
+<link rel="import" href="px-vis-register-datetime.html">
+<link rel="import" href="px-vis-dynamic-menu.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html">
+<link rel="import" href="css/px-vis-register-styles.html">
+
+<!--
+
+### Usage
+
+    <px-vis-register
+        height="50"
+        use-percentage="true"
+        width="[[width]]"
+        type="horizontal"
+        tooltip-data=[[tooltipData]]
+        chart-data=[[chartData]]
+        muted-series="[[mutedSeries]]"
+        complete-series-config="[[completeSeriesConfig]]"
+        x-axis-type="time"
+        muted-series="{{mutedSeries}}">
+    </px-vis-register>
+
+
+### Sending Data to the Register
+tooltipData is in the form:
+
+```
+    {
+        "time": "2015-03-25T20:34:47.085Z",
+        "series":[{
+            "name":"seriesId1",
+            "coord":[xCoord1, yCoord1],  //in pixel space
+            "value":{
+                "x":xVal1,             //in data space
+                "seriesId1":yVal1    //in data space
+            }
+        },{
+            "name":"seriesId2",
+            "coord":[xCoord2, yCoord2],  //in pixel space
+            "value":{
+                "x":xVal2,             //in data space
+                "seriesId2":yVal2    //in data space
+            },
+        }],
+        "mouse":[ mouseX, mouseY ],   //in pixel space
+        "xArr":[xCoord1 , xCoord2],   //in pixel space
+        "yArr":[yCoord1 , yCoord2],   //in pixel space
+    }
+```
+
+ When not hovering on a chart, the tooltipData should still have the series names in order for them to still appear in the register. Ex:
+
+```
+    {
+        "time": null,
+        "series":[{
+            "name":"seriesId1",
+            "value": null
+        },{
+            "name":"seriesName1",
+            "value": null
+        }],
+        "mouse": null,
+        "xArr": null,
+        "yArr": null
+    }
+```
+
+### Reporting Data from the Register
+The component returns an object via mutedSeries which the chart can take and react to:
+
+    {
+        'seriesId1':true,
+        'seriesId2':false,
+    }
+
+### Time, number, and name formatting
+Formatting for the timestamps, the data values, and the series names can be controlled via a series of properties. Please see the properties for configuration details.
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+  `--px-register-series-marker-width` | The width (thickness) of the series marker
+  `--px-vis-register-series-name` | The color of the data series name
+  `--px-vis-register-data-value` | The color of the data series value
+  `--px-vis-register-box` | The color of the box around the register when a scrollbar is present
+  `--px-vis-register-border-color` | The color of the outside border for the register
+  `--px-vis-register-font-size` | font size for the register
+
+@element px-vis-register
+@blurb Element providing a display and interaction space for series in your chart.
+@homepage index.html
+@demo demo.html
+-->
+
+</head><body><dom-module id="px-vis-register">
+  <template>
+    <style include="px-vis-register-styles"></style>
+
+    <div class="flex flex-row fullWidth fullHeight">  <!--  IE min-height + flex bug workaround-->
+      <div id="registerWrap" class$="[[_getMinSizeClass(preventMinSize)]] inline--flex [[_registerWrapClass(_isHorizontal)]]" style$="height:[[height]]px; [[_returnWidth(chartWidth, width, margin, type)]]">
+
+        <div class$="[[_show(_isHorizontal)]] [[_hide(hidePaginationControls)]] borderRight flex flex--center paginateButton">
+          <button class$="[[_show(displayPageArrows)]] actionable flex__item--middle" on-click="_leftPage">
+            <px-icon icon="px-nav:back"></px-icon>
+          </button>
+        </div>
+
+        <!-- header + content -->
+        <div class$="[[_getMinSizeClass(preventMinSize)]] inline--flex flex--col fullWidth">
+          <div id="header" class$="[[_headerClass(_isVertical, _hasHeaderData)]] u-pl-">
+            <!-- pagination numbers for horizontal -->
+            <div class$="[[_show(displayPageArrows, _isHorizontal)]]">
+              <span class="textInfo">[[currentPage]] of [[totalPages]]</span>
+            </div>
+
+            <!-- datetime -->
+            <template is="dom-if" if="{{_displayTime(xAxisType, forceDateTimeDisplay)}}">
+              <div id="datetimeContainer" class$="[[_getSeriesWrapperClass(type)]] [[_show(_showDateTime)]] [[_dateTimeClass(_isVertical, _sortTypes.length, displayOrdinalValue)]]" style="flex-grow:2">
+                <px-vis-register-datetime class$="[[tooltipStyle]]" first-date-time="[[_firstDateTime]]" second-date-time="[[_secondDateTime]]" separator="[[_separator]]" x-axis-type="[[xAxisType]]" series-key="[[_timeSeriesKey]]" complete-series-config="[[completeSeriesConfig]]"></px-vis-register-datetime>
+              </div>
+            </template>
+
+            <!-- sorting options -->
+            <div id="sortingContainer" class$="[[_show(_sortTypes.length)]] flex flex--middle u-ml- u-mr-">
+              <span class="u-mr-- textInfo">Sort by:</span>
+              <px-dropdown id="sortDropdown" items="[[_sortTypes]]" selected="{{_currentSortType}}" select-by="key" button-style="bare" disable-clear="">
+              </px-dropdown>
+              <div class="flex flex--right" style="flex-grow:2">
+                <button class="actionable" on-click="_sortOrderChanged">
+                    <px-icon class="smallerIcon" icon="[[_sortOrderIcon(sortDescending)]]"></px-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- displays the ordinal set value -->
+            <div id="ordinalSet" class$="[[_getSeriesWrapperClass(type, _hasScrollBar)]] [[_show(displayOrdinalValue)]] u-ml- u-mr-">
+              <div>[[tooltipData.ordinalSet]]&nbsp;</div>
+            </div>
+
+          </div>
+
+          <div id="seriesWrap" class$="[[_getSeriesWrapperClassReverse(type)]] [[_seriesWrapPadding(_isVertical)]]">
+            <template is="dom-if" if="[[!_isOfType(xAxisType, 'pie')]]">
+              <template is="dom-repeat" items="[[_series]]" as="_groups">
+                <div class$="[[_getSeriesWrapperClass(type)]] [[_itemWrapClass(_isVertical)]] u-ml- u-mr-">
+                  <template is="dom-repeat" id="itemRepeat" items="[[_groups]]" rendered-item-count="{{_itemCount}}">
+                    <px-vis-register-item class$="[[tooltipStyle]] [[_itemClass(_isVertical)]]" data="[[_returnSeriesObj(tooltipData.*, item)]]" series-key="[[item]]" dynamic-menu-config="[[dynamicMenuConfig]]" complete-series-config="[[completeSeriesConfig]]" type="[[type]]" x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" disable-click="[[disableClick]]" muted-series="{{mutedSeries}}" number-format="[[numberFormat]]" number-format-culture="[[numberFormatCulture]]" number-format-is-currency="[[numberFormatIsCurrency]]" number-format-currency="[[numberFormatCurrency]]" number-format-zero="[[numberFormatZero]]" truncation-length="[[truncationLength]]" prevent-muting="[[preventMuting]]" display-x-values-only="[[displayXValuesOnly]]" display-y-values-only="[[displayYValuesOnly]]" icon-color="[[iconColor]]" reverse-display-order="[[reverseDisplayOrder]]">
+                    </px-vis-register-item>
+                  </template>
+                </div>
+              </template>
+            </template>
+            <!-- For pie charts -->
+            <template is="dom-if" if="[[_isOfType(yAxisType, 'pie')]]">
+              <div class$="[[_getSeriesWrapperClassReverse(type)]]">
+                <div class$="[[_getSeriesWrapperClass(type)]]">
+                  <template is="dom-repeat" id="pieItemRepeat" items="[[chartData]]" rendered-item-count="{{_itemCount}}">
+                    <px-vis-register-item-pie item="[[item]]" item-index="[[index]]" dynamic-menu-config="[[dynamicMenuConfig]]" complete-series-config="[[completeSeriesConfig]]" chart-data="[[chartData]]" type="[[type]]" x-axis-type="[[xAxisType]]" y-axis-type="[[yAxisType]]" use-percentage="[[usePercentage]]" number-format="[[numberFormat]]" number-format-culture="[[numberFormatCulture]]" number-format-is-currency$="[[numberFormatIsCurrency]]" number-format-currency="[[numberFormatCurrency]]" number-format-zero="[[numberFormatZero]]" truncation-length="[[truncationLength]]">
+                    </px-vis-register-item-pie>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- filler -->
+          <div style="flex-grow:2"></div>
+
+          <!-- vertical pagination -->
+          <div id="verticalPagnation" class$="[[_show(displayPageArrows, _isVertical)]] [[_hide(hidePaginationControls)]] flex flex--justify u-ml- u-mr-">
+            <button class="actionable" on-click="_leftPage">
+              <px-icon class="smallerIcon" icon="px-nav:back"></px-icon>
+            </button>
+            <span class="textInfo">[[currentPage]] of [[totalPages]]</span>
+            <button class="actionable" on-click="_rightPage">
+              <px-icon class="smallerIcon" icon="px-nav:next"></px-icon>
+            </button>
+          </div>
+
+        </div>
+        <!-- other horizontal pagination -->
+        <div class$="[[_show(_isHorizontal)]] [[_hide(hidePaginationControls)]] borderLeft flex paginateButton flex--center">
+          <button class$="[[_show(displayPageArrows)]] actionable flex__item--middle" on-click="_rightPage">
+            <px-icon icon="px-nav:next"></px-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-vis-register",behaviors:[PxVisBehavior.observerCheck,PxVisBehavior.sizing,PxVisBehavior.formatting,PxVisBehaviorTime.datetime,PxVisBehavior.mutedSeries,PxVisBehavior.tooltipData,PxVisBehavior.dataset,PxVisBehavior.axisTypes,PxVisBehavior.completeSeriesConfig,PxVisBehavior.commonMethods,PxVisBehaviorRegister.register,PxVisBehaviorRegister.pie,PxVisBehaviorRegister.datetime,PxVisBehavior.forceDateTimeDisplay,PxVisBehaviorRegister.groupings,PxVisBehavior.dynamicMenuConfig,PxVisBehaviorRegister.disableClick,PxVisBehaviorRegister.displayTypes,PxVisBehavior.showHideClasses],properties:{type:{type:String,value:"vertical",notify:!0},_isVertical:{type:Boolean,computed:"_computeIsVertical(type)"},_isHorizontal:{type:Boolean,computed:"_computeIsHorizontal(_isVertical)"},_hasScrollBar:{type:Boolean,value:!1},_series:{type:Array,notify:!0},preventMinSize:{type:Boolean,value:!1},preventMuting:{type:Boolean,value:!1},chartWidth:{type:Number,value:""},width:{type:Number,value:""},_itemCount:{type:Number,value:0},inertRegister:{type:Boolean,value:!1},_currentSortType:{type:String},_sortTypes:{type:Array,value:function value(){return[]}},currentPage:{type:Number,value:0},totalPages:{type:Number,value:1},displayPageArrows:{type:Boolean,value:!1},hidePaginationControls:{type:Boolean,value:!1},sortConfig:{type:Object},_internalSortConfig:{type:Object},_sortFunctionsMapping:{type:Object,value:function value(){return{name:this._sortName,muted:this._sortMuted,nameIgnoreCase:this._sortNameCaseInsensitive,noValue:this._sortNoValue}}},sortDescending:{type:Boolean,value:!1},_showDateTime:{type:Boolean,computed:"_computeShowDateTime(forceDateTimeDisplay, xAxisType)"},_hasHeaderData:{type:Boolean,computed:"_computeHasHeaderData(_showDateTime, _sortTypes.length, displayOrdinalValue)"},_timeSeriesKey:String},observers:["_tooltipDataChanged(tooltipData.*)","_scrollBarsPresent(_itemCount)","_scrollBarsPresent(height, margin)","_scrollBarsPresent(chartWidth, margin)","_seriesChanged(completeSeriesConfig.*, groupings, _currentSortType, mutedSeries.*, sortDescending)","_sortConfigChanged(sortConfig.*)"],_tooltipDataChanged:function _tooltipDataChanged(){this.debounce("_tooltipDataChanged",function(){if(this.tooltipData&&this.completeSeriesConfig){this._formatDateTime();if(this._currentSortType&&this.sortConfig&&this.sortConfig[this._currentSortType].sortOnDataChange){this._computeSeries(!0)}}},1)},_seriesChanged:function _seriesChanged(){if(this.hasUndefinedArguments(arguments)){return}this.debounce("_seriesChanged",function(){this._computeSeries(!1)},1)},_formatDateTime:function _formatDateTime(){if(this.inertRegister){return}var time=this.tooltipData.time;if(time){var momentObj1=this.formatTimestamp(time,this.timezone,this.firstDateTimeFormat),momentObj2=this.formatTimestamp(time,this.timezone,this.secondDateTimeFormat);this.set("_firstDateTime",momentObj1);this.set("_secondDateTime",momentObj2);this.set("_separator",this.separator);this.set("_timeSeriesKey",this.tooltipData.timeSeriesKey)}else{this.set("_firstDateTime","");this.set("_secondDateTime","");this.set("_separator","");this.set("_timeSeriesKey",null)}},_getSeries:function _getSeries(doDataSort){var series=Object.keys(this.completeSeriesConfig);series.forEach(function(s,i){if(this.completeSeriesConfig[s].hideInRegister){series.splice(i,1)}}.bind(this));if(this._currentSortType){this._internalSortConfig[this._currentSortType].sortOnSeries.forEach(function(item){series=series.sort(item.bind(this))}.bind(this));if(doDataSort){this._internalSortConfig[this._currentSortType].sortOnData.forEach(function(item){series=series.sort(item.bind(this))}.bind(this))}}if(this.sortDescending){series.reverse()}return series},_computeSeries:function _computeSeries(doDataSort){if(!this.inertRegister){for(var allSeries=this._getSeries(doDataSort),pivot=Math.ceil(allSeries.length/this.groupings),groupedSeries=[],s=0,e=pivot,i=0;i<this.groupings;i++){groupedSeries.push(allSeries.slice(s,e));s=e;e=s+pivot}this.set("_series",groupedSeries)}},_sortOrderChanged:function _sortOrderChanged(){this.set("sortDescending",!this.sortDescending)},_sortOrderIcon:function _sortOrderIcon(){if(this.sortDescending){return"px-nav:up"}else{return"px-nav:down"}},_displayTime:function _displayTime(xAxisType,forceDateTimeDisplay){if(this.hasUndefinedArguments(arguments)){return}return forceDateTimeDisplay||"time"===xAxisType},_getMinSizeClass:function _getMinSizeClass(preventMinSize){if(this.hasUndefinedArguments(arguments)){return}return preventMinSize?"":"minSize"},_returnWidth:function _returnWidth(chartWidth,width,margin,type){if(this.hasUndefinedArguments(arguments)){return}return"horizontal"===this.type?"max-width:"+chartWidth+"px;":"width:"+width+"px;"},_scrollBarsPresent:function _scrollBarsPresent(){if(this.height===void 0||this.chartWidth===void 0||this.margin===void 0){return}window.requestAnimationFrame(this._scrollBarsPresentAF.bind(this))},_scrollBarsPresentAF:function _scrollBarsPresentAF(){var b=!1;if("vertical"===this.type&&this.$.seriesWrap.scrollHeight>this.height-this.margin.top-this.margin.bottom){b=!0}else if("horizontal"===this.type&&this.$.seriesWrap.scrollWidth>this.chartWidth){b=!0}this.toggleClass("scrollOn",b,this.$.seriesWrap);this.set("_hasScrollBar",b)},_returnSeriesObj:function _returnSeriesObj(data,key){return this.tooltipData.seriesObj[key]||{}},_leftPage:function _leftPage(){this.dispatchEvent(new CustomEvent("px-vis-register-page-change",{bubbles:!0,composed:!0,detail:{direction:-1}}))},_rightPage:function _rightPage(){this.dispatchEvent(new CustomEvent("px-vis-register-page-change",{bubbles:!0,composed:!0,detail:{direction:1}}))},_sortConfigChanged:function _sortConfigChanged(){if(this.sortConfig){var keys=Object.keys(this.sortConfig),sortTypes=[],config={},onSeries,onData,currentFunction;this._internalSortConfig={};keys.forEach(function(k){onSeries=[];onData=[];this._processSortingFunction(this.sortConfig[k].sortOnSeriesChange,k,onSeries);this._processSortingFunction(this.sortConfig[k].sortOnDataChange,k,onData);config[k]={sortOnSeries:onSeries,sortOnData:onData};sortTypes.push({val:this.sortConfig[k].name,key:k,selected:this.sortConfig[k].selected})}.bind(this));this.set("_sortTypes",sortTypes);this.set("_internalSortConfig",config)}else{this.set("_sortTypes",[]);this.set("_internalSortConfig",{})}},_processSortingFunction:function _processSortingFunction(configFunction,key,result){if(configFunction){if(Array.isArray(configFunction)){configFunction.forEach(function(item){this._addSortingFunction(item,key,result)}.bind(this))}else{this._addSortingFunction(configFunction,key,result)}}},_addSortingFunction:function _addSortingFunction(configFunction,key,result){if("function"===typeof configFunction){result.push(configFunction)}else if(this._sortFunctionsMapping[configFunction]){result.push(this._sortFunctionsMapping[configFunction])}else{console.warn("Sorting function defined in "+key+" for register is neither a function nor a valid string for a predefined function: "+configFunction+". Ignoring this option")}},_sortNameCaseInsensitive:function _sortNameCaseInsensitive(a,b){if(this.completeSeriesConfig[a].name.toLowerCase()<this.completeSeriesConfig[b].name.toLowerCase()){return-1}if(this.completeSeriesConfig[a].name.toLowerCase()>this.completeSeriesConfig[b].name.toLowerCase()){return 1}return 0},_sortName:function _sortName(a,b){if(this.completeSeriesConfig[a].name<this.completeSeriesConfig[b].name){return-1}if(this.completeSeriesConfig[a].name>this.completeSeriesConfig[b].name){return 1}return 0},_sortMuted:function _sortMuted(a,b){if(this.mutedSeries[a]&&!this.mutedSeries[b]){return 1}else if(!this.mutedSeries[a]&&this.mutedSeries[b]){return-1}return 0},_sortNoValue:function _sortNoValue(a,b){var aHasVal=this.tooltipData.seriesObj[a]&&(this.tooltipData.seriesObj[a].value||0===this.tooltipData.seriesObj[a].value),bHasVal=this.tooltipData.seriesObj[b]&&(this.tooltipData.seriesObj[b].value||0===this.tooltipData.seriesObj[b].value);if(aHasVal&&!bHasVal){return-1}else if(!aHasVal&&bHasVal){return 1}return 0},_computeIsVertical:function _computeIsVertical(){return"vertical"===this.type},_computeIsHorizontal:function _computeIsHorizontal(){return!this._isVertical},_headerClass:function _headerClass(){if(this._isVertical){return this._hasHeaderData?"borderBottom ":""}else{return"flex "}},_itemClass:function _itemClass(){if(this._isVertical){return"fullWidth "}else{return""}},_itemWrapClass:function _itemWrapClass(){if(this._isVertical){return"fullWidth "}else{return"u-mb-"}},_registerWrapClass:function _registerWrapClass(){if(this._isHorizontal){return"fullWidth "}else{return""}},_seriesWrapPadding:function _seriesWrapPadding(){if(this._isVertical){return"u-pt- "}else{return""}},_dateTimeClass:function _dateTimeClass(){var base="u-ml- u-mr- ";if((!this.sortTypes||0===this.sortTypes.length)&&!this.displayOrdinalValues&&this._isVertical){base+="u-mb-- "}return base},_computeHasHeaderData:function _computeHasHeaderData(){return this._showDateTime||this._sortTypes.length||this.displayOrdinalValues},_computeShowDateTime:function _computeShowDateTime(){return this.forceDateTimeDisplay||"time"===this.xAxisType||"timeLocal"===this.xAxisType}});</script>
+</body></html>

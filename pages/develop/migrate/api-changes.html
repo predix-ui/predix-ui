@@ -1,0 +1,444 @@
+<html><head><link defer="" rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../bower_components/px-demo/px-demo-footer.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-behavior.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-page/px-catalog-page-elements.html">
+  <link defer="" rel="import" href="../../../elements/px-catalog-code-snippet/px-catalog-code-snippet.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-page-styles.html">
+  <link defer="" rel="import" href="../../../css/px-catalog-theme-styles.html">
+  
+
+  </head><body><dom-module id="view-develop-api-changes">
+    <template>
+      <style include="px-catalog-theme-styles px-catalog-page-styles px-catalog-code-styles"></style>
+      
+
+      <div class="page">
+        
+  <div class="page-anchors" id="toc">
+    <ul class="toc">
+      
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#general-changes-to-all-predix-ui-components', activeAnchor)]]" href="#" anchor="#general-changes-to-all-predix-ui-components" on-tap="_handleAnchorTapped">General changes to all Predix UI components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#new-components', activeAnchor)]]" href="#" anchor="#new-components" on-tap="_handleAnchorTapped">New Components</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-accordion', activeAnchor)]]" href="#" anchor="#px-accordion" on-tap="_handleAnchorTapped">px-accordion</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-app-header', activeAnchor)]]" href="#" anchor="#px-app-header" on-tap="_handleAnchorTapped">px-app-header</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-app-route', activeAnchor)]]" href="#" anchor="#px-app-route" on-tap="_handleAnchorTapped">px-app-route</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-branding-bar', activeAnchor)]]" href="#" anchor="#px-branding-bar" on-tap="_handleAnchorTapped">px-branding-bar</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-breadcrumbs', activeAnchor)]]" href="#" anchor="#px-breadcrumbs" on-tap="_handleAnchorTapped">px-breadcrumbs</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-heatmap-grid', activeAnchor)]]" href="#" anchor="#px-heatmap-grid" on-tap="_handleAnchorTapped">px-heatmap-grid</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-icon-set', activeAnchor)]]" href="#" anchor="#px-icon-set" on-tap="_handleAnchorTapped">px-icon-set</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-key-value-pair', activeAnchor)]]" href="#" anchor="#px-key-value-pair" on-tap="_handleAnchorTapped">px-key-value-pair</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-tree', activeAnchor)]]" href="#" anchor="#px-tree" on-tap="_handleAnchorTapped">px-tree</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#existing-components', activeAnchor)]]" href="#" anchor="#existing-components" on-tap="_handleAnchorTapped">Existing Components</a>
+    <ul class="toc">
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-alert-label-v2', activeAnchor)]]" href="#" anchor="#px-alert-label-v2" on-tap="_handleAnchorTapped">px-alert-label (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-app-nav-v2', activeAnchor)]]" href="#" anchor="#px-app-nav-v2" on-tap="_handleAnchorTapped">px-app-nav (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-calendar-picker-v1', activeAnchor)]]" href="#" anchor="#px-calendar-picker-v1" on-tap="_handleAnchorTapped">px-calendar-picker (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-card-v1', activeAnchor)]]" href="#" anchor="#px-card-v1" on-tap="_handleAnchorTapped">px-card (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-colors-design-v101', activeAnchor)]]" href="#" anchor="#px-colors-design-v101" on-tap="_handleAnchorTapped">px-colors-design (v1.0.1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-context-browser-v2', activeAnchor)]]" href="#" anchor="#px-context-browser-v2" on-tap="_handleAnchorTapped">px-context-browser (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-data-table-v4', activeAnchor)]]" href="#" anchor="#px-data-table-v4" on-tap="_handleAnchorTapped">px-data-table (v4)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-field-v1', activeAnchor)]]" href="#" anchor="#px-datetime-field-v1" on-tap="_handleAnchorTapped">px-datetime-field (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-range-field-v1', activeAnchor)]]" href="#" anchor="#px-datetime-range-field-v1" on-tap="_handleAnchorTapped">px-datetime-range-field (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-range-panel-v1', activeAnchor)]]" href="#" anchor="#px-datetime-range-panel-v1" on-tap="_handleAnchorTapped">px-datetime-range-panel (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-datetime-range-panel-v1-2', activeAnchor)]]" href="#" anchor="#px-datetime-range-panel-v1-2" on-tap="_handleAnchorTapped">px-datetime-range-panel (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-dropdown-v4', activeAnchor)]]" href="#" anchor="#px-dropdown-v4" on-tap="_handleAnchorTapped">px-dropdown (v4)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-forms-design-v2', activeAnchor)]]" href="#" anchor="#px-forms-design-v2" on-tap="_handleAnchorTapped">px-forms-design (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-headings-design-v1', activeAnchor)]]" href="#" anchor="#px-headings-design-v1" on-tap="_handleAnchorTapped">px-headings-design (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-icon-set-v2', activeAnchor)]]" href="#" anchor="#px-icon-set-v2" on-tap="_handleAnchorTapped">px-icon-set (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-inbox-v2', activeAnchor)]]" href="#" anchor="#px-inbox-v2" on-tap="_handleAnchorTapped">px-inbox (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-list-ui-design-v2', activeAnchor)]]" href="#" anchor="#px-list-ui-design-v2" on-tap="_handleAnchorTapped">px-list-ui-design (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-overlay-v1', activeAnchor)]]" href="#" anchor="#px-overlay-v1" on-tap="_handleAnchorTapped">px-overlay (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-progress-bar-v1', activeAnchor)]]" href="#" anchor="#px-progress-bar-v1" on-tap="_handleAnchorTapped">px-progress-bar (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-rangepicker-v2', activeAnchor)]]" href="#" anchor="#px-rangepicker-v2" on-tap="_handleAnchorTapped">px-rangepicker (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-tables-design-v2', activeAnchor)]]" href="#" anchor="#px-tables-design-v2" on-tap="_handleAnchorTapped">px-tables-design (v2)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-tabs-v1', activeAnchor)]]" href="#" anchor="#px-tabs-v1" on-tap="_handleAnchorTapped">px-tabs (v1)</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#px-tooltip-v1', activeAnchor)]]" href="#" anchor="#px-tooltip-v1" on-tap="_handleAnchorTapped">px-tooltip (v1)</a>
+    
+  </li>
+</ul>
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#deprecated-components', activeAnchor)]]" href="#" anchor="#deprecated-components" on-tap="_handleAnchorTapped">Deprecated Components</a>
+    
+  </li>
+
+  <li class="toc__item">
+    <a class$="toc__item__link [[_getTocLinkClassName('#faq', activeAnchor)]]" href="#" anchor="#faq" on-tap="_handleAnchorTapped">FAQ</a>
+    
+  </li>
+
+    </ul>
+  </div>
+
+        <div class="page-content">
+          <h2 class="page-title">Release Notes &amp; API Changes</h2>
+          
+          
+<h4 id="general-changes-to-all-predix-ui-components">General changes to all Predix UI components</h4>
+<ul>
+<li>Default Predix color values have been removed from all of the CSS variables provided in the system. Without a theme, components will appear with a mostly monochromatic "generic" theme.</li>
+<li>You should include <code class="code code--inline">px-theme</code> or <code class="code code--inline">px-dark-theme</code> in your application, or create and include your own theme, to style the Px components accordingly. See the documentation <a href="#/develop/migrate/theme">here</a> for more information.</li>
+<li><code class="code code--inline">px-localize-behavior</code> has been deprecated. All of the localized components will ship with English translations by default, but applications should provide their own resources object as necessary in order to localize components for non-English languages.</li>
+</ul>
+<h3 id="new-components">New Components</h3>
+<h4 id="px-accordion">px-accordion</h4>
+<ul>
+<li>The <code class="code code--inline">px-accordion</code> component provides expandable and collapsible subsection headers for a page. <a href="#/elements/px-accordion">API Documentation</a></li>
+</ul>
+<h4 id="px-app-header">px-app-header</h4>
+<ul>
+<li>The <code class="code code--inline">px-app-header</code> component can be used as a wrapper for <code class="code code--inline">px-branding-bar</code> and <code class="code code--inline">px-app-nav</code>. It provides a container that stays fixed to the top of the screen. <a href="#/elements/px-app-header">API Documentation</a></li>
+</ul>
+<h4 id="px-app-route">px-app-route</h4>
+<ul>
+<li>The <code class="code code--inline">px-app-route</code> component supports easy binding between various Predix UI components and a web application's URL. It helps keep UI state in sync with the URL, allowing users to bookmark or share views by copying their URL. <a href="#/elements/px-app-route">API Documentation</a></li>
+</ul>
+<h4 id="px-branding-bar">px-branding-bar</h4>
+<ul>
+<li>A component providing a header area to contain title, logo and branding content. <a href="#/elements/px-branding-bar">API Documentation</a></li>
+</ul>
+<h4 id="px-breadcrumbs">px-breadcrumbs</h4>
+<ul>
+<li>Breadcrumb dropdown displays the navigational path of the user through a context browser. The breadcrumb links provide a way to see the path of navigation or contextual relationship between objects. It also provides a quick way to navigate backwards within a path or within a specific context. <a href="#/elements/px-breadcrumbs">API Documentation</a></li>
+</ul>
+<h4 id="px-heatmap-grid">px-heatmap-grid</h4>
+<ul>
+<li>The <code class="code code--inline">px-heatmap-grid</code> is a highly visual and flexible interactive component for visualizing a data set based on a heat map scale of colors. <a href="#/elements/px-heatmap-grid">API Documentation</a></li>
+</ul>
+<h4 id="px-icon-set">px-icon-set</h4>
+<ul>
+<li>Displays Predix icons. The icons were optimized for different sizes based on their category or intended usage. <a href="#/elements/px-icon-set">API Documentation</a></li>
+</ul>
+<h4 id="px-key-value-pair">px-key-value-pair</h4>
+<ul>
+<li>The <code class="code code--inline">px-key-value-pair</code> component allows you to prominently display information in a dashboard. <a href="#/elements/px-key-value-pair">API Documentation</a></li>
+</ul>
+<h4 id="px-tree">px-tree</h4>
+<ul>
+<li>The <code class="code code--inline">px-tree</code> component provides an expandable and selectable tree. The contents are controlled primarily through a structured object of branch and leaf nodes. <a href="#/elements/tree/px-tree">API Documentation</a></li>
+</ul>
+<h3 id="existing-components">Existing Components</h3>
+<h4 id="px-alert-label-v2">px-alert-label (v2)</h4>
+<ul>
+<li>New boolean property <code class="code code--inline">badge</code> has been added for enabling the alert/severity badges currently used in <code class="code code--inline">px-alert-message</code> and <code class="code code--inline">px-inbox</code> - the <code class="code code--inline">type</code> property determines what color and shape will appear, whereas the <code class="code code--inline">label</code> property can be repurposed for the (single-digit) numeric indicator</li>
+<li>The <code class="code code--inline">type</code> value "info" was expanded to "information" in order to match the API of <code class="code code--inline">px-alert-message</code>, however either value will work as expected.</li>
+</ul>
+<h4 id="px-app-nav-v2">px-app-nav (v2)</h4>
+<ul>
+<li>The <code class="code code--inline">px-app-nav</code> API, design, and usage was completely overhauled for the new version, see the <a href="#/components/px-app-nav">documentation</a> for a full guide.</li>
+<li>Clicking on an item in <code class="code code--inline">px-app-nav</code> no longer automatically navigates to the item's URL by setting the <code class="code code--inline">window.location</code>. Instead, listen to the event <code class="code code--inline">selected-changed</code> for updates when an item is selected and sync the state to the URL if you choose (e.g. by setting <code class="code code--inline">window.location</code>, using a framework router, or using the new <code class="code code--inline">px-app-route</code> helper element).</li>
+<li>The <code class="code code--inline">navItems</code> property has been renamed to <code class="code code--inline">items</code>. The format of the navigation items object has also changed.</li>
+<li>In <code class="code code--inline">navItems</code>, child items used to be added to a parent item with the <code class="code code--inline">subitems</code> key. Now in <code class="code code--inline">items</code>, child items are added to a parent item with the <code class="code code--inline">children</code> key.</li>
+<li>In <code class="code code--inline">navItems</code>, item paths used to be set with the <code class="code code--inline">path</code> key. Now in <code class="code code--inline">items</code>, item paths are set with the <code class="code code--inline">id</code> key.</li>
+<li>In <code class="code code--inline">navItems</code>, an <code class="code code--inline">eventName</code> used to be passed so that it would be fired when the item was tapped. That option has been removed from <code class="code code--inline">items</code>. Instead, watch <code class="code code--inline">selected-changed</code> for updates when a new item is selected (when tapped or through data binding).</li>
+<li>All icon names used in <code class="code code--inline">navItems</code> should be updated to use the new <code class="code code--inline">px-icon-set</code> names. If you do not update to use the <code class="code code--inline">px-icon-set</code> names, you will need to load the font awesome icons in your app. The font awesome icons will not be loaded with the <code class="code code--inline">px-app-nav</code> component by default.</li>
+<li>The <code class="code code--inline">navContracting</code> and <code class="code code--inline">navExpanding</code> properties have been removed. See the <code class="code code--inline">collapseOpened</code> property for an approximate replacement.</li>
+<li>The <code class="code code--inline">pathPrefix</code> property has been removed as <code class="code code--inline">px-app-nav</code> no longer navigates the page directly when an item is clicked. You can implement this yourself by listening to <code class="code code--inline">selected-changed</code> and setting the URL.</li>
+<li>The <code class="code code--inline">pathKey</code> property has been removed.</li>
+<li>The <code class="code code--inline">markSelected</code> method has been removed. Use the <code class="code code--inline">select()</code> method to select an item by reference.</li>
+<li>The nav is no longer configured to be vertical and toggle to open/close by default. There are now a variety of modes available (horizontal, vertical, collapsed) for different use cases. See the documentation for more information. To use the vertical mode, set the <code class="code code--inline">vertical</code> property to true. The vertical mode is no longer meant to be used on mobile. The <code class="code code--inline">collapsed</code> mode should be used on mobile instead.</li>
+</ul>
+<h4 id="px-calendar-picker-v1">px-calendar-picker (v1)</h4>
+<ul>
+<li>Updated the style for 'today' resulting in <code class="code code--inline">--px-calendar-today-border</code> being added.</li>
+<li>The CSS variable <code class="code code--inline">--px-calendar-labels--text-color</code> was updated to <code class="code code--inline">--px-calendar-title-color</code>. The CSS variables <code class="code code--inline">--px-calendar-background-color</code>, <code class="code code--inline">--px-calendar-background-color--selected--hover</code>, and <code class="code code--inline">--px-calendar-background-color--selected--pressed</code> have been removed due to design changes.</li>
+</ul>
+<h4 id="px-card-v1">px-card (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">chevron</code> property has been removed, as it never really functioned as intended (<a href="https://forum.predix.io/questions/21210/what-is-the-reason-for-the-chevron-button-on-the-p.html">Forum Question</a>). Instead, a content slot has been added so that anything included in a container of class "actions" will be displayed in the top right corner of the card in the header area. See the <a href="#/modules/px-card">demo page</a> for an example implementation.</li>
+<li>The documentation of this repo has been greatly improved and decluttered. For information on the <code class="code code--inline">px-deck</code>, <code class="code code--inline">px-dashboard</code>, and <code class="code code--inline">px-card</code> behavior components of this repo, use the dropdown at the top of the demo page.</li>
+<li>A new property called <code class="code code--inline">fullBleed</code> has been added, which causes the content area of the card to stretch the full width of the card, removing the default horizontal padding. Useful for cards containing maps, images, and other content that requires more horizontal space.</li>
+</ul>
+<h4 id="px-colors-design-v101">px-colors-design (v1.0.1)</h4>
+<ul>
+<li>All of the sass variable names have changed to support the completely redesigned Predix UI color palette.</li>
+</ul>
+<h4 id="px-context-browser-v2">px-context-browser (v2)</h4>
+<ul>
+<li>The <code class="code code--inline">px-context-browser</code> API, design, and usage were completely overhauled for the new version, see the <a href="https://www.predix-ui.com/#/components/px-context-browser">documentation</a> for a full guide.</li>
+<li>The <code class="code code--inline">&lt;px-context-browser&gt;&lt;/px-context-browser&gt;</code> tag no longer places a button on the page. Use the <code class="code code--inline">px-context-browser</code> tag together with a <code class="code code--inline">&lt;px-context-browser-trigger&gt;&lt;/px-context-browser-trigger&gt;</code> tag to show a button that opens the browser. See the documentation for more information on binding these two elements together.</li>
+<li>The <code class="code code--inline">browserContext</code> property has been renamed to <code class="code code--inline">items</code>. The structure of the context browser items has been completely overhauled.</li>
+<li>The <code class="code code--inline">browserContext</code> property <code class="code code--inline">name</code> has been replaced with <code class="code code--inline">label</code>.</li>
+<li>The <code class="code code--inline">browserContext</code> property <code class="code code--inline">identifier</code> has been replaced with <code class="code code--inline">id</code>.</li>
+<li>The <code class="code code--inline">browserContext</code> property <code class="code code--inline">isOpenable</code> has been removed.</li>
+<li>The initial context and direct context modes have been removed. Set the <code class="code code--inline">selected</code> property instead to select an item after loading the data.</li>
+<li>The <code class="code code--inline">disabled</code> property has been removed.</li>
+<li>The <code class="code code--inline">disableInfiniteScroll</code> property has been removed.</li>
+<li>The <code class="code code--inline">handlers</code> property has been removed. Listen to the event <code class="code code--inline">px-app-asset-children-requested</code> to be notified when new children should be loaded. Listen to the event <code class="code code--inline">selected-changed</code> to be notified when an item is selected (tapped or selected through data binding). See the documentation for more info. There is no event fired when an item is tapped but not selected as that interaction pattern has been removed.</li>
+<li>The <code class="code code--inline">idField</code> and <code class="code code--inline">labelField</code> properties have been removed. Use the <code class="code code--inline">keys</code> property to set both instead.</li>
+<li>The <code class="code code--inline">openedItemName</code> property has been removed. Listen to the event <code class="code code--inline">selected-changed</code> to be notified when a new item is selected.</li>
+<li>The <code class="code code--inline">resize</code> property has been removed.</li>
+<li>The <code class="code code--inline">selectedItem</code> property has been renamed to <code class="code code--inline">selected</code>. Its behaviors are also slightly different, see the documentation.</li>
+<li>The <code class="code code--inline">showChevron</code> property has been renamed to <code class="code code--inline">showArrow</code>.</li>
+<li>The <code class="code code--inline">showColumnBrowser</code> property has been removed.</li>
+<li>The <code class="code code--inline">showColumnTypeahead</code> property has been removed. Use the <code class="code code--inline">showFilter</code> property to show a filter field at the top of the column.</li>
+<li>The <code class="code code--inline">addParents</code> method has been removed. Instead, add items from the root of the graph using <code class="code code--inline">addChildren</code>.</li>
+<li>The <code class="code code--inline">toggleColumnBrowser</code> method has been removed. Toggle the <code class="code code--inline">collapsed</code> property to show or hide the context browser.</li>
+<li>The events have changed completely. See the documentation for more details.</li>
+</ul>
+<h4 id="px-data-table-v4">px-data-table (v4)</h4>
+<ul>
+<li>The "rows per page" dropdown has been updated to use <code class="code code--inline">px-dropdown</code> for cross-browser consistency (<a href="https://github.com/predixdev/px-data-table/issues/115">#115</a>).</li>
+<li>When a custom <code class="code code--inline">pageSize</code> value is passed into the table, it will be displayed as the selected choice in the "rows per page" dropdown (<a href="https://github.com/predixdev/px-data-table/issues/118">#118</a>).</li>
+<li>A new property for <code class="code code--inline">pageSizeOptions</code> has been added, which allows developers to specify their own array of options for the "rows per page" dropdown (<a href="https://github.com/predixdev/px-data-table/issues/123">#123</a>). Add the same option to both <code class="code code--inline">pageSize</code> and <code class="code code--inline">pageSizeOptions</code> to make it both the default choice as well as a persistent option.</li>
+<li>The <code class="code code--inline">tableRows</code> property has been removed, as horizontal borders are now the default style for Predix UI tables. It has been replaced with a <code class="code code--inline">tableCells</code> property, which can be used to create the previous default style, a table with both horizontal and vertical borders.</li>
+</ul>
+<h4 id="px-datetime-field-v1">px-datetime-field (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">allowWrap</code> property has been added to allow the buttons, if showing, to wrap under the field.</li>
+<li>The CSS variables for the height <code class="code code--inline">--px-datetime-field-height</code> and background color <code class="code code--inline">--px-datetime-field-background-color</code> have been added. The validation design has been updated; therefore, <code class="code code--inline">--px-datetime-border-color-validation--failed</code> has been removed.</li>
+</ul>
+<h4 id="px-datetime-range-field-v1">px-datetime-range-field (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">allowWrap</code> property has been added to allow the second field and buttons, if showing, to wrap under each other. The <code class="code code--inline">hideIcon</code> has been exposed to hide the calendar and clock icons if desired.</li>
+<li>The validation design has been updated; therefore, <code class="code code--inline">--px-datetime-range-field-text-color-validation--failed</code> has been removed.</li>
+</ul>
+<h4 id="px-datetime-range-panel-v1">px-datetime-range-panel (v1)</h4>
+<ul>
+<li>The z-index value has been exposed in the <code class="code code--inline">--px-range-panel-z-index</code> CSS variable</li>
+<li>Presets can now be functions. See API docs (https://www.predix-ui.com/#/elements/datetime/px-datetime-range-panel:property-presetRanges) for an example.</li>
+</ul>
+<h4 id="px-datetime-range-panel-v1-2">px-datetime-range-panel (v1)</h4>
+<ul>
+<li>The z-index value has been exposed in the <code class="code code--inline">--px-range-panel-z-index</code> CSS variable</li>
+<li>The overlay has been removed; therefore, <code class="code code--inline">--px-datetime-picker-overlay-color</code> has been removed. The <code class="code code--inline">--px-datetime-picker-background-color--hover</code> and <code class="code code--inline">--px-datetime-picker-background-color--pressed</code> have also been removed.</li>
+</ul>
+<h4 id="px-dropdown-v4">px-dropdown (v4)</h4>
+<ul>
+<li>The <code class="code code--inline">px-dropdown-content</code> subcomponent no longer exists. Several properties have been moved to the main <code class="code code--inline">px-dropdown</code> component.</li>
+<li>Most of the CSS variables for <code class="code code--inline">px-dropdown</code> have gone away. Styling for the invoking element can still be achieved using the <code class="code code--inline">buttonStyle</code> property and the CSS variables for buttons.</li>
+<li>The <code class="code code--inline">boundTarget</code> property now expects a CSS selector string instead of a reference to the actual HTML element that will be used for the outer bounds of the dropdown.</li>
+<li>The <code class="code code--inline">checkboxMode</code> property is now called <code class="code code--inline">multi</code>.</li>
+<li>By default, the dropdown button will display the selected item or number of selected items (<a href="https://github.com/predixdev/px-dropdown/issues/34">#34</a>). Use the <code class="code code--inline">hideSelected</code> property to disable this behavior in use cases such as <code class="code code--inline">px-data-table</code>, where the <code class="code code--inline">displayValue</code> of "Show/Hide Columns" should always be displayed.</li>
+<li>The <code class="code code--inline">displayValue</code> property is no longer overwritten when the user selects an item. In <code class="code code--inline">multi</code> mode, the <code class="code code--inline">displayValue</code> is appropriately restored when all selections are cleared (<a href="https://github.com/predixdev/px-dropdown/issues/40">#40</a>).</li>
+<li>A new clear button has been added for quickly de-selecting all values and restoring the dropdown to its default state and <code class="code code--inline">displayValue</code>. This also allows users to clear the dropdown when not in multi-select mode, which was not previously possible.</li>
+<li>When <code class="code code--inline">multi</code> is false (i.e. single-select mode), use <code class="code code--inline">selectBy</code> to determine whether a "key" or "val" will be passed to the <code class="code code--inline">selected</code> property. When <code class="code code--inline">multi</code> is true, use <code class="code code--inline">selectBy</code> to determine whether an array of "key" or "val" items will be passed to the <code class="code code--inline">selectedValues</code> property. In either single or multi mode, the <code class="code code--inline">selectedItems</code> property will contain a reference to the actual <code class="code code--inline">&lt;div&gt;</code> elements in the dropdown that have been selected.</li>
+<li>Set <code class="code code--inline">sortMode</code> to "key" or "val" to sort the dropdown options. By default, they will be displayed in the order they are passed in to the <code class="code code--inline">items</code> array. The <code class="code code--inline">sortCheckedItems</code> and <code class="code code--inline">sortDisabledItems</code> properties have been removed for simplicity.</li>
+<li>The <code class="code code--inline">px-dropdown-value-changed</code> and <code class="code code--inline">px-dropdown-checkbox-changed</code> events have been consolidated into a single <code class="code code--inline">px-dropdown-selection-changed</code> event, which will fire in either single or multi-select mode.</li>
+<li>All of the orientation and sizing logic has been simplified by using Google's <code class="code code--inline">iron-dropdown</code> instead of the custom code in previous versions of dropdown. The properties for <code class="code code--inline">extendDropdown</code>, <code class="code code--inline">extendDropdownBy</code>, <code class="code code--inline">maxContentCharacterWidth</code>, and the use of <code class="code code--inline">px-tooltip</code> have all been removed.</li>
+<li>Similar to <code class="code code--inline">px-tables-design</code>, the styling for the exterior borders and interior borders have been separated to enable the new design. The CSS variables have been separated accordingly to distinguish between <code class="code code--inline">--px-data-table-border-color</code> (exterior) and <code class="code code--inline">--px-data-table-separator-color</code> (interior).</li>
+<li>Keyboard support has been added for accessibility.</li>
+</ul>
+<h4 id="px-forms-design-v2">px-forms-design (v2)</h4>
+<ul>
+<li>Many of the CSS variables for the form inputs have been removed, changed, or renamed based on the redesigned components. See the <a href="#/css/visual/px-forms-design">API</a> for the full list of updated CSS variables.</li>
+</ul>
+<h4 id="px-headings-design-v1">px-headings-design (v1)</h4>
+<ul>
+<li>In addition to the six heading sizes previously available, new classes have been added to enable aspects of the Predix redesign. New heading styles include <code class="code code--inline">heading--page</code> (large), <code class="code code--inline">heading--section</code> (all caps), and <code class="code code--inline">heading--subsection</code> (smaller, with a background). Additional styles have also been added for the label/value pairs often seen in Predix applications with the classes <code class="code code--inline">label</code> and <code class="code code--inline">value</code>.</li>
+</ul>
+<h4 id="px-icon-set-v2">px-icon-set (v2)</h4>
+<ul>
+<li>The <code class="code code--inline">px-polymer-font-awesome</code> repository has been renamed to <code class="code code--inline">px-icon-set</code>, and all of the Font Awesome icons have been replaced with the custom Predix UI icons created during the redesign. The API has also  changed (<code class="code code--inline">&lt;px-icon icon=""&gt;</code> is now used), and all of the new icons fall into 3 different namespaces (<code class="code code--inline">pxs:icon</code>, <code class="code code--inline">pxm:icon</code>, and <code class="code code--inline">pxl:icon</code> as opposed to the previous <code class="code code--inline">fa:fa-icon</code>) and new icon names. Both <code class="code code--inline">px-icon-set.html</code> and <code class="code code--inline">px-icon.html</code> should be imported in your application. See the <a href="#/modules/px-icon-set">API</a> page for the full icon list and cheat sheet.</li>
+</ul>
+<h4 id="px-inbox-v2">px-inbox (v2)</h4>
+<ul>
+<li>The <code class="code code--inline">height</code> property has been removed in favor of the <code class="code code--inline">--px-inbox-height</code> CSS variable, which defaults to 100vh. Also, a <code class="code code--inline">--px-inbox-list-width</code> variable has been added, which defaults to 320px (previously the list was set to take up 1/3 of the total component.</li>
+<li>List items can now be passed without a severity, in which case an icon will not appear next to the item.</li>
+<li>A new boolean property called <code class="code code--inline">disableAutoSelect</code> has been added which will prevent the inbox from automatically selecting the first item in the list (<a href="https://github.com/PredixDev/px-inbox/issues/7">#7</a>). A check was also added so that when a <code class="code code--inline">selectedItem</code> is passed into the component, it will not be overridden by this behavior.</li>
+<li>Both ascending and descending sort are now possible using either the <code class="code code--inline">sortOrder</code> property or the arrow icon next to the sort dropdown (<a href="https://github.com/PredixDev/px-inbox/issues/6">#6</a>).</li>
+</ul>
+<h4 id="px-list-ui-design-v2">px-list-ui-design (v2)</h4>
+<ul>
+<li>Similar to <code class="code code--inline">px-tables-design</code>, the styling for the top/bottom borders and interior borders have been separated to enable the new design. The CSS variables have been separated accordingly to distinguish between <code class="code code--inline">--px-list-ui-border-color</code> (top/bottom borders) and <code class="code code--inline">--px-list-ui-separator-color</code> (interior borders).</li>
+</ul>
+<h4 id="px-overlay-v1">px-overlay (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">type</code> property and the two corresponding CSS variables have been removed. Use the new <code class="code code--inline">--px-overlay-color</code> CSS variable with an rgba value to adjust the color and opacity of the overlay.</li>
+</ul>
+<h4 id="px-progress-bar-v1">px-progress-bar (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">striped</code> and <code class="code code--inline">animated</code> properties have been removed as part of the redesign. An <code class="code code--inline">infinite</code> property takes the place of both properties for distinguishing between a determinate/measurable progress bar that fills from left to right (when "false" or omitted) and an indeterminate/infinite progress bar (when "true") that continually animates when a discrete percentage can't be calculated.</li>
+</ul>
+<h4 id="px-rangepicker-v2">px-rangepicker (v2)</h4>
+<ul>
+<li>The overlay has been removed; therefore, <code class="code code--inline">--px-datetime-picker-overlay-color</code> has been removed.</li>
+<li>The <code class="code code--inline">allowWrap property</code> has been added to allow the second field to wrap.</li>
+</ul>
+<h4 id="px-tables-design-v2">px-tables-design (v2)</h4>
+<ul>
+<li>The <code class="code code--inline">table--rows</code> flag and class have been removed, as horizontal borders are now the default style for Predix UI tables. It has been replaced with a <code class="code code--inline">table--cells</code> flag and class, which can be used to create the previous default style, a table with both horizontal and vertical borders.</li>
+<li>Styling for the exterior borders and interior borders have been separated to enable the new Predix design for tables, which features a darker top and bottom border and lighter interior borders. The CSS variables have been separated accordingly to distinguish between <code class="code code--inline">--px-table-border-color</code> (top/bottom) and <code class="code code--inline">--px-table-separator-color</code> (interior borders).</li>
+</ul>
+<h4 id="px-tabs-v1">px-tabs (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">bare</code> and <code class="code code--inline">noBottomBorder</code> properties have been removed. The bare style is now the default/only appearance for Predix UI tabs. Several of the related CSS variables have also been removed.</li>
+</ul>
+<h4 id="px-tooltip-v1">px-tooltip (v1)</h4>
+<ul>
+<li>The <code class="code code--inline">tooltip-style</code> property has been removed. See the <a href="#/develop/migrate/theme">theming documentation</a> for more information on using the light and dark theme, or use the provided CSS variables to override the style of the component.</li>
+</ul>
+<h3 id="deprecated-components">Deprecated Components</h3>
+<h4>px-drawer</h4>
+<ul>
+<li>Use the app-drawer element instead. <a href="https://github.com/PolymerElements/app-localize-behavior">API Documentation</a></li>
+</ul>
+<h4>px-input-group-design</h4>
+<ul>
+<li>No longer maintained going forward.</li>
+</ul>
+<h4>px-localize-behavior</h4>
+<ul>
+<li>The app-localize-behavior element is now used internally instead <a href="https://github.com/PolymerElements/app-layout/tree/master/app-drawer">API Documentation</a></li>
+</ul>
+<h4>px-sample-cards</h4>
+<ul>
+<li>Use the Reference App instead <a href="https://github.com/PolymerElements/app-localize-behavior">API Documentation</a></li>
+</ul>
+<h3 id="faq">FAQ</h3>
+<h4>Q: Why release a new aesthetic to the Predix Design System?</h4>
+<p>A: The previous Predix Design System was over 2 years old. Based on learnings and feedback from our users, we were excited to collaborate with our community to release a more contemporary and sophisticated visual style.</p>
+<h4>Q: I’m using a pre-Cirrus Predix UI component, can I still use this version and make a fix or enhancement to it myself?</h4>
+<p>A: Yes you can but you should also make the fix/enhancement in the Cirrus version of the component.</p>
+<h4>Q: I need the Predix UI team to make an enhancement to a component or chart. Can you do this on the pre-Cirrus component?</h4>
+<p>A: No. We are maintaining and enhancing only the Cirrus version of the components going forward. Please contact the Predix UI team if there is an urgent business case for your request.</p>
+<h4>Q: Can I take one of the Cirrus components or charts without upgrading all of my components?</h4>
+<p>A: No. There are dependencies between components, so this is not recommended. You should upgrade your app to be in sync and have a harmonious user experience.</p>
+<h4>Q: I have other non-Predix UI components mixed in with Predix UI components in my application, how do I apply Cirrus to these?</h4>
+<p>A: There are Design Guidelines to help your designers to redesign these components and Predix UI designers have internal office hours to support.</p>
+<h4>Q: I have a need for a design that is not part of the Predix Design System? How can I get this included?</h4>
+<p>A: We love contributions back to the Predix Design System. Please contact the Predix UI team to discuss the proposed contribution.</p>
+
+        </div>
+      </div>
+      <px-demo-footer></px-demo-footer>
+    </template>
+    <script>Polymer({is:"view-develop-api-changes",behaviors:[PxCatalogBehavior.Page],_dynamicTheme:!1,ready:function ready(){if(this._dynamicTheme){this.setAttribute("dynamic-theme","")}}});</script>
+  </dom-module>
+</body></html>

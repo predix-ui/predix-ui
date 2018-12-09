@@ -1,0 +1,41 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--><!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+--><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="css/px-accordion-styles.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<!--
+
+@blurb renders a accordion component
+@homepage index.html
+@demo index.html
+-->
+
+</head><body><dom-module id="px-accordion-group">
+  <template>
+    <style include="px-accordion-styles"></style>
+    <div class="accordion__expand__collapse text--right">
+      <span data-val="expand" class$="accordion__expand {{_getBtnClassName(_expandAllActive)}}" on-tap="_handleExpandAll">{{localize('Expand All')}}</span>
+      <span> | </span>
+      <span data-val="collapse" class$="accordion__collapse {{_getBtnClassName(_collapseAllActive)}}" on-tap="_handleCollapseAll">{{localize('Collapse All')}}</span>
+    </div>
+    <slot id="accordions"></slot>
+  </template>
+  <script>Polymer({is:"px-accordion-group",behaviors:[Polymer.AppLocalizeBehavior],properties:{language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0},resources:{type:Object,value:function value(){return{en:{"Expand All":"Expand All","Collapse All":"Collapse All"}}}},_expandAllActive:{type:Boolean,value:!1},_collapseAllActive:{type:Boolean,value:!1},_accordions:{type:Array,value:null,observer:"_updateAccordionState"}},listeners:{"px-accordion-opened-state-changed":"_updateAccordionState"},attached:function attached(){var boundHandler=this._getChildAccordions.bind(this);this._observer=Polymer.dom(this.$.accordions).observeNodes(boundHandler)},detached:function detached(){Polymer.dom(this.$.accordions).unobserveNodes(this._observer);this._accordions=null},_getBtnClassName:function _getBtnClassName(active){return active?"actionable":"actionable--disabled"},_getChildAccordions:function _getChildAccordions(){this.debounce("get-child-accordions",function(){this._accordions=this.queryAllEffectiveChildren("px-accordion")},1)},_updateAccordionState:function _updateAccordionState(){this.debounce("update-accordion-state",function(){if(this._accordions&&Array.isArray(this._accordions)&&0<this._accordions.length){for(var anyExpanded=!1,anyCollapsed=!1,i=0;i<this._accordions.length;i++){if(anyExpanded&&anyCollapsed){break}if(!0===this._accordions[i].opened){anyExpanded=!0}if(!1===this._accordions[i].opened){anyCollapsed=!0}}this._expandAllActive=anyCollapsed;this._collapseAllActive=anyExpanded}},1)},_handleExpandAll:function _handleExpandAll(){if(this._accordions&&Array.isArray(this._accordions)&&0<this._accordions.length){for(var i=0;i<this._accordions.length;i++){this._accordions[i].opened=!0}}},_handleCollapseAll:function _handleCollapseAll(){if(this._accordions&&Array.isArray(this._accordions)&&0<this._accordions.length){for(var i=0;i<this._accordions.length;i++){this._accordions[i].opened=!1}}}});</script>
+</dom-module>
+</body></html>
