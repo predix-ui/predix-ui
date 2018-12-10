@@ -16,8 +16,7 @@
  * 
  * - `gulp prodBuild` - Run by netlify when performing a deployment.
  *                      Runs `localBuild` target, but also generates service
- *                      workers and aliases `bower_components`. There's no
- *                      purpose in running this locally.
+ *                      workers.
  * 
  ******************************************************************************/
 
@@ -257,7 +256,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker', 'netlify-bower-components')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -696,15 +695,4 @@ gulp.task('gallery-json:tile-data', function(callback){
   fs.writeFileSync('./_pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   fs.writeFileSync('./pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   callback();
-});
-
-/**
- * Copy `bower_components` to `public_components`.
- * This is a workaround for netlify as it does not serve files from build folders.
- * Requests to bower_components are redirected to public_components via uri rewrite rules (see _redirects file)
- */
-gulp.task("netlify-bower-components", function() {
-  return gulp
-    .src([`${localBuildFolder}/bower_components/**/*`])
-    .pipe(gulp.dest(`${localBuildFolder}/public_components`));
 });
