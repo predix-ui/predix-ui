@@ -10,10 +10,14 @@
  *                  files to the css/ directory. Runs BrowserSync to reload the
  *                  page whenever a file is changed.
  *
- * - `gulp build` - Run before releasing a new version of the project to
- *                  production. Builds *.scss files to the css/ directory,
- *                  processes _*.html files (minify, etc.) into
- *                  *.html files.
+ * - `gulp localBuild` - Run before releasing a new version of the project to
+ *                       production. Builds *.scss files to the css/ directory,
+ *                       processes _*.html files (minify, etc.) into *.html files.
+ * 
+ * - `gulp prodBuild` - Run by netlify when performing a deployment.
+ *                      Runs `localBuild` target, but also generates service
+ *                      workers.
+ * 
  ******************************************************************************/
 
 const fs = require('fs');
@@ -29,12 +33,7 @@ const gulpif = require('gulp-if');
 const combiner = require('stream-combiner2');
 const bump = require('gulp-bump');
 const argv = require('yargs').argv;
-const rename = require('gulp-rename');
-const stream = require('merge-stream')();
-const del = require('del');
-const gitSync = require('gulp-git');
 const execSync = require('child_process').execSync;
-const request = require('request');
 const imagemin = require("imagemin");
 const webp = require("imagemin-webp");
 const upng = require('imagemin-upng');
@@ -50,7 +49,6 @@ const LunrIndexer = require('./scripts/lunr-indexer/index.js');
 const exec = require('child_process').exec;
 const rollup = require('rollup');
 
-
 /*******************************************************************************
  * SETTINGS
  *
@@ -58,6 +56,8 @@ const rollup = require('rollup');
  * Read the documentation for each library for more information on what
  * specific configuration flags do.
  ******************************************************************************/
+
+const localBuildFolder = 'build/default'
 
 const sassOptions = {
   importer: importOnce,
@@ -77,8 +77,6 @@ const browserSyncOptions = {
   server: ['./', 'bower_components'],
   reloadDebounce: 1000
 };
-
-var src = ['index.html', 'favicon.ico', 'manifest.json', 'pages/**/*.html', 'elements/**/*.{html,json}', 'service-worker.js', 'type/**/*.*', 'bower_components/**/*.*', 'img/**/*.*', 'css/**/*.*', 'CNAME', 'sw.tmpl'];
 
 /*******************************************************************************
  * BASIC UTILITIES
@@ -197,85 +195,6 @@ And... you probably want to run \`gulp serve\` instead of this task. :)
   gulpSequence('generate-api', 'sass', 'docs', 'build-polymer-scripts', 'generate-service-worker')(callback);
 });
 
-/*******************************************************************************
- * GIT PRODUCTION BUILD PIPELINE
- *
- * this task creates an orphan git branch, and does a git add/commit/push
- ******************************************************************************/
-
- gulp.task('gitStuff', function() {
-   var commit = execSync(`git rev-parse HEAD`, {encoding:'utf8'}).trim();
-   gitSync.checkout('master',{args : '--orphan', cwd : '.'}, (err) => {
-     if (err) {
-       console.log('git checkout error:' + err);
-     }
-     console.log('finished checkout successfully');
-     //set the source to our working directory and exclude node_modules
-
-     execSync(`rm -f .gitignore`);
-     execSync(`touch .gitignore`);
-     const gitIgnore = [
-        'node_modules/',
-        'caddyfile',
-        'cert.crt',
-        'cert.key',
-        'HISTORY.md',
-        'LICENSE.md',
-        'README.md',
-        'bower.json',
-        'gulpfile.js',
-        'id_rsa.enc',
-        'package.json',
-        'sass/*.*',
-        'yarn.lock',
-        'bower_components/leaflet/docs/*',
-        '/_*/'];
-
-    gitIgnore.forEach((val) =>{
-      execSync(`echo "${val}" >> .gitignore`);
-    });
-
-     execSync(`git add --all`);
-     execSync(`git commit -m '[TravisCI] Rebuilding master for commit ${commit||'???'}'`);
-     execSync(`git push origin master --force`);
-     });
- });
-
-//Gets the api data from github
-// gulp.task('gitRepos', function(cb) {
-//   request({
-//     uri: 'https://api.github.com/teams/1779164/repos?per_page=100&page=1',
-//     method: 'GET',
-//     headers: {
-//       "User-Agent" : "predix-ui.github.io"
-//     }
-//   }, function(err, res, body) {
-//     fs.writeFile('_pages/component-gallery/repo-data.json', res.body, cb);
-//   });
-// });
-
-gulp.task('resetCloudflareCache', function() {
-  var cloudflare_zone_identifier = process.env.cloudflare_zone_identifier,
-      cloudflare = process.env.cloudflare;
-
-  request({
-      uri: 'https://api.cloudflare.com/client/v4/zones/' + cloudflare_zone_identifier + '/purge_cache',
-      method:'DELETE',
-      headers: {
-        "X-Auth-Email" : "martin.wragg@ge.com",
-        "X-Auth-Key" : cloudflare,
-        "Content-Type" : "application/json"
-      },
-      body: '{"purge_everything" :true}'
-    }, function(err, res, body) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(res.body);
-      }
-    });
-});
-
 function flattenObject(ob){
 	var toReturn = [];
 
@@ -297,7 +216,7 @@ function flattenObject(ob){
 		}
 	}
 	return toReturn;
-};
+}
 
 gulp.task('polymerBuild', function (cb) {
 
@@ -308,12 +227,12 @@ gulp.task('polymerBuild', function (cb) {
 
   fs.writeFileSync('polymer.json', JSON.stringify(buildConf, null, 2));
 
-  exec('node_modules/.bin/polymer build', function (err, stdout, stderr) {
+  exec('npx polymer build', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
-    fse.copySync('bower_components/pxd3/d3.min.js', 'build/default/bower_components/pxd3/d3.min.js');
-    fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', 'build/default/bower_components/px-demo-snippet/px-demo-snippet.html');
-    fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', 'build/default/bower_components/px-app-helpers/px-app-header/demo.html');
+    fse.copySync('bower_components/pxd3/d3.min.js', `${localBuildFolder}/bower_components/pxd3/d3.min.js`);
+    fse.copySync('bower_components/px-demo-snippet/px-demo-snippet.html', `${localBuildFolder}/bower_components/px-demo-snippet/px-demo-snippet.html`);
+    fse.copySync('bower_components/px-app-helpers/px-app-header/demo.html', `${localBuildFolder}/bower_components/px-app-helpers/px-app-header/demo.html`);
     cb(err);
   });
 
@@ -326,7 +245,7 @@ gulp.task('polymerBuild', function (cb) {
  ******************************************************************************/
 
 gulp.task('localBuild', function(callback) {
-  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'generate-service-worker', 'polymerBuild')(callback);
+  gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild')(callback);
 });
 
 /*******************************************************************************
@@ -337,39 +256,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'cleanRoot', 'moveBuildToRoot', 'cleanBuild', 'generate-service-worker', 'gitStuff', 'resetCloudflareCache')(callback);
-});
-
-/*******************************************************************************
- * ARE WE INSIDE TRAVIS?
- *
- * checks if we are inside the travis VM by testing the process.env.TRAVIS
- *
- ******************************************************************************/
- var isTravis = function() {
-   return process.env.IS_TRAVIS && process.env.IS_TRAVIS.toString() === "true";
- };
-
-gulp.task('cleanRoot', function () {
-  return del([
-    '**',
-    '!gulpfile.js',
-    '!package.json',
-    '!build/**',
-    '!scripts/**',
-    '!node_modules/**'
-  ]);
-});
-
-gulp.task('cleanBuild', function () {
- return del([
-   'build/'
- ]);
-});
-
-gulp.task('moveBuildToRoot', function () {
- return gulp.src("build/default/**/*")
-            .pipe(gulp.dest('.'));
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker')(callback);
 });
 
 /*******************************************************************************
@@ -382,9 +269,8 @@ gulp.task('moveBuildToRoot', function () {
 
  gulp.task('generate-service-worker', function(callback) {
    var swPrecache = require('sw-precache'),
-       rootDir =  '.' ;
+       rootDir = localBuildFolder;
 
-       console.log("isTravis = " + isTravis()  );
    swPrecache.write(path.join(rootDir, '/service-worker.js'), {
      staticFileGlobs: [rootDir + '/index.html',
                        rootDir + '/',
@@ -454,7 +340,7 @@ gulp.task('moveBuildToRoot', function () {
    }, callback);
  });
 
- gulp.task('compress-images', async () =>{
+ gulp.task('compress-images', async () => {
   console.log("compress-image will take a minute to complete");
   const spinner = ora('Searching for files').start();
 
@@ -541,7 +427,7 @@ function readFile(filePath) {
       resolve(contents);
     });
   });
-};
+}
 
 function buildMdFile(filePath) {
   const srcFilePath = path.join(__dirname, filePath);
@@ -549,7 +435,7 @@ function buildMdFile(filePath) {
   return readFile(srcFilePath)
     .then(text => md.fromText(text))
     .then(html => fse.outputFile(destFilePath, html));
-};
+}
 
 function buildAPIAnalyzerFiles(pxElementPaths){
   // Set up Polymer Analyzer with 'bower_components' as its base directory
@@ -568,7 +454,7 @@ function buildAPIAnalyzerFiles(pxElementPaths){
       fs.writeFileSync('./data/lunr-index.json', JSON.stringify(index,'',null), 'utf8');
       fs.writeFileSync('./data/lunr-source.json', JSON.stringify(source,'',null), 'utf8');
     });
-};
+}
 
 function analyzeRepo(elementDir, analyzer, indexer) {
   // takes '/bower_components/px-foo-bar/' and extracts 'px-foo-bar'
@@ -598,7 +484,7 @@ function analyzeRepo(elementDir, analyzer, indexer) {
         console.log(`Error for ${elementName}:\n${e}`);
       }
     });
-};
+}
 
 function filterAnalysis(analysis, elementName) {
   // The analysis paths go from each component's folder up to the bower_components/
@@ -613,7 +499,7 @@ function filterAnalysis(analysis, elementName) {
     schema_version: analysis.schema_version,
     elements: analysis.elements ? analysis.elements.filter(a => belongsToElement.test(a.path)) : []
   };
-};
+}
 
 function getFilesForRepo(elementDir, elementName) {
   return new Promise((resolve) => {
@@ -634,7 +520,7 @@ function getFilesForRepo(elementDir, elementName) {
       return resolve(files.map(f => f.match(/bower_components\/(px-.+\/px\-.+html)/)[1]));
     });
   });
-};
+}
 
 function processPagesJSON(text) {
   const pages = JSON.parse(text);
@@ -686,7 +572,7 @@ ${routes[route]}
     }
   }
   return Promise.resolve({ pages: pages, redirects: redirects, routes: routes });
-};
+}
 
 gulp.task('docs:clean', function(){
   return gulp.src(['pages'], {
@@ -809,15 +695,4 @@ gulp.task('gallery-json:tile-data', function(callback){
   fs.writeFileSync('./_pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   fs.writeFileSync('./pages/component-gallery/tile-data.json',JSON.stringify(titleDataFunc, null,2));
   callback();
-});
-
-gulp.task("netlify-bower-components", function(callback) {
-  // Create 'public' folder
-  if (!fs.existsSync("public_components")) {
-    fs.mkdirSync("public_components");
-  }
-  // Copy bower_components to it.
-  return gulp
-    .src(["bower_components/**/*"])
-    .pipe(gulp.dest("public_components"));
 });

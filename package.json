@@ -54,6 +54,10 @@
     "uuid": "^3.1.0",
     "yargs": "^11.0.0"
   },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "polymer-analyzer": "^2.0.0"
+  },
   "scripts": {
     "start": "node web.js",
     "test": "echo No tests"
@@ -64,7 +68,18 @@
   "resolutions": {
     "natives": "1.1.3"
   },
-  "devDependencies": {
-    "polymer-analyzer": "^2.0.0"
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "no-console": "off",
+      "no-useless-escape": "off"
+    },
+    "parserOptions": {
+      "ecmaVersion": 8
+    }
   }
 }
