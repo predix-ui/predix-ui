@@ -238,6 +238,11 @@ gulp.task('polymerBuild', function (cb) {
 
 });
 
+gulp.task('copy-netlify-cfg', (cb) => {
+  fs.copyFileSync('_redirects', `${localBuildFolder}/_redirects`);
+  cb();
+})
+
 /*******************************************************************************
  * LOCAL BUILD PIPELINE
  *
@@ -256,7 +261,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker', 'copy-netlify-cfg')(callback);
 });
 
 /*******************************************************************************
