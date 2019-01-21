@@ -29,7 +29,7 @@
     "px-alert-message": "^1.0.2",
     "px-api-viewer": "^2.0.3",
     "px-app-helpers": "^2.0.0",
-    "px-app-nav": "^2.0.3",
+    "px-app-nav": "^3.0.0",
     "px-box-design": "^1.0.2",
     "px-box-sizing-design": "^1.0.2",
     "px-branding-bar": "^1.0.4",
@@ -148,6 +148,7 @@
   "resolutions": {
     "polymer": "^2.0.0",
     "webcomponentsjs": "^v1.0.19",
-    "px-dropdown": "^4.6.0"
+    "px-dropdown": "^4.6.0",
+    "px-app-nav": "^3.0.0"
   }
 }
