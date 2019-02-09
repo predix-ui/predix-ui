@@ -483,6 +483,8 @@
        * @param  {object} details   - Object with event metadata to use later in analysis
        */
       window.TrackEvent = function(eventName, details) {
+        // Disable all tracking for now until GDPR compliant
+        return;
         if (failedEvents >= 2) {
           // Too many failures, stop sending events for this session
           return;
