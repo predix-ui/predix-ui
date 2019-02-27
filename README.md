@@ -1,4 +1,5 @@
 # Predix UI
+[![Netlify Status](https://api.netlify.com/api/v1/badges/68c5098f-361f-4817-adc5-97dc89b1807f/deploy-status)](https://app.netlify.com/sites/predix-ui/deploys)
 
 This repo hosts predix-ui.com, the website for GE's Predix Design System. The site includes component demos, design and development guides, and additional tools for using the Predix Design System.
 
@@ -125,6 +126,6 @@ If you find any bugs, have issues with the code, or want to request enhancements
 
 ## Copyright
 
-Copyright &copy; 2018 GE Global Research. All rights reserved.
+Copyright &copy; 2019 GE Global Research. All rights reserved.
 
 The copyright to the computer software herein is the property of GE Global Research. The software may be used and/or copied only with the written permission of GE Global Research or in accordance with the terms and conditions stipulated in the agreement/contract under which the software has been supplied.
