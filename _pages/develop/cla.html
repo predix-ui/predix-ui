@@ -253,7 +253,15 @@
 
             this._hasFetchedGithubData = true;
             this._email = user.email;
-            this._github = result.additionalUserInfo.username;
+            /*
+             * cla-bot lowercases all github usernames when querying the GE CLA firebase app. This is by design, as github usernames
+             * are case insensitive when interacting with their API.
+             * Consequently, we must store the username as lowercase, otherwise any user who has any capital letters in their username
+             * will not be able to have their PRs approved by cla-bot.
+             * 
+             * See https://github.com/predix-ui/predix-ui.github.io/issues/361 for more information.
+             */ 
+            this._github = result.additionalUserInfo.username.toLowerCase();
             this.shadowRoot.querySelector('#contributor-address').focus();
           })
           .catch(error => {
