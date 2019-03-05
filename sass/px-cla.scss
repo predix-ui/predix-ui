@@ -18,8 +18,8 @@ $inuit-enable-input--regular : true;
   overflow: visible;
 }
 .cla__notification{
-  position: sticky;
-  top: 0px;
+  position: fixed;
+  width: 100%;
 }
 
 $inuit-enable-margins : true;
