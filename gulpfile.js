@@ -238,8 +238,9 @@ gulp.task('polymerBuild', function (cb) {
 
 });
 
-gulp.task('copy-netlify-cfg', (cb) => {
+gulp.task('copy-static', (cb) => {
   fs.copyFileSync('_redirects', `${localBuildFolder}/_redirects`);
+  fs.copyFileSync('privacy-banner.js', `${localBuildFolder}/privacy-banner.js`);
   cb();
 })
 
@@ -261,7 +262,7 @@ gulp.task('localBuild', function(callback) {
  ******************************************************************************/
 
 gulp.task('prodBuild', function(callback) {
-   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker', 'copy-netlify-cfg')(callback);
+   gulpSequence('generate-api', 'sass', 'docs', 'gallery-json', 'build-polymer-scripts', 'polymerBuild', 'generate-service-worker', 'copy-static')(callback);
 });
 
 /*******************************************************************************
@@ -280,6 +281,7 @@ gulp.task('prodBuild', function(callback) {
      staticFileGlobs: [rootDir + '/index.html',
                        rootDir + '/',
                        rootDir + '!/service-worker-registration.js',
+                       rootDir + '!/privacy-banner.js',
                        rootDir + '/manifest.json',
                        rootDir + '/type/**',
                        rootDir + '/pages/**',
