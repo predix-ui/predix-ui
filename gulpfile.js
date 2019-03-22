@@ -281,6 +281,7 @@ gulp.task('prodBuild', function(callback) {
      staticFileGlobs: [rootDir + '/index.html',
                        rootDir + '/',
                        rootDir + '!/service-worker-registration.js',
+                       rootDir + '!/privacy-banner.js',
                        rootDir + '/manifest.json',
                        rootDir + '/type/**',
                        rootDir + '/pages/**',
