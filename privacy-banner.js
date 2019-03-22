@@ -1,3 +1,4 @@
+/* Evidon provided JS */
 (function(id) {
   function append(scriptid, url) {
     var d = document,
